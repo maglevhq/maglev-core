@@ -1,0 +1,14 @@
+# Please, do not change the id of the theme
+id: "<%= file_name %>"
+
+name: "<%= file_name %>"
+
+section_categories:
+- name: contents
+
+description: "A brief description of the theme"
+
+pages:
+- title: "Home page"
+  path:  "/"
+

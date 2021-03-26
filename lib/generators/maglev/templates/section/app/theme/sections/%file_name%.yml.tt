@@ -1,0 +1,60 @@
+# Name of the section displayed in the editor UI
+name: "<%= file_name %>"
+
+# Category of the section in the editor UI (header, features, testimonials, ...etc)
+category: <%= options['category'] %>
+
+# Definition of the settings:
+# A setting type can be one of the following values: text, image_picker, checkbox, radio, select, url, hint, content_type.
+# Please visit: https://doc.locomotivecms.com/docs/json-definition for more explanation.
+settings:
+<%- settings.each do |setting| -%>
+- label: "<%= setting.label %>"
+  id: <%= setting.id %>
+  type: <%= setting.type %>
+  <%- case setting.type -%>
+  <%- when 'text' -%>
+  # html: true
+  # line_break: true
+  <%- when 'select', 'radio' -%>
+  options:
+  - label: Option 1
+    value: option_1
+  - label: Option 2
+    value: option_2
+  <%- end -%>
+  <% if setting.value? -%>default: <%= setting.default %><% end -%>
+
+<%- end -%>
+# Definition of the blocks.
+# You can define as many types of blocks as you want.
+blocks: <%- if blocks.blank? -%>[]
+<% end %>
+<%- blocks.each do |(type, settings)| -%>
+- name: "<%= type.humanize %>"
+  type: <%= type %>
+  settings:
+  <%- settings.each do |setting| -%>
+  - label: "<%= setting.label %>"
+    id: <%= setting.id %>
+    type: <%= setting.type %>
+    <%- case setting.type -%>
+    <%- when 'text' -%>
+    # html: true
+    # line_break: true
+    <%- when 'select', 'radio' -%>
+    options:
+    - label: Option 1
+      value: option_1
+    - label: Option 2
+      value: option_2
+    <%- end -%>
+    <%- if setting.value? -%>
+    default: <%= setting.default %>
+    <%- end -%>
+  <%- end -%>
+
+<%- end -%>
+# By default, in the editor UI, blocks will be listed below the "Content" title.
+# The title can be changed with the following property:
+# blocks_label: "My list of items"

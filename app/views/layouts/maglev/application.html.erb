@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Maglev - Admin</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+
+  <%= javascript_pack_tag 'application' %>
+  <%= stylesheet_pack_tag 'application' %>
+
+  <%= favicon_pack_tag 'favicon.png' %>
+</head>
+<body class="bg-gray-100">
+  <main role="main" class="container mx-auto">
+    <div class="flex items-center p-3 my-3 text-white text-opacity-50 bg-purple-600 rounded shadow-sm">    
+      <div class="lh-100">
+        <h6 class="mb-0 text-white lh-100"><%= link_to 'Maglev', root_path %></h6>
+        <small>Administration interface</small>
+      </div>
+    </div>
+    <%= yield %> 
+  </main>
+</body>
+</html>

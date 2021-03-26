@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%%= @site.name %></title>  
+</head>
+<body>
+  <%%= raw render_maglev_sections site: @site, theme: @theme, page: @page %>
+</body>
+</html>

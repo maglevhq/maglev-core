@@ -1,0 +1,10 @@
+<section <%= section.dom_data %> class="showcase">
+  <div class="container">
+    <h2 <%= section.settings.title.dom_data %> class="display-4"><%= raw section.settings.title %></h2>
+    <ul>
+      <% section.blocks.each do |block| %>
+        <li <%= block.dom_data %>><h3 <%= block.settings.title.dom_data %>><%= block.settings.title %></h3><img src="<%= block.settings.image %>" alt="<%= block.settings.title %>" /></li>
+      <% end %>
+    </ul>
+  </div>
+</section>

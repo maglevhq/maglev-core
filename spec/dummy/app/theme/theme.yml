@@ -1,0 +1,22 @@
+id: "simple"
+name: "My simple theme"
+
+section_categories:
+- name: Headers
+  id: headers
+- name: Features
+- name: Call to Actions
+
+pages:
+- title: "Home page"
+  path:  "index"
+  sections:
+  - type: "jumbotron"
+    settings:
+      title: "Let's create the product<br/>your clients<br/>will love."
+      body: "<p>NoCoffee, passionated developers,<br/>creators of web applications, mobiles apps and<br/>fancy R&D projects.</p>"
+    blocks: []
+  - type: "showcase"
+    settings: 
+      title: "Our projects"
+    blocks: []

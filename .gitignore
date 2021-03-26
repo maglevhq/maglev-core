@@ -1,0 +1,15 @@
+.bundle/
+*.log
+pkg/
+spec/dummy/db/*.sqlite3
+spec/dummy/db/*.sqlite3-journal
+spec/dummy/db/*.sqlite3-*
+spec/dummy/log/*.log
+spec/dummy/storage/
+spec/dummy/tmp/
+.DS_Store
+tmp/
+node_modules/
+public/maglev-packs
+public/packs-test/
+coverage/

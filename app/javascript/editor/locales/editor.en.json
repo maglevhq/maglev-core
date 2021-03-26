@@ -1,0 +1,122 @@
+{  
+  "headerNav": {
+    "pages": "Pages:",
+    "pageSettings": "Page settings",
+    "previewSite": "Preview site",
+    "saveButton": {
+      "default": "Save",
+      "inProgress": "Saving...",
+      "success": "Saved!",
+      "fail": "Fail!"
+    }
+  },
+  "pagePreview": {
+    "loading": "Loading..."
+  },
+  "sectionList": {
+    "title": "Add a section"
+  },
+  "sectionPane": {
+    "tabs": {
+      "settings": "Content",
+      "blocks": "Blocks",
+      "advanced": "Advanced"
+    },
+    "blockList": {
+      "add": "Add new item",
+      "defaultLabel": "Item #{index}"
+    }
+  },
+  "sectionBlockPane": {
+    "tabs": {
+      "settings": "Content",
+      "blocks": "Blocks",
+      "advanced": "Advanced"
+    }    
+  },
+  "imageInput": {
+    "addButton": "Add image",
+    "replaceButton": "Replace image",
+    "clearButton": "Clear",
+    "altTextPlaceholder": "Alt text to help search engines"
+  },
+  "imagePicker": {
+    "title": "Select an image",
+    "none": "No images uploaded yet",
+    "searchPlaceholder": "Search for a filename",
+    "pagination": {
+      "label": "%{start} - %{end} of %{totalItems} images",    
+      "noItems": "No images"
+    },
+    "destroy": {
+      "text": "Are you sure?",
+      "ok": "Yes, delete it",
+      "cancel": "Cancel"
+    },
+    "uploader": {
+      "wrongFiles": "Make sure the size of each image is not greater than %{limit}.",
+      "uploadButton": {
+        "default": "Upload images",
+        "inProgress": "Uploading...",
+        "success": "Uploaded!",
+        "fail": "Fail!"
+      }
+    }
+  },
+  "linkPicker": {
+    "title": "Insert a link",
+    "page": {
+      "name": "Page",
+      "input": {
+        "label": "Page",
+        "placeholder": "Select a page",
+        "searchPlaceholder": "Search...",
+        "emptyLabel": "No pages found"
+      }
+    },
+    "url": {
+      "name": "Url",
+      "input": {
+        "label": "Url"
+      }
+    },
+    "email": {
+      "name": "Email",
+      "input": {
+        "label": "Email"
+      }
+    },
+    "shared": {
+      "addButton": "Add",
+      "cancelButton": "Cancel",
+      "newWindowInput": {
+        "label": "Open in new window"
+      } 
+    }
+  },
+  "pagination": {
+    "defaultLabel": "%{start} - %{end} of %{totalItems} items",
+    "defaultNoItems": "None"
+  },
+  "confirmationButton": {
+    "text": "Are you sure to perform this action?",
+    "confirmButtonLabel": "Yes",
+    "cancelButtonLabel": "No"
+  },
+  "support": {
+    "human": {
+      "storageUnits": {
+        "format": "%{number} %{unit}",
+        "units": {
+          "byte": {
+            "one": "Byte",
+            "other": "Bytes"
+          },
+          "kb": "KB",
+          "mb": "MB",
+          "gb": "GB" 
+        }   
+      }      
+    }
+  }
+}

@@ -1,0 +1,35 @@
+require: rubocop-rails
+
+# Yeah, sorry
+Style/HashLikeCase:
+  Enabled: true
+
+Style/StringHashKeys:
+  Enabled: true
+
+Style/StringLiterals:
+  Enabled: true
+  EnforcedStyle: single_quotes
+
+Metrics/BlockLength:
+  Exclude:
+    - 'Rakefile'
+    - '**/*.rake'
+    - 'spec/**/*.rb'
+
+Documentation:
+  Enabled: false
+
+AllCops:
+  TargetRubyVersion: 2.6
+  Exclude:
+    - 'bin/*'  
+    - 'coverage/**/*'  
+    - 'db/**/*'    
+    - 'log'
+    - 'node_modules/**/*'
+    - 'public/**/*'
+    - 'storage/**/*'
+    - 'tmp/**/*'
+    - 'vendor/**/*'
+    - 'Guardfile'

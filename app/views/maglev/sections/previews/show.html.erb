@@ -1,0 +1,24 @@
+<div 
+  class="w-full h-full" 
+  data-controller="screenshot"
+  data-screenshot-url-value="<%= sections_screenshots_path(id: params[:id], theme_id: params[:theme_id]) %>"
+>
+  <div class="my-4 text-right">
+    <button 
+      class="bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-opacity-50 rounded text-white py-2 px-3"
+      data-action="click->screenshot#take"      
+    >
+      Take screenshot
+    </button>
+  </div>
+  <iframe     
+    src="<%= sections_preview_in_frame_path(id: params[:id], theme_id: params[:theme_id]) %>"
+    class="w-full h-full bg-white"  
+    data-screenshot-target="source"
+    data-controller="iframe"
+  >
+  </iframe>
+  <div class="mt-4">
+    <img data-screenshot-target="output" class="" />
+  </div>
+</div>

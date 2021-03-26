@@ -1,0 +1,38 @@
+<template>
+  <div>
+    <accordion
+      v-for="(category, index) in categories"
+      :key="index"  
+      headerClass="px-3 py-3 mb-3 bg-editor-primary text-white rounded-sm"    
+    >
+      <div slot="header" class="flex items-center">
+        <div class="capitalize-first">{{ category.name }}</div>
+        <div class="ml-2 px-3 bg-white bg-opacity-25 text-xs rounded-full">
+          {{ category.children.length }}
+        </div>
+      </div>
+      <list-item
+        v-for="section in category.children"
+        :key="section.id"        
+        :section="section"
+      />        
+    </accordion>
+  </div>
+</template>
+
+<script>
+import ListItem from './list-item'
+
+export default {
+  name: 'ThemeSectionList',
+  components: { ListItem },
+  data() {    
+    return { activeCategory: null }
+  },
+  computed: {
+    categories() {
+      return this.services.theme.buildCategories(this.currentTheme)
+    },         
+  },  
+}
+</script>

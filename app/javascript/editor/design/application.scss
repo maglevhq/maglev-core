@@ -1,0 +1,14 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans&display=swap");
+
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+@import "./helpers";
+@import "./transitions";
+@import "./components/rich-text-editor";
+@import "./components/modal";
+
+:root {
+  --bg-opacity: 1;
+}
