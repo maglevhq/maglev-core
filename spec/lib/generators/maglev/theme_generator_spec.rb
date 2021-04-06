@@ -15,7 +15,7 @@ describe Maglev::ThemeGenerator, type: :generator do
   end
 
   it 'creates the YAML file to describe the theme and its default HTML/ERB layout' do
-    assert_file 'app/theme/theme.yml', /id: \"simple\"/
+    assert_file 'app/theme/theme.yml', /id: "simple"/
     assert_file 'app/views/theme/layout.html.erb'
   end
 end

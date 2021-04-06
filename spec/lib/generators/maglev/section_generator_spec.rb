@@ -17,7 +17,7 @@ describe Maglev::SectionGenerator, type: :generator do
   end
 
   it 'creates the YAML file to describe the section and its HTML/ERB template' do
-    assert_file 'app/theme/sections/showcase.yml', /name: \"showcase\"/
+    assert_file 'app/theme/sections/showcase.yml', /name: "showcase"/
     assert_file 'app/views/theme/sections/showcase.html.erb'
   end
 end

@@ -35,10 +35,10 @@ module Maglev
 
     initializer 'webpacker.proxy' do |app|
       insert_middleware = begin
-                          Maglev.webpacker.config.dev_server.present?
-                          rescue StandardError
-                            nil
-                        end
+        Maglev.webpacker.config.dev_server.present?
+      rescue StandardError
+        nil
+      end
       next unless insert_middleware
 
       app.middleware.insert_before(

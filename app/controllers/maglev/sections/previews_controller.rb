@@ -22,8 +22,8 @@ module Maglev
       def fetch_page
         section = @theme.sections.find(params[:id])
         @page = Maglev::Page.new(title: 'Preview section', path: 'preview', sections: [
-                                    section.build_default_content
-                                  ])
+                                   section.build_default_content
+                                 ])
       end
 
       def fetch_theme

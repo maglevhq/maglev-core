@@ -10,7 +10,7 @@ module Maglev::Section::ScreenshotConcern
     FileUtils.mkdir_p(File.dirname(screenshot_filepath))
 
     image_data = Base64.decode64(
-      base64_image['data:image/png;base64,'.length..-1]
+      base64_image['data:image/png;base64,'.length..]
     )
 
     File.open(screenshot_filepath, 'wb') do |f|
