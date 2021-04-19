@@ -1,7 +1,7 @@
 # Please, do not change the id of the theme
-id: "<%= file_name %>"
+id: "theme"
 
-name: "<%= file_name %>"
+name: "theme"
 
 section_categories:
 - name: contents
@@ -10,5 +10,5 @@ description: "A brief description of the theme"
 
 pages:
 - title: "Home page"
-  path:  "/"
+  path:  "/index"
 

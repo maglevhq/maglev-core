@@ -30,12 +30,10 @@ module Maglev::Theme::StorageConcern
       @theme = nil
       path = Rails.root.join('app/theme/theme.yml')
       @theme = add(YAML.safe_load(File.read(path)))
-      @theme.sections = Maglev::Section::Store.new(
-        load_sections(
-          @theme,
-          Rails.root.join('app/theme/sections/**/*.yml')
-        )
-      )
+      sections = load_sections(@theme, Rails.root.join('app/theme/sections/**/*.yml'))
+      @theme.sections = Maglev::Section::Store.new(sections)
+    rescue Errno::ENOENT
+      Kernel.puts 'Missing file(s) in app/theme/'
     end
 
     def load_sections(theme, source_path)
