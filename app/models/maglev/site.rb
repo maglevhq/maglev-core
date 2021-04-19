@@ -8,7 +8,7 @@ module Maglev
     ## methods ##
 
     def home_page_id
-      @home_page_id ||= pages.where(path: 'index').pick(:id)
+      @home_page_id ||= Maglev::Page.where(path: 'index').pick(:id)
     end
 
     def theme
