@@ -6,6 +6,12 @@ require 'maglev/config'
 module Maglev
   ROOT_PATH = Pathname.new(File.join(__dir__, '..'))
 
+  extend ActiveSupport::Autoload
+  app_dir = File.expand_path('../app', __dir__)
+
+  autoload :APIController, "#{app_dir}/controllers/maglev/api_controller"
+  autoload :JSONConcern, "#{app_dir}/controllers/concerns/maglev/json_concern"
+
   class << self
     def webpacker
       @webpacker ||= ::Webpacker::Instance.new(
