@@ -17,3 +17,5 @@ module Maglev
     end
   end
 end
+
+Maglev::JsonConcern = Maglev::JSONConcern

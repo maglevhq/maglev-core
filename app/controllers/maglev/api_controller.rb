@@ -29,3 +29,5 @@ module Maglev
     end
   end
 end
+
+Maglev::ApiController = Maglev::APIController
