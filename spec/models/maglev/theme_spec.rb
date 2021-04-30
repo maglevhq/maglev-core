@@ -46,7 +46,7 @@ describe Maglev::Theme do
     let(:theme) { Maglev::Theme.default }
     subject { theme.as_json }
     it 'includes the sections' do
-      expect(subject['sections'].last['id']).to eq('showcase')
+      expect(subject['sections']).to include(hash_including('id' => 'showcase'))
     end
   end
 end
