@@ -14,6 +14,10 @@ ensure
 end
 
 namespace :maglev do
+  task create_site: :environment do
+    Maglev::Site.generate!
+  end
+
   namespace :webpacker do
     desc 'Install deps with yarn'
     task yarn_install: :environment do
