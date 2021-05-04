@@ -15,9 +15,14 @@ module Maglev
       @theme ||= Maglev::Theme.default
     end
 
-    def self.generate!(name:)
+    def self.generate!
       ActiveRecord::Base.transaction do
-        create(name: name).tap do |site|
+        if Maglev::Site.first
+          STDOUT.puts 'A Maglev Site exists already'
+          return
+        end
+
+        create(name: 'default').tap do |site|
           site.theme&.pages&.each do |attributes|
             page = Maglev::Page.new(attributes)
             page.assign_section_ids

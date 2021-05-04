@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Maglev::API::PagesController', type: :request do
-  let!(:site) { Maglev::Site.generate!(name: 'My first site') }
+  let!(:site) { Maglev::Site.generate! }
   let(:page) { Maglev::Page.first }
 
   it 'allows retrieval of pages' do

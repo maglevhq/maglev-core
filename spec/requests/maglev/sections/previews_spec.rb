@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe 'Maglev::Sections::Previews', type: :request do
   context 'previewing a section' do
-    let!(:site) { Maglev::Site.generate!(name: 'My site') }
+    let!(:site) { Maglev::Site.generate! }
 
     it 'renders the HTML of a section within the theme layout' do
       get '/maglev/sections/preview/jumbotron'
