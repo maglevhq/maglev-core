@@ -15,9 +15,17 @@
     <div class="relative -mt-1/2" :class="sharedClass">
       <div class="w-full border-gray-200 border-t-2 h-0"></div>
     </div>
-    <div class="flex-1 overflow-y-auto mt-4 pb-4" :class="sharedClass">        
+    <div class="flex-1 mt-4 pb-4" :class="{
+      [sharedClass]: !isBlank(sharedClass),
+      'overflow-y-auto': enableOverflow,
+    }">        
       <transition :name="slideDirection" mode="out-in">        
-        <component :is="currentTabComponent" v-on="$listeners" v-bind="{...otherProps}" />
+        <component 
+          :is="currentTabComponent" 
+          :key="currentTabKey"
+          v-on="$listeners" 
+          v-bind="{...otherProps, ...currentTabProps}" 
+        />
       </transition>
     </div>  
   </div>
@@ -30,19 +38,30 @@ export default {
     tabs: { type: Array, default: () => ([]) },
     firstIndex: { type: Number, default: 0 },
     otherProps: { type: Object, default: () => ({}) },
-    sharedClass: { type: [String, Object], default: () => ({}) },
+    sharedClass: { type: String, default: null },
+    enableOverflow: { type: Boolean, default: true },
   },
   data() {
     return { currentIndex: 0, slideDirection: null }
   },
   computed: {
+    currentTab() {
+      return this.tabs[this.currentIndex]
+    },
     currentTabComponent() {
-      return this.tabs[this.currentIndex].tab
+      return this.currentTab.tab
     },    
+    currentTabKey() {
+      return this.currentTab.type
+    },
+    currentTabProps() {
+      return this.currentTab.props ? this.currentTab.props() : {}
+    },
   },
   methods: {
     selectTab(index) {
       this.currentIndex = index
+      this.$emit('select-tab', index)
     }
   },
   watch: {
@@ -54,7 +73,7 @@ export default {
     },
     currentIndex(newIndex, oldIndex) {
       this.slideDirection = newIndex > oldIndex ? 'slide-left' : 'slide-right'
-    }
+    },    
   }
 }
 </script>

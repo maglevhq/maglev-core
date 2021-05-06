@@ -1,11 +1,12 @@
 <template>
   <div class="relative">
-    <div class="z-10 relative flex items-center focus:outline-none select-none cursor-pointer" @click.prevent="open = !open">
+    <div class="z-10 relative flex items-center focus:outline-none select-none cursor-pointer" @click.stop.prevent="toggle">
       <slot name="button"></slot>
     </div>
 
     <!-- to close when clicked on space around it in desktop-->
-    <button class="fixed inset-0 h-full w-full cursor-default focus:outline-none" v-if="open" @click="open = false" tabindex="-1"></button>
+    <button class="fixed inset-0 h-full w-full cursor-default focus:outline-none" v-if="open" @click.stop.prevent="close" tabindex="-1"></button>
+    
     <!--dropdown content: desktop-->
     <transition enter-active-class="transition-all duration-200 ease-out" leave-active-class="transition-all duration-750 ease-in" enter-class="opacity-0 scale-75" enter-to-class="opacity-100 scale-100" leave-class="opacity-100 scale-100" leave-to-class="opacity-0 scale-75">
       <div 
@@ -29,7 +30,7 @@
       </div>
     </transition>
     <!-- to close when clicked on space around it in mobile-->
-    <div class="md:hidden fixed w-full h-full inset-0 bg-gray-900 opacity-50 z-10" @click="open = false" v-if="open"></div>
+    <div class="md:hidden fixed w-full h-full inset-0 bg-gray-900 opacity-50 z-10" @click.stop.prevent="close" v-if="open"></div>
   </div>
 </template>
 
@@ -49,21 +50,22 @@
       return {
         open: false,
       }
-    },
+    },    
     mounted() {
-      const onEscape = e => {
-        if (e.key === 'Esc' || e.key === 'Escape') {
-          this.open = false
-        }
-      }
-
-      document.addEventListener('keydown', onEscape)
-
-      this.$once('hook:beforeDestroy', () => {
-        document.removeEventListener('keydown', onEscape)
+      document.addEventListener('keydown', this.onEscape)      
+      this.$once('hook:beforeDestroy', () => {        
+        document.removeEventListener('keydown', this.onEscape)
       })
-    },
+    },    
     methods: {
+      onEscape(e) {
+        if (e.key === 'Esc' || e.key === 'Escape')
+          this.close()
+      },
+      toggle() {
+        this.open = !this.open
+        this.$emit('on-dropdown-toggle', this)
+      },
       close() {
         this.open = false
       }

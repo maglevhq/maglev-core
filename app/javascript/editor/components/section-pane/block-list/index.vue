@@ -7,7 +7,8 @@
           :key="sectionBlock.id" 
           :sectionBlock="sectionBlock"
           :index="index"
-          class="mb-2"
+          @on-dropdown-toggle="onDropdownToggle"
+          class="mb-3"
         />        
       </transition-group>
     </draggable>  
@@ -21,16 +22,18 @@
 <script>
 import { mapActions } from 'vuex'
 import draggable from 'vuedraggable'
+import GroupedDropdownsMixin from '@/mixins/grouped-dropdowns'
 import ListItem from './list-item'
 import NewBlockButton from './new-block-button'
 
 export default {
   name: 'SectionBlockList',
+  mixins: [GroupedDropdownsMixin],
   components: { draggable, ListItem, NewBlockButton },
   computed: {
     list: {
       get() {
-        return this.currentSection.blocks // NOTE: blocks holds only ids
+        return this.currentSectionBlocks
       },
       set(value) {
         this.sortSectionBlocks(value)

@@ -81,7 +81,6 @@ export default {
       else if (this.sectionId)
         await this.fetchSection(this.sectionId)
 
-      console.log(this.currentSection, this.currentSectionBlock, this.sectionBlockId, this.sectionId)      
       if (!this.currentSection && !this.currentSectionBlock) 
         this.$router.push({ name: 'editPage' })
     }

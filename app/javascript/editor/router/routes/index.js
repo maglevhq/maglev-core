@@ -1,3 +1,3 @@
-import base from './base';
+import base from './base'
 
-export default [].concat(base);
+export default [].concat(base)

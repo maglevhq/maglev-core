@@ -7,7 +7,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'editor-primary': 'var(--editor-color-primary)',
+        'editor-primary': 'rgba(var(--editor-color-primary-non-hex), var(--bg-opacity))',
         'gray': {
           '100': '#f5f5f5',
           '200': '#eeeeee',
@@ -43,6 +43,11 @@ module.exports = {
         '24': '6rem',
         '32': '8rem',
       },  
+      opacity: {
+        '5': '0.05',
+        '10': '0.10',
+        '95': '0.95'
+      },
       boxShadow: {
         outline: '0 0 0 2px var(--editor-color-primary)'
       }

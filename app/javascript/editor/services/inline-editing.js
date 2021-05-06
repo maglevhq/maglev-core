@@ -104,23 +104,25 @@ const onSettingLeft = el => {
   el.style.boxShadow = 'none'
 }
 
-const onSettingClicked = el => {
+const onSettingClicked = (el, event) => {
   const fragments = el.dataset.maglevId.split('.')  
   console.log('select', el.dataset.maglevId, fragments, router)
 
-  let route = { params: { settingId: fragments[1] } }
+  event.stopPropagation() & event.preventDefault()
+
+  let route = { params: { settingId: fragments[1] }, hash: '#content' }
 
   // is it a section or a block setting?
   const isSectionBlock = !!el.closest('[data-maglev-block-id]')
 
-  console.log(isSectionBlock, el.closest('[data-maglev-block-id]'))
+  // console.log(isSectionBlock, el.closest('[data-maglev-block-id]'))
 
   if (isSectionBlock) {
     route.name = 'editSectionBlockSetting'
     route.params.sectionBlockId = fragments[0]
   } else {
     route.name = 'editSectionSetting'
-    route.params.sectionId = fragments[0]
+    route.params.sectionId = fragments[0]    
   }
 
   router.push(route).catch(err => {
@@ -153,9 +155,9 @@ const setupEvents = previewDocument => {
   })
 
   // click
-  listen(previewDocument, 'click', (el, type) => { 
+  listen(previewDocument, 'click', (el, type, event) => { 
     switch(type) {
-      case 'setting': return onSettingClicked(el)
+      case 'setting': return onSettingClicked(el, event)
       default:
         break;
     }           

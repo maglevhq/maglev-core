@@ -1,6 +1,6 @@
 <template>
   <div>
-    <label class="block font-bold text-gray-800" :for="name">
+    <label class="block font-semibold text-gray-800" :for="name">
       {{ label }}
     </label>
     <div class="relative">
@@ -12,8 +12,21 @@
         <div class="flex items-center">
           <slot name="value" v-if="value"></slot>
           <span v-else>{{ placeholder }}</span>
-          <icon name="arrow-up-s-line" size="1.5rem" class="ml-auto" v-if="isOpen" />
-          <icon name="arrow-down-s-line" size="1.5rem" class="ml-auto" v-else />
+          <button type="button" class="ml-auto" @click.stop.prevent="clear" v-if="canClear">
+            <icon name="ri-close-line" />
+          </button>
+          <icon 
+            name="arrow-up-s-line" 
+            size="1.5rem" 
+            :class="{ 'ml-1': canClear, 'ml-auto': !canClear }" 
+            v-if="isOpen" 
+          />
+          <icon 
+            name="arrow-down-s-line" 
+            size="1.5rem" 
+            :class="{ 'ml-1': canClear, 'ml-auto': !canClear }" 
+            v-else 
+          />          
         </div>
       </button>
       <div 
@@ -21,7 +34,7 @@
         @keydown="naviguate"
         v-if="isOpen"
       >
-        <div class="px-3 pt-1 pb-3">
+        <div class="px-3 pt-1 pb-3" v-if="searchEnabled">
           <input 
             class="block mt-1 px-3 py-1 w-full border rounded border-gray-300 bg-gray-100 placeholder-gray-500 focus:outline-none focus:shadow-outline"
             type="text"
@@ -62,10 +75,12 @@ export default {
     label: { type: String, default: 'Label' },
     name: { type: String, default: 'text' },
     placeholder: { type: String, default: 'Select an item' },
+    searchEnabled: { type: Boolean, default: false },
     searchPlaceholder: { type: String, default: 'Search...' },
     value: { type: Object, default: null },
-    fetchList: { type: Function, default: () => ({}) },
-    emptyLabel: { type: String, default: 'No results found' },
+    fetchList: { type: Function, default: () => ({}) },    
+    emptyLabel: { type: String, default: 'No results found' }, 
+    clearEnabled: { type: Boolean, default: false },   
   },
   data() {
     return { 
@@ -79,6 +94,9 @@ export default {
     this.debouncedFetch = debounce(this.fetch.bind(this), 300)
   },
   computed: {
+    canClear() {
+      return this.clearEnabled && this.value
+    },
     isEmpty() {
       return this.list && this.list.length === 0 
     }
@@ -95,6 +113,10 @@ export default {
     },
     select(value) {
       this.$emit('input', value)
+      this.reset()
+    },
+    clear() {
+      this.$emit('input', null)
       this.reset()
     },
     naviguate(event) {
@@ -139,7 +161,10 @@ export default {
     isOpen() {      
       if (this.isOpen)
         this.$nextTick(() => {
-          this.$refs.input.focus()
+          if (this.searchEnabled) 
+            this.$refs.input.focus()
+          else
+            this.debouncedFetch()
         })
     }
   }

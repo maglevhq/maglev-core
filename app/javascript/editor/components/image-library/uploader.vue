@@ -4,7 +4,7 @@
       type="button"
       class="rounded-sm text-white py-2 px-4" 
       defaultColorClass="bg-editor-primary"
-      :labels="$t('imagePicker.uploader.uploadButton')"    
+      :labels="$t('imageLibrary.uploader.uploadButton')"    
       :buttonState="uploadingState"
       @click="openFileDialog"
     />
@@ -23,7 +23,7 @@
 import { numberToHumanSize } from '@/utils'
 
 export default {
-  name: 'ImagePickerUploader',
+  name: 'ImageLibraryUploader',
   props: {
     maxsize: { type: Number, default: 2048144 },
     multiple: { type: Boolean, default: false },
@@ -49,7 +49,7 @@ export default {
           console.log('[Maglev] Uploader failed. Check your server logs', error)
         })
       } else {
-        alert(this.$t('imagePicker.uploader.wrongFiles', { limit: numberToHumanSize(this.maxsize) }))
+        alert(this.$t('imageLibrary.uploader.wrongFiles', { limit: numberToHumanSize(this.maxsize) }))
       }      
     },
     checkFiles() {

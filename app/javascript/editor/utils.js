@@ -76,3 +76,8 @@ export const truncate = (value, limit) => {
   }
   return value
 };
+
+// Like pick of Lodash but without the Lodash dependency
+export const pick = (obj, ...args) => ({
+  ...args.reduce((res, key) => ({ ...res, [key]: obj[key] }), {}),
+});

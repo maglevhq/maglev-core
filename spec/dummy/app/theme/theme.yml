@@ -11,6 +11,17 @@ pages:
 - title: "Home page"
   path:  "index"
   sections:
+  - type: "navbar"
+    settings: {}
+    blocks:
+    - type: menu_item
+      settings:
+        label: "Home"
+        value: '/'
+    - type: menu_item
+      settings:
+        label: "About us"
+        value: "/about-us"
   - type: "jumbotron"
     settings:
       title: "Let's create the product<br/>your clients<br/>will love."
@@ -20,3 +31,14 @@ pages:
     settings: 
       title: "Our projects"
     blocks: []
+
+- title: "About us"
+  path: "about-us"
+  sections: 
+  - type: "navbar" # NOTE: tell Maglev to not erase the global content
+  - type: "jumbotron"
+    settings:
+      title: "Say hi to our team"
+      body: "<p>Bla bla bla</p>"
+    blocks: []
+

@@ -1,7 +1,7 @@
 <template>
   <submit-button 
     type="button"
-    class="block text-white w-40 h-full" 
+    class="block text-white w-40 h-full bg-opacity-95 hover:bg-opacity-100 transition-colors duration-200" 
     defaultColorClass="bg-editor-primary"
     :labels="$t('headerNav.saveButton')"    
     :buttonState="saveState"
@@ -21,7 +21,10 @@ export default {
       this.services.page.update(this.currentPage.id, {
         sections: this.currentContent.pageSections
       })
-      .then(() => this.saveState = 'success')
+      .then(() => {
+        this.saveState = 'success'
+        this.$store.dispatch('fetchSite')
+      })
       .catch(err => {
         console.log('[Maglev] could not save the page', err)
         this.saveState = 'fail'

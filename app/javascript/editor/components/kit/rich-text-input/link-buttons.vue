@@ -3,21 +3,14 @@
     <editor-menu-button
       iconName="format-link" 
       class="rounded-l-sm"
-      @click="openLinkPicker" 
+      @click="openLinkPickerModal" 
     /> 
     <editor-menu-button
       iconName="format-link-unlink" 
       :isActive="isActive.link()"
       class="rounded-r-sm"
       @click="unLink" 
-    /> 
-
-    <link-picker 
-      :show="showLinkPicker"
-      :currentLink="currentLink"
-      @set="setLink"
-      @close="closeLinkPicker" 
-    />
+    />     
   </div>
 </template>
 
@@ -33,9 +26,6 @@ export default {
     commands: { type: Object, required: true },    
     isActive: { type: Object, required: true },
   },
-  data() {
-    return { showLinkPicker: false }
-  },
   computed: {
     currentLink() {
       return this.isActive.link() ? { ...this.editor.getMarkAttrs('link') } : {};
@@ -48,21 +38,51 @@ export default {
       return selection.empty && !this.isActive.link();
     },
     setLink(link) {
-      var { linkType, linkId, href, openNewWindow } = link
+      var { linkType, linkId, sectionId, href, openNewWindow } = link
       this.commands.link({ 
         href, 
         target: openNewWindow ? '_blank' : '',
         linkType,
         linkId,
+        sectionId,
       })
-      this.closeLinkPicker()
+      this.closeModal()
     },
-    openLinkPicker() { 
-      this.showLinkPicker = !this.isSelectionEmpty()
+    guessLinkType() {
+      let type = this.currentLink?.linkType
+      let href = this.currentLink?.href
+
+      if (!type && href && href.startsWith('mailto:')) type = 'email'
+      if (!type) type = 'url'
+
+      return type
     },
-    closeLinkPicker() {
-      this.showLinkPicker = false
+    sanitizeLink() {
+      let link = {
+        linkType: this.guessLinkType(), 
+        linkId: this.currentLink.linkId, 
+        sectionId: this.currentLink.sectionId,
+        href: this.currentLink.href, 
+        openNewWindow: this.currentLink.target === '_blank'         
+      }
+
+      if (link.linkType === 'email') {
+        const matching = (/^mailto:(.*)$/g).exec(link.href)
+        link.email = matching && matching[1] ? matching[1] : null
+      }
+
+      return link
     },
+    openLinkPickerModal() { 
+      this.openModal({
+        title: this.$t('linkPicker.insertTitle'), 
+        component: LinkPicker,
+        props: { currentLink: this.sanitizeLink(), mode: 'insert' },
+        listeners: {
+          select: link => this.setLink(link)
+        }
+      })
+    },    
     unLink() {
       this.commands.link({})
     }

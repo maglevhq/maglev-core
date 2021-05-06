@@ -19,13 +19,29 @@ export const normalize = section => {
   return coreNormalize(section, SECTION_SCHEMA)
 }
 
-export const build = definition => {
-  return {
-    id: uuid8(),
-    type: definition.id,
-    settings: buildSettings(definition),
-    blocks: buildDefaultBlocks(definition),
+export const build = (definition, site) => {
+  const type = definition.id
+  const siteSection = site.sections.find(siteSection => siteSection.type === type)
+  let settings, blocks
+
+  if (definition.scope === 'site' && !isBlank(siteSection)) {
+    settings = { ...siteSection.settings }
+    blocks = [].concat(siteSection.blocks || [])    
+  } else {
+    settings = buildSettings(definition)
+    blocks = buildDefaultBlocks(definition)
   }
+
+  return { id: uuid8(), type, settings, blocks }
+}
+
+export const getSettings = (definition, advanced) => {
+  const { settings } = definition
+  if (isBlank(settings)) return []
+  return settings.filter(setting => {
+    const settingAdvanced = setting.options.advanced
+    return (advanced && settingAdvanced) || (!advanced && !settingAdvanced)
+  })
 }
 
 export const buildDefaultBlock = (blockType, { blocks: definitions }) => {
@@ -39,20 +55,21 @@ export const buildDefaultBlock = (blockType, { blocks: definitions }) => {
 }
 
 const buildSettings = definition => {
-  let settings = {}
-  definition.settings.forEach(setting => {
+  return definition.settings.map(setting => {
     let value = null
     switch (setting.type) {
       case 'image_picker':
         value = { url: setting.default }
         break  
+      case 'link':
+        value = { linkType: 'url', href: setting.default }
+        break;
       default:
         value = setting.default
         break
     }
-    settings[setting.id] = value
+    return { id: setting.id, value }
   })
-  return settings
 }
 
 const buildDefaultBlocks = definition => {
@@ -67,7 +84,7 @@ const buildDefaultBlocks = definition => {
 export const getBlockLabel = (block, definition) => {
   let label, image
   definition.settings.forEach(setting => {
-    const value = block.settings[setting.id]
+    const value = block.settings.find(contentSetting => contentSetting.id === setting.id)?.value
     switch (setting.type) {
       case 'text':
         if (!label) {

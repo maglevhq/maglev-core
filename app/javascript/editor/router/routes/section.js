@@ -1,8 +1,21 @@
 import PagePreview from '@/views/page-preview'
 import ContentPane from '@/views/content-pane'
-import SectionListPane from '@/views/section-list-pane'
+import SectionAddPane from '@/views/sections/add-pane'
+import SectionListPane from '@/views/sections/list-pane'
 
-export default [
+export default [  
+  {
+    path: 'add-section',
+    name: 'addSection',
+    components: {
+      default: PagePreview,
+      'slide-pane': SectionAddPane,
+    },
+    props: { 
+      'slide-pane': true,
+      default: true 
+    },
+  },
   {
     path: 'sections',
     name: 'listSections',

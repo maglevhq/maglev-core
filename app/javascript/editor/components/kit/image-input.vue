@@ -1,11 +1,11 @@
 <template>
   <div>
-    <label class="block font-bold text-gray-800" :for="name">
+    <label class="block font-semibold text-gray-800" :for="name">
       {{ label }}
     </label>
     <div class="mt-1">
       <div class="flex items-center justify-center bg-gray-100 h-48 rounded" v-if="isBlank(value)">
-        <button class="flex items-center justify-center flex-col" @click="openImagePicker">
+        <button class="flex items-center justify-center flex-col" @click="openImagePickerModal">
           <icon name="camera-line" />
           <p class="uppercase text-xs mt-1">{{ $t('imageInput.addButton') }}</p>
         </button>
@@ -23,7 +23,7 @@
               class="flex justify-center py-3 px-2 absolute bg-black bg-opacity-75 bottom-0 w-full text-white cursor-default rounded-b"
               v-if="hovered"
             >
-              <button class="flex items-center justify-center flex-col mr-4" @click="openImagePicker">
+              <button class="flex items-center justify-center flex-col mr-4" @click="openImagePickerModal">
                 <icon name="camera-line" />
                 <p class="uppercase text-xs mt-1">{{ $t('imageInput.replaceButton') }}</p>
               </button>
@@ -43,29 +43,23 @@
           v-model="altText" 
         />
       </div>      
-    </div>
-
-    <image-picker
-      :show="showImagePicker"
-      @select="onSelectImage"
-      @close="closeImagePicker"
-    />
+    </div>    
   </div>
 </template>
 
 <script>
-import ImagePicker from '@/components/image-picker'
+import ImageLibrary from '@/components/image-library'
 
 export default {
   name: 'ImageInput',
-  components: { ImagePicker },
+  components: { ImageLibrary },
   props: {
     label: { type: String, default: 'Label' },
     name: { type: String, default: 'image' },
     value: { default: () => ({ altText: '' }) },
   },  
   data() {
-    return { showImagePicker: false, hovered: false, errorOnLoading: false }
+    return { hovered: false, errorOnLoading: false }
   },
   computed: {
     altText: {
@@ -77,17 +71,21 @@ export default {
     }
   },
   methods: {
-    openImagePicker() { 
-      this.showImagePicker = true
+    openImagePickerModal() { 
+      this.openModal({
+        title: this.$t('imageLibrary.pickerTitle'), 
+        component: ImageLibrary,
+        props: { modalClass: 'w-216', pickerMode: true },
+        listeners: {
+          select: image => this.onSelectImage(image)
+        }
+      })
     },
-    closeImagePicker() {
-      this.showImagePicker = false
-    },  
     removeImage() {
       this.$emit('input', null)
     },    
-    onSelectImage(image) {      
-      this.closeImagePicker()
+    onSelectImage(image) {   
+      this.closeModal()
       this.$emit('input', { ...this.value, ...image })
       this.errorOnLoading = false
     }

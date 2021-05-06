@@ -2,8 +2,8 @@
   <dynamic-form 
     class="mt-2"
     :parentKey="currentSectionBlock.id"
-    :settings="currentSectionBlockDefinition.settings" 
-    :content="sectionBlockContent"
+    :settings="sectionBlockSettings" 
+    :content="currentSectionBlockContent"
     :focusedSetting="settingId"
     @blur="onBlur"
     @change="updateSectionBlockContent"
@@ -20,10 +20,11 @@ export default {
   props: {
     sectionBlockId: { type: String, default: undefined },
     settingId: { type: String, default: undefined },
+    advanced: { type: Boolean, default: false },
   },
   computed: {
-    sectionBlockContent() {
-      return { ...this.currentSectionBlock?.settings }
+    sectionBlockSettings() {
+      return this.advanced ? this.currentSectionBlockAdvancedSettings : this.currentSectionBlockSettings      
     }
   },
   methods: {

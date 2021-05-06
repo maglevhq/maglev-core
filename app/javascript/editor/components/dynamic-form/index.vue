@@ -5,7 +5,7 @@
       :key="[parentKey, setting.id].join()"
       :class="{ 'mt-4': index !== 0 }"      
       :setting="setting"
-      :value="content[setting.id]"
+      :content="content"
       :isFocused="focusedSetting === setting.id"
       @blur="$emit('blur')"
       @change="onChange"
@@ -14,15 +14,18 @@
 </template>
 
 <script>
+import DynamicInput from './dynamic-input'
+
 export default {
   name: 'DynamicForm',
+  components: { DynamicInput },
   props: {
     parentKey: { type: String, default: '' },
     settings: { type: Array, default: () => [] },
-    content: { type: Object, default: () => {} },
+    content: { type: Array, default: () => [] },
     focusedSetting: { type: String, default: undefined },
   },
-  methods: {
+  methods: {    
     onChange(change) {
       this.$emit('change', change)
     },    

@@ -1,9 +1,10 @@
-import sectionRoutes from './section'
-import sectionBlockRoutes from './section-block'
 import AppLayout from '@/layouts/app'
 import PagePreview from '@/views/page-preview'
 import SlidePane from '@/views/slide-pane'
 import SlidePane2 from '@/views/slide-pane2'
+import pageRoutes from './page'
+import sectionRoutes from './section'
+import sectionBlockRoutes from './section-block'
 
 export default [
   {
@@ -42,6 +43,7 @@ export default [
         },
         props: { default: true }
       },
+      ...pageRoutes,
       ...sectionRoutes,
       ...sectionBlockRoutes,
     ]

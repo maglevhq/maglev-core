@@ -20,6 +20,9 @@ export default class MaglevLink extends Link {
         },
         linkId: {
           default: null,
+        },
+        sectionId: {
+          default: null,
         }
       },
       inclusive: false,
@@ -31,17 +34,19 @@ export default class MaglevLink extends Link {
             target: dom.getAttribute('target'),
             linkType: dom.getAttribute('maglev-link-type'),
             linkId: dom.getAttribute('maglev-link-id'),            
+            sectionId: dom.getAttribute('maglev-section-id'),            
           }),
         },
       ],
       toDOM: node => {
-        const { linkType, linkId, ...attrs } = node.attrs;
+        const { linkType, linkId, sectionId, ...attrs } = node.attrs;
         return ['a', {
           ...attrs,
           rel: 'noopener noreferrer nofollow',
           target: attrs.target || this.options.target,
           'maglev-link-type': linkType,
           'maglev-link-id': linkId,
+          'maglev-section-id': sectionId,
         }, 0]
       }
     }
