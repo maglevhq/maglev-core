@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'maglev_core'
 require 'maglev/engine'
 require 'maglev/config'
 
