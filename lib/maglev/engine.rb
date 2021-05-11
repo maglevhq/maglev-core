@@ -12,9 +12,6 @@ module Maglev
       g.factory_bot dir: 'spec/factories'
     end
 
-    # we use a special folder app/components to store Maglev components (Page, Section)
-    config.autoload_paths << File.expand_path('../app/components', __dir__)
-
     initializer :themes do |app|
       theme_reloader = app.config.file_watcher.new([], { Maglev.theme_path.to_s => ['.yml'] }) do
         Maglev.reload_theme!
