@@ -10,8 +10,8 @@ module Maglev
     attr_reader :theme_name, :settings, :blocks
 
     def verify_theme_exists
-      Maglev::Theme.load!
-      raise Thor::Error, set_color('ERROR: You must first create a theme.', :red) unless Maglev::Theme.default
+      Maglev.reload_theme!
+      raise Thor::Error, set_color('ERROR: You must first create a theme.', :red) unless Maglev.theme
     end
 
     def build_settings

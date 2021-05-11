@@ -16,20 +16,19 @@ module Maglev
     config.autoload_paths << File.expand_path('../app/components', __dir__)
 
     initializer :themes do |app|
-      theme_files = 'app/themes'
-      theme_reloader = app.config.file_watcher.new([], { theme_files => ['.yml'] }) do
-        ::Maglev::Theme.load!
+      theme_reloader = app.config.file_watcher.new([], { Maglev.theme_path.to_s => ['.yml'] }) do
+        Maglev.reload_theme!
       end
       app.reloaders << theme_reloader
 
       config.to_prepare do
         # everytime the code of the app or the engine changes, we reload the themes
-        Rails.logger.debug '[MAGLEV] reloading the themes'
+        Rails.logger.debug '[MAGLEV] reloading the theme'
         theme_reloader.execute
       end
 
       config.after_initialize do
-        ::Maglev::Theme.load!
+        Maglev.reload_theme!
       end
     end
 

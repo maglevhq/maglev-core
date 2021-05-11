@@ -24,6 +24,8 @@ gem 'image_processing', '~> 1.2'
 # To use a debugger
 # gem 'byebug', group: [:development, :test]
 
+gem 'maglev-core', path: '../maglev-core'
+
 group :development, :test do
   # Use SCSS for stylesheets
   # gem 'sass-rails', '>= 6'

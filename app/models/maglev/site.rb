@@ -12,7 +12,7 @@ module Maglev
     end
 
     def theme
-      @theme ||= Maglev::Theme.default
+      @theme ||= Maglev.theme
     end
 
     def self.generate!

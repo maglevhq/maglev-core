@@ -3,7 +3,7 @@
 module Maglev
   class DashboardController < ApplicationController
     def index
-      @themes = [::Maglev::Theme.default]
+      @themes = [::Maglev.theme]
     end
   end
 end

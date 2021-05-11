@@ -13,6 +13,16 @@ module Maglev
   autoload :JSONConcern, "#{app_dir}/controllers/concerns/maglev/json_concern"
 
   class << self
+    attr_accessor :theme
+
+    def theme_path
+      Rails.root.join('app/theme')
+    end
+
+    def reload_theme!
+      self.theme = Maglev::Theme.load(theme_path)
+    end
+
     def webpacker
       @webpacker ||= ::Webpacker::Instance.new(
         root_path: ROOT_PATH,

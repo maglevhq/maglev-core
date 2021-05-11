@@ -20,7 +20,7 @@ describe Maglev::Theme do
   end
 
   describe '#section_categories' do
-    let(:theme) { Maglev::Theme.default }
+    let(:theme) { Maglev.theme }
     subject { theme.section_categories }
     it 'lists all the categories' do
       expect(subject.count).to eq 3
@@ -31,7 +31,7 @@ describe Maglev::Theme do
   end
 
   describe '#sections' do
-    let(:theme) { Maglev::Theme.default }
+    let(:theme) { Maglev.theme }
     let(:section) { subject.find('showcase') }
     subject { theme.sections }
     it 'creates all the sections of a theme' do
@@ -43,7 +43,7 @@ describe Maglev::Theme do
   end
 
   describe '#as_json' do
-    let(:theme) { Maglev::Theme.default }
+    let(:theme) { Maglev.theme }
     subject { theme.as_json }
     it 'includes the sections' do
       expect(subject['sections']).to include(hash_including('id' => 'showcase'))

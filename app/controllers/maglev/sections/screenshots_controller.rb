@@ -29,7 +29,7 @@ module Maglev
       end
 
       def fetch_theme
-        @theme = Maglev::Theme.default
+        @theme = Maglev.theme
       end
 
       def fetch_section
