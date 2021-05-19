@@ -38,6 +38,12 @@
       v-model="inputValue"     
       v-if="setting.type == 'checkbox'"
     />
+    <link-input
+      :label="setting.label"
+      :name="setting.id"
+      v-model="inputValue"
+      v-if="setting.type == 'link'"
+    />
   </div>  
 </template>
 
@@ -46,12 +52,16 @@ export default {
   name: 'DynamicInput',
   props: {
     setting: { type: Object, default: () => ({ type: 'text' }) },
-    value: { required: true },
+    content: { type: Array, required: true },
     isFocused: { type: Boolean, default: false },
   },
   computed: {
     options() {
       return this.setting.options
+    },
+    value() {
+      const content = this.content.find(sectionContent => sectionContent.id === this.setting.id)
+      return content?.value 
     },
     inputValue: {
       get() { return this.value },

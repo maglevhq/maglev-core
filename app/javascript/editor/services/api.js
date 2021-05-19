@@ -15,8 +15,8 @@ const api = axios.create({
   transformResponse(data) {
     // camelcase in JS
     // console.log('[DEBUG] API response', data)
-    // return data ? camelcaseObjectDeep(JSON.parse(data)) : {}
-    return data ? JSON.parse(data) : {}
+    return data ? camelcaseObjectDeep(JSON.parse(data)) : {}
+    // return data ? JSON.parse(data) : {} // LEGACY
   },
 })
 

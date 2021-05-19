@@ -1,7 +1,7 @@
 <template>
   <div class="relative w-full h-full overflow-y-hidden">
     <div 
-      class="relative w-full h-full origin-top-left transition-transform duration-200"
+      class="relative w-full h-full origin-top-left transition-all duration-100"
       :style="dynamicStyle"    
     >
       <div 
@@ -13,7 +13,7 @@
       </div>
       <div class="absolute inset-0 flex justify-center" v-if="currentPage">
         <div 
-          class="device transition-opacity duration-200 ease-in-out"
+          class="device transition-all duration-100 ease-in-out"
           :class="deviceClass"
           :style="{ opacity: previewReady ? 1 : 0 }" 
         >
@@ -62,7 +62,12 @@ export default {
     dynamicStyle() {
       if (this.currentSection) {
         // not ideal to parse the DOM but we don't see any other methods for now
-        return `transform: translateX(${this.previewLeftPadding}px) scale(${this.previewScaleRatio}); height: calc(100% * 1 / 1 / ${this.previewScaleRatio}`
+        let style = `transform: translateX(${this.previewLeftPadding}px) scale(${this.previewScaleRatio}); height: calc(100% * 1 / 1 / ${this.previewScaleRatio};`
+
+        if (this.previewScaleRatio === 1)
+          style += `width: ${this.previewPaneMaxWidth}px`
+
+        return style
       } else
         return ''
     },    
@@ -86,10 +91,6 @@ export default {
 </script>
 
 <style scoped>
-.device {
-  transition: all 800ms ease-out;
-}
-
 .mobile {
   width: 375px;
   height: 100%;

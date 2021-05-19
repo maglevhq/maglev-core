@@ -2,6 +2,10 @@
 
 module Maglev
   class Page < ApplicationRecord
+
+    ## concerns ##
+    include Maglev::Page::SectionsConcern
+
     ## validations ##
     validates :title, presence: true
     validates :path, uniqueness: true, presence: true
@@ -9,7 +13,15 @@ module Maglev
     ## callbacks ##
     before_validation :clean_path
 
+    ## scopes ##
+    scope :by_id_or_path, ->(id_or_path) { where(id: id_or_path).or(where(path: id_or_path)) }
+
     ## methods ##
+
+    def site
+      Maglev::Site.first
+    end
+
     def index?
       path == 'index'
     end

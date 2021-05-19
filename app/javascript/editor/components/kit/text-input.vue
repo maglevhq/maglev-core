@@ -1,7 +1,13 @@
 <template>
   <div>
-    <label class="block font-bold text-gray-800" :for="name" v-if="showLabel">
-      {{ label }}
+    <label class="block font-semibold text-gray-800" :for="name" v-if="showLabel">
+      <span>{{ label }}</span>
+      <transition name="fade">
+        <span 
+          class="text-red-700 bg-red-100 text-xs ml-4 py-1 px-3 rounded" 
+          v-if="showError">{{ error[0] }}
+        </span>
+      </transition>
     </label>
     <input 
       :id="name"
@@ -29,14 +35,25 @@ export default {
     value: { type: String },
     placeholder: { type: String, default: null },
     showLabel: { type: Boolean, default: true },
+    error: { type: Array, default: null },
   },  
+  data() {
+    return { showError: false }
+  },
   methods: {
     updateInput(event) {
+      this.showError = false
       this.$emit('input', event.target.value)
     },
     focus() {
       this.$refs.input.focus()      
     }
-  },  
+  },
+  watch: {
+    error() {
+      if (!this.isBlank(this.error)) 
+        this.showError = true 
+    }
+  }
 }
 </script>

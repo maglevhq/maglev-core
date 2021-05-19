@@ -6,6 +6,7 @@
       :image="image"
       :leftEdge="index % 4 === 0"
       :bottomEdge="index >= (Math.ceil((images.length / 4) - 1) * 4)"
+      :pickerMode="pickerMode"
       v-on="$listeners"
     />    
   </div>
@@ -15,10 +16,11 @@
 import ListItem from './list-item'
 
 export default {
-  name: 'ImagePickerList',
+  name: 'ImageLibraryList',
   components: { ListItem },
   props: {
-    images: { type: Array, default: () => [] }
+    images: { type: Array, default: () => [] },
+    pickerMode: { type: Boolean, required: true },
   },  
 }
 </script>

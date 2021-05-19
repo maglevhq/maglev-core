@@ -1,18 +1,18 @@
 <template>
   <div class="mt-10 flex flex-col">
     <button 
-      class="disabled:opacity-75 bg-editor-primary rounded-sm text-white py-2 px-4 disabled:bg-red-400"
+      class="disabled:opacity-75 block w-full px-6 py-3 rounded-sm bg-editor-primary text-white bg-opacity-95 hover:bg-opacity-100 transition-colors duration-200"
       type="button"
       :disabled="disabled"
-      @click="$emit('onChange', link)" 
+      @click="$emit('select', link)" 
     >
-      {{ $t(`${i18nScope}.addButton`) }}
+      {{ $t(`${i18nScope}.mainButton.${mode}`) }}
     </button>
 
     <button 
-      class="text-gray-600 hover:text-gray-800 mt-4"
+      class="block w-full text-gray-800 py-2 hover:bg-gray-100 transition-colors duration-200"
       type="button"
-      @click="$emit('close')"               
+      @click="$emit('on-close')"               
     >
       {{ $t(`${i18nScope}.cancelButton`) }}        
     </button>
@@ -24,6 +24,7 @@ export default {
   name: 'LinkPickerActions',
   props: {
     link: { type: Object, required: true },
+    mode: { type: String, default: 'select' },
     disabled: { type: Boolean, default: true },    
   },
   computed: {

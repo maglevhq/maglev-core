@@ -1,6 +1,6 @@
 <template>
   <div 
-    class="relative bg-gray-100 mb-3 w-full transition duration-150 ease-in-out transform hover:-translate-y-1 cursor-pointer"     
+    class="relative bg-gray-100 mb-3 w-full min-height transition duration-150 ease-in-out transform hover:-translate-y-1 cursor-pointer"     
     :class="{ 'h-16': !hasScreenshot }"
     @mouseover="hovered = true" @mouseleave="hovered = false"
     @click="select"
@@ -43,3 +43,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+  .min-height {
+    min-height: theme('spacing.16');
+  }
+</style>

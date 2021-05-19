@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import services from '@/services'
-import { arraymove, camelize } from '@/utils'
+import { isBlank, arraymove, pick } from '@/utils'
 
 Vue.use(Vuex)
 
@@ -29,7 +29,7 @@ const mutations = {
   },  
   SET_PREVIEW_DOCUMENT(state, previewDocument) {
     state.section = null
-    state.previewReady = true
+    state.previewReady = !!previewDocument
     state.previewDocument = previewDocument
   },
   SET_SITE(state, site) {    
@@ -45,6 +45,11 @@ const mutations = {
     state.page = entities.page[page.id]
     state.sections = { ...state.sections, ...entities.sections }
     state.sectionBlocks = { ...state.sectionBlocks, ...entities.blocks }
+    state.hoveredSection = null
+  },  
+  SET_PAGE_SETTINGS(state, page) {    
+    const attributes = pick(page, ...services.page.SETTING_ATTRIBUTES)
+    state.page = { ...state.page, ...attributes }
   },
   SET_SECTION(state, section) {
     if (section) {
@@ -64,9 +69,17 @@ const mutations = {
     }
   },  
   UPDATE_SECTION_CONTENT(state, change) {
-    let updatedSection = { ...state.sections[state.section.id] }
-    updatedSection.settings[change.settingId] = change.value
+    let updatedSection = { ...state.section }
+    let newContent = { id: change.settingId, value: change.value }
+    let contentIndex = updatedSection.settings.findIndex(content => content.id === newContent.id)
+    
+    if (contentIndex === -1)
+      updatedSection.settings.push(newContent)
+    else
+      updatedSection.settings[contentIndex] = newContent
+
     state.sections[state.section.id] = updatedSection
+    state.section = updatedSection    
   },
   ADD_SECTION(state, section) {
     const { entities: { sections, blocks } } = services.section.normalize(section)  
@@ -94,13 +107,21 @@ const mutations = {
     state.section = state.sections[state.section.id]
   },
   SORT_SECTION_BLOCKS(state, list) {
-    state.sections[state.section.id].blocks = list
+    state.sections[state.section.id].blocks = list.map(block => block.id)
     state.section = state.sections[state.section.id]
   },
   UPDATE_SECTION_BLOCK_CONTENT(state, change) {
     let updatedBlock = { ...state.sectionBlocks[state.sectionBlock.id] }
-    updatedBlock.settings[change.settingId] = change.value
+    let newContent = { id: change.settingId, value: change.value }
+    let contentIndex = updatedBlock.settings.findIndex(content => content.id === newContent.id)
+    
+    if (contentIndex === -1)
+      updatedBlock.settings.push(newContent)
+    else
+      updatedBlock.settings[contentIndex] = newContent
+    
     state.sectionBlocks[state.sectionBlock.id] = updatedBlock
+    state.sectionBlock = updatedBlock
   }
 }
 
@@ -110,15 +131,22 @@ const actions = {
   },
   setPreviewDocument({ commit }, previewDocument) {
     commit('SET_PREVIEW_DOCUMENT', previewDocument)
-    if (previewDocument)
-      services.inlineEditing.setup(previewDocument)
+    if (previewDocument) {
+      services.inlineEditing.setup(previewDocument)    
+    } else {
+      commit('SET_SECTION', null)
+      commit('SET_HOVERED_SECTION', null)
+    }
   },
-  fetchSite({ commit }) { 
-    services.site.find().then(site => commit('SET_SITE', site))      
+  fetchSite({ commit }, locally) { 
+    services.site.find(locally).then(site => commit('SET_SITE', site))      
   },
   fetchPage({ commit, state: { site } }, id) {
     services.page.findById(site, id).then(page => commit('SET_PAGE', page))
   },
+  setCurrentPageSettings({ commit }, pageSettings) {
+    commit('SET_PAGE_SETTINGS', pageSettings)    
+  }, 
   fetchSection({ commit, state: { sections } }, id) {
     const section = sections[id]
     commit('SET_SECTION', section)    
@@ -130,8 +158,8 @@ const actions = {
   leaveSection({ commit }) {
     commit('SET_HOVERED_SECTION', null)
   },
-  addSection({ commit, getters, state: { previewDocument } }, sectionDefinition) {
-    const section = services.section.build(sectionDefinition)
+  addSection({ commit, getters, state: { site, previewDocument } }, sectionDefinition) {
+    const section = services.section.build(sectionDefinition, site)
     commit('ADD_SECTION', section)
     services.inlineEditing.addSection(
       previewDocument,
@@ -157,17 +185,20 @@ const actions = {
       change
     )
   },
-  moveHoveredSection({ commit, state: { previewDocument, hoveredSection: { sectionId }, page: { sections } } }, direction) {
+  moveSection({ commit, state: { previewDocument, page: { sections } } }, { from, to }) {
+    console.log('moveSection', from, sections[from], 'to', sections[to], to)
+    if (isBlank(from) || isBlank(to)) return
+    commit('MOVE_HOVERED_SECTION', { fromIndex: from, toIndex: to })
+    services.inlineEditing.updateMoveSection(
+      previewDocument,
+      sections[from],
+      sections[to],
+      from < to ? 'down' : 'up'
+    )
+  },
+  moveHoveredSection({ commit, dispatch, state: { previewDocument, hoveredSection: { sectionId }, page: { sections } } }, direction) {
     const indices = services.section.calculateMovingIndices(sections, sectionId, direction)
-    if (indices) {
-      commit('MOVE_HOVERED_SECTION', { ...indices })
-      services.inlineEditing.updateMoveSection(
-        previewDocument,
-        sectionId,
-        sections[indices.toIndex],
-        direction
-      )
-    }
+    dispatch('moveSection', { from: indices.fromIndex, to: indices.toIndex })    
   },  
   addSectionBlock({ commit, getters, state: { previewDocument, section, sectionDefinition} }, blockType) {
     const sectionBlock = services.section.buildDefaultBlock(blockType, sectionDefinition)
@@ -214,7 +245,7 @@ const actions = {
     const sectionBlock = sectionBlocks[id]
     if (sectionBlock) {
       const section = Object.values(sections).find(section => 
-        section.blocks.indexOf(sectionBlock?.id) !== -1
+        (section.blocks || []).indexOf(sectionBlock?.id) !== -1
       )
       commit('SET_SECTION', section) // NOTE: order is important here
       commit('SET_SECTION_BLOCK', sectionBlock) 
@@ -224,18 +255,45 @@ const actions = {
 }
 
 const getters = {
-  sectionBlocks: ({ sectionBlocks, section }) => {
-    if (!section) return []
-    return section.blocks.map(id => sectionBlocks[id])
+  sectionList: ({ theme, page, sections, sectionBlocks }) => {
+    const pageContent = services.page.denormalize(page, { sections, blocks: sectionBlocks })
+    return pageContent.sections.map(sectionContent => {
+      const sectionDefinition = theme.sections.find(definition => definition['id'] === sectionContent['type'])
+      return {
+        id: sectionContent.id,
+        type: sectionContent['type'],
+        name: sectionDefinition.name
+      }
+    })
   },
-  content: ({ page, sections, sectionBlocks, section }) => {
+  content: ({ page, sections, sectionBlocks }) => {
     const pageContent = services.page.denormalize(page, { sections, blocks: sectionBlocks })
     return { pageSections: pageContent.sections }
+  },  
+  sectionContent: ({ section }) => {
+    return section ? [...section.settings] : null
+  },
+  sectionSettings: ({ sectionDefinition }) => advanced => {
+    return services.section.getSettings(sectionDefinition, advanced)    
+  },
+  sectionBlocks: ({ sectionBlocks, section, sectionDefinition }) => {
+    if (!section) return []
+    return section.blocks.map(id => {
+      const sectionBlock = sectionBlocks[id]
+      const definition = sectionDefinition.blocks.find(def => def.type === sectionBlock.type)
+      return definition ? sectionBlock : null
+    }).filter(b => b)
   },  
   sectionBlockLabel: ({ sectionDefinition }) => sectionBlock => {
     const definition = sectionDefinition.blocks.find(def => def.type === sectionBlock.type)
     return services.section.getBlockLabel(sectionBlock, definition)
-  }
+  },
+  sectionBlockContent: ({ sectionBlock }) => {
+    return sectionBlock ? [...sectionBlock.settings] : null
+  },
+  sectionBlockSettings: ({ sectionBlockDefinition }) => advanced => {
+    return services.section.getSettings(sectionBlockDefinition, advanced)    
+  },
 }
 
 const store = new Vuex.Store({
@@ -247,7 +305,7 @@ const store = new Vuex.Store({
   modules: {},
 })
 
-store.dispatch('fetchSite')
+store.dispatch('fetchSite', true)
 store.commit('SET_THEME', window.theme)
 
 export default store

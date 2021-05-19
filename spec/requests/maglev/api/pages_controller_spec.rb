@@ -13,7 +13,11 @@ RSpec.describe 'Maglev::API::PagesController', type: :request do
         id: page.id,
         title: page.title,
         path: page.path,
-        preview_url: maglev.site_preview_url(path: page.path)
+        visible: true,
+        seo_title: nil,
+        meta_description: nil,
+        preview_url: maglev.site_preview_url(page.site.handle, path: page.path),
+        section_names: [a_hash_including(name: 'Jumbotron'), a_hash_including(name: 'Showcase')]
       }].as_json
     )
   end
@@ -31,7 +35,11 @@ RSpec.describe 'Maglev::API::PagesController', type: :request do
           id: page.id,
           title: page.title,
           path: page.path,
+          visible: true,
+          seo_title: nil,
+          meta_description: nil,
           preview_url: maglev.site_preview_url(path: page.path)
+          section_names: [a_hash_including(name: 'Jumbotron'), a_hash_including(name: 'Showcase')]
         }].as_json
       )
     end

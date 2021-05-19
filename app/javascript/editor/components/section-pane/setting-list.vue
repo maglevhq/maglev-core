@@ -2,12 +2,12 @@
   <dynamic-form 
     class="mt-2"
     :parentKey="currentSection.id"
-    :settings="currentSectionDefinition.settings" 
-    :content="sectionContent"
+    :settings="sectionSettings" 
+    :content="currentSectionContent"
     :focusedSetting="settingId"
     @blur="onBlur"
     @change="updateSectionContent"
-  />    
+  />  
 </template>
 
 <script>
@@ -20,17 +20,18 @@ export default {
   props: {
     sectionId: { type: String, default: undefined },
     settingId: { type: String, default: undefined },
+    advanced: { type: Boolean, default: false },
   },
   computed: {
-    sectionContent() {
-      return { ...this.currentSection?.settings }
+    sectionSettings() {
+      return this.advanced ? this.currentSectionAdvancedSettings : this.currentSectionSettings      
     }
   },
   methods: {
     ...mapActions(['updateSectionContent']),
     onBlur() {
       this.$router.push({ name: 'editSection', params: { sectionId: this.sectionId } }).catch(err => {
-        if (err.name !== 'NavigationDuplicated') throw(err);      
+        if (err.name !== 'NavigationDuplicated') throw(err)     
       })
     },
   },

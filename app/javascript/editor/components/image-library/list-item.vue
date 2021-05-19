@@ -3,7 +3,10 @@
     <div class="bg-gray-100 pb-full relative overflow-hidden rounded">
       <div class="absolute inset-0 h-full w-full rounded">
         <img 
-          class="h-full w-full object-cover cursor-pointer" 
+          class="h-full w-full object-cover" 
+          :class="{
+            'cursor-pointer': pickerMode
+          }"
           :src="image.url" 
           @click.prevent="$emit('select', image)"
         />
@@ -26,18 +29,18 @@
           v-if="askingForRemoval"
         >
           <div class="text-center">
-            <p class="mb-2">{{ $t('imagePicker.destroy.text') }}</p>
+            <p class="mb-2">{{ $t('imageLibrary.destroy.text') }}</p>
             <button 
               class="block w-full rounded text-center text-sm bg-transparent py-1 px-4 hover:bg-white hover:text-gray-900" 
               @click="() => $emit('destroy', this.image)"
             >
-              {{ $t('imagePicker.destroy.ok') }}
+              {{ $t('imageLibrary.destroy.ok') }}
             </button>
             <button 
               class="block w-full rounded text-center text-sm bg-transparent py-1 px-4 hover:bg-white hover:text-gray-900" 
               @click="() => this.askingForRemoval = false"              
             >
-              {{ $t('imagePicker.destroy.cancel') }}
+              {{ $t('imageLibrary.destroy.cancel') }}
             </button>
           </div>
         </div>
@@ -55,11 +58,12 @@
 
 <script>
 export default {
-  name: 'ImagePickerListItem',
+  name: 'ImageLibraryListItem',
   props: {
     image: { type: Object, required: true },
     leftEdge: { type: Boolean, default: false },
-    bottomEdge: { type: Boolean, default: false }
+    bottomEdge: { type: Boolean, default: false },
+    pickerMode: { type: Boolean, required: true },
   },
   data() {
     return { hovered: false, askingForRemoval: false }

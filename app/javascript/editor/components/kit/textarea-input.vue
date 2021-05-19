@@ -1,6 +1,6 @@
 <template>
   <div>
-    <label class="block font-bold text-gray-800" :for="name">
+    <label class="block font-semibold text-gray-800" :for="name">
       {{ label }}
     </label>
     <textarea 

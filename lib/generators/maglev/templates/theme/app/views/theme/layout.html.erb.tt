@@ -4,6 +4,8 @@
   <title><%%= @site.name %></title>  
 </head>
 <body>
-  <%%= raw render_maglev_sections site: @site, theme: @theme, page: @page %>
+  <main data-maglev-dropzone>
+    <%%= raw render_maglev_sections site: @site, theme: @theme, page: @page %>
+  </main>
 </body>
 </html>

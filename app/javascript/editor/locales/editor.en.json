@@ -13,9 +13,65 @@
   "pagePreview": {
     "loading": "Loading..."
   },
-  "sectionList": {
-    "title": "Add a section"
+  "page": {
+    "list": {
+      "title": "List of pages",
+      "subTitle": "Manage the pages of your site",
+      "newButton": "Create a new page",
+      "item": {
+        "edit": "Edit page settings",
+        "clone": "Clone page",
+        "hide": "Hide page",
+        "show": "Show page",
+        "delete": "Delete page"
+      }
+    },
+    "new": {
+      "title": "Create a new page",
+      "tabs": {
+        "main": "Main",
+        "seo": "SEO"
+      },
+      "submitButton": {
+        "default": "Create page",
+        "inProgress": "Creating...",
+        "success": "Created!",
+        "fail": "Fail!"
+      },
+      "cancelButton": "Cancel"
+    },
+    "edit": {
+      "title": "Editing a page",
+      "currentTitle": "Editing the current page",
+      "tabs": {
+        "main": "Main",
+        "seo": "SEO"
+      },
+      "submitButton": {
+        "default": "Update page",
+        "inProgress": "Updating...",
+        "success": "Updated!",
+        "fail": "Fail!"
+      },
+      "cancelButton": "Cancel"
+    },
+    "form": {
+      "title": "Title",
+      "path": "Path",
+      "visible": "Visible",
+      "visiblePlaceholder": "Show/Hide the page",
+      "seoTitle": "Meta title",
+      "metaDescription": "Meta description"   
+    }
   },
+  "sections": {
+    "addPane": {
+      "title": "Add a section"
+    },
+    "listPane": {
+      "title": "Organize sections"
+    }
+  },  
   "sectionPane": {
     "tabs": {
       "settings": "Content",
@@ -40,8 +96,9 @@
     "clearButton": "Clear",
     "altTextPlaceholder": "Alt text to help search engines"
   },
-  "imagePicker": {
-    "title": "Select an image",
+  "imageLibrary": {
+    "title": "List of images",
+    "pickerTitle": "Select an image",
     "none": "No images uploaded yet",
     "searchPlaceholder": "Search for a filename",
     "pagination": {
@@ -63,8 +120,12 @@
       }
     }
   },
+  "linkInput": {
+    "placeholder": "Click here to select a link"
+  },
   "linkPicker": {
-    "title": "Insert a link",
+    "title": "Select a link",
+    "insertTitle": "Insert a link",
     "page": {
       "name": "Page",
       "input": {
@@ -72,6 +133,11 @@
         "placeholder": "Select a page",
         "searchPlaceholder": "Search...",
         "emptyLabel": "No pages found"
+      },
+      "sectionInput": {
+        "label": "Section",
+        "placeholder": "Select a section",
+        "emptyLabel": "No section selected"
       }
     },
     "url": {
@@ -87,7 +153,10 @@
       }
     },
     "shared": {
-      "addButton": "Add",
+      "mainButton": {
+        "select": "Select",
+        "insert": "Add"
+      },
       "cancelButton": "Cancel",
       "newWindowInput": {
         "label": "Open in new window"

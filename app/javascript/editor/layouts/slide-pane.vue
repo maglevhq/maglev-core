@@ -7,7 +7,7 @@
     }"
   >
     <slot name="header">
-      <div class="py-3 mx-4">
+      <div class="py-6 mx-4">
         <div class="h-6 flex items-center">
           <slot name="pre-title" v-if="withPreTitle">
             <h2 class="text-lg rounded w-3/4 bg-gray-200 animate-pulse">&nbsp;</h2>         
@@ -19,7 +19,7 @@
           </div>
     
           <div class="ml-auto">
-            <router-link :to="{ name: 'home' }">
+            <router-link :to="{ name: 'editPage' }">
               <icon name="ri-close-circle-line" />
             </router-link>            
           </div>
@@ -30,7 +30,7 @@
           <h2 class="text-lg rounded w-3/4 bg-gray-200 animate-pulse" v-else>&nbsp;</h2>
         </div>
         
-        <p class="text-gray-600" v-if="subTitle">{{ subTitle }}</p>
+        <p class="text-gray-400 text-sm" v-if="subTitle">{{ subTitle }}</p>
       </div>      
     </slot>
 

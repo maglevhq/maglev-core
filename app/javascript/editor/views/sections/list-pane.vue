@@ -1,5 +1,5 @@
 <template>
-  <layout :title="$t('sectionList.title')">
+  <layout :title="$t('sections.listPane.title')">
     <section-list v-if="previewReady" />
     <div class="h-full w-full animate-pulse" v-else>
       <div class="w-full bg-gray-200 rounded h-12 mb-3"></div>
@@ -11,10 +11,10 @@
 
 <script>
 import Layout from '@/layouts/slide-pane'
-import SectionList from '@/components/theme-section-list'
+import SectionList from '@/components/section-list'
 
 export default {
   name: 'SectionListPane',
-  components: { Layout, SectionList },  
+  components: { Layout, SectionList },
 }
 </script>
