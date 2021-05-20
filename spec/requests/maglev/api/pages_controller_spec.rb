@@ -8,17 +8,18 @@ RSpec.describe 'Maglev::API::PagesController', type: :request do
 
   it 'allows retrieval of pages' do
     get '/maglev/api/pages', as: :json
-    expect(json_response).to eq(
-      [{
+    expect(json_response.size).to eq 1
+    expect(json_response.first.deep_symbolize_keys).to include(
+      {
         id: page.id,
-        title: page.title,
-        path: page.path,
+        title: 'Home page',
+        path: 'index',
         visible: true,
         seo_title: nil,
         meta_description: nil,
-        preview_url: maglev.site_preview_url(page.site.handle, path: page.path),
+        preview_url: 'http://www.example.com/maglev/preview',
         section_names: [a_hash_including(name: 'Jumbotron'), a_hash_including(name: 'Showcase')]
-      }].as_json
+      }
     )
   end
 
@@ -30,17 +31,18 @@ RSpec.describe 'Maglev::API::PagesController', type: :request do
 
     it 'returns the pages whose title matches the keyword' do
       get '/maglev/api/pages', params: { q: 'Hom' }, as: :json
-      expect(json_response).to eq(
-        [{
+      expect(json_response.size).to eq 1
+      expect(json_response.first.deep_symbolize_keys).to include(
+        {
           id: page.id,
           title: page.title,
           path: page.path,
           visible: true,
           seo_title: nil,
           meta_description: nil,
-          preview_url: maglev.site_preview_url(path: page.path)
+          preview_url: maglev.site_preview_url(path: page.path),
           section_names: [a_hash_including(name: 'Jumbotron'), a_hash_including(name: 'Showcase')]
-        }].as_json
+        }
       )
     end
   end

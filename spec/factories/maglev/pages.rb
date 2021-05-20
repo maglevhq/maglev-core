@@ -6,16 +6,101 @@ FactoryBot.define do
     path { 'index' }
     sections do
       [
-        { type: 'jumbotron', settings: { title: 'Hello world', body: '<p>Lorem ipsum</p>' }, blocks: [] },
         {
-          type: 'showcase', settings: { title: 'Our projects' },
+          type: 'jumbotron',
+          settings: [
+            { id: :title, value: 'Hello world' },
+            { id: :body, value: '<p>Lorem ipsum</p>' }
+          ],
+          blocks: []
+        },
+        {
+          type: 'showcase',
+          settings: [{ id: :title, value: 'Our projects' }],
           blocks: [
             {
-              type: 'project', settings: { name: 'My first project', screenshot: '/assets/screenshot-01.png' }
+              type: 'project',
+              settings: [
+                { id: :name, value: 'My first project' },
+                { id: :screenshot, value: '/assets/screenshot-01.png' }
+              ]
             }
           ]
         }
       ]
+    end
+
+    trait :with_navbar do
+      sections do
+        [
+          {
+            id: 'abc',
+            type: 'navbar',
+            settings: [
+              { id: :logo, value: 'logo.png' }
+            ],
+            blocks: []
+          },
+          {
+            id: 'def',
+            type: 'jumbotron',
+            settings: [{ id: :title, value: 'Hello world' }, { id: :body, value: '<p>Lorem ipsum</p>' }],
+            blocks: []
+          },
+          {
+            id: 'ghi',
+            type: 'showcase',
+            settings: [{ id: :title, value: 'Our projects' }],
+            blocks: [
+              {
+                type: 'project',
+                settings: [
+                  { id: :name, value: 'My first project' },
+                  { id: :screenshot, value: '/assets/screenshot-01.png' }
+                ]
+              }
+            ]
+          }
+        ]
+      end
+    end
+
+    trait :with_blank_navbar do
+      sections do
+        [
+          {
+            id: 'abc',
+            type: 'navbar'
+          },
+          {
+            id: 'def',
+            type: 'jumbotron',
+            settings: [{ id: :title, value: 'Hello world' }, { id: :body, value: '<p>Lorem ipsum</p>' }],
+            blocks: []
+          },
+          {
+            id: 'ghi',
+            type: 'showcase',
+            settings: [{ id: :title, value: 'Our projects' }],
+            blocks: [
+              {
+                type: 'project',
+                settings: [
+                  { id: :name, value: 'My first project' },
+                  { id: :screenshot, value: '/assets/screenshot-01.png' }
+                ]
+              }
+            ]
+          }
+        ]
+      end
+    end
+
+    trait :page_links do
+      after :build do |record|
+        record.sections[1]['settings'][1]['value'] =
+          '<p><a href="/bar">Bar</a> - <a href="/foo" maglev-link-type="page" maglev-link-id="42">TEST</a>'
+      end
     end
   end
 end

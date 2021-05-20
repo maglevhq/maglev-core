@@ -16,10 +16,13 @@ module Maglev
     ## scopes ##
     scope :by_id_or_path, ->(id_or_path) { where(id: id_or_path).or(where(path: id_or_path)) }
 
+    ## accessors ##
+    attr_accessor :site
+
     ## methods ##
 
     def site
-      Maglev::Site.first
+      @site || Maglev::Site.first
     end
 
     def index?

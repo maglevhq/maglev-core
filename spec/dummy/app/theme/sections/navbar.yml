@@ -1,27 +1,38 @@
 # Name of the section displayed in the editor UI
-name: Jumbotron
+name: Navbar
 
 category: headers
+
+scope: site
 
 # Definition of the settings:
 # A setting type can be one of the following values: text, image_picker, checkbox, radio, select, url, hint, content_type.
 # Please visit: https://doc.locomotivecms.com/docs/json-definition for more explanation.
 settings:
-- label: "Title"
-  id: title
-  type: text
-  # html: true
-  # line_break: true
-  
-- label: "Body"
-  id: body
-  type: text
-  html: true
-  line_break: true
-  
+- label: "Logo"
+  id: logo
+  type: image_picker
+    
 # Definition of the blocks.
 # You can define as many types of blocks as you want.
-blocks: []
+blocks: 
+- name: "Menu item"
+  type: menu_item
+  settings:
+  - label: "Label"
+    id: label
+    type: text
+    # html: true
+    # line_break: true
+    default: "Menu item"
+  - label: "Link"
+    id: link
+    type: link
+    default: "/"
+  
+# By default, in the editor UI, blocks will be listed below the "Content" title.
+# The title can be changed with the following property:
+blocks_label: "Menu"
 
 # By default, in the editor UI, blocks will be listed below the "Content" title.
 # The title can be changed with the following property:

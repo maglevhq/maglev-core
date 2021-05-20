@@ -1,0 +1,15 @@
+<div <%= section.dom_data %>>
+  <img <%= section.settings.logo.dom_data %> src="<%= section.settings.logo %>" />
+
+  <nav>
+    <ul>
+      <% section.blocks.each_with_index do |block, index| %>
+        <li <%= block.dom_data %>>
+          <a href="<%= block.settings.link.href %>" <% if block.settings.link.open_new_window? %>target="_blank"<% end %>>
+            <span <%= block.settings.label.dom_data %> ><%= block.settings.label %></span>
+          </a>    
+        </li>
+      <% end %>
+    </ul>
+  </nav>
+</div>

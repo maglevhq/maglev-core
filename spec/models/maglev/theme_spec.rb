@@ -19,10 +19,11 @@ describe Maglev::Theme do
     let(:section) { subject.find('showcase') }
     subject { theme.sections }
     it 'creates all the sections of a theme' do
-      expect(subject.count).to eq 2
-      expect(section.name).to eq 'Showcase'
-      expect(section.settings.count).to eq 1
-      expect(section.blocks.count).to eq 1
+      expect(subject.count).to eq 3
+      expect(subject.first.theme).not_to eq nil
+      expect(subject.first.name).to eq 'Showcase'
+      expect(subject.first.settings.count).to eq 1
+      expect(subject.first.blocks.count).to eq 1
     end
   end
 

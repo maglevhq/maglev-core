@@ -7,6 +7,10 @@ module Maglev
 
     ## methods ##
 
+    def pages
+      Maglev::Page.all
+    end
+
     def home_page_id
       @home_page_id ||= Maglev::Page.where(path: 'index').pick(:id)
     end
@@ -25,7 +29,7 @@ module Maglev
         create(name: 'default').tap do |site|
           site.theme&.pages&.each do |attributes|
             page = Maglev::Page.new(attributes)
-            page.assign_section_ids
+            page.prepare_sections
             page.save!
           end
         end

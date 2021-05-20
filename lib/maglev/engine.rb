@@ -27,30 +27,6 @@ module Maglev
       config.after_initialize do
         Maglev.reload_theme!
       end
-    end
-
-    initializer 'webpacker.proxy' do |app|
-      insert_middleware = begin
-        Maglev.webpacker.config.dev_server.present?
-      rescue StandardError
-        nil
-      end
-      next unless insert_middleware
-
-      app.middleware.insert_before(
-        0, Webpacker::DevServerProxy,
-        ssl_verify_none: true,
-        webpacker: Maglev.webpacker
-      )
-    end
-
-    # Serves the engine's webpack when requested
-    initializer 'webpacker.static' do |app|
-      app.config.middleware.use(
-        Rack::Static,
-        urls: ['/maglev-packs'],
-        root: File.expand_path(File.join(__dir__, '..', '..', 'public'))
-      )
-    end
+    end    
   end
 end
