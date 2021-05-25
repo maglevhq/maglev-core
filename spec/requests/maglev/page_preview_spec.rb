@@ -15,7 +15,7 @@ RSpec.describe 'Maglev::PagePreview', type: :request do
 
     context 'with scoped site sections' do
       before do
-        site.pages.first.update!(
+        Maglev::Page.first.update!(
           sections: attributes_for(:page, :with_navbar)[:sections]
         )
         site.update!(
@@ -33,7 +33,7 @@ RSpec.describe 'Maglev::PagePreview', type: :request do
 
   context 'rendering from POST params' do
     let(:sections) do
-      site.pages.first.sections.tap do |sections|
+      Maglev::Page.first.sections.tap do |sections|
         sections.first['settings'].first['value'] = 'UPDATED TITLE'
       end
     end
@@ -45,7 +45,7 @@ RSpec.describe 'Maglev::PagePreview', type: :request do
   end
 
   context 'rendering a section with blocks' do
-    let(:page) { site.pages.first }
+    let(:page) { Maglev::Page.first }
     let(:showcase) { page.sections.find { |section| section['type'] == 'showcase' } }
     let(:block) do
       { id: 'block-0', type: 'item',

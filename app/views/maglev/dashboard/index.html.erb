@@ -1,54 +1,52 @@
-<% @themes.each do |theme| %>
-  <div class="my-3 p-3 bg-white rounded shadow-sm">
-    <h6 class="border-b-2 border-gray-200 pb-2 mb-0">
-      <%= theme.name %>
-      &dash;
-      <small class="text-muted"><%= theme.description %></small>  
-    </h6>
-    <% theme.sections.each_with_index do |section, index| %>      
-      <div class="pt-3">
-        <div class="pb-3 mb-0 small <% if index < theme.sections.count - 1 %>border-b-2 border-gray-100<% end %>">
-          <div class="flex items-center">
-            <span class="bg-gray-500 rounded-full text-white text-xs px-2 py-1 mr-3">
-              <%= section.category %>
-            </span>
-            <strong class="block text-gray-800">
-              <%= link_to section.name, sections_preview_path(section.id) %>              
-            </strong>
-            <div class="ml-auto">              
-              <% if section.valid? %>
-                <span class="bg-green-500 rounded-full text-white text-sm px-2 py-1">Valid 👍</span>
-              <% else %>
-                <span class="bg-red-500 rounded-full text-white text-sm px-2 py-1">Invalid 😞</span> 
-              <% end %>
-            </div>
-          </div>
-
-          <% unless section.valid? %>
-            <div class="mt-4">
-              <pre class="bg-gray-800 py-3 px-4 overflow-auto"><code class="text-white text-sm"><%= section.errors.full_messages %></code></pre>
-            </div>
-          <% end %>
-
-          <div class="flex mt-3">
-            <% if section.screenshot_path %>
-              <div class="w-64">
-                <img src="<%= section.screenshot_path %>" class="w-full" />
-              </div>
+<div class="my-3 p-3 bg-white rounded shadow-sm">
+  <h6 class="border-b-2 border-gray-200 pb-2 mb-0">
+    <%= @theme.name %>
+    &dash;
+    <small class="text-muted"><%= @theme.description %></small>  
+  </h6>
+  <% @theme.sections.each_with_index do |section, index| %>      
+    <div class="pt-3">
+      <div class="pb-3 mb-0 small <% if index < @theme.sections.count - 1 %>border-b-2 border-gray-100<% end %>">
+        <div class="flex items-center">
+          <span class="bg-gray-500 rounded-full text-white text-xs px-2 py-1 mr-3">
+            <%= section.category %>
+          </span>
+          <strong class="block text-gray-800">
+            <%= link_to section.name, maglev.sections_preview_path(section.id) %>              
+          </strong>
+          <div class="ml-auto">              
+            <% if section.valid? %>
+              <span class="bg-green-500 rounded-full text-white text-sm px-2 py-1">Valid 👍</span>
             <% else %>
-              <div class="w-64 h-32">
-                <div class="w-full bg-gray-200 h-full">                
-                </div>
-              </div>
+              <span class="bg-red-500 rounded-full text-white text-sm px-2 py-1">Invalid 😞</span> 
             <% end %>
-            <p class="ml-5 text-sm">
-              <span class="text-black font-bold">YAML Definition:</span> <%= section_file_path(section) %>
-              <br/>
-              <span class="text-black font-bold">Template:</span> <%= section_template_path(section) %>
-            </p>
           </div>
         </div>
+
+        <% unless section.valid? %>
+          <div class="mt-4">
+            <pre class="bg-gray-800 py-3 px-4 overflow-auto"><code class="text-white text-sm"><%= section.errors.full_messages %></code></pre>
+          </div>
+        <% end %>
+
+        <div class="flex mt-3">
+          <% if section.screenshot_path %>
+            <div class="w-64">
+              <img src="<%= section.screenshot_path %>" class="w-full" />
+            </div>
+          <% else %>
+            <div class="w-64 h-32">
+              <div class="w-full bg-gray-200 h-full">                
+              </div>
+            </div>
+          <% end %>
+          <p class="ml-5 text-sm">
+            <span class="text-black font-bold">YAML Definition:</span> <%= section_file_path(section) %>
+            <br/>
+            <span class="text-black font-bold">Template:</span> <%= section_template_path(section) %>
+          </p>
+        </div>
       </div>
-    <% end %>
-  </div>
-<% end %>  
+    </div>
+  <% end %>
+</div>

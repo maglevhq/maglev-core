@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Maglev::Sections::Dashboard', type: :request do
-  it 'lists all the themes built with Maglev' do
+  it 'prints the information about the local theme' do
     get '/maglev'
     expect(response.body).to include('My simple theme')
     expect(response.body).to include('Jumbotron')
