@@ -38,7 +38,7 @@ You should do this both in developmen and production.
 ## Testing
 
 If for some reason you want your Maglev site to exist during your tests,
-you can use `Maglev::Site.generate!` on your setup block.
+you can use `Maglev::GenerateSite.call` on your setup block.
 ## Contributing
 Contribution directions go here.
 

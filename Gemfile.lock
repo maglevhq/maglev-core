@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/Papipo/injectable.git
-  revision: cbfd82efd6e569c31e6ce9b5b0f73de2db251478
+  revision: 1fbd3cc2a6e3955eea84e81aaeb2c119ecbf1c25
   branch: override-with-class
   specs:
     injectable (2.1.1)
@@ -270,4 +270,4 @@ DEPENDENCIES
   webpacker (~> 5.1)
 
 BUNDLED WITH
-   2.1.4
+   2.2.17
