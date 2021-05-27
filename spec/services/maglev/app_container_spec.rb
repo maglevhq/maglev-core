@@ -7,6 +7,7 @@ describe Maglev::AppContainer do
   let(:container) { Maglev.services(controller: controller, config: 'Hello world') }
 
   it 'returns the base url' do
+    puts container.inspect
     expect(container.get_base_url.call).to eq '/maglev/preview'
   end
 end

@@ -6,13 +6,17 @@ module Maglev
     include ::Maglev::JSONConcern
 
     def index
-      @site, @page, @theme = fetch_site, fetch_page, fetch_theme
+      @site = fetch_site
+      @page = fetch_page
+      @theme = fetch_theme
       @page_sections = fetch_page_sections
       render template: '/theme/layout', layout: false
     end
 
     def create
-      @site, @page, @theme = fetch_site, fetch_page, fetch_theme
+      @site = fetch_site
+      @page = fetch_page
+      @theme = fetch_theme
       @page_sections = JSON.parse(params[:page_sections])
       render template: '/theme/layout', layout: false
     end

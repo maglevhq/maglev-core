@@ -4,7 +4,7 @@ require 'maglev_core'
 require 'maglev/engine'
 require 'maglev/config'
 
-module Maglev  
+module Maglev
   class << self
     attr_accessor :theme
 
@@ -14,6 +14,6 @@ module Maglev
 
     def reload_theme!
       self.theme = Maglev::Theme.load(theme_path)
-    end    
+    end
   end
 end

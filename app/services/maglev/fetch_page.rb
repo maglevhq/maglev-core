@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Maglev
   class FetchPage
     include Injectable

@@ -27,7 +27,7 @@ module Maglev
       config.after_initialize do
         Maglev.reload_theme!
       end
-    end    
+    end
 
     initializer :services do
       Maglev.configure do |config|
@@ -35,6 +35,7 @@ module Maglev
           fetch_site: Maglev::FetchSite,
           fetch_theme: Maglev::FetchTheme,
           fetch_page: Maglev::FetchPage,
+          generate_site: Maglev::GenerateSite,
           get_base_url: Maglev::GetBaseUrl
         }
       end

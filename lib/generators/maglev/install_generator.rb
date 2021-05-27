@@ -37,7 +37,7 @@ module Maglev
     end
 
     def instructions
-      STDOUT.puts <<~INFO
+      $stdout.puts <<~INFO
         Done! 🚅
         You can now tweak /config/initializers/maglev.rb.
         You can also modify your theme (in /app/theme and /app/views/theme)
