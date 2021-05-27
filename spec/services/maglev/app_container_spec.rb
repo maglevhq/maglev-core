@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe Maglev::AppContainer do
-  let(:controller) { double('ApplicationController') }
+  let(:controller) { double('ApplicationController', preview_mode?: true, site_preview_path: '/maglev/preview') }
   let(:container) { Maglev.services(controller: controller, config: 'Hello world') }
 
   it 'returns the base url' do
