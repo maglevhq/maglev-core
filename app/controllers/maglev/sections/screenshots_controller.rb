@@ -5,8 +5,8 @@ module Maglev
     class ScreenshotsController < ApplicationController
       def create
         # TODO: the screenshot_path depends on the engine flavor
-        services.persist_section_screenshot(
-          screenshot_path: "/theme/#{params[:id]}.png"
+        services.persist_section_screenshot.call(
+          screenshot_path: "/theme/#{params[:id]}.png",
           base64_image: params[:screenshot][:base64_image]
         )
         head :created

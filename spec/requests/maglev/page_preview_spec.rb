@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Maglev::PagePreview', type: :request do
+RSpec.describe 'Maglev::PagePreviewController', type: :request do
   let!(:site) do
     Maglev::GenerateSite.new(
       fetch_theme: double('FetchTheme', call: build(:theme, :predefined_pages)),
