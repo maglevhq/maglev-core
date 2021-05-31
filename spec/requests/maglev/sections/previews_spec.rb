@@ -9,7 +9,7 @@ RSpec.describe 'Maglev::Sections::Previews', type: :request do
       setup_pages: Maglev::SetupPages.new
     ).call
   end
-  
+
   context 'previewing a section' do
     it 'renders the iframe which will display the section' do
       get '/maglev/sections/preview/jumbotron'
