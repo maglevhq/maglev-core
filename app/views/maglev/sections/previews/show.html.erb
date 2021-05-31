@@ -1,7 +1,7 @@
 <div 
   class="w-full h-full" 
   data-controller="screenshot"
-  data-screenshot-url-value="<%= sections_screenshots_path(id: params[:id], theme_id: params[:theme_id]) %>"
+  data-screenshot-url-value="<%= maglev.sections_screenshots_path(id: params[:id]) %>"
 >
   <div class="my-4 text-right">
     <button 
@@ -12,7 +12,7 @@
     </button>
   </div>
   <iframe     
-    src="<%= sections_preview_in_frame_path(id: params[:id], theme_id: params[:theme_id]) %>"
+    src="<%= maglev.sections_preview_in_frame_path(id: params[:id]) %>"
     class="w-full h-full bg-white"  
     data-screenshot-target="source"
     data-controller="iframe"

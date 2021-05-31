@@ -3,6 +3,13 @@
 require 'rails_helper'
 
 RSpec.describe 'Maglev::Sections::Previews', type: :request do
+  let!(:site) do
+    Maglev::GenerateSite.new(
+      fetch_theme: double('FetchTheme', call: build(:theme, :predefined_pages)),
+      setup_pages: Maglev::SetupPages.new
+    ).call
+  end
+  
   context 'previewing a section' do
     it 'renders the iframe which will display the section' do
       get '/maglev/sections/preview/jumbotron'
