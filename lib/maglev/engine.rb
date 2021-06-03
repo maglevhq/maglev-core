@@ -30,14 +30,16 @@ module Maglev
     end
 
     initializer :services do
-      Maglev.configure do |config|
-        config.services = {
-          fetch_site: Maglev::FetchSite,
-          fetch_theme: Maglev::FetchTheme,
-          fetch_page: Maglev::FetchPage,
-          generate_site: Maglev::GenerateSite,
-          get_base_url: Maglev::GetBaseUrl
-        }
+      Rails.application.reloader.to_prepare do
+        Maglev.configure do |config|
+          config.services = {
+            fetch_site: Maglev::FetchSite,
+            fetch_theme: Maglev::FetchTheme,
+            fetch_page: Maglev::FetchPage,
+            generate_site: Maglev::GenerateSite,
+            get_base_url: Maglev::GetBaseUrl
+          }
+        end
       end
     end
   end
