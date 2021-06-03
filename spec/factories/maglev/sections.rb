@@ -4,6 +4,7 @@ FactoryBot.define do
   factory :section, class: Maglev::Section do
     id { 'jumbotron' }
     name { 'Jumbotron' }
+    theme { build(:theme) }
     category { 'Contents' }
     settings { [] }
     blocks { [] }

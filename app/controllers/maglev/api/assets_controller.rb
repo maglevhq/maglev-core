@@ -1,0 +1,44 @@
+# frozen_string_literal: true
+
+module Maglev
+  module API
+    class AssetsController < ::Maglev::APIController
+      include ::ActiveStorage::SetCurrent
+
+      def index
+        @assets = resources.search(
+          params[:query], params[:asset_type], params[:page], params[:per_page]
+        )
+      end
+
+      def show
+        @asset = resources.find(params[:id])
+      end
+
+      def create
+        asset = resources.create!(asset_params)
+        head :created, location: api_asset_path(asset), maglev_asset_id: asset.id
+      end
+
+      def update
+        resources.find(params[:id]).update!(asset_params)
+        head :ok
+      end
+
+      def destroy
+        resources.find(params[:id]).destroy!
+        head :no_content
+      end
+
+      private
+
+      def asset_params
+        params.require(:asset).permit(:file)
+      end
+
+      def resources
+        model_scopes(:asset)
+      end
+    end
+  end
+end

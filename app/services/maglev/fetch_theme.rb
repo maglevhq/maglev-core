@@ -7,7 +7,9 @@ module Maglev
     include Injectable
 
     def call
-      Maglev.theme
+      Maglev.local_themes.first.tap do |theme|
+        theme.sections_path = 'theme'
+      end
     end
   end
 end

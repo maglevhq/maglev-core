@@ -1,0 +1,80 @@
+<template>
+  <nav class="h-full w-full">
+    <div class="flex items-center justify-between h-full w-full animate-pulse" v-if="!currentPage">
+      <div class="h-6 bg-gray-200 rounded w-1/4 mx-6"></div>
+      <div class="h-6 bg-gray-200 rounded w-1/4 mx-6"></div>
+    </div>
+    <div class="flex justify-between h-full w-full" v-else>
+      <div class="flex divide-x divide-gray-300">
+        <router-link 
+          :to="{ name: 'listPages' }" 
+          class="flex items-center py-4 px-6 flex-row hover:bg-editor-primary hover:bg-opacity-5 transition-colors duration-200"
+          :class="{
+            'bg-white': !isPageActive,
+            'bg-editor-primary bg-opacity-5': isPageActive,
+          }"
+        >
+          <span>{{ $t('headerNav.pages') }}</span>          
+          <page-icon class="ml-4" :page="currentPage" />
+          <span class="ml-2">{{ currentPage.title }}</span>
+          <icon name="arrow-down-s-line" class="ml-3" />                    
+        </router-link>
+
+        <button @click="openEditPageModal" class="py-4 px-6 flex items-center hover:bg-editor-primary hover:bg-opacity-5 transition-colors duration-200 focus:outline-none">
+          <icon name="settings-4-line" size="1.25rem" />
+          <span class="ml-2">{{ $t('headerNav.pageSettings') }}</span>
+        </button>
+      </div>
+
+      <div class="flex">
+        <div class="flex divide-x divide-gray-300 py-4">
+          <div class="px-6 flex">
+            <device-toggler />
+          </div>  
+          <div></div>             
+        </div>
+        <a   
+          :href="currentPage.previewUrl" 
+          target="_blank"
+          class="px-6 flex items-center hover:bg-editor-primary hover:bg-opacity-5 transition-colors duration-200"
+        >
+          {{ $t('headerNav.previewSite') }}
+        </a> 
+        <div>
+          <save-button />
+        </div>
+      </div>
+    </div>
+  </nav>
+</template>
+
+<script>
+import DeviceToggler from './device-toggler'
+import SaveButton from './save-button'
+import EditPageModal from '@/components/page/edit'
+
+export default {
+  name: 'HeaderNav',
+  components: { DeviceToggler, SaveButton, EditPageModal },
+  computed: {
+    isPageActive() {
+      return this.$route.name === 'listPages'
+    },    
+  },
+  methods: {
+    openEditPageModal() {
+      this.openModal({
+        title: this.$t('page.edit.currentTitle'), 
+        component: EditPageModal,
+        closeOnClick: false,
+        props: {
+          page: this.currentPage,
+        },
+        listeners: {
+          'on-update': editedPage => this.setCurrentPageSettings(editedPage)
+        }
+      })
+    },    
+  }
+}
+</script>

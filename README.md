@@ -17,7 +17,7 @@ $ bundle
 After installing, you need to run maglev's install generator:
 
 ```bash
-$ bundle exec rails maglev:install
+$ bundle exec rails g maglev:install
 ```
 
 This will do many things, like ensuring that webpacker is set up,

@@ -9,4 +9,8 @@ describe Maglev::FetchTheme do
   it 'returns the local theme' do
     expect(subject.name).to eq 'My simple theme'
   end
+
+  it 'returns the path to the section templates' do
+    expect(subject.sections_path).to eq 'theme'
+  end
 end
