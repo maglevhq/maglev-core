@@ -6,9 +6,11 @@ FactoryBot.define do
     id { 'simple' }
     name { 'Simple' }
     description { 'Super simple theme' }
-    sections do
-      Maglev::Section::Store.new([
+        
+    after(:build) do |theme, evaluator| 
+      theme.sections = Maglev::Section::Store.new([
                                    Maglev::Section.build({
+                                     theme: theme,
                                      name: 'Navbar',
                                      id: 'navbar',
                                      category: 'headers',
@@ -26,6 +28,7 @@ FactoryBot.define do
                                      ]
                                    }.with_indifferent_access),
                                    Maglev::Section.build({
+                                     theme: theme,
                                      name: 'Jumbotron',
                                      id: 'jumbotron',
                                      category: 'headers',
@@ -37,6 +40,7 @@ FactoryBot.define do
                                      blocks: []
                                    }.with_indifferent_access),
                                    Maglev::Section.build({
+                                     theme: theme,
                                      name: 'Showcase',
                                      id: 'showcase',
                                      category: 'features',
@@ -98,6 +102,10 @@ FactoryBot.define do
           }
         ]
       end
+    end
+
+    trait :with_sections_path do
+      sections_path { 'theme' }
     end
   end
 end

@@ -18,6 +18,10 @@ module Maglev
       scope == 'site'
     end
 
+    def screenshot_path
+      "/#{theme.sections_path}/#{id}.png"
+    end
+
     def as_json
       {
         id: id, theme_id: theme&.id, name: name,

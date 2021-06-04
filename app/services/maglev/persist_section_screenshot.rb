@@ -4,7 +4,9 @@ module Maglev
   class PersistSectionScreenshot
     include Injectable
 
-    argument :screenshot_path
+    dependency :fetch_theme
+
+    argument :section_id
     argument :base64_image
 
     def call
@@ -24,8 +26,12 @@ module Maglev
 
     private
 
+    def section
+      @section ||= fetch_theme.call.sections.find(section_id)
+    end
+
     def screenshot_filepath
-      Rails.root.join("public/#{screenshot_path}")
+      "#{Rails.root}/public/#{section.screenshot_path}"
     end
 
     def screenshots_dir

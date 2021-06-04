@@ -10,7 +10,7 @@ RSpec.describe 'Maglev::Sections::ScreenshotsController', type: :request do
 
   it 'calls the take_section_screenshot service' do
     expect(service).to receive(:call).with(
-      screenshot_path: '/theme/jumbotron.png',
+      section_id: 'jumbotron',
       base64_image: 'data:image/png;base64,bodyofthepngfile'
     )
     post '/maglev/sections/screenshots?id=jumbotron',

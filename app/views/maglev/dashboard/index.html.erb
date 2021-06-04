@@ -12,7 +12,7 @@
             <%= section.category %>
           </span>
           <strong class="block text-gray-800">
-            <%= link_to section.name, maglev.sections_preview_path(section.id) %>              
+            <%= link_to section.name, maglev.sections_preview_path(section.id) %>
           </strong>
           <div class="ml-auto">              
             <% if section.valid? %>
@@ -36,7 +36,7 @@
             </div>
           <% else %>
             <div class="w-64 h-32">
-              <div class="w-full bg-gray-200 h-full">                
+              <div class="w-full bg-gray-200 h-full">
               </div>
             </div>
           <% end %>
