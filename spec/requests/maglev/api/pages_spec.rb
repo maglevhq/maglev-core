@@ -9,7 +9,7 @@ RSpec.describe 'Maglev::API::PagesController', type: :request do
   before do
     Maglev.configure do |config|
       config.services = {
-        controller: double('Controller'),
+        context: double('Context', controller: double('Controller')),
         fetch_site: double('FetchSite', call: site),
         fetch_theme: double('FetchTheme', call: build(:theme)),
         get_base_url: double('getBaseUrl', call: '/maglev/preview'),

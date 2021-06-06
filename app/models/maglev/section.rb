@@ -4,7 +4,7 @@ module Maglev
   class Section
     include ActiveModel::Model
     include ::Maglev::Section::ContentConcern
-    
+
     ## attributes ##
     attr_accessor :id, :theme, :name, :category, :scope, :settings, :blocks, :blocks_label
 

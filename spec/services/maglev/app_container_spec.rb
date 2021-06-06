@@ -3,8 +3,9 @@
 require 'rails_helper'
 
 describe Maglev::AppContainer do
-  let(:controller) { double('ApplicationController', preview_mode?: true, site_preview_path: '/maglev/preview') }
-  let(:container) { Maglev.services(controller: controller, config: 'Hello world') }
+  let(:controller) { double('ApplicationController', site_preview_path: '/maglev/preview') }
+  let(:context) { Maglev::ServiceContext.new(controller: controller, preview_mode?: true) }
+  let(:container) { Maglev.services(context: context, config: 'Hello world') }
 
   it 'returns the base url' do
     expect(container.get_base_url.call).to eq '/maglev/preview'

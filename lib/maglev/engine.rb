@@ -10,7 +10,7 @@ module Maglev
       g.test_framework :rspec
       g.fixture_replacement :factory_bot
       g.factory_bot dir: 'spec/factories'
-    end    
+    end
 
     initializer 'maglev.theme_reloader' do |app|
       theme_path = Rails.root.join('app/theme')

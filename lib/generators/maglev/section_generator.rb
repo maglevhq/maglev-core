@@ -9,7 +9,7 @@ module Maglev
 
     attr_reader :theme_name, :settings, :blocks
 
-    def verify_theme_exists    
+    def verify_theme_exists
       raise Thor::Error, set_color('ERROR: You must first create a theme.', :red) if Maglev.local_themes.blank?
     end
 

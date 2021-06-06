@@ -4,7 +4,7 @@ module Maglev
   class GetBaseUrl
     include Injectable
 
-    dependency :controller
+    dependency :context
     dependency :fetch_site
 
     def call
@@ -14,11 +14,11 @@ module Maglev
     private
 
     def preview_mode?
-      controller.preview_mode?
+      context.preview_mode?
     end
 
     def site_preview_path
-      controller.site_preview_path
+      context.controller.site_preview_path
     end
   end
 end

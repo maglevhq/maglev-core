@@ -7,20 +7,22 @@ describe Maglev::GetBaseUrl do
   let(:service) do
     described_class.new(
       fetch_site: double('FetchSite', call: build(:site)),
-      controller: controller
+      context: double('Context', preview_mode?: preview_mode, controller: controller)
     )
   end
   subject { service.call }
 
   context 'not in preview mode' do
-    let(:controller) { double('Controller', preview_mode?: false, site_preview_path: '/maglev/preview') }
+    let(:preview_mode) { false }
+    let(:controller) { double('Controller', site_preview_path: '/maglev/preview') }
     it 'returns nil' do
       is_expected.to eq nil
     end
   end
 
   context 'in preview mode' do
-    let(:controller) { double('Controller', preview_mode?: true, site_preview_path: '/maglev/preview') }
+    let(:preview_mode) { true }
+    let(:controller) { double('Controller', site_preview_path: '/maglev/preview') }
     it 'returns the preview path' do
       is_expected.to eq '/maglev/preview'
     end

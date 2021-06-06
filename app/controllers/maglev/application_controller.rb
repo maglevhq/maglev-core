@@ -9,11 +9,20 @@ module Maglev
     private
 
     def services
-      @services ||= ::Maglev.services(controller: self)
+      @services ||= ::Maglev.services(
+        context: ServiceContext.new(
+          preview_mode?: preview_mode?,
+          controller: self
+        )
+      )
     end
 
     def model_scopes(name)
       services.get_model_scopes.call[name]
+    end
+
+    def preview_mode?
+      true
     end
   end
 end
