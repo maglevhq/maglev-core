@@ -29,5 +29,9 @@ module Maglev
     def preview_mode?
       params[:preview_mode].present?
     end
+
+    def fetch_theme_layout
+      @fetch_theme_layout ||= services.fetch_theme_layout.call
+    end
   end
 end
