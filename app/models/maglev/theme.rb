@@ -22,7 +22,7 @@ module Maglev
         theme.sections = Maglev::Section::Store.new(sections)
         theme
       rescue Errno::ENOENT
-        Kernel.puts 'Missing file(s) in app/theme/'
+        Kernel.puts "Missing file(s) in #{path}"
       end
 
       def load_sections(theme, source_path)
