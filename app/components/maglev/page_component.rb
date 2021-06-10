@@ -2,14 +2,15 @@
 
 module Maglev
   class PageComponent < BaseComponent
-    attr_reader :site, :theme, :page, :page_sections
+    attr_reader :site, :theme, :page, :page_sections, :templates_root_path
 
     # rubocop:disable Lint/MissingSuper
-    def initialize(site:, theme:, page:, page_sections:)
+    def initialize(site:, theme:, page:, page_sections:, templates_root_path:)
       @site = site
       @theme = theme
       @page = page
       @page_sections = page_sections
+      @templates_root_path = templates_root_path
     end
     # rubocop:enable Lint/MissingSuper
 
@@ -24,7 +25,7 @@ module Maglev
           parent: self,
           definition: definition,
           attributes: attributes.deep_transform_keys! { |k| k.underscore.to_sym },
-          templates_root_path: "./#{theme.sections_path}"
+          templates_root_path: @templates_root_path
         )
       end.compact
     end

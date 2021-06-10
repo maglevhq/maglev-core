@@ -6,6 +6,7 @@ module Maglev
 
     included do
       helper_method :preview_mode?
+      helper_method :templates_root_path
     end
 
     private
@@ -32,6 +33,10 @@ module Maglev
 
     def fetch_theme_layout
       @fetch_theme_layout ||= services.fetch_theme_layout.call
+    end
+
+    def templates_root_path
+      @templates_root_path ||= services.templates_root_path.call
     end
   end
 end
