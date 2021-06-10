@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/Papipo/injectable.git
-  revision: 1fbd3cc2a6e3955eea84e81aaeb2c119ecbf1c25
+  revision: a1114caa9eee9c6d8e05d8e80bbacab552182f02
   branch: override-with-class
   specs:
     injectable (2.1.1)
