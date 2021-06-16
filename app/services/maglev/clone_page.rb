@@ -4,17 +4,18 @@ module Maglev
   class ClonePage
     include Injectable
 
-    dependency :fetch_site
-
     argument :page
+    argument :extra_attributes, default: {}
 
     def call
       return nil unless page.persisted?
 
       Maglev::Page.create!(
-        title: "#{page.title} COPY",
-        path: "#{page.path}-#{generate_clone_code(4)}",
-        sections: page.sections
+        extra_attributes.reverse_merge(
+          title: "#{page.title} COPY",
+          path: "#{page.path}-#{generate_clone_code(4)}",
+          sections: page.sections
+        )
       )
     end
 
