@@ -6,7 +6,7 @@ module Maglev
     include ActiveModel::Model
 
     ## attributes ##
-    attr_accessor :id, :name, :description, :section_categories, :sections, :pages, :sections_path
+    attr_accessor :id, :name, :description, :section_categories, :sections, :pages
 
     ## validations ##
     validates :id, :name, presence: true
