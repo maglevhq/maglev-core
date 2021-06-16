@@ -30,9 +30,9 @@
         <% end %>
 
         <div class="flex mt-3">
-          <% if section.screenshot_path %>
+          <% if screenshot_path(section) %>
             <div class="w-64">
-              <img src="<%= section.screenshot_path %>" class="w-full" />
+              <img src="<%= screenshot_path(section) %>" class="w-full" />
             </div>
           <% else %>
             <div class="w-64 h-32">

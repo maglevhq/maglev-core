@@ -2,14 +2,10 @@ module Maglev
   class TemplatesRootPath
     include Injectable
 
-    dependency :fetch_theme
+    dependency :fetch_sections_path
 
     def call
-      "./#{theme.sections_path}"
-    end
-
-    def theme
-      fetch_theme.call
+      "./#{fetch_sections_path.call}"
     end
   end
 end
