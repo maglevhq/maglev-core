@@ -6,7 +6,7 @@ module Maglev
 
     included do
       helper_method :preview_mode?
-      helper_method :templates_root_path
+      helper_method :fetch_sections_path
     end
 
     private
@@ -35,8 +35,8 @@ module Maglev
       @fetch_theme_layout ||= services.fetch_theme_layout.call
     end
 
-    def templates_root_path
-      @templates_root_path ||= services.templates_root_path.call
+    def fetch_sections_path
+      @fetch_sections_path ||= services.fetch_sections_path.call
     end
   end
 end

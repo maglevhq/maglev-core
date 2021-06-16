@@ -8,7 +8,7 @@ module Maglev
         theme: theme,
         page: page,
         page_sections: page_sections,
-        templates_root_path: templates_root_path
+        templates_root_path: fetch_sections_path
       ).tap { |component| component.view_context = self }.render
     end
   end
