@@ -2,11 +2,11 @@
 
 require 'rails_helper'
 
-describe Maglev::FetchTheme do
+describe Maglev::FetchSectionsPath do
   let(:service) { described_class.new }
   subject { service.call }
 
   it 'returns the local theme' do
-    expect(subject.name).to eq 'My simple theme'
+    expect(subject).to eq 'theme'
   end
 end

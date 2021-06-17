@@ -5,6 +5,8 @@ module Maglev
     include Injectable
 
     dependency :fetch_theme
+    dependency :fetch_sections_path
+    dependency :fetch_screenshot_path
 
     argument :section_id
     argument :base64_image
@@ -31,7 +33,7 @@ module Maglev
     end
 
     def screenshot_filepath
-      "#{Rails.root}/public/#{section.screenshot_path}"
+      fetch_screenshot_path.call(section: section)
     end
 
     def screenshots_dir

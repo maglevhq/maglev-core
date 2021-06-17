@@ -5,8 +5,19 @@ require 'rails_helper'
 describe Maglev::PersistSectionScreenshot do
   before { FileUtils.rm_rf(Rails.root.join('public/theme')) }
 
-  let(:theme) { build(:theme, :with_sections_path) }
-  let(:service) { described_class.new(fetch_theme: instance_double('FetchTheme', call: theme)) }
+  let(:theme) { build(:theme) }
+  let(:path) { Rails.root.join('public/sometheme/jumbotron.png') }
+  let(:fetch_screenshot_path) do
+    instance_double('FetchScreenshotPath', call: path)
+  end
+  let(:fetch_sections_path) { instance_double('FetchSectionsPath', call: 'sometheme') }
+  let(:service) do
+    described_class.new(
+      fetch_theme: instance_double('FetchTheme', call: theme),
+      fetch_sections_path: fetch_sections_path,
+      fetch_screenshot_path: fetch_screenshot_path
+    )
+  end
   subject { service.call(base64_image: base64_image, section_id: 'jumbotron') }
 
   context 'the base64 image is empty' do
@@ -20,7 +31,7 @@ describe Maglev::PersistSectionScreenshot do
     let(:base64_image) { 'data:image/png;base64,bodyofthepngfile' }
     it 'persists the PNG in the filesystem' do
       is_expected.to eq true
-      expect(File.exist?(Rails.root.join('public/theme/jumbotron.png'))).to eq true
+      expect(File.exist?(Rails.root.join('public/sometheme/jumbotron.png'))).to eq true
     end
   end
 end

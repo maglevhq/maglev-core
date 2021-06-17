@@ -6,7 +6,7 @@ module Maglev
     include ::Maglev::Section::ContentConcern
 
     ## attributes ##
-    attr_accessor :id, :theme, :name, :category, :scope, :settings, :blocks, :blocks_label
+    attr_accessor :id, :theme, :name, :category, :scope, :settings, :blocks, :blocks_label, :sections_path
 
     ## validations ##
     validates :id, :theme, :name, :category, presence: true
@@ -16,10 +16,6 @@ module Maglev
     ## methods ##
     def scoped_by_site?
       scope == 'site'
-    end
-
-    def screenshot_path
-      "/#{theme.sections_path}/#{id}.png"
     end
 
     def as_json

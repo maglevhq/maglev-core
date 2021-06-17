@@ -103,10 +103,6 @@ FactoryBot.define do
         ]
       end
     end
-
-    trait :with_sections_path do
-      sections_path { 'theme' }
-    end
   end
 end
 # rubocop:enable Layout/LineLength

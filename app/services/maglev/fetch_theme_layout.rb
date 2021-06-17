@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
-# frozen_string_literal
-
 module Maglev
-  class FetchTheme
+  class FetchThemeLayout
     include Injectable
 
+    dependency :fetch_theme
+
     def call
-      Maglev.local_themes.first
+      'theme/layout'
     end
   end
 end
