@@ -4,7 +4,7 @@ module Maglev
   class ApplicationController < ::ApplicationController
     protect_from_forgery with: :exception
 
-    helper_method :services
+    helper_method :services, :use_engine_webpacker?
 
     private
 
@@ -22,6 +22,10 @@ module Maglev
     end
 
     def preview_mode?
+      true
+    end
+
+    def use_engine_webpacker?
       true
     end
   end

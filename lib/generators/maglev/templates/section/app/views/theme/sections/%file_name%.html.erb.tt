@@ -1,1 +1,62 @@
-<p>TODO</p>
+<div <%%= section.dom_data %>>
+  <h2><b>Section:</b> <%= file_name %></h2>
+
+  <hr/>
+
+  <h3><u>Settings</u></h3>
+
+  <br/>
+  
+  <%- settings.each do |setting| -%>
+  <h4><b>Setting:</b> <%= setting.label %></h4>
+  <%- case setting.type -%>
+  <%- when 'text' -%>    
+  <div <%%= section.settings.<%= setting.id -%>.dom_data %>>
+    <%%= raw section.settings.<%= setting.id -%> %>
+  </div>
+  <%- when 'image_picker' -%>
+  <div>
+    <img 
+      <%%= section.settings.image.dom_data %>
+      src="<%%= section.settings.<%= setting.id -%> %>"
+      alt="<%%= section.settings.<%= setting.id -%>.alt_text %>"
+    />
+  </div>
+  <%- end -%>
+  <br/>
+  <%- end -%>
+  
+  <%- unless blocks.empty? -%>
+  <hr/>
+
+  <h3><u>Blocks</u></h3>
+
+  <br/>
+
+  <%% section.blocks.each_with_index do |block, index| %>
+  <div <%%= block.dom_data %>>
+    <h4><b>Block #<%%= index + 1 %></b></h4>    
+    <%- blocks.values[0].each do |setting| -%>
+    <h5><b>Setting:</b> <%= setting.label %></h5>
+    <%- case setting.type -%>
+    <%- when 'text' -%>    
+    <div <%%= block.settings.<%= setting.id -%>.dom_data %>>
+      <%%= raw block.settings.<%= setting.id -%> %>
+    </div>
+    <%- when 'image_picker' -%>
+    <div>
+      <img 
+        <%%= block.settings.image.dom_data %>
+        src="<%%= block.settings.<%= setting.id -%> %>"
+        alt="<%%= block.settings.<%= setting.id -%>.alt_text %>"
+      />
+    </div>
+    <%- end -%>
+    <br/>
+    <%- end -%>
+
+  </div>
+  <%% end %>
+
+  <%- end -%>
+</div>

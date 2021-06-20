@@ -4,23 +4,18 @@ module Maglev
   class GenerateSite
     include Injectable
 
-    dependency :fetch_theme
-    dependency :setup_pages
+    dependency :setup_pages, class: Maglev::SetupPages
+
+    argument :theme
 
     def call
-      raise 'A Maglev Site exists already' if Maglev::Site.first
+      raise 'A Maglev Site already exists' if Maglev::Site.first
 
       Maglev::Site.transaction do
-        Maglev::Site.create(name: 'Default').tap do
-          setup_pages.call(theme: theme)
+        Maglev::Site.create(name: 'Default').tap do |site|
+          setup_pages.call(site: site, theme: theme)
         end
       end
-    end
-
-    protected
-
-    def theme
-      fetch_theme.call
     end
   end
 end

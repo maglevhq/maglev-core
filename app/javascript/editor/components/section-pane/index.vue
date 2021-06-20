@@ -11,6 +11,7 @@
 <script>
 import SettingList from './setting-list'
 import BlockList from './block-list'
+import BlockTree from './block-tree'
 
 export default {
   name: 'SectionPane',
@@ -28,8 +29,8 @@ export default {
           condition: () => this.hasSettings
         },
         { 
-          name: this.$t('sectionPane.tabs.blocks'), 
-          tab: BlockList, 
+          name: this.blocksLabel, 
+          tab: this.blocksComponent, 
           type: 'blocks', 
           condition: () => this.hasBlocks
         },
@@ -57,6 +58,12 @@ export default {
     hasBlocks() {
       return !this.isBlank(this.currentSectionDefinition.blocks)
     },
+    blocksLabel() {
+      return this.currentSectionDefinition.blocksLabel || this.$t('sectionPane.tabs.blocks')
+    },
+    blocksComponent() {
+      return this.currentSectionDefinition.blocksPresentation === 'tree' ? BlockTree : BlockList
+    }
   },    
   methods: {
     findTabIndexFromRoute() {
@@ -68,7 +75,7 @@ export default {
   watch: {
     '$route.hash': {
       immediate: true,
-      handler(newHash) {
+      handler() {
         if (!this.$refs.tabs) return
         this.$refs.tabs.selectTab(this.findTabIndexFromRoute())                
       }

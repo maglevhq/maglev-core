@@ -3,6 +3,7 @@
 module Maglev
   class BlockComponent < BaseComponent
     attr_reader :section, :id, :name, :type, :settings, :attributes, :definition
+    attr_accessor :children
 
     # rubocop:disable Lint/MissingSuper
     def initialize(section:, attributes:, definition:)
@@ -10,6 +11,7 @@ module Maglev
       @id = attributes[:id]
       @name = attributes[:name]
       @type = attributes[:type]
+      @children = children
       @definition = definition
 
       @settings = settings_proxy(
@@ -17,6 +19,10 @@ module Maglev
       )
     end
     # rubocop:enable Lint/MissingSuper
+
+    def children?
+      children.present?
+    end
 
     def dom_data
       "data-maglev-block-id=\"#{id}\"".html_safe

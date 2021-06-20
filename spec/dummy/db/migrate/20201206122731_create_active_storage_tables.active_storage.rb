@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 # This migration comes from active_storage (originally 20170806125915)
+# rubocop:disable Metrics/MethodLength
 class CreateActiveStorageTables < ActiveRecord::Migration[5.2]
   def change
     create_table :active_storage_blobs do |t|
@@ -27,3 +28,4 @@ class CreateActiveStorageTables < ActiveRecord::Migration[5.2]
     end
   end
 end
+# rubocop:enable Metrics/MethodLength

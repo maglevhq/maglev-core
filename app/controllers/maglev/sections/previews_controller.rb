@@ -32,6 +32,10 @@ module Maglev
       def preview_mode?
         false
       end
+
+      def use_engine_webpacker?
+        action_name == 'show'
+      end
     end
   end
 end

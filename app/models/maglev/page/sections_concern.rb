@@ -6,7 +6,7 @@ module Maglev::Page::SectionsConcern
     # NOTE: pages defined in the theme definition
     # don't include the ids for sections/blocks
     sections.each do |section|
-      section['id'] = SecureRandom.urlsafe_base64(8)
+      section['id'] ||= SecureRandom.urlsafe_base64(8)
       section['settings'] = prepare_settings(section['settings'])
       (section['blocks'] || []).each do |block|
         block['id'] ||= SecureRandom.urlsafe_base64(8)

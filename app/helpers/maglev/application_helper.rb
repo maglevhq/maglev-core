@@ -7,7 +7,7 @@ module Maglev
     include ::Webpacker::Helper
 
     def current_webpacker_instance
-      ::Maglev.webpacker
+      use_engine_webpacker? ? ::Maglev.webpacker : super
     end
   end
 end

@@ -6,7 +6,7 @@ module Maglev
     include ::Maglev::Section::ContentConcern
 
     ## attributes ##
-    attr_accessor :id, :theme, :name, :category, :scope, :settings, :blocks, :blocks_label
+    attr_accessor :id, :theme, :name, :category, :scope, :settings, :blocks, :blocks_label, :blocks_presentation
 
     ## validations ##
     validates :id, :theme, :name, :category, presence: true
@@ -26,14 +26,15 @@ module Maglev
       {
         id: id, theme_id: theme&.id, name: name,
         category: category, scope: scope,
-        settings: settings, blocks: blocks, blocks_label: blocks_label,
+        settings: settings, blocks: blocks,
+        blocks_label: blocks_label, blocks_presentation: blocks_presentation,
         screenshot_path: screenshot_path
       }.as_json
     end
 
     ## class methods ##
     def self.build(hash)
-      attributes = hash.slice('id', 'theme', 'name', 'scope', 'category', 'blocks_label')
+      attributes = hash.slice('id', 'theme', 'name', 'scope', 'category', 'blocks_label', 'blocks_presentation')
 
       new(
         attributes.merge(

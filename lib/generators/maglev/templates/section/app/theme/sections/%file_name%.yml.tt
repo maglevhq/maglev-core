@@ -4,6 +4,10 @@ name: "<%= file_name %>"
 # Category of the section in the editor UI (header, features, testimonials, ...etc)
 category: <%= options['category'] %>
 
+# A section might have the same content all over the site, like a menu or a footer for instance.
+# To enable this behavior, uncomment the following statement
+# site_scoped: true
+
 # Definition of the settings:
 # A setting type can be one of the following values: text, image_picker, checkbox, radio, select, url, hint, content_type.
 # Please visit: https://doc.locomotivecms.com/docs/json-definition for more explanation.
@@ -58,3 +62,9 @@ blocks: <%- if blocks.blank? -%>[]
 # By default, in the editor UI, blocks will be listed below the "Content" title.
 # The title can be changed with the following property:
 # blocks_label: "My list of items"
+
+# By default, blocks are presented as a list in the editor UI. 
+# If you like to use blocks to build a menu with sub menu items, 
+# consider using the tree presentation
+# blocks_presentation: "tree"
+

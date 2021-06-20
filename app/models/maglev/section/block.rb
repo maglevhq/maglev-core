@@ -6,7 +6,7 @@ class Maglev::Section::Block
   include ActiveModel::Model
 
   ## attributes ##
-  attr_accessor :name, :type, :settings
+  attr_accessor :name, :type, :parent_id, :settings
 
   ## validation ##
   validates :name, :type, presence: true

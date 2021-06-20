@@ -1,0 +1,6 @@
+.he-tree .tree-placeholder-node {
+  @apply h-12 bg-gray-100 bg-opacity-50 mb-3;
+}
+.he-tree .dragging .tree-node-back:hover {
+  background-color: inherit;
+}

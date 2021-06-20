@@ -4,9 +4,9 @@ require 'rails_helper'
 require 'generator_spec'
 require 'generators/maglev/section_generator'
 
-describe Maglev::SectionGenerator, type: :generator do
-  BLOCK_SETTINGS = 'title:text block:item:title block:item:image:image_picker block:item:description'
+BLOCK_SETTINGS = 'title:text block:item:title block:item:image:image_picker block:item:description'
 
+describe Maglev::SectionGenerator, type: :generator do
   destination File.expand_path('../tmp', __dir__)
 
   arguments ['showcase', '--theme=simple', '--settings', BLOCK_SETTINGS]

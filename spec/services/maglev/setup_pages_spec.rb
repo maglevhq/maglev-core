@@ -4,7 +4,8 @@ require 'rails_helper'
 
 describe Maglev::SetupPages do
   let(:service) { described_class.new }
-  subject { service.call(theme: theme) }
+  let(:site) { build(:site) }
+  subject { service.call(site: site, theme: theme) }
 
   context 'the theme has no pre-defined pages' do
     let(:theme) { build(:theme) }

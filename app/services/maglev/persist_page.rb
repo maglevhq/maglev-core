@@ -9,9 +9,12 @@ module Maglev
 
     argument :page
     argument :attributes
+    argument :site, default: nil
+    argument :theme, default: nil
 
     def call
       page.attributes = attributes
+      page.prepare_sections
       page.save!
 
       site.save! if can_persist_site_scoped_sections? && assign_site_scoped_sections

@@ -19,4 +19,4 @@ pages:
   - type: "showcase"
     settings: 
       title: "Our projects"
-    blocks: []
+    blocks: []  

@@ -23,11 +23,8 @@ module Maglev
     dependency :get_page_sections,          class: Maglev::GetPageSections,
                                             depends_on: %i[fetch_site fetch_theme get_page_fullpath]
     dependency :get_page_section_names,     class: Maglev::GetPageSectionNames, depends_on: :fetch_theme
-    dependency :persist_page,               class: Maglev::PersistPage, depends_on: %i[fetch_site fetch_theme]
     dependency :clone_page,                 class: Maglev::ClonePage, depends_on: :fetch_site
-    dependency :setup_pages,                class: Maglev::SetupPages
-
-    dependency :generate_site,              class: Maglev::GenerateSite, depends_on: %i[fetch_theme setup_pages]
+    dependency :persist_page,               class: Maglev::PersistPage, depends_on: %i[fetch_site fetch_theme]
 
     def call
       self

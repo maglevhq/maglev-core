@@ -4,10 +4,7 @@ require 'rails_helper'
 
 RSpec.describe 'Maglev::Sections::PreviewsController', type: :request do
   let!(:site) do
-    Maglev::GenerateSite.new(
-      fetch_theme: double('FetchTheme', call: build(:theme, :predefined_pages)),
-      setup_pages: Maglev::SetupPages.new
-    ).call
+    Maglev::GenerateSite.call(theme: build(:theme, :predefined_pages))
   end
 
   context 'previewing a section' do

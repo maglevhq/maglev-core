@@ -102,13 +102,16 @@ const mutations = {
     state.sections[state.section.id].blocks.push(sectionBlock.id) 
     state.section = state.sections[state.section.id]
   },
-  REMOVE_SECTION_BLOCK(state, sectionBlockIndex) {
-    state.sections[state.section.id].blocks.splice(sectionBlockIndex, 1)
+  REMOVE_SECTION_BLOCK(state, sectionBlockId) {
+    const index = state.sections[state.section.id].blocks.indexOf(sectionBlockId)
+    state.sections[state.section.id].blocks.splice(index, 1)
     state.section = state.sections[state.section.id]
   },
   SORT_SECTION_BLOCKS(state, list) {
-    state.sections[state.section.id].blocks = list.map(block => block.id)
+    state.sections[state.section.id].blocks = list.map(block => block.id)    
     state.section = state.sections[state.section.id]
+    // in case we deal with a tree structure
+    list.forEach(block => state.sectionBlocks[block.id].parentId = block.parentId)
   },
   UPDATE_SECTION_BLOCK_CONTENT(state, change) {
     let updatedBlock = { ...state.sectionBlocks[state.sectionBlock.id] }
@@ -211,8 +214,8 @@ const actions = {
       null
     )
   },
-  removeSectionBlock({ commit, getters, state: { previewDocument, section } }, index) {
-    commit('REMOVE_SECTION_BLOCK', index)
+  removeSectionBlock({ commit, getters, state: { previewDocument, section } }, id) {
+    commit('REMOVE_SECTION_BLOCK', id)
     services.inlineEditing.updateSectionSetting(
       previewDocument,
       getters.content,      

@@ -70,6 +70,11 @@ FactoryBot.define do
             path: 'index',
             sections: [
               {
+                type: 'navbar',
+                settings: {},
+                blocks: []
+              },
+              {
                 type: 'jumbotron',
                 settings: {
                   "title": "Let's create the product<br/>your clients<br/>will love.",

@@ -75,10 +75,10 @@ module Maglev
       def default
         case type
         when 'text' then label
-        when 'image_picker' then '"/samples/images/default.svg"' # TODO: replace by a real image
+        when 'image_picker' then '"/maglev-placeholder.png"'
         when 'checkbox' then true
         when 'radio', 'select' then 'option_1'
-        when 'url' then '"#"'
+        when 'link' then '"#"'
         end
       end
 

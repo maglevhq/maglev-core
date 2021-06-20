@@ -34,6 +34,4 @@ blocks:
 # The title can be changed with the following property:
 blocks_label: "Menu"
 
-# By default, in the editor UI, blocks will be listed below the "Content" title.
-# The title can be changed with the following property:
-# blocks_label: "My list of items"
+blocks_presentation: "tree"

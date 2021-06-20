@@ -24,23 +24,57 @@ module Maglev
     end
 
     def blocks
-      @blocks ||= (attributes[:blocks] || []).map do |block_attributes|
-        block_definition = definition.blocks.find { |settings| settings.type == block_attributes[:type] }
-        next unless block_definition
+      return @blocks if @blocks
 
-        build(
-          BlockComponent,
-          section: self,
-          definition: block_definition,
-          attributes: block_attributes
-        )
-      end.compact
+      @blocks = if definition.blocks_presentation == 'tree'
+                  build_block_tree
+                else
+                  build_block_list
+                end
     end
 
     def render
       super(
         template: "#{templates_root_path}/sections/#{type}",
         locals: { section: self }
+      )
+    end
+
+    private
+
+    def build_block_list
+      build_blocks(attributes[:blocks])
+    end
+
+    def build_block_tree(parent_id = nil)
+      blocks = attributes[:blocks].select do |block_attributes|
+        block_attributes[:parent_id] == parent_id
+      end
+
+      build_blocks(blocks) do |block|
+        block.children = build_block_tree(block.id)
+      end
+    end
+
+    def build_blocks(blocks)
+      (blocks || []).map do |block_attributes|
+        block_definition = definition.blocks.find { |settings| settings.type == block_attributes[:type] }
+        next unless block_definition
+
+        block = build_block(block_definition, block_attributes)
+
+        yield block if block_given?
+
+        block
+      end.compact
+    end
+
+    def build_block(block_definition, block_attributes)
+      build(
+        BlockComponent,
+        section: self,
+        definition: block_definition,
+        attributes: block_attributes
       )
     end
   end

@@ -3,11 +3,9 @@
 require 'rails_helper'
 
 RSpec.describe 'Maglev::PagePreviewController', type: :request do
+  let(:theme) { build(:theme, :predefined_pages) }
   let!(:site) do
-    Maglev::GenerateSite.new(
-      fetch_theme: double('FetchTheme', call: build(:theme, :predefined_pages)),
-      setup_pages: Maglev::SetupPages.new
-    ).call
+    Maglev::GenerateSite.call(theme: theme)
   end
 
   context 'normal rendering' do
@@ -38,7 +36,7 @@ RSpec.describe 'Maglev::PagePreviewController', type: :request do
 
   context 'rendering from POST params' do
     let(:sections) do
-      Maglev::Page.first.sections.tap do |sections|
+      Maglev::Page.all[1].sections.tap do |sections|
         sections.first['settings'].first['value'] = 'UPDATED TITLE'
       end
     end
@@ -80,6 +78,31 @@ RSpec.describe 'Maglev::PagePreviewController', type: :request do
         expect(response.body)
           .to include('<li data-maglev-block-id="block-0"><h3 data-maglev-id="block-0.title">My work</h3><img src="" alt="My work" /></li>')
       end
+    end
+  end
+
+  context 'rendering a section with nested blocks (tree)' do
+    let(:navbar) { site.sections.find { |section| section['type'] == 'navbar' } }
+    let(:blocks) do
+      [
+        { id: 'block-0', type: 'menu_item', settings: [{ id: 'label', value: 'Item #0' }] },
+        { id: 'block-0-0', type: 'menu_item', parent_id: 'block-0', settings: [{ id: 'label', value: 'Item #0-0' }] },
+        { id: 'block-0-1', type: 'menu_item', parent_id: 'block-0', settings: [{ id: 'label', value: 'Item #0-1' }] },
+        { id: 'block-1', type: 'menu_item', settings: [{ id: 'label', value: 'Item #1' }] }
+      ]
+    end
+
+    before do
+      navbar['blocks'] = blocks
+      site.save
+    end
+
+    it 'displays the expected content' do
+      get '/maglev/preview'
+      expect(response.body.gsub(/\s{2,}/m, ''))
+        .to include(
+          '<ul><li>Item #0<ul><li>Item #0-0</li><li>Item #0-1</li></ul></li><li>Item #1</li></ul>'
+        )
     end
   end
 end

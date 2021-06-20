@@ -19,18 +19,24 @@ module Maglev
         definition = theme.sections.find(attributes['type'])
         next unless definition
 
-        build(
-          SectionComponent,
-          parent: self,
-          definition: definition,
-          attributes: attributes.deep_transform_keys! { |k| k.underscore.to_sym },
-          templates_root_path: "./#{theme.sections_path}"
-        )
+        build_section(definition, attributes)
       end.compact
     end
 
     def render
       sections.collect(&:render).join
+    end
+
+    private
+
+    def build_section(definition, attributes)
+      build(
+        SectionComponent,
+        parent: self,
+        definition: definition,
+        attributes: attributes.deep_transform_keys! { |k| k.underscore.to_sym },
+        templates_root_path: "./#{theme.sections_path}"
+      )
     end
   end
 end

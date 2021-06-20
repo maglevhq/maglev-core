@@ -20,5 +20,11 @@ module Maglev
       @page_sections = JSON.parse(params[:page_sections])
       render template: '/theme/layout', layout: false
     end
+
+    private
+
+    def use_engine_webpacker?
+      false
+    end
   end
 end

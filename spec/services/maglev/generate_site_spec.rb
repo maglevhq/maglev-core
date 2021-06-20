@@ -3,13 +3,9 @@
 require 'rails_helper'
 
 describe Maglev::GenerateSite do
-  let(:service) do
-    described_class.new(
-      fetch_theme: double('FetchTheme', call: build(:theme, :predefined_pages)),
-      setup_pages: Maglev::SetupPages.new
-    )
-  end
-  subject { service.call }
+  let(:theme) { build(:theme, :predefined_pages) }
+  let(:service) { described_class.new }
+  subject { service.call(theme: theme) }
 
   it 'creates a new site' do
     expect { subject }.to change(Maglev::Site, :count).by(1)

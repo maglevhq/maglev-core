@@ -3,6 +3,23 @@
 
   <nav>
     <ul>
+      <% section.blocks.each_with_index do |block| %>
+      <li>
+        <%= block.settings.label %>
+        <% if block.children? %>
+          <ul>
+            <% block.children.each do |nested_block| %>
+            <li><%= nested_block.settings.label %></li>
+            <% end %>
+          </ul>
+        <% end %>
+      </li>
+      <% end %>
+    </ul>
+  </nav>
+
+  <nav>
+    <ul>
       <% section.blocks.each_with_index do |block, index| %>
         <li <%= block.dom_data %>>
           <a href="<%= block.settings.link.href %>" <% if block.settings.link.open_new_window? %>target="_blank"<% end %>>
