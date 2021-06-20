@@ -13,6 +13,7 @@ module Maglev
   app_dir = File.expand_path('../app', __dir__)
   autoload :APIController, "#{app_dir}/controllers/maglev/api_controller"
   autoload :JSONConcern, "#{app_dir}/controllers/concerns/maglev/json_concern"
+  autoload :API, "#{app_dir}/controllers/maglev/api"
 
   ServiceContext = Struct.new(:preview_mode?, :controller, keyword_init: true)
 

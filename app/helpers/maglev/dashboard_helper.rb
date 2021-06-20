@@ -9,5 +9,9 @@ module Maglev
     def section_template_path(section)
       "<RailsRoot>/app/views/theme/sections/#{section.id}.html.erb"
     end
+
+    def screenshot_path(section)
+      services.fetch_screenshot_path.call(section: section)
+    end
   end
 end

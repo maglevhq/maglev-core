@@ -7,6 +7,8 @@ module Maglev
     class_option :category, type: :string, default: 'contents'
     class_option :settings, type: :array, default: []
 
+    hook_for :maglev_section
+
     attr_reader :theme_name, :settings, :blocks
 
     def verify_theme_exists

@@ -4,6 +4,7 @@ module Maglev
   class InstallGenerator < Rails::Generators::Base
     desc 'Install Maglev engine'
     source_root File.expand_path('templates/install', __dir__)
+    hook_for :maglev_install
 
     def setup_webpacker
       rake 'webpacker:install'

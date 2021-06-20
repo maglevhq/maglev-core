@@ -14,7 +14,7 @@ module Maglev
         @page = fetch_page
         @theme = fetch_theme
         @page_sections = fetch_page_sections
-        render template: 'theme/layout', layout: false
+        render template: fetch_theme_layout, layout: false
       end
 
       private

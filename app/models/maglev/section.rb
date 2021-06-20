@@ -18,20 +18,6 @@ module Maglev
       scope == 'site'
     end
 
-    def screenshot_path
-      "/#{theme.sections_path}/#{id}.png"
-    end
-
-    def as_json
-      {
-        id: id, theme_id: theme&.id, name: name,
-        category: category, scope: scope,
-        settings: settings, blocks: blocks,
-        blocks_label: blocks_label, blocks_presentation: blocks_presentation,
-        screenshot_path: screenshot_path
-      }.as_json
-    end
-
     ## class methods ##
     def self.build(hash)
       attributes = hash.slice('id', 'theme', 'name', 'scope', 'category', 'blocks_label', 'blocks_presentation')
@@ -46,7 +32,7 @@ module Maglev
 
     class Store
       extend Forwardable
-      def_delegators :@array, :all, :first, :last, :count, :each, :each_with_index
+      def_delegators :@array, :all, :first, :last, :count, :each, :each_with_index, :map
 
       attr_reader :array
 
