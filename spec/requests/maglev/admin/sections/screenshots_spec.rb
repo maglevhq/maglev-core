@@ -13,7 +13,7 @@ RSpec.describe 'Maglev::Sections::ScreenshotsController', type: :request do
       section_id: 'jumbotron',
       base64_image: 'data:image/png;base64,bodyofthepngfile'
     )
-    post '/maglev/sections/screenshots?id=jumbotron',
+    post '/maglev/admin/sections/jumbotron/screenshots',
          params: { screenshot: { base64_image: 'data:image/png;base64,bodyofthepngfile' } }
   end
 end

@@ -1,16 +1,13 @@
-<div class="my-3 p-3 bg-white rounded shadow-sm">
-  <h6 class="border-b-2 border-gray-200 pb-2 mb-0">
-    <%= @theme.name %>
-    &dash;
-    <small class="text-muted"><%= @theme.description %></small>  
-  </h6>
-  <% @theme.sections.each_with_index do |section, index| %>      
-    <div class="pt-3">
-      <div class="pb-3 mb-0 small <% if index < @theme.sections.count - 1 %>border-b-2 border-gray-100<% end %>">
-        <div class="flex items-center">
-          <span class="bg-gray-500 rounded-full text-white text-xs px-2 py-1 mr-3">
-            <%= section.category %>
-          </span>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-6">
+  <% sections.each_with_index do |section, index| %>
+    <div class="p-3 bg-white rounded shadow-sm">
+      <div class="pb-3 mb-0 small">
+        <div class="flex items-center border-b border-gray-200 pb-4">
+          <% if params[:category_id].blank? %>
+            <span class="bg-gray-500 rounded-full text-white text-xs px-2 py-1 mr-3">
+              <%= section.category %>
+            </span>
+          <% end %>
           <strong class="block text-gray-800 hover:underline">
             <%= link_to section.name, maglev.sections_preview_path(section.id) %>
           </strong>
@@ -24,27 +21,28 @@
         </div>
 
         <% unless section.valid? %>
-          <div class="mt-4">
+          <div class="border-b border-gray-200 py-4">
             <pre class="bg-gray-800 py-3 px-4 overflow-auto"><code class="text-white text-sm"><%= section.errors.full_messages %></code></pre>
           </div>
         <% end %>
 
-        <div class="flex mt-3">
+        <p class="ml-5 text-sm border-b border-gray-200 py-4">
+          <span class="text-black font-bold">YAML Definition:</span> <%= section_file_path(section) %>
+          <br/>
+          <span class="text-black font-bold">Template:</span> <%= section_template_path(section) %>
+        </p>
+
+        <div class="mt-3">
           <% if screenshot_path(section) %>
-            <div class="w-64">
+            <div class="w-full">
               <img src="<%= screenshot_path(section) %>" class="w-full" />
             </div>
           <% else %>
-            <div class="w-64 h-32">
+            <div class="w-full h-32">
               <div class="w-full bg-gray-200 h-full">
               </div>
             </div>
-          <% end %>
-          <p class="ml-5 text-sm">
-            <span class="text-black font-bold">YAML Definition:</span> <%= section_file_path(section) %>
-            <br/>
-            <span class="text-black font-bold">Template:</span> <%= section_template_path(section) %>
-          </p>
+          <% end %>          
         </div>
       </div>
     </div>

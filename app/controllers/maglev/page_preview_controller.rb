@@ -23,6 +23,10 @@ module Maglev
 
     private
 
+    def rendering_mode
+      params[:rendering_mode] || super
+    end
+
     def use_engine_webpacker?
       false
     end

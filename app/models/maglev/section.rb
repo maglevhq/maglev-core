@@ -32,7 +32,7 @@ module Maglev
 
     class Store
       extend Forwardable
-      def_delegators :@array, :all, :first, :last, :count, :each, :each_with_index, :map
+      def_delegators :@array, :all, :first, :last, :count, :each, :each_with_index, :map, :group_by
 
       attr_reader :array
 
@@ -42,6 +42,10 @@ module Maglev
 
       def find(id)
         @array.find { |section| section.id == id }
+      end
+
+      def grouped_by_category
+        @array.group_by(&:category)
       end
 
       def as_json(**_options)

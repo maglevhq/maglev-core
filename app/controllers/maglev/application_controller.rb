@@ -11,7 +11,7 @@ module Maglev
     def services
       @services ||= ::Maglev.services(
         context: ServiceContext.new(
-          preview_mode?: preview_mode?,
+          rendering_mode: rendering_mode,
           controller: self
         )
       )
@@ -21,8 +21,8 @@ module Maglev
       services.get_model_scopes.call[name]
     end
 
-    def preview_mode?
-      true
+    def rendering_mode
+      :live
     end
 
     def use_engine_webpacker?

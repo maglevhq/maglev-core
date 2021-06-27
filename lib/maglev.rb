@@ -15,7 +15,7 @@ module Maglev
   autoload :JSONConcern, "#{app_dir}/controllers/concerns/maglev/json_concern"
   autoload :API, "#{app_dir}/controllers/maglev/api"
 
-  ServiceContext = Struct.new(:preview_mode?, :controller, keyword_init: true)
+  ServiceContext = Struct.new(:rendering_mode, :controller, keyword_init: true)
 
   class << self
     attr_accessor :local_themes

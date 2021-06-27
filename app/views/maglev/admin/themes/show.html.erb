@@ -1,0 +1,21 @@
+<div class="flex items-center mt-8">
+  <h2>
+    <strong><%= @theme.name %></strong>
+    &dash;
+    <small class="text-muted"><%= @theme.description %></small>  
+  </h2>  
+</div>
+
+<% if @theme.sections.count == 0 %>
+  <div class="my-4">
+    <%= render 'empty' %>
+  </div>
+<% else %>
+  <div class="my-4 flex">
+    <%= render 'section_categories', theme: @theme %>
+  </div>
+
+  <div class="mb-10">
+    <%= render 'sections', sections: @theme.sections.grouped_by_category[section_category_id] %>
+  </div>
+<% end %>

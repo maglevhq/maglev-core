@@ -7,6 +7,6 @@ json.array! @pages do |page|
   json.visible page.visible
   json.seo_title page.seo_title
   json.meta_description page.meta_description
-  json.preview_url services.get_page_fullpath.call(page: page)
+  json.preview_url services.get_page_fullpath.call(page: page, preview_mode: true)
   json.section_names services.get_page_section_names.call(page: page)
 end

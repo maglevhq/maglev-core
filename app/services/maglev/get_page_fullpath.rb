@@ -8,9 +8,10 @@ module Maglev
     dependency :get_base_url
 
     argument :page
+    argument :preview_mode, default: nil
 
     def call
-      base_url = get_base_url.call
+      base_url = get_base_url.call(preview_mode: preview_mode)
 
       path = page.respond_to?(:path) ? page.path : ::Maglev::Page.where(id: page).pick(:path)
 

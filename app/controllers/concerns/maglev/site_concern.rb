@@ -5,7 +5,6 @@ module Maglev
     extend ActiveSupport::Concern
 
     included do
-      helper_method :preview_mode?
       helper_method :fetch_sections_path
     end
 
@@ -25,10 +24,6 @@ module Maglev
 
     def fetch_theme
       @fetch_theme ||= services.fetch_theme.call
-    end
-
-    def preview_mode?
-      params[:preview_mode].present?
     end
 
     def fetch_theme_layout

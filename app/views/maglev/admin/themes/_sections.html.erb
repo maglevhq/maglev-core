@@ -1,0 +1,50 @@
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-6">
+  <% sections.each_with_index do |section, index| %>
+    <div class="p-3 bg-white rounded shadow-sm">
+      <div class="pb-3 mb-0 small">
+        <div class="flex items-center border-b border-gray-200 pb-4">
+          <% if params[:category_id].blank? %>
+            <span class="bg-gray-500 rounded-full text-white text-xs px-2 py-1 mr-3">
+              <%= section.category %>
+            </span>
+          <% end %>
+          <strong class="block text-gray-800 hover:underline">
+            <%= link_to section.name, section_preview_path(section) %>
+          </strong>
+          <div class="ml-auto">
+            <% if section.valid? %>
+              <span class="bg-green-500 rounded-full text-white text-sm px-2 py-1">Valid 👍</span>
+            <% else %>
+              <span class="bg-red-500 rounded-full text-white text-sm px-2 py-1">Invalid 😞</span> 
+            <% end %>
+          </div>
+        </div>
+
+        <% unless section.valid? %>
+          <div class="border-b border-gray-200 py-4">
+            <pre class="bg-gray-800 py-3 px-4 overflow-auto"><code class="text-white text-sm"><%= section.errors.full_messages %></code></pre>
+          </div>
+        <% end %>
+
+        <p class="ml-5 text-sm border-b border-gray-200 py-4">
+          <span class="text-black font-bold">YAML Definition:</span> <%= section_file_path(section) %>
+          <br/>
+          <span class="text-black font-bold">Template:</span> <%= section_template_path(section) %>
+        </p>
+
+        <div class="mt-3">
+          <% if screenshot_path = section_screenshot_path(section) %>
+            <div class="w-full">
+              <img src="<%= screenshot_path %>" class="w-full" />
+            </div>
+          <% else %>
+            <div class="w-full h-32">
+              <div class="w-full bg-gray-200 h-full">
+              </div>
+            </div>
+          <% end %>          
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

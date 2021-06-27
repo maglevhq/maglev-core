@@ -33,7 +33,7 @@ module Maglev
     end
 
     def screenshot_filepath
-      fetch_screenshot_path.call(section: section)
+      "#{Rails.root}/public#{fetch_screenshot_path.call(section: section)}"
     end
 
     def screenshots_dir
