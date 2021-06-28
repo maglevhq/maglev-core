@@ -4,18 +4,14 @@ module Maglev
   module Admin
     module Sections
       class PreviewsController < BaseController
-        include Maglev::SiteConcern
+        include Maglev::RenderingConcern
 
         helper ::Maglev::PagePreviewHelper
 
         def show; end
 
         def iframe_show
-          @site = fetch_site
-          @page = fetch_page
-          @theme = fetch_theme
-          @page_sections = fetch_page_sections
-          render template: fetch_theme_layout, layout: false
+          render_maglev_page
         end
 
         private

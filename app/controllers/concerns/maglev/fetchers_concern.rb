@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Maglev
-  module SiteConcern
+  module FetchersConcern
     extend ActiveSupport::Concern
 
     included do
@@ -9,6 +9,13 @@ module Maglev
     end
 
     private
+
+    def fetch_page_content
+      @site = fetch_site
+      @theme = fetch_theme
+      @page = fetch_page
+      @page_sections = fetch_page_sections
+    end
 
     def fetch_site
       @fetch_site ||= services.fetch_site.call

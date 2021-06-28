@@ -5,7 +5,6 @@ module Maglev
     include Injectable
 
     dependency :fetch_theme
-    dependency :fetch_sections_path
     dependency :fetch_screenshot_path
 
     argument :section_id

@@ -2,26 +2,24 @@
 
 module Maglev
   class PagePreviewController < ApplicationController
-    include ::Maglev::SiteConcern
+    include ::Maglev::RenderingConcern
     include ::Maglev::JSONConcern
 
     def index
-      @site = fetch_site
-      @page = fetch_page
-      @theme = fetch_theme
-      @page_sections = fetch_page_sections
-      render template: fetch_theme_layout, layout: false
+      render_maglev_page
     end
 
     def create
-      @site = fetch_site
-      @page = fetch_page
-      @theme = fetch_theme
-      @page_sections = JSON.parse(params[:page_sections])
-      render template: fetch_theme_layout, layout: false
+      render_maglev_page
     end
 
     private
+
+    def fetch_page_sections
+      return super if action_name == 'index'
+
+      @fetch_page_sections ||= JSON.parse(params[:page_sections])
+    end
 
     def rendering_mode
       params[:rendering_mode] || super
