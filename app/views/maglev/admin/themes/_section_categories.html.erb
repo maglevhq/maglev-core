@@ -1,6 +1,6 @@
 <% theme.section_categories.each_with_index do |category, index| %>
   <%- selected = section_category_id == category.id %>
-  <%= link_to admin_theme_path(category_id: category.id), class: ['rounded-full text-sm px-4 py-1 mr-3 flex items-center', selected ? 'bg-purple-600 bg-opacity-25 text-purple-600' : 'bg-gray-300 text-gray-800'].compact.join(' ') do %> 
+  <%= link_to section_category_path(category), class: ['rounded-full text-sm px-4 py-1 mr-3 flex items-center', selected ? 'bg-purple-600 bg-opacity-25 text-purple-600' : 'bg-gray-300 text-gray-800'].compact.join(' ') do %> 
     <span><%= category.name %></span>
     <%= tag.span class: ['ml-2 font-bold text-xs text-white rounded-full w-4 h-4 flex items-center justify-center', selected ? 'bg-purple-600' : 'bg-gray-600'].compact.join(' ') do %>
       <%= theme.sections.grouped_by_category[category.id]&.count || 0 %>

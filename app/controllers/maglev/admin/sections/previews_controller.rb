@@ -8,7 +8,9 @@ module Maglev
 
         helper ::Maglev::PagePreviewHelper
 
-        def show; end
+        def show
+          @section = fetch_section
+        end
 
         def iframe_show
           render_maglev_page
@@ -16,9 +18,12 @@ module Maglev
 
         private
 
+        def fetch_section
+          @fetch_section ||= fetch_theme.sections.find(params[:id])
+        end
+
         def fetch_page
-          section = fetch_theme.sections.find(params[:id])
-          section_content = section.build_default_content
+          section_content = fetch_section.build_default_content
           Maglev::Page.new(
             title: 'Preview section',
             path: 'preview',

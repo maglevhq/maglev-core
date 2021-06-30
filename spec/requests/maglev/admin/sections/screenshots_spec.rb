@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Maglev::Sections::ScreenshotsController', type: :request do
+RSpec.describe 'Maglev::Admin::Sections::ScreenshotsController', type: :request do
   let(:service) { double('PersistSectionScreenshot') }
   before do
     allow(Maglev).to receive(:services).and_return(double('AppContainer', persist_section_screenshot: service))

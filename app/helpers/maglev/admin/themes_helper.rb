@@ -3,6 +3,10 @@
 module Maglev
   module Admin
     module ThemesHelper
+      def section_category_path(category)
+        admin_theme_path(category_id: category.id)
+      end
+
       def section_preview_path(section)
         admin_sections_preview_path(section.id)
       end

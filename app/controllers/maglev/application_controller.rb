@@ -10,10 +10,14 @@ module Maglev
 
     def services
       @services ||= ::Maglev.services(
-        context: ServiceContext.new(
-          rendering_mode: rendering_mode,
-          controller: self
-        )
+        context: build_service_context
+      )
+    end
+
+    def build_service_context
+      ServiceContext.new(
+        rendering_mode: rendering_mode,
+        controller: self
       )
     end
 
