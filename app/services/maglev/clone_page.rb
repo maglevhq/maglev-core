@@ -5,21 +5,22 @@ module Maglev
     include Injectable
 
     argument :page
-    argument :extra_attributes, default: {}
 
     def call
       return nil unless page.persisted?
 
-      Maglev::Page.create!(
-        extra_attributes.reverse_merge(
-          title: "#{page.title} COPY",
-          path: "#{page.path}-#{generate_clone_code(4)}",
-          sections: page.sections
-        )
-      )
+      create_page!
     end
 
     private
+
+    def create_page!
+      Maglev::Page.create!(
+        title: "#{page.title} COPY",
+        path: "#{page.path}-#{generate_clone_code(4)}",
+        sections: page.sections
+      )
+    end
 
     def generate_clone_code(number)
       charset = Array('A'..'Z') + Array('a'..'z')

@@ -25,7 +25,7 @@ Maglev::Engine.routes.draw do
     end
   end
 
-  # Editor
+  # Editor + Preview
   get 'editor/(*something)', to: 'editor#show', as: :editor
   get 'preview/(*path)', to: 'page_preview#index', defaults: { path: 'index', rendering_mode: :editor },
                          as: :site_preview

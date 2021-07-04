@@ -7,7 +7,7 @@
   <%= csp_meta_tag %>
 
   <script>
-    window.baseUrl = <%= h editor_path.to_json.html_safe %>;
+    window.baseUrl = <%= h site_editor_path.to_json.html_safe %>;
     window.apiBaseUrl = <%= h api_base_path.to_json.html_safe %>;
     window.site = <%= h render(partial: 'maglev/api/sites/show', formats: :json, locals: { site: @site }).html_safe %>;
     window.theme = <%= h render(partial: 'maglev/api/themes/show', formats: :json, locals: { theme: @theme }).html_safe %>;
