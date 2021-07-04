@@ -21,10 +21,6 @@ module Maglev
       )
     end
 
-    def model_scopes(name)
-      services.get_model_scopes.call[name]
-    end
-
     def rendering_mode
       :live
     end

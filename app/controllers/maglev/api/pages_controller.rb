@@ -48,7 +48,7 @@ module Maglev
       end
 
       def resources
-        services.get_model_scopes.call[:page]
+        ::Maglev::Page
       end
     end
   end

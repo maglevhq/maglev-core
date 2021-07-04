@@ -37,7 +37,7 @@ module Maglev
       end
 
       def resources
-        model_scopes(:asset)
+        ::Maglev::Asset
       end
     end
   end

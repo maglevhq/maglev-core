@@ -16,7 +16,6 @@ module Maglev
     dependency :fetch_sections_path,        class: Maglev::FetchSectionsPath, depends_on: :fetch_theme
     dependency :fetch_screenshot_path,      class: Maglev::FetchScreenshotPath, depends_on: :fetch_sections_path
 
-    dependency :get_model_scopes,           class: Maglev::GetModelScopes
     dependency :get_base_url,               class: Maglev::GetBaseUrl, depends_on: %i[context fetch_site]
 
     dependency :persist_section_screenshot, class: Maglev::PersistSectionScreenshot,

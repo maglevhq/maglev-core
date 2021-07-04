@@ -13,7 +13,7 @@ module Maglev
 
       Maglev::Site.transaction do
         Maglev::Site.create(name: 'Default').tap do |site|
-          setup_pages.call(site: site, theme: theme)
+          setup_pages.call(site: site, theme: theme) if site.errors.empty?
         end
       end
     end

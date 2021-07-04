@@ -6,7 +6,7 @@ module Maglev
 
     def show
       fetch_page_content
-      @home_page_id = model_scopes(:page).home.pick(:id)
+      @home_page_id = ::Maglev::Page.home.pick(:id)
       render layout: nil
     end
   end

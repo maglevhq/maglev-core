@@ -11,7 +11,6 @@ RSpec.describe 'Maglev::API::PageClonesController', type: :request do
       config.services = {
         context: double('Context', controller: double('Controller')),
         fetch_site: double('FetchSite', call: site),
-        get_model_scopes: double('GetModelScopes', call: { page: Maglev::Page }),
         clone_page: double('ClonePage', call: build(:page, id: 42, path: 'cloned-page'))
       }
     end

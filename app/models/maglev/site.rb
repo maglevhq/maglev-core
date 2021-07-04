@@ -6,6 +6,10 @@ module Maglev
     validates :name, presence: true
 
     ## methods ##
+    def api_attributes
+      %i[id name]
+    end
+
     def find_section(type)
       sections.find { |section| section['type'] == type }
     end
