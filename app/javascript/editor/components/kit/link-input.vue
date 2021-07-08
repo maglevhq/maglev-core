@@ -43,6 +43,22 @@
         <icon name="ri-close-line" />
       </button>
     </div>
+
+    <checkbox-input
+      v-model="withTextInput"
+      :label="$t(`linkInput.withNestedTextLabel`)"
+      name="withText"
+      class="mt-2"
+    />
+
+    <text-input
+      v-model="textInput"
+      :showLabel="false"
+      :placeholder="$t('linkInput.nestedTextPlaceholder')"
+      class="mt-2"
+      :class="{hidden: !withTextInput}"
+    />
+<!--    <LinkTextContent :value="value" />-->
   </div>
 </template>
 
@@ -55,7 +71,7 @@ export default {
   props: {
     label: { type: String, default: 'Label' },
     name: { type: String, default: 'image' },
-    value: { default: null },
+    value: { default: () => ({ text: '', withText: false }) },
   },
   computed: {
     isPage() {
@@ -66,6 +82,16 @@ export default {
     },
     isEmail() {
       return this.value?.linkType === 'email'
+    },
+    withTextInput: {
+      get() { return this.value.withText; },
+      set(withText) {
+        this.$emit('input', { ...this.value, withText });
+      },
+    },
+    textInput: {
+      get() { return this.value.text; },
+      set(text) { this.$emit('input', { ...this.value, text }); },
     },
   },
   methods: {
@@ -81,6 +107,8 @@ export default {
           'href',
           'email',
           'openNewWindow',
+          'withText',
+          'text',
         ),
       )
       this.closeModal()
