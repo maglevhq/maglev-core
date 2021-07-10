@@ -16,6 +16,6 @@
   </div>
 
   <div class="mb-10">
-    <%= render 'sections', sections: @theme.sections.grouped_by_category[section_category_id] %>
+    <%= render 'sections', sections: @theme.sections.grouped_by_category[section_category_id] || [] %>
   </div>
 <% end %>

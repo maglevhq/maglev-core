@@ -3,6 +3,7 @@
 module Maglev
   class Section
     include ActiveModel::Model
+    include ActiveModel::Serializers::JSON
     include ::Maglev::Section::ContentConcern
 
     ## attributes ##

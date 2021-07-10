@@ -25,6 +25,8 @@ class Maglev::Section::Block
   end
 
   def self.build_many(list)
+    return [] if list.blank?
+
     list.map { |hash| build(hash) }
   end
 end

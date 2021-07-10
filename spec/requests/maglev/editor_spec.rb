@@ -15,5 +15,6 @@ RSpec.describe 'Maglev::EditorController', type: :request do
     expect(response.body).to include('window.apiBaseUrl = "/maglev/api"')
     expect(response.body).to include('window.site = {')
     expect(response.body).to include('window.theme = {')
+    expect(response.body).to include('"nbRows":6')
   end
 end

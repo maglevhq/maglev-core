@@ -7,12 +7,17 @@
     <%= link_to theme_path, class: 'text-gray-600' do %>
       <span>&#8592; Back to the theme</span>
     <% end %>
-    <button 
-      class="bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-opacity-50 rounded text-white py-2 px-3"
-      data-action="click->screenshot#take"      
-    >
-      Take screenshot
-    </button>
+    <div class="flex">
+      <%= link_to section_iframe_preview_in_iframe_path(@section), class: 'bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-opacity-50 rounded text-white py-2 px-3 mr-6', target: '_blank' do %>
+        Open in a new tab
+      <% end %>
+      <button 
+        class="bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-opacity-50 rounded text-white py-2 px-3"
+        data-action="click->screenshot#take"      
+      >
+        Take screenshot
+      </button>
+    </div>
   </div>
   <iframe     
     src="<%= section_iframe_preview_in_iframe_path(@section) %>"
