@@ -1,13 +1,17 @@
 module.exports = {
-  future: {
-    // removeDeprecatedGapUtilities: true,
-    // purgeLayersByDefault: true,
+  purge: {
+    enabled: ['production', 'staging'].includes(process.env.NODE_ENV),
+    content: [
+      './**/*.html.erb',
+      './app/helpers/**/*.rb',
+      './app/javascript/**/*.{js,vue}',
+    ],
   },
-  purge: [],
+  darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
       colors: {
-        'editor-primary': 'rgba(var(--editor-color-primary-non-hex), var(--bg-opacity))',
+        'editor-primary': 'rgba(var(--editor-color-primary-non-hex), var(--tw-bg-opacity))',
         'gray': {
           '100': '#f5f5f5',
           '200': '#eeeeee',
@@ -42,32 +46,16 @@ module.exports = {
         '20': '5rem',
         '24': '6rem',
         '32': '8rem',
-      },  
-      opacity: {
-        '5': '0.05',
-        '10': '0.10',
-        '95': '0.95'
       },
-      boxShadow: {
-        outline: '0 0 0 2px var(--editor-color-primary)'
-      }
     },
     fontFamily: {
       'nunito': ['Nunito Sans', 'sans-serif'],
-    },    
+    }, 
   },
   variants: {
-    opacity: ['responsive', 'hover', 'focus', 'disabled'],
+    extend: {
+      opacity: ['responsive', 'hover', 'focus', 'disabled'],
+    },
   },
-  // variants: {
-  //   extend: {
-  //     opacity: [
-  //       "disabled"
-  //     ],
-  //     backgroundColor: [
-  //       "disabled"
-  //     ],
-  //   }
-  // },
   plugins: [],
 }

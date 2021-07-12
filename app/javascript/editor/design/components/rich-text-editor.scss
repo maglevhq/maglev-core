@@ -14,7 +14,7 @@
     @apply py-2 px-3 rounded bg-gray-100 text-gray-900;
 
     &:focus {
-      @apply outline-none shadow-outline;
+      @apply outline-none focus:ring;
     }
 
     overflow-wrap: break-word;

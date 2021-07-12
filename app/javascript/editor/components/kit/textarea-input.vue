@@ -8,7 +8,7 @@
       :value="value"
       @blur="blur()"
       @input="updateInput" 
-      class="block w-full mt-1 py-2 px-3 rounded bg-gray-100 text-gray-800 focus:outline-none focus:shadow-outline" 
+      class="block w-full mt-1 py-2 px-3 rounded bg-gray-100 text-gray-800 focus:outline-none focus:ring" 
       autocomplete="off"
       ref="input"
     />

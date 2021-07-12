@@ -15,19 +15,19 @@
     >
       <transition name="slide-fade" mode="out-in" v-on:after-leave="afterAnimationDone">        
         <div class="absolute top-0 left-0 mt-2 ml-2 flex" v-if="hoveredSection">
-          <div class="bg-editor-primary text-white py-1 px-3 rounded-l-2xl text-xs">
-            {{ hoveredSection.name }}
+          <div class="bg-editor-primary text-white py-1 px-3 rounded-l-2xl text-xs flex items-center">
+            <span>{{ hoveredSection.name }}</span>
           </div>
           <button 
             type="button"
-            class="bg-editor-primary py-1 px-1 pointer-events-auto border-solid border-white border-opacity-25 border-0 border-l-2 border-opacity-80  text-white text-opacity-75 hover:text-opacity-100"
+            class="bg-editor-primary py-1 px-1 pointer-events-auto border-solid border-white border-opacity-25 border-0 border-l text-white text-opacity-75 hover:text-opacity-100"
             @click="moveHoveredSection('up')"
           >
             <icon name="arrow-up-s-line" />
           </button>
           <button 
             type="button"
-            class="bg-editor-primary py-1 pl-1 pr-2 pointer-events-auto border-solid border-white border-opacity-25 border-0 border-l-2 rounded-r-2xl text-white text-opacity-75 hover:text-opacity-100"
+            class="bg-editor-primary py-1 pl-1 pr-2 pointer-events-auto border-solid border-white border-opacity-25 border-0 border-l rounded-r-2xl text-white text-opacity-75 hover:text-opacity-100"
             @click="moveHoveredSection('down')"
           >
             <icon name="arrow-down-s-line" />

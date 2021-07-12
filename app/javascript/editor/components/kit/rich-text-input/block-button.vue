@@ -2,7 +2,7 @@
   <dropdown placement="left" ref="dropdown">
     <template v-slot:button>
       <button
-        class="rounded-sm px-2 py-2 bg-gray-100 hover:bg-gray-200 flex items-center focus:outline-none focus:shadow-outline"
+        class="rounded-sm px-2 py-2 bg-gray-100 hover:bg-gray-200 flex items-center focus:outline-none focus:ring"
       >
         <icon 
           :name="iconName"

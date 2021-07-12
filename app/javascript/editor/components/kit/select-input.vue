@@ -36,7 +36,7 @@
       >
         <div class="px-3 pt-1 pb-3" v-if="searchEnabled">
           <input 
-            class="block mt-1 px-3 py-1 w-full border rounded border-gray-300 bg-gray-100 placeholder-gray-500 focus:outline-none focus:shadow-outline"
+            class="block mt-1 px-3 py-1 w-full border rounded border-gray-300 bg-gray-100 placeholder-gray-500 focus:ring focus:ring"
             type="text"
             v-model="q"
             :placeholder="searchPlaceholder"            

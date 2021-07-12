@@ -16,7 +16,7 @@
       :placeholder="placeholder"
       @blur="blur()"
       @input="updateInput" 
-      class="block w-full mt-1 py-2 px-3 rounded bg-gray-100 text-gray-800 focus:outline-none focus:shadow-outline placeholder-gray-500"       
+      class="block w-full mt-1 py-2 px-3 rounded bg-gray-100 text-gray-800 focus:outline-none focus:ring placeholder-gray-500"       
       autocomplete="off"
       ref="input"
     />

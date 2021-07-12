@@ -1,7 +1,7 @@
 <template>
   <form 
     @submit.stop.prevent="search"
-    class="flex items-center py-2 px-4 rounded bg-gray-100 text-gray-800 focus:outline-none focus:shadow-outline"
+    class="flex items-center py-2 px-4 rounded bg-gray-100 text-gray-800 focus:outline-none focus:ring"
   >
     <button class="mr-2" type="submit">
       <icon name="search-line" class="text-gray-500" />
