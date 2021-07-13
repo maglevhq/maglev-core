@@ -251,7 +251,8 @@ export const updateSectionSetting = (
   }
 
   switch (change.settingType) {
-    case 'text': {
+    case 'text':
+    case 'link':
       const source = sectionBlock || section
       const foundSetting = updateSectionTextSetting(
         previewDocument,
