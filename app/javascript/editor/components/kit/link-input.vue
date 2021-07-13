@@ -56,9 +56,10 @@
       :showLabel="false"
       :placeholder="$t('linkInput.nestedTextPlaceholder')"
       class="mt-2"
-      :class="{hidden: !withTextInput}"
+      :class="{ hidden: !withTextInput }"
     />
-<!--    <LinkTextContent :value="value" />-->
+
+    <!--    <LinkTextContent :value="value" />-->
   </div>
 </template>
 
@@ -84,14 +85,20 @@ export default {
       return this.value?.linkType === 'email'
     },
     withTextInput: {
-      get() { return this.value.withText; },
+      get() {
+        return this.value.withText
+      },
       set(withText) {
-        this.$emit('input', { ...this.value, withText });
+        this.$emit('input', { ...this.value, withText })
       },
     },
     textInput: {
-      get() { return this.value.text; },
-      set(text) { this.$emit('input', { ...this.value, text }); },
+      get() {
+        return this.value.text
+      },
+      set(text) {
+        this.$emit('input', { ...this.value, text })
+      },
     },
   },
   methods: {

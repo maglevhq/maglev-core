@@ -15,3 +15,5 @@ public/maglev-packs
 public/packs-test/
 coverage/
 .idea/
+.env
+podman.sh

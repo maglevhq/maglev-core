@@ -12,7 +12,7 @@ module Maglev
       end
 
       def with_text?
-        !!(link[:with_text].presence || setting.options[:with_text])
+        !!(!link[:with_text].nil? ? link[:with_text] : setting.options[:with_text])
       end
 
       def open_new_window?

@@ -17,6 +17,9 @@
 default: &default
   adapter: postgresql
   encoding: unicode
+  host: localhost
+  username: <%= ENV.fetch('MAGLEV_APP_DATABASE_USERNAME') { 'maglev_app' } %>
+  password: <%= ENV.fetch('MAGLEV_APP_DATABASE_PASSWORD') { 'maglev_app' } %>
   # For details on connection pooling, see Rails configuration guide
   # https://guides.rubyonrails.org/configuring.html#database-pooling
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
