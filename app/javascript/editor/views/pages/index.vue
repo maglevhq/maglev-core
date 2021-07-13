@@ -8,7 +8,10 @@
         <page-list :q="q" class="h-full mt-4" ref="list" />
       </div>
       <div class="pt-4">
-        <button @click="openNewPageModal" class="big-submit-button">
+        <button
+          @click="openNewPageModal"
+          class="big-submit-button bg-editor-primary"
+        >
           {{ $t('page.list.newButton') }}
         </button>
       </div>

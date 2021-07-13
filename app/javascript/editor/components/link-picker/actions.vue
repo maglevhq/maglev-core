@@ -1,7 +1,7 @@
 <template>
   <div class="mt-10 flex flex-col">
     <button
-      class="big-submit-button"
+      class="big-submit-button bg-editor-primary"
       type="button"
       :disabled="disabled"
       @click="$emit('select', link)"
