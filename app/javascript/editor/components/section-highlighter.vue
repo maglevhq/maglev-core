@@ -271,9 +271,9 @@ export default {
     performStyle(boundingRect) {
       return {
         top: `${boundingRect.top * this.previewScaleRatio}px`,
-        left: `${this.previewLeftPadding}px`,
+        left: `calc(50% - ${boundingRect.width}px / 2)`,
         height: `${boundingRect.height * this.previewScaleRatio}px`,
-        width: `calc(100% - ${this.previewLeftPadding}px)`,
+        width: `${boundingRect.width}px`,
       }
     },
     remove() {
