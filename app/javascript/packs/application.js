@@ -3,10 +3,10 @@
 // a relevant structure within app/javascript and only use these pack files to reference
 // that code so it'll be compiled.
 
-import 'style/application';
+import 'style/application'
 
-console.log('Maglev ADMIN loaded');
+console.log('Maglev ADMIN loaded')
 
-const images = require.context('../images', true)
+require.context('../images', true)
 
-import "controllers"
+import 'controllers'

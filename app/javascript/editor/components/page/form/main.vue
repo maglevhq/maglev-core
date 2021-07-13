@@ -1,14 +1,14 @@
 <template>
   <div class="mt-2 grid grid-cols-1 gap-4">
-    <text-input 
-      :label="$t(`page.form.title`)" 
+    <text-input
+      :label="$t(`page.form.title`)"
       name="title"
       v-model="titleInput"
       :error="errors.title"
     />
 
-    <text-input 
-      :label="$t(`page.form.path`)" 
+    <text-input
+      :label="$t(`page.form.path`)"
       name="path"
       v-model="pathInput"
       :error="errors.path"
@@ -16,12 +16,12 @@
     />
 
     <checkbox-input
-      :label="$t(`page.form.visible`)" 
+      :label="$t(`page.form.visible`)"
       :placeholder="$t(`page.form.visiblePlaceholder`)"
       name="visible"
       v-model="visibleInput"
     />
-  </div>  
+  </div>
 </template>
 
 <script>
@@ -36,17 +36,29 @@ export default {
       return this.services.page.isIndex(this.page)
     },
     titleInput: {
-      get() { return this.page.title },
-      set(title) { this.$emit('on-change', { title }) }
+      get() {
+        return this.page.title
+      },
+      set(title) {
+        this.$emit('on-change', { title })
+      },
     },
     pathInput: {
-      get() { return this.page.path },
-      set(path) { this.$emit('on-change', { path }) }
+      get() {
+        return this.page.path
+      },
+      set(path) {
+        this.$emit('on-change', { path })
+      },
     },
     visibleInput: {
-      get() { return this.page.visible },
-      set(visible) { this.$emit('on-change', { visible }) }
-    }
-  }
+      get() {
+        return this.page.visible
+      },
+      set(visible) {
+        this.$emit('on-change', { visible })
+      },
+    },
+  },
 }
 </script>

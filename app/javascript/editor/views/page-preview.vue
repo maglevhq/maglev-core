@@ -1,33 +1,35 @@
 <template>
   <div class="relative w-full h-full overflow-y-hidden">
-    <div 
+    <div
       class="relative w-full h-full origin-top-left transition-all duration-100"
-      :style="dynamicStyle"    
+      :style="dynamicStyle"
     >
-      <div 
-        class="flex h-full w-full justify-center items-center" 
-        :style="{ 'padding-left': `${loadingPaddingLeft}`}"
+      <div
+        class="flex h-full w-full justify-center items-center"
+        :style="{ 'padding-left': `${loadingPaddingLeft}` }"
         v-if="!previewReady"
       >
-        <p class="animate-bounce duration-200">{{ $t('pagePreview.loading') }}</p>
+        <p class="animate-bounce duration-200">
+          {{ $t('pagePreview.loading') }}
+        </p>
       </div>
       <div class="absolute inset-0 flex justify-center" v-if="currentPage">
-        <div 
+        <div
           class="device transition-all duration-100 ease-in-out"
           :class="deviceClass"
-          :style="{ opacity: previewReady ? 1 : 0 }" 
+          :style="{ opacity: previewReady ? 1 : 0 }"
         >
-          <iframe 
-            class="w-full h-full"                     
-            :src="currentPage.previewUrl" 
+          <iframe
+            class="w-full h-full"
+            :src="currentPage.previewUrl"
             @load="onIframeLoaded"
             ref="iframe"
-          >        
+          >
           </iframe>
         </div>
       </div>
     </div>
-    <section-highlighter :hovered-section="hoveredSection" /> 
+    <section-highlighter :hovered-section="hoveredSection" />
   </div>
 </template>
 
@@ -41,20 +43,22 @@ export default {
   components: { SectionHighlighter },
   mixins: [TransformationMixin],
   props: {
-    pageId: { type: String, default: null }
-  }, 
-  data() { 
+    pageId: { type: String, default: null },
+  },
+  data() {
     return { loadingPaddingLeft: 0, previewScrollTop: 0 }
   },
   mounted() {
-    this.loadingPaddingLeft = `${this.calculatePreviewLeftPadding()}px`    
-  },  
-  computed: {  
+    this.loadingPaddingLeft = `${this.calculatePreviewLeftPadding()}px`
+  },
+  computed: {
     ...mapState(['hoveredSection']),
     deviceClass() {
       switch (this.device) {
-        case 'mobile': return 'mobile'
-        case 'tablet': return 'tablet'
+        case 'mobile':
+          return 'mobile'
+        case 'tablet':
+          return 'tablet'
         default:
           return 'desktop'
       }
@@ -68,25 +72,24 @@ export default {
           style += `width: ${this.previewPaneMaxWidth}px`
 
         return style
-      } else
-        return ''
-    },    
+      } else return ''
+    },
   },
   methods: {
     onIframeLoaded() {
-      this.setPreviewDocument(this.$refs['iframe'].contentDocument)      
-    },    
+      this.setPreviewDocument(this.$refs['iframe'].contentDocument)
+    },
   },
   watch: {
     pageId: {
       immediate: true,
       handler(newPageId, oldPageId) {
         if (newPageId !== oldPageId && newPageId) {
-          setTimeout(() => this.fetchPage(newPageId), 1000)          
+          setTimeout(() => this.fetchPage(newPageId), 1000)
         }
-      }
-    },    
-  }
+      },
+    },
+  },
 }
 </script>
 

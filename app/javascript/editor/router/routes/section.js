@@ -3,7 +3,7 @@ import ContentPane from '@/views/content-pane'
 import SectionAddPane from '@/views/sections/add-pane'
 import SectionListPane from '@/views/sections/list-pane'
 
-export default [  
+export default [
   {
     path: 'add-section',
     name: 'addSection',
@@ -11,9 +11,9 @@ export default [
       default: PagePreview,
       'slide-pane': SectionAddPane,
     },
-    props: { 
+    props: {
       'slide-pane': true,
-      default: true 
+      default: true,
     },
   },
   {
@@ -23,9 +23,9 @@ export default [
       default: PagePreview,
       'slide-pane': SectionListPane,
     },
-    props: { 
+    props: {
       'slide-pane': true,
-      default: true 
+      default: true,
     },
   },
   {
@@ -34,10 +34,10 @@ export default [
     components: {
       default: PagePreview,
       'slide-pane': ContentPane,
-    },    
-    props: { 
+    },
+    props: {
       'slide-pane': true,
-      default: true 
+      default: true,
     },
     meta: { hidingSidebar: true },
     children: [
@@ -47,9 +47,9 @@ export default [
         components: {
           default: PagePreview,
           'slide-pane': ContentPane,
-        },                         
+        },
         meta: { hidingSidebar: true },
       },
-    ]
+    ],
   },
 ]

@@ -1,17 +1,17 @@
 import PagePreview from '@/views/page-preview'
 import ContentPane from '@/views/content-pane'
 
-export default [  
+export default [
   {
     path: 'sectionBlock/:sectionBlockId',
     name: 'editSectionBlock',
     components: {
       default: PagePreview,
       'slide-pane': ContentPane,
-    },    
-    props: { 
+    },
+    props: {
       'slide-pane': true,
-      default: true 
+      default: true,
     },
     meta: { hidingSidebar: true },
     children: [
@@ -21,9 +21,9 @@ export default [
         components: {
           default: PagePreview,
           'slide-pane': ContentPane,
-        },                         
+        },
         meta: { hidingSidebar: true },
       },
-    ]
+    ],
   },
 ]

@@ -1,33 +1,79 @@
 <template>
-  <div 
-    class="h-48 absolute pointer-events-none transition duration-200 ease-in-out"
-    :style="style"    
+  <div
+    class="
+      h-48
+      absolute
+      pointer-events-none
+      transition
+      duration-200
+      ease-in-out
+    "
+    :style="style"
     v-if="previewReady"
   >
-    <div 
-      class="w-full h-full relative mx-auto border-solid border-0 border-t-4 border-b-4"
+    <div
+      class="
+        w-full
+        h-full
+        relative
+        mx-auto
+        border-solid border-0 border-t-4 border-b-4
+      "
       :class="{
-        'tablet': hasEnoughWidthForTablet,
-        'mobile': hasEnoughWidthForMobile,        
+        tablet: hasEnoughWidthForTablet,
+        mobile: hasEnoughWidthForMobile,
         'border-transparent': !hoveredSection,
         'border-editor-primary': hoveredSection,
       }"
     >
-      <transition name="slide-fade" mode="out-in" v-on:after-leave="afterAnimationDone">        
+      <transition
+        name="slide-fade"
+        mode="out-in"
+        v-on:after-leave="afterAnimationDone"
+      >
         <div class="absolute top-0 left-0 mt-2 ml-2 flex" v-if="hoveredSection">
-          <div class="bg-editor-primary text-white py-1 px-3 rounded-l-2xl text-xs flex items-center">
+          <div
+            class="
+              bg-editor-primary
+              text-white
+              py-1
+              px-3
+              rounded-l-2xl
+              text-xs
+              flex
+              items-center
+            "
+          >
             <span>{{ hoveredSection.name }}</span>
           </div>
-          <button 
+          <button
             type="button"
-            class="bg-editor-primary py-1 px-1 pointer-events-auto border-solid border-white border-opacity-25 border-0 border-l text-white text-opacity-75 hover:text-opacity-100"
+            class="
+              bg-editor-primary
+              py-1
+              px-1
+              pointer-events-auto
+              border-solid border-white border-opacity-25 border-0 border-l
+              text-white text-opacity-75
+              hover:text-opacity-100
+            "
             @click="moveHoveredSection('up')"
           >
             <icon name="arrow-up-s-line" />
           </button>
-          <button 
+          <button
             type="button"
-            class="bg-editor-primary py-1 pl-1 pr-2 pointer-events-auto border-solid border-white border-opacity-25 border-0 border-l rounded-r-2xl text-white text-opacity-75 hover:text-opacity-100"
+            class="
+              bg-editor-primary
+              py-1
+              pl-1
+              pr-2
+              pointer-events-auto
+              border-solid border-white border-opacity-25 border-0 border-l
+              rounded-r-2xl
+              text-white text-opacity-75
+              hover:text-opacity-100
+            "
             @click="moveHoveredSection('down')"
           >
             <icon name="arrow-down-s-line" />
@@ -35,60 +81,131 @@
         </div>
       </transition>
 
-      <transition name="reverse-slide-fade" mode="out-in">        
-        <div class="absolute top-0 right-0 mt-2 mr-2 flex" v-if="hoveredSection">      
-          <router-link 
-            :to="{ name: 'editSection', params: { sectionId: hoveredSection.sectionId } }" 
-            custom v-slot="{ navigate }"
+      <transition name="reverse-slide-fade" mode="out-in">
+        <div
+          class="absolute top-0 right-0 mt-2 mr-2 flex"
+          v-if="hoveredSection"
+        >
+          <router-link
+            :to="{
+              name: 'editSection',
+              params: { sectionId: hoveredSection.sectionId },
+            }"
+            custom
+            v-slot="{ navigate }"
             v-if="hasSettings"
           >
-            <button 
-              type="button" 
-              @click="navigate" 
+            <button
+              type="button"
+              @click="navigate"
               @keypress.enter="navigate"
-              class="bg-white rounded-full shadow-xl h-8 w-8 flex items-center justify-center text-gray-700 hover:text-black pointer-events-auto"            
+              class="
+                bg-white
+                rounded-full
+                shadow-xl
+                h-8
+                w-8
+                flex
+                items-center
+                justify-center
+                text-gray-700
+                hover:text-black
+                pointer-events-auto
+              "
             >
               <icon name="ri-pencil-line" />
             </button>
           </router-link>
 
-          <router-link 
-            :to="{ name: 'editSection', params: { sectionId: hoveredSection.sectionId }, hash: '#blocks' }" 
-            custom v-slot="{ navigate }"
+          <router-link
+            :to="{
+              name: 'editSection',
+              params: { sectionId: hoveredSection.sectionId },
+              hash: '#blocks',
+            }"
+            custom
+            v-slot="{ navigate }"
             v-if="hasBlocks"
           >
-            <button 
-              type="button" 
-              @click="navigate" 
+            <button
+              type="button"
+              @click="navigate"
               @keypress.enter="navigate"
-              class="ml-2 bg-white rounded-full shadow-xl h-8 w-8 flex items-center justify-center text-gray-700 hover:text-black pointer-events-auto"            
+              class="
+                ml-2
+                bg-white
+                rounded-full
+                shadow-xl
+                h-8
+                w-8
+                flex
+                items-center
+                justify-center
+                text-gray-700
+                hover:text-black
+                pointer-events-auto
+              "
             >
               <icon name="ri-play-list-add-line" />
             </button>
           </router-link>
 
-          <router-link 
-            :to="{ name: 'editSection', params: { sectionId: hoveredSection.sectionId }, hash: '#advanced' }" 
-            custom v-slot="{ navigate }"
+          <router-link
+            :to="{
+              name: 'editSection',
+              params: { sectionId: hoveredSection.sectionId },
+              hash: '#advanced',
+            }"
+            custom
+            v-slot="{ navigate }"
             v-if="hasAdvancedSettings"
           >
-            <button 
-              type="button" 
-              @click="navigate" 
+            <button
+              type="button"
+              @click="navigate"
               @keypress.enter="navigate"
-              class="ml-2 bg-white rounded-full shadow-xl h-8 w-8 flex items-center justify-center text-gray-700 hover:text-black pointer-events-auto"
+              class="
+                ml-2
+                bg-white
+                rounded-full
+                shadow-xl
+                h-8
+                w-8
+                flex
+                items-center
+                justify-center
+                text-gray-700
+                hover:text-black
+                pointer-events-auto
+              "
             >
               <icon name="ri-settings-5-line" />
             </button>
           </router-link>
 
-          <confirmation-button class="ml-2 pointer-events-auto" @confirm="remove">
-            <div class="bg-white rounded-full shadow-xl h-8 w-8 flex items-center justify-center text-gray-700 hover:text-black">
+          <confirmation-button
+            class="ml-2 pointer-events-auto"
+            @confirm="remove"
+          >
+            <div
+              class="
+                bg-white
+                rounded-full
+                shadow-xl
+                h-8
+                w-8
+                flex
+                items-center
+                justify-center
+                text-gray-700
+                hover:text-black
+              "
+            >
               <icon name="delete-bin-line" />
             </div>
-          </confirmation-button>        
-        </div> 
-      </transition>   
+          </confirmation-button>
+        </div>
+      </transition>
     </div>
   </div>
 </template>
@@ -101,7 +218,7 @@ export default {
   name: 'SectionHighlighter',
   mixins: [TransformationMixin],
   props: {
-    hoveredSection: { type: Object },     
+    hoveredSection: { type: Object },
   },
   data() {
     return { shadow: null }
@@ -120,7 +237,7 @@ export default {
       const { el } = this.hoveredSection || this.shadow
       const rect = el.getBoundingClientRect()
       return this.performStyle(rect)
-    },    
+    },
     hasSettings() {
       const { definition } = this.hoveredSection
       return !this.isBlank(this.services.section.getSettings(definition, false))
@@ -130,7 +247,9 @@ export default {
       return !this.isBlank(this.services.section.getSettings(definition, true))
     },
     hasBlocks() {
-      const { definition: { blocks } } = this.hoveredSection
+      const {
+        definition: { blocks },
+      } = this.hoveredSection
       return !this.isBlank(blocks)
     },
   },
@@ -143,7 +262,9 @@ export default {
       let self = this
       window.requestAnimationFrame(() => {
         const newStyle = this.performStyle(event.detail.boundingRect)
-        Object.entries(newStyle).forEach(([key, value]) => self.$el.style[key] = value)        
+        Object.entries(newStyle).forEach(
+          ([key, value]) => (self.$el.style[key] = value),
+        )
         self.previewDocument.ticking = false
       })
     },
@@ -157,20 +278,23 @@ export default {
     },
     remove() {
       const sectionId = this.hoveredSection.sectionId
-      this.leaveSection()      
-      if (this.currentSection && this.currentSection.id === this.hoveredSection.sectionId)
+      this.leaveSection()
+      if (
+        this.currentSection &&
+        this.currentSection.id === this.hoveredSection.sectionId
+      )
         this.$router.push({ name: 'editPage' })
       // waiting for the animation to finish
-      setTimeout(() => this.removeSection(sectionId), 200)      
-    }
+      setTimeout(() => this.removeSection(sectionId), 200)
+    },
   },
-  watch: {    
+  watch: {
     hoveredSection(value, oldValue) {
       if (!value) {
-        this.shadow = { ...oldValue }       
-      }    
-    }
-  }
+        this.shadow = { ...oldValue }
+      }
+    },
+  },
 }
 </script>
 

@@ -1,22 +1,38 @@
 <template>
   <div>
-    <label class="block font-semibold text-gray-800" :for="name" v-if="showLabel">
+    <label
+      class="block font-semibold text-gray-800"
+      :for="name"
+      v-if="showLabel"
+    >
       <span>{{ label }}</span>
       <transition name="fade">
-        <span 
-          class="text-red-700 bg-red-100 text-xs ml-4 py-1 px-3 rounded" 
-          v-if="showError">{{ error[0] }}
+        <span
+          class="text-red-700 bg-red-100 text-xs ml-4 py-1 px-3 rounded"
+          v-if="showError"
+          >{{ error[0] }}
         </span>
       </transition>
     </label>
-    <input 
+    <input
       :id="name"
-      type="text" 
+      type="text"
       :value="value"
       :placeholder="placeholder"
       @blur="blur()"
-      @input="updateInput" 
-      class="block w-full mt-1 py-2 px-3 rounded bg-gray-100 text-gray-800 focus:outline-none focus:ring placeholder-gray-500"       
+      @input="updateInput"
+      class="
+        block
+        w-full
+        mt-1
+        py-2
+        px-3
+        rounded
+        bg-gray-100
+        text-gray-800
+        focus:outline-none focus:ring
+        placeholder-gray-500
+      "
       autocomplete="off"
       ref="input"
     />
@@ -36,7 +52,7 @@ export default {
     placeholder: { type: String, default: null },
     showLabel: { type: Boolean, default: true },
     error: { type: Array, default: null },
-  },  
+  },
   data() {
     return { showError: false }
   },
@@ -46,14 +62,13 @@ export default {
       this.$emit('input', event.target.value)
     },
     focus() {
-      this.$refs.input.focus()      
-    }
+      this.$refs.input.focus()
+    },
   },
   watch: {
     error() {
-      if (!this.isBlank(this.error)) 
-        this.showError = true 
-    }
-  }
+      if (!this.isBlank(this.error)) this.showError = true
+    },
+  },
 }
 </script>

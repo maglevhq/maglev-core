@@ -1,5 +1,3 @@
-import Vue from 'vue'
-
 export default {
   props: {
     isFocused: { type: Boolean, default: false },
@@ -15,8 +13,8 @@ export default {
       handler(newValue, oldValue) {
         if (newValue && !oldValue) {
           this.$nextTick(() => this.focus())
-        }                          
-      }
-    }
-  }
+        }
+      },
+    },
+  },
 }

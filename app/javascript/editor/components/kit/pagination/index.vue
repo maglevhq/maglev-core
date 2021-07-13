@@ -3,7 +3,7 @@
     <div class="text-sm">
       <span v-if="totalItems > 0">
         {{ $t(labelI18nKey, { start, end, totalItems }) }}
-      </span>      
+      </span>
       <span v-else>
         {{ $t(noItemsI18nKey) }}
       </span>
@@ -11,20 +11,30 @@
     <div class="flex items-center" v-if="visible">
       <page-button :page="activePage - 1" @click="change" class="mr-1">
         <icon name="arrow-drop-left" />
-      </page-button>      
+      </page-button>
 
-      <page-button :page="1" :activePage="activePage" @click="change" class="mr-1" />
+      <page-button
+        :page="1"
+        :activePage="activePage"
+        @click="change"
+        class="mr-1"
+      />
 
       <page-button
         v-for="(page, index) in pages"
         :key="`page-${index}`"
         :page="page"
-        :activePage="activePage"        
+        :activePage="activePage"
         @click="change"
         class="mr-1"
       />
-      
-      <page-button :page="totalPages" :activePage="activePage" @click="change" class="mr-1"  />
+
+      <page-button
+        :page="totalPages"
+        :activePage="activePage"
+        @click="change"
+        class="mr-1"
+      />
 
       <page-button :page="activePage + 1" @click="change">
         <icon name="arrow-drop-right" />
@@ -53,32 +63,32 @@ export default {
       return this.totalItems > this.perPage
     },
     start() {
-      return ((this.activePage - 1) * this.perPage) + 1
+      return (this.activePage - 1) * this.perPage + 1
     },
     end() {
       let end = this.activePage * this.perPage
       return end > this.totalItems - 1 ? this.totalItems : end
     },
-    totalPages () {
-      return this.perPage === 0 ? 0 : Math.ceil(this.totalItems / this.perPage)          
+    totalPages() {
+      return this.perPage === 0 ? 0 : Math.ceil(this.totalItems / this.perPage)
     },
-    pages () {
+    pages() {
       let filteredPages = this.filteredPages
-      return filteredPages ?
-        [
-          filteredPages[0] - 1 === 2 ? 2 : '...',
-          ...filteredPages,
-          filteredPages[filteredPages.length - 1] === this.totalPages - 2 ? this.totalPages - 1 : '...',
-        ] :
-        [
-          ...Array(this.totalPages - 2).keys(),
-        ].map(page => page + 2)
+      return filteredPages
+        ? [
+            filteredPages[0] - 1 === 2 ? 2 : '...',
+            ...filteredPages,
+            filteredPages[filteredPages.length - 1] === this.totalPages - 2
+              ? this.totalPages - 1
+              : '...',
+          ]
+        : [...Array(this.totalPages - 2).keys()].map((page) => page + 2)
     },
-    filteredPages () {
+    filteredPages() {
       let diff = this.maxVisiblePages / 2
-      let toFilterPages = [
-        ...Array(this.totalPages).keys(),
-      ].map(page => page + 1).slice(2, -2)
+      let toFilterPages = [...Array(this.totalPages).keys()]
+        .map((page) => page + 1)
+        .slice(2, -2)
       if (toFilterPages.length > this.maxVisiblePages) {
         let diffFirst = this.activePage - toFilterPages[0]
         let diffLast = this.activePage - toFilterPages[toFilterPages.length - 1]
@@ -87,20 +97,20 @@ export default {
         } else if (diffLast >= -diff) {
           return toFilterPages.slice(-this.maxVisiblePages)
         } else {
-          return toFilterPages.filter(page => {
+          return toFilterPages.filter((page) => {
             let diffPage = this.activePage - page
             return diffPage < 0 ? Math.abs(diffPage) <= diff : diffPage < diff
           })
         }
       }
       return null
-    },   
-  },  
+    },
+  },
   methods: {
     change(page) {
       if (page < 1 || page > this.totalPages || page === '...') return
       this.$emit('change', page)
-    }
+    },
   },
 }
 </script>

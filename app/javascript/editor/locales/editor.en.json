@@ -1,4 +1,4 @@
-{  
+{
   "headerNav": {
     "pages": "Pages:",
     "pageSettings": "Page settings",
@@ -28,10 +28,6 @@
     },
     "new": {
       "title": "Create a new page",
-      "tabs": {
-        "main": "Main",
-        "seo": "SEO"
-      },
       "submitButton": {
         "default": "Create page",
         "inProgress": "Creating...",
@@ -42,10 +38,8 @@
     },
     "edit": {
       "title": "Editing a page",
-      "currentTitle": "Editing the current page",
-      "tabs": {
-        "main": "Main",
-        "seo": "SEO"
+      "currentPage": {
+        "title": "Editing the current page"
       },
       "submitButton": {
         "default": "Update page",
@@ -56,12 +50,16 @@
       "cancelButton": "Cancel"
     },
     "form": {
+      "tabs": {
+        "main": "Main",
+        "seo": "SEO"
+      },
       "title": "Title",
       "path": "Path",
       "visible": "Visible",
       "visiblePlaceholder": "Show/Hide the page",
       "seoTitle": "Meta title",
-      "metaDescription": "Meta description"   
+      "metaDescription": "Meta description"
     }
   },
   "sections": {
@@ -71,7 +69,7 @@
     "listPane": {
       "title": "Organize sections"
     }
-  },  
+  },
   "sectionPane": {
     "tabs": {
       "settings": "Content",
@@ -88,7 +86,10 @@
       "settings": "Content",
       "blocks": "Blocks",
       "advanced": "Advanced"
-    }    
+    }
+  },
+  "themeSectionList": {
+    "emptyCategory": "No sections"
   },
   "imageInput": {
     "addButton": "Add image",
@@ -102,7 +103,7 @@
     "none": "No images uploaded yet",
     "searchPlaceholder": "Search for a filename",
     "pagination": {
-      "label": "%{start} - %{end} of %{totalItems} images",    
+      "label": "%{start} - %{end} of %{totalItems} images",
       "noItems": "No images"
     },
     "destroy": {
@@ -160,7 +161,7 @@
       "cancelButton": "Cancel",
       "newWindowInput": {
         "label": "Open in new window"
-      } 
+      }
     }
   },
   "pagination": {
@@ -183,9 +184,9 @@
           },
           "kb": "KB",
           "mb": "MB",
-          "gb": "GB" 
-        }   
-      }      
+          "gb": "GB"
+        }
+      }
     }
   }
 }

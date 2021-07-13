@@ -11,73 +11,81 @@ const addEventListener = (target, type, listener, capture) => {
   target.addEventListener(type, listener, capture)
 }
 
-const removeEventListeners = () => {
-  listeners.forEach(({ target, type, listener }) => {
-    target.removeEventListener(type, listener)
-  })
-}
+// const removeEventListeners = () => {
+//   listeners.forEach(({ target, type, listener }) => {
+//     target.removeEventListener(type, listener)
+//   })
+// }
 
-const getElementType = el => {
+const getElementType = (el) => {
   return el.dataset.maglevSectionId ? 'section' : 'setting'
 }
 
 const listen = (previewDocument, eventType, handler) => {
-  const capture = eventType === 'mouseenter' || eventType === 'mouseleave'  
-  addEventListener(previewDocument.body, eventType, event => {    
-    if (event.target === previewDocument) return
-    
-    let sectionElement = event.target.closest('[data-maglev-section-id]')
-    let settingElement = event.target.closest('[data-maglev-id]')
-    let el = settingElement || sectionElement 
+  const capture = eventType === 'mouseenter' || eventType === 'mouseleave'
+  addEventListener(
+    previewDocument.body,
+    eventType,
+    (event) => {
+      if (event.target === previewDocument) return
 
-    // not related to maglev element, no need to continue
-    if (!el) return
+      let sectionElement = event.target.closest('[data-maglev-section-id]')
+      let settingElement = event.target.closest('[data-maglev-id]')
+      let el = settingElement || sectionElement
 
-    if (eventType === 'mouseleave') {
-      if (settingElement) {
-        if (settingElement != event.target) return
-      } else {        
-        if (sectionElement != event.target) return
-        // special case: hovering the section-highlighter component from the parent document
-        const rect = sectionElement.getBoundingClientRect()  
-        const scrollX = previewDocument.defaultView.scrollX
-        const scrollY = previewDocument.defaultView.scrollY
-        if (
-          (event.pageX > (rect.left + scrollX)) && 
-          (event.pageX < (rect.right + scrollX)) && 
-          (event.pageY > (rect.top + scrollY)) && 
-          (event.pageY < (rect.bottom + scrollY))
-        ) return        
+      // not related to maglev element, no need to continue
+      if (!el) return
+
+      if (eventType === 'mouseleave') {
+        if (settingElement) {
+          if (settingElement != event.target) return
+        } else {
+          if (sectionElement != event.target) return
+          // special case: hovering the section-highlighter component from the parent document
+          const rect = sectionElement.getBoundingClientRect()
+          const scrollX = previewDocument.defaultView.scrollX
+          const scrollY = previewDocument.defaultView.scrollY
+          if (
+            event.pageX > rect.left + scrollX &&
+            event.pageX < rect.right + scrollX &&
+            event.pageY > rect.top + scrollY &&
+            event.pageY < rect.bottom + scrollY
+          )
+            return
+        }
       }
-    }
 
-    handler(el, getElementType(el), event)
-  }, capture)
+      handler(el, getElementType(el), event)
+    },
+    capture,
+  )
 }
 
 const listenScrolling = (previewDocument) => {
   let mouseX = 0
   let mouseY = 0
-  
-  addEventListener(previewDocument, 'mousemove', e => {
+
+  addEventListener(previewDocument, 'mousemove', (e) => {
     mouseX = e.clientX
     mouseY = e.clientY
   })
-  
-  addEventListener(previewDocument, 'scroll', e => {
-    const el = previewDocument.elementFromPoint(mouseX, mouseY).closest('[data-maglev-section-id]')
-    
+
+  addEventListener(previewDocument, 'scroll', () => {
+    const el = previewDocument
+      .elementFromPoint(mouseX, mouseY)
+      .closest('[data-maglev-section-id]')
+
     if (!previewDocument.ticking && el) {
       previewDocument.ticking = true
-      const event = new CustomEvent('maglev:preview:scroll', { 
+      const event = new CustomEvent('maglev:preview:scroll', {
         detail: { boundingRect: el.getBoundingClientRect() },
       })
-      window.dispatchEvent(event)     
+      window.dispatchEvent(event)
     }
   })
 }
 
-const onSectionHovered = el => {
+const onSectionHovered = (el) => {
   // console.log('onSectionHovered', el.dataset.maglevSectionId)
   const sectionId = el.dataset.maglevSectionId
   if (hoveredSectionId !== sectionId) {
@@ -86,13 +94,13 @@ const onSectionHovered = el => {
   }
 }
 
-const onSectionLeft = el => {
+const onSectionLeft = () => {
   // console.log('onSectionLeft')
   store.dispatch('leaveSection')
   hoveredSectionId = null
 }
 
-const onSettingHovered = el => {
+const onSettingHovered = (el) => {
   if (!el) return null
   el.style.outline = '2px solid transparent'
   el.style.outlineOffset = '2px'
@@ -100,12 +108,12 @@ const onSettingHovered = el => {
   if (!el.style.borderRadius) el.style.borderRadius = '2px'
 }
 
-const onSettingLeft = el => {
+const onSettingLeft = (el) => {
   el.style.boxShadow = 'none'
 }
 
 const onSettingClicked = (el, event) => {
-  const fragments = el.dataset.maglevId.split('.')  
+  const fragments = el.dataset.maglevId.split('.')
   console.log('select', el.dataset.maglevId, fragments, router)
 
   event.stopPropagation() & event.preventDefault()
@@ -122,62 +130,66 @@ const onSettingClicked = (el, event) => {
     route.params.sectionBlockId = fragments[0]
   } else {
     route.name = 'editSectionSetting'
-    route.params.sectionId = fragments[0]    
+    route.params.sectionId = fragments[0]
   }
 
-  router.push(route).catch(err => {
-    if (err.name !== 'NavigationDuplicated') throw(err);      
+  router.push(route).catch((err) => {
+    if (err.name !== 'NavigationDuplicated') throw err
   })
 }
 
-const setupEvents = previewDocument => {
+const setupEvents = (previewDocument) => {
   // mousescroll
   listenScrolling(previewDocument)
-  
+
   // mouseenter
   listen(previewDocument, 'mouseenter', (el, type) => {
-    switch(type) {
-      case 'section': return onSectionHovered(el)
-      case 'setting': return onSettingHovered(el)
+    switch (type) {
+      case 'section':
+        return onSectionHovered(el)
+      case 'setting':
+        return onSettingHovered(el)
       default:
-        break;
-    }    
+        break
+    }
   })
 
   // mouseleave
-  listen(previewDocument, 'mouseleave', (el, type) => { 
-    switch(type) {
-      case 'section': return onSectionLeft(el)
-      case 'setting': return onSettingLeft(el)
+  listen(previewDocument, 'mouseleave', (el, type) => {
+    switch (type) {
+      case 'section':
+        return onSectionLeft(el)
+      case 'setting':
+        return onSettingLeft(el)
       default:
-        break;
-    }    
+        break
+    }
   })
 
   // click
-  listen(previewDocument, 'click', (el, type, event) => { 
-    switch(type) {
-      case 'setting': return onSettingClicked(el, event)
+  listen(previewDocument, 'click', (el, type, event) => {
+    switch (type) {
+      case 'setting':
+        return onSettingClicked(el, event)
       default:
-        break;
-    }           
-  })  
+        break
+    }
+  })
 }
 
-export const setup = previewDocument => {
+export const setup = (previewDocument) => {
   previewDocument.head.insertAdjacentHTML(
     'beforeend',
-    '<style type="text/css">:root { --maglev-editor-outline-color: #7e6edb; }</style>'
+    '<style type="text/css">:root { --maglev-editor-outline-color: #7e6edb; }</style>',
   )
   setupEvents(previewDocument)
 }
 
-
 const updatePreviewDocument = (previewDocument, content, section) => {
-  console.log('refreshPreviewDocument', content)  
+  console.log('refreshPreviewDocument', content)
 
   const attributes = {
-    pageSections: JSON.stringify(content.pageSections)
+    pageSections: JSON.stringify(content.pageSections),
   }
 
   axios.post(previewDocument.location.href, attributes).then(({ data }) => {
@@ -188,20 +200,22 @@ const updatePreviewDocument = (previewDocument, content, section) => {
     // removeEventListeners()
     // previewDocument.querySelector('body').replaceWith(doc.querySelector('body'))
     // setupEvents(previewDocument)
-    
+
     const selector = `[data-maglev-section-id='${section.id}']`
     const sourceElement = doc.querySelector(selector)
     let targetElement = previewDocument.querySelector(selector)
 
     if (!sourceElement)
-      throw new Error(`Maglev section ${section.id} not generated by the server`)
+      throw new Error(
+        `Maglev section ${section.id} not generated by the server`,
+      )
 
     if (targetElement) {
       targetElement.replaceWith(sourceElement)
     } else {
       const parentNode = previewDocument.querySelector('[data-maglev-dropzone]')
       parentNode.appendChild(sourceElement)
-      targetElement = previewDocument.querySelector(selector)      
+      targetElement = previewDocument.querySelector(selector)
     }
     targetElement.scrollIntoView(true)
   })
@@ -215,14 +229,20 @@ const updateSectionTextSetting = (previewDocument, section, change) => {
 
   console.log('updateSectionTextSetting', settings, settings.length)
 
-  settings.forEach($el => {
+  settings.forEach(($el) => {
     $el.innerHTML = change.value
-  })  
+  })
 
   return settings.length > 0
-} 
+}
 
-export const updateSectionSetting = (previewDocument, content, section, sectionBlock, change) => {
+export const updateSectionSetting = (
+  previewDocument,
+  content,
+  section,
+  sectionBlock,
+  change,
+) => {
   console.log('updateSectionSetting', change)
 
   if (!change) {
@@ -231,21 +251,30 @@ export const updateSectionSetting = (previewDocument, content, section, sectionB
   }
 
   switch (change.settingType) {
-    case 'text': 
+    case 'text': {
       const source = sectionBlock || section
-      const foundSetting = updateSectionTextSetting(previewDocument, source, change)      
+      const foundSetting = updateSectionTextSetting(
+        previewDocument,
+        source,
+        change,
+      )
 
-      if (!foundSetting) 
+      if (!foundSetting)
         debouncedUpdatePreviewDocument(previewDocument, content, section)
 
-      break;     
+      break
+    }
     case 'image_picker':
     case 'checkbox':
       debouncedUpdatePreviewDocument(previewDocument, content, section)
-      break; 
+      break
     default:
-      console.log('inlineEditing.updateSectionSetting', 'unknown type', change.settingType)
-      break;
+      console.log(
+        'inlineEditing.updateSectionSetting',
+        'unknown type',
+        change.settingType,
+      )
+      break
   }
 }
 
@@ -255,20 +284,35 @@ export const addSection = (previewDocument, content, section) => {
 
 export const removeSection = (previewDocument, sectionId) => {
   const selector = `[data-maglev-section-id='${sectionId}']`
-  let element = previewDocument.querySelector(selector)    
+  let element = previewDocument.querySelector(selector)
   element.remove()
 }
 
-export const updateMoveSection = (previewDocument, sectionId, targetSectionId, direction) => {
+export const updateMoveSection = (
+  previewDocument,
+  sectionId,
+  targetSectionId,
+  direction,
+) => {
   console.log('updateMoveSection', sectionId, targetSectionId, direction)
 
-  const sectionElement = previewDocument.querySelector(`[data-maglev-section-id='${sectionId}']`)
-  const targetSectionElement = previewDocument.querySelector(`[data-maglev-section-id='${targetSectionId}']`)
+  const sectionElement = previewDocument.querySelector(
+    `[data-maglev-section-id='${sectionId}']`,
+  )
+  const targetSectionElement = previewDocument.querySelector(
+    `[data-maglev-section-id='${targetSectionId}']`,
+  )
 
   if (direction === 'up')
-    targetSectionElement.parentNode.insertBefore(sectionElement, targetSectionElement)    
+    targetSectionElement.parentNode.insertBefore(
+      sectionElement,
+      targetSectionElement,
+    )
   else
-    targetSectionElement.parentNode.insertBefore(sectionElement, targetSectionElement.nextSibling) 
+    targetSectionElement.parentNode.insertBefore(
+      sectionElement,
+      targetSectionElement.nextSibling,
+    )
 
   // scroll to the new placement of the section
   sectionElement.scrollIntoView(true)

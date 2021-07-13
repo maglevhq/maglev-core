@@ -1,16 +1,16 @@
 <template>
-  <div class="flex">    
+  <div class="flex">
     <editor-menu-button
-      iconName="format-link" 
+      iconName="format-link"
       class="rounded-l-sm"
-      @click="openLinkPickerModal" 
-    /> 
+      @click="openLinkPickerModal"
+    />
     <editor-menu-button
-      iconName="format-link-unlink" 
+      iconName="format-link-unlink"
       :isActive="isActive.link()"
       class="rounded-r-sm"
-      @click="unLink" 
-    />     
+      @click="unLink"
+    />
   </div>
 </template>
 
@@ -20,27 +20,27 @@ import LinkPicker from '@/components/link-picker'
 
 export default {
   name: 'EditorLinkButtons',
-  components: { EditorMenuButton, LinkPicker },
+  components: { EditorMenuButton },
   props: {
     editor: { type: Object, required: true },
-    commands: { type: Object, required: true },    
+    commands: { type: Object, required: true },
     isActive: { type: Object, required: true },
   },
   computed: {
     currentLink() {
-      return this.isActive.link() ? { ...this.editor.getMarkAttrs('link') } : {};
+      return this.isActive.link() ? { ...this.editor.getMarkAttrs('link') } : {}
     },
   },
   methods: {
     isSelectionEmpty() {
-      const { view } = this.editor;
-      const { selection } = view.state;
-      return selection.empty && !this.isActive.link();
+      const { view } = this.editor
+      const { selection } = view.state
+      return selection.empty && !this.isActive.link()
     },
     setLink(link) {
       var { linkType, linkId, sectionId, href, openNewWindow } = link
-      this.commands.link({ 
-        href, 
+      this.commands.link({
+        href,
         target: openNewWindow ? '_blank' : '',
         linkType,
         linkId,
@@ -59,33 +59,33 @@ export default {
     },
     sanitizeLink() {
       let link = {
-        linkType: this.guessLinkType(), 
-        linkId: this.currentLink.linkId, 
+        linkType: this.guessLinkType(),
+        linkId: this.currentLink.linkId,
         sectionId: this.currentLink.sectionId,
-        href: this.currentLink.href, 
-        openNewWindow: this.currentLink.target === '_blank'         
+        href: this.currentLink.href,
+        openNewWindow: this.currentLink.target === '_blank',
       }
 
       if (link.linkType === 'email') {
-        const matching = (/^mailto:(.*)$/g).exec(link.href)
+        const matching = /^mailto:(.*)$/g.exec(link.href)
         link.email = matching && matching[1] ? matching[1] : null
       }
 
       return link
     },
-    openLinkPickerModal() { 
+    openLinkPickerModal() {
       this.openModal({
-        title: this.$t('linkPicker.insertTitle'), 
+        title: this.$t('linkPicker.insertTitle'),
         component: LinkPicker,
         props: { currentLink: this.sanitizeLink(), mode: 'insert' },
         listeners: {
-          select: link => this.setLink(link)
-        }
+          select: (link) => this.setLink(link),
+        },
       })
-    },    
+    },
     unLink() {
       this.commands.link({})
-    }
-  }
+    },
+  },
 }
 </script>

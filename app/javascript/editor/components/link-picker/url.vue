@@ -1,9 +1,9 @@
 <template>
   <div>
-    <text-input 
+    <text-input
       :label="$t(`linkPicker.url.input.label`)"
       name="href"
-      v-model="hrefInput"      
+      v-model="hrefInput"
     />
 
     <checkbox-input
@@ -11,7 +11,7 @@
       name="openNewWindow"
       class="mt-6"
       v-model="openNewWindowInput"
-    />    
+    />
   </div>
 </template>
 
@@ -20,16 +20,24 @@ export default {
   name: 'LinkUrlPicker',
   props: {
     currentLink: { type: Object, default: undefined },
-  }, 
+  },
   computed: {
     hrefInput: {
-      get() { return this.currentLink.href },
-      set(href) { this.$emit('change', { ...this.currentLink, href }) }
+      get() {
+        return this.currentLink.href
+      },
+      set(href) {
+        this.$emit('change', { ...this.currentLink, href })
+      },
     },
     openNewWindowInput: {
-      get() { return this.currentLink.openNewWindow },
-      set(openNewWindow) { this.$emit('change', { ...this.currentLink, openNewWindow }) }
-    }
-  },  
+      get() {
+        return this.currentLink.openNewWindow
+      },
+      set(openNewWindow) {
+        this.$emit('change', { ...this.currentLink, openNewWindow })
+      },
+    },
+  },
 }
 </script>

@@ -7,26 +7,17 @@
   >
     <span v-if="isDefaultState" data-button-label>{{ defaultLabel }}</span>
 
-    <span
-      v-if="isInProgressState"
-      class="flex items-center justify-center"
-    >
+    <span v-if="isInProgressState" class="flex items-center justify-center">
       <icon icon="circle-notch" name="ri-loader-4-line" spin color="#fff" />
       <span class="ml-2" data-button-label>{{ inProgressLabel }}</span>
     </span>
 
-    <span
-      v-if="isSuccessState"
-      class="flex items-center justify-center"
-    >
+    <span v-if="isSuccessState" class="flex items-center justify-center">
       <icon icon="circle-notch" name="check-line" color="#fff" />
       <span class="ml-3" data-button-label>{{ successLabel }}</span>
     </span>
 
-    <span
-      v-if="isFailState"
-      class="flex items-center justify-center"
-    >
+    <span v-if="isFailState" class="flex items-center justify-center">
       <icon icon="circle-notch" name="ri-alert-line" color="#fff" />
       <span class="ml-3" data-button-label>{{ failLabel }}</span>
     </span>
@@ -39,11 +30,11 @@ export default {
   props: {
     type: {
       type: String,
-      default: 'submit'
+      default: 'submit',
     },
     disabled: {
       type: Boolean,
-      default: false
+      default: false,
     },
     labels: {
       type: Object,
@@ -55,73 +46,72 @@ export default {
     },
     defaultColorClass: {
       type: String,
-      default: 'bg-gray-700'
-    },    
+      default: 'bg-gray-700',
+    },
   },
   data() {
     return {
       internalButtonState: 'default',
       timeout: undefined,
-    };
+    }
   },
   computed: {
     isDefaultState() {
-      return this.internalButtonState === 'default';
+      return this.internalButtonState === 'default'
     },
     defaultLabel() {
-      return this.labels?.default || 'Submit';
+      return this.labels?.default || 'Submit'
     },
     isInProgressState() {
-      return this.internalButtonState === 'inProgress';
+      return this.internalButtonState === 'inProgress'
     },
     inProgressLabel() {
-      return this.labels?.inProgress || 'Loading';
+      return this.labels?.inProgress || 'Loading'
     },
     isSuccessState() {
-      return this.internalButtonState === 'success';
+      return this.internalButtonState === 'success'
     },
     successLabel() {
-      return this.labels?.success || 'Success!';
+      return this.labels?.success || 'Success!'
     },
     isFailState() {
-      return this.internalButtonState === 'fail';
+      return this.internalButtonState === 'fail'
     },
     failLabel() {
-      return this.labels?.fail || 'Failure!';
+      return this.labels?.fail || 'Failure!'
     },
     buttonClass() {
       switch (this.internalButtonState) {
         case 'default':
-          return this.defaultColorClass;
+          return this.defaultColorClass
         case 'inProgress':
-          return `${this.defaultColorClass} bg-opacity-75`;
+          return `${this.defaultColorClass} bg-opacity-75`
         case 'success':
-          return 'bg-green-500';
+          return 'bg-green-500'
         case 'fail':
-          return 'bg-red-600';
+          return 'bg-red-600'
       }
-      return '';
+      return ''
     },
   },
   methods: {
     click() {
-      if (this.type === 'button' && this.isDefaultState) 
-        this.$emit('click');
-    }
+      if (this.type === 'button' && this.isDefaultState) this.$emit('click')
+    },
   },
   watch: {
     buttonState: {
       immediate: true,
       handler(newValue) {
-        this.internalButtonState = newValue;
+        this.internalButtonState = newValue
         if (newValue === 'success' || newValue === 'fail') {
-          if (this.timeout) clearTimeout(this.timeout);
+          if (this.timeout) clearTimeout(this.timeout)
           this.timeout = setTimeout(() => {
-            this.internalButtonState = 'default';
-          }, 3000);
+            this.internalButtonState = 'default'
+          }, 3000)
         }
       },
     },
   },
-};
+}
 </script>

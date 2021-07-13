@@ -1,40 +1,48 @@
 <template>
   <div>
-    <label class="block font-semibold text-gray-800" :for="name" @click="focus()">
+    <label
+      class="block font-semibold text-gray-800"
+      :for="name"
+      @click="focus()"
+    >
       {{ label }}
     </label>
     <div class="mt-1">
       <editor-menu-bar :editor="editor" v-slot="{ commands, isActive }">
         <div class="flex">
-          <editor-block-button 
-            :commands="commands" 
+          <editor-block-button
+            :commands="commands"
             :isActive="isActive"
             class="mr-1"
             v-if="!lineBreak"
           />
 
-          <editor-format-buttons 
-            :commands="commands" 
-            :isActive="isActive" 
+          <editor-format-buttons
+            :commands="commands"
+            :isActive="isActive"
             class="mr-1"
-          /> 
+          />
 
-          <editor-list-buttons 
-            :commands="commands" 
-            :isActive="isActive" 
+          <editor-list-buttons
+            :commands="commands"
+            :isActive="isActive"
             class="mr-1"
             v-if="!lineBreak"
-          />   
+          />
 
           <editor-link-buttons
-            :editor="editor" 
-            :commands="commands" 
-            :isActive="isActive"             
-          />                         
+            :editor="editor"
+            :commands="commands"
+            :isActive="isActive"
+          />
         </div>
       </editor-menu-bar>
       <div ref="editorWrapper">
-        <editor-content :editor="editor" class="rich-text-editor mt-2" :data-rows="rows" />
+        <editor-content
+          :editor="editor"
+          class="rich-text-editor mt-2"
+          :data-rows="rows"
+        />
       </div>
     </div>
   </div>
@@ -48,14 +56,10 @@ import {
   CodeBlock,
   HardBreak,
   Heading,
-  HorizontalRule,
   OrderedList,
   BulletList,
   ListItem,
-  TodoItem,
-  TodoList,
   Bold,
-  Code,
   Italic,
   Strike,
   Underline,
@@ -72,14 +76,21 @@ import EditorLinkButtons from './rich-text-input/link-buttons.vue'
 export default {
   name: 'RichTextInput',
   mixins: [FocusedInputMixin],
-  components: { EditorContent, EditorMenuBar, EditorBlockButton, EditorFormatButtons, EditorListButtons, EditorLinkButtons },  
+  components: {
+    EditorContent,
+    EditorMenuBar,
+    EditorBlockButton,
+    EditorFormatButtons,
+    EditorListButtons,
+    EditorLinkButtons,
+  },
   props: {
     label: { type: String, default: 'Label' },
     name: { type: String, default: 'text' },
     value: { type: String },
     lineBreak: { type: Boolean, default: false },
     rows: { type: Number, default: 2 },
-  },  
+  },
   data() {
     return { editor: null }
   },
@@ -90,11 +101,13 @@ export default {
       content: this.value,
       onUpdate: ({ getHTML }) => {
         let content = getHTML()
-        content = this.lineBreak ? this.getHTMLWithinParagraph(content) : content
+        content = this.lineBreak
+          ? this.getHTMLWithinParagraph(content)
+          : content
         this.$emit('input', content)
       },
-      onBlur: () => this.blur(),      
-    })    
+      onBlur: () => this.blur(),
+    })
   },
   beforeDestroy() {
     // insert a empty div in place of the editor content component
@@ -105,53 +118,51 @@ export default {
     div.style.height = `${rect.height}px`
     div.style.width = '100%'
     this.$refs.editorWrapper.appendChild(div)
-    
+
     // clean stuff
     this.editor.destroy()
   },
   methods: {
-    focus() {     
-      this.editor.focus('end')  
-       // NOTE: if lineBreak is true, focus('end') will throw an exception 
-      // when pressing the ENTER key. 
-      if (this.lineBreak) {    
+    focus() {
+      this.editor.focus('end')
+      // NOTE: if lineBreak is true, focus('end') will throw an exception
+      // when pressing the ENTER key.
+      if (this.lineBreak) {
         const { from, to } = this.editor.resolveSelection('end')
-        this.editor.setSelection(from - 1, to - 1)    
+        this.editor.setSelection(from - 1, to - 1)
       }
     },
     getHTMLWithinParagraph(content) {
-      return content.replace(/<\/?p>/g, '')      
+      return content.replace(/<\/?p>/g, '')
     },
     buildDefaultExtensions() {
       return [
         new Bold(),
         new Italic(),
         new Underline(),
-        new Strike(),                       
+        new Strike(),
         new Link({ openOnClick: false, target: null }),
-        new History()
+        new History(),
       ]
     },
     buildExtensions() {
-     if (this.lineBreak) {
-        return [].concat([
-            new Doc(),
-            new Text(),
-            new Paragraph(),
-            new LineBreak()
-          ], this.buildDefaultExtensions())        
+      if (this.lineBreak) {
+        return [].concat(
+          [new Doc(), new Text(), new Paragraph(), new LineBreak()],
+          this.buildDefaultExtensions(),
+        )
       } else {
         return [].concat(this.buildDefaultExtensions(), [
-          new HardBreak(), 
+          new HardBreak(),
           new Heading({ levels: [2, 3] }),
           new Blockquote(),
           new CodeBlock(),
           new BulletList(),
           new ListItem(),
-          new OrderedList(),        
+          new OrderedList(),
         ])
       }
-    }
+    },
   },
 }
 </script>

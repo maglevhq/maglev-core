@@ -1,15 +1,15 @@
 <template>
   <div>
-    <dynamic-input 
+    <dynamic-input
       v-for="(setting, index) in settings"
       :key="[parentKey, setting.id].join()"
-      :class="{ 'mt-4': index !== 0 }"      
+      :class="{ 'mt-4': index !== 0 }"
       :setting="setting"
       :content="content"
       :isFocused="focusedSetting === setting.id"
       @blur="$emit('blur')"
       @change="onChange"
-    />    
+    />
   </div>
 </template>
 
@@ -25,10 +25,10 @@ export default {
     content: { type: Array, default: () => [] },
     focusedSetting: { type: String, default: undefined },
   },
-  methods: {    
+  methods: {
     onChange(change) {
       this.$emit('change', change)
-    },    
-  },  
+    },
+  },
 }
 </script>

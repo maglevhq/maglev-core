@@ -15,6 +15,6 @@ import ThemeSectionList from '@/components/theme-section-list'
 
 export default {
   name: 'SectionListPane',
-  components: { Layout, ThemeSectionList },  
+  components: { Layout, ThemeSectionList },
 }
 </script>

@@ -1,14 +1,14 @@
 <template>
   <div>
     <Tree :value="treeData" @change="change" v-if="treeData">
-      <div slot-scope="{node, index}">
+      <div slot-scope="{ node, index }">
         <list-item
           :sectionBlock="node.sectionBlock"
           :key="node.sectionBlock.id"
           :index="index"
           @on-dropdown-toggle="onDropdownToggle"
           class="mb-3"
-        />    
+        />
       </div>
     </Tree>
 
@@ -35,7 +35,9 @@ export default {
   methods: {
     ...mapActions(['sortSectionBlocks']),
     change() {
-      const list = this.services.block.decodeTree(getPureTreeData(this.treeData))
+      const list = this.services.block.decodeTree(
+        getPureTreeData(this.treeData),
+      )
       this.sortSectionBlocks(list)
     },
   },
@@ -43,11 +45,11 @@ export default {
     currentSectionBlocks: {
       immediate: true,
       handler() {
-        this.treeData = cloneTreeData(this.services.block.encodeToTree(this.currentSectionBlocks))
-      }
-    }
-  }
+        this.treeData = cloneTreeData(
+          this.services.block.encodeToTree(this.currentSectionBlocks),
+        )
+      },
+    },
+  },
 }
 </script>
-
-

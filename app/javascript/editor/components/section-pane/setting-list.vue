@@ -1,13 +1,13 @@
 <template>
-  <dynamic-form 
+  <dynamic-form
     class="mt-2"
     :parentKey="currentSection.id"
-    :settings="sectionSettings" 
+    :settings="sectionSettings"
     :content="currentSectionContent"
     :focusedSetting="settingId"
     @blur="onBlur"
     @change="updateSectionContent"
-  />  
+  />
 </template>
 
 <script>
@@ -24,15 +24,19 @@ export default {
   },
   computed: {
     sectionSettings() {
-      return this.advanced ? this.currentSectionAdvancedSettings : this.currentSectionSettings      
-    }
+      return this.advanced
+        ? this.currentSectionAdvancedSettings
+        : this.currentSectionSettings
+    },
   },
   methods: {
     ...mapActions(['updateSectionContent']),
     onBlur() {
-      this.$router.push({ name: 'editSection', params: { sectionId: this.sectionId } }).catch(err => {
-        if (err.name !== 'NavigationDuplicated') throw(err)     
-      })
+      this.$router
+        .push({ name: 'editSection', params: { sectionId: this.sectionId } })
+        .catch((err) => {
+          if (err.name !== 'NavigationDuplicated') throw err
+        })
     },
   },
 }

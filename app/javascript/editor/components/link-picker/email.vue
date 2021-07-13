@@ -1,10 +1,10 @@
 <template>
   <div>
-    <text-input 
+    <text-input
       :label="$t(`linkPicker.email.input.label`)"
       name="email"
-      v-model="emailInput"      
-    />    
+      v-model="emailInput"
+    />
   </div>
 </template>
 
@@ -13,12 +13,20 @@ export default {
   name: 'LinkEmailPicker',
   props: {
     currentLink: { type: Object, default: undefined },
-  }, 
+  },
   computed: {
     emailInput: {
-      get() { return this.currentLink.email },
-      set(email) { this.$emit('change', { ...this.currentLink, email, href: `mailto:${email}` }) }
-    }
-  }
+      get() {
+        return this.currentLink.email
+      },
+      set(email) {
+        this.$emit('change', {
+          ...this.currentLink,
+          email,
+          href: `mailto:${email}`,
+        })
+      },
+    },
+  },
 }
 </script>

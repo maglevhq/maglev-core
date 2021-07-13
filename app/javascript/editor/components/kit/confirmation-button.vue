@@ -1,5 +1,10 @@
 <template>
-  <dropdown :placement="placement" :dropup="dropup" v-on="$listeners" ref="dropdown">
+  <dropdown
+    :placement="placement"
+    :dropup="dropup"
+    v-on="$listeners"
+    ref="dropdown"
+  >
     <template v-slot:button>
       <slot></slot>
     </template>
@@ -9,22 +14,34 @@
           {{ text || $t('confirmationButton.text') }}
         </p>
         <div class="mt-1 flex flex-col">
-          <button 
+          <button
             class="bg-red-600 rounded-sm text-white py-2 px-4"
             @click.stop="confirm"
           >
-            {{ confirmButtonLabel || $t('confirmationButton.confirmButtonLabel') }}
+            {{
+              confirmButtonLabel || $t('confirmationButton.confirmButtonLabel')
+            }}
           </button>
           <button
-            class="block w-full text-gray-800 py-2 hover:bg-gray-100 transition-colors duration-200"
+            class="
+              block
+              w-full
+              text-gray-800
+              py-2
+              hover:bg-gray-100
+              transition-colors
+              duration-200
+            "
             @click.stop="cancel"
-          >                    
-            {{ cancelButtonLabel || $t('confirmationButton.cancelButtonLabel') }}
+          >
+            {{
+              cancelButtonLabel || $t('confirmationButton.cancelButtonLabel')
+            }}
           </button>
         </div>
       </div>
     </template>
-  </dropdown>      
+  </dropdown>
 </template>
 
 <script>
@@ -51,7 +68,7 @@ export default {
     },
     close() {
       this.$refs.dropdown.close()
-    }
-  }
+    },
+  },
 }
 </script>

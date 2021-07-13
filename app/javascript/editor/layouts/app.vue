@@ -3,7 +3,7 @@
     <template v-slot:header>
       <header-nav />
     </template>
-    
+
     <template v-slot:sidebar>
       <sidebar-nav />
     </template>
@@ -13,7 +13,7 @@
         <router-view name="slide-pane" />
       </transition>
     </template>
-    
+
     <router-view />
   </layout>
 </template>
@@ -25,6 +25,6 @@ import SidebarNav from '@/components/sidebar-nav'
 
 export default {
   name: 'AppLayout',
-  components: { Layout, HeaderNav, SidebarNav }
+  components: { Layout, HeaderNav, SidebarNav },
 }
 </script>

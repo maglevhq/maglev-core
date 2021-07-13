@@ -36,4 +36,3 @@ Vue.component('checkbox-input', CheckboxInput)
 Vue.component('search-input', SearchInput)
 Vue.component('pagination', Pagination)
 Vue.component('page-icon', PageIcon)
-

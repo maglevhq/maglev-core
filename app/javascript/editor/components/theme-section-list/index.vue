@@ -2,8 +2,8 @@
   <div>
     <accordion
       v-for="(category, index) in categories"
-      :key="index"  
-      headerClass="px-3 py-3 mb-3 bg-editor-primary text-white rounded-sm"    
+      :key="index"
+      headerClass="px-3 py-3 mb-3 bg-editor-primary text-white rounded-sm"
     >
       <div slot="header" class="flex items-center">
         <div class="capitalize-first">{{ category.name }}</div>
@@ -11,11 +11,20 @@
           {{ category.children.length }}
         </div>
       </div>
-      <list-item
-        v-for="section in category.children"
-        :key="section.id"        
-        :section="section"
-      />        
+      <div class="pt-1">
+        <list-item
+          v-for="section in category.children"
+          :key="section.id"
+          :section="section"
+        />
+
+        <div
+          class="text-center pt-2 pb-6"
+          v-if="category.children.length === 0"
+        >
+          {{ $t('themeSectionList.emptyCategory') }}
+        </div>
+      </div>
     </accordion>
   </div>
 </template>
@@ -26,13 +35,13 @@ import ListItem from './list-item'
 export default {
   name: 'ThemeSectionList',
   components: { ListItem },
-  data() {    
+  data() {
     return { activeCategory: null }
   },
   computed: {
     categories() {
       return this.services.theme.buildCategories(this.currentTheme)
-    },         
-  },  
+    },
+  },
 }
 </script>

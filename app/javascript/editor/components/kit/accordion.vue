@@ -1,18 +1,32 @@
 <template>
   <div>
-    <div class="flex items-center cursor-pointer select-none" :class="headerClass" @click="toggle">
+    <div
+      class="flex items-center cursor-pointer select-none"
+      :class="headerClass"
+      @click="toggle"
+    >
       <slot name="header">HINT</slot>
       <button class="ml-auto">
-        <icon name="arrow-up-s-line" size="1.5rem" class="ml-auto" v-if="show" />
+        <icon
+          name="arrow-up-s-line"
+          size="1.5rem"
+          class="ml-auto"
+          v-if="show"
+        />
         <icon name="arrow-down-s-line" size="1.5rem" class="ml-auto" v-else />
       </button>
     </div>
-    <transition 
+    <transition
       name="accordion"
-      v-on:before-enter="beforeEnter" v-on:enter="enter"
-      v-on:before-leave="beforeLeave" v-on:leave="leave"
+      v-on:before-enter="beforeEnter"
+      v-on:enter="enter"
+      v-on:before-leave="beforeLeave"
+      v-on:leave="leave"
     >
-      <div class="overflow-hidden transition-all duration-150 select-none" v-show="show">
+      <div
+        class="overflow-hidden transition-all duration-150 select-none"
+        v-show="show"
+      >
         <slot></slot>
       </div>
     </transition>
@@ -43,7 +57,7 @@ export default {
     },
     leave(el) {
       el.style.height = '0'
-    }
-  }
+    },
+  },
 }
 </script>

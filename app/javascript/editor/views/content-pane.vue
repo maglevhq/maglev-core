@@ -1,9 +1,17 @@
 <template>
-  <layout :title="title" :overflowY="false" :withPreTitle="isSectionBlockVersion">
+  <layout
+    :title="title"
+    :overflowY="false"
+    :withPreTitle="isSectionBlockVersion"
+  >
     <template v-slot:pre-title v-if="isSectionBlockReady">
       <p class="text-gray-600 hover:text-gray-900">
-        <router-link 
-          :to="{ name: 'editSection', params: { sectionId: currentSection.id }, hash: '#blocks' }" 
+        <router-link
+          :to="{
+            name: 'editSection',
+            params: { sectionId: currentSection.id },
+            hash: '#blocks',
+          }"
           class="flex items-center"
         >
           <icon name="arrow-drop-left" />
@@ -11,18 +19,12 @@
         </router-link>
       </p>
     </template>
-      
-    <section-pane 
-      :settingId="settingId"
-      v-if="isSectionReady"  
-    />    
-    <section-block-pane 
-      :settingId="settingId"
-      v-if="isSectionBlockReady"
-    />    
 
-    <div 
-      class="mt-4 mx-4 text-lg rounded h-64 bg-gray-200 animate-pulse" 
+    <section-pane :settingId="settingId" v-if="isSectionReady" />
+    <section-block-pane :settingId="settingId" v-if="isSectionBlockReady" />
+
+    <div
+      class="mt-4 mx-4 text-lg rounded h-64 bg-gray-200 animate-pulse"
       v-if="!isSectionReady && !isSectionBlockReady"
     >
       &nbsp;
@@ -43,15 +45,12 @@ export default {
     sectionBlockId: { type: String, default: undefined },
     settingId: { type: String, default: undefined },
   },
-  computed: {    
+  computed: {
     title() {
-      if (this.isSectionReady)
-        return this.sectionTitle
-      else if (this.isSectionBlockReady)
-        return this.sectionBlockTitle
-      else
-        return null      
-    },   
+      if (this.isSectionReady) return this.sectionTitle
+      else if (this.isSectionBlockReady) return this.sectionBlockTitle
+      else return null
+    },
     sectionTitle() {
       return this.currentSectionDefinition?.name
     },
@@ -60,39 +59,39 @@ export default {
     },
     isSectionReady() {
       return this.sectionId && this.currentSection
-    },  
+    },
     isSectionBlockVersion() {
       return !!this.sectionBlockId
     },
     isSectionBlockReady() {
       return this.isSectionBlockVersion && this.currentSectionBlock
-    },   
+    },
     reactiveKey() {
-      return [!!this.currentPage, !!this.previewReady, this.$route.path].join('-')
-    },    
-  },  
+      return [!!this.currentPage, !!this.previewReady, this.$route.path].join(
+        '-',
+      )
+    },
+  },
   destroyed() {
     this.fetchSection(null)
-  },  
+  },
   methods: {
     async fetch() {
-      if (this.sectionBlockId)
-        await this.fetchSectionBlock(this.sectionBlockId)
-      else if (this.sectionId)
-        await this.fetchSection(this.sectionId)
+      if (this.sectionBlockId) await this.fetchSectionBlock(this.sectionBlockId)
+      else if (this.sectionId) await this.fetchSection(this.sectionId)
 
-      if (!this.currentSection && !this.currentSectionBlock) 
+      if (!this.currentSection && !this.currentSectionBlock)
         this.$router.push({ name: 'editPage' })
-    }
+    },
   },
-  watch: {    
+  watch: {
     reactiveKey: {
       immediate: true,
       handler() {
         if (!this.currentPage || !this.previewReady) return // wait for the page to be loaded
-        this.fetch()        
-      }
-    },    
-  }
+        this.fetch()
+      },
+    },
+  },
 }
 </script>

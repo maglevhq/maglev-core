@@ -3,13 +3,13 @@
     <draggable :list="list" @end="onSortEnd" v-bind="dragOptions">
       <transition-group type="transition" name="flip-list">
         <list-item
-          v-for="(section, index) in list" 
-          :key="section.id" 
+          v-for="(section, index) in list"
+          :key="section.id"
           :section="section"
           :index="index"
           @on-dropdown-toggle="onDropdownToggle"
           class="mb-3"
-        />        
+        />
       </transition-group>
     </draggable>
   </div>
@@ -28,24 +28,24 @@ export default {
   computed: {
     list() {
       return this.currentSectionList
-    },   
+    },
     dragOptions() {
       return {
         animation: 0,
         group: 'description',
         disabled: false,
-        ghostClass: 'ghost'
+        ghostClass: 'ghost',
       }
-    }
+    },
   },
   methods: {
     ...mapActions(['moveSection']),
     onSortEnd(event) {
       this.moveSection({
         from: event.oldIndex,
-        to: event.newIndex
+        to: event.newIndex,
       })
-    }
+    },
   },
 }
 </script>

@@ -14,23 +14,23 @@ export default [
   },
   {
     path: '/:pageId',
-    component: AppLayout,   
+    component: AppLayout,
     children: [
       {
         path: '',
         name: 'editPage',
         components: {
-          default: PagePreview
+          default: PagePreview,
         },
-        props: { default: true }
-      },            
+        props: { default: true },
+      },
       {
         path: 'foo-test',
         name: 'test',
         components: {
           default: PagePreview,
-          'slide-pane': SlidePane
-        },    
+          'slide-pane': SlidePane,
+        },
         props: { default: true },
         meta: { hidingSidebar: true },
       },
@@ -39,13 +39,13 @@ export default [
         name: 'test2',
         components: {
           default: PagePreview,
-          'slide-pane': SlidePane2
+          'slide-pane': SlidePane2,
         },
-        props: { default: true }
+        props: { default: true },
       },
       ...pageRoutes,
       ...sectionRoutes,
       ...sectionBlockRoutes,
-    ]
-  },  
+    ],
+  },
 ]

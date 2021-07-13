@@ -5,41 +5,69 @@
     </label>
     <div class="relative">
       <button
-        class="text-left block w-full mt-1 py-2 px-3 rounded bg-gray-100 text-gray-800 focus:outline-none"
+        class="
+          text-left
+          block
+          w-full
+          mt-1
+          py-2
+          px-3
+          rounded
+          bg-gray-100
+          text-gray-800
+          focus:outline-none
+        "
         type="button"
         @click="toggle"
       >
         <div class="flex items-center">
           <slot name="value" v-if="value"></slot>
           <span v-else>{{ placeholder }}</span>
-          <button type="button" class="ml-auto" @click.stop.prevent="clear" v-if="canClear">
+          <button
+            type="button"
+            class="ml-auto"
+            @click.stop.prevent="clear"
+            v-if="canClear"
+          >
             <icon name="ri-close-line" />
           </button>
-          <icon 
-            name="arrow-up-s-line" 
-            size="1.5rem" 
-            :class="{ 'ml-1': canClear, 'ml-auto': !canClear }" 
-            v-if="isOpen" 
+          <icon
+            name="arrow-up-s-line"
+            size="1.5rem"
+            :class="{ 'ml-1': canClear, 'ml-auto': !canClear }"
+            v-if="isOpen"
           />
-          <icon 
-            name="arrow-down-s-line" 
-            size="1.5rem" 
-            :class="{ 'ml-1': canClear, 'ml-auto': !canClear }" 
-            v-else 
-          />          
+          <icon
+            name="arrow-down-s-line"
+            size="1.5rem"
+            :class="{ 'ml-1': canClear, 'ml-auto': !canClear }"
+            v-else
+          />
         </div>
       </button>
-      <div 
-        class="absolute w-full z-10 -mt-1 rounded-b shadow-sm bg-gray-100"         
+      <div
+        class="absolute w-full z-10 -mt-1 rounded-b shadow-sm bg-gray-100"
         @keydown="naviguate"
         v-if="isOpen"
       >
         <div class="px-3 pt-1 pb-3" v-if="searchEnabled">
-          <input 
-            class="block mt-1 px-3 py-1 w-full border rounded border-gray-300 bg-gray-100 placeholder-gray-500 focus:ring focus:ring"
+          <input
+            class="
+              block
+              mt-1
+              px-3
+              py-1
+              w-full
+              border
+              rounded
+              border-gray-300
+              bg-gray-100
+              placeholder-gray-500
+              focus:ring focus:ring
+            "
             type="text"
             v-model="q"
-            :placeholder="searchPlaceholder"            
+            :placeholder="searchPlaceholder"
             ref="input"
           />
         </div>
@@ -52,14 +80,21 @@
           <div
             v-for="(item, index) in list"
             :key="item.id"
-            class="py-1 px-4 cursor-pointer"            
-            :class="{ 'rounded-b': index === list.length - 1, 'bg-editor-primary text-white': index === focus }"            
+            class="py-1 px-4 cursor-pointer"
+            :class="{
+              'rounded-b': index === list.length - 1,
+              'bg-editor-primary text-white': index === focus,
+            }"
             @mouseover="focus = index"
             @mouseleave="focus = undefined"
-            @click="select(item)"            
-          >    
-            <slot name="item" v-bind:item="item" v-bind:hovered="index === focus" />
-          </div>          
+            @click="select(item)"
+          >
+            <slot
+              name="item"
+              v-bind:item="item"
+              v-bind:hovered="index === focus"
+            />
+          </div>
         </div>
       </div>
     </div>
@@ -78,13 +113,13 @@ export default {
     searchEnabled: { type: Boolean, default: false },
     searchPlaceholder: { type: String, default: 'Search...' },
     value: { type: Object, default: null },
-    fetchList: { type: Function, default: () => ({}) },    
-    emptyLabel: { type: String, default: 'No results found' }, 
-    clearEnabled: { type: Boolean, default: false },   
+    fetchList: { type: Function, default: () => ({}) },
+    emptyLabel: { type: String, default: 'No results found' },
+    clearEnabled: { type: Boolean, default: false },
   },
   data() {
-    return { 
-      isOpen: false, 
+    return {
+      isOpen: false,
       q: undefined,
       list: undefined,
       focus: undefined,
@@ -98,18 +133,18 @@ export default {
       return this.clearEnabled && this.value
     },
     isEmpty() {
-      return this.list && this.list.length === 0 
-    }
+      return this.list && this.list.length === 0
+    },
   },
   methods: {
     toggle() {
       this.isOpen = !this.isOpen
     },
     fetch() {
-      this.fetchList(this.q).then(list => {
+      this.fetchList(this.q).then((list) => {
         this.list = list
         this.focus = list && list.length > 0 ? 0 : null
-      })  
+      })
     },
     select(value) {
       this.$emit('input', value)
@@ -124,26 +159,26 @@ export default {
       switch (event.keyCode) {
         case 13:
           if (this.focus !== undefined) {
-            this.select(this.list[this.focus])            
-          }          
+            this.select(this.list[this.focus])
+          }
           event.stopPropagation() & event.preventDefault()
-          break;
+          break
         case 38:
           if (!this.focus) {
-            this.focus = 0;
+            this.focus = 0
           } else if (this.focus > 0) {
-            this.focus--;
+            this.focus--
           }
           event.stopPropagation() & event.preventDefault()
-          break;
+          break
         case 40:
           if (!this.focus) {
-            this.focus = 0;
+            this.focus = 0
           } else if (this.focus < this.list.length - 1) {
-            this.focus++;
+            this.focus++
           }
-          event.stopPropagation() & event.preventDefault()          
-          break;
+          event.stopPropagation() & event.preventDefault()
+          break
       }
     },
     reset() {
@@ -151,22 +186,20 @@ export default {
       this.q = null
       this.list = undefined
       this.focus = undefined
-    },    
-  }, 
+    },
+  },
   watch: {
     q() {
       if (!this.q) return
       this.debouncedFetch()
     },
-    isOpen() {      
+    isOpen() {
       if (this.isOpen)
         this.$nextTick(() => {
-          if (this.searchEnabled) 
-            this.$refs.input.focus()
-          else
-            this.debouncedFetch()
+          if (this.searchEnabled) this.$refs.input.focus()
+          else this.debouncedFetch()
         })
-    }
-  }
+    },
+  },
 }
 </script>

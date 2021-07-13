@@ -1,20 +1,21 @@
 <template>
   <div>
-    <submit-button 
+    <submit-button
       type="button"
-      class="rounded-sm text-white py-2 px-4" 
+      class="rounded-sm text-white py-2 px-4"
       defaultColorClass="bg-editor-primary"
-      :labels="$t('imageLibrary.uploader.uploadButton')"    
+      :labels="$t('imageLibrary.uploader.uploadButton')"
       :buttonState="uploadingState"
       @click="openFileDialog"
     />
 
-    <input 
-      type="file" 
-      ref="input" 
-      accept="image/*" 
+    <input
+      type="file"
+      ref="input"
+      accept="image/*"
       :multiple="multiple"
-      @change="addFiles" class="hidden" 
+      @change="addFiles"
+      class="hidden"
     />
   </div>
 </template>
@@ -32,25 +33,34 @@ export default {
     return { uploadingState: 'default' }
   },
   methods: {
-    openFileDialog() {      
-      this.$refs.input.click()      
+    openFileDialog() {
+      this.$refs.input.click()
     },
     addFiles() {
-      const allowedFiles = this.checkFiles()      
+      const allowedFiles = this.checkFiles()
       if (allowedFiles) {
         this.uploadingState = 'inProgress'
         Promise.all(
-          allowedFiles.map(file => this.services.image.create({ file }))
-        ).then(() => {
-          this.uploadingState = 'success'  
-          this.$emit('uploaded')        
-        }).catch(error => {
-          this.uploadingState = 'fail'
-          console.log('[Maglev] Uploader failed. Check your server logs', error)
-        })
+          allowedFiles.map((file) => this.services.image.create({ file })),
+        )
+          .then(() => {
+            this.uploadingState = 'success'
+            this.$emit('uploaded')
+          })
+          .catch((error) => {
+            this.uploadingState = 'fail'
+            console.log(
+              '[Maglev] Uploader failed. Check your server logs',
+              error,
+            )
+          })
       } else {
-        alert(this.$t('imageLibrary.uploader.wrongFiles', { limit: numberToHumanSize(this.maxsize) }))
-      }      
+        alert(
+          this.$t('imageLibrary.uploader.wrongFiles', {
+            limit: numberToHumanSize(this.maxsize),
+          }),
+        )
+      }
     },
     checkFiles() {
       let allowedFiles = []
@@ -59,11 +69,10 @@ export default {
         const file = files[i]
         if (file && file.size < this.maxsize) {
           allowedFiles.push(file)
-        } else
-          return false
+        } else return false
       }
       return allowedFiles
-    }
-  }, 
+    },
+  },
 }
 </script>

@@ -9,7 +9,7 @@ import * as inlineEditing from './inline-editing'
 export default {
   site,
   theme,
-  page,  
+  page,
   section,
   block,
   image,

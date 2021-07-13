@@ -9,6 +9,6 @@ import Layout from '@/layouts/slide-pane'
 
 export default {
   name: 'SlidePane1',
-  components: { Layout }
+  components: { Layout },
 }
 </script>

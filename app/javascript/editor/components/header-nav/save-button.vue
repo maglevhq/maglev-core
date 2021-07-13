@@ -1,9 +1,18 @@
 <template>
-  <submit-button 
+  <submit-button
     type="button"
-    class="block text-white w-40 h-full bg-opacity-95 hover:bg-opacity-100 transition-colors duration-200" 
+    class="
+      block
+      text-white
+      w-40
+      h-full
+      bg-opacity-95
+      hover:bg-opacity-100
+      transition-colors
+      duration-200
+    "
     defaultColorClass="bg-editor-primary"
-    :labels="$t('headerNav.saveButton')"    
+    :labels="$t('headerNav.saveButton')"
     :buttonState="saveState"
     @click="save"
   />
@@ -13,29 +22,33 @@
 export default {
   name: 'SaveButton',
   data() {
-    return { saveState: 'default' };
+    return { saveState: 'default' }
   },
   methods: {
     save() {
       this.saveState = 'inProgress'
-      this.services.page.update(this.currentPage.id, {
-        sections: this.currentContent.pageSections
-      })
-      .then(() => {
-        this.saveState = 'success'
-        this.$store.dispatch('fetchSite')
-      })
-      .catch(err => {
-        console.log('[Maglev] could not save the page', err)
-        this.saveState = 'fail'
-      })
-    }
-  }
+      this.services.page
+        .update(this.currentPage.id, {
+          sections: this.currentContent.pageSections,
+        })
+        .then(() => {
+          this.saveState = 'success'
+          this.$store.dispatch('fetchSite')
+        })
+        .catch((err) => {
+          console.log('[Maglev] could not save the page', err)
+          this.saveState = 'fail'
+        })
+    },
+  },
 }
 </script>
 
 <style scoped>
 .bg-editor-primary {
-  background-color: rgba(var(--editor-color-primary-non-hex), var(--bg-opacity));
+  background-color: rgba(
+    var(--editor-color-primary-non-hex),
+    var(--tw-bg-opacity)
+  );
 }
 </style>

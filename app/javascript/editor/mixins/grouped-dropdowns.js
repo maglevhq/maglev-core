@@ -4,10 +4,14 @@ export default {
   },
   methods: {
     onDropdownToggle(dropdown) {
-      if (dropdown.open && this.currentDropdown && dropdown !== this.currentDropdown) {
+      if (
+        dropdown.open &&
+        this.currentDropdown &&
+        dropdown !== this.currentDropdown
+      ) {
         this.currentDropdown.close()
       }
       this.currentDropdown = dropdown
-    }
-  }
+    },
+  },
 }

@@ -1,6 +1,16 @@
 <template>
-  <modal :isOpen="!!component" :title="title" :containerClass="modalClass" @on-close="handleOutsideClick">
-    <component :is="component" @on-close="handleClose" v-bind="props" v-on="listeners" />
+  <modal
+    :isOpen="!!component"
+    :title="title"
+    :containerClass="modalClass"
+    @on-close="handleOutsideClick"
+  >
+    <component
+      :is="component"
+      @on-close="handleClose"
+      v-bind="props"
+      v-on="listeners"
+    />
   </modal>
 </template>
 
@@ -12,7 +22,7 @@ export default {
   data() {
     return {
       component: null,
-      title: '',      
+      title: '',
       props: null,
       listeners: {},
       closeOnClick: true,
@@ -20,37 +30,46 @@ export default {
     }
   },
   created() {
-    ModalBus.$on('open', ({ component, title = '', props = null, listeners = {}, closeOnClick = true }) => {
-      const { modalClass, ...componentProps } = props || {}
-      this.component = component
-      this.title = title
-      this.props = componentProps
-      this.modalClass = modalClass
-      this.listeners = listeners
-      this.closeOnClick = closeOnClick
-    })
+    ModalBus.$on(
+      'open',
+      ({
+        component,
+        title = '',
+        props = null,
+        listeners = {},
+        closeOnClick = true,
+      }) => {
+        const { modalClass, ...componentProps } = props || {}
+        this.component = component
+        this.title = title
+        this.props = componentProps
+        this.modalClass = modalClass
+        this.listeners = listeners
+        this.closeOnClick = closeOnClick
+      },
+    )
     ModalBus.$on('close', () => this.handleClose())
     document.addEventListener('keyup', this.handleKeyup)
   },
-  beforeDestroy () {
+  beforeDestroy() {
     document.removeEventListener('keyup', this.handleKeyup)
   },
   computed: {
     containerClass() {
       return this.props?.modalClass
-    }
+    },
   },
   methods: {
-    handleOutsideClick (force) {
+    handleOutsideClick(force) {
       if (!this.closeOnClick && !force) return
       this.handleClose()
     },
-    handleClose () {
+    handleClose() {
       this.component = null
     },
-    handleKeyup (e) {
+    handleKeyup(e) {
       if (e.keyCode === 27) this.handleClose()
-    }
-  },  
+    },
+  },
 }
 </script>

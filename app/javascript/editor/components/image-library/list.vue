@@ -2,13 +2,13 @@
   <div class="grid grid-cols-4 gap-2">
     <list-item
       v-for="(image, index) in images"
-      :key="image.id"  
+      :key="image.id"
       :image="image"
       :leftEdge="index % 4 === 0"
-      :bottomEdge="index >= (Math.ceil((images.length / 4) - 1) * 4)"
+      :bottomEdge="index >= Math.ceil(images.length / 4 - 1) * 4"
       :pickerMode="pickerMode"
       v-on="$listeners"
-    />    
+    />
   </div>
 </template>
 
@@ -21,6 +21,6 @@ export default {
   props: {
     images: { type: Array, default: () => [] },
     pickerMode: { type: Boolean, required: true },
-  },  
+  },
 }
 </script>

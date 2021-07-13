@@ -5,17 +5,14 @@
         <search-input @search="search" class="py-4" />
       </div>
       <div class="flex-grow overflow-y-auto">
-        <page-list :q="q" class="h-full mt-4" ref="list" />        
+        <page-list :q="q" class="h-full mt-4" ref="list" />
       </div>
       <div class="pt-4">
-        <button 
-          @click="openNewPageModal"
-          class="block rounded-sm w-full px-6 py-4 bg-editor-primary bg-opacity-95 hover:bg-opacity-100 transition-colors duration-200 text-white text-center"
-        >
+        <button @click="openNewPageModal" class="big-submit-button">
           {{ $t('page.list.newButton') }}
         </button>
       </div>
-    </div>    
+    </div>
   </layout>
 </template>
 
@@ -26,7 +23,7 @@ import NewPageModal from '@/components/page/new'
 
 export default {
   name: 'PageListView',
-  components: { Layout, PageList, NewPageModal },
+  components: { Layout, PageList },
   data() {
     return { q: null }
   },
@@ -36,14 +33,14 @@ export default {
     },
     openNewPageModal() {
       this.openModal({
-        title: this.$t('page.new.title'), 
+        title: this.$t('page.new.title'),
         component: NewPageModal,
         closeOnClick: false,
         listeners: {
-          'on-refresh': () => this.$refs.list.fetch()
-        }
+          'on-refresh': () => this.$refs.list.fetch(),
+        },
       })
-    },    
-  }
+    },
+  },
 }
 </script>

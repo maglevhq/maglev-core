@@ -1,6 +1,6 @@
 <template>
-  <div>   
-    <transition name="fade" mode="out-in"> 
+  <div>
+    <transition name="fade" mode="out-in">
       <div key="list-placeholder" v-if="isLoading">
         <div class="flex flex-col items-center w-full animate-pulse">
           <div class="h-12 bg-gray-200 rounded w-full mb-3"></div>
@@ -8,7 +8,11 @@
           <div class="h-12 bg-gray-200 rounded w-full mb-3"></div>
         </div>
       </div>
-      <div key="empty-list" class="pt-4 text-center" v-if="!isLoading && isEmpty">      
+      <div
+        key="empty-list"
+        class="pt-4 text-center"
+        v-if="!isLoading && isEmpty"
+      >
         No pages found
       </div>
       <div key="list" v-if="!isLoading && !isEmpty">
@@ -20,8 +24,8 @@
           @on-clone="fetch"
           @on-delete="fetch"
           @on-dropdown-toggle="onDropdownToggle"
-          class=""          
-        />        
+          class=""
+        />
       </div>
     </transition>
   </div>
@@ -34,9 +38,9 @@ import ListItem from './list-item'
 export default {
   name: 'PageList',
   mixins: [GroupedDropdownsMixin],
-  components: { ListItem },  
+  components: { ListItem },
   props: {
-    q: { type: String, required: false }
+    q: { type: String, required: false },
   },
   data() {
     return { pages: [], isLoading: true }
@@ -44,22 +48,22 @@ export default {
   computed: {
     isEmpty() {
       return this.pages.length === 0
-    }
+    },
   },
   methods: {
     async fetch() {
-      this.isLoading = true      
+      this.isLoading = true
       this.pages = await this.services.page.findAll({ q: this.q })
-      this.isLoading = false    
-    },    
+      this.isLoading = false
+    },
   },
   watch: {
     q: {
       immediate: true,
       handler() {
         this.fetch()
-      }
-    }
-  }
+      },
+    },
+  },
 }
 </script>

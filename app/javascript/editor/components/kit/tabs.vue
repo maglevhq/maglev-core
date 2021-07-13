@@ -1,12 +1,25 @@
 <template>
   <div class="flex flex-col h-full">
     <nav class="flex flex-col sm:flex-row" :class="sharedClass">
-      <button 
-        v-for="(tab, index) in tabs" 
+      <button
+        v-for="(tab, index) in tabs"
         :key="`tab-${index}`"
         type="button"
-        class="text-gray-500 py-1 pb-0 px-4 block hover:text-editor-primary focus:outline-none border-b-2 border-transparent z-10"
-        :class="{ 'text-editor-primary font-medium border-editor-primary': index === currentIndex }"
+        class="
+          text-gray-500
+          py-1
+          pb-0
+          px-4
+          block
+          hover:text-editor-primary
+          focus:outline-none
+          border-b-2 border-transparent
+          z-10
+        "
+        :class="{
+          'text-editor-primary font-medium border-editor-primary':
+            index === currentIndex,
+        }"
         @click="selectTab(index)"
       >
         {{ tab.name }}
@@ -15,19 +28,22 @@
     <div class="relative -mt-1/2" :class="sharedClass">
       <div class="w-full border-gray-200 border-t-2 h-0"></div>
     </div>
-    <div class="flex-1 mt-4 pb-4" :class="{
-      [sharedClass]: !isBlank(sharedClass),
-      'overflow-y-auto': enableOverflow,
-    }">        
-      <transition :name="slideDirection" mode="out-in">        
-        <component 
-          :is="currentTabComponent" 
+    <div
+      class="flex-1 mt-4 pb-4"
+      :class="{
+        [sharedClass]: !isBlank(sharedClass),
+        'overflow-y-auto': enableOverflow,
+      }"
+    >
+      <transition :name="slideDirection" mode="out-in">
+        <component
+          :is="currentTabComponent"
           :key="currentTabKey"
-          v-on="$listeners" 
-          v-bind="{...otherProps, ...currentTabProps}" 
+          v-on="$listeners"
+          v-bind="{ ...otherProps, ...currentTabProps }"
         />
       </transition>
-    </div>  
+    </div>
   </div>
 </template>
 
@@ -35,7 +51,7 @@
 export default {
   name: 'Tabs',
   props: {
-    tabs: { type: Array, default: () => ([]) },
+    tabs: { type: Array, default: () => [] },
     firstIndex: { type: Number, default: 0 },
     otherProps: { type: Object, default: () => ({}) },
     sharedClass: { type: String, default: null },
@@ -50,7 +66,7 @@ export default {
     },
     currentTabComponent() {
       return this.currentTab.tab
-    },    
+    },
     currentTabKey() {
       return this.currentTab.type
     },
@@ -62,18 +78,18 @@ export default {
     selectTab(index) {
       this.currentIndex = index
       this.$emit('select-tab', index)
-    }
+    },
   },
   watch: {
     firstIndex: {
-      immediate: true, 
+      immediate: true,
       handler() {
         this.currentIndex = this.firstIndex
       },
     },
     currentIndex(newIndex, oldIndex) {
       this.slideDirection = newIndex > oldIndex ? 'slide-left' : 'slide-right'
-    },    
-  }
+    },
+  },
 }
 </script>

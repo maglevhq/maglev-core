@@ -1,3 +1,2 @@
-require('editor/main');
+require('editor/main')
 import '../editor/design/application.scss'
-

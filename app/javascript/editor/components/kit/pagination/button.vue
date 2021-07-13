@@ -1,5 +1,9 @@
 <template>
-  <button class="flex items-center justify-center h-6 w-6 text-sm rounded-sm" :class="buttonClass" @click="$emit('click', page)">
+  <button
+    class="flex items-center justify-center h-6 w-6 text-sm rounded-sm"
+    :class="buttonClass"
+    @click="$emit('click', page)"
+  >
     <slot>
       {{ page }}
     </slot>
@@ -25,7 +29,7 @@ export default {
     },
     enabled() {
       return this.page === this.activePage
-    }
-  }
+    },
+  },
 }
 </script>

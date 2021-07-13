@@ -1,11 +1,11 @@
 <template>
-  <tabs 
-    :tabs="tabs" 
+  <tabs
+    :tabs="tabs"
     :firstIndex="tabIndexFromRoute"
     :otherProps="{ sectionBlockId: currentSectionBlock.id, settingId }"
     sharedClass="px-4"
     ref="tabs"
-  />        
+  />
 </template>
 
 <script>
@@ -13,61 +13,57 @@ import SettingList from './setting-list'
 
 export default {
   name: 'SectionBlockPane',
-  components: { SettingList },
   props: {
     settingId: { type: String, default: undefined },
   },
-  computed: {    
+  computed: {
     unfilteredTabs() {
       return [
-        { 
+        {
           name: this.$t('sectionBlockPane.tabs.settings'),
-          tab: SettingList, 
+          tab: SettingList,
           type: 'content',
-          condition: () => this.hasSettings
+          condition: () => this.hasSettings,
         },
-        { 
-          name: this.$t('sectionBlockPane.tabs.advanced'), 
-          tab: SettingList, 
+        {
+          name: this.$t('sectionBlockPane.tabs.advanced'),
+          tab: SettingList,
           type: 'advanced',
           condition: () => this.hasAdvancedSettings,
-          props: () => ({ advanced: true })
+          props: () => ({ advanced: true }),
         },
       ]
     },
     tabs() {
-      return this.unfilteredTabs.filter(tab => !tab.condition || tab.condition())
+      return this.unfilteredTabs.filter(
+        (tab) => !tab.condition || tab.condition(),
+      )
     },
     tabIndexFromRoute() {
       return this.findTabIndexFromRoute()
-    },    
+    },
     hasSettings() {
       return !this.isBlank(this.currentSectionBlockSettings)
     },
     hasAdvancedSettings() {
       return !this.isBlank(this.currentSectionBlockAdvancedSettings)
     },
-    tabIndexFromRoute() {
-      const type = this.$route.hash.replace('#', '')
-      const index = this.tabs.findIndex(tab => tab.type === type)
-      return index === -1 ? 0 : index
-    },    
-  },   
+  },
   methods: {
     findTabIndexFromRoute() {
       const type = this.$route.hash.replace('#', '')
-      const index = this.tabs.findIndex(tab => tab.type === type)
+      const index = this.tabs.findIndex((tab) => tab.type === type)
       return index === -1 ? 0 : index
-    }
-  }, 
+    },
+  },
   watch: {
     '$route.hash': {
       immediate: true,
       handler() {
         if (!this.$refs.tabs) return
-        this.$refs.tabs.selectTab(this.findTabIndexFromRoute())                
-      }
-    }
-  }
+        this.$refs.tabs.selectTab(this.findTabIndexFromRoute())
+      },
+    },
+  },
 }
 </script>

@@ -75,18 +75,31 @@ Vue.mixin({
         mobile: 375,
         tablet: 1024,
       }
-    }
+    },
   },
   methods: {
-    ...mapActions(['setDevice', 'setPreviewDocument', 'fetchPage', 'fetchSection', 'fetchSectionBlock', 'setCurrentPageSettings']),
+    ...mapActions([
+      'setDevice',
+      'setPreviewDocument',
+      'fetchPage',
+      'fetchSection',
+      'fetchSectionBlock',
+      'setCurrentPageSettings',
+    ]),
     isBlank(value) {
       return isBlank(value)
     },
     openModal({ title, component, props, listeners, closeOnClick }) {
-      ModalBus.$emit('open', { title, component, props, listeners, closeOnClick })
-    },    
+      ModalBus.$emit('open', {
+        title,
+        component,
+        props,
+        listeners,
+        closeOnClick,
+      })
+    },
     closeModal() {
       ModalBus.$emit('close')
-    }
-  }
+    },
+  },
 })
