@@ -108,7 +108,7 @@
       <li></li>
       <li>
         <a
-          href="#"
+          :href="leaveEditorUrl"
           class="
             flex
             justify-center
@@ -138,6 +138,9 @@ export default {
     },
     isSectionListPaneActive() {
       return this.$route.name === 'listSections'
+    },
+    leaveEditorUrl() {
+      return window.leaveUrl
     },
   },
   methods: {

@@ -20,6 +20,7 @@ const defaultState = {
   sectionBlockDefinition: null,
   sections: {},
   sectionBlocks: {},
+  editorSettings: {},
 }
 const state = { ...defaultState }
 
@@ -31,6 +32,9 @@ const mutations = {
     state.section = null
     state.previewReady = !!previewDocument
     state.previewDocument = previewDocument
+  },
+  SET_EDITOR_SETTINGS(state, editorSettings) {
+    state.editorSettings = editorSettings
   },
   SET_SITE(state, site) {
     state.site = site
@@ -154,6 +158,12 @@ const actions = {
       commit('SET_SECTION', null)
       commit('SET_HOVERED_SECTION', null)
     }
+  },
+  fetchEditorSettings({ commit }) {
+    commit('SET_EDITOR_SETTINGS', {
+      logoUrl: window.logoUrl,
+      primaryColor: window.primaryColor
+    })
   },
   fetchSite({ commit }, locally) {
     services.site.find(locally).then((site) => commit('SET_SITE', site))
@@ -336,9 +346,9 @@ const getters = {
   },
   sectionSettings:
     ({ sectionDefinition }) =>
-    (advanced) => {
-      return services.section.getSettings(sectionDefinition, advanced)
-    },
+      (advanced) => {
+        return services.section.getSettings(sectionDefinition, advanced)
+      },
   sectionBlocks: ({ sectionBlocks, section, sectionDefinition }) => {
     if (!section) return []
     return section.blocks
@@ -353,20 +363,20 @@ const getters = {
   },
   sectionBlockLabel:
     ({ sectionDefinition }) =>
-    (sectionBlock) => {
-      const definition = sectionDefinition.blocks.find(
-        (def) => def.type === sectionBlock.type,
-      )
-      return services.section.getBlockLabel(sectionBlock, definition)
-    },
+      (sectionBlock) => {
+        const definition = sectionDefinition.blocks.find(
+          (def) => def.type === sectionBlock.type,
+        )
+        return services.section.getBlockLabel(sectionBlock, definition)
+      },
   sectionBlockContent: ({ sectionBlock }) => {
     return sectionBlock ? [...sectionBlock.settings] : null
   },
   sectionBlockSettings:
     ({ sectionBlockDefinition }) =>
-    (advanced) => {
-      return services.section.getSettings(sectionBlockDefinition, advanced)
-    },
+      (advanced) => {
+        return services.section.getSettings(sectionBlockDefinition, advanced)
+      },
 }
 
 const store = new Vuex.Store({
@@ -378,6 +388,7 @@ const store = new Vuex.Store({
   modules: {},
 })
 
+store.dispatch('fetchEditorSettings')
 store.dispatch('fetchSite', true)
 store.commit('SET_THEME', window.theme)
 

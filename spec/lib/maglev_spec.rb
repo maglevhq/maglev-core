@@ -9,16 +9,16 @@ describe Maglev do
   end
 
   describe 'config' do
-    it 'provides a default favicon' do
-      expect(Maglev.config.favicon).to eq('favicon.ico')
+    it 'provides a default nil favicon' do
+      expect(Maglev.config.favicon).to eq(nil)
     end
 
-    it 'provides a default logo' do
-      expect(Maglev.config.logo).to eq('logo.png')
+    it 'provides a default nil logo' do
+      expect(Maglev.config.logo).to eq(nil)
     end
 
     it 'provides a default primary color' do
-      expect(Maglev.config.primary_color).to eq('#7362D0')
+      expect(Maglev.config.primary_color).to eq('#7E6EDB')
     end
   end
 

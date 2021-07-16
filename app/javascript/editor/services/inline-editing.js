@@ -180,7 +180,7 @@ const setupEvents = (previewDocument) => {
 export const setup = (previewDocument) => {
   previewDocument.head.insertAdjacentHTML(
     'beforeend',
-    '<style type="text/css">:root { --maglev-editor-outline-color: #7e6edb; }</style>',
+    `<style type="text/css">:root { --maglev-editor-outline-color: ${store.state.editorSettings.primaryColor}; }</style>`,
   )
   setupEvents(previewDocument)
 }

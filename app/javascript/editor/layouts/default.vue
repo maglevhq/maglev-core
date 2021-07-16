@@ -11,7 +11,7 @@
           border-r border-gray-200
         "
       >
-        <img v-bind:src="logo" class="w-2/4" />
+        <img v-bind:src="logoUrl" class="w-2/4" />
       </div>
       <div class="flex flex-grow items-center h-full">
         <slot name="header"> [Layout] Default header </slot>
@@ -41,13 +41,11 @@
 </template>
 
 <script>
-import logo from '@/assets/logo.png'
-
 export default {
   name: 'MaglevDefaultLayout',
   computed: {
-    logo() {
-      return logo
+    logoUrl() {
+      return this.$store.state.editorSettings.logoUrl
     },
   },
 }

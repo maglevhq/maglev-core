@@ -1,27 +1,30 @@
 <!DOCTYPE html>
 <html class="h-full" lang="<%= I18n.locale %>">
 <head>
-  <title>Maglev - EDITOR</title>
+  <title><%= editor_window_title %></title>
 
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
 
   <script>
     window.baseUrl = <%= h site_editor_path.to_json.html_safe %>;
+    window.leaveUrl = <%= site_leave_editor_path.to_json.html_safe %>;
     window.apiBaseUrl = <%= h api_base_path.to_json.html_safe %>;
     window.site = <%= h render(partial: 'maglev/api/sites/show', formats: :json, locals: { site: @site }).html_safe %>;
     window.theme = <%= h render(partial: 'maglev/api/themes/show', formats: :json, locals: { theme: @theme }).html_safe %>;
+    window.logoUrl = <%= editor_logo_url.to_json.html_safe %>;
+    window.primaryColor = <%= editor_primary_hex_color.to_json.html_safe %>;    
   </script>
   
   <%= javascript_pack_tag 'editor' %>
   <%= stylesheet_pack_tag 'editor' %>
 
-  <%= favicon_pack_tag 'favicon.png' %>
+  <%= favicon_link_tag editor_favicon_url %>
 
   <style>
     :root {
-      --editor-color-primary: #7E6EDB; /* TODO: get the value from the Maglev settings */
-      --editor-color-primary-non-hex: 126, 110, 219; /* TODO: get the value from the Maglev settings */
+      --editor-color-primary: <%= editor_primary_hex_color %>;
+      --editor-color-primary-non-hex: <%= editor_primary_rgb_color.join(', ') %>;
     }
   </style>  
 </head>

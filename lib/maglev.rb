@@ -22,10 +22,12 @@ module Maglev
 
     def config
       @config ||= Config.new.tap do |c|
-        c.favicon = 'favicon.ico'
-        c.logo = 'logo.png'
-        c.primary_color = '#7362D0'
+        c.title = 'Maglev - EDITOR'
+        c.favicon = nil
+        c.logo = nil
+        c.primary_color = '#7E6EDB'
         c.uploader = 'active_storage'
+        c.back_action = nil
         c.services = {}
       end
     end
