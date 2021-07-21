@@ -23,6 +23,10 @@ module Maglev
       "data-maglev-section-id=\"#{id}\"".html_safe
     end
 
+    def tag_data
+      { 'data-maglev-section-id' => id }
+    end
+
     def blocks
       return @blocks if @blocks
 

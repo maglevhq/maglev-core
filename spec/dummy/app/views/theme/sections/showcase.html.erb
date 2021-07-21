@@ -1,10 +1,17 @@
-<section <%= section.dom_data %> class="showcase">
+<%= tag.section class: 'showcase', data: section.tag_data do %>
   <div class="container">
-    <h2 <%= section.settings.title.dom_data %> class="display-4"><%= raw section.settings.title %></h2>
+    <%= tag.h2 class: 'display-4', data: section.settings.title.tag_data do %>
+      <%= raw section.settings.title %>
+    <% end %>
     <ul>
       <% section.blocks.each do |block| %>
-        <li <%= block.dom_data %>><h3 <%= block.settings.title.dom_data %>><%= block.settings.title %></h3><img src="<%= block.settings.image %>" alt="<%= block.settings.title %>" /></li>
+        <%= tag.li data: block.tag_data do %>
+          <%= tag.h3 data: block.settings.title.tag_data do %>
+            <%= block.settings.title %>
+          <% end %>
+          <%= image_tag block.settings.image.url, alt: block.settings.image.alt_text, data: block.settings.image.tag_data %>
+        <% end %>
       <% end %>
     </ul>
   </div>
-</section>
+<% end %>
