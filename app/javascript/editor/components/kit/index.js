@@ -17,6 +17,7 @@ import CheckboxInput from './checkbox-input'
 import SearchInput from './search-input'
 import Pagination from './pagination'
 import PageIcon from './page-icon'
+import ColorPicker from './color-picker'
 
 Vue.component('icon', Icon)
 Vue.component('dropdown', Dropdown)
@@ -36,3 +37,4 @@ Vue.component('checkbox-input', CheckboxInput)
 Vue.component('search-input', SearchInput)
 Vue.component('pagination', Pagination)
 Vue.component('page-icon', PageIcon)
+Vue.component('color-picker', ColorPicker)

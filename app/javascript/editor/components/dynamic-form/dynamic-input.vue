@@ -51,6 +51,13 @@
       v-model="inputValue"
       v-if="setting.type == 'link'"
     />
+    <color-picker
+      :label="setting.label"
+      :name="setting.id"
+      v-model="inputValue"
+      :presets="options.presets"
+      v-if="setting.type == 'color'"
+    />
   </div>
 </template>
 
