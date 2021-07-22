@@ -9,7 +9,7 @@
         :showLabel="false"
         :placeholder="$t('linkInput.nestedTextPlaceholder')"
         class="mt-2"
-        :class="{ hidden: !withTextInput }"
+        :class="{ hidden: !withText }"
     />
 
     <div
@@ -65,7 +65,8 @@ export default {
   props: {
     label: { type: String, default: 'Label' },
     name: { type: String, default: 'image' },
-    value: { default: () => ({ text: '', withText: false }) },
+    withText: { type: Boolean, default: false },
+    value: { default: () => ({ text: '' }) },
   },
   computed: {
     isPage() {
@@ -76,9 +77,6 @@ export default {
     },
     isEmail() {
       return this.value?.linkType === 'email'
-    },
-    withTextInput() {
-      return this.value.withText
     },
     textInput: {
       get() {
