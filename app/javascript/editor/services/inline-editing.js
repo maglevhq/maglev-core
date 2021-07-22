@@ -250,20 +250,18 @@ export const updateSectionSetting = (
     return
   }
 
+  let source = null
+  let foundSetting = null
   switch (change.settingType) {
-    case 'text': {
-      const source = sectionBlock || section
-      const foundSetting = updateSectionTextSetting(
-        previewDocument,
-        source,
-        change,
-      )
+    case 'text':
+    case 'link':
+      source = sectionBlock || section
+      foundSetting = updateSectionTextSetting(previewDocument, source, change)
 
       if (!foundSetting)
         debouncedUpdatePreviewDocument(previewDocument, content, section)
 
       break
-    }
     case 'image_picker':
     case 'checkbox':
       debouncedUpdatePreviewDocument(previewDocument, content, section)

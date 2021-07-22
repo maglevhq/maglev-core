@@ -122,7 +122,9 @@
     }
   },
   "linkInput": {
-    "placeholder": "Click here to select a link"
+    "placeholder": "Click here to select a link",
+    "withNestedTextLabel": "Enable text",
+    "nestedTextPlaceholder": "Text"
   },
   "linkPicker": {
     "title": "Select a link",

@@ -62,6 +62,8 @@ export default {
           href: null,
           email: null,
           openNewWindow: false,
+          withText: false,
+          text: null,
         }
       )
     },
