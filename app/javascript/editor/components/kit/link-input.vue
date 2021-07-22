@@ -3,12 +3,21 @@
     <label class="block font-semibold text-gray-800" :for="name">
       {{ label }}
     </label>
+
+    <text-input
+        v-model="textInput"
+        :showLabel="false"
+        :placeholder="$t('linkInput.nestedTextPlaceholder')"
+        class="mt-2"
+        :class="{ hidden: !withTextInput }"
+    />
+
     <div
       class="
         flex
         items-center
         w-full
-        mt-1
+        mt-2
         py-3
         px-3
         rounded
@@ -43,22 +52,6 @@
         <icon name="ri-close-line" />
       </button>
     </div>
-
-    <checkbox-input
-      v-model="withTextInput"
-      :label="$t(`linkInput.withNestedTextLabel`)"
-      name="withText"
-      class="mt-2"
-    />
-
-    <text-input
-      v-model="textInput"
-      :showLabel="false"
-      :placeholder="$t('linkInput.nestedTextPlaceholder')"
-      class="mt-2"
-      :class="{ hidden: !withTextInput }"
-    />
-
     <!--    <LinkTextContent :value="value" />-->
   </div>
 </template>
@@ -84,13 +77,8 @@ export default {
     isEmail() {
       return this.value?.linkType === 'email'
     },
-    withTextInput: {
-      get() {
-        return this.value.withText
-      },
-      set(withText) {
-        this.$emit('input', { ...this.value, withText })
-      },
+    withTextInput() {
+      return this.value.withText
     },
     textInput: {
       get() {
