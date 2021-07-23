@@ -59,6 +59,14 @@
       :presets="options.presets"
       v-if="setting.type == 'color'"
     />
+    <icon-picker
+        :label="setting.label"
+        :name="setting.id"
+        :presets="options.presets"
+        :prefix="options.prefix"
+        v-model="inputValue"
+        v-if="setting.type == 'icon'"
+    />
   </div>
 </template>
 

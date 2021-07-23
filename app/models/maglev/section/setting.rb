@@ -10,7 +10,7 @@ class Maglev::Section::Setting
 
   ## validations ##
   validates :id, :label, :type, :default, 'maglev/presence': true
-  validates :type, inclusion: { in: %w[text image checkbox link color] }
+  validates :type, inclusion: { in: %w[text image checkbox link color icon] }
 
   ## methods ##
 

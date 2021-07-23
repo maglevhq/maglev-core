@@ -272,6 +272,7 @@ export const updateSectionSetting = (
     case 'image':
     case 'checkbox':
     case 'color':
+    case 'icon':
       foundSetting = false
       break
     default:
