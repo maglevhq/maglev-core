@@ -1,44 +1,25 @@
 # Maglev
 
-Maglev adds theme and sections support to your rails app so you can
-create pages and upload assets for them, like in a CMS.
-## Installation
-Add this line to your application's Gemfile:
+Maglev is a page builder / CMS that you can plug in any Ruby on Rails application.
 
-```ruby
-gem 'maglev'
-```
+**WARNING**. This is not yet ready for production.
 
-And then execute:
-```bash
-$ bundle
-```
+![Editor UI](https://gblobscdn.gitbook.com/assets%2F-Me54MJUO0o8Vj5WCTWJ%2F-MeUwrTI6TuqN8mdhZtm%2F-MekxQC_Ueu6lgqhQ9BW%2Feditor-ui-default.jpg?alt=media&token=58e1782a-00c2-4b29-8ff3-0988a90d7517)
 
-After installing, you need to run maglev's install generator:
+## Demo
 
-```bash
-$ bundle exec rails g maglev:install
-```
+Coming soon
 
-This will do many things, like ensuring that webpacker is set up,
-creating a default theme and section, copy maglev's migrations and run them...
+## Getting started / Documentation
 
-Afterwards, just follow the displayed instructions.
-
-## Creating a site
-
-Maglev provides a task to create the default site:
-
-```bash
-$ bundle exec rails app:maglev:create_site
-```
-
-You should do this both in developmen and production.
+- [Install Maglev](https://docs.maglev.dev/quickstart)
+- [Documentation](https://docs.maglev.dev/)
 
 ## Testing
 
 If for some reason you want your Maglev site to exist during your tests,
 you can use `Maglev::GenerateSite.call` on your setup block.
+
 ## Contributing
 Contribution directions go here.
 

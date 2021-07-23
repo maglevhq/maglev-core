@@ -63,20 +63,22 @@ RSpec.describe 'Maglev::PagePreviewController', type: :request do
     it 'displays the expected content' do
       get '/maglev/preview'
       expect(response.body)
-        .to include(
-          '<li data-maglev-block-id="block-0"><h3 data-maglev-id="block-0.title">My work</h3><img src="/samples/images/default.svg" alt="My work" /></li>'
+        .to match(
+          %r{<li data-maglev-block-id="block-0">\s+<h3 data-maglev-id="block-0.title">\s+My work\s+</h3>\s+<img data-maglev-id="block-0.image" src="/samples/images/default.svg" />\s+</li>}
         )
     end
 
     context 'with a missing key' do
       let(:block) do
-        { id: 'block-0', type: 'item', settings: [{ id: 'title', value: 'My work' }] }
+        { id: 'block-0', type: 'item', 
+          settings: [{ id: 'title', value: 'My work' }, { id: 'image', value: '' }] 
+        }
       end
 
       it 'works anyway' do
         get '/maglev/preview'
         expect(response.body)
-          .to include('<li data-maglev-block-id="block-0"><h3 data-maglev-id="block-0.title">My work</h3><img src="" alt="My work" /></li>')
+          .to include('<li data-maglev-block-id="block-0"><h3 data-maglev-id="block-0.title">My work</h3><img src="" /></li>')
       end
     end
   end

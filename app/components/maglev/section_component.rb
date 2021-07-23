@@ -24,7 +24,7 @@ module Maglev
     end
 
     def tag_data
-      { 'data-maglev-section-id' => id }
+      { maglev_section_id: id }
     end
 
     def blocks

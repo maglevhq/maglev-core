@@ -27,5 +27,9 @@ module Maglev
     def dom_data
       "data-maglev-block-id=\"#{id}\"".html_safe
     end
+
+    def tag_data
+      { maglev_block_id: id }
+    end
   end
 end
