@@ -47,6 +47,7 @@
     <link-input
       :label="setting.label"
       :name="setting.id"
+      :withText="options.withText"
       v-model="inputValue"
       v-if="setting.type == 'link'"
     />
