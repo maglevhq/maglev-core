@@ -21,11 +21,11 @@ const api = axios.create({
 })
 
 api.interceptors.request.use(
-  (config) => {
+  config => {
     config.headers['X-MAGLEV-SITE-HANDLE'] = store.state.site?.handle
     return config
   },
-  (error) => Promise.reject(error),
+  error => Promise.reject(error),
 )
 
 export default api

@@ -82,12 +82,12 @@ export default {
               ? this.totalPages - 1
               : '...',
           ]
-        : [...Array(this.totalPages - 2).keys()].map((page) => page + 2)
+        : [...Array(this.totalPages - 2).keys()].map(page => page + 2)
     },
     filteredPages() {
       let diff = this.maxVisiblePages / 2
       let toFilterPages = [...Array(this.totalPages).keys()]
-        .map((page) => page + 1)
+        .map(page => page + 1)
         .slice(2, -2)
       if (toFilterPages.length > this.maxVisiblePages) {
         let diffFirst = this.activePage - toFilterPages[0]
@@ -97,7 +97,7 @@ export default {
         } else if (diffLast >= -diff) {
           return toFilterPages.slice(-this.maxVisiblePages)
         } else {
-          return toFilterPages.filter((page) => {
+          return toFilterPages.filter(page => {
             let diffPage = this.activePage - page
             return diffPage < 0 ? Math.abs(diffPage) <= diff : diffPage < diff
           })

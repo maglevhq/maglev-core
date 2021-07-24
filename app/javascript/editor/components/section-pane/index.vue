@@ -44,7 +44,7 @@ export default {
     },
     tabs() {
       return this.unfilteredTabs.filter(
-        (tab) => !tab.condition || tab.condition(),
+        tab => !tab.condition || tab.condition(),
       )
     },
     tabIndexFromRoute() {
@@ -74,7 +74,7 @@ export default {
   methods: {
     findTabIndexFromRoute() {
       const type = this.$route.hash.replace('#', '')
-      const index = this.tabs.findIndex((tab) => tab.type === type)
+      const index = this.tabs.findIndex(tab => tab.type === type)
       return index === -1 ? 0 : index
     },
   },

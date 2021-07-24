@@ -10,7 +10,7 @@ describe Maglev::Content::Link do
     let(:content) { '/contact_us' }
     let(:setting) do
       double('Maglev::Section::Setting', default: '/contact_us', id: 'button', label: 'Button', type: 'link',
-             options: {})
+                                         options: {})
     end
 
     describe 'to_s method' do
@@ -38,7 +38,7 @@ describe Maglev::Content::Link do
     let(:content) { { link_type: 'url', href: '/contact_us' } }
     let(:setting) do
       double('Maglev::Section::Setting', default: '/contact_us', id: 'button', label: 'Button', type: 'link',
-             options: { with_text: true, text: 'Call now!', open_new_window: true })
+                                         options: { with_text: true, text: 'Call now!', open_new_window: true })
     end
 
     describe 'to_s method' do
@@ -69,7 +69,7 @@ describe Maglev::Content::Link do
     end
     let(:setting) do
       double('Maglev::Section::Setting', default: '/contact_us', id: 'button', label: 'Button', type: 'link',
-             options: { with_text: true, text: 'Call now!', open_new_window: true })
+                                         options: { with_text: true, text: 'Call now!', open_new_window: true })
     end
 
     describe 'to_s method' do

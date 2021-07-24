@@ -37,7 +37,7 @@
         :activePage="activePage"
         :totalItems="totalItems"
         :perPage="perPage"
-        @change="(page) => (this.activePage = page)"
+        @change="page => (this.activePage = page)"
       />
     </div>
   </div>

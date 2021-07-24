@@ -17,7 +17,7 @@ const addEventListener = (target, type, listener, capture) => {
 //   })
 // }
 
-const getElementType = (el) => {
+const getElementType = el => {
   return el.dataset.maglevSectionId ? 'section' : 'setting'
 }
 
@@ -26,7 +26,7 @@ const listen = (previewDocument, eventType, handler) => {
   addEventListener(
     previewDocument.body,
     eventType,
-    (event) => {
+    event => {
       if (event.target === previewDocument) return
 
       let sectionElement = event.target.closest('[data-maglev-section-id]')
@@ -61,11 +61,11 @@ const listen = (previewDocument, eventType, handler) => {
   )
 }
 
-const listenScrolling = (previewDocument) => {
+const listenScrolling = previewDocument => {
   let mouseX = 0
   let mouseY = 0
 
-  addEventListener(previewDocument, 'mousemove', (e) => {
+  addEventListener(previewDocument, 'mousemove', e => {
     mouseX = e.clientX
     mouseY = e.clientY
   })
@@ -85,7 +85,7 @@ const listenScrolling = (previewDocument) => {
   })
 }
 
-const onSectionHovered = (el) => {
+const onSectionHovered = el => {
   // console.log('onSectionHovered', el.dataset.maglevSectionId)
   const sectionId = el.dataset.maglevSectionId
   if (hoveredSectionId !== sectionId) {
@@ -100,7 +100,7 @@ const onSectionLeft = () => {
   hoveredSectionId = null
 }
 
-const onSettingHovered = (el) => {
+const onSettingHovered = el => {
   if (!el) return null
   el.style.outline = '2px solid transparent'
   el.style.outlineOffset = '2px'
@@ -108,7 +108,7 @@ const onSettingHovered = (el) => {
   if (!el.style.borderRadius) el.style.borderRadius = '2px'
 }
 
-const onSettingLeft = (el) => {
+const onSettingLeft = el => {
   el.style.boxShadow = 'none'
 }
 
@@ -133,12 +133,12 @@ const onSettingClicked = (el, event) => {
     route.params.sectionId = fragments[0]
   }
 
-  router.push(route).catch((err) => {
+  router.push(route).catch(err => {
     if (err.name !== 'NavigationDuplicated') throw err
   })
 }
 
-const setupEvents = (previewDocument) => {
+const setupEvents = previewDocument => {
   // mousescroll
   listenScrolling(previewDocument)
 
@@ -177,7 +177,7 @@ const setupEvents = (previewDocument) => {
   })
 }
 
-export const setup = (previewDocument) => {
+export const setup = previewDocument => {
   previewDocument.head.insertAdjacentHTML(
     'beforeend',
     `<style type="text/css">:root { --maglev-editor-outline-color: ${store.state.editorSettings.primaryColor}; }</style>`,
@@ -229,7 +229,7 @@ const updateSectionTextSetting = (previewDocument, section, change) => {
 
   console.log('updateSectionTextSetting', settings, settings.length)
 
-  settings.forEach(($el) => {
+  settings.forEach($el => {
     $el.innerHTML = change.value
   })
 

@@ -52,7 +52,7 @@ export default {
       ]
     },
     firstTabIndex() {
-      return this.tabs.map((t) => t.type).indexOf(this.linkType)
+      return this.tabs.map(t => t.type).indexOf(this.linkType)
     },
     link() {
       return (

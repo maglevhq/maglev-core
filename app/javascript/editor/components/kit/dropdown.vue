@@ -103,7 +103,7 @@ export default {
     placement: {
       type: String,
       default: 'right',
-      validator: (value) => ['right', 'left'].indexOf(value) !== -1,
+      validator: value => ['right', 'left'].indexOf(value) !== -1,
     },
     dropup: { type: Boolean, default: false },
     fullWidth: { type: Boolean, default: false },

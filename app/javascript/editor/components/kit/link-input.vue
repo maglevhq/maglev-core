@@ -5,11 +5,11 @@
     </label>
 
     <text-input
-        v-model="textInput"
-        :showLabel="false"
-        :placeholder="$t('linkInput.nestedTextPlaceholder')"
-        class="mt-2"
-        :class="{ hidden: !withText }"
+      v-model="textInput"
+      :showLabel="false"
+      :placeholder="$t('linkInput.nestedTextPlaceholder')"
+      class="mt-2"
+      :class="{ hidden: !withText }"
     />
 
     <div
@@ -115,7 +115,7 @@ export default {
         component: LinkPicker,
         props: { currentLink: this.value },
         listeners: {
-          select: (link) => this.setLink(link),
+          select: link => this.setLink(link),
         },
       })
     },

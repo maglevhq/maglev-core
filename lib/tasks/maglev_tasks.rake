@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 def ensure_log_goes_to_stdout
-    old_logger = Webpacker.logger
-    Webpacker.logger = ActiveSupport::Logger.new(STDOUT)
-    yield
+  old_logger = Webpacker.logger
+  Webpacker.logger = ActiveSupport::Logger.new($stdout)
+  yield
 ensure
-    Webpacker.logger = old_logger
+  Webpacker.logger = old_logger
 end
 
 namespace :maglev do
@@ -49,19 +49,19 @@ end
 
 def enhance_assets_precompile
   # yarn:install was added in Rails 5.1
-  deps = yarn_install_available? ? [] : ["maglev:webpacker:yarn_install"]
-  Rake::Task["assets:precompile"].enhance(deps) do
-    Rake::Task["maglev:webpacker:compile"].invoke
+  deps = yarn_install_available? ? [] : ['maglev:webpacker:yarn_install']
+  Rake::Task['assets:precompile'].enhance(deps) do
+    Rake::Task['maglev:webpacker:compile'].invoke
   end
 end
 
 # Compile packs after we've compiled all other assets during precompilation
-skip_webpacker_precompile = %w(no false n f).include?(ENV["WEBPACKER_PRECOMPILE"])
+skip_webpacker_precompile = %w[no false n f].include?(ENV['WEBPACKER_PRECOMPILE'])
 
 unless skip_webpacker_precompile
-  if Rake::Task.task_defined?("assets:precompile")
+  if Rake::Task.task_defined?('assets:precompile')
     enhance_assets_precompile
   else
-    Rake::Task.define_task("assets:precompile" => "maglev:webpacker:compile")
+    Rake::Task.define_task("assets:precompile": 'maglev:webpacker:compile')
   end
 end
