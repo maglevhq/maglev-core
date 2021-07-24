@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'jbuilder'
-
 module Maglev
   class Engine < ::Rails::Engine
     isolate_namespace Maglev
@@ -31,7 +29,7 @@ module Maglev
       end
     end
 
-    initializer 'webpacker.proxy' do |app|
+    initializer 'maglev.webpacker.proxy' do |app|
       insert_middleware = begin
         Maglev.webpacker.config.dev_server.present?
       rescue StandardError
@@ -47,7 +45,7 @@ module Maglev
     end
 
     # Serves the engine's webpack when requested
-    initializer 'webpacker.static' do |app|
+    initializer 'maglev.webpacker.static' do |app|
       app.config.middleware.use(
         Rack::Static,
         urls: ['/maglev-packs'],
