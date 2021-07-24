@@ -4,9 +4,5 @@
 // that code so it'll be compiled.
 
 import 'style/application'
-
 console.log('Maglev ADMIN loaded')
-
-require.context('../images', true)
-
 import 'controllers'
