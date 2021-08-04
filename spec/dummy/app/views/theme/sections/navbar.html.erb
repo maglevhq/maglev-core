@@ -1,32 +1,25 @@
-<div <%= section.dom_data %>>
-  <img <%= section.settings.logo.dom_data %> src="<%= section.settings.logo %>" />
-
+<%= maglev_section.wrapper_tag class: 'navbar' do %>
+  <%= maglev_section.setting_tag :logo, class: 'brand-logo' %>
   <nav>
     <ul>
-      <% section.blocks.each_with_index do |block| %>
-      <li>
-        <%= block.settings.label %>
-        <% if block.children? %>
-          <ul>
-            <% block.children.each do |nested_block| %>
-            <li><%= nested_block.settings.label %></li>
-            <% end %>
-          </ul>
+      <% maglev_section.blocks.each do |maglev_block| %>
+        <%= maglev_block.wrapper_tag.li class: 'navbar-item' do %>
+          <%= maglev_block.setting_tag :link do %>
+            <%= maglev_block.setting_tag :label, html_tag: :span %>
+          <% end %>
+          <% if maglev_block.children? %>
+            <ul>
+              <% maglev_block.children.each do |nested_maglev_block| %>
+                <%= nested_maglev_block.wrapper_tag.li class: 'navbar-nested-item' do %>
+                  <%= nested_maglev_block.setting_tag :link do %>
+                    <%= nested_maglev_block.setting_tag :label, html_tag: :span %>
+                  <% end %>
+                <% end %>
+              <% end %>
+            </ul>
+          <% end %>
         <% end %>
-      </li>
       <% end %>
     </ul>
   </nav>
-
-  <nav>
-    <ul>
-      <% section.blocks.each_with_index do |block, index| %>
-        <li <%= block.dom_data %>>
-          <a href="<%= block.settings.link.href %>" <% if block.settings.link.open_new_window? %>target="_blank"<% end %>>
-            <span <%= block.settings.label.dom_data %> ><%= block.settings.label %></span>
-          </a>    
-        </li>
-      <% end %>
-    </ul>
-  </nav>
-</div>
+<% end %>

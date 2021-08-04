@@ -9,7 +9,7 @@
           <%= tag.h3 data: block.settings.title.tag_data do %>
             <%= block.settings.title %>
           <% end %>
-          <%= image_tag block.settings.image.url, alt: block.settings.image.alt_text, data: block.settings.image.tag_data.merge(foo: block.settings.image.alt_text) %>
+          <%= image_tag block.settings.image.url, alt: block.settings.image.alt_text, data: block.settings.image.tag_data %>
         <% end %>
       <% end %>
     </ul>

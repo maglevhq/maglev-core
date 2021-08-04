@@ -67,4 +67,3 @@ blocks: <%- if blocks.blank? -%>[]
 # If you like to use blocks to build a menu with sub menu items, 
 # consider using the tree presentation
 # blocks_presentation: "tree"
-

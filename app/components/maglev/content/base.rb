@@ -25,6 +25,10 @@ module Maglev
       def to_s
         @content || ''
       end
+
+      def tag
+        to_s
+      end
     end
   end
 end

@@ -2,6 +2,8 @@
 
 module Maglev
   class SectionComponent < BaseComponent
+    include TagHelper
+
     attr_reader :parent, :id, :type, :settings, :attributes, :definition, :templates_root_path
 
     # rubocop:disable Lint/MissingSuper
@@ -38,9 +40,10 @@ module Maglev
     end
 
     def render
+      # view_context.assigns['maglev_section'] = self # => BAD
       super(
         template: "#{templates_root_path}/sections/#{type}",
-        locals: { section: self }
+        locals: { section: self, maglev_section: self }
       )
     end
 

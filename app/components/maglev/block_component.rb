@@ -2,6 +2,8 @@
 
 module Maglev
   class BlockComponent < BaseComponent
+    include TagHelper
+
     attr_reader :section, :id, :name, :type, :settings, :attributes, :definition
     attr_accessor :children
 
