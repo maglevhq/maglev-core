@@ -7,7 +7,8 @@ module Maglev
     include ::Maglev::Section::ContentConcern
 
     ## attributes ##
-    attr_accessor :id, :theme, :name, :category, :scope, :settings, :blocks, :blocks_label, :blocks_presentation
+    attr_accessor :id, :theme, :name, :category, :scope, :settings, :blocks, :blocks_label, :blocks_presentation,
+                  :sample
 
     ## validations ##
     validates :id, :theme, :name, :category, presence: true

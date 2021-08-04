@@ -4,8 +4,8 @@ module Maglev
   module Content
     class Text < Base
       def tag(view_context, options = {}, _content = nil)
-        view_context.tag(
-          options.delete(:html_tag) || tag_name,
+        view_context.tag.public_send(
+          options.delete(:html_tag)&.to_sym || tag_name,
           to_s,
           {
             data: (options.delete(:data) || {}).merge(tag_data)

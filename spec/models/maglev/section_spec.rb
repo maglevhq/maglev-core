@@ -33,4 +33,28 @@ describe Maglev::Section do
       it { is_expected.to eq false }
     end
   end
+
+  describe '#build_default_content' do
+    let(:section) { build(:section, :navbar) }
+    subject { section.build_default_content }
+
+    context 'no sample provided by the developer' do
+      it 'returns a default and basic content for the section' do
+        expect(subject[:type]).to eq 'navbar'
+        expect(subject[:settings][0][:value]).to eq({ url: 'awesome-logo.png' })
+        expect(subject[:blocks].size).to eq 3
+        expect(subject[:blocks][0][:settings][0][:value]).to eq 'Hello world'
+      end
+    end
+
+    context 'a sample has been provided by the developer' do
+      let(:section) { build(:section, :navbar, :navbar_with_sample) }
+      it 'returns the sample as the default content of the section' do
+        expect(subject[:type]).to eq 'navbar'
+        expect(subject[:settings][0][:value]).to eq({ url: 'another-awesome-logo.png' })
+        expect(subject[:blocks].size).to eq 2
+        expect(subject[:blocks][0][:settings][0][:value]).to eq 'Home'
+      end
+    end
+  end
 end
