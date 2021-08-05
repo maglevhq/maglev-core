@@ -6,7 +6,7 @@ module Maglev
       def tag(view_context, options = {}, _content = nil)
         view_context.tag.public_send(
           options.delete(:html_tag)&.to_sym || tag_name,
-          to_s,
+          to_s.html_safe,
           {
             data: (options.delete(:data) || {}).merge(tag_data)
           }.merge(options)

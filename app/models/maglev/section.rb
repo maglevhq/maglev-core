@@ -22,7 +22,7 @@ module Maglev
 
     ## class methods ##
     def self.build(hash)
-      attributes = hash.slice('id', 'theme', 'name', 'scope', 'category', 'blocks_label', 'blocks_presentation')
+      attributes = hash.slice('id', 'theme', 'name', 'scope', 'category', 'blocks_label', 'blocks_presentation', 'sample')
 
       new(
         attributes.merge(

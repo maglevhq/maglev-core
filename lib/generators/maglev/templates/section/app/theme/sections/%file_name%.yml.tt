@@ -67,3 +67,23 @@ blocks: <%- if blocks.blank? -%>[]
 # If you like to use blocks to build a menu with sub menu items, 
 # consider using the tree presentation
 # blocks_presentation: "tree"
+
+# In order to get a section with "meaning" content for the editors, 
+# you can set the default content of a new instance of this section.
+# (it's also be useful when taking a screenshot of the section).
+# sample:
+#   settings:
+    <%- settings.each do |setting| -%>
+#     <% if setting.value? -%><%= setting.id %>: <%= setting.default %><% end -%>
+
+    <%- end -%>
+#   blocks: <%- if blocks.blank? -%>[]
+  <% end %>
+  <%- blocks.each do |(type, settings)| -%>
+#    - type: <%= type %>
+#      settings:
+        <%- settings.each do |setting| -%>
+#        <% if setting.value? -%><%= setting.id %>: <%= setting.default %><% end -%>
+        
+        <%- end -%>
+  <%- end -%>
