@@ -29,7 +29,7 @@ RSpec.describe 'Maglev::PagePreviewController', type: :request do
       it 'renders the index page with the navbar' do
         get '/maglev/preview'
         expect(response.body).to include('<title>Default</title>')
-        expect(response.body).to include('<a href="https://www.nocoffee.fr" target="_blank">')
+        expect(response.body).to include('<a data-maglev-id="zzz.link" target="_blank" href="https://www.nocoffee.fr">')
       end
     end
   end
@@ -63,20 +63,23 @@ RSpec.describe 'Maglev::PagePreviewController', type: :request do
     it 'displays the expected content' do
       get '/maglev/preview'
       expect(response.body)
-        .to include(
-          '<li data-maglev-block-id="block-0"><h3 data-maglev-id="block-0.title">My work</h3><img src="/samples/images/default.svg" alt="My work" /></li>'
+        .to match(
+          %r{<li data-maglev-block-id="block-0">\s+<h3 data-maglev-id="block-0.title">\s+My work\s+</h3>\s+<img data-maglev-id="block-0.image" src="/samples/images/default.svg" />\s+</li>}
         )
     end
 
     context 'with a missing key' do
       let(:block) do
-        { id: 'block-0', type: 'item', settings: [{ id: 'title', value: 'My work' }] }
+        { id: 'block-0', type: 'item',
+          settings: [{ id: 'title', value: 'My work' }, { id: 'image', value: '' }] }
       end
 
       it 'works anyway' do
         get '/maglev/preview'
         expect(response.body)
-          .to include('<li data-maglev-block-id="block-0"><h3 data-maglev-id="block-0.title">My work</h3><img src="" alt="My work" /></li>')
+          .to match(
+            %r{<li data-maglev-block-id="block-0">\s+<h3 data-maglev-id="block-0.title">\s+My work\s+</h3>\s+<img data-maglev-id="block-0.image" src="" />\s+</li>}
+          )
       end
     end
   end
@@ -99,10 +102,36 @@ RSpec.describe 'Maglev::PagePreviewController', type: :request do
 
     it 'displays the expected content' do
       get '/maglev/preview'
-      expect(response.body.gsub(/\s{2,}/m, ''))
-        .to include(
-          '<ul><li>Item #0<ul><li>Item #0-0</li><li>Item #0-1</li></ul></li><li>Item #1</li></ul>'
-        )
+      expect(pretty_html(response.body))
+        .to include(<<-HTML
+        <nav>
+          <ul>
+            <li class="navbar-item" data-maglev-block-id="block-0">
+              <a data-maglev-id="block-0.link" href="/maglev/preview">
+                <span data-maglev-id="block-0.label">Item #0</span>
+              </a>
+              <ul>
+                <li class="navbar-nested-item" data-maglev-block-id="block-0-0">
+                  <a data-maglev-id="block-0-0.link" href="/maglev/preview">
+                    <span data-maglev-id="block-0-0.label">Item #0-0</span>
+                  </a>
+                </li>
+                <li class="navbar-nested-item" data-maglev-block-id="block-0-1">
+                  <a data-maglev-id="block-0-1.link" href="/maglev/preview">
+                    <span data-maglev-id="block-0-1.label">Item #0-1</span>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li class="navbar-item" data-maglev-block-id="block-1">
+              <a data-maglev-id="block-1.link" href="/maglev/preview">
+                <span data-maglev-id="block-1.label">Item #1</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+        HTML
+          .strip)
     end
   end
 end

@@ -23,7 +23,7 @@ describe Maglev::GetPageSections do
 
   # rubocop:disable Style/StringHashKeys
   context 'the page is full of sections' do
-    let(:page) { build(:page, :with_navbar) }
+    let(:page) { build(:page, :with_blank_navbar) }
     it 'fetches the content of the site scoped sections of a page from the site' do
       is_expected.to eq([
                           {

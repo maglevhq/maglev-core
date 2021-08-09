@@ -14,7 +14,8 @@ class Maglev::Section::Setting
 
   ## methods ##
 
-  def build_default_content
+  def build_default_content(custom_default = nil)
+    default = custom_default || self.default
     case type.to_sym
     when :image_picker
       default.is_a?(String) ? { url: default } : {}

@@ -39,7 +39,42 @@ FactoryBot.define do
             settings: [
               { id: :logo, value: 'logo.png' }
             ],
-            blocks: []
+            blocks: [
+              {
+                id: 'menu-item-0',
+                type: 'menu_item',
+                settings: [
+                  { id: :label, value: 'Home' },
+                  { id: :link, value: '/' }
+                ]
+              },
+              {
+                id: 'menu-item-1',
+                type: 'menu_item',
+                settings: [
+                  { id: :label, value: 'About us' },
+                  { id: :link, value: '/about-us' }
+                ]
+              },
+              {
+                id: 'menu-item-1-1',
+                parent_id: 'menu-item-1',
+                type: 'menu_item',
+                settings: [
+                  { id: :label, value: 'Our team' },
+                  { id: :link, value: '/about-us/team' }
+                ]
+              },
+              {
+                id: 'menu-item-1-2',
+                parent_id: 'menu-item-1',
+                type: 'menu_item',
+                settings: [
+                  { id: :label, value: 'Our office' },
+                  { id: :link, value: { href: '/about-us/office', link_type: 'url', open_new_window: true } }
+                ]
+              }
+            ]
           },
           {
             id: 'def',
@@ -70,7 +105,11 @@ FactoryBot.define do
         [
           {
             id: 'abc',
-            type: 'navbar'
+            type: 'navbar',
+            settings: [
+              { id: :logo, value: 'logo.png' }
+            ],
+            blocks: []
           },
           {
             id: 'def',

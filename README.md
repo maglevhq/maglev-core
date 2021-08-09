@@ -12,8 +12,8 @@ Coming soon
 
 ## Getting started / Documentation
 
-- [Install Maglev](https://maglev.gitbook.io/maglev/quickstart)
-- [Documentation](https://maglev.gitbook.io/maglev/)
+- [Install Maglev](https://docs.maglev.dev/quickstart)
+- [Documentation](https://docs.maglev.dev/)
 
 ## Testing
 

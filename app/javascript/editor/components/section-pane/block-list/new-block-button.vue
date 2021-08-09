@@ -9,9 +9,11 @@
       <template v-slot:button>
         <button
           class="
-            border-purple-200
-            text-purple-200
-            hover:border-editor-primary hover:text-editor-primary
+            border-editor-primary
+            text-editor-primary
+            border-opacity-50
+            text-opacity-50
+            hover:border-opacity-100 hover:text-opacity-100
             transition-all
             duration-200
             ease-in-out
@@ -22,7 +24,6 @@
             py-3
             flex
             items-center
-            w-full
           "
         >
           <icon name="ri-add-line" size="1.5rem" />
@@ -49,9 +50,11 @@
     </dropdown>
     <button
       class="
-        border-purple-200
-        text-purple-200
-        hover:border-editor-primary hover:text-editor-primary
+        border-editor-primary
+        text-editor-primary
+        border-opacity-50
+        text-opacity-50
+        hover:border-opacity-100 hover:text-opacity-100
         transition-all
         duration-200
         ease-in-out

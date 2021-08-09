@@ -16,10 +16,18 @@ module Maglev
         "data-maglev-id=\"#{scope.id}.#{setting.id}\"".html_safe
       end
 
+      def tag_data
+        { maglev_id: "#{scope.id}.#{setting.id}" }
+      end
+
       delegate :site, to: :scope
 
       def to_s
         @content || ''
+      end
+
+      def tag
+        to_s
       end
     end
   end

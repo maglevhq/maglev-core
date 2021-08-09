@@ -10,8 +10,8 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
-      colors: {
-        'editor-primary': 'rgba(var(--editor-color-primary-non-hex), var(--tw-bg-opacity))',
+      colors: {        
+        'editor-primary': 'var(--editor-color-primary)',
         'gray': {
           '100': '#f5f5f5',
           '200': '#eeeeee',

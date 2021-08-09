@@ -23,6 +23,17 @@ module Maglev
         href
       end
 
+      def tag(view_context, options = {}, content = nil)
+        view_context.link_to(
+          content,
+          href,
+          {
+            data: (options.delete(:data) || {}).merge(tag_data),
+            target: open_new_window? ? '_blank' : nil
+          }.merge(options)
+        )
+      end
+
       private
 
       def link

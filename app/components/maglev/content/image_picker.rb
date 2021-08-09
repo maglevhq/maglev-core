@@ -23,6 +23,16 @@ module Maglev
         url
       end
 
+      def tag(view_context, options = {}, _content = nil)
+        view_context.tag(:img,
+                         {
+                           src: url,
+                           alt: alt_text,
+                           data: (options.delete(:data) || {}).merge(tag_data)
+                         }.merge(options),
+                         false)
+      end
+
       private
 
       def image

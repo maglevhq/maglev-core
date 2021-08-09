@@ -1,3 +1,24 @@
+.bg-editor-primary,
+.hover\:bg-editor-primary:hover {
+  background-color: rgba(
+    var(--editor-color-primary-non-hex),
+    var(--tw-bg-opacity)
+  );
+}
+
+.text-editor-primary,
+.hover\:text-editor-primary:hover {
+  color: rgba(var(--editor-color-primary-non-hex), var(--tw-text-opacity));
+}
+
+.border-editor-primary,
+.hover\:border-editor-primary:hover {
+  border-color: rgba(
+    var(--editor-color-primary-non-hex),
+    var(--tw-border-opacity)
+  );
+}
+
 .capitalize-first::first-letter {
   text-transform: uppercase;
 }
