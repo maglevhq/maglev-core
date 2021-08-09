@@ -14,7 +14,12 @@ module Maglev
       @site = fetch_site
       @theme = fetch_theme
       @page = fetch_page
-      @page_sections = fetch_page_sections
+
+      if @page
+        @page_sections = fetch_page_sections
+      else
+        raise ActionController::RoutingError, 'Maglev page not found'
+      end
     end
 
     def fetch_site
