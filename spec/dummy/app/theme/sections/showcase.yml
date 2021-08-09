@@ -5,8 +5,8 @@ name: Showcase
 category: features
 
 # Definition of the settings:
-# A setting type can be one of the following values: text, image_picker, checkbox, radio, select, url, hint, content_type.
-# Please visit: https://doc.locomotivecms.com/docs/json-definition for more explanation.
+# A setting type can be one of the following values: text, image_picker, checkbox, link and color.
+# Please visit: https://docs.maglev.dev/concepts/setting for more explanation.
 settings:
 - label: "Title"
   id: title

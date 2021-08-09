@@ -79,8 +79,10 @@ module Maglev
         when 'text' then label
         when 'image_picker' then '"/maglev-placeholder.png"'
         when 'checkbox' then true
-        when 'radio', 'select' then 'option_1'
         when 'link' then '"#"'
+        when 'color' then '#E5E7EB'
+        when 'radio', 'select' then 'option_1'
+
         end
       end
 
