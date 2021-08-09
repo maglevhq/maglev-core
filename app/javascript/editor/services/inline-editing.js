@@ -271,8 +271,8 @@ export const updateSectionSetting = (
       break
     case 'image_picker':
     case 'checkbox':
+    case 'color':
       foundSetting = false
-      debouncedUpdatePreviewDocument(previewDocument, content, section)
       break
     default:
       console.log(
