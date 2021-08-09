@@ -227,7 +227,12 @@ const updateSectionTextSetting = (previewDocument, section, change) => {
   const selector = `[data-maglev-id='${section.id}.${change.settingId}']`
   const settings = previewDocument.querySelectorAll(selector)
 
-  console.log('updateSectionTextSetting', settings, settings.length)
+  console.log(
+    'updateSectionTextSetting',
+    settings,
+    settings.length,
+    `${section.id}.${change.settingId}`,
+  )
 
   settings.forEach(($el) => {
     $el.innerHTML = change.value
@@ -250,22 +255,24 @@ export const updateSectionSetting = (
     return
   }
 
-  let source = null
-  let foundSetting = null
+  let source = sectionBlock || section
+  let foundSetting = false
   switch (change.settingType) {
     case 'text':
-    case 'link':
-      source = sectionBlock || section
       foundSetting = updateSectionTextSetting(previewDocument, source, change)
-
-      if (!foundSetting)
-        debouncedUpdatePreviewDocument(previewDocument, content, section)
-
+      break
+    case 'link':
+      if (change.settingOptions.withText)
+        foundSetting = updateSectionTextSetting(previewDocument, source, {
+          ...change,
+          value: change.value.text,
+          settingId: `${change.settingId}.text`,
+        })
       break
     case 'image_picker':
     case 'checkbox':
     case 'color':
-      debouncedUpdatePreviewDocument(previewDocument, content, section)
+      foundSetting = false
       break
     default:
       console.log(
@@ -275,6 +282,9 @@ export const updateSectionSetting = (
       )
       break
   }
+
+  if (!foundSetting)
+    debouncedUpdatePreviewDocument(previewDocument, content, section)
 }
 
 export const addSection = (previewDocument, content, section) => {

@@ -162,7 +162,7 @@ const actions = {
   fetchEditorSettings({ commit }) {
     commit('SET_EDITOR_SETTINGS', {
       logoUrl: window.logoUrl,
-      primaryColor: window.primaryColor
+      primaryColor: window.primaryColor,
     })
   },
   fetchSite({ commit }, locally) {
@@ -346,9 +346,9 @@ const getters = {
   },
   sectionSettings:
     ({ sectionDefinition }) =>
-      (advanced) => {
-        return services.section.getSettings(sectionDefinition, advanced)
-      },
+    (advanced) => {
+      return services.section.getSettings(sectionDefinition, advanced)
+    },
   sectionBlocks: ({ sectionBlocks, section, sectionDefinition }) => {
     if (!section) return []
     return section.blocks
@@ -363,20 +363,20 @@ const getters = {
   },
   sectionBlockLabel:
     ({ sectionDefinition }) =>
-      (sectionBlock) => {
-        const definition = sectionDefinition.blocks.find(
-          (def) => def.type === sectionBlock.type,
-        )
-        return services.section.getBlockLabel(sectionBlock, definition)
-      },
+    (sectionBlock) => {
+      const definition = sectionDefinition.blocks.find(
+        (def) => def.type === sectionBlock.type,
+      )
+      return services.section.getBlockLabel(sectionBlock, definition)
+    },
   sectionBlockContent: ({ sectionBlock }) => {
     return sectionBlock ? [...sectionBlock.settings] : null
   },
   sectionBlockSettings:
     ({ sectionBlockDefinition }) =>
-      (advanced) => {
-        return services.section.getSettings(sectionBlockDefinition, advanced)
-      },
+    (advanced) => {
+      return services.section.getSettings(sectionBlockDefinition, advanced)
+    },
 }
 
 const store = new Vuex.Store({

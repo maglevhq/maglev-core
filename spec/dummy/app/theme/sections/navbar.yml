@@ -12,6 +12,7 @@ settings:
 - label: "Logo"
   id: logo
   type: image_picker
+  default: 'awesome-logo.png'
     
 # Definition of the blocks.
 # You can define as many types of blocks as you want.

@@ -47,6 +47,7 @@
     <link-input
       :label="setting.label"
       :name="setting.id"
+      :isFocused="isFocused"
       :withText="options.withText"
       v-model="inputValue"
       v-if="setting.type == 'link'"
@@ -87,6 +88,7 @@ export default {
         this.$emit('change', {
           settingId: this.setting.id,
           settingType: this.setting.type,
+          settingOptions: this.setting.options,
           value,
         })
       },

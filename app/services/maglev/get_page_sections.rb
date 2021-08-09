@@ -60,11 +60,10 @@ module Maglev
       end
     end
 
-    # content can be both section and block / setting is the definition of the setting
     def transform_content_setting(content, setting)
       case setting.type
       when 'link'
-        return unless content.dig('value', 'link_type') == 'page'
+        return unless content['value'].is_a?(Hash) && content.dig('value', 'link_type') == 'page'
 
         content['value'] = replace_href_in_link(content['value'])
       when 'text'

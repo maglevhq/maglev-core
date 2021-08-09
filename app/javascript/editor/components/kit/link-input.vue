@@ -5,11 +5,12 @@
     </label>
 
     <text-input
-        v-model="textInput"
-        :showLabel="false"
-        :placeholder="$t('linkInput.nestedTextPlaceholder')"
-        class="mt-2"
-        :class="{ hidden: !withText }"
+      v-model="textInput"
+      :showLabel="false"
+      :placeholder="$t('linkInput.nestedTextPlaceholder')"
+      :isFocused="isFocused"
+      class="mt-2"
+      :class="{ hidden: !withText }"
     />
 
     <div
@@ -52,7 +53,6 @@
         <icon name="ri-close-line" />
       </button>
     </div>
-    <!--    <LinkTextContent :value="value" />-->
   </div>
 </template>
 
@@ -67,6 +67,7 @@ export default {
     name: { type: String, default: 'image' },
     withText: { type: Boolean, default: false },
     value: { default: () => ({ text: '' }) },
+    isFocused: { type: Boolean, default: false },
   },
   computed: {
     isPage() {
@@ -89,9 +90,8 @@ export default {
   },
   methods: {
     setLink(link) {
-      this.$emit(
-        'input',
-        pick(
+      this.$emit('input', {
+        ...pick(
           link,
           'linkType',
           'linkLabel',
@@ -100,10 +100,10 @@ export default {
           'href',
           'email',
           'openNewWindow',
-          'withText',
           'text',
         ),
-      )
+        text: this.value.text,
+      })
       this.closeModal()
     },
     clear() {
