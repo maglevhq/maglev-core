@@ -8,7 +8,7 @@ export default class extends Controller {
 
   take() {
     const realSource = this.sourceTarget.contentDocument.querySelector('body')
-    html2canvas(realSource).then((canvas) => {
+    html2canvas(realSource).then(canvas => {
       this.outputTarget.src = canvas.toDataURL() // for debugging purpose
       axios
         .post(this.urlValue, {
@@ -17,7 +17,7 @@ export default class extends Controller {
         .then(() => {
           alert('Screenshot done!')
         })
-        .catch((error) => console.log('ERROR!', error))
+        .catch(error => console.log('ERROR!', error))
     })
   }
 }

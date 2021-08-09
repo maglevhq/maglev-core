@@ -58,7 +58,7 @@ const mutations = {
   SET_SECTION(state, section) {
     if (section) {
       const sectionDefinition = state.theme.sections.find(
-        (definition) => definition['id'] === section['type'],
+        definition => definition['id'] === section['type'],
       )
       state.section = { ...section }
       state.sectionDefinition = { ...sectionDefinition }
@@ -70,7 +70,7 @@ const mutations = {
     } else {
       const section = state.sections[hoveredSection.sectionId]
       const definition = state.theme.sections.find(
-        (definition) => definition['id'] === section['type'],
+        definition => definition['id'] === section['type'],
       )
       state.hoveredSection = {
         ...hoveredSection,
@@ -83,7 +83,7 @@ const mutations = {
     let updatedSection = { ...state.section }
     let newContent = { id: change.settingId, value: change.value }
     let contentIndex = updatedSection.settings.findIndex(
-      (content) => content.id === newContent.id,
+      content => content.id === newContent.id,
     )
 
     if (contentIndex === -1) updatedSection.settings.push(newContent)
@@ -109,7 +109,7 @@ const mutations = {
   SET_SECTION_BLOCK(state, sectionBlock) {
     state.sectionBlock = sectionBlock
     state.sectionBlockDefinition = state.sectionDefinition.blocks.find(
-      (definition) => definition.type === sectionBlock.type,
+      definition => definition.type === sectionBlock.type,
     )
   },
   ADD_SECTION_BLOCK(state, sectionBlock) {
@@ -118,24 +118,25 @@ const mutations = {
     state.section = state.sections[state.section.id]
   },
   REMOVE_SECTION_BLOCK(state, sectionBlockId) {
-    const index =
-      state.sections[state.section.id].blocks.indexOf(sectionBlockId)
+    const index = state.sections[state.section.id].blocks.indexOf(
+      sectionBlockId,
+    )
     state.sections[state.section.id].blocks.splice(index, 1)
     state.section = state.sections[state.section.id]
   },
   SORT_SECTION_BLOCKS(state, list) {
-    state.sections[state.section.id].blocks = list.map((block) => block.id)
+    state.sections[state.section.id].blocks = list.map(block => block.id)
     state.section = state.sections[state.section.id]
     // in case we deal with a tree structure
     list.forEach(
-      (block) => (state.sectionBlocks[block.id].parentId = block.parentId),
+      block => (state.sectionBlocks[block.id].parentId = block.parentId),
     )
   },
   UPDATE_SECTION_BLOCK_CONTENT(state, change) {
     let updatedBlock = { ...state.sectionBlocks[state.sectionBlock.id] }
     let newContent = { id: change.settingId, value: change.value }
     let contentIndex = updatedBlock.settings.findIndex(
-      (content) => content.id === newContent.id,
+      content => content.id === newContent.id,
     )
 
     if (contentIndex === -1) updatedBlock.settings.push(newContent)
@@ -162,14 +163,14 @@ const actions = {
   fetchEditorSettings({ commit }) {
     commit('SET_EDITOR_SETTINGS', {
       logoUrl: window.logoUrl,
-      primaryColor: window.primaryColor
+      primaryColor: window.primaryColor,
     })
   },
   fetchSite({ commit }, locally) {
-    services.site.find(locally).then((site) => commit('SET_SITE', site))
+    services.site.find(locally).then(site => commit('SET_SITE', site))
   },
   fetchPage({ commit, state: { site } }, id) {
-    services.page.findById(site, id).then((page) => commit('SET_PAGE', page))
+    services.page.findById(site, id).then(page => commit('SET_PAGE', page))
   },
   setCurrentPageSettings({ commit }, pageSettings) {
     commit('SET_PAGE_SETTINGS', pageSettings)
@@ -308,7 +309,7 @@ const actions = {
     const sectionBlock = sectionBlocks[id]
     if (sectionBlock) {
       const section = Object.values(sections).find(
-        (section) => (section.blocks || []).indexOf(sectionBlock?.id) !== -1,
+        section => (section.blocks || []).indexOf(sectionBlock?.id) !== -1,
       )
       commit('SET_SECTION', section) // NOTE: order is important here
       commit('SET_SECTION_BLOCK', sectionBlock)
@@ -323,9 +324,9 @@ const getters = {
       sections,
       blocks: sectionBlocks,
     })
-    return pageContent.sections.map((sectionContent) => {
+    return pageContent.sections.map(sectionContent => {
       const sectionDefinition = theme.sections.find(
-        (definition) => definition['id'] === sectionContent['type'],
+        definition => definition['id'] === sectionContent['type'],
       )
       return {
         id: sectionContent.id,
@@ -344,39 +345,33 @@ const getters = {
   sectionContent: ({ section }) => {
     return section ? [...section.settings] : null
   },
-  sectionSettings:
-    ({ sectionDefinition }) =>
-      (advanced) => {
-        return services.section.getSettings(sectionDefinition, advanced)
-      },
+  sectionSettings: ({ sectionDefinition }) => advanced => {
+    return services.section.getSettings(sectionDefinition, advanced)
+  },
   sectionBlocks: ({ sectionBlocks, section, sectionDefinition }) => {
     if (!section) return []
     return section.blocks
-      .map((id) => {
+      .map(id => {
         const sectionBlock = sectionBlocks[id]
         const definition = sectionDefinition.blocks.find(
-          (def) => def.type === sectionBlock.type,
+          def => def.type === sectionBlock.type,
         )
         return definition ? sectionBlock : null
       })
-      .filter((b) => b)
+      .filter(b => b)
   },
-  sectionBlockLabel:
-    ({ sectionDefinition }) =>
-      (sectionBlock) => {
-        const definition = sectionDefinition.blocks.find(
-          (def) => def.type === sectionBlock.type,
-        )
-        return services.section.getBlockLabel(sectionBlock, definition)
-      },
+  sectionBlockLabel: ({ sectionDefinition }) => sectionBlock => {
+    const definition = sectionDefinition.blocks.find(
+      def => def.type === sectionBlock.type,
+    )
+    return services.section.getBlockLabel(sectionBlock, definition)
+  },
   sectionBlockContent: ({ sectionBlock }) => {
     return sectionBlock ? [...sectionBlock.settings] : null
   },
-  sectionBlockSettings:
-    ({ sectionBlockDefinition }) =>
-      (advanced) => {
-        return services.section.getSettings(sectionBlockDefinition, advanced)
-      },
+  sectionBlockSettings: ({ sectionBlockDefinition }) => advanced => {
+    return services.section.getSettings(sectionBlockDefinition, advanced)
+  },
 }
 
 const store = new Vuex.Store({

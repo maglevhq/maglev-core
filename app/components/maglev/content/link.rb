@@ -7,6 +7,14 @@ module Maglev
         link[:href]
       end
 
+      def text
+        link[:text] || setting.options[:text]
+      end
+
+      def with_text?
+        !!(!link[:with_text].nil? ? link[:with_text] : setting.options[:with_text])
+      end
+
       def open_new_window?
         !!link[:open_new_window]
       end

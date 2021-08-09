@@ -3,12 +3,21 @@
     <label class="block font-semibold text-gray-800" :for="name">
       {{ label }}
     </label>
+
+    <text-input
+      v-model="textInput"
+      :showLabel="false"
+      :placeholder="$t('linkInput.nestedTextPlaceholder')"
+      class="mt-2"
+      :class="{ hidden: !withText }"
+    />
+
     <div
       class="
         flex
         items-center
         w-full
-        mt-1
+        mt-2
         py-3
         px-3
         rounded
@@ -43,6 +52,7 @@
         <icon name="ri-close-line" />
       </button>
     </div>
+    <!--    <LinkTextContent :value="value" />-->
   </div>
 </template>
 
@@ -55,7 +65,8 @@ export default {
   props: {
     label: { type: String, default: 'Label' },
     name: { type: String, default: 'image' },
-    value: { default: null },
+    withText: { type: Boolean, default: false },
+    value: { default: () => ({ text: '' }) },
   },
   computed: {
     isPage() {
@@ -66,6 +77,14 @@ export default {
     },
     isEmail() {
       return this.value?.linkType === 'email'
+    },
+    textInput: {
+      get() {
+        return this.value.text
+      },
+      set(text) {
+        this.$emit('input', { ...this.value, text })
+      },
     },
   },
   methods: {
@@ -81,6 +100,8 @@ export default {
           'href',
           'email',
           'openNewWindow',
+          'withText',
+          'text',
         ),
       )
       this.closeModal()
@@ -94,7 +115,7 @@ export default {
         component: LinkPicker,
         props: { currentLink: this.value },
         listeners: {
-          select: (link) => this.setLink(link),
+          select: link => this.setLink(link),
         },
       })
     },

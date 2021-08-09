@@ -8,8 +8,8 @@
       v-model="inputValue"
       v-if="
         setting.type == 'text' &&
-        !options.html &&
-        parseInt(options.nbRows || 1) < 2
+          !options.html &&
+          parseInt(options.nbRows || 1) < 2
       "
     />
     <textarea-input
@@ -47,6 +47,7 @@
     <link-input
       :label="setting.label"
       :name="setting.id"
+      :withText="options.withText"
       v-model="inputValue"
       v-if="setting.type == 'link'"
     />
@@ -67,7 +68,7 @@ export default {
     },
     value() {
       const content = this.content.find(
-        (sectionContent) => sectionContent.id === this.setting.id,
+        sectionContent => sectionContent.id === this.setting.id,
       )
       return content?.value
     },

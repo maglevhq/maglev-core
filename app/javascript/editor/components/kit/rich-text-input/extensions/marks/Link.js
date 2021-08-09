@@ -28,7 +28,7 @@ export default class MaglevLink extends Link {
       parseDOM: [
         {
           tag: 'a[href]',
-          getAttrs: (dom) => ({
+          getAttrs: dom => ({
             href: dom.getAttribute('href'),
             target: dom.getAttribute('target'),
             linkType: dom.getAttribute('maglev-link-type'),
@@ -37,7 +37,7 @@ export default class MaglevLink extends Link {
           }),
         },
       ],
-      toDOM: (node) => {
+      toDOM: node => {
         const { linkType, linkId, sectionId, ...attrs } = node.attrs
         return [
           'a',

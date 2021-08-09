@@ -22,7 +22,7 @@ export const SETTING_ATTRIBUTES = [
   'metaDescription',
 ]
 
-export const isIndex = (page) => {
+export const isIndex = page => {
   return page.path === 'index' || page.path === '/index'
 }
 
@@ -36,7 +36,7 @@ export const build = () => {
   }
 }
 
-export const findAll = (filters) => {
+export const findAll = filters => {
   console.log('[PageService] Fetching all the pages', filters)
   const options = { params: filters || {} }
   return api.get('/pages', options).then(({ data }) => sort(data))
@@ -50,7 +50,7 @@ export const findById = (site, id) => {
   return api.get(`/pages/${id}`).then(({ data }) => data)
 }
 
-export const create = (attributes) => {
+export const create = attributes => {
   console.log('[PageService] Creating page', attributes)
   return api.post(`/pages`, { page: attributes })
 }
@@ -72,17 +72,17 @@ export const setVisible = (id, visible) => {
   return api.put(`/pages/${id}`, { page: { visible } })
 }
 
-export const clone = (id) => {
+export const clone = id => {
   console.log('[PageService] Cloning page #', id)
   return api.post(`/pages/${id}/clones`, {})
 }
 
-export const destroy = (id) => {
+export const destroy = id => {
   console.log('[PageService] Destroying page #', id)
   return api.delete(`/pages/${id}`)
 }
 
-export const normalize = (page) => {
+export const normalize = page => {
   return coreNormalize(page, PAGE_SCHEMA)
 }
 
@@ -90,7 +90,7 @@ export const denormalize = (page, entities) => {
   return coreDenormalize(page, PAGE_SCHEMA, entities)
 }
 
-const sort = (pages) => {
+const sort = pages => {
   return pages.sort((a, b) => {
     if (a.path === 'index') return -1
     if (b.path === 'index') return 1

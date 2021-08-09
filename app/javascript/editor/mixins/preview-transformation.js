@@ -13,9 +13,8 @@ export default {
     },
     previewScaleRatio() {
       if (!this.mustPreviewScale()) return 1
-      const sidebarWidth = document.querySelector(
-        '.content-area > aside',
-      ).offsetWidth
+      const sidebarWidth = document.querySelector('.content-area > aside')
+        .offsetWidth
       const sectionPaneWidth = document.querySelector('.slide-pane').offsetWidth
       return (
         (this.windowWidth - sectionPaneWidth) /
