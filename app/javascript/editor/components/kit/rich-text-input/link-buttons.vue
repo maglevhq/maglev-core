@@ -79,7 +79,7 @@ export default {
         component: LinkPicker,
         props: { currentLink: this.sanitizeLink(), mode: 'insert' },
         listeners: {
-          select: link => this.setLink(link),
+          select: (link) => this.setLink(link),
         },
       })
     },

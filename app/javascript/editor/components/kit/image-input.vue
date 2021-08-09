@@ -112,7 +112,7 @@ export default {
         component: ImageLibrary,
         props: { modalClass: 'w-216', pickerMode: true },
         listeners: {
-          select: image => this.onSelectImage(image),
+          select: (image) => this.onSelectImage(image),
         },
       })
     },

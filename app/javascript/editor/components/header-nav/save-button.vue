@@ -35,7 +35,7 @@ export default {
           this.saveState = 'success'
           this.$store.dispatch('fetchSite')
         })
-        .catch(err => {
+        .catch((err) => {
           console.log('[Maglev] could not save the page', err)
           this.saveState = 'fail'
         })

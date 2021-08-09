@@ -171,7 +171,7 @@ export default {
           insideModal: true,
         },
         listeners: {
-          'on-update': editedPage => this.onUpdate(editedPage),
+          'on-update': (editedPage) => this.onUpdate(editedPage),
         },
       })
     },

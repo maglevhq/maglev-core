@@ -41,13 +41,13 @@ export default {
       if (allowedFiles) {
         this.uploadingState = 'inProgress'
         Promise.all(
-          allowedFiles.map(file => this.services.image.create({ file })),
+          allowedFiles.map((file) => this.services.image.create({ file })),
         )
           .then(() => {
             this.uploadingState = 'success'
             this.$emit('uploaded')
           })
-          .catch(error => {
+          .catch((error) => {
             this.uploadingState = 'fail'
             console.log(
               '[Maglev] Uploader failed. Check your server logs',

@@ -37,7 +37,7 @@ export default {
           name: 'editSectionBlock',
           params: { sectionBlockId: this.sectionBlockId },
         })
-        .catch(err => {
+        .catch((err) => {
           if (err.name !== 'NavigationDuplicated') throw err
         })
     },

@@ -141,7 +141,7 @@ export default {
       this.isOpen = !this.isOpen
     },
     fetch() {
-      this.fetchList(this.q).then(list => {
+      this.fetchList(this.q).then((list) => {
         this.list = list
         this.focus = list && list.length > 0 ? 0 : null
       })

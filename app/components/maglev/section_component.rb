@@ -21,9 +21,11 @@ module Maglev
     end
     # rubocop:enable Lint/MissingSuper
 
+    # rubocop:disable Rails/OutputSafety
     def dom_data
       "data-maglev-section-id=\"#{id}\"".html_safe
     end
+    # rubocop:enable Rails/OutputSafety
 
     def tag_data
       { maglev_section_id: id }

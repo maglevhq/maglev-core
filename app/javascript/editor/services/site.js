@@ -1,6 +1,6 @@
 import api from './api'
 
-export const find = async locally => {
+export const find = async (locally) => {
   // NOTE: we save a request to the API by attaching the site to the Window object
   if (locally) return window.site
 

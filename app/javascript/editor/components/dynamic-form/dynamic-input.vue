@@ -8,8 +8,8 @@
       v-model="inputValue"
       v-if="
         setting.type == 'text' &&
-          !options.html &&
-          parseInt(options.nbRows || 1) < 2
+        !options.html &&
+        parseInt(options.nbRows || 1) < 2
       "
     />
     <textarea-input
@@ -47,6 +47,7 @@
     <link-input
       :label="setting.label"
       :name="setting.id"
+      :isFocused="isFocused"
       :withText="options.withText"
       v-model="inputValue"
       v-if="setting.type == 'link'"
@@ -68,7 +69,7 @@ export default {
     },
     value() {
       const content = this.content.find(
-        sectionContent => sectionContent.id === this.setting.id,
+        (sectionContent) => sectionContent.id === this.setting.id,
       )
       return content?.value
     },
@@ -80,6 +81,7 @@ export default {
         this.$emit('change', {
           settingId: this.setting.id,
           settingType: this.setting.type,
+          settingOptions: this.setting.options,
           value,
         })
       },

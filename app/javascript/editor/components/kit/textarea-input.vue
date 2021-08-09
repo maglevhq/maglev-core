@@ -4,7 +4,6 @@
       {{ label }}
     </label>
     <textarea
-      :id="name"
       :value="value"
       @blur="blur()"
       @input="updateInput"

@@ -34,7 +34,7 @@ export default {
     onBlur() {
       this.$router
         .push({ name: 'editSection', params: { sectionId: this.sectionId } })
-        .catch(err => {
+        .catch((err) => {
           if (err.name !== 'NavigationDuplicated') throw err
         })
     },

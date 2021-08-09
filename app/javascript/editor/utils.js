@@ -1,6 +1,6 @@
 import i18n from '@/plugins/i18n.js'
 
-export const isBlank = object => {
+export const isBlank = (object) => {
   return (
     object === undefined ||
     object === null ||
@@ -9,13 +9,13 @@ export const isBlank = object => {
   )
 }
 
-export const camelize = str => {
+export const camelize = (str) => {
   return str
     .toLowerCase()
     .replace(/[^a-zA-Z0-9]+(.)/g, (m, chr) => chr.toUpperCase())
 }
 
-export const numberToHumanSize = size => {
+export const numberToHumanSize = (size) => {
   if (isBlank(size)) return null
 
   let number, unit
@@ -59,7 +59,7 @@ export const arraymove = (array, fromIndex, toIndex) => {
   return newArray
 }
 
-export const uuid = length => {
+export const uuid = (length) => {
   let charset =
     'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_'
   let i

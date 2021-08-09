@@ -38,7 +38,7 @@ describe Maglev::Content::Link do
     let(:content) { { link_type: 'url', href: '/contact_us' } }
     let(:setting) do
       double('Maglev::Section::Setting', default: '/contact_us', id: 'button', label: 'Button', type: 'link',
-                                         options: { with_text: true, text: 'Call now!', open_new_window: true })
+                                         options: { with_text: true, open_new_window: true })
     end
 
     describe 'to_s method' do
@@ -50,7 +50,7 @@ describe Maglev::Content::Link do
     end
 
     describe 'text method' do
-      it { expect(link.text).to eq('Call now!') }
+      it { expect(link.text).to be_nil }
     end
 
     describe 'with_text? method' do
@@ -64,12 +64,12 @@ describe Maglev::Content::Link do
 
   context 'data provided by DB' do
     let(:content) do
-      { link_type: 'url', href: '/contact_us', with_text: false, text: 'Call Tomorrow :D',
+      { link_type: 'url', href: '/contact_us', text: 'Call Tomorrow :D',
         open_new_window: true }
     end
     let(:setting) do
       double('Maglev::Section::Setting', default: '/contact_us', id: 'button', label: 'Button', type: 'link',
-                                         options: { with_text: true, text: 'Call now!', open_new_window: true })
+                                         options: { with_text: true, open_new_window: true })
     end
 
     describe 'to_s method' do
@@ -85,7 +85,7 @@ describe Maglev::Content::Link do
     end
 
     describe 'with_text? method' do
-      it { expect(link.with_text?).to eq(false) }
+      it { expect(link.with_text?).to eq(true) }
     end
 
     describe 'open_new_window? method' do

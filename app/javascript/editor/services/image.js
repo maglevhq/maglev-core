@@ -6,15 +6,15 @@ export const findAll = (page, perPage, query) => {
   return api.get('/assets', options).then(({ data }) => data)
 }
 
-export const find = id => {
+export const find = (id) => {
   return api.get(`/assets/${id}`).then(({ data }) => data)
 }
 
-export const destroy = id => {
+export const destroy = (id) => {
   return api.delete(`/assets/${id}`).then(({ data }) => data)
 }
 
-export const create = attributes => {
+export const create = (attributes) => {
   let formData = new FormData()
   Object.entries(attributes).forEach(([key, value]) =>
     formData.append(`asset[${key}]`, value),

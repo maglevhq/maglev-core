@@ -6,7 +6,7 @@
       :searchEnabled="true"
       :searchPlaceholder="$t(`linkPicker.page.input.searchPlaceholder`)"
       :emptyLabel="$t(`linkPicker.page.input.emptyLabel`)"
-      :fetchList="q => services.page.findAll({ q })"
+      :fetchList="(q) => services.page.findAll({ q })"
       v-model="page"
     >
       <template v-slot:value>
@@ -98,7 +98,7 @@ export default {
         )
         if (this.page)
           this.pageSection = this.page.sectionNames.find(
-            item => item.id === currentLink.sectionId,
+            (item) => item.id === currentLink.sectionId,
           )
       },
     },

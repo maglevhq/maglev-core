@@ -25,7 +25,7 @@ export default {
       ]
     },
     icons() {
-      return this.devices.map(settings => ({
+      return this.devices.map((settings) => ({
         device: settings[0],
         name: `${settings[1]}-line`,
         color:
