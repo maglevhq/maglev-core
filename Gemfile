@@ -42,6 +42,8 @@ group :development, :test do
   gem 'rubocop-rails_config'
 
   gem 'generator_spec'
+
+  gem 'nokogiri', '>= 1.11.4'
 end
 
 group :test do
