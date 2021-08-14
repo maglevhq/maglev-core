@@ -2,7 +2,7 @@
 
 module Maglev
   module Content
-    class ColorPicker < Base
+    class Color < Base
     end
   end
 end
