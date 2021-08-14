@@ -10,14 +10,14 @@ class Maglev::Section::Setting
 
   ## validations ##
   validates :id, :label, :type, :default, 'maglev/presence': true
-  validates :type, inclusion: { in: %w[text image_picker checkbox link] }
+  validates :type, inclusion: { in: %w[text image checkbox link] }
 
   ## methods ##
 
   def build_default_content(custom_default = nil)
     default = custom_default || self.default
     case type.to_sym
-    when :image_picker
+    when :image
       default.is_a?(String) ? { url: default } : {}
     when :link
       default.is_a?(String) ? { link_type: 'url', href: default } : {}

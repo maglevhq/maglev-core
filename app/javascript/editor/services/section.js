@@ -62,7 +62,7 @@ const buildSettings = (definition) => {
   return definition.settings.map((setting) => {
     let value = null
     switch (setting.type) {
-      case 'image_picker':
+      case 'image':
         value = { url: setting.default }
         break
       case 'link':
@@ -101,7 +101,7 @@ export const getBlockLabel = (block, definition) => {
           }
         }
         break
-      case 'image_picker':
+      case 'image':
         if (!image) {
           image = value?.url
         }

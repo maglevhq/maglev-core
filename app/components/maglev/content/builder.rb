@@ -5,7 +5,7 @@ module Maglev
     module Builder
       TYPES = {
         text: Maglev::Content::Text,
-        image_picker: Maglev::Content::ImagePicker,
+        image: Maglev::Content::Image,
         link: Maglev::Content::Link,
         checkbox: Maglev::Content::Checkbox,
         color: Maglev::Content::ColorPicker

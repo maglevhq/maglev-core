@@ -9,7 +9,7 @@ category: <%= options['category'] %>
 # site_scoped: true
 
 # Definition of the settings:
-# A setting type can be one of the following values: text, image_picker, link, checkbox and color.
+# A setting type can be one of the following values: text, image, link, checkbox and color.
 # Please visit: https://docs.maglev.dev/concepts/setting for more explanation.
 settings:
 <%- settings.each do |setting| -%>

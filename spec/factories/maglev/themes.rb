@@ -15,7 +15,7 @@ FactoryBot.define do
                                                       id: 'navbar',
                                                       category: 'headers',
                                                       scope: 'site',
-                                                      settings: [{ label: 'Logo', id: 'logo', type: 'image_picker' }],
+                                                      settings: [{ label: 'Logo', id: 'logo', type: 'image' }],
                                                       blocks: [
                                                         {
                                                           name: 'Menu item',
@@ -51,7 +51,7 @@ FactoryBot.define do
                                                           type: 'menu_item',
                                                           settings: [
                                                             { label: 'Title', id: 'title', type: 'text', default: 'Work #1' },
-                                                            { label: 'Image', id: 'image', type: 'image_picker',
+                                                            { label: 'Image', id: 'image', type: 'image',
                                                               default: '/samples/images/default.svg' },
                                                             { label: 'Description', id: 'description', type: 'text',
                                                               default: 'Description' }

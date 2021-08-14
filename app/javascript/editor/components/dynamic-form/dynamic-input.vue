@@ -36,7 +36,7 @@
       :label="setting.label"
       :name="setting.id"
       v-model="inputValue"
-      v-if="setting.type == 'image_picker'"
+      v-if="setting.type == 'image'"
     />
     <checkbox-input
       :label="setting.label"

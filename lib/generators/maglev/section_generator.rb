@@ -54,14 +54,14 @@ module Maglev
     def default_section_settings
       [
         SectionSetting.new('title', 'text', 'My awesome title'),
-        SectionSetting.new('image', 'image_picker', 'An image')
+        SectionSetting.new('image', 'image', 'An image')
       ]
     end
 
     def default_block_settings
       [
         BlockSetting.new('list_item', 'title', 'text', 'Item title'),
-        BlockSetting.new('list_item', 'image', 'image_picker', 'Item image')
+        BlockSetting.new('list_item', 'image', 'image', 'Item image')
       ]
     end
 
@@ -77,7 +77,7 @@ module Maglev
       def default
         case type
         when 'text' then label
-        when 'image_picker' then '"/maglev-placeholder.png"'
+        when 'image' then '"/maglev-placeholder.png"'
         when 'checkbox' then true
         when 'link' then '"#"'
         when 'color' then '#E5E7EB'

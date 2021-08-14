@@ -269,7 +269,7 @@ export const updateSectionSetting = (
           settingId: `${change.settingId}.text`,
         })
       break
-    case 'image_picker':
+    case 'image':
     case 'checkbox':
     case 'color':
       foundSetting = false

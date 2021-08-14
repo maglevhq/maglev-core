@@ -38,7 +38,7 @@ FactoryBot.define do
       id { 'navbar' }
       name { 'Navbar' }
       settings do
-        [build(:section_setting, id: 'logo', label: 'Logo', type: 'image_picker', default: 'awesome-logo.png')]
+        [build(:section_setting, id: 'logo', label: 'Logo', type: 'image', default: 'awesome-logo.png')]
       end
       blocks_presentation { 'tree' }
       blocks do

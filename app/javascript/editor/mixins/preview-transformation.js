@@ -9,6 +9,7 @@ export default {
     previewPaneMaxWidth() {
       const sectionPaneWidth =
         document.querySelector('.slide-pane')?.offsetWidth || 0
+      console.log('previewPaneMaxWidth', this.windowWidth, sectionPaneWidth)
       return this.windowWidth - sectionPaneWidth
     },
     previewScaleRatio() {

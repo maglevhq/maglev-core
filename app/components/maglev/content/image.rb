@@ -2,7 +2,7 @@
 
 module Maglev
   module Content
-    class ImagePicker < Base
+    class Image < Base
       def url
         image[:url]
       end
