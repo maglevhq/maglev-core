@@ -6,7 +6,7 @@ describe Maglev::PersistSectionScreenshot do
   before { FileUtils.rm_rf(Rails.root.join('public/theme')) }
 
   let(:theme) { build(:theme) }
-  let(:path) { '/sometheme/jumbotron.png' }
+  let(:path) { Rails.root.join('public/theme/jumbotron.png') }
   let(:fetch_screenshot_path) do
     instance_double('FetchScreenshotPath', call: path)
   end
@@ -29,7 +29,7 @@ describe Maglev::PersistSectionScreenshot do
     let(:base64_image) { 'data:image/png;base64,bodyofthepngfile' }
     it 'persists the PNG in the filesystem' do
       is_expected.to eq true
-      expect(File.exist?(Rails.root.join('public/sometheme/jumbotron.png'))).to eq true
+      expect(File.exist?(Rails.root.join('public/theme/jumbotron.png'))).to eq true
     end
   end
 end

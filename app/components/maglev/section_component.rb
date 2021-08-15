@@ -42,7 +42,6 @@ module Maglev
     end
 
     def render
-      # view_context.assigns['maglev_section'] = self # => BAD
       super(
         template: "#{templates_root_path}/sections/#{type}",
         locals: { section: self, maglev_section: self }

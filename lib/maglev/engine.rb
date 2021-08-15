@@ -13,9 +13,13 @@ module Maglev
     config.assets.precompile += %w[maglev/logo.png maglev/favicon.png]
 
     initializer 'maglev.theme_reloader' do |app|
+      require_relative './theme_filesystem_loader'
       theme_path = Rails.root.join('app/theme')
       theme_reloader = app.config.file_watcher.new([], { theme_path.to_s => ['.yml'] }) do
-        Maglev.local_themes = [Maglev::Theme.load(theme_path)]
+        theme_loader = Maglev::ThemeFilesystemLoader.new(
+          Maglev.services(context: nil).fetch_screenshot_path
+        )
+        Maglev.local_themes = [theme_loader.call(theme_path)]
       end
       app.reloaders << theme_reloader
 

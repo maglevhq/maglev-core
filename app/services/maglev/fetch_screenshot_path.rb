@@ -5,10 +5,13 @@ module Maglev
     include Injectable
 
     dependency :fetch_sections_path
+    argument :theme, default: nil
     argument :section
+    argument :absolute, default: false
 
     def call
-      "/#{fetch_sections_path.call}/#{section.id}.png"
+      path = "#{fetch_sections_path.call(theme: theme)}/#{section.id}.png"
+      absolute ? "#{Rails.root}/public/#{path}" : "/#{path}"
     end
   end
 end

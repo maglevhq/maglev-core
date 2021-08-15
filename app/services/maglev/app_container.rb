@@ -8,13 +8,15 @@ module Maglev
       Maglev.config
     end
 
-    dependency :context # hold the request context
+    # hold the Rails request context
+    dependency :context
 
     dependency :fetch_site,                 class: Maglev::FetchSite, depends_on: %i[config context]
     dependency :fetch_theme,                class: Maglev::FetchTheme, depends_on: %i[fetch_site context]
     dependency :fetch_theme_layout,         class: Maglev::FetchThemeLayout, depends_on: %i[fetch_theme]
     dependency :fetch_sections_path,        class: Maglev::FetchSectionsPath, depends_on: :fetch_theme
     dependency :fetch_screenshot_path,      class: Maglev::FetchScreenshotPath, depends_on: :fetch_sections_path
+    dependency :fetch_screenshot_url, class: Maglev::FetchScreenshotUrl, depends_on: :fetch_screenshot_path
 
     dependency :get_base_url,               class: Maglev::GetBaseUrl, depends_on: %i[context fetch_site]
 

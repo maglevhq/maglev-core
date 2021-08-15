@@ -22,6 +22,8 @@ module Maglev
         f.write(image_data)
       end
 
+      section.screenshot_timestamp = Time.now.to_i
+
       true
     end
 
@@ -32,7 +34,7 @@ module Maglev
     end
 
     def screenshot_filepath
-      "#{Rails.root}/public#{fetch_screenshot_path.call(section: section)}"
+      fetch_screenshot_path.call(section: section, absolute: true)
     end
 
     def screenshots_dir

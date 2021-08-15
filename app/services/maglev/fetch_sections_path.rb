@@ -4,6 +4,8 @@ module Maglev
   class FetchSectionsPath
     include Injectable
 
+    argument :theme, default: nil
+
     def call
       'theme'
     end

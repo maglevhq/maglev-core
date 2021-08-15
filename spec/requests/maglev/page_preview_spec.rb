@@ -31,14 +31,14 @@ RSpec.describe 'Maglev::PagePreviewController', type: :request do
         expect(response.body).to include('<title>Default</title>')
         expect(response.body).to include('<a data-maglev-id="zzz.link" target="_blank" href="https://www.nocoffee.fr">')
       end
-    end    
+    end
   end
 
   context 'rendering an unknown page' do
     it 'raises a routing error' do
-      expect {
+      expect do
         get '/maglev/preview/unknown-page'
-      }.to raise_error('Maglev page not found')
+      end.to raise_error('Maglev page not found')
     end
   end
 
