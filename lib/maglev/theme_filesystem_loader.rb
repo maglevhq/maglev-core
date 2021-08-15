@@ -2,10 +2,10 @@
 
 module Maglev
   class ThemeFilesystemLoader
-    attr_reader :fetch_screenshot_path
+    attr_reader :fetch_section_screenshot_path
 
-    def initialize(fetch_screenshot_path)
-      @fetch_screenshot_path = fetch_screenshot_path
+    def initialize(fetch_section_screenshot_path)
+      @fetch_section_screenshot_path = fetch_section_screenshot_path
     end
 
     def call(path)
@@ -47,7 +47,7 @@ module Maglev
     end
 
     def find_section_screenshot_timestamp(theme, section)
-      path = fetch_screenshot_path.call(theme: theme, section: section, absolute: true)
+      path = fetch_section_screenshot_path.call(theme: theme, section: section, absolute: true)
       File.exist?(path) ? File.mtime(path).to_i : nil
     end
   end

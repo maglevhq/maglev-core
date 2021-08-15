@@ -17,7 +17,7 @@ module Maglev
       theme_path = Rails.root.join('app/theme')
       theme_reloader = app.config.file_watcher.new([], { theme_path.to_s => ['.yml'] }) do
         theme_loader = Maglev::ThemeFilesystemLoader.new(
-          Maglev.services(context: nil).fetch_screenshot_path
+          Maglev.services(context: nil).fetch_section_screenshot_path
         )
         Maglev.local_themes = [theme_loader.call(theme_path)]
       end

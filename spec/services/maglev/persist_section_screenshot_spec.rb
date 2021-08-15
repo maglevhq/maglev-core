@@ -7,13 +7,13 @@ describe Maglev::PersistSectionScreenshot do
 
   let(:theme) { build(:theme) }
   let(:path) { Rails.root.join('public/theme/jumbotron.png') }
-  let(:fetch_screenshot_path) do
-    instance_double('FetchScreenshotPath', call: path)
+  let(:fetch_section_screenshot_path) do
+    instance_double('FetchSectionScreenshotPath', call: path)
   end
   let(:service) do
     described_class.new(
       fetch_theme: instance_double('FetchTheme', call: theme),
-      fetch_screenshot_path: fetch_screenshot_path
+      fetch_section_screenshot_path: fetch_section_screenshot_path
     )
   end
   subject { service.call(base64_image: base64_image, section_id: 'jumbotron') }

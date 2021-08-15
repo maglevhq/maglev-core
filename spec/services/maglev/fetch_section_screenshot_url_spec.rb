@@ -2,10 +2,10 @@
 
 require 'rails_helper'
 
-describe Maglev::FetchScreenshotUrl do
+describe Maglev::FetchSectionScreenshotUrl do
   let(:screenshot_path) { '/theme/jumbotron.png' }
-  let(:fetch_screenshot_path) { instance_double('FetchScreenshotPath', call: screenshot_path) }
-  let(:service) { described_class.new(fetch_screenshot_path: fetch_screenshot_path) }
+  let(:fetch_section_screenshot_path) { instance_double('FetchSectionScreenshotPath', call: screenshot_path) }
+  let(:service) { described_class.new(fetch_section_screenshot_path: fetch_section_screenshot_path) }
   let(:section) { instance_double('Section', id: 'jumbotron', screenshot_timestamp: 42) }
   subject { service.call(section: section) }
 

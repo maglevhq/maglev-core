@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Maglev
-  class FetchScreenshotPath
+  class FetchSectionScreenshotPath
     include Injectable
 
     dependency :fetch_sections_path

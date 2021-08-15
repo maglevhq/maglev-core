@@ -5,7 +5,7 @@ module Maglev
     include Injectable
 
     dependency :fetch_theme
-    dependency :fetch_screenshot_path
+    dependency :fetch_section_screenshot_path
 
     argument :section_id
     argument :base64_image
@@ -34,7 +34,7 @@ module Maglev
     end
 
     def screenshot_filepath
-      fetch_screenshot_path.call(section: section, absolute: true)
+      fetch_section_screenshot_path.call(section: section, absolute: true)
     end
 
     def screenshots_dir

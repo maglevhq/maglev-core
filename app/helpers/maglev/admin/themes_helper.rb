@@ -20,7 +20,7 @@ module Maglev
       end
 
       def section_screenshot_path(section)
-        services.fetch_screenshot_path.call(section: section)
+        services.fetch_section_screenshot_path.call(section: section)
       end
     end
   end
