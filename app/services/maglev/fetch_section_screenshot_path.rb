@@ -10,7 +10,7 @@ module Maglev
     argument :absolute, default: false
 
     def call
-      path = "#{fetch_sections_path.call(theme: theme)}/#{section.id}.png"
+      path = "#{fetch_sections_path.call(theme: theme)}/#{section.id}.jpg"
       absolute ? "#{Rails.root}/public/#{path}" : "/#{path}"
     end
   end

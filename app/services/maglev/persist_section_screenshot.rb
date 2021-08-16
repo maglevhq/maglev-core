@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'tempfile'
+
 module Maglev
   class PersistSectionScreenshot
     include Injectable
@@ -17,10 +19,7 @@ module Maglev
         base64_image['data:image/png;base64,'.length..]
       )
 
-      FileUtils.mkdir_p(screenshots_dir)
-      File.open(screenshot_filepath, 'wb') do |f|
-        f.write(image_data)
-      end
+      persist_file(image_data)
 
       section.screenshot_timestamp = Time.now.to_i
 
@@ -28,6 +27,20 @@ module Maglev
     end
 
     private
+
+    def persist_file(image_data)
+      tmp_file = Tempfile.new(File.basename(screenshots_dir), binmode: true)
+      tmp_file.write(image_data)
+      tmp_file.close
+
+      # PNG -> JPG to lower the size of the image
+      ::ActiveStorage::Variation.new(format: 'jpg').transform(tmp_file) do |output|
+        FileUtils.mkdir_p(screenshots_dir)
+        File.open(screenshot_filepath, 'wb') do |f|
+          f.write(output.read)
+        end
+      end
+    end
 
     def section
       @section ||= fetch_theme.call.sections.find(section_id)
