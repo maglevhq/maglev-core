@@ -1,5 +1,7 @@
 # Maglev
 
+[![Build Status](https://travis-ci.com/maglevhq/maglev-core.svg?token=Peo8iU6ug5EgwGpofkrd&branch=master)](https://travis-ci.com/maglevhq/maglev-core)
+
 Maglev is a page builder / CMS that you can plug in any Ruby on Rails application.
 
 **WARNING**. This is not yet ready for production.
