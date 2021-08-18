@@ -59,6 +59,13 @@
       :presets="options.presets"
       v-if="setting.type == 'color'"
     />
+    <simple-select
+       :label="setting.label"
+       :name="setting.id"
+       v-model="inputValue"
+       :selectOptions="options.selectOptions"
+       v-if="setting.type == 'select'"
+    />
   </div>
 </template>
 
