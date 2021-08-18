@@ -11,7 +11,7 @@ module Maglev
       view_context.tag.public_send(
         tag_options.delete(:html_tag) || :div,
         content,
-        tag_options
+        **tag_options
       )
     end
 
