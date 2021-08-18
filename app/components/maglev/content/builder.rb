@@ -8,7 +8,8 @@ module Maglev
         image: Maglev::Content::Image,
         link: Maglev::Content::Link,
         checkbox: Maglev::Content::Checkbox,
-        color: Maglev::Content::Color
+        color: Maglev::Content::Color,
+        select: Maglev::Content::Select
       }.freeze
 
       def build(scope, content, setting)
