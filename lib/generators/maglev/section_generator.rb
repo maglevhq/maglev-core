@@ -77,7 +77,7 @@ module Maglev
       def default
         case type
         when 'text' then label
-        when 'image' then '"/maglev-placeholder.png"'
+        when 'image' then '"/theme/image-placeholder.jpg"'
         when 'checkbox' then true
         when 'link' then '"#"'
         when 'color' then '#E5E7EB'

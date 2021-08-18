@@ -18,6 +18,7 @@ module Maglev
 
     def create_initializer
       directory 'config'
+      directory 'public'
     end
 
     def generate_theme
@@ -25,7 +26,7 @@ module Maglev
     end
 
     def generate_section
-      generate 'maglev:section', 'showcase title:text block:item:title'
+      generate 'maglev:section', 'Dummy'
     end
 
     def mount_engine
