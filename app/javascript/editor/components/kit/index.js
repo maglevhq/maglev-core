@@ -19,6 +19,7 @@ import Pagination from './pagination'
 import PageIcon from './page-icon'
 import ColorPicker from './color-picker'
 import SimpleSelect from './simple-select'
+import CollectionItemInput from './collection-item-input'
 
 Vue.component('icon', Icon)
 Vue.component('dropdown', Dropdown)
@@ -40,3 +41,4 @@ Vue.component('pagination', Pagination)
 Vue.component('page-icon', PageIcon)
 Vue.component('color-picker', ColorPicker)
 Vue.component('simple-select', SimpleSelect)
+Vue.component('collection-item-input', CollectionItemInput)

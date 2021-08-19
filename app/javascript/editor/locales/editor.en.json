@@ -166,6 +166,13 @@
       }
     }
   },
+  "collectionItemInput": {
+    "select": {
+      "placeholder": "Select an item",
+      "searchPlaceholder": "Search...",
+      "emptyLabel": "No items found"
+    }
+  },
   "pagination": {
     "defaultLabel": "%{start} - %{end} of %{totalItems} items",
     "defaultNoItems": "None"

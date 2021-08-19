@@ -31,7 +31,10 @@ module Maglev
     end
 
     def fetch_page_sections
-      @fetch_page_sections ||= services.get_page_sections.call(page: fetch_page)
+      @fetch_page_sections ||= services.get_page_sections.call(
+        page: fetch_page,
+        page_sections: @page_sections
+      )
     end
 
     def fetch_theme

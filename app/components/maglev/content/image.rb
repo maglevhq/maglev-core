@@ -23,7 +23,7 @@ module Maglev
         url
       end
 
-      def tag(view_context, options = {}, _content = nil)
+      def tag(view_context, options = {})
         view_context.tag(:img,
                          {
                            src: url,

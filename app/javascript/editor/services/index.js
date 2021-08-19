@@ -1,6 +1,7 @@
 import * as site from './site'
 import * as theme from './theme'
 import * as page from './page'
+import * as collectionItem from './collection-item'
 import * as image from './image'
 import * as section from './section'
 import * as block from './block'
@@ -14,4 +15,5 @@ export default {
   block,
   image,
   inlineEditing,
+  collectionItem
 }

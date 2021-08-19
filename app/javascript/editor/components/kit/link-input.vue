@@ -81,7 +81,7 @@ export default {
     },
     textInput: {
       get() {
-        return this.value.text
+        return this.value?.text
       },
       set(text) {
         this.$emit('input', { ...this.value, text })

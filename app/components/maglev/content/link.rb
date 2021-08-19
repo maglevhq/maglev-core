@@ -23,9 +23,10 @@ module Maglev
         href
       end
 
-      def tag(view_context, options = {}, content = nil)
+      def tag(view_context, options = {}, &block)
+        captured_content = view_context.capture(&block) if block_given?
         view_context.link_to(
-          with_text? ? text_tag(view_context) : content,
+          with_text? ? text_tag(view_context) : captured_content,
           href,
           {
             data: (options.delete(:data) || {}).merge(tag_data),

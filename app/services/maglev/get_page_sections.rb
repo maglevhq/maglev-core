@@ -6,12 +6,14 @@ module Maglev
 
     dependency :fetch_site
     dependency :fetch_theme
+    dependency :fetch_collection_items
     dependency :get_page_fullpath
 
     argument :page
+    argument :page_sections, default: nil
 
     def call
-      page.sections.map do |section|
+      (page_sections || page.sections).map do |section|
         transform_section(section.dup)
       end
     end
@@ -70,6 +72,13 @@ module Maglev
         return unless setting.options['html']
 
         content['value'] = replace_links_in_text(content['value'])
+      when 'collection_item'
+        if (item_id = content.dig('value', 'id')).present?
+          content['value']['item'] = fetch_collection_items.call(
+            collection_id: setting.options[:collection_id],
+            id: item_id
+          )
+        end
       end
     end
 

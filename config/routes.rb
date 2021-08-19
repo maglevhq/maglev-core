@@ -9,6 +9,10 @@ Maglev::Engine.routes.draw do
         resources :clones, controller: :page_clones, only: :create
       end
       resources :assets
+      scope 'collections/:collection_id' do
+        get '/', to: 'collection_items#index', as: :collection_items
+      end
+      # resources :collection_items, path: 'collection_items/:collection_id', only: :show
     end
   end
 
