@@ -61,12 +61,18 @@ export const buildDefaultBlock = (blockType, { blocks: definitions }) => {
 const buildSettings = (definition) => {
   return definition.settings.map((setting) => {
     let value = null
+    let properties = null
     switch (setting.type) {
       case 'image':
         value = { url: setting.default }
         break
       case 'link':
-        value = { linkType: 'url', href: setting.default }
+        value = { linkType: 'url' }
+        properties = { href: setting.default }
+        if (typeof setting.default !== 'string') {
+          properties = setting.default
+        }
+        value = { ...value, ...properties }
         break
       default:
         value = setting.default
