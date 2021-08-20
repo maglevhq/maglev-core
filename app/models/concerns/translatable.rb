@@ -26,11 +26,8 @@ module Translatable
       Current.locale = locale
     end
 
-    def with_locale(locale)
-      original = current_locale
-      Current.locale = locale
-      yield
-      Current.locale = original
+    def with_locale(locale, &block)
+      Current.set(locale: locale, &block)
     end
   end
 
