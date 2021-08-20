@@ -3,6 +3,7 @@
 # Add support for `translates(*attributes)` macro, which
 # uses JSONB to store translations of the specified attrs.
 module Translatable
+  class UnavailableLocaleError < RuntimeError; end
   extend ActiveSupport::Concern
   mattr_accessor :available_locales, default: %i[en]
 
@@ -20,6 +21,8 @@ module Translatable
     end
 
     def current_locale=(locale)
+      raise UnavailableLocaleError unless available_locales.include?(locale)
+
       Current.locale = locale
     end
 

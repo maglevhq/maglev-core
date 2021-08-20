@@ -16,4 +16,8 @@ RSpec.describe Translatable do
       expect(Translatable.current_locale).to eq(:en)
     end
   end
+
+  it 'disallows setting an unavailable locale' do
+    expect { Translatable.current_locale = :fr }.to raise_error Translatable::UnavailableLocaleError
+  end
 end
