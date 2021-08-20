@@ -64,4 +64,5 @@ module Translatable
   class Current < ActiveSupport::CurrentAttributes
     attribute :locale
   end
+  private_constant :Current
 end
