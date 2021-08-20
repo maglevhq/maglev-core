@@ -4,9 +4,13 @@ module Maglev
   class Page < ApplicationRecord
     ## concerns ##
     include Maglev::Page::SectionsConcern
+    include Translatable
+
+    ## translations ##
+    translates :seo_title, :meta_description
+    translates :title, presence: true
 
     ## validations ##
-    validates :title, presence: true
     validates :path, uniqueness: true, presence: true
 
     ## callbacks ##
@@ -25,11 +29,11 @@ module Maglev
     def self.search(keyword)
       return [] if keyword.blank?
 
-      query = all.order(title: :asc)
+      current_title = Arel.sql("title_translations->>'#{Translatable.current_locale}'")
+      query = all.order(current_title => :asc)
       matching = "%#{keyword}%"
-
       query.where(
-        arel_table[:title].matches(matching).or(
+        arel_table[current_title].matches(matching).or(
           arel_table[:path].matches(matching)
         )
       )
