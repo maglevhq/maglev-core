@@ -62,7 +62,7 @@ RSpec.describe 'Maglev::API::PagesController', type: :request do
   it 'allows creation of new pages' do
     expect do
       params = attributes_for(:page).merge(path: 'custom')
-      post '/maglev/api/pages', params: params, as: :json
+      post '/maglev/api/pages', params: { page: params}, as: :json
     end.to change(Maglev::Page, :count).by(1)
     expect(response).to have_http_status(:created)
   end
@@ -84,7 +84,7 @@ RSpec.describe 'Maglev::API::PagesController', type: :request do
 
   it 'allows updating pages' do
     expect do
-      put maglev.api_page_path(page), params: { title: 'New title' }, as: :json
+      put maglev.api_page_path(page), params: { page: { title: 'New title' } }, as: :json
     end.to change { page.reload.title }.to('New title')
     expect(response).to have_http_status(:ok)
   end
