@@ -7,6 +7,32 @@ RSpec.describe Maglev::Page, type: :model do
     expect(build(:page)).to be_valid
   end
 
+  describe 'translated attributes' do
+    it 'behave like normal' do
+      page = create(:page)
+      page.title = 'Overriden title'
+      expect(page.title).to eq('Overriden title')
+      expect(page.title_translations).to eq({ en: 'Overriden title' }.stringify_keys)
+      page.save!
+      expect(page.reload.title).to eq('Overriden title')
+    end
+
+    it 'obey locale changes' do
+      page = create(:page, title: 'Translated page')
+      Translatable.with_locale(:es) do
+        expect(page.title).to be_blank
+        page.title = 'Mi página'
+        page.save!
+        expect(page.reload.title).to eq('Mi página')
+        expect(page.title_translations).to eq({
+          en: 'Translated page',
+          es: 'Mi página'
+        }.stringify_keys)
+      end
+      expect(page.title).to eq('Translated page')
+    end
+  end
+
   describe '#index?' do
     let(:page) { build(:page) }
     subject { page.index? }
