@@ -9,12 +9,14 @@ RSpec.describe 'Maglev::PagePreviewController', type: :request do
   end
 
   context 'normal rendering' do
+    # rubocop:disable Layout/LineLength
     it 'renders the index page' do
       get '/maglev/preview'
       expect(response.body).to include('<title>Default</title>')
       expect(response.body).to match(%r{<h1 data-maglev-id="\S+\.title" class="display-3">Let's create the product<br/>your clients<br/>will love\.</h1>})
       expect(response.body).to include('Our projects')
     end
+    # rubocop:enable Layout/LineLength
 
     context 'with scoped site sections' do
       before do
@@ -68,6 +70,7 @@ RSpec.describe 'Maglev::PagePreviewController', type: :request do
       page.save
     end
 
+    # rubocop:disable Layout/LineLength
     it 'displays the expected content' do
       get '/maglev/preview'
       expect(response.body)
@@ -75,6 +78,7 @@ RSpec.describe 'Maglev::PagePreviewController', type: :request do
           %r{<li data-maglev-block-id="block-0">\s+<h3 data-maglev-id="block-0.title">\s+My work\s+</h3>\s+<img data-maglev-id="block-0.image" src="/samples/images/default.svg" />\s+</li>}
         )
     end
+    # rubocop:enable Layout/LineLength
 
     context 'with a missing key' do
       let(:block) do
@@ -82,6 +86,7 @@ RSpec.describe 'Maglev::PagePreviewController', type: :request do
           settings: [{ id: 'title', value: 'My work' }, { id: 'image', value: '' }] }
       end
 
+      # rubocop:disable Layout/LineLength
       it 'works anyway' do
         get '/maglev/preview'
         expect(response.body)
@@ -89,6 +94,7 @@ RSpec.describe 'Maglev::PagePreviewController', type: :request do
             %r{<li data-maglev-block-id="block-0">\s+<h3 data-maglev-id="block-0.title">\s+My work\s+</h3>\s+<img data-maglev-id="block-0.image" src="" />\s+</li>}
           )
       end
+      # rubocop:enable Layout/LineLength
     end
   end
 

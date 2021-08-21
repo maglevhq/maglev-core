@@ -17,6 +17,7 @@ module Maglev
 
     def fetch_page_sections
       return super if action_name == 'index'
+
       @page_sections = JSON.parse(params[:page_sections])
       super
     end

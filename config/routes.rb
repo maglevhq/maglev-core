@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/BlockLength
 Maglev::Engine.routes.draw do
   # API
   constraints format: :json do
@@ -39,3 +40,4 @@ Maglev::Engine.routes.draw do
   # Asset
   get 'assets/:id(/:filename)', to: 'assets#show', as: 'public_asset'
 end
+# rubocop:enable Metrics/BlockLength

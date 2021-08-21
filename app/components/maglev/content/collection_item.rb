@@ -13,11 +13,12 @@ module Maglev
 
       def tag(view_context, options = {}, &block)
         return unless item && block_given?
+
         view_context.tag.public_send(
-          options.delete(:html_tag)&.to_sym || :div, 
-          view_context.capture(item, &block), 
+          options.delete(:html_tag)&.to_sym || :div,
+          view_context.capture(item, &block),
           { data: (options.delete(:data) || {}).merge(tag_data) }.merge(options)
-         )
+        )
       end
 
       private

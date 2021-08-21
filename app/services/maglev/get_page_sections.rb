@@ -33,6 +33,8 @@ module Maglev
       definition = theme.sections.find(section['type'])
       site_section = site.find_section(section['type'])
 
+      raise "Unknown Maglev section type (#{section['type']})" unless definition
+
       if definition.scoped_by_site? && site_section
         section.merge!('settings' => site_section['settings'], 'blocks' => site_section['blocks'])
       end
@@ -65,21 +67,34 @@ module Maglev
     def transform_content_setting(content, setting)
       case setting.type
       when 'link'
-        return unless content['value'].is_a?(Hash) && content.dig('value', 'link_type') == 'page'
-
-        content['value'] = replace_href_in_link(content['value'])
+        transform_link_content_setting(content, setting)
       when 'text'
-        return unless setting.options['html']
-
-        content['value'] = replace_links_in_text(content['value'])
+        transform_text_content_setting(content, setting)
       when 'collection_item'
-        if (item_id = content.dig('value', 'id')).present?
-          content['value']['item'] = fetch_collection_items.call(
-            collection_id: setting.options[:collection_id],
-            id: item_id
-          )
-        end
+        transform_collection_item_content_setting(content, setting)
       end
+    end
+
+    def transform_link_content_setting(content, _setting)
+      return unless content['value'].is_a?(Hash) && content.dig('value', 'link_type') == 'page'
+
+      content['value'] = replace_href_in_link(content['value'])
+    end
+
+    def transform_text_content_setting(content, setting)
+      return unless setting.options['html']
+
+      content['value'] = replace_links_in_text(content['value'])
+    end
+
+    def transform_collection_item_content_setting(content, setting)
+      item_id = content.dig('value', 'id')
+      return if item_id.blank?
+
+      content['value']['item'] = fetch_collection_items.call(
+        collection_id: setting.options[:collection_id],
+        id: item_id
+      )&.source
     end
 
     def find_section_setting(section, setting_id)

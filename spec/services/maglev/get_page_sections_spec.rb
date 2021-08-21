@@ -5,11 +5,13 @@ require 'rails_helper'
 describe Maglev::GetPageSections do
   let(:site) { create(:site, :with_navbar) }
   let(:get_page_fullpath) { double('GetPageFullPath', call: nil) }
+  let(:fetch_collection_items) { double('FetchCollectionItems', call: nil) }
   let(:service) do
     described_class.new(
       fetch_site: double('FetchSite', call: site),
       fetch_theme: double('FetchTheme', call: build(:theme)),
-      get_page_fullpath: get_page_fullpath
+      get_page_fullpath: get_page_fullpath,
+      fetch_collection_items: fetch_collection_items
     )
   end
   subject { service.call(page: page) }
@@ -118,6 +120,15 @@ describe Maglev::GetPageSections do
         expect(get_page_fullpath).to receive(:call).with(page: '42').twice.and_return('/preview/awesome-path')
         expect(subject[0]['blocks'][0]['settings'][1]['value']['href']).to eq('/preview/awesome-path')
         expect(subject[1]['settings'][1]['value']).to include('<a href="/preview/awesome-path"')
+      end
+    end
+    context 'the sections include collection items' do
+      let(:page) { build(:page, :featured_product) }
+      it 'fetches the product from the DB' do
+        expect(fetch_collection_items).to receive(:call).with(collection_id: 'products', id: 42).and_return(
+          instance_double('CollectionItem', source: 'Product fetched')
+        )
+        expect(subject[0]['settings'][1]['value']['item']).to eq('Product fetched')
       end
     end
   end
