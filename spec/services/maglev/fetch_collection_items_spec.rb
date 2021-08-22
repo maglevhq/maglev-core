@@ -3,11 +3,13 @@
 require 'rails_helper'
 
 describe Maglev::FetchCollectionItems do
+  let(:fetch_method_name) { nil }
   let(:config) do
     Maglev::Config.new.tap do |config|
       config.collections = {
         products: {
           model: 'Product',
+          fetch_method_name: fetch_method_name,
           fields: {
             label: :name,
             image: :thumbnail_url
@@ -16,7 +18,7 @@ describe Maglev::FetchCollectionItems do
       }
     end
   end
-  let(:service) { described_class.new(config: config, fetch_site: nil) }
+  let(:service) { described_class.new(config: config, fetch_site: instance_double('FetchSite', call: nil)) }
 
   describe 'fetching the first N items' do
     before do
@@ -50,6 +52,21 @@ describe Maglev::FetchCollectionItems do
       let(:product_id) { product.id }
       it 'returns the item' do
         expect(subject.label).to eq 'My product'
+      end
+    end
+  end
+
+  describe 'passing a custom fetch method' do
+    describe 'fetching the first N items' do
+      let(:fetch_method_name) { :maglev_fetch_sold_out }
+      subject { service.call(collection_id: 'products') }
+      before do
+        FactoryBot.rewind_sequences
+        create_list(:product, 4, :without_thumbnail)
+        create_list(:product, 4, :without_thumbnail, :sold_out)
+      end
+      it 'returns only the sold outitems' do
+        expect(subject.map(&:label)).to eq(['Product #05', 'Product #06', 'Product #07', 'Product #08'])
       end
     end
   end

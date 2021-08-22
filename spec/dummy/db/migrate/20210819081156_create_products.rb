@@ -6,6 +6,7 @@ class CreateProducts < ActiveRecord::Migration[6.1]
       t.string :name
       t.string :sku, unique: true
       t.float :price
+      t.boolean :sold_out, default: false
 
       t.timestamps
     end

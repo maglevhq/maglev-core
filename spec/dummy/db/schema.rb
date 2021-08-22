@@ -85,6 +85,7 @@ ActiveRecord::Schema.define(version: 20_210_819_081_156) do
     t.string 'name'
     t.string 'sku'
     t.float 'price'
+    t.boolean 'sold_out', default: false
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
   end

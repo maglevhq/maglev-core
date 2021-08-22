@@ -10,5 +10,9 @@ FactoryBot.define do
     trait :without_thumbnail do
       thumbnail { nil }
     end
+
+    trait :sold_out do
+      sold_out { true }
+    end
   end
 end

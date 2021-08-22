@@ -35,6 +35,15 @@ module Maglev
     end
 
     def fetch_original_items
+      return default_fetch_original_items unless fetch_method_name
+
+      model_class.public_send(fetch_method_name,
+                              site: fetch_site.call,
+                              keyword: keyword,
+                              max_items: max_items)
+    end
+
+    def default_fetch_original_items
       model_class
         .where(keyword.present? ? model_class.arel_table[label_field].matches("%#{keyword}%") : nil)
         .limit(max_items)
@@ -51,6 +60,10 @@ module Maglev
 
     def image_field
       collection.dig(:fields, :image)&.to_sym
+    end
+
+    def fetch_method_name
+      collection[:fetch_method_name]
     end
 
     def collection
