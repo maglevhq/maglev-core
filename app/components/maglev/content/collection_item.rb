@@ -17,7 +17,7 @@ module Maglev
         view_context.tag.public_send(
           options.delete(:html_tag)&.to_sym || :div,
           view_context.capture(item, &block),
-          { data: (options.delete(:data) || {}).merge(tag_data) }.merge(options)
+          **{ data: (options.delete(:data) || {}).merge(tag_data) }.merge(options)
         )
       end
 
