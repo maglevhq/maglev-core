@@ -15,11 +15,9 @@ module Maglev
       @theme = fetch_theme
       @page = fetch_page
 
-      if @page
-        @page_sections = fetch_page_sections
-      else
-        raise ActionController::RoutingError, 'Maglev page not found'
-      end
+      raise ActionController::RoutingError, 'Maglev page not found' unless @page
+
+      @page_sections = fetch_page_sections
     end
 
     def fetch_site
@@ -31,7 +29,10 @@ module Maglev
     end
 
     def fetch_page_sections
-      @fetch_page_sections ||= services.get_page_sections.call(page: fetch_page)
+      @fetch_page_sections ||= services.get_page_sections.call(
+        page: fetch_page,
+        page_sections: @page_sections
+      )
     end
 
     def fetch_theme

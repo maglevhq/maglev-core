@@ -4,7 +4,7 @@ module Maglev
   module Content
     class Text < Base
       # rubocop:disable Rails/OutputSafety
-      def tag(view_context, options = {}, _content = nil)
+      def tag(view_context, options = {})
         view_context.tag.public_send(
           options.delete(:html_tag)&.to_sym || tag_name,
           to_s.html_safe,

@@ -141,5 +141,20 @@ FactoryBot.define do
           '<p><a href="/bar">Bar</a> - <a href="/foo" maglev-link-type="page" maglev-link-id="42">TEST</a>'
       end
     end
+
+    trait :featured_product do
+      sections do
+        [
+          {
+            type: 'featured_product',
+            settings: [
+              { id: :title, value: 'My awesome product' },
+              { id: :product, value: { id: 42 } }
+            ],
+            blocks: []
+          }
+        ]
+      end
+    end
   end
 end

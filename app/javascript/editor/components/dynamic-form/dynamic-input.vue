@@ -60,11 +60,17 @@
       v-if="setting.type == 'color'"
     />
     <simple-select
-       :label="setting.label"
-       :name="setting.id"
-       v-model="inputValue"
-       :selectOptions="options.selectOptions"
-       v-if="setting.type == 'select'"
+      :label="setting.label"
+      :name="setting.id"
+      v-model="inputValue"
+      :selectOptions="options.selectOptions"
+      v-if="setting.type == 'select'"
+    />
+    <collection-item-input
+      :label="setting.label"
+      :name="setting.id"
+      v-model="inputValue"
+      v-if="setting.type == 'collection_item'"
     />
   </div>
 </template>

@@ -6,12 +6,14 @@ module Maglev
 
     dependency :fetch_site
     dependency :fetch_theme
+    dependency :fetch_collection_items
     dependency :get_page_fullpath
 
     argument :page
+    argument :page_sections, default: nil
 
     def call
-      page.sections.map do |section|
+      (page_sections || page.sections).map do |section|
         transform_section(section.dup)
       end
     end
@@ -30,6 +32,8 @@ module Maglev
     def transform_section(section)
       definition = theme.sections.find(section['type'])
       site_section = site.find_section(section['type'])
+
+      raise "Unknown Maglev section type (#{section['type']})" unless definition
 
       if definition.scoped_by_site? && site_section
         section.merge!('settings' => site_section['settings'], 'blocks' => site_section['blocks'])
@@ -63,14 +67,37 @@ module Maglev
     def transform_content_setting(content, setting)
       case setting.type
       when 'link'
-        return unless content['value'].is_a?(Hash) && content.dig('value', 'link_type') == 'page'
-
-        content['value'] = replace_href_in_link(content['value'])
+        transform_link_content_setting(content, setting)
       when 'text'
-        return unless setting.options['html']
-
-        content['value'] = replace_links_in_text(content['value'])
+        transform_text_content_setting(content, setting)
+      when 'collection_item'
+        transform_collection_item_content_setting(content, setting)
       end
+    end
+
+    def transform_link_content_setting(content, _setting)
+      return unless content['value'].is_a?(Hash) && content.dig('value', 'link_type') == 'page'
+
+      content['value'] = replace_href_in_link(content['value'])
+    end
+
+    def transform_text_content_setting(content, setting)
+      return unless setting.options['html']
+
+      content['value'] = replace_links_in_text(content['value'])
+    end
+
+    def transform_collection_item_content_setting(content, setting)
+      item_id = content.dig('value', 'id')
+      return if item_id.blank?
+
+      item = fetch_collection_items.call(
+        collection_id: setting.options[:collection_id],
+        id: item_id
+      )
+
+      content['value']['label'] = item.label
+      content['value']['item'] = item.source
     end
 
     def find_section_setting(section, setting_id)

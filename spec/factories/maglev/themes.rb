@@ -41,6 +41,17 @@ FactoryBot.define do
                                                     }.with_indifferent_access),
                                                     Maglev::Section.build({
                                                       theme: theme,
+                                                      name: 'FeaturedProduct',
+                                                      id: 'featured_product',
+                                                      category: 'features',
+                                                      settings: [
+                                                        { label: 'Title', id: 'title', type: 'text', defautl: 'Title' },
+                                                        { label: 'Product', id: 'product', type: 'collection_item', collection_id: 'products' }
+                                                      ],
+                                                      blocks: []
+                                                    }.with_indifferent_access),
+                                                    Maglev::Section.build({
+                                                      theme: theme,
                                                       name: 'Showcase',
                                                       id: 'showcase',
                                                       category: 'features',

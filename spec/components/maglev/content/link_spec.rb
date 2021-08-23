@@ -4,7 +4,7 @@ require 'rails_helper'
 
 describe Maglev::Content::Link do
   let(:section_component) { double('Maglev::SectionComponent') }
-  let(:link) { Maglev::Content::Link.new(section_component, content, setting) }
+  let(:link) { described_class.new(section_component, content, setting) }
 
   context 'content is a string' do
     let(:content) { '/contact_us' }

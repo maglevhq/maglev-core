@@ -22,4 +22,15 @@ Maglev.configure do |config|
 
   # Uploader engine (:active_storage is only supported for now)
   config.uploader = :active_storage
+
+  # Collections mapping (https://docs.maglev.dev/guides/setup-collections)
+  # config.collections = {
+  #   products: {
+  #     model: 'Product',
+  #     fields: {
+  #       label: :name,
+  #       image: :thumbnail_url
+  #     }
+  #   }
+  # }
 end

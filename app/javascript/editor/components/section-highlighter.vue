@@ -43,6 +43,7 @@
               flex
               items-center
             "
+            :class="{ 'rounded-r-2xl': !displayMoveArrows }"
           >
             <span>{{ hoveredSection.name }}</span>
           </div>
@@ -58,6 +59,7 @@
               hover:text-opacity-100
             "
             @click="moveHoveredSection('up')"
+            v-if="displayMoveArrows"
           >
             <icon name="arrow-up-s-line" />
           </button>
@@ -75,6 +77,7 @@
               hover:text-opacity-100
             "
             @click="moveHoveredSection('down')"
+            v-if="displayMoveArrows"
           >
             <icon name="arrow-down-s-line" />
           </button>
@@ -251,6 +254,9 @@ export default {
         definition: { blocks },
       } = this.hoveredSection
       return !this.isBlank(blocks)
+    },
+    displayMoveArrows() {
+      return !this.currentSection
     },
   },
   methods: {

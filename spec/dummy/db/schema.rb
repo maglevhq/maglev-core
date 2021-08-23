@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_210_129_103_814) do
+ActiveRecord::Schema.define(version: 20_210_819_081_156) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'plpgsql'
 
@@ -79,6 +79,15 @@ ActiveRecord::Schema.define(version: 20_210_129_103_814) do
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
     t.jsonb 'sections', default: []
+  end
+
+  create_table 'products', force: :cascade do |t|
+    t.string 'name'
+    t.string 'sku'
+    t.float 'price'
+    t.boolean 'sold_out', default: false
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
   end
 
   add_foreign_key 'active_storage_attachments', 'active_storage_blobs', column: 'blob_id'

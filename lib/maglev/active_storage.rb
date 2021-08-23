@@ -14,6 +14,7 @@ module Maglev
 
     private
 
+    # rubocop:disable Metrics/AbcSize
     def save_metadata_now
       file.analyze if file.attached?
       update(
@@ -24,6 +25,7 @@ module Maglev
         width: file.metadata['width']
       )
     end
+    # rubocop:enable Metrics/AbcSize
 
     module ClassMethods
       def optimized

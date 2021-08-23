@@ -1,6 +1,10 @@
 <template>
   <div>
-    <label class="block font-semibold text-gray-800" :for="name">
+    <label
+      class="block font-semibold text-gray-800"
+      :for="name"
+      v-if="withLabel"
+    >
       {{ label }}
     </label>
     <div class="relative">
@@ -15,12 +19,12 @@
           rounded
           bg-gray-100
           text-gray-800
-          focus:outline-none
+          focus:outline-none focus:ring
         "
         type="button"
         @click="toggle"
       >
-        <div class="flex items-center">
+        <div class="flex items-center" :class="buttonClass">
           <slot name="value" v-if="value"></slot>
           <span v-else>{{ placeholder }}</span>
           <button
@@ -116,6 +120,8 @@ export default {
     fetchList: { type: Function, default: () => ({}) },
     emptyLabel: { type: String, default: 'No results found' },
     clearEnabled: { type: Boolean, default: false },
+    withLabel: { type: Boolean, default: true },
+    buttonClass: { type: [Object, String], default: () => ({}) },
   },
   data() {
     return {

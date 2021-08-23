@@ -262,7 +262,7 @@ export const updateSectionSetting = (
       foundSetting = updateSectionTextSetting(previewDocument, source, change)
       break
     case 'link':
-      if (change.settingOptions.withText)
+      if (change.settingOptions.withText && change.value)
         foundSetting = updateSectionTextSetting(previewDocument, source, {
           ...change,
           value: change.value.text,

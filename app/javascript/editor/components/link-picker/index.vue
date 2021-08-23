@@ -74,7 +74,10 @@ export default {
       this.linkType = this.tabs[index].type
     },
     onChange(link) {
-      this.linksByTypes = { ...this.linksByTypes, [this.linkType]: { ...link } }
+      this.linksByTypes = {
+        ...this.linksByTypes,
+        [this.linkType]: { ...link, linkType: this.linkType },
+      }
     },
   },
   watch: {
