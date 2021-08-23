@@ -5,8 +5,8 @@
     </label>
     <div class="flex gap-2 mt-1">
       <select
-          v-model="selectedOption"
-          class="
+        v-model="selectedOption"
+        class="
           block
           w-full
           mt-1
@@ -39,7 +39,7 @@ export default {
       default: function () {
         return []
       },
-    }
+    },
   },
   computed: {
     selectedOption: {

@@ -126,8 +126,9 @@ describe Maglev::GetPageSections do
       let(:page) { build(:page, :featured_product) }
       it 'fetches the product from the DB' do
         expect(fetch_collection_items).to receive(:call).with(collection_id: 'products', id: 42).and_return(
-          instance_double('CollectionItem', source: 'Product fetched')
+          instance_double('CollectionItem', label: 'New product name', source: 'Product fetched')
         )
+        expect(subject[0]['settings'][1]['value']['label']).to eq('New product name')
         expect(subject[0]['settings'][1]['value']['item']).to eq('Product fetched')
       end
     end

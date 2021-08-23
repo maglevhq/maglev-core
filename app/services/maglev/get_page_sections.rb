@@ -91,10 +91,13 @@ module Maglev
       item_id = content.dig('value', 'id')
       return if item_id.blank?
 
-      content['value']['item'] = fetch_collection_items.call(
+      item = fetch_collection_items.call(
         collection_id: setting.options[:collection_id],
         id: item_id
-      )&.source
+      )
+
+      content['value']['label'] = item.label
+      content['value']['item'] = item.source
     end
 
     def find_section_setting(section, setting_id)

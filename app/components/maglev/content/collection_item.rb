@@ -11,6 +11,10 @@ module Maglev
         item.inspect
       end
 
+      def item
+        (content || {})[:item]
+      end
+
       def tag(view_context, options = {}, &block)
         return unless item && block_given?
 
@@ -19,12 +23,6 @@ module Maglev
           view_context.capture(item, &block),
           **{ data: (options.delete(:data) || {}).merge(tag_data) }.merge(options)
         )
-      end
-
-      private
-
-      def item
-        (content || {})[:item]
       end
     end
   end

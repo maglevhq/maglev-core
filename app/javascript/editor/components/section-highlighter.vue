@@ -257,7 +257,7 @@ export default {
     },
     displayMoveArrows() {
       return !this.currentSection
-    }
+    },
   },
   methods: {
     ...mapActions(['moveHoveredSection', 'removeSection', 'leaveSection']),

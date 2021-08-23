@@ -1,6 +1,10 @@
 <template>
   <div>
-    <label class="block font-semibold text-gray-800" :for="name" v-if="withLabel">
+    <label
+      class="block font-semibold text-gray-800"
+      :for="name"
+      v-if="withLabel"
+    >
       {{ label }}
     </label>
     <div class="relative">
@@ -16,7 +20,7 @@
           bg-gray-100
           text-gray-800
           focus:outline-none focus:ring
-        "        
+        "
         type="button"
         @click="toggle"
       >
@@ -116,7 +120,7 @@ export default {
     fetchList: { type: Function, default: () => ({}) },
     emptyLabel: { type: String, default: 'No results found' },
     clearEnabled: { type: Boolean, default: false },
-    withLabel: { type: Boolean, default: true }, 
+    withLabel: { type: Boolean, default: true },
     buttonClass: { type: [Object, String], default: () => ({}) },
   },
   data() {

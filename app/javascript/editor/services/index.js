@@ -15,5 +15,5 @@ export default {
   block,
   image,
   inlineEditing,
-  collectionItem
+  collectionItem,
 }

@@ -7,7 +7,7 @@
     <select-input
       :withLabel="false"
       :placeholder="$t(`collectionItemInput.select.placeholder`)"
-      :searchEnabled="true"      
+      :searchEnabled="true"
       :searchPlaceholder="$t(`collectionItemInput.select.searchPlaceholder`)"
       :emptyLabel="$t(`collectionItemInput.select.emptyLabel`)"
       :fetchList="(q) => services.collectionItem.findAll('products', { q })"
@@ -17,8 +17,11 @@
     >
       <template v-slot:value>
         <div class="flex items-center">
-          <div class="h-10 w-10 bg-gray-400 mr-3" v-if="selectedCollectionItem.imageUrl">
-            <img 
+          <div
+            class="h-10 w-10 bg-gray-400 mr-3"
+            v-if="selectedCollectionItem.imageUrl"
+          >
+            <img
               class="object-cover w-full h-full"
               :src="selectedCollectionItem.imageUrl"
             />
@@ -29,12 +32,9 @@
       <template v-slot:item="{ item }">
         <div class="flex items-center">
           <div class="h-10 w-10 bg-gray-400 mr-3" v-if="item.imageUrl">
-            <img 
-              class="object-cover w-full h-full"
-              :src="item.imageUrl"
-            />
+            <img class="object-cover w-full h-full" :src="item.imageUrl" />
           </div>
-          <span class="font-bold">{{ item.label }}</span>          
+          <span class="font-bold">{{ item.label }}</span>
         </div>
       </template>
     </select-input>
@@ -59,6 +59,6 @@ export default {
         this.$emit('input', collectionItem ? { ...collectionItem } : null)
       },
     },
-  }  
+  },
 }
 </script>
