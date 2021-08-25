@@ -76,7 +76,7 @@ module Maglev
       Item.new(
         original_item.id,
         original_item[label_field],
-        original_item.respond_to?(image_field) ? original_item.public_send(image_field) : nil,
+        original_item.respond_to?(image_field.to_s) ? original_item.public_send(image_field) : nil,
         original_item
       )
     end
