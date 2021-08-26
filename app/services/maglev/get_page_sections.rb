@@ -13,6 +13,7 @@ module Maglev
     argument :page_sections, default: nil
 
     def call
+      puts ['call', page, page_sections, page.sections].inspect
       (page_sections || page.sections).map do |section|
         transform_section(section.dup)
       end

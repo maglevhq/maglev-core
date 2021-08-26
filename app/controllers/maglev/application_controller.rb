@@ -2,28 +2,13 @@
 
 module Maglev
   class ApplicationController < ::ApplicationController
+    include Maglev::ServicesConcern
+
     protect_from_forgery with: :exception
 
     helper_method :services, :use_engine_webpacker?, :maglev_config
 
-    private
-
-    def services
-      @services ||= ::Maglev.services(
-        context: build_service_context
-      )
-    end
-
-    def build_service_context
-      ServiceContext.new(
-        rendering_mode: rendering_mode,
-        controller: self
-      )
-    end
-
-    def rendering_mode
-      :live
-    end
+    private    
 
     def use_engine_webpacker?
       true

@@ -20,6 +20,13 @@ module Maglev
       @page_sections = fetch_page_sections
     end
 
+    def fetch_site_scoped_sections
+      @site = fetch_site
+      @theme = fetch_theme
+      @page = @fetch_page = Maglev::Page.new(title: 'DummyPage', sections: @site.sections)
+      @page_sections = fetch_page_sections
+    end
+
     def fetch_site
       @fetch_site ||= services.fetch_site.call
     end
