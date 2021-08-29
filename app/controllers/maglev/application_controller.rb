@@ -8,7 +8,7 @@ module Maglev
 
     helper_method :services, :use_engine_webpacker?, :maglev_config
 
-    private    
+    private
 
     def use_engine_webpacker?
       true

@@ -1,13 +1,10 @@
+# frozen_string_literal: true
+
 class ProductsController < ApplicationController
-
-  include Maglev::ServicesConcern
-  include Maglev::FetchersConcern
-
-  helper Maglev::PagePreviewHelper
+  include Maglev::StandaloneSectionsConcern
 
   def show
-    fetch_site_scoped_sections
+    fetch_maglev_site_scoped_sections
     @product = Product.find(params[:id])
   end
-
 end

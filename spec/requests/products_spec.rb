@@ -9,25 +9,41 @@ RSpec.describe 'Maglev::PagePreviewController', type: :request do
   end
 
   describe 'rendering sections outside the theme layout' do
-    let(:product) { create(:product, name: 'My awesome product') }
-    it 'renders a page of the main app' do      
-      get "/products/#{product.id}"
-      puts pretty_html(response.body)
-      expect(pretty_html(response.body))
-        .to eq(<<-HTML.strip
-<html>
-  <head>
-    <title>
-      My awesome product
-    </title>
-  </head>
-  <body>
-    <h1>My awesome product</h1>
-    <p>Price: $42.00</p>
-  </body>
-</html>
-        HTML
+    before do
+      site.update!(
+        sections: attributes_for(:site, :with_navbar)[:sections]
       )
+    end
+    let(:product) { create(:product, name: 'My awesome product') }
+    it 'renders a page of the main app' do
+      get "/products/#{product.id}"
+      expect(pretty_html(response.body))
+        .to eq(<<~HTML.strip
+          <html>
+            <head>
+              <title>
+                My awesome product
+              </title>
+            </head>
+            <body>
+              <div class="navbar" data-maglev-section-id="yyy">
+                <img src="mynewlogo.png" data-maglev-id="yyy.logo" class="brand-logo"/>
+                <nav>
+                  <ul>
+                    <li class="navbar-item" data-maglev-block-id="zzz">
+                      <a data-maglev-id="zzz.link" target="_blank" href="https://www.nocoffee.fr">
+                        <span data-maglev-id="zzz.label">Home</span>
+                      </a>
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+              <h1>My awesome product</h1>
+              <p>Price: $42.00</p>
+            </body>
+          </html>
+        HTML
+              )
     end
   end
 end

@@ -2,9 +2,8 @@
 
 module Maglev
   module ServicesConcern
-
     private
-    
+
     def services
       @services ||= ::Maglev.services(
         context: build_service_context

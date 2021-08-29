@@ -5,7 +5,7 @@ module Maglev
     extend ActiveSupport::Concern
 
     included do
-      helper_method :fetch_sections_path
+      helper_method :maglev_site, :maglev_theme, :maglev_page, :maglev_page_sections, :maglev_sections_path
     end
 
     private
@@ -17,13 +17,6 @@ module Maglev
 
       raise ActionController::RoutingError, 'Maglev page not found' unless @page
 
-      @page_sections = fetch_page_sections
-    end
-
-    def fetch_site_scoped_sections
-      @site = fetch_site
-      @theme = fetch_theme
-      @page = @fetch_page = Maglev::Page.new(title: 'DummyPage', sections: @site.sections)
       @page_sections = fetch_page_sections
     end
 
@@ -52,6 +45,28 @@ module Maglev
 
     def fetch_sections_path
       @fetch_sections_path ||= services.fetch_sections_path.call
+    end
+
+    ## accessors for view helpers ##
+
+    def maglev_site
+      fetch_site
+    end
+
+    def maglev_theme
+      fetch_theme
+    end
+
+    def maglev_page
+      fetch_page
+    end
+
+    def maglev_page_sections
+      fetch_page_sections
+    end
+
+    def maglev_sections_path
+      fetch_sections_path
     end
   end
 end
