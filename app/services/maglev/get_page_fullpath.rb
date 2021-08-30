@@ -13,7 +13,7 @@ module Maglev
     def call
       base_url = get_base_url.call(preview_mode: preview_mode)
 
-      path = page.respond_to?(:path) ? page.path : ::Maglev::Page.where(id: page).pick(:path)
+      path = page.respond_to?(:path) ? page.path : ::Maglev::Page.find_by(id: page).try(:path)
 
       return unless path
 

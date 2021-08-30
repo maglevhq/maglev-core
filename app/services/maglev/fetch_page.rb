@@ -7,7 +7,7 @@ module Maglev
     argument :params
 
     def call
-      Maglev::Page.where(path: params[:path] || 'index').first
+      Maglev::Page.by_path(params[:path] || 'index').first
     end
   end
 end

@@ -10,15 +10,17 @@ module Maglev
     translates :seo_title, :meta_description
     translates :title, presence: true
 
-    ## validations ##
-    validates :path, uniqueness: true, presence: true
-
-    ## callbacks ##
-    before_validation :clean_path
-
     ## scopes ##
     scope :by_id_or_path, ->(id_or_path) { where(id: id_or_path).or(where(path: id_or_path)) }
-    scope :home, -> { where(path: 'index') }
+    scope :home, -> { by_path('index') }
+    scope :by_path, ->(path) { joins(:paths).where(paths: { locale: Translatable.current_locale, value: path }) }
+
+    ## associations ##
+    has_many :paths,
+             class_name: '::Maglev::PagePath',
+             dependent: :delete_all,
+             foreign_key: 'maglev_page_id',
+             inverse_of: 'page'
 
     ## methods ##
 
@@ -26,23 +28,31 @@ module Maglev
       path == 'index'
     end
 
+    def path
+      current_path.value
+    end
+
+    def current_path
+      @memoized_paths ||= {}
+      @memoized_paths[Translatable.current_locale] ||= paths.find_or_initialize_by(locale: Translatable.current_locale)
+    end
+
+    def path=(value)
+      current_path.value = value
+    end
+
     def self.search(keyword)
       return [] if keyword.blank?
 
       current_title = Arel.sql("title_translations->>'#{Translatable.current_locale}'")
-      query = all.order(current_title => :asc)
+      query = all.order(current_title => :asc).joins(:paths)
       matching = "%#{keyword}%"
+      path = PagePath.arel_table[:value]
       query.where(
         arel_table[current_title].matches(matching).or(
-          arel_table[:path].matches(matching)
+          path.matches(matching).and(path.eq(Translatable.current_locale))
         )
       )
-    end
-
-    private
-
-    def clean_path
-      path.blank? ? self.path = 'index' : path.gsub!(%r{(^/|/$)}, '')
     end
   end
 end
