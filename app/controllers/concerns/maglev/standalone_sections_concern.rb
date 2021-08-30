@@ -14,10 +14,14 @@ module Maglev
     private
 
     def fetch_maglev_site_scoped_sections
-      @site = fetch_site
-      @theme = fetch_theme
-      @page = @fetch_page = Maglev::Page.new(title: 'DummyPage', sections: @site.sections)
-      @page_sections = fetch_page_sections
+      fetch_maglev_site
+      fetch_maglev_theme
+      fetch_maglev_dummy_page
+      fetch_maglev_page_sections
+    end
+
+    def fetch_maglev_dummy_page
+      @fetch_maglev_page = ::Maglev::Page.new(title: 'DummyPage', sections: fetch_maglev_site.sections)
     end
   end
 end

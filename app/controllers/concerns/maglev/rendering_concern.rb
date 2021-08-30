@@ -11,8 +11,8 @@ module Maglev
     def render_maglev_page
       raise ActionController::UnknownFormat, 'Maglev renders HTML pages only' if request.format != 'html'
 
-      fetch_page_content
-      render template: fetch_theme_layout, layout: false
+      fetch_maglev_page_content
+      render template: fetch_maglev_theme_layout, layout: false
     end
   end
 end

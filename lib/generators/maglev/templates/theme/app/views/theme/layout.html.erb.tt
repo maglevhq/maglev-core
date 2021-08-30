@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title><%%= @site.name %></title>
+  <title><%%= maglev_site.name %></title>
   <meta content="width=device-width, initial-scale=1" name="viewport">
   <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
 </head>

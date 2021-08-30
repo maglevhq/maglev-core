@@ -4,20 +4,20 @@ module Maglev
   module ServicesConcern
     private
 
-    def services
-      @services ||= ::Maglev.services(
-        context: build_service_context
+    def maglev_services
+      @maglev_services ||= ::Maglev.services(
+        context: build_maglev_service_context
       )
     end
 
-    def build_service_context
-      ServiceContext.new(
-        rendering_mode: rendering_mode,
+    def build_maglev_service_context
+      ::Maglev::ServiceContext.new(
+        rendering_mode: maglev_rendering_mode,
         controller: self
       )
     end
 
-    def rendering_mode
+    def maglev_rendering_mode
       :live
     end
   end

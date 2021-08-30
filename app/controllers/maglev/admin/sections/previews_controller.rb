@@ -18,20 +18,19 @@ module Maglev
 
         private
 
-        def fetch_section
-          @fetch_section ||= fetch_theme.sections.find(params[:id])
-        end
-
-        def fetch_page
-          section_content = fetch_section.build_default_content
+        def fetch_maglev_page
           Maglev::Page.new(
             title: 'Preview section',
             path: 'preview',
-            sections: [section_content]
+            sections: [fetch_section.build_default_content]
           )
         end
 
-        def rendering_mode
+        def fetch_section
+          @fetch_section ||= fetch_maglev_theme.sections.find(params[:id])
+        end
+
+        def maglev_rendering_mode
           :section
         end
 
