@@ -5,7 +5,7 @@ module Maglev
     include Maglev::FetchersConcern
 
     def show
-      fetch_page_content
+      fetch_maglev_page_content
       @home_page_id = ::Maglev::Page.home.pick(:id)
       render layout: nil
     end
@@ -19,7 +19,7 @@ module Maglev
       when Symbol
         redirect_to main_app.send(maglev_config.back_action)
       when Proc
-        instance_exec(fetch_site, &maglev_config.back_action)
+        instance_exec(fetch_maglev_site, &maglev_config.back_action)
       end
     end
 

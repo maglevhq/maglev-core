@@ -1,10 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  # FIXME: We might want to mount `Maglev::Engine` here
   mount Maglev::Engine, as: :maglev, at: '/maglev'
-
-  get '(*path)', to: 'maglev/page_preview#index', defaults: { path: 'index' }
 
   direct :cdn_image do |model, options|
     if model.respond_to?(:signed_id)
@@ -29,5 +26,9 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :products, only: [:show]
+
   get '/nocoffee_site', to: redirect('https://www.nocoffee.fr'), as: :nocoffee
+
+  get '(*path)', to: 'maglev/page_preview#index', defaults: { path: 'index' }
 end

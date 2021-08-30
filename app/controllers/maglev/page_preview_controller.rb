@@ -15,14 +15,13 @@ module Maglev
 
     private
 
-    def fetch_page_sections
+    def fetch_maglev_page_sections
       return super if action_name == 'index'
 
-      @page_sections = JSON.parse(params[:page_sections])
-      super
+      super(JSON.parse(params[:page_sections]))
     end
 
-    def rendering_mode
+    def maglev_rendering_mode
       params[:rendering_mode] || super
     end
 

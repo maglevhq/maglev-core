@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Dummy</title>
+    <title>
+      <%= content_for?(:page_title) ? yield(:page_title) : 'Dummy' %>
+    </title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
-    <%= stylesheet_link_tag    'application', media: 'all' %>
   </head>
-
   <body>
     <%= yield %>
   </body>

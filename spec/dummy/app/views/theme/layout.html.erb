@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title><%= @site.name %></title>  
+  <title><%= maglev_site.name %></title>
 </head>
 <body>
   <main data-maglev-dropzone>
-    <%= raw render_maglev_sections site: @site, theme: @theme, page: @page, page_sections: @page_sections %>
+    <%= render_maglev_sections %>
   </main>
 </body>
 </html>
