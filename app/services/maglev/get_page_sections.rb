@@ -35,7 +35,7 @@ module Maglev
 
       raise "Unknown Maglev section type (#{section['type']})" unless definition
 
-      if definition.scoped_by_site? && site_section
+      if definition.site_scoped? && site_section
         section.merge!('settings' => site_section['settings'], 'blocks' => site_section['blocks'])
       end
 

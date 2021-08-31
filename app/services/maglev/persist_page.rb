@@ -31,7 +31,7 @@ module Maglev
     def can_persist_site_scoped_sections?
       page.sections.any? do |section|
         definition = theme.sections.find(section['type'])
-        next unless definition&.scoped_by_site?
+        next unless definition&.site_scoped?
 
         section.key?('settings') || section.key?('blocks')
       end
@@ -40,7 +40,7 @@ module Maglev
     def assign_site_scoped_sections
       page.sections.any? do |section|
         definition = theme.sections.find(section['type'])
-        next unless definition.scoped_by_site?
+        next unless definition.site_scoped?
 
         site.add_section(section)
         true

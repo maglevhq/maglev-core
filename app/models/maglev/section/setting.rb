@@ -14,6 +14,7 @@ class Maglev::Section::Setting
 
   ## methods ##
 
+  # NOTE: any modification to that method must be reflected to the JS editor
   def build_default_content(custom_default = nil)
     default = custom_default || self.default
     case type.to_sym

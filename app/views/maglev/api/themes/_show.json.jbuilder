@@ -4,7 +4,7 @@ json.key_format! camelize: :lower
 json.deep_format_keys!
 json.call(theme, :id, :name, :description)
 json.sections theme.sections do |section|
-  json.call(section, :id, :name, :category, :scope, :blocks_label, :blocks_presentation)
+  json.call(section, :id, :name, :category, :site_scoped, :blocks_label, :blocks_presentation, :sample)
   json.settings section.settings.as_json
   json.blocks section.blocks.as_json
   json.theme_id theme.id

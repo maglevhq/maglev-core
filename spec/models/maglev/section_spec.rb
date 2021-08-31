@@ -52,8 +52,10 @@ describe Maglev::Section do
       it 'returns the sample as the default content of the section' do
         expect(subject[:type]).to eq 'navbar'
         expect(subject[:settings][0][:value]).to eq({ url: 'another-awesome-logo.png' })
-        expect(subject[:blocks].size).to eq 2
-        expect(subject[:blocks][0][:settings][0][:value]).to eq 'Home'
+        expect(subject[:blocks].size).to eq 4
+        expect(subject[:blocks].map do |block|
+                 block[:settings][0][:value]
+               end).to eq ['Home', 'About us', 'Our company', 'Our staff']
       end
     end
   end

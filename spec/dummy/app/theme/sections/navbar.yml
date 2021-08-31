@@ -3,7 +3,7 @@ name: Navbar
 
 category: headers
 
-scope: site
+site_scoped: true
 
 # Definition of the settings:
 # A setting type can be one of the following values: text, image, checkbox, link and color.

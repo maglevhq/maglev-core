@@ -14,7 +14,7 @@ FactoryBot.define do
                                                       name: 'Navbar',
                                                       id: 'navbar',
                                                       category: 'headers',
-                                                      scope: 'site',
+                                                      site_scoped: true,
                                                       settings: [{ label: 'Logo', id: 'logo', type: 'image' }],
                                                       blocks: [
                                                         {

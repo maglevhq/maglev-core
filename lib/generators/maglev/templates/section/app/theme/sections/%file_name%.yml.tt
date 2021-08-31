@@ -82,10 +82,10 @@ blocks: <%- if blocks.blank? -%>[]
 #   blocks: <%- if blocks.blank? -%>[]
   <% end %>
   <%- blocks.each do |(type, settings)| -%>
-#    - type: <%= type %>
-#      settings:
-        <%- settings.each do |setting| -%>
-#        <% if setting.value? -%><%= setting.id %>: <%= setting.default %><% end -%>
+#   - type: <%= type %>
+#     settings:
+       <%- settings.each do |setting| -%>
+#       <% if setting.value? -%><%= setting.id %>: <%= setting.default %><% end -%>
         
-        <%- end -%>
+       <%- end -%>
   <%- end -%>

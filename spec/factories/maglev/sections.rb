@@ -72,7 +72,23 @@ FactoryBot.define do
               settings: {
                 label: 'About us',
                 link: '/about-us'
-              }
+              },
+              children: [
+                {
+                  type: 'menu_item',
+                  settings: {
+                    label: 'Our company',
+                    link: '/'
+                  }
+                },
+                {
+                  type: 'menu_item',
+                  settings: {
+                    label: 'Our staff',
+                    link: '/'
+                  }
+                }
+              ]
             }
           ]
         }

@@ -26,12 +26,12 @@ export const build = (definition, site) => {
   )
   let settings, blocks
 
-  if (definition.scope === 'site' && !isBlank(siteSection)) {
+  if (definition.siteScoped && !isBlank(siteSection)) {
     settings = { ...siteSection.settings }
     blocks = [].concat(siteSection.blocks || [])
   } else {
-    settings = buildSettings(definition)
-    blocks = buildDefaultBlocks(definition)
+    settings = buildSettings(definition, definition.sample?.settings)
+    blocks = buildBlocks(definition)
   }
 
   return { id: uuid8(), type, settings, blocks }
@@ -58,27 +58,71 @@ export const buildDefaultBlock = (blockType, { blocks: definitions }) => {
   }
 }
 
-const buildSettings = (definition) => {
-  return definition.settings.map((setting) => {
-    let value = null
-    switch (setting.type) {
-      case 'image':
-        value = { url: setting.default }
-        break
-      case 'link':
-        value = { linkType: 'url', href: setting.default }
-        break
-      default:
-        value = setting.default
-        break
-    }
-    return { id: setting.id, value }
+const buildSettings = (definition, sampleContent) => {
+  return definition.settings.map((setting) =>
+    buildSetting(setting, sampleContent ? sampleContent[setting.id] : null),
+  )
+}
+
+const buildSetting = (setting, sampleContent) => {
+  let value = sampleContent || setting.default
+  switch (setting.type) {
+    case 'image':
+      value = typeof value === 'string' ? { url: value } : {}
+      break
+    case 'link':
+      value =
+        typeof value === 'string' ? { linkType: 'url', href: value } : value
+      break
+  }
+  return { id: setting.id, value }
+}
+
+const buildBlocks = (definition) => {
+  if (!definition.sample?.blocks) return buildDefaultBlocks(definition)
+
+  let blockIds = {}
+
+  definition.sample.blocks.forEach((blockSample) => {
+    buildBlock(definition.blocks, blockSample, blockIds)
   })
+
+  return Object.values(blockIds).filter((block) => block)
+}
+
+const buildBlock = (blockDefinitions, blockSample, blockIds, parentId) => {
+  const block = coreBuildBlock(blockDefinitions, blockSample, parentId)
+  if (!block) return
+  blockIds[block.id] = block
+
+  if (!blockSample.children) return
+
+  blockSample.children.forEach((childBlockSample) => {
+    buildBlock(blockDefinitions, childBlockSample, blockIds, block.id)
+  })
+}
+
+const coreBuildBlock = (blockDefinitions, blockSample, parentId) => {
+  let definition = blockDefinitions.find(
+    (definition) => definition.type === blockSample.type,
+  )
+  if (!definition) return null
+
+  let block = {
+    id: uuid8(),
+    type: definition.type,
+    settings: buildSettings(definition, blockSample.settings),
+  }
+
+  if (parentId) block.parentId = parentId
+
+  return block
 }
 
 const buildDefaultBlocks = (definition) => {
   if (isBlank(definition.blocks)) return []
   let blocks = []
+
   Array.from({ length: NUMBER_OF_DEFAULT_BLOCKS }, () =>
     blocks.push(buildDefaultBlock(null, definition)),
   )
@@ -104,6 +148,11 @@ export const getBlockLabel = (block, definition) => {
       case 'image':
         if (!image) {
           image = value?.url
+        }
+        break
+      case 'link':
+        if (!label && !isBlank(value.text)) {
+          label = value.text
         }
         break
       default:

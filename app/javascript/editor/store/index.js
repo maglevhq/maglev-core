@@ -124,12 +124,14 @@ const mutations = {
     state.section = state.sections[state.section.id]
   },
   SORT_SECTION_BLOCKS(state, list) {
-    state.sections[state.section.id].blocks = list.map((block) => block.id)
-    state.section = state.sections[state.section.id]
-    // in case we deal with a tree structure
+    const sections = { ...state.sections }
+    sections[state.section.id].blocks = list.map((block) => block.id)
+    // in case we deal with a tree structure, update the parentId attribute only
     list.forEach(
       (block) => (state.sectionBlocks[block.id].parentId = block.parentId),
     )
+    state.section = { ...sections[state.section.id] }
+    state.sections = sections
   },
   UPDATE_SECTION_BLOCK_CONTENT(state, change) {
     let updatedBlock = { ...state.sectionBlocks[state.sectionBlock.id] }
