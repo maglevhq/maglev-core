@@ -21,7 +21,7 @@ class Maglev::Section::Setting
     when :image
       default.is_a?(String) ? { url: default } : {}
     when :link
-      default.is_a?(String) ? { link_type: 'url', href: default } : default
+      default.is_a?(String) ? { link_type: 'url', href: default } : { link_type: 'url', href: '#' }.merge(default)
     else
       default || label
     end

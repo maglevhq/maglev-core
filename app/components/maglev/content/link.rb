@@ -19,6 +19,10 @@ module Maglev
         !!link[:open_new_window]
       end
 
+      def target_blank
+        open_new_window? ? '_blank' : nil
+      end
+
       def to_s
         href
       end
@@ -30,7 +34,7 @@ module Maglev
           href,
           {
             data: (options.delete(:data) || {}).merge(tag_data),
-            target: open_new_window? ? '_blank' : nil
+            target: target_blank
           }.merge(options)
         )
       end
