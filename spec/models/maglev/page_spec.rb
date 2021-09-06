@@ -22,8 +22,10 @@ RSpec.describe Maglev::Page, type: :model do
       Translatable.with_locale(:es) do
         expect(page.title).to be_blank
         page.title = 'Mi página'
+        page.path = 'mi-pagina'
         page.save!
-        expect(page.reload.title).to eq('Mi página')
+        expect(page.reload.paths.count).to eq(2)
+        expect(page.title).to eq('Mi página')
         expect(page.title_translations).to eq({
           en: 'Translated page',
           es: 'Mi página'
@@ -50,6 +52,37 @@ RSpec.describe Maglev::Page, type: :model do
       expect(page.sections.first['id']).not_to eq nil
       expect(page.sections.last['id']).not_to eq nil
       expect(page.sections.last['blocks'].first['id']).not_to eq nil
+    end
+  end
+
+  describe 'adding a second canonical path' do
+    let(:page) { create(:page) }
+    subject { page.paths.create!(canonical: true, value: 'canonical-wannabe') }
+
+    it 'fails miserably' do
+      expect { subject }.to raise_error(ActiveRecord::RecordInvalid)
+    end
+  end
+
+  describe 'with multiple paths' do
+    let!(:page) { create(:page, path: 'original') }
+    let(:redirection) { Maglev::Page.by_path('original').first }
+    before { page.update!(path: 'newer') }
+
+    it 'spawn new paths' do
+      expect(page.paths.count).to eq 2
+    end
+
+    it 'set the latest path as default' do
+      expect(page.reload.path).to eq('newer')
+    end
+
+    it 'have a canonical path' do
+      expect(page.canonical_path).to eq('newer')
+    end
+
+    it 'are reachable by their redirections' do
+      expect(redirection).to eq(page)
     end
   end
 end
