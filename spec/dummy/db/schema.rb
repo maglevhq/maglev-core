@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_30_085101) do
+ActiveRecord::Schema.define(version: 2021_09_06_102712) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -63,6 +63,8 @@ ActiveRecord::Schema.define(version: 2021_08_30_085101) do
     t.bigint "maglev_page_id"
     t.string "locale", null: false
     t.string "value", null: false
+    t.boolean "canonical", default: true
+    t.index ["canonical", "maglev_page_id", "locale"], name: "canonical_uniqueness", unique: true
     t.index ["maglev_page_id"], name: "index_maglev_page_paths_on_maglev_page_id"
     t.index ["value", "locale"], name: "index_maglev_page_paths_on_value_and_locale", unique: true
   end
