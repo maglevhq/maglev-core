@@ -16,6 +16,7 @@
       :label="setting.label"
       :name="setting.id"
       :isFocused="isFocused"
+      :rows="options.nbRows"
       @blur="$emit('blur')"
       v-model="inputValue"
       v-if="

@@ -54,12 +54,16 @@ describe Maglev::SectionComponent do
               <ul>
                 <li class="navbar-item" data-maglev-block-id="menu-item-0">
                   <a data-maglev-id="menu-item-0.link" href="/">
-                    <span data-maglev-id="menu-item-0.label">Home</span>
+                    <em>
+                      <span data-maglev-id="menu-item-0.label">Home</span>
+                    </em>
                   </a>
                 </li>
                 <li class="navbar-item" data-maglev-block-id="menu-item-1">
                   <a data-maglev-id="menu-item-1.link" href="/about-us">
-                    <span data-maglev-id="menu-item-1.label">About us</span>
+                    <em>
+                      <span data-maglev-id="menu-item-1.label">About us</span>
+                    </em>
                   </a>
                   <ul>
                     <li class="navbar-nested-item" data-maglev-block-id="menu-item-1-1">

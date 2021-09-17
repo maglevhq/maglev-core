@@ -45,7 +45,7 @@ module Maglev
         BlockSetting.new(block_type, id, type)
       end.compact.presence || []
 
-      blocks = default_block_settings if blocks.blank?
+      blocks = default_block_settings if blocks.blank? && @settings.blank?
 
       # group them by block types
       blocks.group_by(&:block_type)

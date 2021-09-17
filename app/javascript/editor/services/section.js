@@ -1,4 +1,4 @@
-import { isBlank, uuid8 } from '@/utils'
+import { isBlank, uuid8, camelize } from '@/utils'
 import { normalize as coreNormalize } from 'normalizr'
 import { SECTION_SCHEMA } from './page'
 
@@ -60,7 +60,10 @@ export const buildDefaultBlock = (blockType, { blocks: definitions }) => {
 
 const buildSettings = (definition, sampleContent) => {
   return definition.settings.map((setting) =>
-    buildSetting(setting, sampleContent ? sampleContent[setting.id] : null),
+    buildSetting(
+      setting,
+      sampleContent ? sampleContent[camelize(setting.id)] : null,
+    ),
   )
 }
 

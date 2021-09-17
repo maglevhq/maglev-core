@@ -32,7 +32,9 @@ RSpec.describe 'Maglev::PagePreviewController', type: :request do
                   <ul>
                     <li class="navbar-item" data-maglev-block-id="zzz">
                       <a data-maglev-id="zzz.link" target="_blank" href="https://www.nocoffee.fr">
-                        <span data-maglev-id="zzz.label">Home</span>
+                        <em>
+                          <span data-maglev-id="zzz.label">Home</span>
+                        </em>
                       </a>
                     </li>
                   </ul>

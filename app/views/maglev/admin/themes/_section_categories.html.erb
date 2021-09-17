@@ -1,7 +1,7 @@
 <% theme.section_categories.each_with_index do |category, index| %>
   <%- selected = section_category_id == category.id %>
-  <%= link_to section_category_path(category), class: ['rounded-full text-sm px-4 py-1 mr-3 flex items-center transition-colors', selected ? 'bg-purple-600 bg-opacity-25 text-purple-600' : 'bg-gray-300 text-gray-800 hover:bg-gray-400 hover:text-gray-900'].compact.join(' ') do %> 
-    <span><%= category.name %></span>
+  <%= link_to section_category_path(category), class: ['rounded-full text-sm px-4 py-1 mr-3 flex items-center transition-colors whitespace-nowrap', selected ? 'bg-purple-600 bg-opacity-25 text-purple-600' : 'bg-gray-300 text-gray-800 hover:bg-gray-400 hover:text-gray-900'].compact.join(' ') do %> 
+    <span><%= category.name.humanize %></span>
     <%= tag.span class: ['ml-2 font-bold text-xs text-white rounded-full w-4 h-4 flex items-center justify-center', selected ? 'bg-purple-600' : 'bg-gray-600'].compact.join(' ') do %>
       <%= theme.sections.grouped_by_category[category.id]&.count || 0 %>
     <% end %>

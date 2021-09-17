@@ -32,7 +32,7 @@ module Maglev
         content || ''
       end
 
-      def tag
+      def tag(view_context, options)
         to_s
       end
     end

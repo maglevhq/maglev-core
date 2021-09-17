@@ -20,6 +20,7 @@
       "
       autocomplete="off"
       ref="input"
+      :rows="rows"
     />
   </div>
 </template>
@@ -34,6 +35,7 @@ export default {
     label: { type: String, default: 'Label' },
     name: { type: String, default: 'text' },
     value: { type: String },
+    rows: { type: Number, default: 2 },
   },
   methods: {
     updateInput(event) {

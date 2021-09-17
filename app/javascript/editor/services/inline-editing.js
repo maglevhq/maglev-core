@@ -105,7 +105,11 @@ const onSettingHovered = (el) => {
   el.style.outline = '2px solid transparent'
   el.style.outlineOffset = '2px'
   el.style.boxShadow = '0 0 0 2px var(--maglev-editor-outline-color)'
-  if (!el.style.borderRadius) el.style.borderRadius = '2px'
+  if (
+    !el.style.borderRadius &&
+    window.getComputedStyle(el).borderRadius === '0px'
+  )
+    el.style.borderRadius = '2px'
 }
 
 const onSettingLeft = (el) => {
@@ -189,7 +193,9 @@ const updatePreviewDocument = (previewDocument, content, section) => {
   console.log('refreshPreviewDocument', content)
 
   const attributes = {
-    pageSections: JSON.stringify(content.pageSections),
+    pageSections: JSON.stringify([
+      content.pageSections.find((s) => s.id == section.id), // no need to render the other sections
+    ]),
   }
 
   axios.post(previewDocument.location.href, attributes).then(({ data }) => {

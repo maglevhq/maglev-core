@@ -30,7 +30,7 @@ module Maglev::Section::ContentConcern
 
     sample[:blocks].each do |block|
       build_default_block_content(block, blocks_content, nil)
-    end
+    end if sample[:blocks]
 
     blocks_content.values.compact
   end

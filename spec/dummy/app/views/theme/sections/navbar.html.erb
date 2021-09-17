@@ -5,7 +5,7 @@
       <% maglev_section.blocks.each do |maglev_block| %>
         <%= maglev_block.wrapper_tag.li class: 'navbar-item' do %>
           <%= maglev_block.setting_tag :link do %>
-            <%= maglev_block.setting_tag :label, html_tag: :span %>
+            <em><%= maglev_block.setting_tag :label, html_tag: :span %></em>
           <% end %>
           <% if maglev_block.children? %>
             <ul>

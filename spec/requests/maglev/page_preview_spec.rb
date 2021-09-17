@@ -122,7 +122,9 @@ RSpec.describe 'Maglev::PagePreviewController', type: :request do
           <ul>
             <li class="navbar-item" data-maglev-block-id="block-0">
               <a data-maglev-id="block-0.link" href="/maglev/preview">
-                <span data-maglev-id="block-0.label">Item #0</span>
+                <em>
+                  <span data-maglev-id="block-0.label">Item #0</span>
+                </em>
               </a>
               <ul>
                 <li class="navbar-nested-item" data-maglev-block-id="block-0-0">
@@ -139,7 +141,9 @@ RSpec.describe 'Maglev::PagePreviewController', type: :request do
             </li>
             <li class="navbar-item" data-maglev-block-id="block-1">
               <a data-maglev-id="block-1.link" href="/maglev/preview">
-                <span data-maglev-id="block-1.label">Item #1</span>
+                <em>
+                  <span data-maglev-id="block-1.label">Item #1</span>
+                </em>
               </a>
             </li>
           </ul>
