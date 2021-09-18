@@ -4,7 +4,7 @@ module Maglev
   module Content
     class Checkbox < Base
       def true?
-        !!@content
+        !!content
       end
 
       def false?
@@ -12,7 +12,7 @@ module Maglev
       end
 
       def to_s
-        @content
+        content
       end
     end
   end

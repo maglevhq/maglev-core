@@ -22,6 +22,8 @@ class Maglev::Section::Setting
       default.is_a?(String) ? { url: default } : {}
     when :link
       default.is_a?(String) ? { link_type: 'url', href: default } : { link_type: 'url', href: '#' }.merge(default)
+    when :checkbox
+      !default.nil?
     else
       default || label
     end

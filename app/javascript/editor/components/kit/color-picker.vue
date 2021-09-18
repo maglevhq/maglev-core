@@ -44,7 +44,8 @@
               hover:scale-110
               select-none
             "
-            :style="`background-color: ${preset};`"
+            :class="{ 'border border-gray-300': isWhite(preset) }"
+            :style="{ 'background-color': preset }"
           >
           </span>
         </label>
@@ -77,8 +78,15 @@ export default {
       },
     },
     selectedBorderColor() {
-      const color = hexToRgb(this.selectedColor)
+      let color = hexToRgb(this.selectedColor)
+      if (this.isWhite()) color = { r: 0, g: 0, b: 0 }
       return `rgba(${color.r}, ${color.g}, ${color.b}, 0.40)`
+    },
+  },
+  methods: {
+    isWhite(hexColor) {
+      const value = hexToRgb(hexColor || this.selectedColor)
+      return value.r === 255 && value.g === 255 && value.b === 255
     },
   },
 }

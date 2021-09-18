@@ -28,9 +28,9 @@ module Maglev::Section::ContentConcern
 
     blocks_content = {}
 
-    sample[:blocks].each do |block|
+    sample[:blocks]&.each do |block|
       build_default_block_content(block, blocks_content, nil)
-    end if sample[:blocks]
+    end
 
     blocks_content.values.compact
   end
