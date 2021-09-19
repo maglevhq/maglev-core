@@ -7,7 +7,8 @@ module Maglev
     include ::Maglev::Section::ContentConcern
 
     ## attributes ##
-    attr_accessor :id, :theme, :name, :category, :site_scoped, :settings, :blocks, :blocks_label, :blocks_presentation,
+    attr_accessor :id, :theme, :name, :category, :site_scoped, :singleton, :viewport_fixed_position,
+                  :settings, :blocks, :blocks_label, :blocks_presentation,
                   :sample, :screenshot_timestamp
 
     ## validations ##
@@ -21,9 +22,18 @@ module Maglev
       !!site_scoped
     end
 
+    def singleton?
+      !!singleton
+    end
+
+    def viewport_fixed_position?
+      !!viewport_fixed_position?
+    end
+
     ## class methods ##
     def self.build(hash)
-      attributes = hash.slice('id', 'theme', 'name', 'site_scoped', 'category', 'blocks_label', 'blocks_presentation',
+      attributes = hash.slice('id', 'theme', 'name', 'site_scoped', 'singleton', 'viewport_fixed_position', 'category',
+                              'blocks_label', 'blocks_presentation',
                               'sample', 'screenshot_timestamp')
 
       new(

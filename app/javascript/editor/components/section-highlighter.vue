@@ -258,6 +258,13 @@ export default {
     displayMoveArrows() {
       return !this.currentSection
     },
+    minTop() {
+      return this.services.inlineEditing.getMinTop(
+        this.previewDocument,
+        this.hoveredSection,
+        this.currentSectionList,
+      )
+    },
   },
   methods: {
     ...mapActions(['moveHoveredSection', 'removeSection', 'leaveSection']),
@@ -275,10 +282,16 @@ export default {
       })
     },
     performStyle(boundingRect) {
+      const isSticky = this.minTop && boundingRect.top < this.minTop
+      const top = isSticky ? this.minTop : boundingRect.top
+      const height = isSticky
+        ? boundingRect.height - (this.minTop - boundingRect.top)
+        : boundingRect.height
+
       return {
-        top: `${boundingRect.top * this.previewScaleRatio}px`,
+        top: `${top * this.previewScaleRatio}px`,
         left: `calc(50% - ${this.previewLeftPadding}px / 2 - (${boundingRect.width}px * ${this.previewScaleRatio}) / 2 + ${this.previewLeftPadding}px)`,
-        height: `${boundingRect.height * this.previewScaleRatio}px`,
+        height: `${height * this.previewScaleRatio}px`,
         width: `calc(${boundingRect.width}px * ${this.previewScaleRatio})`,
       }
     },

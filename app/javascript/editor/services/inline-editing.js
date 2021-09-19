@@ -189,6 +189,18 @@ export const setup = (previewDocument) => {
   setupEvents(previewDocument)
 }
 
+export const getMinTop = (previewDocument, hoveredSection, sections) => {
+  if (!hoveredSection) return null
+  const sectionId = sections.find(
+    (section) => section.viewportFixedPosition,
+  )?.id
+  if (!sectionId || hoveredSection.sectionId === sectionId) return null
+  const selector = `[data-maglev-section-id='${sectionId}']`
+  const element = previewDocument.querySelector(selector)
+  if (!element) return null
+  return element.offsetHeight
+}
+
 const updatePreviewDocument = (previewDocument, content, section) => {
   console.log('refreshPreviewDocument', content)
 

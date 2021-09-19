@@ -333,6 +333,7 @@ const getters = {
         id: sectionContent.id,
         type: sectionContent['type'],
         name: sectionDefinition.name,
+        viewportFixedPosition: !!sectionDefinition.viewportFixedPosition,
       }
     })
   },

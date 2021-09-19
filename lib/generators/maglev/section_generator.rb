@@ -27,13 +27,15 @@ module Maglev
     private
 
     def extract_section_settings
+      return default_section_settings if options['settings'].blank?
+
       # build section settings only
       options['settings'].map do |raw_setting|
         next if raw_setting.starts_with?('block:') # block setting
 
         id, type = raw_setting.split(':')
         SectionSetting.new(id, type)
-      end.compact.presence || default_section_settings
+      end.compact.presence
     end
 
     def extract_blocks

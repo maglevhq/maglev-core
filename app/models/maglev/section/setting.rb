@@ -18,15 +18,24 @@ class Maglev::Section::Setting
   def build_default_content(custom_default = nil)
     default = custom_default || self.default
     case type.to_sym
-    when :image
-      default.is_a?(String) ? { url: default } : {}
-    when :link
-      default.is_a?(String) ? { link_type: 'url', href: default } : { link_type: 'url', href: '#' }.merge(default)
-    when :checkbox
-      !default.nil?
+    when :image then build_default_image_content(default)
+    when :link then build_default_link_content(default)
+    when :checkbox then build_default_checkbox_content(default)
     else
       default || label
     end
+  end
+
+  def build_default_image_content(default)
+    default.is_a?(String) ? { url: default } : {}
+  end
+
+  def build_default_link_content(default)
+    default.is_a?(String) ? { link_type: 'url', href: default } : { link_type: 'url', href: '#' }.merge(default)
+  end
+
+  def build_default_checkbox_content(default)
+    !default.nil?
   end
 
   ## class methods ##

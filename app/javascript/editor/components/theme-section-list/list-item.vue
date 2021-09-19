@@ -11,9 +11,12 @@
       ease-in-out
       transform
       hover:-translate-y-1
-      cursor-pointer
     "
-    :class="{ 'h-16': !hasScreenshot }"
+    :class="{
+      'h-16': !hasScreenshot,
+      'cursor-pointer': canBeAdded,
+      'cursor-not-allowed': !canBeAdded,
+    }"
     @mouseover="hovered = true"
     @mouseleave="hovered = false"
     @click="select"
@@ -60,10 +63,17 @@ export default {
     hasScreenshot() {
       return this.section.screenshotPath
     },
+    canBeAdded() {
+      return this.services.section.canBeAddedToPage(
+        this.section,
+        this.currentSectionList,
+      )
+    },
   },
   methods: {
     ...mapActions(['addSection']),
     select() {
+      if (!this.canBeAdded) return
       this.addSection(this.section).then(() => {
         this.$router.push({ name: 'editPage' })
       })

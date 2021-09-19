@@ -15,6 +15,11 @@ export const calculateMovingIndices = (sectionIds, sectionId, direction) => {
   return { fromIndex, toIndex }
 }
 
+export const canBeAddedToPage = (newSectionDefinition, sections) => {
+  if (!newSectionDefinition.singleton) return true
+  return !sections.some((section) => newSectionDefinition.id === section.type)
+}
+
 export const normalize = (section) => {
   return coreNormalize(section, SECTION_SCHEMA)
 }
