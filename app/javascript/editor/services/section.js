@@ -159,7 +159,7 @@ export const getBlockLabel = (block, definition) => {
         }
         break
       case 'link':
-        if (!label && !isBlank(value.text)) {
+        if (!label && !isBlank(value?.text)) {
           label = value.text
         }
         break

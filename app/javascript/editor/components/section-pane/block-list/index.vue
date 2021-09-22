@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="relative">
     <draggable v-model="list" v-bind="dragOptions">
       <transition-group type="transition" name="flip-list">
         <list-item
@@ -14,7 +14,7 @@
     </draggable>
 
     <div class="mt-2">
-      <new-block-button />
+      <new-block-button @on-dropdown-toggle="onDropdownToggle" />
     </div>
   </div>
 </template>

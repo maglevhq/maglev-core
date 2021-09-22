@@ -113,15 +113,21 @@ const mutations = {
     )
   },
   ADD_SECTION_BLOCK(state, sectionBlock) {
-    state.sectionBlocks[sectionBlock.id] = sectionBlock
-    state.sections[state.section.id].blocks.push(sectionBlock.id)
-    state.section = state.sections[state.section.id]
+    state.sectionBlocks = {
+      ...state.sectionBlocks,
+      [sectionBlock.id]: sectionBlock,
+    }
+    const updatedSection = { ...state.sections[state.section.id] }
+    updatedSection.blocks.push(sectionBlock.id)
+    state.sections = { ...state.sections, [updatedSection.id]: updatedSection }
+    state.section = updatedSection
   },
   REMOVE_SECTION_BLOCK(state, sectionBlockId) {
-    const index =
-      state.sections[state.section.id].blocks.indexOf(sectionBlockId)
-    state.sections[state.section.id].blocks.splice(index, 1)
-    state.section = state.sections[state.section.id]
+    const updatedSection = { ...state.sections[state.section.id] }
+    const index = updatedSection.blocks.indexOf(sectionBlockId)
+    updatedSection.blocks.splice(index, 1)
+    state.sections = { ...state.sections, [updatedSection.id]: updatedSection }
+    state.section = updatedSection
   },
   SORT_SECTION_BLOCKS(state, list) {
     const sections = { ...state.sections }
@@ -252,12 +258,14 @@ const actions = {
   },
   addSectionBlock(
     { commit, getters, state: { previewDocument, section, sectionDefinition } },
-    blockType,
+    { blockType, parentId },
   ) {
+    console.log(blockType, parentId)
     const sectionBlock = services.section.buildDefaultBlock(
       blockType,
       sectionDefinition,
     )
+    if (parentId) sectionBlock.parentId = parentId
     commit('ADD_SECTION_BLOCK', sectionBlock)
     services.inlineEditing.updateSectionSetting(
       previewDocument,

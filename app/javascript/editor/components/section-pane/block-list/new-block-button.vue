@@ -4,6 +4,7 @@
       placement="left"
       ref="dropdown"
       :fullWidth="true"
+      v-on="$listeners"
       v-if="hasMultipleTypes"
     >
       <template v-slot:button>
@@ -41,7 +42,7 @@
               py-2
               hover:underline hover:text-black
             "
-            @click="addSectionBlockAndClose(blockType.type)"
+            @click="addSectionBlockAndClose({ blockType: blockType.type })"
           >
             {{ blockType.name }}
           </button>
@@ -91,7 +92,7 @@ export default {
   methods: {
     ...mapActions(['addSectionBlock']),
     addSectionBlockAndClose(blockType) {
-      this.addSectionBlock(blockType)
+      this.addSectionBlock({ blockType })
       this.$refs.dropdown.close()
     },
   },

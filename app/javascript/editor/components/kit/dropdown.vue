@@ -1,5 +1,5 @@
 <template>
-  <div class="relative">
+  <div>
     <div
       class="
         z-10

@@ -870,13 +870,6 @@
   dependencies:
     regenerator-runtime "^0.13.4"
 
-"@babel/runtime@^7.7.7":
-  version "7.14.6"
-  resolved "https://registry.npmjs.org/@babel/runtime/-/runtime-7.14.6.tgz"
-  integrity sha512-/PCB2uJ7oM44tz8YhC4Z/6PeOKXp4K588f+5M3clr1M4zbqztlo0XEfJ2LEzj/FgwfgGcIdl8n7YYjTCI0BYwg==
-  dependencies:
-    regenerator-runtime "^0.13.4"
-
 "@babel/template@^7.12.13":
   version "7.12.13"
   resolved "https://registry.npmjs.org/@babel/template/-/template-7.12.13.tgz"
@@ -3132,23 +3125,6 @@ dot-prop@^5.2.0:
   dependencies:
     is-obj "^2.0.0"
 
-drag-event-service@^1.1.7:
-  version "1.1.7"
-  resolved "https://registry.npmjs.org/drag-event-service/-/drag-event-service-1.1.7.tgz"
-  integrity sha512-wKPAzyDBGd8MBUYQWgSlHp6tfnp9sKfNKuZCWIJee3EjYv+MFpB1tfxOnAOx1XgF8HD7WwIOPTVWSQwyM9YtTg==
-  dependencies:
-    "@babel/runtime" "^7.7.7"
-    helper-js "^2.0.0"
-
-draggable-helper@^5.0.6:
-  version "5.0.6"
-  resolved "https://registry.npmjs.org/draggable-helper/-/draggable-helper-5.0.6.tgz"
-  integrity sha512-XJDmWNZXDO6iB81qA0ZoNrMxRkKwlYMM7yba+jaGT29a4uDYfrgAkm+4xKqV1oEv5AdeKK+MnAWsrt/TaQwbEg==
-  dependencies:
-    "@babel/runtime" "^7.7.7"
-    drag-event-service "^1.1.7"
-    helper-js "^2.0.0"
-
 duplexify@^3.4.2, duplexify@^3.6.0:
   version "3.7.1"
   resolved "https://registry.npmjs.org/duplexify/-/duplexify-3.7.1.tgz"
@@ -4309,28 +4285,10 @@ hash.js@^1.0.0, hash.js@^1.0.3:
     inherits "^2.0.3"
     minimalistic-assert "^1.0.1"
 
-he-tree-vue@2:
-  version "2.0.10"
-  resolved "https://registry.npmjs.org/he-tree-vue/-/he-tree-vue-2.0.10.tgz"
-  integrity sha512-tD1/OD/eLzUkqSDi0ztr5aAyw/MhtOvpQXB7siUTxCQ/wx3Xky8Y+5AwMeMXuxqFYTUH7os43AO3HGr2umBKtw==
-  dependencies:
-    "@babel/runtime" "^7.7.7"
-    draggable-helper "^5.0.6"
-    helper-js "^2.0.1"
-    vue-functions "^2.0.6"
-    vue-runtime-helpers "^1.1.2"
-
 he@^1.1.0:
   version "1.2.0"
   resolved "https://registry.npmjs.org/he/-/he-1.2.0.tgz"
   integrity sha512-F/1DnUGPopORZi0ni+CvrCgHQ5FyEAHRLSApuYWMmrbSwoN2Mn/7k+Gl38gJnR7yyDZk6WLXwiGod1JOWNDKGw==
-
-helper-js@^2.0.0, helper-js@^2.0.1:
-  version "2.0.3"
-  resolved "https://registry.npmjs.org/helper-js/-/helper-js-2.0.3.tgz"
-  integrity sha512-N9XgQACywL0/hkbyltBWUnE99ah+8fpMc3wKJcE0Jj/P8g1vJQo2sHmPEks42cRBtWdfyI2+n/Sqd9HQT/cN9w==
-  dependencies:
-    "@babel/runtime" "^7.7.7"
 
 hex-color-regex@^1.1.0:
   version "1.1.0"
@@ -9171,14 +9129,6 @@ vue-eslint-parser@^7.8.0:
     lodash "^4.17.21"
     semver "^6.3.0"
 
-vue-functions@^2.0.6:
-  version "2.0.6"
-  resolved "https://registry.npmjs.org/vue-functions/-/vue-functions-2.0.6.tgz"
-  integrity sha512-c5P62HgQHJe7tIyWQUJGKeK3ziI+cOc3tf/NnwaSGnli89msfyDN0QUFIT9Su7uMcQmf0oMj2PmSh8M4zISxzg==
-  dependencies:
-    "@babel/runtime" "^7.7.7"
-    helper-js "^2.0.0"
-
 vue-hot-reload-api@^2.3.0:
   version "2.3.4"
   resolved "https://registry.npmjs.org/vue-hot-reload-api/-/vue-hot-reload-api-2.3.4.tgz"
@@ -9204,11 +9154,6 @@ vue-router@^3.4.4:
   version "3.5.1"
   resolved "https://registry.npmjs.org/vue-router/-/vue-router-3.5.1.tgz"
   integrity sha512-RRQNLT8Mzr8z7eL4p7BtKvRaTSGdCbTy2+Mm5HTJvLGYSSeG9gDzNasJPP/yOYKLy+/cLG/ftrqq5fvkFwBJEw==
-
-vue-runtime-helpers@^1.1.2:
-  version "1.1.2"
-  resolved "https://registry.npmjs.org/vue-runtime-helpers/-/vue-runtime-helpers-1.1.2.tgz"
-  integrity sha512-pZfGp+PW/IXEOyETE09xQHR1CKkR9HfHZdnMD/FVLUNI+HxYTa82evx5WrF6Kz4s82qtqHvMZ8MZpbk2zT2E1Q==
 
 vue-style-loader@^4.1.0:
   version "4.1.3"

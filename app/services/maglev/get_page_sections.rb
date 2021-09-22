@@ -35,7 +35,7 @@ module Maglev
 
       raise "Unknown Maglev section type (#{section['type']})" unless definition
 
-      if definition.site_scoped? && site_section
+      if !page_sections && definition.site_scoped? && site_section
         section.merge!('settings' => site_section['settings'], 'blocks' => site_section['blocks'])
       end
 
@@ -49,6 +49,7 @@ module Maglev
     def transform_section_blocks(blocks, definition)
       blocks.each do |block|
         block_definition = definition.blocks.find { |bd| bd.type == block['type'] }
+
         next unless block_definition
 
         transform_section_settings(block, block_definition)

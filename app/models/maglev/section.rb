@@ -7,7 +7,8 @@ module Maglev
     include ::Maglev::Section::ContentConcern
 
     ## attributes ##
-    attr_accessor :id, :theme, :name, :category, :site_scoped, :singleton, :viewport_fixed_position,
+    attr_accessor :id, :theme, :name, :category,
+                  :site_scoped, :singleton, :viewport_fixed_position,
                   :settings, :blocks, :blocks_label, :blocks_presentation,
                   :sample, :screenshot_timestamp
 
