@@ -102,6 +102,7 @@ module Maglev
     end
 
     def find_section_setting(section, setting_id)
+      # Note: works for both sections and blocks
       section['settings'].find { |setting| setting['id'] == setting_id }
     end
 

@@ -1,20 +1,22 @@
 <template>
-  <div class="relative">
-    <transition-group type="transition" name="flip-list">
-      <tree-node
-        v-for="(treeNode, index) in treeData"
-        :key="treeNode.sectionBlock.id"
-        :treeNode="treeNode"
-        :siblings="treeData"
-        :depth="0"
-        :index="index"
-        :last="index === treeData.length - 1"
-        @on-dropdown-toggle="onDropdownToggle"
-        @change="change"
-        class="mb-3"
-      />
-    </transition-group>
-    <div class="mt-2">
+  <div class="flex flex-col h-full">
+    <div class="relative flex-auto h-0 overflow-y-auto">
+      <transition-group type="transition" name="flip-list">
+        <tree-node
+          v-for="(treeNode, index) in treeData"
+          :key="treeNode.sectionBlock.id"
+          :treeNode="treeNode"
+          :siblings="treeData"
+          :depth="0"
+          :index="index"
+          :last="index === treeData.length - 1"
+          @on-dropdown-toggle="onDropdownToggle"
+          @change="change"
+          class="mb-3"
+        />
+      </transition-group>
+    </div>
+    <div class="mt-auto relative">
       <new-block-button @on-dropdown-toggle="onDropdownToggle" />
     </div>
   </div>

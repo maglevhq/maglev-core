@@ -3,6 +3,7 @@
     <dropdown
       placement="left"
       ref="dropdown"
+      :dropup="true"
       :fullWidth="true"
       v-on="$listeners"
       v-if="hasMultipleTypes"
@@ -25,6 +26,7 @@
             py-3
             flex
             items-center
+            justify-center
           "
         >
           <icon name="ri-add-line" size="1.5rem" />
@@ -66,6 +68,7 @@
         py-3
         flex
         items-center
+        justify-center
       "
       @click="addSectionBlock"
       v-else

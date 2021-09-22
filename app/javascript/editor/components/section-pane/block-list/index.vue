@@ -1,19 +1,21 @@
 <template>
-  <div class="relative">
-    <draggable v-model="list" v-bind="dragOptions">
-      <transition-group type="transition" name="flip-list">
-        <list-item
-          v-for="(sectionBlock, index) in currentSectionBlocks"
-          :key="sectionBlock.id"
-          :sectionBlock="sectionBlock"
-          :index="index"
-          @on-dropdown-toggle="onDropdownToggle"
-          class="mb-3"
-        />
-      </transition-group>
-    </draggable>
+  <div class="flex flex-col h-full">
+    <div class="relative flex-auto h-0 overflow-y-auto">
+      <draggable v-model="list" v-bind="dragOptions">
+        <transition-group type="transition" name="flip-list">
+          <list-item
+            v-for="(sectionBlock, index) in currentSectionBlocks"
+            :key="sectionBlock.id"
+            :sectionBlock="sectionBlock"
+            :index="index"
+            @on-dropdown-toggle="onDropdownToggle"
+            class="mb-3"
+          />
+        </transition-group>
+      </draggable>
+    </div>
 
-    <div class="mt-2">
+    <div class="mt-auto relative">
       <new-block-button @on-dropdown-toggle="onDropdownToggle" />
     </div>
   </div>

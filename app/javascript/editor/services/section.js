@@ -32,7 +32,7 @@ export const build = (definition, site) => {
   let settings, blocks
 
   if (definition.siteScoped && !isBlank(siteSection)) {
-    settings = { ...siteSection.settings }
+    settings = [].concat(siteSection.settings || [])
     blocks = [].concat(siteSection.blocks || [])
   } else {
     settings = buildSettings(definition, definition.sample?.settings)
