@@ -58,7 +58,10 @@ export default {
   methods: {
     ...mapActions(['addSectionBlock']),
     addNestedSectionBlock() {
-      this.addSectionBlock({ parentId: this.parentId })
+      this.addSectionBlock({
+        blockType: this.blockTypes[0].type,
+        parentId: this.parentId,
+      })
     },
     addNestedSectionBlockAndClose(blockType) {
       this.addSectionBlock({ blockType, parentId: this.parentId })

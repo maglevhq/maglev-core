@@ -67,7 +67,7 @@
           <icon name="image-line" size="1.5rem" />
         </a>
       </li>
-      <li>
+      <li v-if="false">
         <router-link
           :to="{ name: 'test', params: { pageId: currentPage.path } }"
           class="
@@ -84,7 +84,7 @@
           T
         </router-link>
       </li>
-      <li>
+      <li v-if="false">
         <router-link
           :to="{ name: 'test2', params: { pageId: currentPage.path } }"
           class="
