@@ -2,7 +2,11 @@
   <layout :title="$t('page.list.title')" :sub-title="$t('page.list.subTitle')">
     <div class="h-full flex flex-col">
       <div class="pt-2">
-        <search-input @search="search" class="py-4" />
+        <search-input
+          @search="search"
+          class="py-4"
+          :placeholder="$t('page.list.searchPlaceholder')"
+        />
       </div>
       <div class="flex-grow overflow-y-auto">
         <page-list :q="q" class="h-full mt-4" ref="list" />

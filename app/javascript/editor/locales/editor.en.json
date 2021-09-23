@@ -18,6 +18,7 @@
       "title": "List of pages",
       "subTitle": "Manage the pages of your site",
       "newButton": "Create a new page",
+      "searchPlaceholder": "Type your query here...",
       "item": {
         "edit": "Edit page settings",
         "clone": "Clone page",
