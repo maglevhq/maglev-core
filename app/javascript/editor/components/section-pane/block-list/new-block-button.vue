@@ -44,7 +44,7 @@
               py-2
               hover:underline hover:text-black
             "
-            @click="addSectionBlockAndClose({ blockType: blockType.type })"
+            @click="addSectionBlockAndClose(blockType.type)"
           >
             {{ blockType.name }}
           </button>
