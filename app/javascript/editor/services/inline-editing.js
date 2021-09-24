@@ -1,7 +1,7 @@
 import * as axios from 'axios'
 import router from '@/router'
 import store from '@/store'
-import { debounce } from '@/utils'
+import { debounce, isBlank } from '@/utils'
 
 let listeners = []
 let hoveredSectionId = null
@@ -19,6 +19,16 @@ const addEventListener = (target, type, listener, capture) => {
 
 const getElementType = (el) => {
   return el.dataset.maglevSectionId ? 'section' : 'setting'
+}
+
+const disableLinks = (previewDocument) => {
+  addEventListener(previewDocument.body, 'click', (event) => {
+    const link = event.target.closest('a')
+    if (link && !isBlank(link.href)) {
+      event.stopPropagation() & event.preventDefault()
+      return false
+    }
+  })
 }
 
 const listen = (previewDocument, eventType, handler) => {
@@ -179,6 +189,9 @@ const setupEvents = (previewDocument) => {
         break
     }
   })
+
+  // click on links
+  disableLinks(previewDocument)
 }
 
 export const setup = (previewDocument) => {

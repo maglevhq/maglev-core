@@ -49,3 +49,10 @@ export default {
   },
 }
 </script>
+
+<style scope>
+.flip-list-move {
+  @apply transition-transform;
+  @apply duration-300;
+}
+</style>
