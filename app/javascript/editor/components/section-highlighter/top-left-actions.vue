@@ -44,7 +44,7 @@ export default {
   },
   computed: {
     displayMoveArrows() {
-      return !this.currentSection
+      return !this.currentSection && !this.hoveredSection.definition.insertAt
     },
   },
   methods: {

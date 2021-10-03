@@ -87,10 +87,12 @@ export default {
       return this.performStyle(rect)
     },
     minTop() {
-      return this.services.inlineEditing.getMinTop(
-        this.previewDocument,
-        this.hoveredSection,
-        this.currentSectionList,
+      return (
+        this.services.inlineEditing.getMinTop(
+          this.previewDocument,
+          this.hoveredSection,
+          this.currentSectionList,
+        ) || 0
       )
     },
   },
@@ -109,7 +111,7 @@ export default {
       })
     },
     performStyle(boundingRect) {
-      const isSticky = this.minTop && boundingRect.top < this.minTop
+      const isSticky = boundingRect.top < this.minTop
       const top = isSticky ? this.minTop : boundingRect.top
       const height = isSticky
         ? boundingRect.height - (this.minTop - boundingRect.top)
