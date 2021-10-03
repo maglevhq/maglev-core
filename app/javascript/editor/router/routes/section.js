@@ -17,6 +17,18 @@ export default [
     },
   },
   {
+    path: 'add-section/:sectionId',
+    name: 'addSectionAfter',
+    components: {
+      default: PagePreview,
+      'slide-pane': SectionAddPane,
+    },
+    props: {
+      'slide-pane': true,
+      default: true,
+    },
+  },
+  {
     path: 'sections',
     name: 'listSections',
     components: {

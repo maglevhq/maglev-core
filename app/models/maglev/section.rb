@@ -9,6 +9,7 @@ module Maglev
     ## attributes ##
     attr_accessor :id, :theme, :name, :category,
                   :site_scoped, :singleton, :viewport_fixed_position,
+                  :insert_button, :insert_at,
                   :settings, :blocks, :blocks_label, :blocks_presentation,
                   :sample, :screenshot_timestamp
 
@@ -33,9 +34,7 @@ module Maglev
 
     ## class methods ##
     def self.build(hash)
-      attributes = hash.slice('id', 'theme', 'name', 'site_scoped', 'singleton', 'viewport_fixed_position', 'category',
-                              'blocks_label', 'blocks_presentation',
-                              'sample', 'screenshot_timestamp')
+      attributes = prepare_attributes(hash)
 
       new(
         attributes.merge(
@@ -43,6 +42,20 @@ module Maglev
           blocks: ::Maglev::Section::Block.build_many(hash['blocks'])
         )
       )
+    end
+
+    def self.prepare_attributes(hash)
+      attributes = hash.slice('id', 'theme', 'name', 'site_scoped', 'singleton', 'viewport_fixed_position',
+                              'insert_button', 'insert_at', 'category',
+                              'blocks_label', 'blocks_presentation',
+                              'sample', 'screenshot_timestamp')
+
+      attributes['site_scoped'] = false if attributes['site_scoped'].nil?
+      attributes['singleton'] = false if attributes['singleton'].nil?
+      attributes['viewport_fixed_position'] = false if attributes['viewport_fixed_position'].nil?
+      attributes['insert_button'] = true if attributes['insert_button'].nil?
+
+      attributes
     end
 
     class Store

@@ -8,6 +8,12 @@ category: <%= options['category'] %>
 # To enable this behavior, uncomment the following statement
 # site_scoped: true
 
+# Display or not the button to insert a new section after this one
+# insert_button: false
+
+# Insert this section at the top or the bottom of the page (default: nil)
+# insert_at: top 
+
 # Definition of the settings:
 # A setting type can be one of the following values: text, image, link, checkbox and color.
 # Please visit: https://docs.maglev.dev/concepts/setting for more explanation.

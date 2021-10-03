@@ -28,21 +28,27 @@ module Maglev
       fetch_site.call
     end
 
-    # rubocop:disable Style/StringHashKeys
     def transform_section(section)
       definition = theme.sections.find(section['type'])
-      site_section = site.find_section(section['type'])
-
+      
       raise "Unknown Maglev section type (#{section['type']})" unless definition
 
-      if !page_sections && definition.site_scoped? && site_section
-        section.merge!('settings' => site_section['settings'], 'blocks' => site_section['blocks'])
-      end
-
+      transform_if_site_scoped(section, definition)
       transform_section_blocks(section['blocks'], definition)
       transform_section_settings(section, definition)
 
       section
+    end
+    
+    # rubocop:disable Style/StringHashKeys
+    def transform_if_site_scoped(section, definition)
+      return unless definition.site_scoped?
+
+      site_section = site.find_section(section['type'])
+
+      return unless !page_sections && site_section
+
+      section.merge!('settings' => site_section['settings'], 'blocks' => site_section['blocks'])
     end
     # rubocop:enable Style/StringHashKeys
 
@@ -102,7 +108,7 @@ module Maglev
     end
 
     def find_section_setting(section, setting_id)
-      # Note: works for both sections and blocks
+      # NOTE: works for both sections and blocks
       section['settings'].find { |setting| setting['id'] == setting_id }
     end
 

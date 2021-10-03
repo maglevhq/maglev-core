@@ -214,7 +214,30 @@ export const getMinTop = (previewDocument, hoveredSection, sections) => {
   return element.offsetHeight
 }
 
-const updatePreviewDocument = (previewDocument, content, section) => {
+const insertSectionInDOM = (previewDocument, element, insertAt) => {
+  switch (insertAt) {
+    case 'top': {
+      const parentNode = previewDocument.querySelector('[data-maglev-dropzone]')
+      parentNode.prepend(element)
+      break
+    }
+    case 'bottom':
+    case undefined:
+    case null:
+    case '': {
+      const parentNode = previewDocument.querySelector('[data-maglev-dropzone]')
+      parentNode.appendChild(element)
+      break
+    }
+    default: {
+      const selector = `[data-maglev-section-id='${insertAt}']`
+      const pivotElement = previewDocument.querySelector(selector)
+      pivotElement.parentNode.insertBefore(element, pivotElement.nextSibling)
+    }
+  }
+}
+
+const updatePreviewDocument = (previewDocument, content, section, insertAt) => {
   console.log('refreshPreviewDocument', content)
 
   const attributes = {
@@ -244,8 +267,7 @@ const updatePreviewDocument = (previewDocument, content, section) => {
     if (targetElement) {
       targetElement.replaceWith(sourceElement)
     } else {
-      const parentNode = previewDocument.querySelector('[data-maglev-dropzone]')
-      parentNode.appendChild(sourceElement)
+      insertSectionInDOM(previewDocument, sourceElement, insertAt)
       targetElement = previewDocument.querySelector(selector)
     }
     targetElement.scrollIntoView(true)
@@ -319,8 +341,8 @@ export const updateSectionSetting = (
     debouncedUpdatePreviewDocument(previewDocument, content, section)
 }
 
-export const addSection = (previewDocument, content, section) => {
-  debouncedUpdatePreviewDocument(previewDocument, content, section)
+export const addSection = (previewDocument, content, section, insertAt) => {
+  debouncedUpdatePreviewDocument(previewDocument, content, section, insertAt)
 }
 
 export const removeSection = (previewDocument, sectionId) => {

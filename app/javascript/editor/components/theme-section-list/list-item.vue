@@ -55,6 +55,7 @@ export default {
   name: 'ThemeSectionListItem',
   props: {
     section: { type: Object, required: true, default: null },
+    insertAfter: { type: String },
   },
   data() {
     return { hovered: false }
@@ -74,7 +75,10 @@ export default {
     ...mapActions(['addSection']),
     select() {
       if (!this.canBeAdded) return
-      this.addSection(this.section).then(() => {
+      this.addSection({
+        sectionDefinition: this.section,
+        insertAt: this.insertAfter,
+      }).then(() => {
         this.$router.push({ name: 'editPage' })
       })
     },

@@ -16,6 +16,7 @@
           v-for="section in category.children"
           :key="section.id"
           :section="section"
+          :insertAfter="insertAfter"
         />
 
         <div
@@ -35,6 +36,9 @@ import ListItem from './list-item'
 export default {
   name: 'ThemeSectionList',
   components: { ListItem },
+  props: {
+    insertAfter: { type: String },
+  },
   data() {
     return { activeCategory: null }
   },

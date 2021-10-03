@@ -68,6 +68,26 @@
   opacity: 0;
 }
 
+// down to up slide + fade
+.slide-up-fade-leave-active,
+.slide-up-fade-enter-active {
+  transition-duration: 0.4s;
+  transition-property: opacity, transform;
+  transition-timing-function: cubic-bezier(0.55, 0, 0.1, 1);
+}
+.slide-up-fade-enter {
+  transform: translateY(50%);
+  opacity: 0;
+}
+.slide-up-fade-enter-to {
+  transform: translateY(0%);
+  opacity: 1;
+}
+.slide-up-fade-leave-to {
+  transform: translateY(50%);
+  opacity: 0;
+}
+
 // slide-{up|left|right}
 
 .slide-up-enter-active,
