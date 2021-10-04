@@ -30,7 +30,7 @@ module Maglev
 
     def transform_section(section)
       definition = theme.sections.find(section['type'])
-      
+
       raise "Unknown Maglev section type (#{section['type']})" unless definition
 
       transform_if_site_scoped(section, definition)
@@ -39,7 +39,7 @@ module Maglev
 
       section
     end
-    
+
     # rubocop:disable Style/StringHashKeys
     def transform_if_site_scoped(section, definition)
       return unless definition.site_scoped?

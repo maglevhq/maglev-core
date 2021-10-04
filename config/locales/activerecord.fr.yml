@@ -1,0 +1,20 @@
+fr:
+  activerecord:
+    models:
+      'maglev/page': Page
+
+    attributes:
+      'maglev/page': 
+        title: Titre
+        path: Chemin
+        seo_title: Titre SEO
+        meta_description: Meta description
+
+    errors:
+      models:
+        maglev/page:
+          attributes:
+            title:
+              blank: doît être rempli
+            path:
+              taken: est déjà utilisé par une autre page

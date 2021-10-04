@@ -20,6 +20,11 @@ Maglev.configure do |config|
   # config.back_action = :my_account_path # name of the route in your Rails application
   # config.back_action = ->(site) { redirect_to main_app.my_account_path(site_id: site.id) }
 
+  # I18n locale used in the Editor UI (by default, I18n.locale will be used)
+  # config.ui_locale = 'fr' # make sure your locale has been registered in Rails.
+  # config.ui_locale = :find_my_locale # name of a protected method from your Rails application controller
+  # config.ui_locale = ->(site) { 'fr' }
+
   # Uploader engine (:active_storage is only supported for now)
   config.uploader = :active_storage
 

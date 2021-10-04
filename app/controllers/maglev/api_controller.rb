@@ -3,6 +3,9 @@
 module Maglev
   class APIController < ::Maglev::ApplicationController
     include Maglev::JSONConcern
+    include Maglev::UiLocaleConcern
+
+    before_action :set_locale
 
     rescue_from ActiveRecord::RecordInvalid, with: :record_errors
     rescue_from ActionController::ParameterMissing, with: :exception_message
@@ -26,6 +29,10 @@ module Maglev
 
     def not_found
       head :not_found
+    end
+
+    def set_locale
+      I18n.locale = editor_ui_locale
     end
   end
 end

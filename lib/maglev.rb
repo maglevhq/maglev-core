@@ -27,6 +27,7 @@ module Maglev
         c.logo = nil
         c.primary_color = '#7E6EDB'
         c.uploader = 'active_storage'
+        c.ui_locale = nil
         c.back_action = nil
         c.services = {}
       end

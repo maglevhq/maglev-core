@@ -3,6 +3,8 @@
 module Maglev
   class EditorController < ApplicationController
     include Maglev::FetchersConcern
+    include Maglev::BackActionConcern
+    include Maglev::UiLocaleConcern
 
     def show
       fetch_maglev_page_content
@@ -11,16 +13,7 @@ module Maglev
     end
 
     def destroy
-      case maglev_config.back_action
-      when nil
-        redirect_to default_leave_url
-      when String
-        redirect_to maglev_config.back_action
-      when Symbol
-        redirect_to main_app.send(maglev_config.back_action)
-      when Proc
-        instance_exec(fetch_maglev_site, &maglev_config.back_action)
-      end
+      call_back_action
     end
 
     private
