@@ -24,7 +24,7 @@ module Maglev::GetPageSections::TransformTextConcern
   def find_link_page_path(link_type_matches, link_id_matches, section_id_matches)
     return unless link_type_matches && link_id_matches && link_type_matches[1] == 'page'
 
-    path = get_page_fullpath.call(page: link_id_matches[1])
+    path = get_page_fullpath.call(page: link_id_matches[1], locale: locale)
     anchor = section_id_matches ? section_id_matches[1] : nil
     anchor.present? ? "#{path}##{anchor}" : path
   end

@@ -8,7 +8,11 @@ describe Maglev::GenerateSite do
   subject { service.call(theme: theme) }
 
   it 'creates a new site' do
-    expect { subject }.to change(Maglev::Site, :count).by(1)
+    expect { 
+      expect(subject.default_locale.label).to eq 'English'
+    }.to change(Maglev::Site, :count).by(1)
                                                       .and change(Maglev::Page, :count).by(2)
+
+
   end
 end

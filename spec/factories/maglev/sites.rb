@@ -3,6 +3,7 @@
 FactoryBot.define do
   factory :site, class: Maglev::Site do
     name { 'My awesome site' }
+    locales { [{ label: 'English', prefix: 'en' }, { label: 'French', prefix: 'fr'} ]}
     trait :with_navbar do
       sections do
         [

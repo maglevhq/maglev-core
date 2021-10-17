@@ -12,7 +12,7 @@ module Maglev
       end
 
       def show
-        @page = resources.by_id_or_path(params[:id]).first
+        @page = find_by_id_or_path(params[:id])
         head :not_found if @page.nil?
       end
 
@@ -34,11 +34,16 @@ module Maglev
 
       private
 
+      def find_by_id_or_path(id)
+        resources.by_id_or_path(id).first ||
+        resources.by_id_or_path(id, Translatable.default_locale).first
+      end
+
       def page_params
         params.require(:page).permit(:title, :path, :seo_title, :meta_description, :visible).tap do |whitelisted|
           whitelisted[:sections] = params[:page].to_unsafe_hash[:sections] unless params.dig(:page, :sections).nil?
         end
-      end
+      end      
 
       def persist!(page)
         services.persist_page.call(

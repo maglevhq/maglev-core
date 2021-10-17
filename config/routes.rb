@@ -31,7 +31,8 @@ Maglev::Engine.routes.draw do
   end
 
   # Editor + Preview
-  get 'editor/(*something)', to: 'editor#show', as: :editor
+  get 'editor', to: redirect { Maglev::Engine.routes.url_helpers.editor_path('index', locale: 'en') }, as: :base_editor 
+  get 'editor/:locale/(*something)', to: 'editor#show', as: :editor
   get 'leave_editor', to: 'editor#destroy', as: :leave_editor
   get 'preview/(*path)', to: 'page_preview#index', defaults: { path: 'index', rendering_mode: :editor },
                          as: :site_preview

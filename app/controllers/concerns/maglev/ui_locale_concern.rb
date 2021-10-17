@@ -5,10 +5,16 @@ module Maglev
     extend ActiveSupport::Concern
 
     included do
-      helper_method :editor_ui_locale
+      before_action :set_ui_locale
+
+      helper_method :editor_ui_locale      
     end
 
     private
+
+    def set_ui_locale
+      I18n.locale = editor_ui_locale
+    end
 
     def editor_ui_locale
       case maglev_config.ui_locale
@@ -21,6 +27,6 @@ module Maglev
       when Proc
         instance_exec(fetch_maglev_site, &maglev_config.ui_locale)
       end
-    end
+    end    
   end
 end

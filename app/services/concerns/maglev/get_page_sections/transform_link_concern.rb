@@ -9,7 +9,7 @@ module Maglev::GetPageSections::TransformLinkConcern
   end
 
   def replace_href_in_link(link)
-    path = get_page_fullpath.call(page: link['link_id'])
+    path = get_page_fullpath.call(page: link['link_id'], locale: locale)
     if path
       anchor = link['section_id']
       link['href'] = anchor.present? ? "#{path}##{anchor}" : path

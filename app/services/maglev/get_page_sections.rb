@@ -14,6 +14,7 @@ module Maglev
 
     argument :page
     argument :page_sections, default: nil
+    argument :locale, default: nil
 
     def call
       (page_sections || page.sections).map do |section|

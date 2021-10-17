@@ -49,7 +49,7 @@
         :class="{
           'right-0': placement === 'right',
           'left-0': placement === 'left',
-          'top-auto': dropup,
+          'top-full': !dropup,
           'bottom-full': dropup,
           'w-full': fullWidth,
         }"

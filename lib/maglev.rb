@@ -30,6 +30,7 @@ module Maglev
         c.ui_locale = nil
         c.back_action = nil
         c.services = {}
+        c.default_site_locales = [{ label: 'English', prefix: 'en' }]
       end
     end
 

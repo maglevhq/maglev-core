@@ -6,9 +6,12 @@ module Maglev
     include Maglev::BackActionConcern
     include Maglev::UiLocaleConcern
 
+    before_action :set_maglev_locale
+
+    helper_method :maglev_home_page_id
+
     def show
       fetch_maglev_page_content
-      @home_page_id = ::Maglev::Page.home.pick(:id)
       render layout: nil
     end
 
@@ -17,11 +20,19 @@ module Maglev
     end
 
     private
+    
+    def maglev_home_page_id
+      @maglev_home_page_id ||= ::Maglev::Page.home.pick(:id) || ::Maglev::Page.home(maglev_site.default_locale.prefix).pick(:id)
+    end
 
-    def default_leave_url
-      main_app.root_path
-    rescue StandardError
-      '/'
+    def set_maglev_locale
+      params[:default_locale] = maglev_site.default_locale.prefix
+      Translatable.available_locales = maglev_site.locale_prefixes
+      Translatable.current_locale = params[:locale] || params[:default_locale]
+    end
+
+    def fallback_to_default_locale
+      true
     end
   end
 end

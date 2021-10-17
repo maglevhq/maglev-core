@@ -10,7 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_06_102712) do
+ActiveRecord::Schema.define(version: 2021_10_13_210954) do
+
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -73,18 +74,19 @@ ActiveRecord::Schema.define(version: 2021_09_06_102712) do
     t.boolean "visible", default: true
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.jsonb "sections", default: []
     t.jsonb "title_translations", default: {}
     t.jsonb "seo_title_translations", default: {}
     t.jsonb "meta_description_translations", default: {}
+    t.jsonb "sections_translations", default: {}
   end
 
   create_table "maglev_sites", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.jsonb "sections", default: []
     t.jsonb "navigation", default: []
+    t.jsonb "locales", default: []
+    t.jsonb "sections_translations", default: {}
   end
 
   create_table "products", force: :cascade do |t|

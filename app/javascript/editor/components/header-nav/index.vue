@@ -8,7 +8,7 @@
       <div class="h-6 bg-gray-200 rounded w-1/4 mx-6"></div>
     </div>
     <div class="flex justify-between h-full w-full" v-else>
-      <div class="flex divide-x divide-gray-300">
+      <div class="flex">
         <router-link
           :to="{ name: 'listPages' }"
           class="
@@ -32,6 +32,8 @@
           <icon name="arrow-down-s-line" class="ml-3" />
         </router-link>
 
+        <separator />
+
         <router-link
           :to="{ name: 'editPageSettings' }"
           class="
@@ -52,16 +54,23 @@
           <icon name="settings-4-line" size="1.25rem" />
           <span class="ml-2">{{ $t('headerNav.pageSettings') }}</span>
         </router-link>
-        <span></span>
+
+        <separator />
       </div>
 
       <div class="flex">
-        <div class="flex divide-x divide-gray-300 py-4">
-          <div class="px-6 flex">
-            <device-toggler />
-          </div>
-          <div></div>
+        <div class="flex py-4 px-6">
+          <device-toggler />
         </div>
+
+        <separator />
+
+        <div class="flex h-full relative">
+          <locale-toggler />
+        </div>
+
+        <separator />
+
         <a
           :href="currentPage.previewUrl"
           target="_blank"
@@ -86,11 +95,13 @@
 
 <script>
 import DeviceToggler from './device-toggler'
+import LocaleToggler from './locale-toggler'
 import SaveButton from './save-button'
+import Separator from './separator'
 
 export default {
   name: 'HeaderNav',
-  components: { DeviceToggler, SaveButton },
+  components: { DeviceToggler, LocaleToggler, SaveButton, Separator },
   computed: {
     isListPagesActive() {
       return this.$route.name === 'listPages'
