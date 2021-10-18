@@ -5,7 +5,7 @@ module Maglev
     include Injectable
 
     dependency(:config) { Maglev.config }
-    dependency :setup_pages, class: Maglev::SetupPages    
+    dependency :setup_pages, class: Maglev::SetupPages
 
     argument :theme
 

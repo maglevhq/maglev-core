@@ -36,14 +36,22 @@ module Maglev::Page::PathConcern
     @memoized_paths[Translatable.current_locale] ||= paths.find_or_initialize_by(locale: Translatable.current_locale)
   end
 
-  def path_map
-    paths.canonical.pluck(:locale, :value).to_h
+  def path_hash
+    paths.build_hash    
   end
 
   def canonical_path
     return path if current_path.canonical? 
 
     paths.find_by(canonical: true).value
+  end
+
+  def disable_spawn_redirection
+    @disable_spawn_redirection = true
+  end
+
+  def spawn_redirection_disabled?
+    !!@disable_spawn_redirection
   end
 
   private
@@ -53,6 +61,7 @@ module Maglev::Page::PathConcern
     end
 
     def spawn_redirection?
+      return if spawn_redirection_disabled?
       current_path.persisted? && current_path.will_save_change_to_value?
     end
 

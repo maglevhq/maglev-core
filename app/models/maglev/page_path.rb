@@ -6,7 +6,7 @@ module Maglev
 
     ## scopes ##
     scope :canonical, ->{ where(canonical: true) }
-    
+
     ## validations ##
     validates :value, uniqueness: { scope: 'locale' }, presence: true
     validate :must_be_only_canonical, if: :canonical?
@@ -18,6 +18,13 @@ module Maglev
     end
 
     ## methods ##
+
+    ## class methods ##
+
+    def self.build_hash(page_id = nil)
+      query = page_id ? where(maglev_page_id: page_id) : all
+      query.canonical.pluck(:locale, :value).to_h
+    end
 
     private
 

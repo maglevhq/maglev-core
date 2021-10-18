@@ -21,8 +21,17 @@ RSpec.describe Maglev::Site, type: :model do
 
   describe '#default_locale' do
     let(:site) { build(:site) }
+    subject { site.default_locale }
     it 'returns the first locale' do
-      expect(site.default_locale.label).to eq 'English'
+      expect(subject.label).to eq 'English'
+    end
+  end
+
+  describe '#locale_prefixes' do
+    let(:site) { build(:site) }
+    subject { site.locale_prefixes }
+    it 'returns the list of the locale prefixes' do
+      is_expected.to eq([:en, :fr])
     end
   end
 

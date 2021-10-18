@@ -51,9 +51,9 @@ RSpec.describe Maglev::Page, type: :model do
     end
   end 
 
-  describe '#path_map' do
+  describe '#path_hash' do
     let!(:page) { create(:page, path: 'about-us') }    
-    subject { page.path_map }
+    subject { page.path_hash }
     context 'Given the page hasn\'t been translated in FR' do
       it 'returns the paths in the default locale only' do
         is_expected.to eq({ 'en' => 'about-us' })

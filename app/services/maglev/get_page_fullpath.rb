@@ -13,27 +13,20 @@ module Maglev
 
     def call
       base_url = get_base_url.call(preview_mode: preview_mode)
-
-      path = page.respond_to?(:path) ? (page.path || page.default_path) : ::Maglev::Page.find_by(id: page).try(:path)
+      path = fetch_path
 
       return unless path
 
       build_fullpath(base_url, path)
-
-      # path = nil if path == 'index' # SEO purpose
-
-      # fullpath = [base_url]
-      # fullpath.push(locale) unless same_as_default_locale?
-      # fullpath.push(path) unless path === 'index' # for SEO purpose
-
-
-      # # TODO: how to pass the locale....?
-      # # raise ['TODO', Translatable.current_locale, default_locale, locale.to_sym == default_locale.to_sym].inspect
-
-      # locale.to_sym == default_locale.to_sym ? "#{base_url}/#{path}" : "#{base_url}/#{locale}/#{path}"
     end
 
-    private
+    protected
+
+    def fetch_path
+      page_id = page.respond_to?(:path) ? page.id : page
+      paths = Maglev::PagePath.build_hash(page_id)
+      paths[locale.to_s] || paths[default_locale.to_s]
+    end
 
     def build_fullpath(base_url, path)
       fullpath = [base_url]

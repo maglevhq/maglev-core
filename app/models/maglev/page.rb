@@ -16,18 +16,7 @@ module Maglev
     scope :home, ->(locale = nil) { by_path('index', locale) }
     scope :by_id_or_path, ->(id_or_path, locale = nil) { joins(:paths).where(id: id_or_path).or(core_by_path(id_or_path, locale)) }    
     scope :by_path, ->(path, locale = nil) { core_by_path(path, locale).joins(:paths) }
-    scope :core_by_path, ->(path, locale = nil) { where(paths: { locale: locale || Translatable.current_locale, value: path }) }
-
-    ## associations ##
-    # has_many :paths,
-    #          class_name: '::Maglev::PagePath',
-    #          dependent: :delete_all,
-    #          foreign_key: 'maglev_page_id',
-    #          inverse_of: 'page',
-    #          autosave: true
-
-    ## callbacks ##
-    # before_save :spawn_redirection, if: :spawn_redirection?
+    scope :core_by_path, ->(path, locale = nil) { where(paths: { locale: locale || Translatable.current_locale, value: path }) }    
 
     ## methods ##
 

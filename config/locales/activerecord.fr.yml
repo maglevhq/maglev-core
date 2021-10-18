@@ -6,6 +6,7 @@ fr:
     attributes:
       'maglev/page': 
         title: Titre
+        cloned_title: "%{title} COPIE"
         path: Chemin
         seo_title: Titre SEO
         meta_description: Meta description

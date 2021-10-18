@@ -52,6 +52,7 @@ RSpec.configure do |config|
 
   config.before(:each) do
     Maglev.configure { |c| c.services = {} }
+    Translatable.current_locale = :en
   end
 
   config.after(:suite) do

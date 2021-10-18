@@ -1,0 +1,5 @@
+en:
+  activerecord:
+    attributes:
+      'maglev/page': 
+        cloned_title: "%{title} COPY"
