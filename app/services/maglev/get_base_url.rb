@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
-module Maglev
+module Maglev  
+  # Get the url used to build the URLs of the pages.
+  # In the preview mode, we need the maglev root path.
   class GetBaseUrl
     include Injectable
 

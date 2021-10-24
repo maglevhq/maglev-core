@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 module Maglev
+  # Get the content of a page in a specific locale.
+  # The content comes from the sections of the page.
+  # Also replace the links by their real values based on the context (live editing or not).
   class GetPageSections
     include Injectable
     include Maglev::GetPageSections::TransformTextConcern

@@ -3,6 +3,7 @@
 require 'tempfile'
 
 module Maglev
+  # Used to create a screenshot of a section from the Maglev admin UI.
   class PersistSectionScreenshot
     include Injectable
 

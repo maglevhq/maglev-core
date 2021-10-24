@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 module Maglev
+  # Get the full path of a page (locale + path).
+  # It relies on the GetBaseUrl service to get the base url.
   class GetPageFullpath
     include Injectable
 

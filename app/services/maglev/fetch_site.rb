@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 module Maglev
-  class FetchSite
+  # Fetch the site and set up the Translatable available locales
+  class FetchSite    
     include Injectable
 
     def call

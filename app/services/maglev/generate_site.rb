@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module Maglev
+  # Generate site and its pages in the locales defined by the config file.
   class GenerateSite
     include Injectable
 
