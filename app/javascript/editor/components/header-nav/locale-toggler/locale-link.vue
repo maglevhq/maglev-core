@@ -34,7 +34,7 @@ export default {
       return this.locale.prefix === this.currentLocale
     },
     pageId() {
-      const map = this.currentPage.pathMap
+      const map = this.currentPage.pathHash
       return map[this.locale.prefix] || map[this.defaultLocale.prefix]
     },
   },

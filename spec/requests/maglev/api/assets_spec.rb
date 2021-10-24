@@ -4,6 +4,8 @@ require 'rails_helper'
 require 'open-uri'
 
 RSpec.describe 'Maglev::API::AssetsController', type: :request do
+  before { create(:site) }
+
   describe 'with existing assets' do
     let!(:asset) { create(:asset) }
 

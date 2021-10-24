@@ -77,7 +77,7 @@ describe Maglev::GetPageSections do
                         ])
     end
     context "the site doesn't have a global content" do
-      let(:site) { create(:site) }
+      let(:site) { create(:site, :empty) }
       it 'fallbacks to the page version of the site scoped section' do
         is_expected.to eq([
                             {

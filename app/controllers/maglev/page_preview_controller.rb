@@ -2,10 +2,11 @@
 
 module Maglev
   class PagePreviewController < ApplicationController
-    include ::Maglev::RenderingConcern
-    include ::Maglev::JSONConcern
+    include Maglev::RenderingConcern
+    include Maglev::JSONConcern
+    include Maglev::ContentLocaleConcern
 
-    before_action :extract_locale
+    before_action :extract_content_locale
     
     def index
       render_maglev_page
@@ -31,12 +32,8 @@ module Maglev
       false
     end
 
-    def extract_locale
-      maglev_services.extract_locale(params, maglev_site.locale_prefixes)      
-    end
-
-    def maglev_locale
-      Translatable.current_locale
+    def extract_content_locale
+      maglev_services.extract_locale(params, maglev_site.locale_prefixes)
     end
 
     def fallback_to_default_locale

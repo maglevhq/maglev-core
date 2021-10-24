@@ -4,7 +4,7 @@ module Maglev
   module API
     class SitesController < ::Maglev::APIController
       def show
-        @site = current_site
+        @site = maglev_site
         @home_page_id = ::Maglev::Page.home.pick(:id)
         head :not_found if @site.nil?
       end

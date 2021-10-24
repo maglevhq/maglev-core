@@ -8,9 +8,9 @@ json.deep_format_keys!
 json.id    @page.id
 json.title @page.title || @page.default_title
 json.path  @page.path || @page.default_path
-json.path_map @page.path_map
+json.path_hash @page.path_hash
 json.visible @page.visible
 json.seo_title @page.seo_title
 json.meta_description @page.meta_description
-json.preview_url services.get_page_fullpath.call(page: @page, preview_mode: true, locale: maglev_locale)
+json.preview_url services.get_page_fullpath.call(page: @page, preview_mode: true, locale: content_locale)
 json.section_names services.get_page_section_names.call(page: @page)

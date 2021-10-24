@@ -10,8 +10,8 @@ describe Maglev::ExtractLocale do
 
   context "the path doesn't contain a locale" do
     it "uses the default locale" do
-      subject      
-      expect(Translatable.current_locale).to eq(:en)
+      expect(Translatable).to receive(:'current_locale=').with(:en)
+      subject
     end
     it "doesn't modify the path" do
       subject

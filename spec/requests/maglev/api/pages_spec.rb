@@ -29,10 +29,18 @@ RSpec.describe 'Maglev::API::PagesController', type: :request do
         visible: true,
         seo_title: nil,
         meta_description: nil,
-        preview_url: '/maglev/preview/index',
+        preview_url: '/maglev/preview',
         section_names: [a_hash_including(name: 'Jumbotron'), a_hash_including(name: 'Showcase')]
       }
     )
+  end
+
+  describe 'allows retrieval of a single page' do
+    before { Translatable.with_locale(:fr) { page.update!(title: 'Bonjour', path: 'index-fr') } }
+    it 'returns an attribute listing the paths of the page in all the locales' do
+      get "/maglev/api/pages/#{page.id}", as: :json
+      expect(json_response['pathHash']).to eq({ 'en' => 'index', 'fr' => 'index-fr' })
+    end
   end
 
   describe 'allows retrieval of pages based on keyword' do
@@ -52,7 +60,7 @@ RSpec.describe 'Maglev::API::PagesController', type: :request do
           visible: true,
           seo_title: nil,
           meta_description: nil,
-          preview_url: '/maglev/preview/index',
+          preview_url: '/maglev/preview',
           section_names: [a_hash_including(name: 'Jumbotron'), a_hash_including(name: 'Showcase')]
         }
       )

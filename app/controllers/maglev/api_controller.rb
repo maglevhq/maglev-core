@@ -4,19 +4,25 @@ module Maglev
   class APIController < ::Maglev::ApplicationController
     include Maglev::JSONConcern
     include Maglev::UiLocaleConcern
+    include Maglev::ContentLocaleConcern
  
-    before_action :set_maglev_locale # TODO: move into its own concern
+    before_action :fetch_maglev_site
+    before_action :set_content_locale
 
     rescue_from ActiveRecord::RecordInvalid, with: :record_errors
     rescue_from ActionController::ParameterMissing, with: :exception_message
     rescue_from ActiveRecord::RecordNotFound, with: :not_found
 
-    helper_method :current_site, :maglev_locale
+    helper_method :maglev_site
 
     private
 
-    def current_site
-      @current_site ||= services.fetch_site.call
+    def fetch_maglev_site
+      maglev_site # simply force the fetching of the current site
+    end
+
+    def maglev_site
+      @maglev_site ||= services.fetch_site.call
     end
 
     def record_errors(exception)
@@ -29,17 +35,6 @@ module Maglev
 
     def not_found
       head :not_found
-    end
-
-    def maglev_locale
-      Translatable.current_locale
-    end
-
-    def set_maglev_locale
-      Translatable.available_locales = current_site.locale_prefixes
-      if request.headers['X-MAGLEV-LOCALE']
-        Translatable.current_locale = request.headers['X-MAGLEV-LOCALE']
-      end
     end
   end
 end

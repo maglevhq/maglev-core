@@ -2,7 +2,7 @@
 
 module Maglev
   class ApplicationController < ::ApplicationController
-    include Maglev::ServicesConcern
+    include Maglev::ServicesConcern    
 
     protect_from_forgery with: :exception
 
