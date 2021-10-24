@@ -6,7 +6,7 @@ module Maglev
     include ::Maglev::JSONConcern
 
     before_action :extract_locale
-    before_action :set_maglev_locale
+    # before_action :set_maglev_locale
 
     def index
       render_maglev_page
@@ -33,17 +33,22 @@ module Maglev
     end
 
     def extract_locale
-      segments = params[:path].split('/')
-      if maglev_site.locale_prefixes.include?(segments[0]&.to_sym)
-        params[:locale] = segments.shift 
-        params[:path] = segments.empty? ? 'index' : segments.join('/')
-      end
+      maglev_services.extract_locale(params, maglev_site.locale_prefixes)
+      # segments = params[:path].split('/')
+      # if maglev_site.locale_prefixes.include?(segments[0]&.to_sym)
+      #   params[:locale] = segments.shift 
+      #   params[:path] = segments.empty? ? 'index' : segments.join('/')
+      # end
     end
 
-    def set_maglev_locale
-      params[:default_locale] = maglev_site.default_locale.prefix
-      Translatable.available_locales = maglev_site.locale_prefixes
-      Translatable.current_locale = params[:locale] || params[:default_locale]
+    # def set_maglev_locale
+    #   params[:default_locale] = maglev_site.default_locale.prefix
+    #   Translatable.available_locales = maglev_site.locale_prefixes
+    #   Translatable.current_locale = params[:locale] || params[:default_locale]
+    # end
+
+    def maglev_locale
+      Translatable.current_locale
     end
 
     def fallback_to_default_locale

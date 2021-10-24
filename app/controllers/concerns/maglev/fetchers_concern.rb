@@ -25,7 +25,12 @@ module Maglev
     end
 
     def fetch_maglev_page
-      @fetch_maglev_page ||= maglev_services.fetch_page.call(params: params, fallback_to_default_locale: fallback_to_default_locale)
+      @fetch_maglev_page ||= maglev_services.fetch_page.call(
+        path: params[:path],
+        locale: maglev_locale,
+        default_locale: maglev_site.default_locale.prefix,
+        fallback_to_default_locale: fallback_to_default_locale
+      )
     end
 
     def fetch_maglev_page_sections(page_sections = nil)

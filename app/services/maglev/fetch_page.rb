@@ -1,16 +1,17 @@
 # frozen_string_literal: true
 
 module Maglev
+  # Retrieve a page from a path and a locale 
+  # (previously extracty by the ExtractLocale service)
   class FetchPage
     include Injectable
 
-    argument :params
+    argument :path
+    argument :locale
+    argument :default_locale
     argument :fallback_to_default_locale, default: false
 
     def call
-      # raise 'TODO'
-      # page = Maglev::Page.by_path(params[:path] || 'index', params[:locale]).first
-      path, locale, default_locale = params[:path], params[:locale], params[:default_locale]
       page = fetch_page(path, locale)
 
       if !page && fallback_to_default_locale
@@ -20,7 +21,7 @@ module Maglev
       page
     end
 
-    protected
+    protected    
 
     def fetch_page(path, locale)
       Maglev::Page.by_path(path || 'index', locale).first

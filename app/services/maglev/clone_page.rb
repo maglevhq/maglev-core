@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 module Maglev
+  # Clone a page in all the locales. 
+  # The service also makes sure that 
+  # the path of the cloned page will be unique.
   class ClonePage
     include Injectable
 
