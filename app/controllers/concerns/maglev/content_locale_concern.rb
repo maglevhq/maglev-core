@@ -17,6 +17,10 @@ module Maglev
 
     def content_locale
       Translatable.current_locale
-    end    
+    end
+
+    def default_content_locale
+      maglev_site.default_locale.prefix
+    end
   end
 end

@@ -23,7 +23,7 @@ RSpec.describe 'Maglev::API::SitesController', type: :request do
       {
         id: site.id,
         homePageId: page.id,
-        sections: []
+        locales: [{ label: 'English', prefix: 'en' }, { label: 'French', prefix: 'fr' }]
       }
     )
   end

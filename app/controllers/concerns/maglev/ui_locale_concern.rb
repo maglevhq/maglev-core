@@ -7,7 +7,7 @@ module Maglev
     included do
       before_action :set_ui_locale
 
-      helper_method :editor_ui_locale      
+      helper_method :editor_ui_locale
     end
 
     private

@@ -33,7 +33,7 @@ module Maglev
     end
 
     def extract_content_locale
-      maglev_services.extract_locale(params, maglev_site.locale_prefixes)
+      maglev_services.extract_locale.call(params: params, locales: maglev_site.locale_prefixes)
     end
 
     def fallback_to_default_locale

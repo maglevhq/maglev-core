@@ -8,9 +8,16 @@ RSpec.describe 'Maglev::EditorController', type: :request do
     Maglev::GenerateSite.call(theme: theme)
   end
 
-  describe 'GET /maglev/editor/(*path)' do
-    it 'renders the editor UI' do
+  describe 'GET /maglev/editor' do
+    it 'redirects to the index page in the default site locale' do
       get '/maglev/editor'
+        expect(response).to redirect_to('/maglev/editor/en/index')
+    end
+  end
+
+  describe 'GET /maglev/editor/:locale/(*path)' do
+    it 'renders the editor UI' do
+      get '/maglev/editor/en/index'
       expect(response.body).to include('My simple theme')
       expect(response.body).to include('window.baseUrl = "/maglev/editor"')
       expect(response.body).to include('window.apiBaseUrl = "/maglev/api"')
@@ -18,6 +25,7 @@ RSpec.describe 'Maglev::EditorController', type: :request do
       expect(response.body).to include('window.theme = {')
       expect(response.body).to include('"nbRows":6')
     end
+
     describe 'the developer changed the UI locale' do
       let(:config) do
         Maglev::Config.new.tap do |config|
@@ -31,7 +39,7 @@ RSpec.describe 'Maglev::EditorController', type: :request do
       context 'by using a string as the UI locale' do
         let(:ui_locale) { 'fr' }
         it 'renders the editor in the defined locale' do
-          get '/maglev/editor'
+          get '/maglev/editor/en/index'
           expect(response.body).to include('<html class="h-full" lang="fr">')
         end
       end
@@ -39,16 +47,16 @@ RSpec.describe 'Maglev::EditorController', type: :request do
       context 'by using a method of the main app returning the UI locale' do
         let(:ui_locale) { :exotic_locale }
         it 'renders the editor in the defined locale' do
-          get '/maglev/editor'
-          expect(response.body).to include('<html class="h-full" lang="fr-FR">')
+          get '/maglev/editor/en/index'
+          expect(response.body).to include('<html class="h-full" lang="fr">')
         end
       end
 
       context 'by using a Proc returning the UI locale' do
-        let(:ui_locale) { ->(current_site) { "fr-#{current_site.id}" } }
+        let(:ui_locale) { ->(current_site) { 'fr' } }
         it 'renders the editor in the defined locale' do
-          get '/maglev/editor'
-          expect(response.body).to include(%(<html class="h-full" lang="fr-#{site.id}">))
+          get '/maglev/editor/en/index'
+          expect(response.body).to include(%(<html class="h-full" lang="fr">))
         end
       end
     end

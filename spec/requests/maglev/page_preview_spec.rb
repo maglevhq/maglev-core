@@ -7,12 +7,13 @@ RSpec.describe 'Maglev::PagePreviewController', type: :request do
   let!(:site) do
     Maglev::GenerateSite.call(theme: theme)
   end
+  let(:home_page) { Maglev::Page.first }
 
   context 'normal rendering' do
     # rubocop:disable Layout/LineLength
-    it 'renders the index page' do
+    it 'renders the index page in the default locale' do
       get '/maglev/preview'
-      expect(response.body).to include('<title>Default</title>')
+      expect(response.body).to include('<title>Default - Home</title>')
       expect(response.body).to match(%r{<h1 data-maglev-id="\S+\.title" class="display-3">Let's create the product<br/>your clients<br/>will love\.</h1>})
       expect(response.body).to include('Our projects')
     end
@@ -20,7 +21,7 @@ RSpec.describe 'Maglev::PagePreviewController', type: :request do
 
     context 'with scoped site sections' do
       before do
-        Maglev::Page.first.update!(
+        home_page.update!(
           sections: attributes_for(:page, :with_navbar)[:sections]
         )
         site.update!(
@@ -30,9 +31,17 @@ RSpec.describe 'Maglev::PagePreviewController', type: :request do
 
       it 'renders the index page with the navbar' do
         get '/maglev/preview'
-        expect(response.body).to include('<title>Default</title>')
+        expect(response.body).to include('<title>Default - Home</title>')
         expect(response.body).to include('<a data-maglev-id="zzz.link" target="_blank" href="https://www.nocoffee.fr">')
       end
+    end
+  end
+
+  context 'requesting the page in a different locale' do
+    before { Translatable.with_locale(:fr) { home_page.update!(title: 'Bonjour !', path: 'index') } }
+    it 'renders the page in the locale' do
+      get '/maglev/preview/fr'
+      expect(response.body).to include('<title>Default - Bonjour !</title>')
     end
   end
 

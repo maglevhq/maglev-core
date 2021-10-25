@@ -35,7 +35,7 @@ module Maglev
         SectionComponent,
         parent: self,
         definition: definition,
-        attributes: attributes.deep_transform_keys! { |k| k.underscore.to_sym },
+        attributes: attributes.deep_transform_keys! { |k| k.to_s.underscore.to_sym },
         templates_root_path: @templates_root_path
       )
     end

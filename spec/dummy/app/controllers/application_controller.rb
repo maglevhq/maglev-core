@@ -10,6 +10,6 @@ class ApplicationController < ActionController::Base
   protected
 
   def exotic_locale
-    'fr-FR'
+    'fr'
   end
 end
