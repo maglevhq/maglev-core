@@ -1,4 +1,4 @@
-dist: bionic
+dist: trusty
 language: ruby
 rvm:
  - 2.7.4

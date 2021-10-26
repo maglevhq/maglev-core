@@ -45,6 +45,25 @@ RSpec.describe 'Maglev::PagePreviewController', type: :request do
     end
   end
 
+  context 'rendering a page from its old path' do
+    before do 
+      page = Maglev::Page.create(title: 'Contact us', path: 'contact')
+      page.update!(path: 'contact-us')
+    end
+    context 'inside the editor UI' do
+      it 'redirects to the canonical path of the page' do
+        get '/maglev/preview/contact'
+        expect(response).to redirect_to('/maglev/preview/contact-us')
+      end
+    end
+    context 'live site' do
+      it 'redirects to the canonical path of the page' do
+        get '/contact'
+        expect(response).to redirect_to('/contact-us')
+      end
+    end
+  end
+
   context 'rendering an unknown page' do
     it 'raises a routing error' do
       expect do

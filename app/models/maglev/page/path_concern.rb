@@ -16,7 +16,6 @@ module Maglev::Page::PathConcern
 
     ## callbacks ##
     before_save :spawn_redirection, if: :spawn_redirection?
-
   end
 
   def default_path
