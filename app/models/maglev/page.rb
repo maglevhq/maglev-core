@@ -5,7 +5,7 @@ module Maglev
     ## concerns ##
     include Maglev::Page::PathConcern
     include Maglev::Page::SectionsConcern
-    include Translatable
+    include Maglev::Translatable
 
     ## translations ##
     translates :title, presence: true
@@ -16,7 +16,7 @@ module Maglev
     scope :home, ->(locale = nil) { by_path('index', locale) }
     scope :by_id_or_path, ->(id_or_path, locale = nil) { joins(:paths).where(id: id_or_path).or(core_by_path(id_or_path, locale)) }    
     scope :by_path, ->(path, locale = nil) { core_by_path(path, locale).joins(:paths) }
-    scope :core_by_path, ->(path, locale = nil) { where(paths: { locale: locale || Translatable.current_locale, value: path }) }    
+    scope :core_by_path, ->(path, locale = nil) { where(paths: { locale: locale || Maglev::Translatable.current_locale, value: path }) }    
 
     ## methods ##
 
@@ -27,7 +27,7 @@ module Maglev
     def self.search(keyword)
       return [] if keyword.blank?
 
-      title = Arel::Nodes::InfixOperation.new('->>', arel_table[:title_translations], Arel::Nodes.build_quoted(Translatable.current_locale))
+      title = Arel::Nodes::InfixOperation.new('->>', arel_table[:title_translations], Arel::Nodes.build_quoted(Maglev::Translatable.current_locale))
       path = PagePath.arel_table[:value]
       
       query = all.select(Maglev::Page.arel_table[Arel.star], title).distinct.joins(:paths).order(title.asc)
@@ -35,7 +35,7 @@ module Maglev
       
       query.where(
         title.matches(matching).or(
-          path.matches(matching).and(path.eq(Translatable.current_locale))
+          path.matches(matching).and(path.eq(Maglev::Translatable.current_locale))
         )
       )
     end    

@@ -4,7 +4,7 @@ module Maglev
   class Site < ApplicationRecord
     ## concerns ##
     include Maglev::Site::LocalesConcern
-    include Translatable
+    include Maglev::Translatable
 
     ## translations ##
     translates :sections, default: []

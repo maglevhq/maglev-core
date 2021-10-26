@@ -36,7 +36,7 @@ module Maglev
 
       def find_by_id_or_path(id)
         resources.by_id_or_path(id).first ||
-        resources.by_id_or_path(id, Translatable.default_locale).first
+        resources.by_id_or_path(id, Maglev::Translatable.default_locale).first
       end
 
       def page_params

@@ -20,7 +20,7 @@ module Maglev::Page::PathConcern
   end
 
   def default_path
-    @default_path ||= paths.find_by(locale: Translatable.default_locale)&.value
+    @default_path ||= paths.find_by(locale: Maglev::Translatable.default_locale)&.value
   end
 
   def path
@@ -33,7 +33,7 @@ module Maglev::Page::PathConcern
 
   def current_path
     @memoized_paths ||= {}
-    @memoized_paths[Translatable.current_locale] ||= paths.find_or_initialize_by(locale: Translatable.current_locale)
+    @memoized_paths[Maglev::Translatable.current_locale] ||= paths.find_or_initialize_by(locale: Maglev::Translatable.current_locale)
   end
 
   def path_hash

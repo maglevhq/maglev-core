@@ -14,7 +14,7 @@ module Maglev
     private
 
     def set_default_locales(site)
-      Translatable.available_locales = site.locale_prefixes
+      Maglev::Translatable.available_locales = site.locale_prefixes
     end
   end
 end

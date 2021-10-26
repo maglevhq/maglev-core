@@ -12,11 +12,11 @@ module Maglev
 
     def set_content_locale
       locale = params[:locale] || request.headers['X-MAGLEV-LOCALE']
-      Translatable.current_locale = locale if locale
+      Maglev::Translatable.current_locale = locale if locale
     end
 
     def content_locale
-      Translatable.current_locale
+      Maglev::Translatable.current_locale
     end
 
     def default_content_locale

@@ -38,7 +38,7 @@ RSpec.describe 'Maglev::PagePreviewController', type: :request do
   end
 
   context 'requesting the page in a different locale' do
-    before { Translatable.with_locale(:fr) { home_page.update!(title: 'Bonjour !', path: 'index') } }
+    before { Maglev::Translatable.with_locale(:fr) { home_page.update!(title: 'Bonjour !', path: 'index') } }
     it 'renders the page in the locale' do
       get '/maglev/preview/fr'
       expect(response.body).to include('<title>Default - Bonjour !</title>')

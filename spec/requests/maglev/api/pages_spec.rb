@@ -36,7 +36,7 @@ RSpec.describe 'Maglev::API::PagesController', type: :request do
   end
 
   describe 'allows retrieval of a single page' do
-    before { Translatable.with_locale(:fr) { page.update!(title: 'Bonjour', path: 'index-fr') } }
+    before { Maglev::Translatable.with_locale(:fr) { page.update!(title: 'Bonjour', path: 'index-fr') } }
     it 'returns an attribute listing the paths of the page in all the locales' do
       get "/maglev/api/pages/#{page.id}", as: :json
       expect(json_response['pathHash']).to eq({ 'en' => 'index', 'fr' => 'index-fr' })

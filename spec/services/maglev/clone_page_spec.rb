@@ -25,7 +25,7 @@ describe Maglev::ClonePage do
       expect(subject.sections.count).to eq 3
     end
     context 'multi-locales' do
-      before { Translatable.with_locale(:fr) { page.update!(title: 'Accueil', path: 'index') } }
+      before { Maglev::Translatable.with_locale(:fr) { page.update!(title: 'Accueil', path: 'index') } }
       it 'creates another page with the same attributes in all the locales' do
         expect(subject.title_translations).to eq({ 'en' => 'Home COPY', 'fr' => 'Accueil COPY' })
         expect(subject.path_hash.keys).to eq(['en', 'fr'])

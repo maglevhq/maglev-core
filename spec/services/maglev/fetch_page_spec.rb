@@ -27,7 +27,7 @@ describe Maglev::FetchPage do
     context "the page hasn't been translated yet" do
       let(:locale) { :fr }
       it 'returns nil' do
-        Translatable.with_locale(:fr) do
+        Maglev::Translatable.with_locale(:fr) do
           is_expected.to eq nil
         end
       end
