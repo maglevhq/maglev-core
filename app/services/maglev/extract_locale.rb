@@ -13,7 +13,10 @@ module Maglev
       locale, path = extract_locale
 
       Maglev::Translatable.current_locale = locale
+
       params[:path] = path
+
+      [path, locale]
     end
 
     protected

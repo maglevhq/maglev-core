@@ -14,6 +14,7 @@ RSpec.describe 'Maglev::PagePreviewController', type: :request do
     it 'renders the index page in the default locale' do
       get '/maglev/preview'
       expect(response.body).to include('<title>Default - Home</title>')
+      expect(response.body).to include('<meta name="hello" content="Hello world" />')
       expect(response.body).to match(%r{<h1 data-maglev-id="\S+\.title" class="display-3">Let's create the product<br/>your clients<br/>will love\.</h1>})
       expect(response.body).to include('Our projects')
     end
@@ -42,6 +43,7 @@ RSpec.describe 'Maglev::PagePreviewController', type: :request do
     it 'renders the page in the locale' do
       get '/maglev/preview/fr'
       expect(response.body).to include('<title>Default - Bonjour !</title>')
+      expect(response.body).to include('<meta name="hello" content="Bonjour le monde" />')
     end
   end
 
