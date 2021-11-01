@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 module Maglev
-  # Clone a page in all the locales. 
-  # The service also makes sure that 
+  # Clone a page in all the locales.
+  # The service also makes sure that
   # the path of the cloned page will be unique.
   class ClonePage
     include Injectable
@@ -37,7 +37,7 @@ module Maglev
     end
 
     def clone_title
-      page.title_translations.transform_values do |title| 
+      page.title_translations.transform_values do |title|
         I18n.t('activerecord.attributes.maglev/page.cloned_title', title: title)
       end
     end
@@ -47,7 +47,7 @@ module Maglev
       page.path_hash.each do |locale, value|
         cloned_page.paths.build(locale: locale, value: "#{value}-#{code}")
       end
-    end 
+    end
 
     def generate_clone_code(number)
       charset = Array('A'..'Z') + Array('a'..'z')

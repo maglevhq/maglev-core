@@ -2,7 +2,6 @@
 
 # rubocop:disable Style/ClassAndModuleChildren
 module Maglev::Site::LocalesConcern
-  
   extend ActiveSupport::Concern
 
   included do
@@ -23,7 +22,7 @@ module Maglev::Site::LocalesConcern
 
   class LocalesSerializer
     def self.dump(array)
-      (array || []).map { |locale| locale.as_json }
+      (array || []).map(&:as_json)
     end
 
     def self.load(array)

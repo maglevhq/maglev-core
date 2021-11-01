@@ -23,7 +23,7 @@ module Maglev
 
       def default_locale
         available_locales.first
-      end    
+      end
 
       def current_locale
         Current.locale || default_locale
@@ -68,7 +68,7 @@ module Maglev
           public_send("#{attr}_translations=", translations_for(attr).merge(Translatable.current_locale => value))
         end
 
-        define_method(attr) { translations_for(attr)[Translatable.current_locale.to_s] || default}
+        define_method(attr) { translations_for(attr)[Translatable.current_locale.to_s] || default }
         define_method("default_#{attr}") { translations_for(attr)[Translatable.default_locale.to_s] }
       end
     end

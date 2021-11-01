@@ -48,7 +48,7 @@ RSpec.describe 'Maglev::PagePreviewController', type: :request do
   end
 
   context 'rendering a page from its old path' do
-    before do 
+    before do
       page = Maglev::Page.create(title: 'Contact us', path: 'contact')
       page.update!(path: 'contact-us')
     end

@@ -7,7 +7,7 @@ describe Maglev::GetPageFullpath do
   let(:fetch_site) { double('FetchSite', call: site) }
   let(:get_base_url) { double('GetBaseUrl', call: '/maglev/preview') }
   let(:page_or_id) { page.id }
-  let(:locale) { :en }  
+  let(:locale) { :en }
   let(:service) { described_class.new(fetch_site: fetch_site, get_base_url: get_base_url) }
   subject { service.call(page: page_or_id, locale: locale) }
 
@@ -20,7 +20,11 @@ describe Maglev::GetPageFullpath do
 
   context 'we pass the id of an existing page' do
     let!(:page) { create(:page, path: 'hello-world') }
-    before { Maglev::Translatable.with_locale(:fr) { page.update!(title: 'Bonjour le monde', path: 'bonjour-le-monde') } }
+    before do
+      Maglev::Translatable.with_locale(:fr) do
+        page.update!(title: 'Bonjour le monde', path: 'bonjour-le-monde')
+      end
+    end
     it 'returns the fullpath to the page in EN (default locale)' do
       is_expected.to eq '/maglev/preview/hello-world'
     end

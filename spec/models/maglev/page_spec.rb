@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe Maglev::Page, type: :model do
   it 'has a valid factory' do
     expect(build(:page)).to be_valid
-  end  
+  end
 
   describe '#index?' do
     let(:page) { build(:page) }

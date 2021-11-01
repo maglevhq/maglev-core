@@ -9,7 +9,10 @@ describe Maglev::FetchPage do
   let(:default_locale) { :en }
   let(:service) { described_class.new }
   let(:fallback_to_default_locale) { false }
-  subject { service.call(path: path, locale: locale, default_locale: default_locale, fallback_to_default_locale: fallback_to_default_locale) }
+  subject do
+    service.call(path: path, locale: locale, default_locale: default_locale,
+                 fallback_to_default_locale: fallback_to_default_locale)
+  end
 
   context 'the path is blank' do
     let(:path) { nil }

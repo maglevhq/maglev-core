@@ -7,7 +7,7 @@ module Maglev
     include Maglev::ContentLocaleConcern
 
     before_action :extract_content_locale
-    
+
     def index
       render_maglev_page
     end

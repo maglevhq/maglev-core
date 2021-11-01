@@ -8,7 +8,7 @@ RSpec.describe Maglev::Page, type: :model do
       page = create(:page)
       page.title = 'Overriden title'
       expect(page.title).to eq('Overriden title')
-      expect(page.sections.map { |section| section['type'] }).to eq(['jumbotron', 'showcase'])
+      expect(page.sections.map { |section| section['type'] }).to eq(%w[jumbotron showcase])
       expect(page.title_translations).to eq({ en: 'Overriden title' }.stringify_keys)
       page.save!
       expect(page.reload.title).to eq('Overriden title')
@@ -31,5 +31,5 @@ RSpec.describe Maglev::Page, type: :model do
       end
       expect(page.title).to eq('Translated page')
     end
-  end  
+  end
 end

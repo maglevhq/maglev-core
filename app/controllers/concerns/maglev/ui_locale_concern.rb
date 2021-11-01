@@ -27,6 +27,6 @@ module Maglev
       when Proc
         instance_exec(fetch_maglev_site, &maglev_config.ui_locale)
       end
-    end    
+    end
   end
 end

@@ -26,7 +26,7 @@ Maglev.configure do |config|
   # config.ui_locale = ->(site) { 'fr' }
 
   # Default locales of a site. By default, Maglev will use English (en).
-  # This setting will only be used when creating the site. 
+  # This setting will only be used when creating the site.
   # If you want add more locales to your site, use the SetSiteLocalesService (https://docs.maglev.dev/guides/i18n).
   # The first locale of the array will be considered as the default locale of the site
   # config.default_site_locales = [{ label: 'English', prefix: 'en' }, { label: 'French', prefix: 'fr' }]

@@ -11,7 +11,7 @@ RSpec.describe 'Maglev::EditorController', type: :request do
   describe 'GET /maglev/editor' do
     it 'redirects to the index page in the default site locale' do
       get '/maglev/editor'
-        expect(response).to redirect_to('/maglev/editor/en/index')
+      expect(response).to redirect_to('/maglev/editor/en/index')
     end
   end
 
@@ -53,7 +53,7 @@ RSpec.describe 'Maglev::EditorController', type: :request do
       end
 
       context 'by using a Proc returning the UI locale' do
-        let(:ui_locale) { ->(current_site) { 'fr' } }
+        let(:ui_locale) { ->(_current_site) { 'fr' } }
         it 'renders the editor in the defined locale' do
           get '/maglev/editor/en/index'
           expect(response.body).to include(%(<html class="h-full" lang="fr">))

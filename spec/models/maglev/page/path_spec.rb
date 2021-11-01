@@ -32,7 +32,7 @@ RSpec.describe Maglev::Page, type: :model do
     it 'are reachable by their redirections' do
       expect(redirection).to eq(page)
     end
-  end 
+  end
 
   describe '#default_path' do
     let!(:page) { create(:page, path: 'about-us') }
@@ -49,10 +49,11 @@ RSpec.describe Maglev::Page, type: :model do
         end
       end
     end
-  end 
+  end
 
+  # rubocop:disable Style/StringHashKeys
   describe '#path_hash' do
-    let!(:page) { create(:page, path: 'about-us') }    
+    let!(:page) { create(:page, path: 'about-us') }
     subject { page.path_hash }
     context 'Given the page hasn\'t been translated in FR' do
       it 'returns the paths in the default locale only' do
@@ -66,4 +67,5 @@ RSpec.describe Maglev::Page, type: :model do
       end
     end
   end
+  # rubocop:enable Style/StringHashKeys
 end

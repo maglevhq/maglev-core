@@ -33,12 +33,12 @@ module Maglev
     def build_fullpath(base_url, path)
       fullpath = [base_url]
       fullpath.push(locale) unless same_as_default_locale?
-      fullpath.push(path) unless path === 'index' # for SEO purpose
+      fullpath.push(path) unless path == 'index' # for SEO purpose
       fullpath.join('/')
     end
 
     def site
-      @current_site ||= fetch_site.call
+      @site ||= fetch_site.call
     end
 
     def same_as_default_locale?

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Maglev
-  # Create the default pages of the theme. 
+  # Create the default pages of the theme.
   # Called by the GenerateSite service.
   class SetupPages
     include Injectable

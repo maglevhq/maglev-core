@@ -1,11 +1,12 @@
+# frozen_string_literal: true
+
 module Maglev
   class PagePath < ApplicationRecord
-    
     ## associations ##
     belongs_to :page, class_name: 'Maglev::Page', foreign_key: 'maglev_page_id', inverse_of: 'paths'
 
     ## scopes ##
-    scope :canonical, ->{ where(canonical: true) }
+    scope :canonical, -> { where(canonical: true) }
 
     ## validations ##
     validates :value, uniqueness: { scope: 'locale' }, presence: true

@@ -26,13 +26,13 @@ module Maglev
     def ensure_content_locale_in_path
       redirect_to editor_path('index', locale: default_content_locale) if params[:locale].blank?
     end
-    
+
     def maglev_home_page_id
       @maglev_home_page_id ||= ::Maglev::Page.home.pick(:id) || ::Maglev::Page.home(default_content_locale).pick(:id)
     end
 
     def fallback_to_default_locale
       true
-    end    
+    end
   end
 end

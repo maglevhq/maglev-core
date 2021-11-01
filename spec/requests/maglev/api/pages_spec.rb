@@ -35,6 +35,7 @@ RSpec.describe 'Maglev::API::PagesController', type: :request do
     )
   end
 
+  # rubocop:disable Style/StringHashKeys
   describe 'allows retrieval of a single page' do
     before { Maglev::Translatable.with_locale(:fr) { page.update!(title: 'Bonjour', path: 'index-fr') } }
     it 'returns an attribute listing the paths of the page in all the locales' do
@@ -42,6 +43,7 @@ RSpec.describe 'Maglev::API::PagesController', type: :request do
       expect(json_response['pathHash']).to eq({ 'en' => 'index', 'fr' => 'index-fr' })
     end
   end
+  # rubocop:enable Style/StringHashKeys
 
   describe 'allows retrieval of pages based on keyword' do
     it 'returns an empty array if the keyword is empty' do
@@ -70,7 +72,7 @@ RSpec.describe 'Maglev::API::PagesController', type: :request do
   it 'allows creation of new pages' do
     expect do
       params = attributes_for(:page).merge(path: 'custom')
-      post '/maglev/api/pages', params: { page: params}, as: :json
+      post '/maglev/api/pages', params: { page: params }, as: :json
     end.to change(Maglev::Page, :count).by(1)
     expect(response).to have_http_status(:created)
   end

@@ -5,7 +5,7 @@ module Maglev
     include Maglev::JSONConcern
     include Maglev::UiLocaleConcern
     include Maglev::ContentLocaleConcern
- 
+
     before_action :fetch_maglev_site
     before_action :set_content_locale
 

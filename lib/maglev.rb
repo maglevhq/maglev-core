@@ -20,6 +20,7 @@ module Maglev
   class << self
     attr_accessor :local_themes
 
+    # rubocop:disable Metrics/MethodLength
     def config
       @config ||= Config.new.tap do |c|
         c.title = 'Maglev - EDITOR'
@@ -33,6 +34,7 @@ module Maglev
         c.default_site_locales = [{ label: 'English', prefix: 'en' }]
       end
     end
+    # rubocop:enable Metrics/MethodLength
 
     def configure
       yield config

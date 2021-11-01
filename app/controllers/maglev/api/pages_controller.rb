@@ -5,7 +5,7 @@ module Maglev
     class PagesController < ::Maglev::APIController
       def index
         @pages = if params[:q]
-                   resources.search(params[:q])
+                   resources.search(params[:q], content_locale)
                  else
                    resources.all
                  end
@@ -36,14 +36,14 @@ module Maglev
 
       def find_by_id_or_path(id)
         resources.by_id_or_path(id).first ||
-        resources.by_id_or_path(id, Maglev::Translatable.default_locale).first
+          resources.by_id_or_path(id, Maglev::Translatable.default_locale).first
       end
 
       def page_params
         params.require(:page).permit(:title, :path, :seo_title, :meta_description, :visible).tap do |whitelisted|
           whitelisted[:sections] = params[:page].to_unsafe_hash[:sections] unless params.dig(:page, :sections).nil?
         end
-      end      
+      end
 
       def persist!(page)
         services.persist_page.call(
