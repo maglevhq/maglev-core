@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_211_013_210_954) do
+ActiveRecord::Schema.define(version: 20_211_101_205_001) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'plpgsql'
 
@@ -80,6 +80,7 @@ ActiveRecord::Schema.define(version: 20_211_013_210_954) do
     t.jsonb 'seo_title_translations', default: {}
     t.jsonb 'meta_description_translations', default: {}
     t.jsonb 'sections_translations', default: {}
+    t.integer 'lock_version'
   end
 
   create_table 'maglev_sites', force: :cascade do |t|
@@ -89,6 +90,7 @@ ActiveRecord::Schema.define(version: 20_211_013_210_954) do
     t.jsonb 'navigation', default: []
     t.jsonb 'locales', default: []
     t.jsonb 'sections_translations', default: {}
+    t.integer 'lock_version'
   end
 
   create_table 'products', force: :cascade do |t|

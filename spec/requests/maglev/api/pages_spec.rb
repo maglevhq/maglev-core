@@ -42,6 +42,10 @@ RSpec.describe 'Maglev::API::PagesController', type: :request do
       get "/maglev/api/pages/#{page.id}", as: :json
       expect(json_response['pathHash']).to eq({ 'en' => 'index', 'fr' => 'index-fr' })
     end
+    it 'returns the lock version of the page' do
+      get "/maglev/api/pages/#{page.id}", as: :json
+      expect(json_response['lockVersion']).to eq 1
+    end
   end
   # rubocop:enable Style/StringHashKeys
 
@@ -92,10 +96,23 @@ RSpec.describe 'Maglev::API::PagesController', type: :request do
     expect(response).to have_http_status(:no_content)
   end
 
-  it 'allows updating pages' do
-    expect do
-      put maglev.api_page_path(page), params: { page: { title: 'New title' } }, as: :json
-    end.to change { page.reload.title }.to('New title')
-    expect(response).to have_http_status(:ok)
+  describe 'updating pages' do
+    context 'Given a simple case' do
+      it 'updates the page in DB' do
+        expect do
+          put maglev.api_page_path(page), params: { page: { title: 'New title' } }, as: :json
+        end.to change { page.reload.title }.to('New title')
+        expect(response).to have_http_status(:ok)
+      end
+    end
+    context 'Given the page has been updated in the meantime' do
+      it "doesn't update the page in DB" do
+        expect do
+          page.update(title: 'I changed it first')
+          put maglev.api_page_path(page), params: { page: { title: 'New title', lock_version: 0 } }, as: :json
+        end.to change { page.reload.title }.to('I changed it first')
+        expect(response).to have_http_status(:conflict)
+      end
+    end
   end
 end

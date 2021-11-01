@@ -9,9 +9,10 @@ module Maglev
     before_action :fetch_maglev_site
     before_action :set_content_locale
 
-    rescue_from ActiveRecord::RecordInvalid, with: :record_errors
     rescue_from ActionController::ParameterMissing, with: :exception_message
+    rescue_from ActiveRecord::RecordInvalid, with: :record_errors
     rescue_from ActiveRecord::RecordNotFound, with: :not_found
+    rescue_from ActiveRecord::StaleObjectError, with: :stale_record
 
     helper_method :maglev_site
 
@@ -35,6 +36,10 @@ module Maglev
 
     def not_found
       head :not_found
+    end
+
+    def stale_record
+      head :conflict
     end
   end
 end
