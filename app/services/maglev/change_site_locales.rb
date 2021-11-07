@@ -15,7 +15,7 @@ module Maglev
       if default_locale_changed? && !all_paths_translated?
         raise 'The translations for the new default locale are incomplete'
       end
-      
+
       site.update(locales: locales)
     end
 
@@ -31,7 +31,7 @@ module Maglev
 
     def all_paths_translated?
       Maglev::PagePath.where(locale: site.default_locale_prefix).count ==
-      Maglev::PagePath.where(locale: new_default_locale_prefix).count
+        Maglev::PagePath.where(locale: new_default_locale_prefix).count
     end
   end
 end

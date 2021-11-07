@@ -30,7 +30,7 @@ Maglev.configure do |config|
   # If you want add more locales to your site, use the SetSiteLocalesService (https://docs.maglev.dev/guides/i18n).
   # The first locale of the array will be considered as the default locale of the site
   # config.default_site_locales = [
-  #  { label: 'English', prefix: 'en' }, 
+  #  { label: 'English', prefix: 'en' },
   #  { label: 'French', prefix: 'fr' }
   # ]
 

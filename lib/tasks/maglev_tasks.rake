@@ -20,15 +20,17 @@ namespace :maglev do
   task change_site_locales: :environment do
     site = Maglev::Site.first
 
-    if !site
+    unless site
       puts "[Error] You don't seem to have an existing site. 🤔"
       return
     end
 
     # without this, rake will run the ARGV arguments as if they were rake tasks
-    ARGV.each { |a| task a.to_sym do ; end } 
+    # rubocop:disable Style/BlockDelimiters
+    ARGV.each { |a| task a.to_sym => :environment do; end }
+    # rubocop:enable Style/BlockDelimiters
 
-    locales = ARGV[1..-1].map do |arg|
+    locales = ARGV[1..].map do |arg|
       label, prefix = arg.split(':')
       Maglev::Site::Locale.new(label: label, prefix: prefix)
     end
@@ -48,8 +50,8 @@ namespace :maglev do
 
     begin
       service.call(site: site, locales: locales)
-      puts "Success! 🎉🎉🎉"
-    rescue Exception => e
+      puts 'Success! 🎉🎉🎉'
+    rescue StandardError => e
       puts "[Error] #{e.message}"
     end
   end
