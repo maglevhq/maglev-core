@@ -16,6 +16,10 @@ module Maglev::Site::LocalesConcern
     locales.first
   end
 
+  def default_locale_prefix
+    default_locale.prefix.to_sym
+  end
+
   def locale_prefixes
     locales.map { |locale| locale.prefix.to_sym }
   end
