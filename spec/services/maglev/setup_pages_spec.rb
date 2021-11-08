@@ -18,7 +18,7 @@ describe Maglev::SetupPages do
     let(:theme) { build(:theme, :predefined_pages) }
     it 'creates the pages in DB' do
       expect { subject }.to change(Maglev::Page, :count).by(2)
-      expect(subject.pluck(:title)).to eq ['Home', 'About us']
+      expect(subject.map(&:title)).to eq ['Home', 'About us']
     end
   end
 end

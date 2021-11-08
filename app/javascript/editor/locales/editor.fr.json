@@ -182,6 +182,13 @@
     "confirmButtonLabel": "Oui",
     "cancelButtonLabel": "Non"
   },
+  "errorModals": {
+    "staleRecord": {
+      "title": "Nous sommes désolés 🙇",
+      "message": "Nous n'avons pu sauvegarder vos modifications car de plus récentes viennent d'être effectuées par une autre personne.",
+      "button": "Recharger la page"
+    }
+  },
   "support": {
     "human": {
       "storageUnits": {

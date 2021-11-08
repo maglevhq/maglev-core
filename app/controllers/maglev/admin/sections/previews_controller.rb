@@ -5,6 +5,7 @@ module Maglev
     module Sections
       class PreviewsController < BaseController
         include Maglev::RenderingConcern
+        include Maglev::ContentLocaleConcern
 
         helper ::Maglev::PagePreviewHelper
 
@@ -36,6 +37,10 @@ module Maglev
 
         def use_engine_webpacker?
           action_name == 'show'
+        end
+
+        def content_locale
+          default_content_locale
         end
       end
     end

@@ -11,7 +11,7 @@
       <div class="flex-grow overflow-y-auto">
         <page-list :q="q" class="h-full mt-4" ref="list" />
       </div>
-      <div class="pt-4">
+      <div class="pt-4" v-if="canAddPage">
         <button
           @click="openNewPageModal"
           class="big-submit-button bg-editor-primary"
@@ -33,6 +33,11 @@ export default {
   components: { Layout, PageList },
   data() {
     return { q: null }
+  },
+  computed: {
+    canAddPage() {
+      return this.currentLocale === this.currentSite.locales[0].prefix
+    },
   },
   methods: {
     search(q) {

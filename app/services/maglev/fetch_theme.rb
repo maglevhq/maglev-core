@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
-# frozen_string_literal
-
 module Maglev
+  # Fetch the current theme
   class FetchTheme
     include Injectable
 

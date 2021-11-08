@@ -3,42 +3,30 @@
 module Maglev
   class Page < ApplicationRecord
     ## concerns ##
+    include Maglev::Translatable
+    include Maglev::Page::PathConcern
     include Maglev::Page::SectionsConcern
+    include Maglev::Page::SearchConcern
 
-    ## validations ##
-    validates :title, presence: true
-    validates :path, uniqueness: true, presence: true
-
-    ## callbacks ##
-    before_validation :clean_path
+    ## translations ##
+    translates :title, presence: true
+    translates :sections, default: []
+    translates :seo_title, :meta_description
 
     ## scopes ##
-    scope :by_id_or_path, ->(id_or_path) { where(id: id_or_path).or(where(path: id_or_path)) }
-    scope :home, -> { where(path: 'index') }
+    scope :home, ->(locale = nil) { by_path('index', locale) }
+    scope :by_id_or_path, lambda { |id_or_path, locale = nil|
+                            joins(:paths).where(id: id_or_path).or(core_by_path(id_or_path, locale))
+                          }
+    scope :by_path, ->(path, locale = nil) { core_by_path(path, locale).joins(:paths) }
+    scope :core_by_path, lambda { |path, locale = nil|
+                           where(paths: { locale: locale || Maglev::Translatable.current_locale, value: path })
+                         }
 
     ## methods ##
 
     def index?
       path == 'index'
-    end
-
-    def self.search(keyword)
-      return [] if keyword.blank?
-
-      query = all.order(title: :asc)
-      matching = "%#{keyword}%"
-
-      query.where(
-        arel_table[:title].matches(matching).or(
-          arel_table[:path].matches(matching)
-        )
-      )
-    end
-
-    private
-
-    def clean_path
-      path.blank? ? self.path = 'index' : path.gsub!(%r{(^/|/$)}, '')
     end
   end
 end

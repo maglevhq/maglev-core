@@ -4,7 +4,7 @@ import EditPage from '@/views/pages/edit'
 
 export default [
   {
-    path: 'pages',
+    path: '__pages',
     name: 'listPages',
     components: {
       default: PagePreview,

@@ -14,7 +14,7 @@ describe Maglev::GetPageSections do
       fetch_collection_items: fetch_collection_items
     )
   end
-  subject { service.call(page: page) }
+  subject { service.call(page: page, locale: :en) }
 
   context 'the page has no sections' do
     let(:page) { build(:page, sections: []) }
@@ -77,7 +77,7 @@ describe Maglev::GetPageSections do
                         ])
     end
     context "the site doesn't have a global content" do
-      let(:site) { create(:site) }
+      let(:site) { create(:site, :empty) }
       it 'fallbacks to the page version of the site scoped section' do
         is_expected.to eq([
                             {
@@ -117,7 +117,8 @@ describe Maglev::GetPageSections do
       let(:site) { create(:site, :with_navbar, :page_links) }
       let(:page) { build(:page, :with_navbar, :page_links) }
       it 'sets the href properties' do
-        expect(get_page_fullpath).to receive(:call).with(page: '42').twice.and_return('/preview/awesome-path')
+        expect(get_page_fullpath).to receive(:call).with(page: '42',
+                                                         locale: :en).twice.and_return('/preview/awesome-path')
         expect(subject[0]['blocks'][0]['settings'][1]['value']['href']).to eq('/preview/awesome-path')
         expect(subject[1]['settings'][1]['value']).to include('<a href="/preview/awesome-path"')
       end

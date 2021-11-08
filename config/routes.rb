@@ -13,7 +13,6 @@ Maglev::Engine.routes.draw do
       scope 'collections/:collection_id' do
         get '/', to: 'collection_items#index', as: :collection_items
       end
-      # resources :collection_items, path: 'collection_items/:collection_id', only: :show
     end
   end
 
@@ -31,7 +30,8 @@ Maglev::Engine.routes.draw do
   end
 
   # Editor + Preview
-  get 'editor/(*something)', to: 'editor#show', as: :editor
+  get 'editor', to: 'editor#show', as: :base_editor
+  get 'editor/:locale/(*something)', to: 'editor#show', as: :editor
   get 'leave_editor', to: 'editor#destroy', as: :leave_editor
   get 'preview/(*path)', to: 'page_preview#index', defaults: { path: 'index', rendering_mode: :editor },
                          as: :site_preview

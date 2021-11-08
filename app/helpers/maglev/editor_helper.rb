@@ -2,8 +2,13 @@
 
 module Maglev
   module EditorHelper
+    # Path to the editor but without the locale
+    def site_base_editor_path
+      base_editor_path
+    end
+
     def site_editor_path
-      editor_path
+      editor_path(locale: maglev_site.default_locale)
     end
 
     def site_leave_editor_path

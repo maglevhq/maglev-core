@@ -23,6 +23,7 @@ const api = axios.create({
 api.interceptors.request.use(
   (config) => {
     config.headers['X-MAGLEV-SITE-HANDLE'] = store.state.site?.handle
+    config.headers['X-MAGLEV-LOCALE'] = store.state.locale
     return config
   },
   (error) => Promise.reject(error),

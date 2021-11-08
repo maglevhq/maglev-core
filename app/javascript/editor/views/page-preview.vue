@@ -43,6 +43,7 @@ export default {
   components: { SectionHighlighter },
   mixins: [TransformationMixin],
   props: {
+    locale: { type: String, default: null },
     pageId: { type: String, default: null },
   },
   data() {
@@ -53,6 +54,10 @@ export default {
   },
   computed: {
     ...mapState(['hoveredSection']),
+    fullpath() {
+      // TODO: why here? why not in the App.vue instead?
+      return [this.locale, this.pageId]
+    },
     deviceClass() {
       switch (this.device) {
         case 'mobile':
@@ -92,11 +97,14 @@ export default {
     },
   },
   watch: {
-    pageId: {
+    fullpath: {
       immediate: true,
-      handler(newPageId, oldPageId) {
-        if (newPageId !== oldPageId && newPageId) {
-          setTimeout(() => this.fetchPage(newPageId), 1000)
+      handler(newFullpath, oldFullpath) {
+        const [newLocale, newPageId] = newFullpath
+        const [oldLocale, oldPageId] = oldFullpath || []
+        if ((newLocale !== oldLocale || newPageId !== oldPageId) && newPageId) {
+          this.setLocale(newLocale)
+          this.fetchPage(newPageId)
         }
       },
     },

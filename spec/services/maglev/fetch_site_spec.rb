@@ -10,4 +10,9 @@ describe Maglev::FetchSite do
   it 'returns the first site' do
     expect(subject.name).to eq 'My awesome site'
   end
+
+  it 'sets up the available locales' do
+    subject
+    expect(Maglev::Translatable.available_locales).to eq(%i[en fr])
+  end
 end

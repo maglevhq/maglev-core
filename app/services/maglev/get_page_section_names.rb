@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module Maglev
+  # Get an array of maps including the id and name of each page section.
   class GetPageSectionNames
     include Injectable
 

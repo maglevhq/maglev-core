@@ -7,12 +7,14 @@ RSpec.describe 'Maglev::PagePreviewController', type: :request do
   let!(:site) do
     Maglev::GenerateSite.call(theme: theme)
   end
+  let(:home_page) { Maglev::Page.first }
 
   context 'normal rendering' do
     # rubocop:disable Layout/LineLength
-    it 'renders the index page' do
+    it 'renders the index page in the default locale' do
       get '/maglev/preview'
-      expect(response.body).to include('<title>Default</title>')
+      expect(response.body).to include('<title>Default - Home</title>')
+      expect(response.body).to include('<meta name="hello" content="Hello world" />')
       expect(response.body).to match(%r{<h1 data-maglev-id="\S+\.title" class="display-3">Let's create the product<br/>your clients<br/>will love\.</h1>})
       expect(response.body).to include('Our projects')
     end
@@ -20,7 +22,7 @@ RSpec.describe 'Maglev::PagePreviewController', type: :request do
 
     context 'with scoped site sections' do
       before do
-        Maglev::Page.first.update!(
+        home_page.update!(
           sections: attributes_for(:page, :with_navbar)[:sections]
         )
         site.update!(
@@ -30,8 +32,36 @@ RSpec.describe 'Maglev::PagePreviewController', type: :request do
 
       it 'renders the index page with the navbar' do
         get '/maglev/preview'
-        expect(response.body).to include('<title>Default</title>')
+        expect(response.body).to include('<title>Default - Home</title>')
         expect(response.body).to include('<a data-maglev-id="zzz.link" target="_blank" href="https://www.nocoffee.fr">')
+      end
+    end
+  end
+
+  context 'requesting the page in a different locale' do
+    before { Maglev::Translatable.with_locale(:fr) { home_page.update!(title: 'Bonjour !', path: 'index') } }
+    it 'renders the page in the locale' do
+      get '/maglev/preview/fr'
+      expect(response.body).to include('<title>Default - Bonjour !</title>')
+      expect(response.body).to include('<meta name="hello" content="Bonjour le monde" />')
+    end
+  end
+
+  context 'rendering a page from its old path' do
+    before do
+      page = Maglev::Page.create(title: 'Contact us', path: 'contact')
+      page.update!(path: 'contact-us')
+    end
+    context 'inside the editor UI' do
+      it 'redirects to the canonical path of the page' do
+        get '/maglev/preview/contact'
+        expect(response).to redirect_to('/maglev/preview/contact-us')
+      end
+    end
+    context 'live site' do
+      it 'redirects to the canonical path of the page' do
+        get '/contact'
+        expect(response).to redirect_to('/contact-us')
       end
     end
   end
@@ -46,7 +76,7 @@ RSpec.describe 'Maglev::PagePreviewController', type: :request do
 
   context 'rendering from POST params' do
     let(:sections) do
-      Maglev::Page.all.order(title: :desc)[1].sections.tap do |sections|
+      Maglev::Page.all.order_by_translated(:title, :desc)[1].sections.tap do |sections|
         sections.first['settings'].first['value'] = 'UPDATED TITLE'
       end
     end

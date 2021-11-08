@@ -13,7 +13,7 @@ export default [
     redirect: '/index',
   },
   {
-    path: '/:pageId',
+    path: '/:locale/:pageId',
     component: AppLayout,
     children: [
       {

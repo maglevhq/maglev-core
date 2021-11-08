@@ -3,6 +3,7 @@ export default {
   previewReady: false,
   previewDocument: null,
   site: null,
+  locale: null,
   theme: null,
   page: null,
   section: null,

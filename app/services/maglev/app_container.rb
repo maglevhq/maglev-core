@@ -23,6 +23,7 @@ module Maglev
     dependency :fetch_collection_items,     class: Maglev::FetchCollectionItems, depends_on: %i[fetch_site config]
 
     dependency :get_base_url,               class: Maglev::GetBaseUrl, depends_on: %i[context fetch_site]
+    dependency :extract_locale,             class: Maglev::ExtractLocale
 
     dependency :persist_section_screenshot, class: Maglev::PersistSectionScreenshot,
                                             depends_on: %i[fetch_theme fetch_section_screenshot_path]

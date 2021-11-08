@@ -29,11 +29,25 @@ RSpec.describe 'Maglev::API::PagesController', type: :request do
         visible: true,
         seo_title: nil,
         meta_description: nil,
-        preview_url: '/maglev/preview/index',
+        preview_url: '/maglev/preview',
         section_names: [a_hash_including(name: 'Jumbotron'), a_hash_including(name: 'Showcase')]
       }
     )
   end
+
+  # rubocop:disable Style/StringHashKeys
+  describe 'allows retrieval of a single page' do
+    before { Maglev::Translatable.with_locale(:fr) { page.update!(title: 'Bonjour', path: 'index-fr') } }
+    it 'returns an attribute listing the paths of the page in all the locales' do
+      get "/maglev/api/pages/#{page.id}", as: :json
+      expect(json_response['pathHash']).to eq({ 'en' => 'index', 'fr' => 'index-fr' })
+    end
+    it 'returns the lock version of the page' do
+      get "/maglev/api/pages/#{page.id}", as: :json
+      expect(json_response['lockVersion']).to eq 1
+    end
+  end
+  # rubocop:enable Style/StringHashKeys
 
   describe 'allows retrieval of pages based on keyword' do
     it 'returns an empty array if the keyword is empty' do
@@ -52,7 +66,7 @@ RSpec.describe 'Maglev::API::PagesController', type: :request do
           visible: true,
           seo_title: nil,
           meta_description: nil,
-          preview_url: '/maglev/preview/index',
+          preview_url: '/maglev/preview',
           section_names: [a_hash_including(name: 'Jumbotron'), a_hash_including(name: 'Showcase')]
         }
       )
@@ -62,7 +76,7 @@ RSpec.describe 'Maglev::API::PagesController', type: :request do
   it 'allows creation of new pages' do
     expect do
       params = attributes_for(:page).merge(path: 'custom')
-      post '/maglev/api/pages', params: params, as: :json
+      post '/maglev/api/pages', params: { page: params }, as: :json
     end.to change(Maglev::Page, :count).by(1)
     expect(response).to have_http_status(:created)
   end
@@ -82,10 +96,23 @@ RSpec.describe 'Maglev::API::PagesController', type: :request do
     expect(response).to have_http_status(:no_content)
   end
 
-  it 'allows updating pages' do
-    expect do
-      put maglev.api_page_path(page), params: { title: 'New title' }, as: :json
-    end.to change { page.reload.title }.to('New title')
-    expect(response).to have_http_status(:ok)
+  describe 'updating pages' do
+    context 'Given a simple case' do
+      it 'updates the page in DB' do
+        expect do
+          put maglev.api_page_path(page), params: { page: { title: 'New title' } }, as: :json
+        end.to change { page.reload.title }.to('New title')
+        expect(response).to have_http_status(:ok)
+      end
+    end
+    context 'Given the page has been updated in the meantime' do
+      it "doesn't update the page in DB" do
+        expect do
+          page.update(title: 'I changed it first')
+          put maglev.api_page_path(page), params: { page: { title: 'New title', lock_version: 0 } }, as: :json
+        end.to change { page.reload.title }.to('I changed it first')
+        expect(response).to have_http_status(:conflict)
+      end
+    end
   end
 end

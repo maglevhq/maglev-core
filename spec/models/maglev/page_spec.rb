@@ -26,4 +26,16 @@ RSpec.describe Maglev::Page, type: :model do
       expect(page.sections.last['blocks'].first['id']).not_to eq nil
     end
   end
+
+  describe 'scopes' do
+    describe '.by_id_or_path' do
+      let!(:page) { create(:page) }
+      it 'returns the page from its id' do
+        expect(described_class.by_id_or_path(page.id).count).to eq 1
+      end
+      it 'returns the page from its path' do
+        expect(described_class.by_id_or_path('index').count).to eq 1
+      end
+    end
+  end
 end

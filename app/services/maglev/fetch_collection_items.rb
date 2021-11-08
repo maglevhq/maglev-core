@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 module Maglev
+  # Find item(s) from a collection defined in the Maglev config file.
+  # If the id is specified, then look for an item, it not, look for all the items
+  # matching a keyword.
   class FetchCollectionItems
     include Injectable
 

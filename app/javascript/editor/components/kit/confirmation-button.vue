@@ -3,6 +3,7 @@
     :placement="placement"
     :dropup="dropup"
     v-on="$listeners"
+    class="relative"
     ref="dropdown"
   >
     <template v-slot:button>

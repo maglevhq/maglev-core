@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_210_819_081_156) do
+ActiveRecord::Schema.define(version: 20_211_101_205_001) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'plpgsql'
 
@@ -62,23 +62,35 @@ ActiveRecord::Schema.define(version: 20_210_819_081_156) do
     t.datetime 'updated_at', precision: 6, null: false
   end
 
+  create_table 'maglev_page_paths', force: :cascade do |t|
+    t.bigint 'maglev_page_id'
+    t.string 'locale', null: false
+    t.string 'value', null: false
+    t.boolean 'canonical', default: true
+    t.index %w[canonical maglev_page_id locale], name: 'canonical_uniqueness', unique: true
+    t.index ['maglev_page_id'], name: 'index_maglev_page_paths_on_maglev_page_id'
+    t.index %w[value locale], name: 'index_maglev_page_paths_on_value_and_locale', unique: true
+  end
+
   create_table 'maglev_pages', force: :cascade do |t|
-    t.string 'title'
-    t.string 'path'
-    t.string 'seo_title'
-    t.string 'meta_description'
     t.boolean 'visible', default: true
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
-    t.jsonb 'sections', default: []
-    t.index ['path'], name: 'index_maglev_pages_on_path', unique: true
+    t.jsonb 'title_translations', default: {}
+    t.jsonb 'seo_title_translations', default: {}
+    t.jsonb 'meta_description_translations', default: {}
+    t.jsonb 'sections_translations', default: {}
+    t.integer 'lock_version'
   end
 
   create_table 'maglev_sites', force: :cascade do |t|
     t.string 'name'
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
-    t.jsonb 'sections', default: []
+    t.jsonb 'navigation', default: []
+    t.jsonb 'locales', default: []
+    t.jsonb 'sections_translations', default: {}
+    t.integer 'lock_version'
   end
 
   create_table 'products', force: :cascade do |t|

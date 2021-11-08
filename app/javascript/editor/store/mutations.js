@@ -16,12 +16,13 @@ export default {
   SET_SITE(state, site) {
     state.site = site
   },
+  SET_LOCALE(state, locale) {
+    state.locale = locale
+  },
   SET_THEME(state, theme) {
     state.theme = theme
   },
   SET_PAGE(state, page) {
-    console.log('SET_PAGE', { ...page })
-    console.log('NORMALIZE', services.page.normalize(page).entities)
     const { entities } = services.page.normalize(page)
     state.page = entities.page[page.id]
     state.sections = { ...state.sections, ...entities.sections }

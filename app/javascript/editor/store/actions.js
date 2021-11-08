@@ -5,6 +5,12 @@ export default {
   setDevice({ commit }, value) {
     commit('SET_DEVICE', value)
   },
+  setTheme({ commit }, theme) {
+    commit('SET_THEME', theme)
+  },
+  setLocale({ commit }, locale) {
+    commit('SET_LOCALE', locale)
+  },
   setPreviewDocument({ commit }, previewDocument) {
     commit('SET_PREVIEW_DOCUMENT', previewDocument)
     if (previewDocument) {
@@ -24,7 +30,13 @@ export default {
     services.site.find(locally).then((site) => commit('SET_SITE', site))
   },
   fetchPage({ commit, state: { site } }, id) {
-    services.page.findById(site, id).then((page) => commit('SET_PAGE', page))
+    setTimeout(
+      () =>
+        services.page
+          .findById(site, id)
+          .then((page) => commit('SET_PAGE', page)),
+      100,
+    )
   },
   setCurrentPageSettings({ commit }, pageSettings) {
     commit('SET_PAGE_SETTINGS', pageSettings)

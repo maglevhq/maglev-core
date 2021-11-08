@@ -3,17 +3,27 @@
 module Maglev
   class APIController < ::Maglev::ApplicationController
     include Maglev::JSONConcern
+    include Maglev::UiLocaleConcern
+    include Maglev::ContentLocaleConcern
 
-    rescue_from ActiveRecord::RecordInvalid, with: :record_errors
+    before_action :fetch_maglev_site
+    before_action :set_content_locale
+
     rescue_from ActionController::ParameterMissing, with: :exception_message
+    rescue_from ActiveRecord::RecordInvalid, with: :record_errors
     rescue_from ActiveRecord::RecordNotFound, with: :not_found
+    rescue_from ActiveRecord::StaleObjectError, with: :stale_record
 
-    helper_method :current_site
+    helper_method :maglev_site
 
     private
 
-    def current_site
-      @current_site ||= services.fetch_site.call
+    def fetch_maglev_site
+      maglev_site # simply force the fetching of the current site
+    end
+
+    def maglev_site
+      @maglev_site ||= services.fetch_site.call
     end
 
     def record_errors(exception)
@@ -26,6 +36,10 @@ module Maglev
 
     def not_found
       head :not_found
+    end
+
+    def stale_record
+      head :conflict
     end
   end
 end

@@ -13,7 +13,7 @@
           <editor-block-button
             :commands="commands"
             :isActive="isActive"
-            class="mr-1"
+            class="mr-1 relative"
             v-if="!lineBreak"
           />
 

@@ -25,13 +25,19 @@ module Maglev
     end
 
     def fetch_maglev_page
-      @fetch_maglev_page ||= maglev_services.fetch_page.call(params: params)
+      @fetch_maglev_page ||= maglev_services.fetch_page.call(
+        path: params[:path],
+        locale: content_locale,
+        default_locale: default_content_locale,
+        fallback_to_default_locale: fallback_to_default_locale
+      )
     end
 
     def fetch_maglev_page_sections(page_sections = nil)
       @fetch_maglev_page_sections ||= maglev_services.get_page_sections.call(
         page: fetch_maglev_page,
-        page_sections: page_sections
+        page_sections: page_sections,
+        locale: content_locale
       )
     end
 
@@ -45,6 +51,10 @@ module Maglev
 
     def fetch_maglev_sections_path
       @fetch_maglev_sections_path ||= maglev_services.fetch_sections_path.call
+    end
+
+    def fallback_to_default_locale
+      false
     end
 
     ## accessors for view helpers ##

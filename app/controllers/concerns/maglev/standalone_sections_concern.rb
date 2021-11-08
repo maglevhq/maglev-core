@@ -7,6 +7,7 @@ module Maglev
     included do
       include Maglev::ServicesConcern
       include Maglev::FetchersConcern
+      include Maglev::ContentLocaleConcern
 
       helper Maglev::PagePreviewHelper
     end

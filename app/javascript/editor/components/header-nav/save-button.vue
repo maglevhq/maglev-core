@@ -19,8 +19,11 @@
 </template>
 
 <script>
+import ErrorModalMixin from '@/mixins/error-modal'
+
 export default {
   name: 'SaveButton',
+  mixins: [ErrorModalMixin],
   data() {
     return { saveState: 'default' }
   },
@@ -30,14 +33,16 @@ export default {
       this.services.page
         .update(this.currentPage.id, {
           sections: this.currentContent.pageSections,
+          lockVersion: this.currentPage.lockVersion,
         })
         .then(() => {
           this.saveState = 'success'
           this.$store.dispatch('fetchSite')
         })
-        .catch((err) => {
-          console.log('[Maglev] could not save the page', err)
+        .catch(({ response: { status } }) => {
+          console.log('[Maglev] could not save the page', status)
           this.saveState = 'fail'
+          if (status === 409) this.openErrorModal('staleRecord')
         })
     },
   },

@@ -12,4 +12,6 @@ Maglev.configure do |config|
       }
     }
   }
+
+  config.default_site_locales = [{ label: 'English', prefix: 'en' }, { label: 'French', prefix: 'fr' }]
 end

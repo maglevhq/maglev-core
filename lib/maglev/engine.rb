@@ -33,6 +33,10 @@ module Maglev
       end
     end
 
+    initializer 'maglev.i18n' do |_app|
+      Rails.application.config.i18n.load_path += Dir["#{config.root}/config/locales/**/*.yml"]
+    end
+
     initializer 'maglev.webpacker.proxy' do |app|
       insert_middleware = begin
         Maglev.webpacker.config.dev_server.present?

@@ -13,6 +13,9 @@ Vue.mixin({
     currentSite() {
       return this.$store.state.site
     },
+    currentLocale() {
+      return this.$store.state.locale
+    },
     currentPage() {
       return this.$store.state.page
     },
@@ -80,6 +83,7 @@ Vue.mixin({
   methods: {
     ...mapActions([
       'setDevice',
+      'setLocale',
       'setPreviewDocument',
       'fetchPage',
       'fetchSection',

@@ -1,4 +1,6 @@
+dist: bionic
 language: ruby
+
 rvm:
  - 2.7.4
  - 3.0.2
@@ -8,7 +10,8 @@ cache:
 services:
   - postgresql
 before_install:
-  - nvm install --lts
+  - sudo apt-get update && sudo apt-get install apt-transport-https ca-certificates -y && sudo update-ca-certificates
+  - nvm install v15
 before_script:
   - bundle install --jobs=3 --retry=3
   - yarn

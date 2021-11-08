@@ -2,49 +2,55 @@
   <div
     class="
       relative
-      bg-gray-100
       mb-3
       w-full
-      min-height
       transition
       duration-150
       ease-in-out
       transform
       hover:-translate-y-1
+      border border-gray-200
     "
     :class="{
-      'h-16': !hasScreenshot,
       'cursor-pointer': canBeAdded,
       'cursor-not-allowed': !canBeAdded,
     }"
-    @mouseover="hovered = true"
-    @mouseleave="hovered = false"
     @click="select"
   >
     <img
-      class="w-full border"
+      class="w-full"
+      :class="{ hidden: !isImageLoaded || isImageNotFound }"
       :src="section.screenshotPath"
+      @load="imageLoaded"
+      @error="imageNotFound"
       v-if="hasScreenshot"
     />
-    <transition name="slide-up">
-      <div
-        class="
-          flex
-          items-center
-          px-2
-          absolute
-          bg-black bg-opacity-75
-          bottom-0
-          h-8
-          w-full
-          text-white text-xs
-          cursor-default
-        "
-        v-if="hovered"
-      >
-        <p class="capitalize-first">{{ section.name }}</p>
-      </div>
-    </transition>
+    <div
+      class="bg-gray-200 w-full h-16 animate-pulse"
+      v-if="!isImageLoaded && !isImageNotFound"
+    >
+      &nbsp;
+    </div>
+    <div
+      class="bg-white w-full h-16 flex items-center justify-center"
+      v-if="isImageNotFound"
+    >
+      <icon name="ri-bug-line" />
+    </div>
+    <div
+      class="
+        flex
+        items-center
+        px-2
+        bg-editor-primary bg-opacity-5
+        py-4
+        w-full
+        font-bold
+        text-sm
+      "
+    >
+      <p class="capitalize-first">{{ section.name }}</p>
+    </div>
   </div>
 </template>
 
@@ -58,7 +64,7 @@ export default {
     insertAfter: { type: String },
   },
   data() {
-    return { hovered: false }
+    return { hovered: false, isImageLoaded: false, isImageNotFound: false }
   },
   computed: {
     hasScreenshot() {
@@ -81,6 +87,14 @@ export default {
       }).then(() => {
         this.$router.push({ name: 'editPage' })
       })
+    },
+    imageLoaded(event) {
+      console.log('imageLoaded', this.section.name, event)
+      this.isImageLoaded = true
+    },
+    imageNotFound(event) {
+      console.log('imageNotFound', this.section.name, event)
+      this.isImageNotFound = true
     },
   },
 }

@@ -5,6 +5,7 @@
       items-center
       py-3
       pl-6
+      pr-2
       hover:bg-editor-primary hover:bg-opacity-5
       transition-colors
       duration-200
@@ -23,7 +24,7 @@
         v-if="!isVisible"
       />
     </router-link>
-    <div class="ml-auto pr-2">
+    <div class="ml-auto pr-2 relative">
       <dropdown v-on="$listeners">
         <template v-slot:button>
           <button
@@ -59,7 +60,9 @@
               @click.stop="openEditPageModal"
             >
               <icon name="ri-settings-5-line" />
-              <span class="ml-2">{{ $t('page.list.item.edit') }}</span>
+              <span class="ml-2 whitespace-nowrap">{{
+                $t('page.list.item.edit')
+              }}</span>
             </button>
             <button
               class="

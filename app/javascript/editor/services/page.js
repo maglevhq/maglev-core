@@ -20,6 +20,7 @@ export const SETTING_ATTRIBUTES = [
   'visible',
   'seoTitle',
   'metaDescription',
+  'lockVersion',
 ]
 
 export const isIndex = (page) => {

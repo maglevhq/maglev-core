@@ -183,6 +183,13 @@
     "confirmButtonLabel": "Yes",
     "cancelButtonLabel": "No"
   },
+  "errorModals": {
+    "staleRecord": {
+      "title": "We are sorry 🙇",
+      "message": "We couldn't persist your changes because someone else has updated the content in the meantime.",
+      "button": "Please reload your page"
+    }
+  },
   "support": {
     "human": {
       "storageUnits": {

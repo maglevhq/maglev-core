@@ -62,7 +62,10 @@ export default {
       this.submitState = 'inProgress'
       const { id: pageId, ...attributes } = this.editedPage
       this.services.page
-        .updateSettings(pageId, attributes)
+        .updateSettings(pageId, {
+          ...attributes,
+          lockVersion: this.page.lockVersion,
+        })
         .then(() => {
           this.submitState = 'success'
           this.$emit('on-update', attributes)
@@ -70,6 +73,7 @@ export default {
         .catch(({ response: { status, data } }) => {
           console.log('[Maglev] could not update the page', status)
           this.submitState = 'fail'
+          if (status === 409) this.openErrorModal('staleRecord')
           if (status !== 400) return
           this.errors = data.errors
         })

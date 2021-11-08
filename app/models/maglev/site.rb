@@ -2,6 +2,13 @@
 
 module Maglev
   class Site < ApplicationRecord
+    ## concerns ##
+    include Maglev::Site::LocalesConcern
+    include Maglev::Translatable
+
+    ## translations ##
+    translates :sections, default: []
+
     ## validations ##
     validates :name, presence: true
 
