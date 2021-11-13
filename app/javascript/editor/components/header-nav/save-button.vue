@@ -37,7 +37,10 @@ export default {
         })
         .then(() => {
           this.saveState = 'success'
-          this.$store.dispatch('fetchSite')
+          Promise.all([
+            this.$store.dispatch('fetchPage', this.currentPage.id),
+            this.$store.dispatch('fetchSite'),
+          ])
         })
         .catch(({ response: { status } }) => {
           console.log('[Maglev] could not save the page', status)
