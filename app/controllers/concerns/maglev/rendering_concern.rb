@@ -29,7 +29,7 @@ module Maglev
       # if not, follow the proper SEO rule by redirecting the user with a 301
       canonical_path = maglev_page.canonical_path
 
-      return false if params[:path] == canonical_path
+      return false if !canonical_path || params[:path] == canonical_path
 
       next_path = maglev_rendering_mode == :editor ? site_preview_path(path: canonical_path) : "/#{canonical_path}"
       redirect_to next_path, status: :moved_permanently

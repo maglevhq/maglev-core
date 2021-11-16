@@ -7,9 +7,11 @@ module Maglev
 
     ## scopes ##
     scope :canonical, -> { where(canonical: true) }
+    scope :not_canonical, -> { where(canonical: false) }
+    scope :by_value, ->(value, locale = nil) { where(value: value, locale: locale || Maglev::I18n.current_locale) }
 
     ## validations ##
-    validates :value, uniqueness: { scope: 'locale' }, presence: true
+    validates :value, uniqueness: { scope: [:maglev_page_id, :locale, :canonical] }, presence: true
     validate :must_be_only_canonical, if: :canonical?
 
     ## callbacks ##

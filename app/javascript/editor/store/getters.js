@@ -18,6 +18,10 @@ export default {
       }
     })
   },
+  defaultPageAttributes: ({ page }) => {
+    if (page.translated) return {}
+    return { title: page.title, path: page.path }
+  },
   content: ({ page, sections, sectionBlocks }) => {
     const pageContent = services.page.denormalize(page, {
       sections,

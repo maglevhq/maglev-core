@@ -34,6 +34,7 @@ export default {
         .update(this.currentPage.id, {
           sections: this.currentContent.pageSections,
           lockVersion: this.currentPage.lockVersion,
+          ...this.currentPageDefaultAttributes,
         })
         .then(() => {
           this.saveState = 'success'

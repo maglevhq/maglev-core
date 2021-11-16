@@ -61,6 +61,9 @@ Vue.mixin({
     currentSectionBlockAdvancedSettings() {
       return this.$store.getters.sectionBlockSettings(true)
     },
+    currentPageDefaultAttributes() {
+      return this.$store.getters.defaultPageAttributes
+    },
     currentContent() {
       return this.$store.getters.content
     },

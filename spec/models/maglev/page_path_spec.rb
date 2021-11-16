@@ -5,8 +5,8 @@ require 'rails_helper'
 RSpec.describe Maglev::PagePath, type: :model do
   let(:page) { create(:page) }
 
-  it 'has a unique value per locale' do
-    expect(page.paths.create(canonical: false, value: page.path)).not_to be_valid
+  it 'allows a path to be canonical and not' do
+    expect(page.paths.create(canonical: true, value: page.path, locale: 'fr')).to be_valid
   end
 
   it 'has a unique canonical per page' do

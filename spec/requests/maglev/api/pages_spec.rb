@@ -7,6 +7,7 @@ RSpec.describe 'Maglev::API::PagesController', type: :request do
   let!(:page) { create(:page) }
 
   before do
+    allow(Maglev::I18n).to receive(:available_locales).and_return([:en, :fr])
     Maglev.configure do |config|
       config.services = {
         context: double('Context', controller: double('Controller')),
@@ -33,21 +34,7 @@ RSpec.describe 'Maglev::API::PagesController', type: :request do
         section_names: [a_hash_including(name: 'Jumbotron'), a_hash_including(name: 'Showcase')]
       }
     )
-  end
-
-  # rubocop:disable Style/StringHashKeys
-  describe 'allows retrieval of a single page' do
-    before { Maglev::I18n.with_locale(:fr) { page.update!(title: 'Bonjour', path: 'index-fr') } }
-    it 'returns an attribute listing the paths of the page in all the locales' do
-      get "/maglev/api/pages/#{page.id}", as: :json
-      expect(json_response['pathHash']).to eq({ 'en' => 'index', 'fr' => 'index-fr' })
-    end
-    it 'returns the lock version of the page' do
-      get "/maglev/api/pages/#{page.id}", as: :json
-      expect(json_response['lockVersion']).to eq 1
-    end
-  end
-  # rubocop:enable Style/StringHashKeys
+  end  
 
   describe 'allows retrieval of pages based on keyword' do
     it 'returns an empty array if the keyword is empty' do
@@ -73,6 +60,36 @@ RSpec.describe 'Maglev::API::PagesController', type: :request do
     end
   end
 
+  # rubocop:disable Style/StringHashKeys
+  describe 'allows retrieval of a single page' do
+    it 'returns the lock version of the page' do
+      get "/maglev/api/pages/#{page.id}", as: :json
+      expect(json_response['lockVersion']).to eq 0
+    end
+    context 'the page doesn\'t have been translated in the requested locale' do
+      it 'returns the translated property set to false' do        
+        get "/maglev/api/pages/#{page.id}", params: { locale: 'fr' }, as: :json
+        expect(json_response['translated']).to eq(false)
+      end
+    end
+    context 'the page has been translated in the requested locale' do
+      before { Maglev::I18n.with_locale(:fr) { page.update!(title: 'Bonjour', path: 'index-fr') } }
+      it 'returns the translated property set to false' do
+        get "/maglev/api/pages/#{page.id}", params: { locale: 'fr' }, as: :json
+        expect(json_response['translated']).to eq(true)
+      end
+      it 'returns an attribute listing the paths of the page in all the locales' do
+        get "/maglev/api/pages/#{page.id}", as: :json
+        expect(json_response['pathHash']).to eq({ 'en' => 'index', 'fr' => 'index-fr' })
+      end
+      it 'returns the lock version of the page' do
+        get "/maglev/api/pages/#{page.id}", as: :json
+        expect(json_response['lockVersion']).to eq 1
+      end
+    end
+  end
+  # rubocop:enable Style/StringHashKeys
+
   it 'allows creation of new pages' do
     expect do
       params = attributes_for(:page).merge(path: 'custom')
@@ -89,11 +106,6 @@ RSpec.describe 'Maglev::API::PagesController', type: :request do
       }.as_json
     )
     expect(response).to have_http_status(:bad_request)
-  end
-
-  it 'allows deletion of pages' do
-    expect { delete maglev.api_page_path(page), as: :json }.to change(Maglev::Page, :count).by(-1)
-    expect(response).to have_http_status(:no_content)
   end
 
   describe 'updating pages' do
@@ -114,5 +126,10 @@ RSpec.describe 'Maglev::API::PagesController', type: :request do
         expect(response).to have_http_status(:conflict)
       end
     end
+  end
+
+  it 'allows deletion of pages' do
+    expect { delete maglev.api_page_path(page), as: :json }.to change(Maglev::Page, :count).by(-1)
+    expect(response).to have_http_status(:no_content)
   end
 end

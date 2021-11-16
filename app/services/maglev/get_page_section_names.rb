@@ -10,7 +10,7 @@ module Maglev
     argument :page
 
     def call
-      page.sections.map do |section|
+      (page.sections || []).map do |section|
         definition = theme.sections.find(section['type'])
         { id: section['id'], name: definition.name }
       end
