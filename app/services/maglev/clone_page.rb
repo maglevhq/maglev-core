@@ -38,7 +38,7 @@ module Maglev
 
     def clone_title
       page.title_translations.transform_values do |title|
-        I18n.t('activerecord.attributes.maglev/page.cloned_title', title: title)
+        ::I18n.t('activerecord.attributes.maglev/page.cloned_title', title: title)
       end
     end
 

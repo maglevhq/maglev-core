@@ -16,7 +16,7 @@ RSpec.describe Maglev::Page, type: :model do
 
     it 'obeys to locale changes' do
       page = create(:page, title: 'Translated page')
-      Maglev::Translatable.with_locale(:es) do
+      Maglev::I18n.with_locale(:es) do
         expect(page.title).to be_blank
         expect(page.sections).to be_blank
         page.title = 'Mi página'

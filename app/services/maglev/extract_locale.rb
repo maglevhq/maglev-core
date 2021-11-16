@@ -12,7 +12,7 @@ module Maglev
     def call
       locale, path = extract_locale
 
-      Maglev::Translatable.current_locale = locale
+      Maglev::I18n.current_locale = locale
 
       params[:path] = path
 

@@ -44,7 +44,7 @@ RSpec.describe Maglev::Page, type: :model do
     end
     context 'Given the current locale is different from the default one' do
       it 'returns the path in the default locale' do
-        Maglev::Translatable.with_locale(:es) do
+        Maglev::I18n.with_locale(:es) do
           is_expected.to eq 'about-us'
         end
       end
@@ -61,7 +61,7 @@ RSpec.describe Maglev::Page, type: :model do
       end
     end
     context 'Given the page has been translated in FR' do
-      before { Maglev::Translatable.with_locale(:fr) { page.update!(title: 'A notre sujet', path: 'a-notre-sujet') } }
+      before { Maglev::I18n.with_locale(:fr) { page.update!(title: 'A notre sujet', path: 'a-notre-sujet') } }
       it 'returns the paths in the default locale only' do
         is_expected.to eq({ 'en' => 'about-us', 'fr' => 'a-notre-sujet' })
       end

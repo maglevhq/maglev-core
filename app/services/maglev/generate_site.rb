@@ -15,7 +15,10 @@ module Maglev
 
       Maglev::Site.transaction do
         Maglev::Site.create(name: 'Default', locales: config.default_site_locales).tap do |site|
-          setup_pages.call(site: site, theme: theme) if site.errors.empty?
+          Maglev::I18n.available_locales = site.locale_prefixes
+          Maglev::I18n.with_locale(site.default_locale_prefix) do
+            setup_pages.call(site: site, theme: theme) if site.errors.empty?
+          end
         end
       end
     end

@@ -26,7 +26,7 @@ describe Maglev::ClonePage do
     end
     # rubocop:disable Style/StringHashKeys
     context 'multi-locales' do
-      before { Maglev::Translatable.with_locale(:fr) { page.update!(title: 'Accueil', path: 'index') } }
+      before { Maglev::I18n.with_locale(:fr) { page.update!(title: 'Accueil', path: 'index') } }
       it 'creates another page with the same attributes in all the locales' do
         expect(subject.title_translations).to eq({ 'en' => 'Home COPY', 'fr' => 'Accueil COPY' })
         expect(subject.path_hash.keys).to eq(%w[en fr])

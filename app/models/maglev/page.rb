@@ -10,7 +10,7 @@ module Maglev
 
     ## translations ##
     translates :title, presence: true
-    translates :sections, default: []
+    translates :sections #, default: [] # WARNING: be careful 
     translates :seo_title, :meta_description
 
     ## scopes ##
@@ -20,7 +20,7 @@ module Maglev
                           }
     scope :by_path, ->(path, locale = nil) { core_by_path(path, locale).joins(:paths) }
     scope :core_by_path, lambda { |path, locale = nil|
-                           where(paths: { locale: locale || Maglev::Translatable.current_locale, value: path })
+                           where(paths: { locale: locale || Maglev::I18n.current_locale, value: path })
                          }
 
     ## methods ##

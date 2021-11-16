@@ -3,6 +3,7 @@
 require_relative 'maglev/version'
 require_relative 'maglev/engine'
 require_relative 'maglev/config'
+require_relative 'maglev/i18n'
 
 require 'injectable'
 require 'jbuilder'

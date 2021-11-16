@@ -20,7 +20,7 @@ module Maglev
     argument :locale, default: nil
 
     def call
-      (page_sections || page.sections).map do |section|
+      (page_sections || page.sections || []).map do |section|
         transform_section(section.dup)
       end
     end

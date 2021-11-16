@@ -2,7 +2,7 @@
 
 module Maglev
   # Retrieve a page from a path and a locale
-  # (previously extracty by the ExtractLocale service)
+  # (previously extracted by the ExtractLocale service)
   class FetchPage
     include Injectable
 

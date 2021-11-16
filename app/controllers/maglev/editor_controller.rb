@@ -7,6 +7,7 @@ module Maglev
     include Maglev::UiLocaleConcern
     include Maglev::ContentLocaleConcern
 
+    before_action :fetch_maglev_site, only: :show
     before_action :ensure_content_locale_in_path, only: :show
     before_action :set_content_locale, only: :show
 

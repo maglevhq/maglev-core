@@ -6,6 +6,7 @@ module Maglev
     include Maglev::JSONConcern
     include Maglev::ContentLocaleConcern
 
+    before_action :fetch_maglev_site
     before_action :extract_content_locale
 
     def index
@@ -34,7 +35,7 @@ module Maglev
 
     def extract_content_locale
       _, locale = maglev_services.extract_locale.call(params: params, locales: maglev_site.locale_prefixes)
-      I18n.locale = locale
+      ::I18n.locale = locale
     end
 
     def fallback_to_default_locale

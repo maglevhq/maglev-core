@@ -13,6 +13,6 @@ describe Maglev::FetchSite do
 
   it 'sets up the available locales' do
     subject
-    expect(Maglev::Translatable.available_locales).to eq(%i[en fr])
+    expect(Maglev::I18n.available_locales).to eq(%i[en fr])
   end
 end

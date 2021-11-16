@@ -13,7 +13,7 @@ module Maglev
     validate :must_be_only_canonical, if: :canonical?
 
     ## callbacks ##
-    after_initialize -> { self.locale ||= Maglev::Translatable.current_locale }
+    after_initialize -> { self.locale ||= Maglev::I18n.current_locale }
     before_validation do
       value.blank? ? self.value = 'index' : value.gsub!(%r{(^/|/$)}, '')
     end

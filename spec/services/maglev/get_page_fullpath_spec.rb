@@ -21,7 +21,7 @@ describe Maglev::GetPageFullpath do
   context 'we pass the id of an existing page' do
     let!(:page) { create(:page, path: 'hello-world') }
     before do
-      Maglev::Translatable.with_locale(:fr) do
+      Maglev::I18n.with_locale(:fr) do
         page.update!(title: 'Bonjour le monde', path: 'bonjour-le-monde')
       end
     end

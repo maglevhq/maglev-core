@@ -7,7 +7,7 @@ module Maglev
     include Maglev::Translatable
 
     ## translations ##
-    translates :sections, default: []
+    translates :sections
 
     ## validations ##
     validates :name, presence: true
@@ -18,12 +18,13 @@ module Maglev
     end
 
     def find_section(type)
-      sections.find { |section| section['type'] == type }
+      sections&.find { |section| section['type'] == type }
     end
 
     def add_section(section)
-      sections.delete_if { |site_section| site_section['type'] == section['type'] }
-      sections.push(section)
+      self.sections ||= []
+      self.sections.delete_if { |site_section| site_section['type'] == section['type'] }      
+      self.sections.push(section)
     end
   end
 end
