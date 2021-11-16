@@ -2,6 +2,7 @@
 
 module Maglev
   class EditorController < ApplicationController
+    include Maglev::AuthenticationConcern
     include Maglev::FetchersConcern
     include Maglev::BackActionConcern
     include Maglev::UiLocaleConcern

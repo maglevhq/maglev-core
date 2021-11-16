@@ -33,6 +33,7 @@ module Maglev
         c.back_action = nil
         c.services = {}
         c.default_site_locales = [{ label: 'English', prefix: 'en' }]
+        c.is_authenticated = ->(site) { !Rails.env.production? }
       end
     end
     # rubocop:enable Metrics/MethodLength

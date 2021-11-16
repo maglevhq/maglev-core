@@ -20,6 +20,10 @@ RSpec.describe 'Maglev::API::PagesController', type: :request do
   end
 
   it 'allows retrieval of pages' do
+    puts @request.inspect
+    puts request.inspect
+    puts session.inspect
+    # sessions[:maglev_site_id] = 42
     get '/maglev/api/pages', as: :json
     expect(json_response.size).to eq 1
     expect(json_response.first.deep_symbolize_keys).to include(

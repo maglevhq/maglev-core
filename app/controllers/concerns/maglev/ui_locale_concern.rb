@@ -25,7 +25,7 @@ module Maglev
       when Symbol
         send(maglev_config.ui_locale)
       when Proc
-        instance_exec(fetch_maglev_site, &maglev_config.ui_locale)
+        instance_exec(maglev_site, &maglev_config.ui_locale)
       end
     end
   end

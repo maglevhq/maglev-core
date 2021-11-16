@@ -13,7 +13,7 @@ module Maglev
       when Symbol
         redirect_to main_app.send(maglev_config.back_action)
       when Proc
-        instance_exec(fetch_maglev_site, &maglev_config.back_action)
+        instance_exec(maglev_site, &maglev_config.back_action)
       end
     end
 
