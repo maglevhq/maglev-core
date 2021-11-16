@@ -23,7 +23,7 @@ module Maglev
 
     def add_section(section)
       self.sections ||= []
-      self.sections.delete_if { |site_section| site_section['type'] == section['type'] }      
+      self.sections.delete_if { |site_section| site_section['type'] == section['type'] }
       self.sections.push(section)
     end
   end

@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
-# For example, the editor UI can be in English while the displayed Maglev content is in French. 
+# For example, the editor UI can be in English while the displayed Maglev content is in French.
 # That's why we need another kind of I18n.locale only dedicated to Maglev content.
 # Our Maglev::Translatable concern relies on this specific locale.
 module Maglev
   module I18n
     class UnavailableLocaleError < RuntimeError; end
-    
+
     class << self
       def available_locales
         Current.available_locales || %i[en]
@@ -36,7 +36,7 @@ module Maglev
         Current.set(locale: locale, &block)
       end
     end
-    
+
     class Current < ActiveSupport::CurrentAttributes
       attribute :locale
       attribute :available_locales

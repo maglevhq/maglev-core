@@ -61,9 +61,7 @@ module Maglev::Page::PathConcern
 
     # the old path becomes now a redirection
     # we just have to make sure this redirection hasn't been added before.
-    unless paths.not_canonical.by_value(new_value).exists?
-      paths.build(canonical: false, value: new_value)
-    end
+    paths.build(canonical: false, value: new_value) unless paths.not_canonical.by_value(new_value).exists?
 
     # don't forget to persist the new value of the current path
     current_path.save
@@ -71,7 +69,8 @@ module Maglev::Page::PathConcern
 
   def spawn_redirection?
     return if spawn_redirection_disabled?
-    current_path.persisted? && current_path.will_save_change_to_value?     
+
+    current_path.persisted? && current_path.will_save_change_to_value?
   end
 end
 # rubocop:enable Style/ClassAndModuleChildren

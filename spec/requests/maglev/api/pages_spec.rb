@@ -7,7 +7,7 @@ RSpec.describe 'Maglev::API::PagesController', type: :request do
   let!(:page) { create(:page) }
 
   before do
-    allow(Maglev::I18n).to receive(:available_locales).and_return([:en, :fr])
+    allow(Maglev::I18n).to receive(:available_locales).and_return(%i[en fr])
     Maglev.configure do |config|
       config.services = {
         context: double('Context', controller: double('Controller')),
@@ -34,7 +34,7 @@ RSpec.describe 'Maglev::API::PagesController', type: :request do
         section_names: [a_hash_including(name: 'Jumbotron'), a_hash_including(name: 'Showcase')]
       }
     )
-  end  
+  end
 
   describe 'allows retrieval of pages based on keyword' do
     it 'returns an empty array if the keyword is empty' do
@@ -67,7 +67,7 @@ RSpec.describe 'Maglev::API::PagesController', type: :request do
       expect(json_response['lockVersion']).to eq 0
     end
     context 'the page doesn\'t have been translated in the requested locale' do
-      it 'returns the translated property set to false' do        
+      it 'returns the translated property set to false' do
         get "/maglev/api/pages/#{page.id}", params: { locale: 'fr' }, as: :json
         expect(json_response['translated']).to eq(false)
       end

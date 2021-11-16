@@ -5,18 +5,22 @@ module Maglev::Page::SectionsConcern
   def prepare_sections
     # NOTE: pages defined in the theme definition
     # don't include the ids for sections/blocks
-    self.sections ||= [] # NOTE: the self is mandatory here 
+    self.sections ||= [] # NOTE: the self is mandatory here
     sections.each do |section|
-      section['id'] ||= SecureRandom.urlsafe_base64(8)
-      section['settings'] = prepare_settings(section['settings'])
-      (section['blocks'] || []).each do |block|
-        block['id'] ||= SecureRandom.urlsafe_base64(8)
-        block['settings'] = prepare_settings(block['settings'])
-      end
+      prepare_section(section)
     end
   end
 
   private
+
+  def prepare_section(section)
+    section['id'] ||= SecureRandom.urlsafe_base64(8)
+    section['settings'] = prepare_settings(section['settings'])
+    (section['blocks'] || []).each do |block|
+      block['id'] ||= SecureRandom.urlsafe_base64(8)
+      block['settings'] = prepare_settings(block['settings'])
+    end
+  end
 
   def prepare_settings(settings)
     # NOTE: in the theme definition file, we allow developers to declare

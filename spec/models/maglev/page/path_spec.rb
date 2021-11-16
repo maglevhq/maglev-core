@@ -40,24 +40,24 @@ RSpec.describe Maglev::Page, type: :model do
         page.update!(path: 'brand new')
         expect(page.paths.count).to eq 3
       end
-    end    
+    end
   end
 
   describe 'Translating an existing page' do
     it 'just runs fine' do
       page = nil
-      Maglev::I18n.available_locales = [:fr, :en]
+      Maglev::I18n.available_locales = %i[fr en]
       # 1. page created in FR
       Maglev::I18n.with_locale(:fr) do
         page = create(:page, title: 'A notre sujet', path: 'a-notre-sujet')
       end
       # 2. page updated with the default content in EN
       Maglev::I18n.with_locale(:en) do
-        page.reload.update(title: 'A notre sujet', path: 'a-notre-sujet')        
+        page.reload.update(title: 'A notre sujet', path: 'a-notre-sujet')
       end
       # 3. page update with the final content (EN)
       Maglev::I18n.with_locale(:en) do
-        page.reload.update(title: 'About us', path: 'about-us')        
+        page.reload.update(title: 'About us', path: 'about-us')
       end
       expect(Maglev::Page.by_path('about-us', :en).count).to eq 1
     end

@@ -10,7 +10,7 @@ module Maglev
 
     ## translations ##
     translates :title, presence: true
-    translates :sections #, default: [] # WARNING: be careful 
+    translates :sections # , default: [] # WARNING: be careful
     translates :seo_title, :meta_description
 
     ## scopes ##

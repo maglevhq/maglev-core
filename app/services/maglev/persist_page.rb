@@ -41,6 +41,7 @@ module Maglev
       page.sections.any? do |section|
         definition = theme.sections.find(section['type'])
         next unless definition.site_scoped?
+
         site.add_section(section)
         true
       end

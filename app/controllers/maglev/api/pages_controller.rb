@@ -27,7 +27,7 @@ module Maglev
       end
 
       def update
-        @page = resources.find(params[:id])        
+        @page = resources.find(params[:id])
         persist!(@page)
         head :ok
       end
