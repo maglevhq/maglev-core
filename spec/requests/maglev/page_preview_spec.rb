@@ -15,9 +15,9 @@ RSpec.describe 'Maglev::PagePreviewController', type: :request do
       get '/maglev/preview'
       expect(response.body).to include('<title>Default - Home</title>')
       expect(response.body).to include('<meta name="hello" content="Hello world" />')
-      expect(response.body).to include('<link rel="alternate" hreflang="x-default" href="http://www.example.com/maglev/preview" />')
-      expect(response.body).to include('<link rel="alternate" hreflang="en" href="http://www.example.com/maglev/preview" />')
-      expect(response.body).to include('<link rel="alternate" hreflang="fr" href="http://www.example.com/maglev/preview/fr" />')
+      expect(response.body).to include('<link rel="alternate" hreflang="x-default" href="http://www.example.com/maglev/preview">')
+      expect(response.body).to include('<link rel="alternate" hreflang="en" href="http://www.example.com/maglev/preview">')
+      expect(response.body).to include('<link rel="alternate" hreflang="fr" href="http://www.example.com/maglev/preview/fr">')
       expect(response.body).to match(%r{<h1 data-maglev-id="\S+\.title" class="display-3">Let's create the product<br/>your clients<br/>will love\.</h1>})
       expect(response.body).to include('Our projects')
     end
@@ -28,9 +28,9 @@ RSpec.describe 'Maglev::PagePreviewController', type: :request do
         get '/'
         expect(response.body).to include('<title>Default - Home</title>')
         expect(response.body).to include('<meta name="hello" content="Hello world" />')
-        expect(response.body).to include('<link rel="alternate" hreflang="x-default" href="http://www.example.com/" />')
-        expect(response.body).to include('<link rel="alternate" hreflang="en" href="http://www.example.com/" />')
-        expect(response.body).to include('<link rel="alternate" hreflang="fr" href="http://www.example.com/fr" />')      
+        expect(response.body).to include('<link rel="alternate" hreflang="x-default" href="http://www.example.com/">')
+        expect(response.body).to include('<link rel="alternate" hreflang="en" href="http://www.example.com/">')
+        expect(response.body).to include('<link rel="alternate" hreflang="fr" href="http://www.example.com/fr">')
       end
     end
 
@@ -162,36 +162,36 @@ RSpec.describe 'Maglev::PagePreviewController', type: :request do
       get '/maglev/preview'
       expect(pretty_html(response.body))
         .to include(<<-HTML
-        <nav>
-          <ul>
-            <li class="navbar-item" data-maglev-block-id="block-0">
-              <a data-maglev-id="block-0.link" href="/maglev/preview">
-                <em>
-                  <span data-maglev-id="block-0.label">Item #0</span>
-                </em>
-              </a>
-              <ul>
-                <li class="navbar-nested-item" data-maglev-block-id="block-0-0">
-                  <a data-maglev-id="block-0-0.link" href="/maglev/preview">
-                    <span data-maglev-id="block-0-0.label">Item #0-0</span>
-                  </a>
-                </li>
-                <li class="navbar-nested-item" data-maglev-block-id="block-0-1">
-                  <a data-maglev-id="block-0-1.link" href="/maglev/preview">
-                    <span data-maglev-id="block-0-1.label">Item #0-1</span>
-                  </a>
-                </li>
-              </ul>
-            </li>
-            <li class="navbar-item" data-maglev-block-id="block-1">
-              <a data-maglev-id="block-1.link" href="/maglev/preview">
-                <em>
-                  <span data-maglev-id="block-1.label">Item #1</span>
-                </em>
-              </a>
-            </li>
-          </ul>
-        </nav>
+              <nav>
+                <ul>
+                  <li class="navbar-item" data-maglev-block-id="block-0">
+                    <a data-maglev-id="block-0.link" href="/maglev/preview">
+                      <em>
+                        <span data-maglev-id="block-0.label">Item #0</span>
+                      </em>
+                    </a>
+                    <ul>
+                      <li class="navbar-nested-item" data-maglev-block-id="block-0-0">
+                        <a data-maglev-id="block-0-0.link" href="/maglev/preview">
+                          <span data-maglev-id="block-0-0.label">Item #0-0</span>
+                        </a>
+                      </li>
+                      <li class="navbar-nested-item" data-maglev-block-id="block-0-1">
+                        <a data-maglev-id="block-0-1.link" href="/maglev/preview">
+                          <span data-maglev-id="block-0-1.label">Item #0-1</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="navbar-item" data-maglev-block-id="block-1">
+                    <a data-maglev-id="block-1.link" href="/maglev/preview">
+                      <em>
+                        <span data-maglev-id="block-1.label">Item #1</span>
+                      </em>
+                    </a>
+                  </li>
+                </ul>
+              </nav>
         HTML
           .strip)
     end

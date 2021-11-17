@@ -5,7 +5,8 @@ module Maglev
     extend ActiveSupport::Concern
 
     included do
-      helper_method :maglev_site, :maglev_theme, :maglev_page, :maglev_page_sections, :maglev_sections_path, :maglev_site_root_fullpath, :maglev_page_fullpaths
+      helper_method :maglev_site, :maglev_theme, :maglev_page, :maglev_page_sections, :maglev_sections_path,
+                    :maglev_site_root_fullpath, :maglev_page_fullpaths
     end
 
     private
@@ -81,7 +82,7 @@ module Maglev
 
     def maglev_site_root_fullpath
       maglev_services.get_page_fullpath.call(
-        path: 'index', 
+        path: 'index',
         locale: content_locale,
         preview_mode: maglev_rendering_mode != :live
       )
@@ -90,7 +91,7 @@ module Maglev
     def maglev_page_fullpaths
       maglev_site.locale_prefixes.inject({}) do |memo, locale|
         memo.merge(locale => maglev_services.get_page_fullpath.call(
-          page: maglev_page, 
+          page: maglev_page,
           locale: locale,
           preview_mode: maglev_rendering_mode != :live
         ))
