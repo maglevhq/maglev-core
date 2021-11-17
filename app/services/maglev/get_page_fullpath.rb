@@ -9,17 +9,18 @@ module Maglev
     dependency :fetch_site
     dependency :get_base_url
 
-    argument :page
+    argument :page, default: nil
+    argument :path, default: nil
     argument :preview_mode, default: nil
     argument :locale
 
     def call
       base_url = get_base_url.call(preview_mode: preview_mode)
-      path = fetch_path
+      safe_path = path || fetch_path
 
-      return unless path
+      return unless safe_path
 
-      build_fullpath(base_url, path)
+      build_fullpath(base_url, safe_path)
     end
 
     protected
@@ -33,7 +34,8 @@ module Maglev
     def build_fullpath(base_url, path)
       fullpath = [base_url]
       fullpath.push(locale) unless same_as_default_locale?
-      fullpath.push(path) unless path == 'index' # for SEO purpose
+      fullpath.push(path) unless path == 'index' # for SEO purpose)
+      fullpath.push(nil) if fullpath == [nil] # avoid "" as the fullpath
       fullpath.join('/')
     end
 

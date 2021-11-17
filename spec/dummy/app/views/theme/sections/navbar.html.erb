@@ -1,5 +1,7 @@
 <%= maglev_section.wrapper_tag class: 'navbar' do %>
-  <%= maglev_section.setting_tag :logo, class: 'brand-logo' %>
+  <%= link_to maglev_site_link do %>
+    <%= maglev_section.setting_tag :logo, class: 'brand-logo' %>
+  <% end %>
   <nav>
     <ul>
       <% maglev_section.blocks.each do |maglev_block| %>

@@ -18,6 +18,19 @@ describe Maglev::GetPageFullpath do
     end
   end
 
+  context 'we pass a path' do
+    subject { service.call(path: 'index', locale: locale) }
+    it 'returns the fullpath to the index page' do
+      is_expected.to eq '/maglev/preview'
+    end
+    context 'live mode' do
+      let(:get_base_url) { double('GetBaseUrl', call: nil) }
+      it 'returns the fullpath to the index page' do
+        is_expected.to eq '/'
+      end
+    end
+  end
+
   context 'we pass the id of an existing page' do
     let!(:page) { create(:page, path: 'hello-world') }
     before do

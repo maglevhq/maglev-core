@@ -27,7 +27,9 @@ RSpec.describe 'Maglev::PagePreviewController', type: :request do
             </head>
             <body>
               <div class="navbar" data-maglev-section-id="yyy">
-                <img src="mynewlogo.png" data-maglev-id="yyy.logo" class="brand-logo"/>
+                <a href="/">
+                  <img src="mynewlogo.png" data-maglev-id="yyy.logo" class="brand-logo"/>
+                </a>
                 <nav>
                   <ul>
                     <li class="navbar-item" data-maglev-block-id="zzz">

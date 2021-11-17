@@ -15,10 +15,24 @@ RSpec.describe 'Maglev::PagePreviewController', type: :request do
       get '/maglev/preview'
       expect(response.body).to include('<title>Default - Home</title>')
       expect(response.body).to include('<meta name="hello" content="Hello world" />')
+      expect(response.body).to include('<link rel="alternate" hreflang="x-default" href="http://www.example.com/maglev/preview" />')
+      expect(response.body).to include('<link rel="alternate" hreflang="en" href="http://www.example.com/maglev/preview" />')
+      expect(response.body).to include('<link rel="alternate" hreflang="fr" href="http://www.example.com/maglev/preview/fr" />')
       expect(response.body).to match(%r{<h1 data-maglev-id="\S+\.title" class="display-3">Let's create the product<br/>your clients<br/>will love\.</h1>})
       expect(response.body).to include('Our projects')
     end
     # rubocop:enable Layout/LineLength
+
+    context 'live site' do
+      it 'renders the index page in the default locale' do
+        get '/'
+        expect(response.body).to include('<title>Default - Home</title>')
+        expect(response.body).to include('<meta name="hello" content="Hello world" />')
+        expect(response.body).to include('<link rel="alternate" hreflang="x-default" href="http://www.example.com/" />')
+        expect(response.body).to include('<link rel="alternate" hreflang="en" href="http://www.example.com/" />')
+        expect(response.body).to include('<link rel="alternate" hreflang="fr" href="http://www.example.com/fr" />')      
+      end
+    end
 
     context 'with scoped site sections' do
       before do

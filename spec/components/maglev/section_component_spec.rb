@@ -6,7 +6,7 @@ describe Maglev::SectionComponent do
   let(:page) { build(:page, :with_navbar).tap(&:prepare_sections) }
   let(:attributes) { page.sections[1].deep_symbolize_keys }
   let(:definition) { build(:section) }
-  let(:view_context) { ApplicationController.new.view_context }
+  let(:view_context) { CustomController.new.view_context }
   let(:templates_root_path) { 'theme' }
   let(:component) do
     described_class.new(
@@ -49,7 +49,9 @@ describe Maglev::SectionComponent do
       it 'returns a valid HTML' do
         is_expected.to eq(<<~HTML
           <div class="navbar" data-maglev-section-id="abc">
-            <img src="logo.png" data-maglev-id="abc.logo" class="brand-logo"/>
+            <a href="/">
+              <img src="logo.png" data-maglev-id="abc.logo" class="brand-logo"/>
+            </a>
             <nav>
               <ul>
                 <li class="navbar-item" data-maglev-block-id="menu-item-0">
@@ -84,6 +86,14 @@ describe Maglev::SectionComponent do
         HTML
         .strip)
       end
+    end
+  end 
+
+  class CustomController < ::ApplicationController
+    include Maglev::StandaloneSectionsConcern
+    private
+    def maglev_site_root_fullpath
+      '/'
     end
   end
 end
