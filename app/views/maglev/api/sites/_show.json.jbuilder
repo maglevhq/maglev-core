@@ -3,7 +3,7 @@
 json.key_format! camelize: :lower
 json.deep_format_keys!
 
-json.sections site.sections
+json.sections site.sections || []
 
 json.locales site.locales
 
