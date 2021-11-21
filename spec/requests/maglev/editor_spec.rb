@@ -14,9 +14,9 @@ RSpec.describe 'Maglev::EditorController', type: :request do
         config.is_authenticated = ->(site) { false }
       end
     end
-    before { allow_any_instance_of(Maglev::ApplicationController).to receive(:maglev_config).and_return(config) }
+    before { allow_any_instance_of(Maglev::ApplicationController).to receive(:maglev_config).and_return(config) }    
     describe 'GET /maglev/editor' do
-      it 'redirects to the path defined in the Maglev configuration' do
+      it 'redirects to the path defined in the Maglev configuration' do        
         expect { get '/maglev/editor' }.to raise_error(Maglev::ApplicationController::NotAuthorized)
       end
     end
@@ -24,6 +24,8 @@ RSpec.describe 'Maglev::EditorController', type: :request do
 
   context 'the editor is authenticated' do
     let(:config) do
+      # TODO: use Maglev.configure do |config|
+      
       Maglev::Config.new.tap do |config|
         config.primary_color = '#7E6EDB'
         config.is_authenticated = ->(site) { true }

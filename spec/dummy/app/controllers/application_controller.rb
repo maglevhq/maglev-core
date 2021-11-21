@@ -12,4 +12,12 @@ class ApplicationController < ActionController::Base
   def exotic_locale
     'fr'
   end
+
+  # def is_authenticated(maglev_site)
+  #   true
+  # end
+
+  # def is_not_authenticated(maglev_site)
+  #   false
+  # end
 end

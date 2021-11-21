@@ -17,14 +17,24 @@ RSpec.describe 'Maglev::API::SitesController', type: :request do
     end
   end
 
-  it 'allows retrieval of the current site' do
-    get '/maglev/api/site', as: :json
-    expect(json_response.deep_symbolize_keys).to include(
-      {
-        id: site.id,
-        homePageId: page.id,
-        locales: [{ label: 'English', prefix: 'en' }, { label: 'French', prefix: 'fr' }]
-      }
-    )
+  context 'Given the editor is not authenticated' do
+    it 'returns a 401 error (unauthorized)' do
+      get '/maglev/api/assets', as: :json
+      expect(response).to have_http_status(:unauthorized)
+    end
+  end
+
+  context 'Given the editor is authenticated' do
+    before { api_sign_in }
+    it 'allows retrieval of the current site' do
+      get '/maglev/api/site', as: :json
+      expect(json_response.deep_symbolize_keys).to include(
+        {
+          id: site.id,
+          homePageId: page.id,
+          locales: [{ label: 'English', prefix: 'en' }, { label: 'French', prefix: 'fr' }]
+        }
+      )
+    end
   end
 end

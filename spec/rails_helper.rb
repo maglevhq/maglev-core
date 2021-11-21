@@ -32,7 +32,8 @@ FactoryBot.find_definitions
 # directory. Alternatively, in the individual `*_spec.rb` files, manually
 # require only the support files necessary.
 #
-# Dir[Rails.root.join('spec', 'support', '**', '*.rb')].sort.each { |f| require f }
+# puts Rails.root.join('spec', 'support', '**', '*.rb').inspect
+Dir[File.join(File.dirname(__FILE__), 'support', '**', '*.rb')].sort.each { |f| require f }
 
 # Checks for pending migrations and applies them before tests are run.
 # If you are not using ActiveRecord, you can remove these lines.
@@ -49,6 +50,7 @@ RSpec.configure do |config|
 
   config.include ActionDispatch::TestProcess::FixtureFile
   config.include FactoryBot::Syntax::Methods
+  config.include Maglev::SpecHelpers::APIAuthentication, type: :request
 
   config.before(:each) do
     Maglev.configure { |c| c.services = {} }
