@@ -6,7 +6,7 @@ module Maglev
     include Maglev::UiLocaleConcern
     include Maglev::ContentLocaleConcern
 
-    before_action :require_authentication
+    before_action :authenticate
     before_action :fetch_maglev_site
     before_action :set_content_locale
 
@@ -20,7 +20,7 @@ module Maglev
 
     private
 
-    def require_authentication
+    def authenticate
       raise Maglev::Errors::NotAuthorized if session[:maglev_site_id] != maglev_site&.id
     end
 

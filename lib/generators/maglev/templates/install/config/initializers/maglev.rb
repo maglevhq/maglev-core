@@ -22,7 +22,7 @@ Maglev.configure do |config|
 
   # I18n locale used in the Editor UI (by default, I18n.locale will be used)
   # config.ui_locale = 'fr' # make sure your locale has been registered in Rails.
-  # config.ui_locale = :find_my_locale # name of a protected method from your Rails application controller
+  # config.ui_locale = :find_my_locale # name of any protected method from your Rails application controller
   # config.ui_locale = ->(site) { 'fr' }
 
   # Default locales of a site. By default, Maglev will use English (en).
@@ -33,6 +33,14 @@ Maglev.configure do |config|
   #  { label: 'English', prefix: 'en' },
   #  { label: 'French', prefix: 'fr' }
   # ]
+
+  # Editor UI authentication (https://docs.maglev.dev/guides/authentication)
+  # config.is_authenticated = :editor_allowed? # name of any protected method from your Rails application controller
+  # config.is_authenticated = ->(site) { current_user&.role == 'editor' }
+
+  # Admin UI authentication (https://docs.maglev.dev/guides/authentication)
+  config.admin_username = Rails.env.production? ? ENV.fetch('MAGLEV_ADMIN_USERNAME') : nil
+  config.admin_password = Rails.env.production? ? ENV.fetch('MAGLEV_ADMIN_PASSWORD') : nil
 
   # Uploader engine (:active_storage is only supported for now)
   config.uploader = :active_storage

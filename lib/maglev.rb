@@ -35,6 +35,8 @@ module Maglev
         c.services = {}
         c.default_site_locales = [{ label: 'English', prefix: 'en' }]
         c.is_authenticated = ->(_site) { !Rails.env.production? }
+        c.admin_username = nil
+        c.admin_password = nil
       end
     end
     # rubocop:enable Metrics/MethodLength, Metrics/AbcSize

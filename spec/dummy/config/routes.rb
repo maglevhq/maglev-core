@@ -28,6 +28,8 @@ Rails.application.routes.draw do
 
   resources :products, only: [:show]
 
+  root to: 'maglev/page_preview#index', defaults: { path: 'index' }
+
   get '/nocoffee_site', to: redirect('https://www.nocoffee.fr'), as: :nocoffee
 
   get '(*path)', to: 'maglev/page_preview#index', defaults: { path: 'index' }

@@ -53,7 +53,11 @@ RSpec.configure do |config|
   config.include Maglev::SpecHelpers::APIAuthentication, type: :request
 
   config.before(:each) do
-    Maglev.configure { |c| c.services = {} }
+    Maglev.configure do |c|
+      c.services = {}
+      c.admin_username = nil
+      c.admin_password = nil
+    end
     Maglev::I18n.available_locales = [:en]
     Maglev::I18n.current_locale = :en
     ::I18n.locale = :en
