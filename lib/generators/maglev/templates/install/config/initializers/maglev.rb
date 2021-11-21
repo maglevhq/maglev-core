@@ -34,11 +34,11 @@ Maglev.configure do |config|
   #  { label: 'French', prefix: 'fr' }
   # ]
 
-  # Editor UI authentication (https://docs.maglev.dev/guides/authentication)
+  # Editor UI authentication (https://docs.maglev.dev/guides/setup-authentication)
   # config.is_authenticated = :editor_allowed? # name of any protected method from your Rails application controller
   # config.is_authenticated = ->(site) { current_user&.role == 'editor' }
 
-  # Admin UI authentication (https://docs.maglev.dev/guides/authentication)
+  # Admin UI authentication (https://docs.maglev.dev/guides/setup-authentication)
   config.admin_username = Rails.env.production? ? ENV.fetch('MAGLEV_ADMIN_USERNAME') : nil
   config.admin_password = Rails.env.production? ? ENV.fetch('MAGLEV_ADMIN_PASSWORD') : nil
 
