@@ -5,9 +5,14 @@ module Maglev
     private
 
     def call_back_action
+      session.delete(:maglev_site_id)
+      maglev_redirect_on_leaving
+    end
+
+    def maglev_redirect_on_leaving
       case maglev_config.back_action
       when nil
-        redirect_to default_leave_url
+        redirect_to maglev_default_leave_url
       when String
         redirect_to maglev_config.back_action
       when Symbol
@@ -17,7 +22,7 @@ module Maglev
       end
     end
 
-    def default_leave_url
+    def maglev_default_leave_url
       main_app.root_path
     rescue StandardError
       '/'
