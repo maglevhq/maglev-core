@@ -2,7 +2,7 @@
 
 module Maglev
   module AuthenticationConcern
-    extend ActiveSupport::Concern    
+    extend ActiveSupport::Concern
 
     included do
       before_action :require_authentication
@@ -11,11 +11,12 @@ module Maglev
     private
 
     def require_authentication
-      raise Maglev::ApplicationController::NotAuthorized unless is_authenticated_in_app?
+      raise Maglev::Errors::NotAuthorized unless authenticated_in_app?
+
       session[:maglev_site_id] = maglev_site.id
     end
 
-    def is_authenticated_in_app?
+    def authenticated_in_app?
       case maglev_config.is_authenticated
       when nil
         # NOTE: this use case must not happen

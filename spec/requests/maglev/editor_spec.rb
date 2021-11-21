@@ -4,34 +4,30 @@ require 'rails_helper'
 
 RSpec.describe 'Maglev::EditorController', type: :request do
   let(:theme) { build(:theme, :predefined_pages) }
-  let!(:site) do
-    Maglev::GenerateSite.call(theme: theme)
-  end
+  let!(:site) { Maglev::GenerateSite.call(theme: theme) }
 
   context 'the editor is not authenticated' do
-    let(:config) do
-      Maglev::Config.new.tap do |config|
-        config.is_authenticated = ->(site) { false }
+    before do
+      Maglev.configure do |config|
+        config.is_authenticated = ->(_site) { false }
       end
     end
-    before { allow_any_instance_of(Maglev::ApplicationController).to receive(:maglev_config).and_return(config) }    
     describe 'GET /maglev/editor' do
-      it 'redirects to the path defined in the Maglev configuration' do        
-        expect { get '/maglev/editor' }.to raise_error(Maglev::ApplicationController::NotAuthorized)
+      it 'redirects to a path defined by the ApplicationController of the main app' do
+        get '/maglev/editor'
+        expect(flash[:error]).to eq('You\'re not authorized to access the Maglev editor!')
+        expect(response).to redirect_to('http://www.example.com/nocoffee_site')
       end
     end
   end
 
   context 'the editor is authenticated' do
-    let(:config) do
-      # TODO: use Maglev.configure do |config|
-      
-      Maglev::Config.new.tap do |config|
+    before do
+      Maglev.configure do |config|
         config.primary_color = '#7E6EDB'
-        config.is_authenticated = ->(site) { true }
+        config.is_authenticated = ->(_site) { true }
       end
     end
-    before { allow_any_instance_of(Maglev::ApplicationController).to receive(:maglev_config).and_return(config) }
     describe 'GET /maglev/editor' do
       it 'redirects to the index page in the default site locale' do
         get '/maglev/editor'
@@ -51,16 +47,13 @@ RSpec.describe 'Maglev::EditorController', type: :request do
       end
 
       describe 'the developer changed the UI locale' do
-        let(:config) do
-          Maglev::Config.new.tap do |config|
+        before do
+          Maglev.configure do |config|
             config.ui_locale = ui_locale
             config.primary_color = '#7E6EDB'
-            config.is_authenticated = ->(site) { true }
+            config.is_authenticated = ->(_site) { true }
           end
         end
-
-        before { allow_any_instance_of(Maglev::EditorController).to receive(:maglev_config).and_return(config) }
-
         context 'by using a string as the UI locale' do
           let(:ui_locale) { 'fr' }
           it 'renders the editor in the defined locale' do
@@ -88,15 +81,12 @@ RSpec.describe 'Maglev::EditorController', type: :request do
     end
 
     describe 'GET /maglev/leave_editor' do
-      let(:config) do
-        Maglev::Config.new.tap do |config|
-          config.is_authenticated = ->(site) { true }
+      before do
+        Maglev.configure do |config|
+          config.is_authenticated = ->(_site) { true }
           config.back_action = back_action
         end
       end
-
-      before { allow_any_instance_of(Maglev::EditorController).to receive(:maglev_config).and_return(config) }
-
       context 'no back_action defined' do
         let(:back_action) { nil }
         it 'redirects to the root path of the application' do

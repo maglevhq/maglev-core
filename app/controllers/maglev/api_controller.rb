@@ -7,22 +7,21 @@ module Maglev
     include Maglev::ContentLocaleConcern
 
     before_action :require_authentication
-    before_action :fetch_maglev_site    
+    before_action :fetch_maglev_site
     before_action :set_content_locale
 
     rescue_from ActionController::ParameterMissing, with: :exception_message
     rescue_from ActiveRecord::RecordInvalid, with: :record_errors
     rescue_from ActiveRecord::RecordNotFound, with: :not_found
-    rescue_from ActiveRecord::StaleObjectError, with: :stale_record  
-    rescue_from Maglev::ApplicationController::NotAuthorized, with: :unauthorized
+    rescue_from ActiveRecord::StaleObjectError, with: :stale_record
+    rescue_from Maglev::Errors::NotAuthorized, with: :unauthorized
 
     helper_method :maglev_site
 
     private
 
     def require_authentication
-      puts ['require_authentication', session[:maglev_site_id]].inspect
-      raise Maglev::ApplicationController::NotAuthorized if session[:maglev_site_id] != maglev_site&.id
+      raise Maglev::Errors::NotAuthorized if session[:maglev_site_id] != maglev_site&.id
     end
 
     def fetch_maglev_site

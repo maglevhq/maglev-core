@@ -3,6 +3,7 @@
 require_relative 'maglev/version'
 require_relative 'maglev/engine'
 require_relative 'maglev/config'
+require_relative 'maglev/errors'
 require_relative 'maglev/i18n'
 
 require 'injectable'
@@ -21,7 +22,7 @@ module Maglev
   class << self
     attr_accessor :local_themes
 
-    # rubocop:disable Metrics/MethodLength
+    # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
     def config
       @config ||= Config.new.tap do |c|
         c.title = 'Maglev - EDITOR'
@@ -33,10 +34,10 @@ module Maglev
         c.back_action = nil
         c.services = {}
         c.default_site_locales = [{ label: 'English', prefix: 'en' }]
-        c.is_authenticated = ->(site) { !Rails.env.production? }
+        c.is_authenticated = ->(_site) { !Rails.env.production? }
       end
     end
-    # rubocop:enable Metrics/MethodLength
+    # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
     def configure
       yield config

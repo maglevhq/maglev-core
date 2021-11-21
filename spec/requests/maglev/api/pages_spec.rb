@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe 'Maglev::API::PagesController', type: :request do
   let!(:site) { create(:site) }
   let!(:page) { create(:page) }
-  
+
   before do
     allow(Maglev::I18n).to receive(:available_locales).and_return(%i[en fr])
     Maglev.configure do |config|
