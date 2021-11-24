@@ -14,6 +14,7 @@ module Maglev::Page::PathConcern
              autosave: true
 
     ## callbacks ##
+    before_validation { path } # force the initialization of a new path if it doesn't exist
     before_save :spawn_redirection, if: :spawn_redirection?
   end
 
@@ -30,10 +31,9 @@ module Maglev::Page::PathConcern
   end
 
   def current_path
+    locale = Maglev::I18n.current_locale.to_sym
     @memoized_paths ||= {}
-    @memoized_paths[Maglev::I18n.current_locale] ||= paths.find_or_initialize_by(
-      locale: Maglev::I18n.current_locale
-    )
+    @memoized_paths[locale] ||= paths.find_or_initialize_by(locale: locale)
   end
 
   def path_hash

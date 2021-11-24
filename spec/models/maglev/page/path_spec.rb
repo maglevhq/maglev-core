@@ -3,6 +3,29 @@
 require 'rails_helper'
 
 RSpec.describe Maglev::Page, type: :model do
+  describe 'validation' do
+    it "doesn't allow creating a page without a path" do
+      create(:page) # create the index page
+      page = Maglev::Page.new(title: 'Hello world')
+      expect(page).to be_invalid
+      expect(page.errors.full_messages).to eq(['Path can\'t be blank'])
+    end
+
+    it "doesn't allow creating a page with a blank path" do
+      create(:page) # create the index page
+      page = Maglev::Page.new(title: 'Hello world', path: '')
+      expect(page).to be_invalid
+      expect(page.errors.full_messages).to eq(['Path can\'t be blank'])
+    end
+
+    it "doesn't allow creating a page with a path which already exists" do
+      create(:page) # create the index page
+      page = Maglev::Page.new(title: 'Hello world', path: 'index')
+      expect(page).to be_invalid
+      expect(page.errors.full_messages).to eq(['Path has already been taken'])
+    end
+  end
+
   describe 'adding a second canonical path' do
     let(:page) { create(:page) }
     subject { page.paths.create!(canonical: true, value: 'canonical-wannabe') }

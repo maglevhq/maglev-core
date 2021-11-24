@@ -11,8 +11,8 @@
       :label="$t(`page.form.path`)"
       name="path"
       v-model="pathInput"
-      :error="errors.path"
-      v-if="!isPageIndex"
+      :error="errors.path || errors.pathsValue"
+      v-if="!isPageIndex || !page.id"
     />
 
     <checkbox-input

@@ -3,3 +3,5 @@ en:
     attributes:
       'maglev/page': 
         cloned_title: "%{title} COPY"
+      'maglev/page/paths':
+        value: Path

@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_211_116_161_121) do
+ActiveRecord::Schema.define(version: 20_211_124_101_005) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'plpgsql'
 
@@ -68,7 +68,7 @@ ActiveRecord::Schema.define(version: 20_211_116_161_121) do
     t.string 'value', null: false
     t.boolean 'canonical', default: true
     t.index %w[canonical locale value], name: 'canonical_speed'
-    t.index %w[canonical maglev_page_id locale value], name: 'canonical_uniqueness', unique: true
+    t.index %w[canonical maglev_page_id locale], name: 'scoped_canonical_speed'
     t.index ['maglev_page_id'], name: 'index_maglev_page_paths_on_maglev_page_id'
   end
 

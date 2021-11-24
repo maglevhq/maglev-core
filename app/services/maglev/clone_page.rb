@@ -44,8 +44,10 @@ module Maglev
 
     def clone_paths(cloned_page)
       code = generate_clone_code(4)
-      page.path_hash.each do |locale, value|
-        cloned_page.paths.build(locale: locale, value: "#{value}-#{code}")
+      page.path_hash.each do |locale, path|
+        Maglev::I18n.with_locale(locale) do
+          cloned_page.path = "#{path}-#{code}"
+        end
       end
     end
 

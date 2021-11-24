@@ -3,25 +3,25 @@
 require 'rails_helper'
 
 RSpec.describe Maglev::PagePath, type: :model do
-  let(:page) { create(:page) }
+  let!(:page) { create(:page) }
 
-  it 'allows a path to be canonical and not' do
-    expect(page.paths.create(canonical: true, value: page.path, locale: 'fr')).to be_valid
+  it 'allows a path to be canonical in another locale' do
+    expect(page.paths.build(canonical: true, value: page.path, locale: 'fr')).to be_valid
   end
 
-  it 'has a unique canonical per page' do
-    expect(page.paths.create(canonical: true, value: 'whatevs')).not_to be_valid
+  it 'allows a unique canonical path per page' do
+    expect(page.paths.build(canonical: true, value: 'whatevs')).not_to be_valid
   end
 
   it 'allows non-canonical non-duplicated values' do
-    expect(page.paths.create(canonical: false, value: 'whatevs')).to be_valid
+    expect(page.paths.build(canonical: false, value: 'whatevs')).to be_valid
   end
 
   describe 'with a different locale' do
     let!(:value) { Maglev::I18n.with_locale(Maglev::I18n.default_locale) { page.path } }
     it 'allows same canonical in different locale' do
       Maglev::I18n.with_locale('es') do
-        expect(page.paths.create(canonical: true, value: value)).to be_valid
+        expect(page.paths.build(canonical: true, value: value)).to be_valid
       end
     end
   end
