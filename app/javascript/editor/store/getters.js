@@ -6,6 +6,7 @@ export default {
       sections,
       blocks: sectionBlocks,
     })
+    if (!pageContent?.sections) return []
     return pageContent.sections.map((sectionContent) => {
       const sectionDefinition = theme.sections.find(
         (definition) => definition['id'] === sectionContent['type'],
