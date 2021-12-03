@@ -3,7 +3,7 @@
     :tabs="tabs"
     :firstIndex="tabIndexFromRoute"
     :otherProps="{ sectionId: currentSection.id, settingId }"
-    :enableOverflow="false"
+    :enableOverflow="true"
     sharedClass="px-4"
     ref="tabs"
   />

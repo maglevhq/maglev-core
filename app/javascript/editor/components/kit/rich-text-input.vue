@@ -9,7 +9,7 @@
     </label>
     <div class="mt-1">
       <editor-menu-bar :editor="editor" v-slot="{ commands, isActive }">
-        <div class="flex">
+        <div class="flex sticky top-0 z-10 pb-2 bg-white">
           <editor-block-button
             :commands="commands"
             :isActive="isActive"
@@ -40,7 +40,7 @@
       <div ref="editorWrapper">
         <editor-content
           :editor="editor"
-          class="rich-text-editor mt-2"
+          class="rich-text-editor"
           :data-rows="rows"
         />
       </div>

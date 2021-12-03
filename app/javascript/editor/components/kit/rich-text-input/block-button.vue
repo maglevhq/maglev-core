@@ -37,6 +37,12 @@
         </button>
         <button
           class="py-2 px-3 hover:bg-gray-200"
+          @click="commands.heading({ level: 4 })"
+        >
+          <icon name="format-heading-4" />
+        </button>
+        <button
+          class="py-2 px-3 hover:bg-gray-200"
           @click="commands.blockquote"
         >
           <icon name="format-blockquote" />
@@ -63,6 +69,7 @@ export default {
     iconName() {
       if (this.isActive.heading({ level: 2 })) return 'format-heading-2'
       else if (this.isActive.heading({ level: 3 })) return 'format-heading-3'
+      else if (this.isActive.heading({ level: 4 })) return 'format-heading-4'
       else if (this.isActive.blockquote()) return 'format-blockquote'
       else if (this.isActive.code_block()) return 'format-code'
       else return 'format-paragraph'

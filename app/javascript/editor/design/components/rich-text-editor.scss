@@ -1,8 +1,8 @@
 .rich-text-editor {
   position: relative;
 
-  @for $i from 1 through 10 {
-    &[data-rows="#{$i}"] {
+  @for $i from 1 through 20 {
+    &[data-rows='#{$i}'] {
       .ProseMirror {
         height: calc(#{$i} * 1.75rem);
         overflow: auto;
@@ -146,7 +146,7 @@
       .selectedCell:after {
         z-index: 2;
         position: absolute;
-        content: "";
+        content: '';
         left: 0;
         right: 0;
         top: 0;
