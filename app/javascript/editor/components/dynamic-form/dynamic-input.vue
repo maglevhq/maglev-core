@@ -36,6 +36,7 @@
     <image-input
       :label="setting.label"
       :name="setting.id"
+      :isFocused="isFocused"
       v-model="inputValue"
       v-if="setting.type == 'image'"
     />

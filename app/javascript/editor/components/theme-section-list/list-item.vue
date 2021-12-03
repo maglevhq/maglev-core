@@ -2,7 +2,7 @@
   <div
     class="
       relative
-      mb-3
+      mb-6
       w-full
       transition
       duration-150

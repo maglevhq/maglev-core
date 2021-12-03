@@ -6,6 +6,7 @@ export default {
     state.device = value
   },
   SET_PREVIEW_DOCUMENT(state, previewDocument) {
+    state.hoveredSection = null
     state.section = null
     state.previewReady = !!previewDocument
     state.previewDocument = previewDocument

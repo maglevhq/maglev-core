@@ -80,10 +80,12 @@
 </template>
 
 <script>
+import FocusedInputMixin from '@/mixins/focused-input'
 import ImageLibrary from '@/components/image-library'
 
 export default {
   name: 'ImageInput',
+  mixins: [FocusedInputMixin],
   props: {
     label: { type: String, default: 'Label' },
     name: { type: String, default: 'image' },
@@ -106,6 +108,9 @@ export default {
     },
   },
   methods: {
+    focus() {
+      this.openImagePickerModal()
+    },
     openImagePickerModal() {
       this.openModal({
         title: this.$t('imageLibrary.pickerTitle'),

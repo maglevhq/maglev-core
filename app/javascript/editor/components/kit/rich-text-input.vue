@@ -37,7 +37,7 @@
           />
         </div>
       </editor-menu-bar>
-      <div ref="editorWrapper">
+      <div ref="editorWrapper" class="mt-1">
         <editor-content
           :editor="editor"
           class="rich-text-editor"
