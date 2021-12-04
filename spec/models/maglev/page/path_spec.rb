@@ -26,6 +26,24 @@ RSpec.describe Maglev::Page, type: :model do
     end
   end
 
+  describe 'cleaning path' do
+    let(:path) { Maglev::PagePath.new(value: value) }
+    before(:each) { path.valid? }
+    subject { path.value }
+    context 'the path contains a leading slash' do
+      let(:value) { '/foo' }
+      it { is_expected.to eq 'foo' }
+    end
+    context 'the path contains a trailing slash' do
+      let(:value) { 'foo/' }
+      it { is_expected.to eq 'foo' }
+    end
+    context 'the path contains multiple slashes' do
+      let(:value) { 'foo///bar/index' }
+      it { is_expected.to eq 'foo--bar--index' }
+    end
+  end
+
   describe 'adding a second canonical path' do
     let(:page) { create(:page) }
     subject { page.paths.create!(canonical: true, value: 'canonical-wannabe') }

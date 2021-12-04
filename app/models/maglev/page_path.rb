@@ -31,7 +31,17 @@ module Maglev
     private
 
     def clean_value!
-      value.gsub!(%r{(^/|/$)}, '') if value.present?
+      return if value.blank?
+
+      self.value = clean_value
+    end
+
+    def clean_value
+      value
+        .strip
+        .gsub(%r{(^/|/$)}, '')
+        .gsub(%r{//+/}, '/')
+        .gsub('/', '--')
     end
   end
 end
