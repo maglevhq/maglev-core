@@ -9,6 +9,9 @@ fr:
         cloned_title: "%{title} COPIE"
         seo_title: Titre SEO
         meta_description: Meta description
+        og_title: "og:title"
+        og_description: "og:description"
+        og_image_url: "og:image"
       'maglev/page/paths':
         value: Chemin
 

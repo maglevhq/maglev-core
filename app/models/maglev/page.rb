@@ -10,8 +10,9 @@ module Maglev
 
     ## translations ##
     translates :title, presence: true
-    translates :sections # , default: [] # WARNING: be careful
+    translates :sections
     translates :seo_title, :meta_description
+    translates :og_title, :og_description, :og_image_url
 
     ## scopes ##
     scope :home, ->(locale = nil) { by_path('index', locale) }

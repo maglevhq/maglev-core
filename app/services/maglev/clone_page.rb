@@ -32,6 +32,9 @@ module Maglev
         title_translations: clone_title,
         seo_title_translations: page.seo_title_translations,
         meta_description_translations: page.meta_description_translations,
+        og_title_translations: page.og_title_translations,
+        og_description_translations: page.og_description_translations,
+        og_image_url_translations: page.og_image_url_translations,
         sections_translations: page.sections_translations
       }
     end

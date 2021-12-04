@@ -40,6 +40,9 @@ RSpec.describe 'Maglev::API::PagesController', type: :request do
           visible: true,
           seo_title: nil,
           meta_description: nil,
+          og_title: nil,
+          og_description: nil,
+          og_image_url: nil,
           preview_url: '/maglev/preview',
           section_names: [a_hash_including(name: 'Jumbotron'), a_hash_including(name: 'Showcase')]
         }
@@ -63,6 +66,9 @@ RSpec.describe 'Maglev::API::PagesController', type: :request do
             visible: true,
             seo_title: nil,
             meta_description: nil,
+            og_title: nil,
+            og_description: nil,
+            og_image_url: nil,
             preview_url: '/maglev/preview',
             section_names: [a_hash_including(name: 'Jumbotron'), a_hash_including(name: 'Showcase')]
           }

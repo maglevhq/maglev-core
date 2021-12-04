@@ -3,8 +3,15 @@
 <head>
   <title><%%= maglev_site.name %></title>
   <meta content="width=device-width, initial-scale=1" name="viewport">
-  <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+
+  <meta name="description" content="<%%= maglev_page.meta_description %>" />  
+  <meta property="og:title" content="<%%= maglev_page.og_title %>" />
+  <meta property="og:description" content="<%%= maglev_page.og_description %>" />
+  <meta property="og:image" content="<%%= maglev_page.og_title %>" />
+
   <%%= render_maglev_alternate_links %>
+
+  <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
 </head>
 <body class="bg-white">
   <main data-maglev-dropzone>

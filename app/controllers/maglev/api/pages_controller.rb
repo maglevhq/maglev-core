@@ -40,8 +40,10 @@ module Maglev
       end
 
       def page_params
-        params.require(:page).permit(:title, :path, :seo_title, :meta_description, :visible,
-                                     :lock_version).tap do |whitelisted|
+        params.require(:page).permit(:title, :path,
+                                     :seo_title, :meta_description,
+                                     :og_title, :og_description, :og_image_url,
+                                     :visible, :lock_version).tap do |whitelisted|
           whitelisted[:sections] = params[:page].to_unsafe_hash[:sections] unless params.dig(:page, :sections).nil?
         end
       end

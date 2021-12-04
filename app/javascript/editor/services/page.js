@@ -19,6 +19,9 @@ export const SETTING_ATTRIBUTES = [
   'path',
   'visible',
   'seoTitle',
+  'ogTitle',
+  'ogDescription',
+  'ogImageUrl',
   'metaDescription',
   'lockVersion',
 ]

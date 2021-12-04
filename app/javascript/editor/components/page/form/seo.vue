@@ -11,6 +11,24 @@
       name="meta-description"
       v-model="metaDescriptionInput"
     />
+
+    <text-input
+      :label="$t(`page.form.ogTitle`)"
+      name="og-title"
+      v-model="ogTitleInput"
+    />
+
+    <textarea-input
+      :label="$t(`page.form.ogDescription`)"
+      name="og-description"
+      v-model="ogDescriptionInput"
+    />
+
+    <image-input
+      :label="$t(`page.form.ogImageUrl`)"
+      name="og-image-url"
+      v-model="ogImageUrlInput"
+    />
   </div>
 </template>
 
@@ -36,6 +54,30 @@ export default {
       },
       set(metaDescription) {
         this.$emit('on-change', { metaDescription })
+      },
+    },
+    ogTitleInput: {
+      get() {
+        return this.page.ogTitle
+      },
+      set(ogTitle) {
+        this.$emit('on-change', { ogTitle })
+      },
+    },
+    ogDescriptionInput: {
+      get() {
+        return this.page.ogDescription
+      },
+      set(ogDescription) {
+        this.$emit('on-change', { ogDescription })
+      },
+    },
+    ogImageUrlInput: {
+      get() {
+        return { url: this.page.ogImageUrl }
+      },
+      set(ogImage) {
+        this.$emit('on-change', { ogImageUrl: ogImage.url })
       },
     },
   },

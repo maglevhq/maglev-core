@@ -60,7 +60,10 @@
       "visible": "Visible",
       "visiblePlaceholder": "Show/Hide the page",
       "seoTitle": "Meta title",
-      "metaDescription": "Meta description"
+      "metaDescription": "Meta description",
+      "ogTitle": "og:title",
+      "ogDescription": "og:description",
+      "ogImageUrl": "og:image"
     }
   },
   "sections": {
