@@ -8,14 +8,10 @@
           <div class="h-12 bg-gray-200 rounded w-full mb-3"></div>
         </div>
       </div>
-      <div
-        key="empty-list"
-        class="pt-4 text-center"
-        v-if="!isLoading && isEmpty"
-      >
+      <div key="empty-list" class="pt-4 text-center" v-else-if="isEmpty">
         No pages found
       </div>
-      <div key="list" v-if="!isLoading && !isEmpty">
+      <div key="list" v-else>
         <list-item
           v-for="page in pages"
           :key="page.id"

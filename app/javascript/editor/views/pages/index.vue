@@ -1,15 +1,19 @@
 <template>
-  <layout :title="$t('page.list.title')" :sub-title="$t('page.list.subTitle')">
-    <div class="h-full flex flex-col">
-      <div class="pt-2">
+  <layout
+    :title="$t('page.list.title')"
+    :sub-title="$t('page.list.subTitle')"
+    :overflowY="false"
+  >
+    <div class="h-full flex flex-col px-4 pb-4">
+      <div class="py-2">
         <search-input
           @search="search"
           class="py-4"
           :placeholder="$t('page.list.searchPlaceholder')"
         />
       </div>
-      <div class="flex-grow overflow-y-auto">
-        <page-list :q="q" class="h-full mt-4" ref="list" />
+      <div class="flex-1 overflow-y-auto">
+        <page-list :q="q" class="h-full pt-2" ref="list" />
       </div>
       <div class="pt-4" v-if="canAddPage">
         <button
