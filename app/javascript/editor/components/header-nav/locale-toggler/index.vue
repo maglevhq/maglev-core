@@ -1,11 +1,6 @@
 <template>
   <div>
-    <dropdown
-      placement="left"
-      :dropup="false"
-      ref="dropdown"
-      class="h-full flex"
-    >
+    <dropdown placement="bottom" ref="dropdown" class="h-full flex">
       <template v-slot:button>
         <button
           class="

@@ -3,8 +3,6 @@
     <dropdown
       placement="left"
       ref="dropdown"
-      :dropup="true"
-      :fullWidth="true"
       v-on="$listeners"
       v-if="hasMultipleTypes"
     >

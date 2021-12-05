@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import { VPopover } from 'v-tooltip'
 import Icon from './icon'
 import ModalRoot from './modal-root'
 import Modal from './modal'
@@ -23,6 +24,7 @@ import CollectionItemInput from './collection-item-input'
 import ListItemButton from './list-item-button'
 
 Vue.component('icon', Icon)
+Vue.component('v-popoper', VPopover)
 Vue.component('dropdown', Dropdown)
 Vue.component('modal-root', ModalRoot)
 Vue.component('modal', Modal)

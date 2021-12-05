@@ -115,7 +115,6 @@
               <span class="ml-2">{{ $t('page.list.item.show') }}</span>
             </button>
             <confirmation-button
-              :dropup="true"
               @confirm="deletePage"
               ref="deleteDropdown"
               v-if="!isIndexPage"

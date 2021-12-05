@@ -1,15 +1,16 @@
-@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700&display=swap');
 
-@import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
 
-@import "./helpers";
-@import "./transitions";
-@import "./components/rich-text-editor";
-@import "./components/modal";
-@import "./components/tree";
-@import "./components/buttons";
+@import './helpers';
+@import './transitions';
+@import './components/rich-text-editor';
+@import './components/modal';
+@import './components/tree';
+@import './components/buttons';
+@import './components/tooltip';
 
 :root {
   --bg-opacity: 1;

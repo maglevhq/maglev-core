@@ -1,7 +1,6 @@
 <template>
   <dropdown
     :placement="placement"
-    :dropup="dropup"
     v-on="$listeners"
     class="relative"
     ref="dropdown"
@@ -49,8 +48,7 @@
 export default {
   name: 'ConfirmationButton',
   props: {
-    placement: { type: String, default: 'right' },
-    dropup: { type: Boolean, default: false },
+    placement: { type: String, default: 'bottom' },
     text: { type: String, default: null },
     confirmButtonLabel: { type: String, default: null },
     cancelButtonLabel: { type: String, default: null },
