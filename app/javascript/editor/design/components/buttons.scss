@@ -1,6 +1,7 @@
 .big-submit-button {
-  @apply 
-    block
+  @apply flex
+    items-center
+    justify-center
     rounded-sm
     w-full
     px-6
@@ -14,8 +15,7 @@
 }
 
 .cancel-button {
-  @apply 
-    block
+  @apply block
     w-full
     text-gray-800
     py-3

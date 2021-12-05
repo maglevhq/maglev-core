@@ -1,32 +1,13 @@
 <template>
   <div class="w-full">
     <dropdown
-      placement="left"
+      placement="top"
       ref="dropdown"
       v-on="$listeners"
       v-if="hasMultipleTypes"
     >
       <template v-slot:button>
-        <button
-          class="
-            border-editor-primary
-            text-editor-primary
-            border-opacity-50
-            text-opacity-50
-            hover:border-opacity-100 hover:text-opacity-100
-            transition-all
-            duration-200
-            ease-in-out
-            border-dashed border-2
-            rounded-md
-            w-full
-            px-4
-            py-3
-            flex
-            items-center
-            justify-center
-          "
-        >
+        <button class="big-submit-button bg-editor-primary">
           <icon name="ri-add-line" size="1.5rem" />
           <span class="ml-3">{{ $t('sectionPane.blockList.add') }}</span>
         </button>
@@ -50,24 +31,7 @@
       </template>
     </dropdown>
     <button
-      class="
-        border-editor-primary
-        text-editor-primary
-        border-opacity-50
-        text-opacity-50
-        hover:border-opacity-100 hover:text-opacity-100
-        transition-all
-        duration-200
-        ease-in-out
-        border-dashed border-2
-        rounded-md
-        w-full
-        px-4
-        py-3
-        flex
-        items-center
-        justify-center
-      "
+      class="big-submit-button bg-editor-primary"
       @click="addSectionBlock"
       v-else
     >
