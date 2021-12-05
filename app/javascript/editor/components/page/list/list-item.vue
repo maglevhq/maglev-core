@@ -179,7 +179,7 @@ export default {
       })
     },
     onUpdate(editedPage) {
-      this.$refs.deleteDropdown.close()
+      this.closeDropdown()
       if (this.isCurrentPage) this.setCurrentPageSettings(editedPage)
       this.$emit('on-update')
     },
@@ -197,12 +197,16 @@ export default {
         .then(() => this.$emit('on-update'))
     },
     deletePage() {
-      this.$refs.deleteDropdown.close()
+      this.closeDropdown()
       this.services.page.destroy(this.page.id).then(() => {
         this.$emit('on-delete')
         if (this.isCurrentPage)
           this.$router.push({ name: 'editPage', params: { pageId: 'index' } })
       })
+    },
+    closeDropdown() {
+      if (!this.$refs.deleteDropdown) return
+      this.$refs.deleteDropdown.close()
     },
   },
 }

@@ -28,6 +28,8 @@
 </template>
 
 <script>
+import { ModalBus } from '@/plugins/event-bus'
+
 export default {
   name: 'Dropdown',
   props: {
@@ -44,6 +46,7 @@ export default {
     }
   },
   mounted() {
+    ModalBus.$on('open', () => this.close())
     document.addEventListener('keydown', this.onEscape)
     this.$once('hook:beforeDestroy', () => {
       document.removeEventListener('keydown', this.onEscape)
