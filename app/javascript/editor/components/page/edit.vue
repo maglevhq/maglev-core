@@ -1,12 +1,13 @@
 <template>
-  <div :class="{ 'mt-4': insideModal, 'flex flex-col h-full': !insideModal }">
+  <div class="flex flex-col flex-1 overflow-y-hidden">
     <tabs
       :tabs="tabs"
       :otherProps="{ page: editedPage, errors }"
       sharedClass="px-1/2"
+      class="overflow-y-hidden pb-4"
       @on-change="onChange"
     />
-    <div :class="{ 'mt-4': insideModal, 'mt-auto': !insideModal }">
+    <div class="mt-auto">
       <submit-button
         type="button"
         class="big-submit-button"

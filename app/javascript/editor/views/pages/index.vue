@@ -48,6 +48,9 @@ export default {
         title: this.$t('page.new.title'),
         component: NewPageModal,
         closeOnClick: false,
+        props: {
+          modalClass: 'w-120 h-144',
+        },
         listeners: {
           'on-refresh': () => this.$refs.list.fetch(),
         },

@@ -73,10 +73,13 @@
     </slot>
 
     <div
-      class="flex-1"
+      class="flex-1 flex flex-col"
       :class="{ 'overflow-y-auto': overflowY, 'overflow-y-hidden': !overflowY }"
     >
-      <div class="h-full" :class="{ 'pb-4 mx-4': overflowY }">
+      <div
+        class="flex-1 flex flex-col"
+        :class="{ 'pb-4 mx-4': overflowY, 'overflow-y-hidden': !overflowY }"
+      >
         <slot></slot>
       </div>
     </div>

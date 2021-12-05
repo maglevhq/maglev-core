@@ -1,15 +1,18 @@
 <template>
   <modal
-    :isOpen="!!component"
+    :isOpen="!!currentModal"
     :title="title"
-    :containerClass="modalClass"
+    :containerClass="containerClass"
     @on-close="handleOutsideClick"
   >
     <component
-      :is="component"
+      v-for="(modal, index) in stack"
+      :key="`modal-${index}`"
+      :is="modal.component"
       @on-close="handleClose"
-      v-bind="props"
-      v-on="listeners"
+      v-bind="modal.props"
+      v-on="modal.listeners"
+      v-show="index === stack.length - 1"
     />
   </modal>
 </template>
@@ -21,12 +24,7 @@ export default {
   name: 'ModalRoot',
   data() {
     return {
-      component: null,
-      title: '',
-      props: null,
-      listeners: {},
-      closeOnClick: true,
-      modalClass: null,
+      stack: [], // NOTE: we stack modals!
     }
   },
   created() {
@@ -39,15 +37,16 @@ export default {
         listeners = {},
         closeOnClick = true,
       }) => {
-        const { modalClass, ...componentProps } = props || {}
-        this.component = component
-        this.title = title
-        this.props = componentProps
-        this.modalClass = modalClass
-        this.listeners = listeners
-        this.closeOnClick = closeOnClick
+        this.stack.push({
+          component,
+          title,
+          props,
+          listeners,
+          closeOnClick,
+        })
       },
     )
+
     ModalBus.$on('close', () => this.handleClose())
     document.addEventListener('keyup', this.handleKeyup)
   },
@@ -55,8 +54,14 @@ export default {
     document.removeEventListener('keyup', this.handleKeyup)
   },
   computed: {
+    currentModal() {
+      return this.stack.length === 0 ? null : this.stack[this.stack.length - 1]
+    },
+    title() {
+      return this.currentModal?.title
+    },
     containerClass() {
-      return this.props?.modalClass
+      return this.currentModal?.props?.modalClass
     },
   },
   methods: {
@@ -64,11 +69,12 @@ export default {
       if (!this.closeOnClick && !force) return
       this.handleClose()
     },
-    handleClose() {
-      this.component = null
-    },
     handleKeyup(e) {
       if (e.keyCode === 27) this.handleClose()
+    },
+    handleClose() {
+      if (!this.currentModal) return
+      this.stack.pop()
     },
   },
 }

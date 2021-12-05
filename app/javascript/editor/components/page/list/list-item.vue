@@ -172,6 +172,7 @@ export default {
         props: {
           page: this.page,
           insideModal: true,
+          modalClass: 'w-120 h-144',
         },
         listeners: {
           'on-update': (editedPage) => this.onUpdate(editedPage),

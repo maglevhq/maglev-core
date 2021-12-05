@@ -1,5 +1,5 @@
 <template>
-  <div class="mt-4">
+  <div>
     <div class="flex items-center" v-if="!hasNoImagesYet">
       <image-uploader
         :multiple="true"

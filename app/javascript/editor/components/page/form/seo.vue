@@ -27,6 +27,7 @@
     <image-input
       :label="$t(`page.form.ogImageUrl`)"
       name="og-image-url"
+      :hasAltText="false"
       v-model="ogImageUrlInput"
     />
   </div>

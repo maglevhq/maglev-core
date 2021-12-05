@@ -73,6 +73,7 @@
           :showLabel="false"
           :placeholder="$t('imageInput.altTextPlaceholder')"
           v-model="altText"
+          v-if="hasAltText"
         />
       </div>
     </div>
@@ -90,6 +91,7 @@ export default {
     label: { type: String, default: 'Label' },
     name: { type: String, default: 'image' },
     value: { default: () => ({ altText: '' }) },
+    hasAltText: { type: Boolean, default: true, required: false },
   },
   data() {
     return { hovered: false, errorOnLoading: false }
