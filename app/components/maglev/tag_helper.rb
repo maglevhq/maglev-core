@@ -16,8 +16,8 @@ module Maglev
     end
 
     def setting_tag(setting_id, options = {}, &block)
-      setting = settings.public_send(setting_id)
-      setting.tag(view_context, options, &block)
+      # setting = settings.public_send(setting_id)
+      find_setting(settings, setting_id).tag(view_context, options, &block)
     end
 
     class WrapperTagBuilder

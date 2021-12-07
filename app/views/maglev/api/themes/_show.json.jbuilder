@@ -13,3 +13,4 @@ json.sections theme.sections do |section|
   json.screenshot_path services.fetch_section_screenshot_url.call(section: section)
 end
 json.section_categories theme.section_categories.as_json
+json.icons theme.icons || []

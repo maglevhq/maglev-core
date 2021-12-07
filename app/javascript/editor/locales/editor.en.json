@@ -124,6 +124,15 @@
         "fail": "Fail!"
       }
     }
+  },  
+  "iconInput": {
+    "addButton": "Add icon",
+    "replaceButton": "Replace icon",
+    "clearButton": "Clear"
+  },
+  "iconLibrary": {
+    "title": "Icons",
+    "pickerTitle": "Pick an icon"
   },
   "linkInput": {
     "placeholder": "Click here to select a link",

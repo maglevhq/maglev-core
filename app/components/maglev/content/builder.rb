@@ -10,7 +10,8 @@ module Maglev
         checkbox: Maglev::Content::Checkbox,
         color: Maglev::Content::Color,
         select: Maglev::Content::Select,
-        collection_item: Maglev::Content::CollectionItem
+        collection_item: Maglev::Content::CollectionItem,
+        icon: Maglev::Content::Icon
       }.freeze
 
       def build(scope, content, setting)

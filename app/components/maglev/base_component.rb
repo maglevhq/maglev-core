@@ -44,5 +44,11 @@ module Maglev
     def find_setting_value(settings, definition)
       settings.find { |setting| definition.id == setting[:id] }&.[](:value)
     end
+
+    def find_setting(settings, setting_id)
+      settings.public_send(setting_id)
+    rescue NoMethodError
+      raise "[Maglev] We're sorry but there is no '#{setting_id}' setting in your section/block."
+    end
   end
 end

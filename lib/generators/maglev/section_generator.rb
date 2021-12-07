@@ -76,6 +76,7 @@ module Maglev
         @label = label || id.humanize
       end
 
+      # rubocop:disable Metrics/CyclomaticComplexity
       def default
         case type
         when 'text' then label
@@ -84,9 +85,10 @@ module Maglev
         when 'link' then '"#"'
         when 'color' then '#E5E7EB'
         when 'radio', 'select' then 'option_1'
-
+        when 'icon' then 'default-icon-class'
         end
       end
+      # rubocop:enable Metrics/CyclomaticComplexity
 
       def value?
         !%w[hint content_type].include?(type)

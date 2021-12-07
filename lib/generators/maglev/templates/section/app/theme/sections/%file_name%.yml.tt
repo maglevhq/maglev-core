@@ -15,7 +15,7 @@ category: <%= options['category'] %>
 # insert_at: top 
 
 # Definition of the settings:
-# A setting type can be one of the following values: text, image, link, checkbox and color.
+# A setting type can be one of the following values: text, image, link, collection_item, checkbox, color and icon.
 # Please visit: https://docs.maglev.dev/concepts/setting for more explanation.
 settings:
 <%- settings.each do |setting| -%>

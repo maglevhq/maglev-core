@@ -27,7 +27,9 @@
       --editor-color-primary: <%= editor_primary_hex_color %>;
       --editor-color-primary-non-hex: <%= editor_primary_rgb_color.join(', ') %>;
     }
-  </style>  
+  </style>
+
+  <%= render 'header' %>  
 </head>
 <body class="h-full overflow-y-hidden font-nunito">
   <div id="maglev-app"></div>

@@ -124,6 +124,15 @@
       }
     }
   },
+  "iconInput": {
+    "addButton": "Ajouter une icône",
+    "replaceButton": "Remplacer l'icône",
+    "clearButton": "Effacer"
+  },
+  "iconLibrary": {
+    "title": "Icônes",
+    "pickerTitle": "Sélectionner une icône"
+  },
   "linkInput": {
     "placeholder": "Cliquez ici pour sélectionner un lien",
     "withNestedTextLabel": "Activer le texte",

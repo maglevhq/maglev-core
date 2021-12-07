@@ -40,6 +40,13 @@
       v-model="inputValue"
       v-if="setting.type == 'image'"
     />
+    <icon-input
+      :label="setting.label"
+      :name="setting.id"
+      :isFocused="isFocused"
+      v-model="inputValue"
+      v-if="setting.type == 'icon'"
+    />
     <checkbox-input
       :label="setting.label"
       :name="setting.id"

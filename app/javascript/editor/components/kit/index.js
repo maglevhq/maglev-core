@@ -9,6 +9,7 @@ import Dropdown from './dropdown'
 import ConfirmationButton from './confirmation-button'
 import SubmitButton from './submit-button'
 import ImageInput from './image-input'
+import IconInput from './icon-input'
 import LinkInput from './link-input'
 import SelectInput from './select-input'
 import TextAreaInput from './textarea-input'
@@ -33,6 +34,7 @@ Vue.component('accordion', Accordion)
 Vue.component('confirmation-button', ConfirmationButton)
 Vue.component('submit-button', SubmitButton)
 Vue.component('image-input', ImageInput)
+Vue.component('icon-input', IconInput)
 Vue.component('link-input', LinkInput)
 Vue.component('select-input', SelectInput)
 Vue.component('textarea-input', TextAreaInput)
