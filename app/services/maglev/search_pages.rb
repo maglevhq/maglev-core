@@ -22,8 +22,8 @@ module Maglev
 
     def single_page
       resources.by_id_or_path(id).first ||
-      resources.by_id_or_path(id, content_locale).first ||
-      find_static_pages.find { |page| page.id === id }
+        resources.by_id_or_path(id, content_locale).first ||
+        find_static_pages.find { |page| page.id == id }
     end
 
     def all_pages
@@ -35,17 +35,21 @@ module Maglev
     end
 
     def find_static_pages
-      Maglev::I18n.with_locale(content_locale) do 
+      Maglev::I18n.with_locale(content_locale) do
         fetch_static_pages.call.find_all do |page|
-          q.nil? || (
-            q.present? && 
-            (
-              page.title.downcase.include?(q.downcase) || 
-              page.path.include?(q.downcase)
-            )
-          )
+          match_static_page?(page)
         end
       end
+    end
+
+    def match_static_page?(page)
+      q.nil? || (
+        q.present? &&
+        (
+          page.title.downcase.include?(q.downcase) ||
+          page.path.include?(q.downcase)
+        )
+      )
     end
 
     def resources

@@ -40,6 +40,7 @@ group :development, :test do
 
   gem 'rubocop', require: false
   gem 'rubocop-rails_config'
+  gem 'rubocop-rspec'
 
   gem 'generator_spec'
 

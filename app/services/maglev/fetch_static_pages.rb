@@ -9,6 +9,7 @@ module Maglev
 
     def call
       return [] if config.static_pages.blank?
+
       build_static_pages
     end
 
@@ -16,18 +17,21 @@ module Maglev
 
     def build_static_pages
       config.static_pages.map do |raw_attributes|
-        attributes = raw_attributes.symbolize_keys
-        Maglev::StaticPage.new(
-          id: fetch_id(attributes),
-          title_translations: fetch_attribute(attributes, :title),
-          path_translations: fetch_path_attribute(attributes),
-          seo_title_translations: {},
-          meta_description_translations: {},
-          og_title_translations: {},
-          og_description_translations: {},
-          og_image_url_translations: {},
-        )
+        build_static_page(raw_attributes.symbolize_keys)
       end
+    end
+
+    def build_static_page(attributes)
+      Maglev::StaticPage.new(
+        id: fetch_id(attributes),
+        title_translations: fetch_attribute(attributes, :title),
+        path_translations: fetch_path_attribute(attributes),
+        seo_title_translations: {},
+        meta_description_translations: {},
+        og_title_translations: {},
+        og_description_translations: {},
+        og_image_url_translations: {}
+      )
     end
 
     def fetch_id(attributes)
@@ -36,13 +40,14 @@ module Maglev
 
     def fetch_path_attribute(attributes)
       fetch_attribute(attributes, :path).transform_values do |path|
-        path.gsub(/^\//, '')
+        path.gsub(%r{^/}, '')
       end
     end
 
     def fetch_attribute(attributes, name)
       value = attributes[name]
       return {} if value.blank?
+
       value.is_a?(Hash) ? value.stringify_keys : { default_locale => value }
     end
 

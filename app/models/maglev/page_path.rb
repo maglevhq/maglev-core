@@ -15,7 +15,6 @@ module Maglev
     validates :value, uniqueness: { scope: %i[locale canonical] }, if: :canonical?
     validates :canonical, uniqueness: { scope: %i[locale maglev_page_id] }, if: :canonical?
 
-
     ## callbacks ##
     after_initialize -> { self.locale ||= Maglev::I18n.current_locale }
     before_validation :clean_value!

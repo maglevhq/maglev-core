@@ -8,7 +8,7 @@ RSpec.describe Maglev::PagePath, type: :model do
   it "can't use a reserved path" do
     expect(page.paths.build(canonical: true, value: 'products', locale: 'fr')).to be_invalid
   end
-  
+
   it 'allows a path to be canonical in another locale' do
     expect(page.paths.build(canonical: true, value: page.path, locale: 'fr')).to be_valid
   end

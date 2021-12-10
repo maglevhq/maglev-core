@@ -8,7 +8,9 @@ module Maglev
     include Maglev::Translatable
 
     ## attributes ##
-    attr_accessor :id, :title_translations, :path_translations, :seo_title_translations, :meta_description_translations, :og_title_translations, :og_description_translations, :og_image_url_translations
+    attr_accessor :id, :title_translations, :path_translations,
+                  :seo_title_translations, :meta_description_translations,
+                  :og_title_translations, :og_description_translations, :og_image_url_translations
 
     ## translations ##
     translates :title, :path, :seo_title, :meta_description, :og_title, :og_description, :og_image_url
@@ -24,7 +26,7 @@ module Maglev
     end
 
     def path_hash
-      self.path_translations
+      path_translations
     end
 
     def lock_version

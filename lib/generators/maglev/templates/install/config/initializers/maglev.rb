@@ -56,16 +56,16 @@ Maglev.configure do |config|
   #   }
   # }
 
-  # Let your content editors references existing pages of your application but 
+  # Let your content editors references existing pages of your application but
   # not served/rendered by Maglev.
   # config.static_pages = [
-  #   { 
-  #     title: { en: 'Products', fr: 'Produits' }, 
-  #     path: { en: 'products', fr: 'fr/produits' } 
+  #   {
+  #     title: { en: 'Products', fr: 'Produits' },
+  #     path: { en: 'products', fr: 'fr/produits' }
   #   },
-  #   { 
-  #     title: { en: 'Authentication', fr: 'Authentification' }, 
-  #     path: { en: 'sign-in', fr: 'fr/se-connecter' } 
+  #   {
+  #     title: { en: 'Authentication', fr: 'Authentification' },
+  #     path: { en: 'sign-in', fr: 'fr/se-connecter' }
   #   }
   # ]
 
