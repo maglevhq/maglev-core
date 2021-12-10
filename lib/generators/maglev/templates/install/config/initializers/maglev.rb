@@ -55,4 +55,21 @@ Maglev.configure do |config|
   #     }
   #   }
   # }
+
+  # Let your content editors references existing pages of your application but 
+  # not served/rendered by Maglev.
+  # config.static_pages = [
+  #   { 
+  #     title: { en: 'Products', fr: 'Produits' }, 
+  #     path: { en: 'products', fr: 'fr/produits' } 
+  #   },
+  #   { 
+  #     title: { en: 'Authentication', fr: 'Authentification' }, 
+  #     path: { en: 'sign-in', fr: 'fr/se-connecter' } 
+  #   }
+  # ]
+
+  # Prevent the content editors to create pages sharing the same path with other
+  # existing pages of the application.
+  # config.reserved_paths = %w(products sign-in search)
 end

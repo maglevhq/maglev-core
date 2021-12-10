@@ -21,6 +21,8 @@ module Maglev
                                               depends_on: :fetch_section_screenshot_path
 
     dependency :fetch_collection_items,     class: Maglev::FetchCollectionItems, depends_on: %i[fetch_site config]
+    dependency :fetch_static_pages,        class: Maglev::FetchStaticPages, depends_on: %i[config]
+    dependency :search_pages, class: Maglev::SearchPages, depends_on: %i[fetch_site fetch_static_pages]
 
     dependency :get_base_url,               class: Maglev::GetBaseUrl, depends_on: %i[context fetch_site]
     dependency :extract_locale,             class: Maglev::ExtractLocale

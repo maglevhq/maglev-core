@@ -8,7 +8,6 @@ module Maglev
     extend ActiveSupport::Concern
 
     def translations_for(attr)
-      # puts ['????', attr, self.class, public_send("#{attr}_translations")].inspect
       public_send("#{attr}_translations")
     end
 

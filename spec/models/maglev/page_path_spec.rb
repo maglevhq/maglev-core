@@ -5,6 +5,10 @@ require 'rails_helper'
 RSpec.describe Maglev::PagePath, type: :model do
   let!(:page) { create(:page) }
 
+  it "can't use a reserved path" do
+    expect(page.paths.build(canonical: true, value: 'products', locale: 'fr')).to be_invalid
+  end
+  
   it 'allows a path to be canonical in another locale' do
     expect(page.paths.build(canonical: true, value: page.path, locale: 'fr')).to be_valid
   end

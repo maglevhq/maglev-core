@@ -13,7 +13,7 @@
       </div>
       <div key="list" v-else>
         <list-item
-          v-for="page in pages"
+          v-for="page in previewablePages"
           :key="page.id"
           :page="page"
           @on-update="fetch"
@@ -43,7 +43,10 @@ export default {
   },
   computed: {
     isEmpty() {
-      return this.pages.length === 0
+      return this.previewablePages.length === 0
+    },
+    previewablePages() {
+      return this.pages.filter((page) => !!page.previewUrl)
     },
   },
   methods: {

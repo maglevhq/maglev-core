@@ -23,3 +23,4 @@ fr:
               blank: doît être rempli
             path:
               taken: est déjà utilisé par une autre page
+              exclusion: est déjà utilisé par une autre page

@@ -11,9 +11,10 @@ module Maglev
     scope :by_value, ->(value, locale = nil) { where(value: value, locale: locale || Maglev::I18n.current_locale) }
 
     ## validations ##
-    validates :value, presence: true
+    validates :value, presence: true, exclusion: { in: Maglev.config.reserved_paths }
     validates :value, uniqueness: { scope: %i[locale canonical] }, if: :canonical?
     validates :canonical, uniqueness: { scope: %i[locale maglev_page_id] }, if: :canonical?
+
 
     ## callbacks ##
     after_initialize -> { self.locale ||= Maglev::I18n.current_locale }

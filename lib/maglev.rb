@@ -37,6 +37,8 @@ module Maglev
         c.is_authenticated = ->(_site) { !Rails.env.production? }
         c.admin_username = nil
         c.admin_password = nil
+        c.static_pages = []
+        c.reserved_paths = []
       end
     end
     # rubocop:enable Metrics/MethodLength, Metrics/AbcSize

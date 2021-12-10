@@ -4,15 +4,11 @@ module Maglev
   module API
     class PagesController < ::Maglev::APIController
       def index
-        @pages = if params[:q]
-                   resources.search(params[:q], content_locale)
-                 else
-                   resources.all
-                 end
+        @pages = services.search_pages.call(q: params[:q], content_locale: content_locale)
       end
 
       def show
-        @page = find_by_id_or_path(params[:id])
+        @page = services.search_pages.call(id: params[:id], content_locale: content_locale)
         head :not_found if @page.nil?
       end
 
@@ -33,11 +29,6 @@ module Maglev
       end
 
       private
-
-      def find_by_id_or_path(id)
-        resources.by_id_or_path(id).first ||
-          resources.by_id_or_path(id, Maglev::I18n.default_locale).first
-      end
 
       def page_params
         params.require(:page).permit(:title, :path,
