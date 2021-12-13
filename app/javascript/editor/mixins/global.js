@@ -49,6 +49,9 @@ Vue.mixin({
     currentSectionBlock() {
       return this.$store.state.sectionBlock
     },
+    currentSectionBlockIndex() {
+      return this.$store.getters.sectionBlockIndex
+    },
     currentSectionBlockContent() {
       return this.$store.getters.sectionBlockContent
     },

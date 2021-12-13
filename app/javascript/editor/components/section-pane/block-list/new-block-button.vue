@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full">
+  <div class="w-full button-wrapper">
     <dropdown
       placement="top"
       ref="dropdown"
@@ -63,3 +63,9 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+.button-wrapper >>> .trigger {
+  @apply w-full;
+}
+</style>

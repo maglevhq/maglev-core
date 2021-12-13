@@ -15,6 +15,7 @@
         focus:outline-none
         select-none
         cursor-pointer
+        w-full
       "
       @click.stop.prevent="toggle"
     >

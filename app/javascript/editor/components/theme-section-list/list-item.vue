@@ -88,8 +88,8 @@ export default {
         this.$router.push({ name: 'editPage' })
       })
     },
-    imageLoaded(event) {
-      console.log('imageLoaded', this.section.name, event)
+    imageLoaded() {
+      // console.log('imageLoaded', this.section.name, event)
       this.isImageLoaded = true
     },
     imageNotFound(event) {

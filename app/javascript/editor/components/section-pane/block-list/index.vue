@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col h-full">
-    <div class="relative flex-auto h-0 overflow-y-auto">
+    <div class="relative flex-auto h-0 overflow-y-auto pt-2">
       <draggable v-model="list" v-bind="dragOptions">
         <transition-group type="transition" name="flip-list">
           <list-item
@@ -9,7 +9,7 @@
             :sectionBlock="sectionBlock"
             :index="index"
             @on-dropdown-toggle="onDropdownToggle"
-            class="mb-3"
+            class="mb-4"
           />
         </transition-group>
       </draggable>

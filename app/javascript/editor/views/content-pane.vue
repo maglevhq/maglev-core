@@ -55,7 +55,11 @@ export default {
       return this.currentSectionDefinition?.name
     },
     sectionBlockTitle() {
-      return this.currentSectionBlockDefinition?.name
+      return (
+        this.currentSectionBlockDefinition?.name +
+        ' ' +
+        `#${this.currentSectionBlockIndex}`
+      )
     },
     isSectionReady() {
       return this.sectionId && this.currentSection
