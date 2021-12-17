@@ -80,7 +80,7 @@ RSpec.describe 'Maglev::API::PagesController', type: :request do
     describe 'allows retrieval of a single page' do
       it 'returns a page based on its path' do
         page.update(title: 'Foo foo!', path: 'foo/foo')
-        get "/maglev/api/pages/foo%2Ffoo", as: :json
+        get '/maglev/api/pages/foo%2Ffoo', as: :json
         expect(json_response['title']).to eq 'Foo foo!'
       end
       it 'returns the lock version of the page' do
