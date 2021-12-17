@@ -27,7 +27,7 @@ module Maglev
 
       # check if we're processing the right version (canonical) of the page
       # if not, follow the proper SEO rule by redirecting the user with a 301
-      canonical_path = maglev_page.canonical_path
+      canonical_path = maglev_page.path
 
       return false if !canonical_path || params[:path] == canonical_path
 

@@ -49,9 +49,11 @@ export const findAll = (filters) => {
 export const findById = (site, id) => {
   if (id === 'index') id = site.homePageId
 
-  console.log('[PageService] Fetching page by id', id)
+  const safeId = String(id).replace('/', '%2F')
 
-  return api.get(`/pages/${id}`).then(({ data }) => data)
+  console.log('[PageService] Fetching page by id', safeId)
+
+  return api.get(`/pages/${safeId}`).then(({ data }) => data)
 }
 
 export const create = (attributes) => {

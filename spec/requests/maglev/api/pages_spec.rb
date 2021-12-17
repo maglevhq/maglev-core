@@ -78,6 +78,11 @@ RSpec.describe 'Maglev::API::PagesController', type: :request do
 
     # rubocop:disable Style/StringHashKeys
     describe 'allows retrieval of a single page' do
+      it 'returns a page based on its path' do
+        page.update(title: 'Foo foo!', path: 'foo/foo')
+        get "/maglev/api/pages/foo%2Ffoo", as: :json
+        expect(json_response['title']).to eq 'Foo foo!'
+      end
       it 'returns the lock version of the page' do
         get "/maglev/api/pages/#{page.id}", as: :json
         expect(json_response['lockVersion']).to eq 0

@@ -33,17 +33,11 @@ module Maglev::Page::PathConcern
   def current_path
     locale = Maglev::I18n.current_locale.to_sym
     @memoized_paths ||= {}
-    @memoized_paths[locale] ||= paths.find_or_initialize_by(locale: locale)
+    @memoized_paths[locale] ||= paths.canonical.find_or_initialize_by(locale: locale, canonical: true)
   end
 
   def path_hash
     paths.build_hash
-  end
-
-  def canonical_path
-    return path if current_path.canonical?
-
-    paths.find_by(canonical: true).value
   end
 
   def disable_spawn_redirection
@@ -57,11 +51,11 @@ module Maglev::Page::PathConcern
   private
 
   def spawn_redirection
-    new_value = current_path.value_in_database
+    old_value = current_path.value_in_database
 
     # the old path becomes now a redirection
     # we just have to make sure this redirection hasn't been added before.
-    paths.build(canonical: false, value: new_value) unless paths.not_canonical.by_value(new_value).exists?
+    paths.build(canonical: false, value: old_value) unless paths.not_canonical.by_value(old_value).exists?
 
     # don't forget to persist the new value of the current path
     current_path.save

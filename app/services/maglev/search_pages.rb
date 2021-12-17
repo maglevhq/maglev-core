@@ -13,6 +13,7 @@ module Maglev
     argument :id, default: nil
     argument :q, default: nil
     argument :content_locale
+    argument :default_locale
 
     def call
       id.nil? ? all_pages : single_page
@@ -21,9 +22,9 @@ module Maglev
     protected
 
     def single_page
-      resources.by_id_or_path(id).first ||
-        resources.by_id_or_path(id, content_locale).first ||
-        find_static_pages.find { |page| page.id == id }
+      resources.by_id_or_path(id, content_locale).first ||
+      resources.by_id_or_path(id, default_locale).first ||
+      find_static_pages.find { |page| page.id == id }
     end
 
     def all_pages
