@@ -4,20 +4,21 @@ module Maglev
   class PersistPage
     include Injectable
 
-    dependency :fetch_site
     dependency :fetch_theme
 
     argument :page
     argument :attributes
-    argument :site, default: nil
+    argument :site
     argument :theme, default: nil
 
     def call
-      persist_page!
+      ActiveRecord::Base.transaction do
+        persist_page!
 
-      site.save! if can_persist_site_scoped_sections? && assign_site_scoped_sections
+        site.save! if can_persist_site_scoped_sections? && assign_site_scoped_sections
 
-      page
+        page
+      end
     end
 
     private
@@ -45,10 +46,6 @@ module Maglev
         site.add_section(section)
         true
       end
-    end
-
-    def site
-      @site ||= fetch_site.call
     end
 
     def theme

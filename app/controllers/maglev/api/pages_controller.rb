@@ -42,7 +42,10 @@ module Maglev
       end
 
       def persist!(page)
+        # NOTE: the site might be updated if there are modified site scoped sections
+        maglev_site.lock_version = params.dig(:site, :lock_version)
         services.persist_page.call(
+          site: maglev_site,
           page: page,
           attributes: page_params
         )

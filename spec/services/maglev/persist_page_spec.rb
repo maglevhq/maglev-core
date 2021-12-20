@@ -4,10 +4,9 @@ require 'rails_helper'
 
 describe Maglev::PersistPage do
   let(:site) { create(:site) }
-  let(:fetch_site) { double('FetchSite', call: site) }
   let(:fetch_theme) { double('FetchTheme', call: build(:theme)) }
-  let(:service) { described_class.new(fetch_site: fetch_site, fetch_theme: fetch_theme) }
-  subject { service.call(page: page, attributes: attributes) }
+  let(:service) { described_class.new(fetch_theme: fetch_theme) }
+  subject { service.call(page: page, attributes: attributes, site: site) }
 
   context 'brand new page' do
     let(:page) { build(:page) }
@@ -37,6 +36,16 @@ describe Maglev::PersistPage do
       subject
       expect(site.sections.size).to eq 1
       expect(site.find_section('navbar')).not_to eq nil
+    end
+
+    describe 'Given the site has been modified while persisting the page' do      
+      before do
+        another_site_instance = Maglev::Site.find(site.id)
+        another_site_instance.update(attributes_for(:site, :with_navbar))
+      end
+      it 'raises an exception about the stale site' do
+        expect { subject }.to raise_exception(ActiveRecord::StaleObjectError)
+      end      
     end
   end
 end

@@ -31,11 +31,15 @@ export default {
     save() {
       this.saveState = 'inProgress'
       this.services.page
-        .update(this.currentPage.id, {
-          sections: this.currentContent.pageSections,
-          lockVersion: this.currentPage.lockVersion,
-          ...this.currentPageDefaultAttributes,
-        })
+        .update(
+          this.currentPage.id,
+          {
+            sections: this.currentContent.pageSections,
+            lockVersion: this.currentPage.lockVersion,
+            ...this.currentPageDefaultAttributes,
+          },
+          { lockVersion: this.currentSite.lockVersion },
+        )
         .then(() => {
           this.saveState = 'success'
           Promise.all([

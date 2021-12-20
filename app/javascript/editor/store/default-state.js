@@ -14,4 +14,10 @@ export default {
   sections: {},
   sectionBlocks: {},
   editorSettings: {},
+  touchedSections: [],
+  ui: {
+    saveButtonState: 'default',
+    openErrorModal: false,
+    errorModalType: null,
+  },
 }

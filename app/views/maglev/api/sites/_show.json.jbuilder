@@ -9,3 +9,5 @@ json.locales site.locales
 
 json.call(site, *site.api_attributes)
 json.home_page_id home_page_id
+
+json.lock_version site.lock_version
