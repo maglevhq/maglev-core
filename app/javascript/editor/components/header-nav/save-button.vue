@@ -13,7 +13,7 @@
     "
     defaultColorClass="bg-editor-primary"
     :labels="$t('headerNav.saveButton')"
-    :buttonState="saveState"
+    :buttonState="buttonState"
     @click="save"
   />
 </template>
@@ -24,34 +24,40 @@ import ErrorModalMixin from '@/mixins/error-modal'
 export default {
   name: 'SaveButton',
   mixins: [ErrorModalMixin],
-  data() {
-    return { saveState: 'default' }
+  // data() {
+  //   return { saveState: 'default' }
+  // },
+  computed: {
+    buttonState() {
+      return this.$store.state.ui.saveButtonState
+    },
   },
   methods: {
-    save() {
-      this.saveState = 'inProgress'
-      this.services.page
-        .update(
-          this.currentPage.id,
-          {
-            sections: this.currentContent.pageSections,
-            lockVersion: this.currentPage.lockVersion,
-            ...this.currentPageDefaultAttributes,
-          },
-          { lockVersion: this.currentSite.lockVersion },
-        )
-        .then(() => {
-          this.saveState = 'success'
-          Promise.all([
-            this.$store.dispatch('fetchPage', this.currentPage.id),
-            this.$store.dispatch('fetchSite'),
-          ])
-        })
-        .catch(({ response: { status } }) => {
-          console.log('[Maglev] could not save the page', status)
-          this.saveState = 'fail'
-          if (status === 409) this.openErrorModal('staleRecord')
-        })
+    async save() {
+      await this.$store.dispatch('persistPage')
+      // this.saveState = 'inProgress'
+      // this.services.page
+      //   .update(
+      //     this.currentPage.id,
+      //     {
+      //       sections: this.currentContent.pageSections,
+      //       lockVersion: this.currentPage.lockVersion,
+      //       ...this.currentPageDefaultAttributes,
+      //     },
+      //     { lockVersion: this.currentSite.lockVersion },
+      //   )
+      //   .then(() => {
+      //     this.saveState = 'success'
+      //     Promise.all([
+      //       this.$store.dispatch('fetchPage', this.currentPage.id),
+      //       this.$store.dispatch('fetchSite'),
+      //     ])
+      //   })
+      //   .catch(({ response: { status } }) => {
+      //     console.log('[Maglev] could not save the page', status)
+      //     this.saveState = 'fail'
+      //     if (status === 409) this.openErrorModal('staleRecord')
+      //   })
     },
   },
 }

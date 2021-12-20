@@ -33,7 +33,6 @@ describe('PageService', () => {
         '8hKSujtd',
         'xM6f-kyh',
       ])
-      console.log(JSON.stringify(output))
     })
   })
 })

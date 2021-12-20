@@ -35,9 +35,12 @@ export default (services) => ({
         getSectiondefinition(sectionContent).siteScoped &&
         touchedSections.indexOf(sectionContent.id) === -1,
     )
+    const hasModifiedSiteScopedSections = siteSections.some(
+      (sectionContent) => touchedSections.indexOf(sectionContent.id) === -1,
+    )
     return {
       pageSections: pageContent.sections,
-      siteSections,
+      siteSections: hasModifiedSiteScopedSections ? siteSections : [],
     }
   },
   sectionContent: ({ section }) => {

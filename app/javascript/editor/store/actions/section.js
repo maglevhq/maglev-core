@@ -19,6 +19,7 @@ export default (services) => ({
     if (sectionDefinition.insertAt) insertAt = sectionDefinition.insertAt
     const section = services.section.build(sectionDefinition, site)
     commit('ADD_SECTION', { section, insertAt })
+    commit('TOUCH_SECTION', section.id)
     services.inlineEditing.addSection(
       previewDocument,
       getters.content,
@@ -36,6 +37,7 @@ export default (services) => ({
     change,
   ) {
     commit('UPDATE_SECTION_CONTENT', change)
+    commit('TOUCH_SECTION', section.id)
     services.inlineEditing.updateSectionSetting(
       previewDocument,
       getters.content,
