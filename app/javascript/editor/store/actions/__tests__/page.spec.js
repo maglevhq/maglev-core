@@ -77,4 +77,17 @@ describe('Page Actions', () => {
       expect(store.state.ui.saveButtonState).toEqual('success')
     })
   })
+
+  describe('#setCurrentPageSettings', () => {
+    it('does stuff', async () => {
+      mockedServices.page.normalize = jest.fn(() => normalizedPage)
+      store.commit('SET_PAGE', page)
+      await store.dispatch('setCurrentPageSettings', {
+        title: 'UPDATED TITLE',
+        lockVersion: 2,
+      })
+      expect(store.state.page.title).toEqual('UPDATED TITLE')
+      expect(store.state.page.lockVersion).toEqual(2)
+    })
+  })
 })

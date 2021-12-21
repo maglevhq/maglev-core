@@ -25,9 +25,9 @@ module Maglev
       end
 
       def update
-        @page = resources.find(params[:id])
-        persist!(@page)
-        head :ok
+        page = resources.find(params[:id])
+        persist!(page)
+        head :ok, page_lock_version: page.lock_version
       end
 
       private

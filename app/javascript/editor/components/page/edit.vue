@@ -67,9 +67,12 @@ export default {
           ...attributes,
           lockVersion: this.page.lockVersion,
         })
-        .then(() => {
+        .then(({ headers }) => {
           this.submitState = 'success'
-          this.$emit('on-update', attributes)
+          this.$emit('on-update', {
+            ...attributes,
+            lockVersion: headers['page-lock-version'],
+          })
         })
         .catch(({ response: { status, data } }) => {
           console.log('[Maglev] could not update the page', status)

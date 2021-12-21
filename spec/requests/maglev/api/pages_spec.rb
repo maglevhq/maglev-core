@@ -136,6 +136,7 @@ RSpec.describe 'Maglev::API::PagesController', type: :request do
             put maglev.api_page_path(page), params: { page: { title: 'New title' }, site: {} }, as: :json
           end.to change { page.reload.title }.to('New title')
           expect(response).to have_http_status(:ok)
+          expect(response.headers['Page-Lock-Version']).to eq('1')
         end
       end
       context 'Given the page has been updated in the meantime' do

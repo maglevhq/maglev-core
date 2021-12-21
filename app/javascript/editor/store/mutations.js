@@ -1,4 +1,5 @@
-import { arraymove, pick } from '@/utils'
+import { arraymove, pick, omitEmpty } from '@/utils'
+import { SETTING_ATTRIBUTES as PAGE_SETTING_ATTRIBUTES } from '@/services/page'
 
 export default (services) => ({
   SET_DEVICE(state, value) {
@@ -30,7 +31,8 @@ export default (services) => ({
     state.hoveredSection = null
   },
   SET_PAGE_SETTINGS(state, page) {
-    const attributes = pick(page, ...services.page.SETTING_ATTRIBUTES)
+    const attributes = pick(page, ...PAGE_SETTING_ATTRIBUTES)
+    omitEmpty(attributes)
     state.page = { ...state.page, ...attributes }
   },
   SET_SECTION(state, section) {

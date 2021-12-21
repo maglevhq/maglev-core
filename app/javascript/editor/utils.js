@@ -91,6 +91,10 @@ export const pick = (obj, ...args) => ({
   ...args.reduce((res, key) => ({ ...res, [key]: obj[key] }), {}),
 })
 
+// Remove undefined values from an object
+export const omitEmpty = (obj) =>
+  Object.keys(obj).forEach((key) => obj[key] === undefined && delete obj[key])
+
 export const hexToRgb = (hex) => {
   var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex)
   return result
