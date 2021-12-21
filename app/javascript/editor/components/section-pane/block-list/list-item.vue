@@ -10,6 +10,7 @@
       justify-between
       text-gray-800
     "
+    :class="{ 'cursor-move': isList }"
   >
     <router-link
       :to="{
@@ -62,6 +63,11 @@ export default {
       image,
       imageLoaded: false,
     }
+  },
+  computed: {
+    isList() {
+      return this.currentSectionDefinition.blocksPresentation !== 'tree'
+    },
   },
   methods: {
     ...mapActions(['removeSectionBlock']),

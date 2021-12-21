@@ -1,26 +1,34 @@
 <template>
   <div class="mt-2 grid grid-cols-1 gap-4">
-    <text-input
+    <textarea-input
       :label="$t(`page.form.seoTitle`)"
       name="seo-title"
+      :max-length="60"
+      :rows="2"
       v-model="seoTitleInput"
     />
 
     <textarea-input
       :label="$t(`page.form.metaDescription`)"
       name="meta-description"
+      :max-length="155"
+      :rows="5"
       v-model="metaDescriptionInput"
     />
 
-    <text-input
+    <textarea-input
       :label="$t(`page.form.ogTitle`)"
       name="og-title"
+      :max-length="60"
+      :rows="2"
       v-model="ogTitleInput"
     />
 
     <textarea-input
       :label="$t(`page.form.ogDescription`)"
       name="og-description"
+      :max-length="200"
+      :rows="6"
       v-model="ogDescriptionInput"
     />
 

@@ -1,7 +1,25 @@
 <template>
   <div>
-    <label class="block font-semibold text-gray-800" :for="name">
-      {{ label }}
+    <label
+      class="
+        block
+        font-semibold
+        text-gray-800
+        flex
+        justify-between
+        items-center
+      "
+    >
+      <span>{{ label }}</span>
+      <span
+        v-if="maxLength"
+        class="text-xs"
+        :class="{
+          'text-red-600': isOverMaxLength,
+          'text-gray-600': !isOverMaxLength,
+        }"
+        >{{ numCharacters }} / {{ maxLength }}</span
+      >
     </label>
     <textarea
       :value="value"
@@ -35,7 +53,16 @@ export default {
     label: { type: String, default: 'Label' },
     name: { type: String, default: 'text' },
     value: { type: String },
+    maxLength: { type: Number, default: null },
     rows: { type: Number, default: 2 },
+  },
+  computed: {
+    numCharacters() {
+      return (this.value || '').length
+    },
+    isOverMaxLength() {
+      return this.numCharacters > this.maxLength
+    },
   },
   methods: {
     updateInput(event) {
