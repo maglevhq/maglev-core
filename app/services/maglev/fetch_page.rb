@@ -13,9 +13,7 @@ module Maglev
 
     def call
       page = fetch_page(path, locale)
-
       page = fetch_page(path, default_locale) if !page && fallback_to_default_locale
-
       page
     end
 

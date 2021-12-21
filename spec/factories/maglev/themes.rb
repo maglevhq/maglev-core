@@ -101,7 +101,7 @@ FactoryBot.define do
                 blocks: []
               }
             ]
-          },
+          }.with_indifferent_access,
           {
             title: 'About us',
             path: 'about-us',
@@ -115,7 +115,7 @@ FactoryBot.define do
                 blocks: []
               }
             ]
-          }
+          }.with_indifferent_access
         ]
       end
     end

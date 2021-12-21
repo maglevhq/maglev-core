@@ -1,7 +1,6 @@
-import services from '@/services'
 import { arraymove, pick } from '@/utils'
 
-export default {
+export default (services) => ({
   SET_DEVICE(state, value) {
     state.device = value
   },
@@ -151,4 +150,26 @@ export default {
     state.sectionBlocks[state.sectionBlock.id] = updatedBlock
     state.sectionBlock = updatedBlock
   },
-}
+  TOUCH_SECTION(state, sectionId) {
+    if (state.touchedSections.indexOf(sectionId) === -1) {
+      const newArray = [...state.touchedSections]
+      newArray.push(sectionId)
+      state.touchedSections = newArray
+    }
+  },
+  RESET_TOUCHED_SECTIONS(state) {
+    state.touchedSections = []
+  },
+  // === UI ===
+  SET_SAVE_BUTTON_STATE(state, buttonState) {
+    state.ui.saveButtonState = buttonState
+  },
+  OPEN_ERROR_MODAL(state, errorType) {
+    state.ui.openErrorModal = true
+    state.ui.errorModalType = errorType
+  },
+  CLEAR_ERROR_MODAL(state) {
+    state.ui.openErrorModal = false
+    state.ui.errorModalType = null
+  },
+})

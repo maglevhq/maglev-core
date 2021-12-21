@@ -1,16 +1,15 @@
-import services from '@/services'
-
-export default {
-  sectionList: ({ theme, page, sections, sectionBlocks }) => {
+export default (services) => ({
+  sectionList: (
+    { page, sections, sectionBlocks },
+    { sectionDefinition: getSectiondefinition },
+  ) => {
     const pageContent = services.page.denormalize(page, {
       sections,
       blocks: sectionBlocks,
     })
     if (!pageContent?.sections) return []
     return pageContent.sections.map((sectionContent) => {
-      const sectionDefinition = theme.sections.find(
-        (definition) => definition['id'] === sectionContent['type'],
-      )
+      const sectionDefinition = getSectiondefinition(sectionContent)
       return {
         id: sectionContent.id,
         type: sectionContent['type'],
@@ -23,16 +22,35 @@ export default {
     if (page.translated) return {}
     return { title: page.title, path: page.path }
   },
-  content: ({ page, sections, sectionBlocks }) => {
+  content: (
+    { page, sections, sectionBlocks, touchedSections },
+    { sectionDefinition: getSectiondefinition },
+  ) => {
     const pageContent = services.page.denormalize(page, {
       sections,
       blocks: sectionBlocks,
     })
-    return { pageSections: pageContent.sections }
+    const siteSections = pageContent.sections.filter(
+      (sectionContent) => getSectiondefinition(sectionContent).siteScoped,
+    )
+    const hasModifiedSiteScopedSections = siteSections.some(
+      (sectionContent) => touchedSections.indexOf(sectionContent.id) !== -1,
+    )
+    return {
+      pageSections: pageContent.sections,
+      siteSections: hasModifiedSiteScopedSections ? siteSections : [],
+    }
   },
   sectionContent: ({ section }) => {
     return section ? [...section.settings] : null
   },
+  sectionDefinition:
+    ({ theme }) =>
+    (sectionContent) => {
+      return theme.sections.find(
+        (definition) => definition['id'] === sectionContent['type'],
+      )
+    },
   sectionSettings:
     ({ sectionDefinition }) =>
     (advanced) => {
@@ -70,4 +88,4 @@ export default {
     (advanced) => {
       return services.section.getSettings(sectionBlockDefinition, advanced)
     },
-}
+})

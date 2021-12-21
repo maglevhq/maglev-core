@@ -41,7 +41,6 @@ module Maglev
         .strip
         .gsub(%r{(^/|/$)}, '')
         .gsub(%r{//+/}, '/')
-        .gsub('/', '--')
     end
   end
 end

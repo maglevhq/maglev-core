@@ -78,6 +78,11 @@ RSpec.describe 'Maglev::API::PagesController', type: :request do
 
     # rubocop:disable Style/StringHashKeys
     describe 'allows retrieval of a single page' do
+      it 'returns a page based on its path' do
+        page.update(title: 'Foo foo!', path: 'foo/foo')
+        get '/maglev/api/pages/foo%2Ffoo', as: :json
+        expect(json_response['title']).to eq 'Foo foo!'
+      end
       it 'returns the lock version of the page' do
         get "/maglev/api/pages/#{page.id}", as: :json
         expect(json_response['lockVersion']).to eq 0
@@ -106,7 +111,7 @@ RSpec.describe 'Maglev::API::PagesController', type: :request do
     end
     # rubocop:enable Style/StringHashKeys
 
-    it 'allows creation of new pages' do
+    it 'allows the creation of new pages' do
       expect do
         params = attributes_for(:page).merge(path: 'custom')
         post '/maglev/api/pages', params: { page: params }, as: :json
@@ -124,11 +129,11 @@ RSpec.describe 'Maglev::API::PagesController', type: :request do
       expect(response).to have_http_status(:bad_request)
     end
 
-    describe 'updating pages' do
+    describe 'Updating pages' do
       context 'Given a simple case' do
         it 'updates the page in DB' do
           expect do
-            put maglev.api_page_path(page), params: { page: { title: 'New title' } }, as: :json
+            put maglev.api_page_path(page), params: { page: { title: 'New title' }, site: {} }, as: :json
           end.to change { page.reload.title }.to('New title')
           expect(response).to have_http_status(:ok)
         end
@@ -139,6 +144,19 @@ RSpec.describe 'Maglev::API::PagesController', type: :request do
             page.update(title: 'I changed it first')
             put maglev.api_page_path(page), params: { page: { title: 'New title', lock_version: 0 } }, as: :json
           end.to change { page.reload.title }.to('I changed it first')
+          expect(response).to have_http_status(:conflict)
+        end
+      end
+      context 'Given the site has been updated in the meantime' do
+        let(:sections) { [attributes_for(:page, :with_navbar)[:sections][0]] }
+        let(:site_attributes) { { sections: sections, lock_version: 0 } }
+        let(:page_attributes) { { title: 'New title', lock_version: 0 } }
+        it "doesn't update the page in DB" do
+          expect do
+            site.update(name: 'New name')
+            put maglev.api_page_path(page),
+                params: { page: page_attributes, site: site_attributes }, as: :json
+          end.to change { site.reload.name }.to('New name')
           expect(response).to have_http_status(:conflict)
         end
       end

@@ -7,11 +7,12 @@ describe Maglev::SearchPages do
   let(:fetch_site) { double('FetchSite', call: site) }
   let(:fetch_static_pages) { double('FetchStaticPages', call: [build(:static_page)]) }
   let(:content_locale) { 'en' }
+  let(:default_locale) { 'en' }
   let(:service) { described_class.new(fetch_site: fetch_site, fetch_static_pages: fetch_static_pages) }
 
   let!(:persisted_pages) { [create(:page), create(:page, title: 'Features', path: 'features')] }
 
-  subject { service.call(id: page_id, q: q, content_locale: content_locale) }
+  subject { service.call(id: page_id, q: q, content_locale: content_locale, default_locale: default_locale) }
 
   describe 'Given no id or q were passed to the method' do
     let(:page_id) { nil }
@@ -43,6 +44,15 @@ describe Maglev::SearchPages do
       let(:page_id) { persisted_pages.first.id }
       it 'returns the persisted page' do
         expect(subject.title).to eq 'Home'
+      end
+      describe 'Given the id (path) points to a page in the default locale' do
+        let(:page_id) { 'features' }
+        describe 'Given the current locale is different from the default one' do
+          let(:content_locale) { 'fr' }
+          it 'returns the persisted page (used by the API for untranslated page)' do
+            expect(subject.title).to eq 'Features'
+          end
+        end
       end
     end
     describe 'Given the id belongs to a static page' do

@@ -1,4 +1,3 @@
-import api from './api'
 import {
   normalize as coreNormalize,
   denormalize as coreDenormalize,
@@ -26,78 +25,83 @@ export const SETTING_ATTRIBUTES = [
   'lockVersion',
 ]
 
-export const isIndex = (page) => {
-  return page.path === 'index' || page.path === '/index'
-}
+export default (api) => ({
+  isIndex: (page) => {
+    return page.path === 'index' || page.path === '/index'
+  },
 
-export const build = () => {
-  return {
-    title: '',
-    path: '',
-    visible: true,
-    seoTitle: '',
-    metaDescription: '',
-  }
-}
+  build: () => {
+    return {
+      title: '',
+      path: '',
+      visible: true,
+      seoTitle: '',
+      metaDescription: '',
+    }
+  },
 
-export const findAll = (filters) => {
-  console.log('[PageService] Fetching all the pages', filters)
-  const options = { params: filters || {} }
-  return api.get('/pages', options).then(({ data }) => sort(data))
-}
+  findAll: (filters) => {
+    console.log('[PageService] Fetching all the pages', filters)
+    const options = { params: filters || {} }
 
-export const findById = (site, id) => {
-  if (id === 'index') id = site.homePageId
+    const sort = (pages) => {
+      return pages.sort((a, b) => {
+        if (a.path === 'index') return -1
+        if (b.path === 'index') return 1
+        return a.title.localeCompare(b.title)
+      })
+    }
 
-  console.log('[PageService] Fetching page by id', id)
+    return api.get('/pages', options).then(({ data }) => sort(data))
+  },
 
-  return api.get(`/pages/${id}`).then(({ data }) => data)
-}
+  findById: (site, id) => {
+    if (id === 'index') id = site.homePageId
 
-export const create = (attributes) => {
-  console.log('[PageService] Creating page', attributes)
-  return api.post(`/pages`, { page: attributes })
-}
+    const safeId = String(id).replace('/', '%2F')
 
-export const update = (id, attributes) => {
-  console.log('[PageService] Updating page #', id)
-  return api.put(`/pages/${id}`, { page: attributes })
-}
+    console.log('[PageService] Fetching page by id', safeId)
 
-export const updateSettings = (id, attributes) => {
-  console.log('[PageService] Updating page settings #', id)
-  return api.put(`/pages/${id}`, {
-    page: pick(attributes, ...SETTING_ATTRIBUTES),
-  })
-}
+    return api.get(`/pages/${safeId}`).then(({ data }) => data)
+  },
 
-export const setVisible = (id, visible) => {
-  console.log('[PageService] Setting page visible setting #', id)
-  return api.put(`/pages/${id}`, { page: { visible } })
-}
+  create: (attributes) => {
+    console.log('[PageService] Creating page', attributes)
+    return api.post(`/pages`, { page: attributes })
+  },
 
-export const clone = (id) => {
-  console.log('[PageService] Cloning page #', id)
-  return api.post(`/pages/${id}/clones`, {})
-}
+  update: (id, attributes, siteAttributes) => {
+    console.log('[PageService] Updating page #', id)
+    return api.put(`/pages/${id}`, { page: attributes, site: siteAttributes })
+  },
 
-export const destroy = (id) => {
-  console.log('[PageService] Destroying page #', id)
-  return api.delete(`/pages/${id}`)
-}
+  updateSettings: (id, attributes) => {
+    console.log('[PageService] Updating page settings #', id)
+    return api.put(`/pages/${id}`, {
+      page: pick(attributes, ...SETTING_ATTRIBUTES),
+    })
+  },
 
-export const normalize = (page) => {
-  return coreNormalize(page, PAGE_SCHEMA)
-}
+  setVisible: (id, visible) => {
+    console.log('[PageService] Setting page visible setting #', id)
+    return api.put(`/pages/${id}`, { page: { visible } })
+  },
 
-export const denormalize = (page, entities) => {
-  return coreDenormalize(page, PAGE_SCHEMA, entities)
-}
+  clone: (id) => {
+    console.log('[PageService] Cloning page #', id)
+    return api.post(`/pages/${id}/clones`, {})
+  },
 
-const sort = (pages) => {
-  return pages.sort((a, b) => {
-    if (a.path === 'index') return -1
-    if (b.path === 'index') return 1
-    return a.title.localeCompare(b.title)
-  })
-}
+  destroy: (id) => {
+    console.log('[PageService] Destroying page #', id)
+    return api.destroy(`/pages/${id}`)
+  },
+
+  normalize: (page) => {
+    return coreNormalize(page, PAGE_SCHEMA)
+  },
+
+  denormalize: (page, entities) => {
+    return coreDenormalize(page, PAGE_SCHEMA, entities)
+  },
+})
