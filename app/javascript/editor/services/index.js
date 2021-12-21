@@ -1,21 +1,21 @@
 import * as api from './api'
-import * as site from './site'
+import buildSiteService from './site'
 import * as theme from './theme'
-import * as page from './page'
-import * as collectionItem from './collection-item'
-import * as image from './image'
+import buildPageService from './page'
+import buildCollectionItemService from './collection-item'
+import buildImageService from './image'
 import * as section from './section'
 import * as block from './block'
 import * as inlineEditing from './inline-editing'
 
 export default {
   api,
-  site,
+  site: buildSiteService(api),
   theme,
-  page,
+  page: buildPageService(api),
   section,
   block,
-  image,
+  image: buildImageService(api),
   inlineEditing,
-  collectionItem,
+  collectionItem: buildCollectionItemService(api),
 }

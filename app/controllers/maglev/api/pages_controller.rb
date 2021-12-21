@@ -42,9 +42,9 @@ module Maglev
       end
 
       def site_params
-        params.permit(site: [:lock_version]).tap do |whitelisted|
-          whitelisted[:sections] = params[:site].to_unsafe_hash[:sections] unless params.dig(:site, :sections).nil?
-        end
+        safe_site_params = params.permit(site: [:lock_version])
+        return {} if safe_site_params.blank? || params.dig(:site, :sections).nil?
+        safe_site_params[:site].merge(sections: params[:site].to_unsafe_hash[:sections])
       end
 
       def persist!(page)

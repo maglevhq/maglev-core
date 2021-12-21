@@ -34,4 +34,7 @@ api.interceptors.request.use(
   (error) => Promise.reject(error),
 )
 
-export default api
+export const get = api.get
+export const post = api.post
+export const put = api.put
+export const destroy = api.delete

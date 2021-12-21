@@ -29,17 +29,7 @@ describe('Getters', () => {
   })
 
   describe('#content', () => {
-    it('returns the content of the sections for both the site and the page', () => {
-      mockedServices.page.denormalize = jest.fn(() => page)
-      expect(
-        store.getters.content.pageSections.map((section) => section.id),
-      ).toStrictEqual(['GrYZW-VP', '8hKSujtd', 'xM6f-kyh'])
-      expect(
-        store.getters.content.siteSections.map((section) => section.id),
-      ).toStrictEqual(['GrYZW-VP'])
-    })
-    it("doesn't return the site content sections if they haven't been touched", () => {
-      store.commit('TOUCH_SECTION', 'GrYZW-VP')
+    it('returns the content of the sections for the page', () => {
       mockedServices.page.denormalize = jest.fn(() => page)
       expect(
         store.getters.content.pageSections.map((section) => section.id),
@@ -47,6 +37,16 @@ describe('Getters', () => {
       expect(
         store.getters.content.siteSections.map((section) => section.id),
       ).toStrictEqual([])
+    })
+    it('returns the site content sections since they have been touched', () => {
+      store.commit('TOUCH_SECTION', 'GrYZW-VP')
+      mockedServices.page.denormalize = jest.fn(() => page)
+      expect(
+        store.getters.content.pageSections.map((section) => section.id),
+      ).toStrictEqual(['GrYZW-VP', '8hKSujtd', 'xM6f-kyh'])
+      expect(
+        store.getters.content.siteSections.map((section) => section.id),
+      ).toStrictEqual(['GrYZW-VP'])
     })
   })
 

@@ -94,7 +94,7 @@ export default (api) => ({
 
   destroy: (id) => {
     console.log('[PageService] Destroying page #', id)
-    return api.delete(`/pages/${id}`)
+    return api.destroy(`/pages/${id}`)
   },
 
   normalize: (page) => {

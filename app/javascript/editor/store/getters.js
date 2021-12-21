@@ -31,12 +31,10 @@ export default (services) => ({
       blocks: sectionBlocks,
     })
     const siteSections = pageContent.sections.filter(
-      (sectionContent) =>
-        getSectiondefinition(sectionContent).siteScoped &&
-        touchedSections.indexOf(sectionContent.id) === -1,
+      (sectionContent) => getSectiondefinition(sectionContent).siteScoped,
     )
     const hasModifiedSiteScopedSections = siteSections.some(
-      (sectionContent) => touchedSections.indexOf(sectionContent.id) === -1,
+      (sectionContent) => touchedSections.indexOf(sectionContent.id) !== -1,
     )
     return {
       pageSections: pageContent.sections,

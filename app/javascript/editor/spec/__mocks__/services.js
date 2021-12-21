@@ -1,6 +1,10 @@
 const apiService = {
   setSiteHandle: jest.fn(),
   setSiteLocale: jest.fn(),
+  get: jest.fn(),
+  post: jest.fn(),
+  put: jest.fn(),
+  destroy: jest.fn(),
 }
 
 const siteService = {
