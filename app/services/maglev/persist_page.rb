@@ -7,16 +7,15 @@ module Maglev
     dependency :fetch_theme
 
     argument :page
-    argument :attributes
+    argument :page_attributes
     argument :site
+    argument :site_attributes, default: nil
     argument :theme, default: nil
 
     def call
       ActiveRecord::Base.transaction do
         persist_page!
-
-        site.save! if can_persist_site_scoped_sections? && assign_site_scoped_sections
-
+        persist_site!
         page
       end
     end
@@ -24,29 +23,19 @@ module Maglev
     private
 
     def persist_page!
-      page.attributes = attributes
+      page.attributes = page_attributes
       page.prepare_sections
       page.save!
     end
 
-    def can_persist_site_scoped_sections?
-      page.sections.any? do |section|
-        definition = theme.sections.find(section['type'])
-        next unless definition&.site_scoped?
-
-        section.key?('settings') || section.key?('blocks')
-      end
-    end
-
-    def assign_site_scoped_sections
-      page.sections.any? do |section|
-        definition = theme.sections.find(section['type'])
-        next unless definition.site_scoped?
-
+    def persist_site!
+      return if site_attributes.blank?
+      site.attributes = site_attributes.slice(:lock_version)
+      site_attributes[:sections].each do |section|
         site.add_section(section)
-        true
       end
-    end
+      site.save!
+    end   
 
     def theme
       @theme ||= fetch_theme.call

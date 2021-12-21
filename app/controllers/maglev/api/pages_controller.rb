@@ -41,13 +41,18 @@ module Maglev
         end
       end
 
+      def site_params
+        params.permit(site: [:lock_version]).tap do |whitelisted|
+          whitelisted[:sections] = params[:site].to_unsafe_hash[:sections] unless params.dig(:site, :sections).nil?
+        end
+      end
+
       def persist!(page)
-        # NOTE: the site might be updated if there are modified site scoped sections
-        maglev_site.lock_version = params.dig(:site, :lock_version)
-        services.persist_page.call(
-          site: maglev_site,
+        services.persist_page.call(          
           page: page,
-          attributes: page_params
+          page_attributes: page_params,          
+          site: maglev_site,
+          site_attributes: site_params
         )
       end
 

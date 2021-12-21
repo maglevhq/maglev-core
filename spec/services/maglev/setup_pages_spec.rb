@@ -20,5 +20,9 @@ describe Maglev::SetupPages do
       expect { subject }.to change(Maglev::Page, :count).by(2)
       expect(subject.map(&:title)).to eq ['Home', 'About us']
     end
+    it 'persist the content of the site scoped sections' do
+      subject
+      expect(site.reload.sections.size).to eq(1)
+    end
   end
 end

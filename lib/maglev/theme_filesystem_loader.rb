@@ -25,7 +25,7 @@ module Maglev
         sections: []
       )
 
-      Maglev::Theme.new(attributes).tap do |theme|
+      Maglev::Theme.new(HashWithIndifferentAccess.new(attributes)).tap do |theme|
         Rails.logger.info("[Maglev] adding theme: #{theme.name} (##{theme.id})")
       end
     end

@@ -19,3 +19,4 @@ before_script:
   - bundle exec rails db:schema:load
 script:
   - bundle exec rspec
+  - yarn test

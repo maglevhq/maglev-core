@@ -12,14 +12,26 @@ module Maglev
     argument :theme
 
     def call
-      theme&.pages&.map do |attributes|
+      theme&.pages&.map do |page_attributes|
         persist_page.call(
           site: site,
+          site_attributes: site_attributes_from(page_attributes),
           theme: theme,
           page: Maglev::Page.new,
-          attributes: attributes
+          page_attributes: page_attributes
         )
       end
+    end
+
+    private
+
+    def site_attributes_from(page_attributes)
+      {
+        sections: page_attributes[:sections].find_all do |section|
+          definition = theme.sections.find(section['type'])
+          definition.site_scoped?
+        end
+      }
     end
   end
 end

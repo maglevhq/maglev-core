@@ -6,11 +6,12 @@ describe Maglev::PersistPage do
   let(:site) { create(:site) }
   let(:fetch_theme) { double('FetchTheme', call: build(:theme)) }
   let(:service) { described_class.new(fetch_theme: fetch_theme) }
-  subject { service.call(page: page, attributes: attributes, site: site) }
+  let(:site_attributes) { nil }
+  subject { service.call(page: page, page_attributes: page_attributes, site: site, site_attributes: site_attributes) }
 
   context 'brand new page' do
     let(:page) { build(:page) }
-    let(:attributes) { { title: 'Hello world' } }
+    let(:page_attributes) { { title: 'Hello world' } }
 
     it 'persists the page in the DB' do
       expect { subject }.to change(Maglev::Page, :count).by(1)
@@ -20,7 +21,7 @@ describe Maglev::PersistPage do
 
   context 'existing page' do
     let!(:page) { create(:page) }
-    let(:attributes) { { title: 'Home page [UPDATED]' } }
+    let(:page_attributes) { { title: 'Home page [UPDATED]' } }
 
     it 'persists the changes in the DB' do
       expect { subject }.to change(Maglev::Page, :count).by(0)
@@ -28,9 +29,11 @@ describe Maglev::PersistPage do
     end
   end
 
-  context 'the attributes includes content for a site scoped section' do
+  context 'Given the site attributes are not empty' do
     let(:page) { create(:page) }
-    let(:attributes) { attributes_for(:page, :with_navbar) }
+    let(:page_attributes) { attributes_for(:page, :with_navbar) }
+    let(:section) { attributes_for(:page, :with_navbar)[:sections][0].with_indifferent_access }
+    let(:site_attributes) { { sections: [section] } }
 
     it 'copies the global content of a page to the site record' do
       subject
@@ -43,6 +46,7 @@ describe Maglev::PersistPage do
         another_site_instance = Maglev::Site.find(site.id)
         another_site_instance.update(attributes_for(:site, :with_navbar))
       end
+      let(:site_attributes) { { sections: [section], lock_version: 0 } }
       it 'raises an exception about the stale site' do
         expect { subject }.to raise_exception(ActiveRecord::StaleObjectError)
       end      
