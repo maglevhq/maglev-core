@@ -41,7 +41,7 @@ describe Maglev::PersistPage do
       expect(site.find_section('navbar')).not_to eq nil
     end
 
-    describe 'Given the site has been modified while persisting the page' do      
+    describe 'Given the site has been modified while persisting the page' do
       before do
         another_site_instance = Maglev::Site.find(site.id)
         another_site_instance.update(attributes_for(:site, :with_navbar))
@@ -49,7 +49,7 @@ describe Maglev::PersistPage do
       let(:site_attributes) { { sections: [section], lock_version: 0 } }
       it 'raises an exception about the stale site' do
         expect { subject }.to raise_exception(ActiveRecord::StaleObjectError)
-      end      
+      end
     end
   end
 end

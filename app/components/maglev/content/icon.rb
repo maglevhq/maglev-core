@@ -11,7 +11,6 @@ module Maglev
         @content
       end
 
-      # rubocop:disable Rails/ContentTag
       def tag(view_context, options = {})
         view_context.content_tag(:i, '',
                                  {
@@ -20,7 +19,6 @@ module Maglev
                                  }.merge(options),
                                  false)
       end
-      # rubocop:enable Rails/ContentTag
     end
   end
 end

@@ -42,15 +42,15 @@ module Maglev
       end
 
       def site_params
-        safe_site_params = params.permit(site: [:lock_version])
-        return {} if safe_site_params.blank? || params.dig(:site, :sections).nil?
-        safe_site_params[:site].merge(sections: params[:site].to_unsafe_hash[:sections])
+        lock_version = params.dig(:site, :lock_version)
+        sections = params.dig(:site, :sections)
+        lock_version && sections ? { lock_version: lock_version, sections: sections } : {}
       end
 
       def persist!(page)
-        services.persist_page.call(          
+        services.persist_page.call(
           page: page,
-          page_attributes: page_params,          
+          page_attributes: page_params,
           site: maglev_site,
           site_attributes: site_params
         )

@@ -149,10 +149,13 @@ RSpec.describe 'Maglev::API::PagesController', type: :request do
       end
       context 'Given the site has been updated in the meantime' do
         let(:sections) { [attributes_for(:page, :with_navbar)[:sections][0]] }
+        let(:site_attributes) { { sections: sections, lock_version: 0 } }
+        let(:page_attributes) { { title: 'New title', lock_version: 0 } }
         it "doesn't update the page in DB" do
           expect do
             site.update(name: 'New name')
-            put maglev.api_page_path(page), params: { page: { title: 'New title', lock_version: 0 }, site: { lock_version: 0, sections: sections } }, as: :json
+            put maglev.api_page_path(page),
+                params: { page: page_attributes, site: site_attributes }, as: :json
           end.to change { site.reload.name }.to('New name')
           expect(response).to have_http_status(:conflict)
         end
