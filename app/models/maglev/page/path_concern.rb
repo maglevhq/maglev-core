@@ -10,7 +10,7 @@ module Maglev::Page::PathConcern
              class_name: '::Maglev::PagePath',
              dependent: :delete_all,
              foreign_key: 'maglev_page_id',
-             inverse_of: 'page',
+             inverse_of: :page,
              autosave: true
 
     ## callbacks ##
