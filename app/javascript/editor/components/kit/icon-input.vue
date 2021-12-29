@@ -26,6 +26,7 @@
             flex
             items-center
             justify-center
+            overflow-hidden
           "
           @mouseover="hovered = true"
           @mouseleave="hovered = false"
