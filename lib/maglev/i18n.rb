@@ -13,7 +13,7 @@ module Maglev
       end
 
       def available_locales=(locales)
-        Current.available_locales = locales
+        Current.available_locales = locales.map(&:to_sym)
       end
 
       def default_locale
