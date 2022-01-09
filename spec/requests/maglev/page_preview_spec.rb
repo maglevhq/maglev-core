@@ -98,7 +98,7 @@ RSpec.describe 'Maglev::PagePreviewController', type: :request do
 
   context 'rendering from POST params' do
     let(:sections) do
-      Maglev::Page.all.order_by_translated(:title, :desc)[1].sections.tap do |sections|
+      Maglev::Page.all.order_by_translated(:title, :desc)[2].sections.tap do |sections|
         sections.first['settings'].first['value'] = 'UPDATED TITLE'
       end
     end

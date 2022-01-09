@@ -115,6 +115,10 @@ FactoryBot.define do
                 blocks: []
               }
             ]
+          }.with_indifferent_access,
+          {
+            title: 'Empty',
+            path: 'empty'
           }.with_indifferent_access
         ]
       end

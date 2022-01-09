@@ -27,7 +27,7 @@ module Maglev
 
     def site_attributes_from(page_attributes)
       {
-        sections: page_attributes[:sections].find_all do |section|
+        sections: (page_attributes[:sections] || []).find_all do |section|
           definition = theme.sections.find(section['type'])
           definition.site_scoped?
         end

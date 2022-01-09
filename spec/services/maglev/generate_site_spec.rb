@@ -11,6 +11,6 @@ describe Maglev::GenerateSite do
     expect do
       expect(subject.default_locale.label).to eq 'English'
     end.to change(Maglev::Site, :count).by(1)
-                                       .and change(Maglev::Page, :count).by(2)
+                                       .and change(Maglev::Page, :count).by(3)
   end
 end

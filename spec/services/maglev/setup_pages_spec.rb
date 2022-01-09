@@ -17,8 +17,8 @@ describe Maglev::SetupPages do
   context 'the theme has pre-defined pages' do
     let(:theme) { build(:theme, :predefined_pages) }
     it 'creates the pages in DB' do
-      expect { subject }.to change(Maglev::Page, :count).by(2)
-      expect(subject.map(&:title)).to eq ['Home', 'About us']
+      expect { subject }.to change(Maglev::Page, :count).by(3)
+      expect(subject.map(&:title)).to eq ['Home', 'About us', 'Empty']
     end
     it 'persist the content of the site scoped sections' do
       subject
