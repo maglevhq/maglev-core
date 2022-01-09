@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+require 'webpacker'
+require 'webpacker/helper'
+
 module Webpacker
   module DynamicTag
     def javascript_pack_tag(*names, **options)

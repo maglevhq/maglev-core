@@ -5,6 +5,7 @@ require_relative 'maglev/engine'
 require_relative 'maglev/config'
 require_relative 'maglev/errors'
 require_relative 'maglev/i18n'
+require_relative 'maglev/preview_constraint'
 
 require 'injectable'
 require 'jbuilder'

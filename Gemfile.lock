@@ -12,7 +12,8 @@ PATH
       injectable (~> 2.1.1)
       jbuilder (~> 2.11.2)
       kaminari (~> 1.2.1)
-      rails (~> 6.1.4, >= 6.1.4.4)
+      rails (>= 6.1.4.4, <= 7.1)
+      webpacker (~> 5.1)
 
 GEM
   remote: https://rubygems.org/

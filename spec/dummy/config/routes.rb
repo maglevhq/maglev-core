@@ -32,5 +32,5 @@ Rails.application.routes.draw do
 
   get '/nocoffee_site', to: redirect('https://www.nocoffee.fr'), as: :nocoffee
 
-  get '(*path)', to: 'maglev/page_preview#index', defaults: { path: 'index' }
+  get '(*path)', to: 'maglev/page_preview#index', defaults: { path: 'index' }, constraints: Maglev::PreviewConstraint.new
 end

@@ -33,7 +33,7 @@ Maglev::Engine.routes.draw do
   get 'editor', to: 'editor#show', as: :base_editor
   get 'editor/:locale/(*something)', to: 'editor#show', as: :editor
   get 'leave_editor', to: 'editor#destroy', as: :leave_editor
-  get 'preview/(*path)', to: 'page_preview#index', defaults: { path: 'index', rendering_mode: :editor },
+  get 'preview/(*path)', to: 'page_preview#index', defaults: { path: 'index', rendering_mode: :editor }, constraints: Maglev::PreviewConstraint.new,
                          as: :site_preview
   post 'preview/(*path)', to: 'page_preview#create', defaults: { path: 'index', rendering_mode: :editor }
 

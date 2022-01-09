@@ -88,6 +88,14 @@ RSpec.describe 'Maglev::PagePreviewController', type: :request do
     end
   end
 
+  context 'requesting a non HTML resource' do
+    it 'lets Rails handle this' do
+      expect do
+        get '/maglev/preview/unkown-image.jpg', headers: { 'Content-Type' => 'image/jpg' }
+      end.to raise_error(ActionController::RoutingError)
+    end
+  end
+
   context 'rendering from POST params' do
     let(:sections) do
       Maglev::Page.all.order_by_translated(:title, :desc)[1].sections.tap do |sections|

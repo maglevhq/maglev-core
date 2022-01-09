@@ -33,7 +33,7 @@ module Maglev
       inject_into_file 'config/routes.rb', before: /^end/ do
         <<-CODE
   mount Maglev::Engine => '/maglev'
-  get '(*path)', to: 'maglev/page_preview#index', defaults: { path: 'index' }
+  get '(*path)', to: 'maglev/page_preview#index', defaults: { path: 'index' }, constraints: Maglev::PreviewConstraint.new
         CODE
       end
     end

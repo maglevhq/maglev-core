@@ -33,7 +33,8 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'injectable', '~> 2.1.1'
   spec.add_dependency 'jbuilder', '~>  2.11.2'
   spec.add_dependency 'kaminari', '~> 1.2.1'
-  spec.add_dependency 'rails', '~> 6.1.4', '>= 6.1.4.4'
+  spec.add_dependency 'rails', '<= 7.1', '>= 6.1.4.4'
+  spec.add_dependency 'webpacker', '~> 5.1'
 
   spec.add_development_dependency 'pg', '~> 1.2.1'
 end
