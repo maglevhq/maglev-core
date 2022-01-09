@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Maglev
   class PreviewConstraint
     def matches?(request)

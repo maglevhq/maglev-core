@@ -91,7 +91,7 @@ RSpec.describe 'Maglev::PagePreviewController', type: :request do
   context 'requesting a non HTML resource' do
     it 'lets Rails handle this' do
       expect do
-        get '/maglev/preview/unkown-image.jpg', headers: { 'Content-Type' => 'image/jpg' }
+        get '/maglev/preview/unkown-image.jpg', headers: { "Content-Type": 'image/jpg' }
       end.to raise_error(ActionController::RoutingError)
     end
   end
