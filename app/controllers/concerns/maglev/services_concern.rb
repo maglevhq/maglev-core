@@ -4,6 +4,11 @@ module Maglev
   module ServicesConcern
     private
 
+    def services
+      # NOTE: neither alias nor alias_method could work in the PRO engine
+      maglev_services
+    end
+
     def maglev_services
       @maglev_services ||= ::Maglev.services(
         context: build_maglev_service_context

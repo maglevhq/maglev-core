@@ -6,8 +6,6 @@ module Maglev
 
     protect_from_forgery with: :exception
 
-    alias services maglev_services
-
     helper_method :services, :maglev_config, :use_engine_webpacker?
 
     private

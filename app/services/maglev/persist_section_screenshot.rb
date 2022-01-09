@@ -35,7 +35,7 @@ module Maglev
       tmp_file.close
 
       # PNG -> JPG to lower the size of the image
-      ::ActiveStorage::Variation.new(format: 'jpg', quality: 90).transform(tmp_file) do |output|
+      ::ActiveStorage::Variation.new(format: 'jpg', saver: { quality: 90 }).transform(tmp_file) do |output|
         FileUtils.mkdir_p(screenshots_dir)
         File.open(screenshot_filepath, 'wb') do |f|
           f.write(output.read)
