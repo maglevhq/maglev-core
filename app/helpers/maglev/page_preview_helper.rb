@@ -48,5 +48,9 @@ module Maglev
     def maglev_site_link
       maglev_site_root_fullpath
     end
+
+    def rendering_maglev_page?
+      controller.class.module_parent.to_s == 'Maglev'
+    end
   end
 end
