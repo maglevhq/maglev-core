@@ -13,6 +13,7 @@ before_install:
   - sudo apt-get update && sudo apt-get install apt-transport-https ca-certificates -y && sudo update-ca-certificates
   - nvm install v15
 before_script:
+  - gem update --system
   - bundle install --jobs=3 --retry=3
   - yarn
   - bundle exec rails db:create
