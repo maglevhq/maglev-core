@@ -28,7 +28,7 @@ module Maglev
     def fetch_path
       if page.respond_to?(:path_translations)
         # static pages already have all the translated paths
-        paths = page.path_translations
+        paths = page.path_translations.stringify_keys
       else
         # we need to request the DB to get the paths in all the locales
         page_id = page.respond_to?(:path) ? page.id : page
