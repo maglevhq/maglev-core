@@ -55,4 +55,12 @@ describe Maglev::GetPageFullpath do
       is_expected.to eq '/maglev/preview/hello-world'
     end
   end
+
+  context 'we pass a static page' do
+    let(:page) { Maglev::StaticPage.new(id: '233456abcdef', path_translations: { 'fr' => 'bonjour-le-monde', 'en' => 'hello-world' }) }
+    subject { service.call(page: page, locale: locale) }
+    it 'returns the fullpath to the page' do
+      is_expected.to eq '/maglev/preview/hello-world'
+    end
+  end
 end
