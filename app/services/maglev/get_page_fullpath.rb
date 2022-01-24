@@ -26,16 +26,20 @@ module Maglev
     protected
 
     def fetch_path
-      if page.respond_to?(:path_translations)
-        # static pages already have all the translated paths
-        paths = page.path_translations.stringify_keys
-      else
-        # we need to request the DB to get the paths in all the locales
-        page_id = page.respond_to?(:path) ? page.id : page
-        paths = Maglev::PagePath.build_hash(page_id)
-      end
+      paths = if page.respond_to?(:path_translations)
+                # static pages already have all the translated paths
+                page.path_translations.stringify_keys
+              else
+                # we need to request the DB to get the paths in all the locales
+                fetch_paths
+              end
 
       paths[locale.to_s] || paths[default_locale.to_s]
+    end
+
+    def fetch_paths
+      page_id = page.respond_to?(:path) ? page.id : page
+      Maglev::PagePath.build_hash(page_id)
     end
 
     def build_fullpath(base_url, path)

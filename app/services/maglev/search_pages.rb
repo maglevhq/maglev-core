@@ -24,7 +24,7 @@ module Maglev
     def single_page
       find_static_pages.find { |page| page.id == id } ||
         resources.by_id_or_path(id, content_locale).first ||
-          resources.by_id_or_path(id, default_locale).first        
+        resources.by_id_or_path(id, default_locale).first
     end
 
     def all_pages
