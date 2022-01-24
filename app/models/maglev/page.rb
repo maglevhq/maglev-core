@@ -29,5 +29,9 @@ module Maglev
     def index?
       path == 'index'
     end
+
+    def static?
+      false
+    end
   end
 end

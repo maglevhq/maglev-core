@@ -21,6 +21,10 @@ module Maglev
       true
     end
 
+    def static?
+      true
+    end
+
     def sections
       []
     end

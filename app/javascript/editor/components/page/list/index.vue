@@ -20,7 +20,6 @@
           @on-clone="fetch"
           @on-delete="fetch"
           @on-dropdown-toggle="onDropdownToggle"
-          class=""
         />
       </div>
     </transition>
@@ -46,7 +45,7 @@ export default {
       return this.previewablePages.length === 0
     },
     previewablePages() {
-      return this.pages.filter((page) => !!page.previewUrl)
+      return this.pages.filter((page) => !!page.previewUrl && !page.static)
     },
   },
   methods: {

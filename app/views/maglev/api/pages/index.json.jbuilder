@@ -5,6 +5,7 @@ json.array! @pages do |page|
   json.title page.title || page.default_title
   json.path  page.path || page.default_path
   json.visible page.visible
+  json.static page.static?
 
   json.seo_title page.seo_title
   json.meta_description page.meta_description
