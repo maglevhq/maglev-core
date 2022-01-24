@@ -104,7 +104,7 @@ export default {
         const [oldLocale, oldPageId] = oldFullpath || []
         if ((newLocale !== oldLocale || newPageId !== oldPageId) && newPageId) {
           this.setLocale(newLocale)
-          this.fetchPage(newPageId)
+          Promise.all([this.fetchPage(newPageId), this.fetchSite()])
         }
       },
     },

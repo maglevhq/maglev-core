@@ -91,6 +91,7 @@ Vue.mixin({
       'setDevice',
       'setLocale',
       'setPreviewDocument',
+      'fetchSite',
       'fetchPage',
       'fetchSection',
       'fetchSectionBlock',
