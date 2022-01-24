@@ -22,9 +22,9 @@ module Maglev
     protected
 
     def single_page
-      resources.by_id_or_path(id, content_locale).first ||
-        resources.by_id_or_path(id, default_locale).first ||
-        find_static_pages.find { |page| page.id == id }
+      find_static_pages.find { |page| page.id == id } ||
+        resources.by_id_or_path(id, content_locale).first ||
+          resources.by_id_or_path(id, default_locale).first        
     end
 
     def all_pages
