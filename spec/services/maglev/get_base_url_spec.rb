@@ -10,20 +10,38 @@ describe Maglev::GetBaseUrl do
       context: double('Context', rendering_mode: rendering_mode, controller: controller)
     )
   end
-  subject { service.call }
+  subject { service.call(preview_mode: preview_mode) }
 
-  context 'rendering the live page' do
-    let(:rendering_mode) { :live }
+  context 'no preview mode is passed to the service' do
+    let(:preview_mode) { nil }
+
+    context 'the rendering mode is editor' do
+      let(:rendering_mode) { :editor }
+      let(:controller) { double('Controller', site_preview_path: '/maglev/preview') }
+      it { is_expected.to eq '/maglev/preview' }
+    end
+
+    context 'the rendering mode is live' do
+      let(:rendering_mode) { :live }
+      let(:controller) { double('Controller', site_preview_path: '/maglev/preview') }
+      it { is_expected.to eq nil }
+    end
+  end
+
+  context 'preview mode is false' do
+    let(:preview_mode) { false }
+    let(:rendering_mode) { :editor }
     let(:controller) { double('Controller', site_preview_path: '/maglev/preview') }
-    it 'returns nil' do
+    it "doesn't need the rendering_mode variable" do
       is_expected.to eq nil
     end
   end
 
-  context 'inside the editor (builder)' do
-    let(:rendering_mode) { :editor }
+  context 'preview mode is true' do
+    let(:preview_mode) { true }
+    let(:rendering_mode) { :live }
     let(:controller) { double('Controller', site_preview_path: '/maglev/preview') }
-    it 'returns the preview path' do
+    it "doesn't need the rendering_mode variable" do
       is_expected.to eq '/maglev/preview'
     end
   end

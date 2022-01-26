@@ -87,7 +87,8 @@ export default {
       async handler(currentLink) {
         if (
           !currentLink ||
-          currentLink.linkType !== 'page' ||
+          (currentLink.linkType !== 'page' &&
+            currentLink.linkType !== 'static_page') ||
           this.isBlank(currentLink.linkId) ||
           currentLink.linkId === this.page?.id
         )
@@ -105,6 +106,7 @@ export default {
     page(page) {
       this.$emit('change', {
         ...this.currentLink,
+        linkType: page.static ? 'static_page' : 'page',
         linkId: page.id,
         linkLabel: page.title,
         sectionId: null,

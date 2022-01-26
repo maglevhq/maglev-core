@@ -77,7 +77,7 @@ export default (services) => ({
       return services.section.getBlockLabel(sectionBlock, definition)
     },
   sectionBlockIndex: ({ section, sectionBlock }) => {
-    console.log(section.blocks, sectionBlock)
+    // console.log(section.blocks, sectionBlock)
     return sectionBlock ? section.blocks.indexOf(sectionBlock.id) + 1 : null
   },
   sectionBlockContent: ({ sectionBlock }) => {

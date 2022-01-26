@@ -128,7 +128,7 @@ const onSettingLeft = (el) => {
 
 const onSettingClicked = (el, event) => {
   const fragments = el.dataset.maglevId.split('.')
-  console.log('select', el.dataset.maglevId, fragments, router)
+  // console.log('select', el.dataset.maglevId, fragments, router)
 
   event.stopPropagation() & event.preventDefault()
 

@@ -118,7 +118,8 @@ describe Maglev::GetPageSections do
       let(:page) { build(:page, :with_navbar, :page_links) }
       it 'sets the href properties' do
         expect(get_page_fullpath).to receive(:call).with(page: '42',
-                                                         locale: :en).twice.and_return('/preview/awesome-path')
+                                                         locale: :en,
+                                                         preview_mode: nil).twice.and_return('/preview/awesome-path')
         expect(subject[0]['blocks'][0]['settings'][1]['value']['href']).to eq('/preview/awesome-path')
         expect(subject[1]['settings'][1]['value']).to include('<a href="/preview/awesome-path"')
       end

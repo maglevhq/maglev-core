@@ -56,7 +56,7 @@ export default (services) => ({
     },
     { from, to },
   ) {
-    console.log('moveSection', from, sections[from], 'to', sections[to], to)
+    // console.log('moveSection', from, sections[from], 'to', sections[to], to)
     if (isBlank(from) || isBlank(to)) return
     commit('MOVE_HOVERED_SECTION', { fromIndex: from, toIndex: to })
     services.inlineEditing.updateMoveSection(

@@ -13,6 +13,7 @@ module Maglev
     dependency :fetch_site
     dependency :fetch_theme
     dependency :fetch_collection_items
+    dependency :fetch_static_pages
     dependency :get_page_fullpath
 
     argument :page

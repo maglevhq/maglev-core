@@ -42,6 +42,7 @@ export default {
           name: this.$t('linkPicker.page.name'),
           tab: PagePicker,
           type: 'page',
+          subType: 'static_page',
         },
         { name: this.$t('linkPicker.url.name'), tab: UrlPicker, type: 'url' },
         {
@@ -52,7 +53,9 @@ export default {
       ]
     },
     firstTabIndex() {
-      return this.tabs.map((t) => t.type).indexOf(this.linkType)
+      return this.tabs.findIndex(
+        (tab) => this.linkType === tab.type || this.linkType === tab.subType,
+      )
     },
     link() {
       return (
@@ -74,9 +77,10 @@ export default {
       this.linkType = this.tabs[index].type
     },
     onChange(link) {
+      const linkType = link.linkType || this.linkType
       this.linksByTypes = {
         ...this.linksByTypes,
-        [this.linkType]: { ...link, linkType: this.linkType },
+        [this.linkType]: { ...link, linkType },
       }
     },
   },

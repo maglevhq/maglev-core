@@ -71,7 +71,10 @@ export default {
   },
   computed: {
     isPage() {
-      return this.value?.linkType === 'page'
+      return (
+        this.value?.linkType === 'page' ||
+        this.value?.linkType === 'static_page'
+      )
     },
     isUrl() {
       return this.value?.linkType === 'url'

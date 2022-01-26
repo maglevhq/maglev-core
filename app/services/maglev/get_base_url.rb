@@ -18,7 +18,7 @@ module Maglev
     private
 
     def preview_mode?
-      preview_mode || context.rendering_mode == :editor
+      preview_mode.nil? ? context.rendering_mode == :editor : preview_mode
     end
 
     def site_preview_path

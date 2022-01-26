@@ -22,11 +22,17 @@ module Maglev::GetPageSections::TransformTextConcern
   end
 
   def find_link_page_path(link_type_matches, link_id_matches, section_id_matches)
-    return unless link_type_matches && link_id_matches && link_type_matches[1] == 'page'
+    return unless link_type_matches && link_id_matches
 
-    path = get_page_fullpath.call(page: link_id_matches[1], locale: locale)
-    anchor = section_id_matches ? section_id_matches[1] : nil
-    anchor.present? ? "#{path}##{anchor}" : path
+    # rubocop:disable Style/StringHashKeys
+    link = { 'link_type' => link_type_matches[1], 'link_id' => link_id_matches[1] }
+    # rubocop:enable Style/StringHashKeys
+
+    return unless %w[page static_page].include?(link['link_type'])
+
+    link['section_id'] = section_id_matches[1] if section_id_matches
+
+    replace_href_in_link(link)['href']
   end
 end
 # rubocop:enable Style/ClassAndModuleChildren
