@@ -13,10 +13,14 @@
           {{ $t('pagePreview.loading') }}
         </p>
       </div>
-      <div class="absolute inset-0 flex justify-center" v-if="currentPage">
+
+      <div
+        class="absolute inset-0 flex justify-center items-center"
+        v-if="currentPage"
+      >
         <div
-          class="device transition-all duration-100 ease-in-out"
-          :class="deviceClass"
+          class="transition-all duration-100 ease-in-out"
+          :class="{ [deviceClass]: true, hidden: isPageEmpty }"
           :style="{ opacity: previewReady ? 1 : 0 }"
         >
           <iframe
@@ -26,6 +30,42 @@
             ref="iframe"
           >
           </iframe>
+        </div>
+
+        <div
+          class="transition-all duration-100 ease-in-out"
+          :style="{ opacity: previewReady ? 1 : 0 }"
+          v-if="isPageEmpty && previewReady"
+        >
+          <h2
+            class="text-center text-4xl font-bold"
+            v-if="numberOfLocales === 1"
+          >
+            {{ $t('pagePreview.empty.title.withoutLocale') }}
+          </h2>
+          <i18n
+            path="pagePreview.empty.title.withLocale"
+            tag="h2"
+            class="text-center text-2xl font-bold"
+            v-else
+          >
+            <template v-slot:localeName>
+              <span
+                class="capitalize-first bg-editor-primary bg-opacity-20 px-2"
+                >{{ currentLocaleName }}</span
+              >
+            </template>
+          </i18n>
+
+          <i18n
+            path="pagePreview.empty.message"
+            tag="div"
+            class="flex mt-4 text-gray-600"
+          >
+            <template v-slot:icon>
+              <icon name="add-box-line" size="1.5rem" class="mx-1 text-black" />
+            </template>
+          </i18n>
         </div>
       </div>
     </div>
@@ -57,6 +97,17 @@ export default {
     fullpath() {
       // TODO: why here? why not in the App.vue instead?
       return [this.locale, this.pageId]
+    },
+    isPageEmpty() {
+      return this.currentSectionList.length === 0
+    },
+    numberOfLocales() {
+      return this.currentSite.locales.length
+    },
+    currentLocaleName() {
+      return this.currentSite.locales.find(
+        (locale) => locale.prefix === this.currentLocale,
+      ).label
     },
     deviceClass() {
       switch (this.device) {

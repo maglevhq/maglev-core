@@ -15,6 +15,7 @@
       duration-200
       focus:outline-none
       cursor-pointer
+      text-md
     "
     :class="{ 'font-bold': isActive }"
   >

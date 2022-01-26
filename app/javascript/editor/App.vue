@@ -29,11 +29,12 @@ export default {
       )
         this.$router.push({ name: 'editPage', params: { pageId: newPath } })
     },
-    currentSectionList(newList) {
-      // NOTE: let the editor know that she/he has to add a new section if the page is empty
-      if (newList.length === 0 && this.$route.name !== 'addSection')
-        this.$router.push({ name: 'addSection' })
-    },
+    // NOTE: this was an old feature, disabled for now since we've got a warning message for empty pages.
+    // currentSectionList(newList) {
+    //   // NOTE: let the editor know that she/he has to add a new section if the page is empty
+    //   if (newList.length === 0 && this.$route.name !== 'addSection')
+    //     this.$router.push({ name: 'addSection' })
+    // },
     uiOpenErrorModal(newValue, oldValue) {
       if (newValue && !oldValue) this.openErrorModal(this.uiErrorModalType)
     },

@@ -1,6 +1,9 @@
 <template>
   <div>
-    <draggable :list="list" @end="onSortEnd" v-bind="dragOptions">
+    <div v-if="isListEmpty" class="text-center mt-8">
+      <span class="text-gray-800">{{ $t('sections.listPane.empty') }}</span>
+    </div>
+    <draggable :list="list" @end="onSortEnd" v-bind="dragOptions" v-else>
       <transition-group type="transition" name="flip-list">
         <list-item
           v-for="(section, index) in list"
@@ -28,6 +31,9 @@ export default {
   computed: {
     list() {
       return this.currentSectionList
+    },
+    isListEmpty() {
+      return this.currentSectionList.length === 0
     },
     dragOptions() {
       return {

@@ -11,7 +11,14 @@
     }
   },
   "pagePreview": {
-    "loading": "Loading..."
+    "loading": "Loading...",
+    "empty": {
+      "title": {
+        "withoutLocale": "Your page is blank",
+        "withLocale": "Your page in %{localeName} is blank"
+      },
+      "message": "Please add the first section by clicking on the {icon} button in the left sidebar."
+    }
   },
   "page": {
     "list": {
@@ -71,7 +78,8 @@
       "title": "Add a section"
     },
     "listPane": {
-      "title": "Organize sections"
+      "title": "Organize sections",
+      "empty": "There are no sections."
     }
   },
   "sectionPane": {
