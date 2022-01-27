@@ -16,7 +16,7 @@ module Maglev
     protected
 
     def build_static_pages
-      config.static_pages.map do |raw_attributes|
+      @build_static_pages ||= config.static_pages.map do |raw_attributes|
         build_static_page(raw_attributes.symbolize_keys)
       end
     end
@@ -39,9 +39,7 @@ module Maglev
     end
 
     def fetch_path_attribute(attributes)
-      fetch_attribute(attributes, :path).transform_values do |path|
-        path.gsub(%r{^/}, '')
-      end
+      fetch_attribute(attributes, :path)
     end
 
     def fetch_attribute(attributes, name)

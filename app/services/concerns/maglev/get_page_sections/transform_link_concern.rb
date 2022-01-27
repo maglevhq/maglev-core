@@ -22,12 +22,14 @@ module Maglev::GetPageSections::TransformLinkConcern
   def get_fullpath_from_link(link)
     is_static_page = link['link_type'] == 'static_page'
     page_id = link['link_id']
-    page = is_static_page ? fetch_static_pages.call.find { |static_page| static_page.id == page_id } : page_id
 
     # since the static pages don't have a preview version, we need the raw url
-    preview_mode = is_static_page ? false : nil
-
-    get_page_fullpath.call(page: page, locale: locale, preview_mode: preview_mode)
+    if is_static_page
+      page = fetch_static_pages.call.find { |static_page| static_page.id == page_id }
+      page&.path
+    else
+      get_page_fullpath.call(page: page_id, locale: locale)
+    end
   end
 end
 # rubocop:enable Style/ClassAndModuleChildren
