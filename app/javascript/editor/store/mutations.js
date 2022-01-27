@@ -92,7 +92,7 @@ export default (services) => ({
         break
       default:
         updatedPage.sections.splice(
-          updatedPage.sections.indexOf(insertAt),
+          updatedPage.sections.indexOf(insertAt) + 1,
           0,
           section.id,
         )
