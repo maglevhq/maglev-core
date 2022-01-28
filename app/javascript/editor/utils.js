@@ -105,3 +105,8 @@ export const hexToRgb = (hex) => {
       }
     : null
 }
+
+// Static pages have absolute path ("/something") but regular pages have no leading slash
+export const formatPath = (path) => {
+  return path[0] === '/' ? path : `/${path}`
+}

@@ -19,7 +19,7 @@
             class="ml-auto"
             :class="{ 'text-gray-500': !hovered, 'text-white': hovered }"
           >
-            /{{ item.path }}
+            {{ item.path | formatPath }}
           </span>
         </div>
       </template>

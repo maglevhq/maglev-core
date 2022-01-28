@@ -1,5 +1,6 @@
 import Vue from 'vue'
-import { numberToHumanSize, truncate } from '@/utils'
+import { numberToHumanSize, truncate, formatPath } from '@/utils'
 
 Vue.filter('numberToHumanSize', numberToHumanSize)
 Vue.filter('truncate', truncate)
+Vue.filter('formatPath', formatPath)
