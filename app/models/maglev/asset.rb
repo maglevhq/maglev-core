@@ -7,6 +7,12 @@ module Maglev
     ## validations ##
     validates :file, presence: true
 
+    ## methods ##
+
+    def to_param
+      "#{id}-#{filename}"
+    end
+
     ## class methods ##
 
     def self.search(keyword, type, page = nil, per_page = nil)

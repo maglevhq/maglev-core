@@ -31,6 +31,7 @@ module Maglev
         c.logo = nil
         c.primary_color = '#7E6EDB'
         c.uploader = 'active_storage'
+        c.asset_host = Rails.application.config.action_controller.asset_host
         c.ui_locale = nil
         c.back_action = nil
         c.services = {}

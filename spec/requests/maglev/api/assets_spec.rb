@@ -29,7 +29,7 @@ RSpec.describe 'Maglev::API::AssetsController', type: :request do
               width: 800,
               height: 375,
               byte_size: 104_016,
-              url: maglev.public_asset_url(asset)
+              url: maglev.public_asset_url(asset, only_path: true)
             }.as_json)
           ]
         )
