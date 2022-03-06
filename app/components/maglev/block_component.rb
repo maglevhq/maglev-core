@@ -4,9 +4,12 @@ module Maglev
   class BlockComponent < BaseComponent
     include TagHelper
 
+    extend Forwardable
+    def_delegators :section, :site, :config
+
     attr_reader :section, :id, :name, :type, :settings, :attributes, :definition
     attr_accessor :children
-
+    
     # rubocop:disable Lint/MissingSuper
     def initialize(section:, attributes:, definition:)
       @section = section

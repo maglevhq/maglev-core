@@ -4,6 +4,9 @@ module Maglev
   class SectionComponent < BaseComponent
     include TagHelper
 
+    extend Forwardable
+    def_delegators :parent, :site, :config
+
     attr_reader :parent, :id, :type, :settings, :attributes, :definition, :templates_root_path
 
     # rubocop:disable Lint/MissingSuper
@@ -14,7 +17,7 @@ module Maglev
       @definition = definition
       @attributes = attributes
       @templates_root_path = templates_root_path
-
+      
       @settings = settings_proxy(
         build_settings_map(attributes[:settings])
       )

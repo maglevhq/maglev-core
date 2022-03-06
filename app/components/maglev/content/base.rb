@@ -3,7 +3,8 @@
 module Maglev
   module Content
     class Base
-      delegate :site, to: :scope
+      extend Forwardable
+      def_delegators :scope, :site, :config
 
       attr_accessor :scope, :content, :setting
 
@@ -34,6 +35,17 @@ module Maglev
 
       def tag(_view_context, _options)
         to_s
+      end
+
+      def asset_host
+        case config.asset_host
+        when nil
+          nil
+        when String
+          config.asset_host
+        when Proc
+          instance_exec(site, &config.asset_host)
+        end 
       end
     end
   end

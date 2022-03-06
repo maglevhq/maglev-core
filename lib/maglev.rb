@@ -31,6 +31,7 @@ module Maglev
         c.logo = nil
         c.primary_color = '#7E6EDB'
         c.uploader = 'active_storage'
+        c.preview_host = nil 
         c.asset_host = Rails.application.config.action_controller.asset_host
         c.ui_locale = nil
         c.back_action = nil
@@ -55,7 +56,7 @@ module Maglev
     end
 
     def services(overrides = {})
-      Maglev::AppContainer.new(config.services.merge(overrides)).call
+      ::Maglev::AppContainer.new(config.services.merge(overrides)).call
     end
 
     def webpacker

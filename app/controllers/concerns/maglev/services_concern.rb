@@ -2,6 +2,12 @@
 
 module Maglev
   module ServicesConcern
+    extend ActiveSupport::Concern
+
+    included do
+      helper_method :maglev_config
+    end
+
     private
 
     def services
@@ -24,6 +30,10 @@ module Maglev
 
     def maglev_rendering_mode
       :live
+    end
+
+    def maglev_config
+      Maglev.config
     end
   end
 end

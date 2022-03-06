@@ -4,13 +4,15 @@ require 'rails_helper'
 
 describe Maglev::SectionComponent do
   let(:page) { build(:page, :with_navbar).tap(&:prepare_sections) }
+  let(:config) { instance_double('MaglevConfig', asset_host: 'https://assets.maglev.local') }
+  let(:page_component) { instance_double('PageCommponent', page: page, config: config)}
   let(:attributes) { page.sections[1].deep_symbolize_keys }
   let(:definition) { build(:section) }
   let(:view_context) { FooController.new.view_context }
-  let(:templates_root_path) { 'theme' }
+  let(:templates_root_path) { 'theme' }  
   let(:component) do
     described_class.new(
-      parent: page,
+      parent: page_component,
       attributes: attributes,
       definition: definition,
       templates_root_path: templates_root_path
