@@ -8,13 +8,13 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 # development dependencies will be added by default to the :development group.
 gemspec
 
-gem 'rails', '~> 6.1.4', '>= 6.1.4.4'
+gem 'rails', '~> 6.1.4', '>= 6.1.4.6'
 
 # Active Storage analyser
 gem 'mini_magick', '~> 4.11'
 
 # Use Active Storage variant
-gem 'image_processing', '~> 1.2'
+gem 'image_processing', '~> 1.12.2'
 
 # Temporary use this branch because it solves a bug
 gem 'injectable', github: 'Papipo/injectable', branch: 'override-with-class'
@@ -44,7 +44,7 @@ group :development, :test do
 
   gem 'generator_spec'
 
-  gem 'nokogiri', '>= 1.12.5'
+  gem 'nokogiri', '>= 1.13.2'
 end
 
 group :test do

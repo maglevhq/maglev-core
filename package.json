@@ -47,7 +47,8 @@
     "webpack-dev-server": "^3.11.3"
   },
   "resolutions": {
-    "prosemirror-model": "^1.11.2"
+    "prosemirror-model": "^1.11.2",
+    "glob-parent": "^5.1.2"
   },
   "jest": {
     "roots": [
