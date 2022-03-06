@@ -12,6 +12,6 @@ module Maglev
 
     def use_engine_webpacker?
       true
-    end    
+    end
   end
 end

@@ -3,7 +3,7 @@
 module Maglev
   module PagePreviewHelper
     # rubocop:disable Rails/OutputSafety
-    def render_maglev_sections(site: nil, theme: nil, page: nil, page_sections: nil, config: nil)
+    def render_maglev_sections(site: nil, theme: nil, page: nil, page_sections: nil)
       PageComponent.new(
         site: site || maglev_site,
         theme: theme || maglev_theme,

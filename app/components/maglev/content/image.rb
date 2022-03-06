@@ -5,7 +5,8 @@ module Maglev
     class Image < Base
       def url
         return image[:url] if asset_host.nil? || !uploaded?
-        URI::join(asset_host, URI::parse(image[:url]).path).to_s
+
+        URI.join(asset_host, URI.parse(image[:url]).path).to_s
       end
 
       def width

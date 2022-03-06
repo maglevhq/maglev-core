@@ -12,7 +12,8 @@ describe Maglev::Content::Image do
   context 'content is a string' do
     let(:content) { 'https://placeholder.net/random-image.png' }
     let(:setting) do
-      double('Maglev::Section::Setting', default: 'https://placeholder.net/default-image.png', id: 'image', label: 'Image', type: 'image',
+      double('Maglev::Section::Setting', default: 'https://placeholder.net/default-image.png',
+                                         id: 'image', label: 'Image', type: 'image',
                                          options: {})
     end
 
@@ -37,7 +38,8 @@ describe Maglev::Content::Image do
       { url: '/maglev/assets/42-welcome.png', alt_text: 'Hello world', height: 640, width: 1024 }
     end
     let(:setting) do
-      double('Maglev::Section::Setting', default: 'https://placeholder.net/default-image.png', id: 'image', label: 'Image', type: 'image',
+      double('Maglev::Section::Setting', default: 'https://placeholder.net/default-image.png',
+                                         id: 'image', label: 'Image', type: 'image',
                                          options: {})
     end
 
@@ -60,7 +62,7 @@ describe Maglev::Content::Image do
       end
 
       context 'the asset_host is a Proc' do
-        let(:asset_host) { ->(site) { 'https://maglev.local' } }
+        let(:asset_host) { ->(_site) { 'https://maglev.local' } }
         it { expect(image.url).to eq('https://maglev.local/maglev/assets/42-welcome.png') }
       end
     end

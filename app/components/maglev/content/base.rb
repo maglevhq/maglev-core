@@ -45,7 +45,7 @@ module Maglev
           config.asset_host
         when Proc
           instance_exec(site, &config.asset_host)
-        end 
+        end
       end
     end
   end

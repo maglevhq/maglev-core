@@ -18,6 +18,7 @@ module Maglev
 
     def default_preview_host
       return nil if Maglev.config.preview_host.blank?
+
       URI.parse(Maglev.config.preview_host).host # make sure we get only the host here
     end
   end
