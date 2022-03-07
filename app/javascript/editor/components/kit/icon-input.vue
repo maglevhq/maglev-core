@@ -18,35 +18,14 @@
       </div>
       <div v-else>
         <div
-          class="
-            relative
-            bg-gray-100
-            h-24
-            rounded
-            flex
-            items-center
-            justify-center
-            overflow-hidden
-          "
+          class="relative bg-gray-100 h-24 rounded flex items-center justify-center overflow-hidden"
           @mouseover="hovered = true"
           @mouseleave="hovered = false"
         >
           <i class="text-6xl text-gray-800 font-bold" :class="value" />
           <transition name="slide-up">
             <div
-              class="
-                flex
-                justify-center
-                py-3
-                px-2
-                absolute
-                bg-black bg-opacity-75
-                bottom-0
-                w-full
-                text-white
-                cursor-default
-                rounded-b
-              "
+              class="flex justify-center py-3 px-2 absolute bg-black bg-opacity-75 bottom-0 w-full text-white cursor-default rounded-b"
               v-if="hovered"
             >
               <button

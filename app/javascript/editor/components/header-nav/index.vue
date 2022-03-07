@@ -11,16 +11,7 @@
       <div class="flex">
         <router-link
           :to="{ name: 'listPages' }"
-          class="
-            flex
-            items-center
-            py-4
-            px-6
-            flex-row
-            hover:bg-editor-primary hover:bg-opacity-5
-            transition-colors
-            duration-200
-          "
+          class="flex items-center py-4 px-6 flex-row hover:bg-editor-primary hover:bg-opacity-5 transition-colors duration-200"
           :class="{
             'bg-white': !isListPagesActive,
             'bg-editor-primary bg-opacity-5': isListPagesActive,
@@ -36,16 +27,7 @@
 
         <router-link
           :to="{ name: 'editPageSettings' }"
-          class="
-            flex
-            items-center
-            py-4
-            px-6
-            flex-row
-            hover:bg-editor-primary hover:bg-opacity-5
-            transition-colors
-            duration-200
-          "
+          class="flex items-center py-4 px-6 flex-row hover:bg-editor-primary hover:bg-opacity-5 transition-colors duration-200"
           :class="{
             'bg-white': !isEditPageActive,
             'bg-editor-primary bg-opacity-5': isEditPageActive,
@@ -74,14 +56,7 @@
         <a
           :href="currentPage.previewUrl"
           target="_blank"
-          class="
-            px-6
-            flex
-            items-center
-            hover:bg-editor-primary hover:bg-opacity-5
-            transition-colors
-            duration-200
-          "
+          class="px-6 flex items-center hover:bg-editor-primary hover:bg-opacity-5 transition-colors duration-200"
         >
           {{ $t('headerNav.previewSite') }}
         </a>

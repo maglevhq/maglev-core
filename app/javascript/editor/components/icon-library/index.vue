@@ -7,22 +7,7 @@
         class="flex justify-center"
       >
         <div
-          class="
-            cursor-pointer
-            text-gray-900
-            h-12
-            w-12
-            flex
-            items-center
-            justify-center
-            rounded
-            hover:bg-gray-900 hover:text-white hover:shadow-lg
-            transition
-            transform
-            duration-200
-            ease-in-out
-            hover:scale-125
-          "
+          class="cursor-pointer text-gray-900 h-12 w-12 flex items-center justify-center rounded hover:bg-gray-900 hover:text-white hover:shadow-lg transition transform duration-200 ease-in-out hover:scale-125"
           @click.prevent="$emit('select', icon)"
         >
           <i class="text-3xl" :class="icon"></i>

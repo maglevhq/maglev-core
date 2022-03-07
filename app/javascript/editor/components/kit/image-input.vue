@@ -30,19 +30,7 @@
           />
           <transition name="slide-up">
             <div
-              class="
-                flex
-                justify-center
-                py-3
-                px-2
-                absolute
-                bg-black bg-opacity-75
-                bottom-0
-                w-full
-                text-white
-                cursor-default
-                rounded-b
-              "
+              class="flex justify-center py-3 px-2 absolute bg-black bg-opacity-75 bottom-0 w-full text-white cursor-default rounded-b"
               v-if="hovered"
             >
               <button

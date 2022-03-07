@@ -1,24 +1,11 @@
 <template>
   <div
-    class="
-      h-48
-      absolute
-      pointer-events-none
-      transition
-      duration-200
-      ease-in-out
-    "
+    class="h-48 absolute pointer-events-none transition duration-200 ease-in-out"
     :style="style"
     v-if="previewReady"
   >
     <div
-      class="
-        w-full
-        h-full
-        relative
-        mx-auto
-        border-solid border-0 border-t-4 border-b-4
-      "
+      class="w-full h-full relative mx-auto border-solid border-0 border-t-4 border-b-4"
       :class="{
         tablet: hasEnoughWidthForTablet,
         mobile: hasEnoughWidthForMobile,

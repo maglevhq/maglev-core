@@ -8,17 +8,7 @@
         v-for="(tab, index) in tabs"
         :key="`tab-${index}`"
         type="button"
-        class="
-          text-gray-500
-          py-1
-          pb-0
-          px-4
-          block
-          hover:text-editor-primary
-          focus:outline-none
-          border-b-2 border-transparent
-          z-10
-        "
+        class="text-gray-500 py-1 pb-0 px-4 block hover:text-editor-primary focus:outline-none border-b-2 border-transparent z-10"
         :class="{
           'text-editor-primary font-medium border-editor-primary':
             index === currentIndex,

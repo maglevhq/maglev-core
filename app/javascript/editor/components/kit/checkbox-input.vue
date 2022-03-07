@@ -8,19 +8,7 @@
         <input :id="name" type="checkbox" class="hidden" v-model="localValue" />
         <div class="toggle__line w-10 h-6 bg-gray-200 rounded-full"></div>
         <div
-          class="
-            toggle__dot
-            absolute
-            w-5
-            h-5
-            bg-white
-            rounded-full
-            inset-y-0
-            left-0
-            transition
-            duration-200
-            ease-in-out
-          "
+          class="toggle__dot absolute w-5 h-5 bg-white rounded-full inset-y-0 left-0 transition duration-200 ease-in-out"
         ></div>
       </div>
     </label>

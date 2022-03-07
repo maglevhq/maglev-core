@@ -5,18 +5,7 @@
       params: { locale: locale.prefix, pageId: pageId },
     }"
     :key="locale.prefix"
-    class="
-      flex
-      items-center
-      px-4
-      py-4
-      hover:bg-gray-100
-      transition-colors
-      duration-200
-      focus:outline-none
-      cursor-pointer
-      text-md
-    "
+    class="flex items-center px-4 py-4 hover:bg-gray-100 transition-colors duration-200 focus:outline-none cursor-pointer text-md"
     :class="{ 'font-bold': isActive }"
   >
     {{ locale.label }}

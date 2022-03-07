@@ -1,14 +1,7 @@
 <template>
   <div>
     <label
-      class="
-        block
-        font-semibold
-        text-gray-800
-        flex
-        justify-between
-        items-center
-      "
+      class="block font-semibold text-gray-800 flex justify-between items-center"
     >
       <span>{{ label }}</span>
       <span
@@ -25,17 +18,7 @@
       :value="value"
       @blur="blur()"
       @input="updateInput"
-      class="
-        block
-        w-full
-        mt-1
-        py-2
-        px-3
-        rounded
-        bg-gray-100
-        text-gray-800
-        focus:outline-none focus:ring
-      "
+      class="block w-full mt-1 py-2 px-3 rounded bg-gray-100 text-gray-800 focus:outline-none focus:ring"
       autocomplete="off"
       ref="input"
       :rows="rows"

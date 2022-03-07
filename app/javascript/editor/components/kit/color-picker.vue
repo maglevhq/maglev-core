@@ -16,34 +16,14 @@
         <label
           :for="`${name}-${preset}`"
           :title="preset"
-          class="
-            inline-block
-            w-9
-            h-9
-            mr-1
-            cursor-pointer
-            p-0.5
-            border-4
-            rounded-full
-          "
+          class="inline-block w-9 h-9 mr-1 cursor-pointer p-0.5 border-4 rounded-full"
           :style="{
             'border-color':
               preset === selectedColor ? selectedBorderColor : 'transparent',
           }"
         >
           <span
-            class="
-              block
-              w-full
-              h-full
-              rounded-full
-              transition
-              transform
-              duration-200
-              ease-in-out
-              hover:scale-110
-              select-none
-            "
+            class="block w-full h-full rounded-full transition transform duration-200 ease-in-out hover:scale-110 select-none"
             :class="{ 'border border-gray-300': isWhite(preset) }"
             :style="{ 'background-color': preset }"
           >

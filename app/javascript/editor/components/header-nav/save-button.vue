@@ -1,16 +1,7 @@
 <template>
   <submit-button
     type="button"
-    class="
-      block
-      text-white
-      w-40
-      h-full
-      bg-opacity-95
-      hover:bg-opacity-100
-      transition-colors
-      duration-200
-    "
+    class="block text-white w-40 h-full bg-opacity-95 hover:bg-opacity-100 transition-colors duration-200"
     defaultColorClass="bg-editor-primary"
     :labels="$t('headerNav.saveButton')"
     :buttonState="buttonState"

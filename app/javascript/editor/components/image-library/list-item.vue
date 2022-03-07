@@ -16,34 +16,12 @@
         />
         <transition name="slide-up">
           <div
-            class="
-              flex
-              items-center
-              px-2
-              absolute
-              bg-black bg-opacity-75
-              bottom-0
-              h-12
-              w-full
-              text-white text-xs
-              cursor-default
-              rounded-b
-            "
+            class="flex items-center px-2 absolute bg-black bg-opacity-75 bottom-0 h-12 w-full text-white text-xs cursor-default rounded-b"
             v-if="actionBarDisplayed"
           >
             <button
               type="button"
-              class="
-                px-1
-                py-1
-                bg-white
-                rounded-full
-                flex
-                items-center
-                justify-center
-                text-gray-900
-                ml-auto
-              "
+              class="px-1 py-1 bg-white rounded-full flex items-center justify-center text-gray-900 ml-auto"
               @click="() => (this.askingForRemoval = true)"
             >
               <icon name="delete-bin-line" size="1rem" />
@@ -51,46 +29,19 @@
           </div>
         </transition>
         <div
-          class="
-            flex
-            items-center
-            justify-center
-            absolute
-            bg-black bg-opacity-75
-            inset-0
-            rounded
-            text-white
-          "
+          class="flex items-center justify-center absolute bg-black bg-opacity-75 inset-0 rounded text-white"
           v-if="askingForRemoval"
         >
           <div class="text-center">
             <p class="mb-2">{{ $t('imageLibrary.destroy.text') }}</p>
             <button
-              class="
-                block
-                w-full
-                rounded
-                text-center text-sm
-                bg-transparent
-                py-1
-                px-4
-                hover:bg-white hover:text-gray-900
-              "
+              class="block w-full rounded text-center text-sm bg-transparent py-1 px-4 hover:bg-white hover:text-gray-900"
               @click="() => $emit('destroy', this.image)"
             >
               {{ $t('imageLibrary.destroy.ok') }}
             </button>
             <button
-              class="
-                block
-                w-full
-                rounded
-                text-center text-sm
-                bg-transparent
-                py-1
-                px-4
-                hover:bg-white hover:text-gray-900
-              "
+              class="block w-full rounded text-center text-sm bg-transparent py-1 px-4 hover:bg-white hover:text-gray-900"
               @click="() => (this.askingForRemoval = false)"
             >
               {{ $t('imageLibrary.destroy.cancel') }}

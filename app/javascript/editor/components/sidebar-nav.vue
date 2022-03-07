@@ -10,16 +10,7 @@
       <li>
         <router-link
           :to="{ name: 'addSection' }"
-          class="
-            flex
-            justify-center
-            py-5
-            -ml-4
-            -mr-4
-            hover:bg-editor-primary hover:bg-opacity-5
-            transition-colors
-            duration-200
-          "
+          class="flex justify-center py-5 -ml-4 -mr-4 hover:bg-editor-primary hover:bg-opacity-5 transition-colors duration-200"
           :class="{
             'bg-white': !isAddSectionPaneActive,
             'bg-editor-primary bg-opacity-5': isAddSectionPaneActive,
@@ -31,16 +22,7 @@
       <li>
         <router-link
           :to="{ name: 'listSections' }"
-          class="
-            flex
-            justify-center
-            py-5
-            -ml-4
-            -mr-4
-            hover:bg-editor-primary hover:bg-opacity-5
-            transition-colors
-            duration-200
-          "
+          class="flex justify-center py-5 -ml-4 -mr-4 hover:bg-editor-primary hover:bg-opacity-5 transition-colors duration-200"
           :class="{
             'bg-white': !isSectionListPaneActive,
             'bg-editor-primary bg-opacity-5': isSectionListPaneActive,
@@ -52,16 +34,7 @@
       <li>
         <a
           href="#"
-          class="
-            flex
-            justify-center
-            py-5
-            -ml-4
-            -mr-4
-            hover:bg-editor-primary hover:bg-opacity-5
-            transition-colors
-            duration-200
-          "
+          class="flex justify-center py-5 -ml-4 -mr-4 hover:bg-editor-primary hover:bg-opacity-5 transition-colors duration-200"
           @click.prevent="openImageLibraryModal"
         >
           <icon name="image-line" size="1.5rem" />
@@ -70,16 +43,7 @@
       <li v-if="false">
         <router-link
           :to="{ name: 'test', params: { pageId: currentPage.path } }"
-          class="
-            flex
-            justify-center
-            py-5
-            -ml-4
-            -mr-4
-            hover:bg-editor-primary hover:bg-opacity-5
-            transition-colors
-            duration-200
-          "
+          class="flex justify-center py-5 -ml-4 -mr-4 hover:bg-editor-primary hover:bg-opacity-5 transition-colors duration-200"
         >
           T
         </router-link>
@@ -87,16 +51,7 @@
       <li v-if="false">
         <router-link
           :to="{ name: 'test2', params: { pageId: currentPage.path } }"
-          class="
-            flex
-            justify-center
-            py-5
-            -ml-4
-            -mr-4
-            hover:bg-editor-primary hover:bg-opacity-5
-            transition-colors
-            duration-200
-          "
+          class="flex justify-center py-5 -ml-4 -mr-4 hover:bg-editor-primary hover:bg-opacity-5 transition-colors duration-200"
         >
           T2
         </router-link>
@@ -109,16 +64,7 @@
       <li>
         <a
           :href="leaveEditorUrl"
-          class="
-            flex
-            justify-center
-            py-5
-            -ml-4
-            -mr-4
-            hover:bg-editor-primary hover:bg-opacity-5
-            transition-colors
-            duration-200
-          "
+          class="flex justify-center py-5 -ml-4 -mr-4 hover:bg-editor-primary hover:bg-opacity-5 transition-colors duration-200"
         >
           <icon name="logout-box-r-line" size="1.5rem" />
         </a>

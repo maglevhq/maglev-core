@@ -1,16 +1,7 @@
 <template>
   <form
     @submit.stop.prevent="search"
-    class="
-      flex
-      items-center
-      py-2
-      px-4
-      rounded
-      bg-gray-100
-      text-gray-800
-      focus:outline-none focus:ring
-    "
+    class="flex items-center py-2 px-4 rounded bg-gray-100 text-gray-800 focus:outline-none focus:ring"
   >
     <button class="mr-2" type="submit">
       <icon name="search-line" class="text-gray-500" />
@@ -19,14 +10,7 @@
     <input
       type="text"
       v-model="query"
-      class="
-        block
-        w-full
-        border-0
-        bg-transparent
-        focus:outline-none
-        placeholder-gray-500
-      "
+      class="block w-full border-0 bg-transparent focus:outline-none placeholder-gray-500"
       :placeholder="placeholder"
       :aria-label="placeholder"
     />

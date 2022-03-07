@@ -7,16 +7,7 @@
     class="flex"
   >
     <div
-      class="
-        z-10
-        relative
-        flex
-        items-center
-        focus:outline-none
-        select-none
-        cursor-pointer
-        w-full
-      "
+      class="z-10 relative flex items-center focus:outline-none select-none cursor-pointer w-full"
       @click.stop.prevent="toggle"
     >
       <slot name="button"></slot>

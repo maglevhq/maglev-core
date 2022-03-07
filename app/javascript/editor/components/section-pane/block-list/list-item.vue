@@ -1,15 +1,6 @@
 <template>
   <div
-    class="
-      bg-gray-100
-      rounded-md
-      px-4
-      py-3
-      flex
-      items-center
-      justify-between
-      text-gray-800
-    "
+    class="bg-gray-100 rounded-md px-4 py-3 flex items-center justify-between text-gray-800"
     :class="{ 'cursor-move': isList }"
   >
     <router-link

@@ -2,14 +2,7 @@
   <div class="h-full">
     <header class="flex h-16 border-b border-gray-200">
       <div
-        class="
-          w-16
-          h-full
-          flex
-          justify-center
-          items-center
-          border-r border-gray-200
-        "
+        class="w-16 h-full flex justify-center items-center border-r border-gray-200"
       >
         <img v-bind:src="logoUrl" class="w-2/4" />
       </div>
@@ -19,16 +12,7 @@
     </header>
     <div class="flex content-area">
       <aside
-        class="
-          w-16
-          flex-shrink-0 flex
-          content-center
-          h-full
-          border-r border-gray-200
-          relative
-          z-20
-          bg-white
-        "
+        class="w-16 flex-shrink-0 flex content-center h-full border-r border-gray-200 relative z-20 bg-white"
       >
         <slot name="sidebar"> [Layout] Default sidebar </slot>
       </aside>

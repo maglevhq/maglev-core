@@ -48,7 +48,11 @@
   },
   "resolutions": {
     "prosemirror-model": "^1.11.2",
-    "glob-parent": "^5.1.2"
+    "glob-parent": "^5.1.2",
+    "nth-check": "^2.0.1",
+    "ansi-regex": "^5.0.1",
+    "node-forge": "^1.0.0",
+    "postcss": "^7.0.36"
   },
   "jest": {
     "roots": [

@@ -1,16 +1,6 @@
 <template>
   <div
-    class="
-      slide-pane
-      absolute
-      inset-y-0
-      w-96
-      h-full
-      bg-white
-      border-r border-gray-200
-      origin-top-left
-      flex flex-col
-    "
+    class="slide-pane absolute inset-y-0 w-96 h-full bg-white border-r border-gray-200 origin-top-left flex flex-col"
     :class="{
       'left-0 z-40': $route.meta.hidingSidebar,
       'left-16 z-10': !$route.meta.hidingSidebar,
@@ -27,13 +17,7 @@
 
           <div class="w-full" v-else>
             <h2
-              class="
-                text-gray-800
-                font-semibold
-                antialiased
-                text-lg
-                capitalize-first
-              "
+              class="text-gray-800 font-semibold antialiased text-lg capitalize-first"
               v-if="title"
             >
               {{ title }}
@@ -52,13 +36,7 @@
 
         <div v-if="withPreTitle">
           <h2
-            class="
-              text-gray-800
-              font-semibold
-              antialiased
-              text-lg
-              capitalize-first
-            "
+            class="text-gray-800 font-semibold antialiased text-lg capitalize-first"
             v-if="title"
           >
             {{ title }}

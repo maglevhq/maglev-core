@@ -1,16 +1,7 @@
 <template>
   <div class="absolute top-0 left-0 mt-2 ml-2 flex">
     <div
-      class="
-        bg-editor-primary
-        text-white
-        py-1
-        px-3
-        rounded-l-2xl
-        text-xs
-        flex
-        items-center
-      "
+      class="bg-editor-primary text-white py-1 px-3 rounded-l-2xl text-xs flex items-center"
       :class="{ 'rounded-r-2xl': !displayMoveArrows }"
     >
       <span>{{ hoveredSection.name }}</span>

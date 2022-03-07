@@ -1,15 +1,6 @@
 <template>
   <div
-    class="
-      flex
-      items-center
-      py-3
-      pl-6
-      pr-2
-      hover:bg-editor-primary hover:bg-opacity-5
-      transition-colors
-      duration-200
-    "
+    class="flex items-center py-3 pl-6 pr-2 hover:bg-editor-primary hover:bg-opacity-5 transition-colors duration-200"
   >
     <router-link
       :to="{ name: 'editPage', params: { pageId: page.path } }"
@@ -28,18 +19,7 @@
       <dropdown v-on="$listeners">
         <template v-slot:button>
           <button
-            class="
-              px-1
-              py-1
-              rounded-full
-              bg-editor-primary bg-opacity-0
-              hover:text-gray-900
-              text-gray-600
-              focus:outline-none
-              hover:bg-opacity-10
-              transition-colors
-              duration-200
-            "
+            class="px-1 py-1 rounded-full bg-editor-primary bg-opacity-0 hover:text-gray-900 text-gray-600 focus:outline-none hover:bg-opacity-10 transition-colors duration-200"
           >
             <icon name="ri-more-2-fill" size="1.25rem" />
           </button>
@@ -47,16 +27,7 @@
         <template v-slot:content>
           <div class="flex flex-col w-48 text-gray-800">
             <button
-              class="
-                flex
-                items-center
-                px-4
-                py-4
-                hover:bg-gray-100
-                transition-colors
-                duration-200
-                focus:outline-none
-              "
+              class="flex items-center px-4 py-4 hover:bg-gray-100 transition-colors duration-200 focus:outline-none"
               @click.stop="openEditPageModal"
             >
               <icon name="ri-settings-5-line" />
@@ -65,32 +36,14 @@
               }}</span>
             </button>
             <button
-              class="
-                flex
-                items-center
-                px-4
-                py-4
-                hover:bg-gray-100
-                transition-colors
-                duration-200
-                focus:outline-none
-              "
+              class="flex items-center px-4 py-4 hover:bg-gray-100 transition-colors duration-200 focus:outline-none"
               @click.stop="clonePage"
             >
               <icon name="ri-file-copy-line" />
               <span class="ml-2">{{ $t('page.list.item.clone') }}</span>
             </button>
             <button
-              class="
-                flex
-                items-center
-                px-4
-                py-4
-                hover:bg-gray-100
-                transition-colors
-                duration-200
-                focus:outline-none
-              "
+              class="flex items-center px-4 py-4 hover:bg-gray-100 transition-colors duration-200 focus:outline-none"
               @click.stop="hidePage"
               v-if="isVisible"
             >
@@ -98,16 +51,7 @@
               <span class="ml-2">{{ $t('page.list.item.hide') }}</span>
             </button>
             <button
-              class="
-                flex
-                items-center
-                px-4
-                py-4
-                hover:bg-gray-100
-                transition-colors
-                duration-200
-                focus:outline-none
-              "
+              class="flex items-center px-4 py-4 hover:bg-gray-100 transition-colors duration-200 focus:outline-none"
               @click.stop="showPage"
               v-if="!isVisible"
             >
@@ -120,17 +64,7 @@
               v-if="!isIndexPage"
             >
               <button
-                class="
-                  flex
-                  items-center
-                  w-full
-                  px-4
-                  py-4
-                  hover:bg-gray-100
-                  transition-colors
-                  duration-200
-                  focus:outline-none
-                "
+                class="flex items-center w-full px-4 py-4 hover:bg-gray-100 transition-colors duration-200 focus:outline-none"
               >
                 <icon name="delete-bin-line" />
                 <span class="ml-2">{{ $t('page.list.item.delete') }}</span>

@@ -14,18 +14,7 @@
     />
 
     <div
-      class="
-        flex
-        items-center
-        w-full
-        mt-2
-        py-3
-        px-3
-        rounded
-        bg-gray-100
-        text-gray-800
-        cursor-pointer
-      "
+      class="flex items-center w-full mt-2 py-3 px-3 rounded bg-gray-100 text-gray-800 cursor-pointer"
       @click="openLinkPickerModal"
     >
       <div class="flex items-center pr-6" v-if="isPage">

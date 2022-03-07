@@ -23,15 +23,7 @@
             }}
           </button>
           <button
-            class="
-              block
-              w-full
-              text-gray-800
-              py-2
-              hover:bg-gray-100
-              transition-colors
-              duration-200
-            "
+            class="block w-full text-gray-800 py-2 hover:bg-gray-100 transition-colors duration-200"
             @click.stop="cancel"
           >
             {{
