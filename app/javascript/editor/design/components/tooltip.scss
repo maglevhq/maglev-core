@@ -22,6 +22,7 @@
   &[x-placement^='top'] {
     margin-bottom: 5px;
     .tooltip-arrow {
+      display: none;
       border-width: 5px 5px 0 5px;
       border-left-color: transparent !important;
       border-right-color: transparent !important;
@@ -35,6 +36,7 @@
   &[x-placement^='bottom'] {
     margin-top: 5px;
     .tooltip-arrow {
+      display: none;
       border-width: 0 5px 5px 5px;
       border-left-color: transparent !important;
       border-right-color: transparent !important;
@@ -48,6 +50,7 @@
   &[x-placement^='right'] {
     margin-left: 5px;
     .tooltip-arrow {
+      display: none;
       border-width: 5px 5px 5px 0;
       border-left-color: transparent !important;
       border-top-color: transparent !important;
@@ -61,6 +64,7 @@
   &[x-placement^='left'] {
     margin-right: 5px;
     .tooltip-arrow {
+      display: none;
       border-width: 5px 0 5px 5px;
       border-top-color: transparent !important;
       border-right-color: transparent !important;

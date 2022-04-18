@@ -15,6 +15,7 @@
             'bg-white': !isAddSectionPaneActive,
             'bg-editor-primary bg-opacity-5': isAddSectionPaneActive,
           }"
+          v-tooltip.right="$t('sidebarNav.addNewSectionTooltip')"
         >
           <icon name="add-box-line" size="1.5rem" />
         </router-link>
@@ -27,6 +28,7 @@
             'bg-white': !isSectionListPaneActive,
             'bg-editor-primary bg-opacity-5': isSectionListPaneActive,
           }"
+          v-tooltip.right="$t('sidebarNav.managePageSectionsTooltip')"
         >
           <icon name="ri-stack-line" size="1.5rem" />
         </router-link>
@@ -36,6 +38,7 @@
           href="#"
           class="flex justify-center py-5 -ml-4 -mr-4 hover:bg-editor-primary hover:bg-opacity-5 transition-colors duration-200"
           @click.prevent="openImageLibraryModal"
+          v-tooltip.right="$t('sidebarNav.openImageLibraryTooltip')"
         >
           <icon name="image-line" size="1.5rem" />
         </a>
@@ -65,6 +68,7 @@
         <a
           :href="leaveEditorUrl"
           class="flex justify-center py-5 -ml-4 -mr-4 hover:bg-editor-primary hover:bg-opacity-5 transition-colors duration-200"
+          v-tooltip.right="$t('sidebarNav.leaveEditorTooltip')"
         >
           <icon name="logout-box-r-line" size="1.5rem" />
         </a>

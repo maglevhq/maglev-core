@@ -10,6 +10,12 @@
       "fail": "Echec !"
     }
   },
+  "sidebarNav": {
+    "addNewSectionTooltip": "Ajouter une nouvelle section au bas de la page",
+    "managePageSectionsTooltip": "Gérer les sections de la page",
+    "openImageLibraryTooltip": "Ouvrir la galerie d'images",
+    "leaveEditorTooltip": "Retour vers l'application principale"
+  },
   "pagePreview": {
     "loading": "Chargement...",
     "empty": {

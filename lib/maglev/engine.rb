@@ -25,7 +25,7 @@ module Maglev
 
       config.to_prepare do
         # everytime the code of the app or the engine changes, we reload the themes
-        theme_reloader.execute
+        # theme_reloader.execute
       end
 
       config.after_initialize do
