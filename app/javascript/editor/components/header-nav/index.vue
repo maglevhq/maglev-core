@@ -47,11 +47,11 @@
 
         <separator />
 
-        <div class="flex h-full relative">
+        <div class="flex h-full relative" v-if="hasMultipleLocales">
           <locale-toggler />
         </div>
 
-        <separator />
+        <separator v-if="hasMultipleLocales" />
 
         <a
           :href="currentPage.previewUrl"
