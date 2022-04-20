@@ -43,7 +43,14 @@ module Maglev
     end
 
     def editor_logo_url
-      editor_asset_path(maglev_config.logo, 'logo.png')
+      case maglev_config.logo
+      when nil
+        editor_asset_path(nil, 'logo.png')
+      when String
+        editor_asset_path(maglev_config.logo, 'logo.png')
+      when Proc
+        instance_exec(maglev_site, &maglev_config.logo)
+      end
     end
 
     def editor_favicon_url

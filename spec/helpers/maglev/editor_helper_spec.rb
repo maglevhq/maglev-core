@@ -6,6 +6,7 @@ describe Maglev::EditorHelper do
   let(:title) { nil }
   let(:primary_color) { '#7E6EDB' }
   let(:logo) { nil }
+  let(:site) { build(:site) }
   let(:config) do
     Maglev::Config.new.tap do |config|
       config.title = title
@@ -16,10 +17,12 @@ describe Maglev::EditorHelper do
 
   helper do
     def maglev_config; end
+    def maglev_site; end
   end
 
   before(:each) do
     allow(helper).to receive(:maglev_config).and_return(config)
+    allow(helper).to receive(:maglev_site).and_return(site)
   end
 
   describe '#editor_window_title' do
@@ -60,10 +63,16 @@ describe Maglev::EditorHelper do
     it 'returns the default logo url' do
       is_expected.to include('/assets/maglev/logo-')
     end
-    context 'the developer has replaced the logo' do
+    context 'the developer has replaced the logo by a String' do
       let(:logo) { 'new-logo.png' }
       it 'returns the new logo' do
         is_expected.to include '/assets/new-logo-'
+      end
+    end
+    context 'the developer has replaced the logo by a Proc' do
+      let(:logo) { ->(site) { 'https://cdn.stuff.net/site-logo.png' } }
+      it 'returns the new logo' do
+        is_expected.to eq 'https://cdn.stuff.net/site-logo.png'
       end
     end
   end
