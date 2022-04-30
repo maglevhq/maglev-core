@@ -16,6 +16,7 @@ module Maglev
 
     ## scopes ##
     scope :home, ->(locale = nil) { by_path('index', locale) }
+    scope :visible, -> { where(visible: true) }
     scope :by_id_or_path, lambda { |id_or_path, locale = nil|
                             joins(:paths).where(id: id_or_path).or(core_by_path(id_or_path, locale))
                           }
