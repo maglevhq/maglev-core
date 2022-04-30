@@ -26,6 +26,7 @@ export default (services) => ({
     commit('SET_EDITOR_SETTINGS', {
       logoUrl: window.logoUrl,
       primaryColor: window.primaryColor,
+      sitePublishable: window.sitePublishable,
     })
   },
   fetchSite({ commit }, locally) {

@@ -3,12 +3,18 @@
     "pages": "Pages:",
     "pageSettings": "Page settings",
     "previewSite": "Preview site",
+    "publishButton": {
+      "default": "Publish site",
+      "inProgress": "Publishing...",
+      "success": "Published!",
+      "fail": "Fail!"
+    },
     "saveButton": {
-      "default": "Save",
+      "default": "Save as draft",
       "inProgress": "Saving...",
       "success": "Saved!",
       "fail": "Fail!"
-    }
+    }    
   },
   "sidebarNav": {
     "addNewSectionTooltip": "Add a new section at the bottom of the page",

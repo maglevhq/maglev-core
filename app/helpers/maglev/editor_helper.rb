@@ -57,6 +57,10 @@ module Maglev
       editor_asset_path(maglev_config.favicon, 'favicon.png')
     end
 
+    def editor_site_publishable
+      !!maglev_config.site_publishable
+    end
+
     def editor_asset_path(source, default_source)
       if source.blank?
         asset_path("maglev/#{default_source}")

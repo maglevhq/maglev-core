@@ -14,7 +14,8 @@
     window.site = <%= h render(partial: 'maglev/api/sites/show', formats: :json, locals: { site: maglev_site, home_page_id: maglev_home_page_id }).html_safe %>;
     window.theme = <%= h render(partial: 'maglev/api/themes/show', formats: :json, locals: { theme: maglev_theme }).html_safe %>;
     window.logoUrl = <%= editor_logo_url.to_json.html_safe %>;
-    window.primaryColor = <%= editor_primary_hex_color.to_json.html_safe %>;    
+    window.primaryColor = <%= editor_primary_hex_color.to_json.html_safe %>;
+    window.sitePublishable = <%= editor_site_publishable.to_json %>;
   </script>
   
   <%= javascript_pack_tag 'editor' %>

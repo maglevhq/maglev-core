@@ -44,13 +44,11 @@
         <div class="flex py-4 px-6">
           <device-toggler />
         </div>
-
         <separator />
 
         <div class="flex h-full relative" v-if="hasMultipleLocales">
           <locale-toggler />
         </div>
-
         <separator v-if="hasMultipleLocales" />
 
         <a
@@ -60,8 +58,18 @@
         >
           {{ $t('headerNav.previewSite') }}
         </a>
-        <div>
+
+        <separator v-if="isSitePublishable" />
+        <div
+          class="flex items-center h-full relative space-x-2 pr-4"
+          v-if="isSitePublishable"
+        >
+          <publish-button />
           <save-button />
+        </div>
+
+        <div v-else>
+          <save-button :big="true" />
         </div>
       </div>
     </div>
@@ -71,12 +79,19 @@
 <script>
 import DeviceToggler from './device-toggler'
 import LocaleToggler from './locale-toggler'
+import PublishButton from './publish-button'
 import SaveButton from './save-button'
 import Separator from './separator'
 
 export default {
   name: 'HeaderNav',
-  components: { DeviceToggler, LocaleToggler, SaveButton, Separator },
+  components: {
+    DeviceToggler,
+    LocaleToggler,
+    PublishButton,
+    SaveButton,
+    Separator,
+  },
   computed: {
     isListPagesActive() {
       return this.$route.name === 'listPages'

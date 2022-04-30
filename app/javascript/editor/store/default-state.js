@@ -17,6 +17,7 @@ export default {
   touchedSections: [],
   ui: {
     saveButtonState: 'default',
+    publishButtonState: 'default',
     openErrorModal: false,
     errorModalType: null,
   },
