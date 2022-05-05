@@ -10,7 +10,7 @@
       "fail": "Fail!"
     },
     "saveButton": {
-      "default": "Save as draft",
+      "default": "Save",
       "inProgress": "Saving...",
       "success": "Saved!",
       "fail": "Fail!"

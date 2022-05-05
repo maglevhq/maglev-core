@@ -4,7 +4,7 @@
     class="block text-white bg-opacity-95 hover:bg-opacity-100 transition-colors duration-200"
     :class="{
       'w-40 h-full': big,
-      'rounded-sm py-2 px-4 text-center w-32': !big,
+      'rounded-sm py-2 px-4 text-center w-32 border border-opacity-0': !big,
     }"
     defaultColorClass="bg-editor-primary"
     :labels="$t('headerNav.saveButton')"

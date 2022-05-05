@@ -21,5 +21,6 @@ store.dispatch('fetchEditorSettings')
 store.dispatch('fetchSite', true)
 store.dispatch('setTheme', window.theme)
 store.dispatch('setLocale', window.locale)
+store.dispatch('pollLastPublication')
 
 export default store

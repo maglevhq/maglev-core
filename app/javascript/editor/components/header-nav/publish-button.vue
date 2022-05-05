@@ -1,10 +1,36 @@
 <template>
   <div class="px-5 flex items-center">
-    <button
-      class="rounded-sm py-2 px-4 w-32 border border-gray-400 text-gray-900 hover:bg-editor-primary hover:bg-opacity-5 transition-colors duration-200"
-      @click="publish"
+    <div
+      v-if="isUninitialized"
+      class="flex items-center h-10 w-44 animate-pulse"
     >
-      <span>Publish site</span>
+      <div class="h-full w-full bg-gray-200 rounded"></div>
+    </div>
+
+    <button
+      v-else
+      class="rounded-sm py-2 px-4 border transition-colors duration-200"
+      :class="{
+        'text-gray-900 border-gray-400 hover:bg-editor-primary hover:bg-opacity-5':
+          isReady,
+        'text-gray-900 cursor-wait': isInProgress,
+        'bg-green-500 border-green-500 text-white': isSuccess,
+        'bg-red-600 border-red-600 text-white': isFail,
+      }"
+      @click="publish"
+      :disabled="isInProgress"
+    >
+      <span class="flex items-center justify-center space-x-2">
+        <icon
+          icon="circle-notch"
+          name="ri-loader-4-line"
+          spin
+          v-if="isInProgress"
+        />
+        <icon name="check-line" v-if="isSuccess" />
+        <icon name="ri-alert-line" v-if="isFail" />
+        <span>{{ label }}</span>
+      </span>
     </button>
   </div>
 </template>
@@ -13,14 +39,34 @@
 export default {
   name: 'PublishButton',
   computed: {
-    buttonState() {
-      return this.$store.state.ui.publishButtonState
+    status() {
+      return this.$store.state.ui.publishButtonState.status
+    },
+    label() {
+      return (
+        this.$store.state.ui.publishButtonState.label ||
+        this.$t(`headerNav.publishButton.${this.status}`)
+      )
+    },
+    isUninitialized() {
+      return !this.status
+    },
+    isReady() {
+      return this.status === 'default'
+    },
+    isInProgress() {
+      return this.status === 'inProgress'
+    },
+    isSuccess() {
+      return this.status === 'success'
+    },
+    isFail() {
+      return this.status === 'fail'
     },
   },
   methods: {
     async publish() {
-      console.log('TODO')
-      // await this.$store.dispatch('persistPage')
+      if (this.isReady) this.$store.dispatch('publishSite')
     },
   },
 }
