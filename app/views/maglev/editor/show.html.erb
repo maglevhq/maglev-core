@@ -16,6 +16,7 @@
     window.logoUrl = <%= editor_logo_url.to_json.html_safe %>;
     window.primaryColor = <%= editor_primary_hex_color.to_json.html_safe %>;
     window.sitePublishable = <%= editor_site_publishable.to_json %>;
+    window.customTranslations = <%= h editor_custom_translations.to_json.html_safe %>
   </script>
   
   <%= javascript_pack_tag 'editor' %>

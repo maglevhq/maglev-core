@@ -3,11 +3,17 @@
     "pages": "Pages :",
     "pageSettings": "Paramètres page",
     "previewSite": "Prévisualiser site",
+    "publishButton": {
+      "default": "Publier site",
+      "inProgress": "En cours...",
+      "success": "Publié !",
+      "fail": "Échec !"
+    },
     "saveButton": {
       "default": "Sauvegarder",
       "inProgress": "En cours...",
       "success": "Sauvegardée !",
-      "fail": "Echec !"
+      "fail": "Échec !"
     }
   },
   "sidebarNav": {

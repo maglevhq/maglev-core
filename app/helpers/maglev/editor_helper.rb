@@ -68,5 +68,11 @@ module Maglev
         ActionController::Base.helpers.asset_path(source)
       end
     end
+
+    def editor_custom_translations
+      I18n.available_locales.map do |locale| 
+        [locale, ::I18n.t('maglev', locale: locale, default: nil)]
+      end.to_h
+    end
   end
 end

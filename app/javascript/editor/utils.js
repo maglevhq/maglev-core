@@ -1,5 +1,3 @@
-import i18n from '@/plugins/i18n.js'
-
 export const isBlank = (object) => {
   return (
     object === undefined ||
@@ -15,7 +13,7 @@ export const camelize = (str) => {
     .replace(/[^a-zA-Z0-9]+(.)/g, (m, chr) => chr.toUpperCase())
 }
 
-export const numberToHumanSize = (size) => {
+export const numberToHumanSize = (size, i18n) => {
   if (isBlank(size)) return null
 
   let number, unit
@@ -109,4 +107,21 @@ export const hexToRgb = (hex) => {
 // Static pages have absolute path ("/something") but regular pages have no leading slash
 export const formatPath = (path) => {
   return path[0] === '/' ? path : `/${path}`
+}
+
+// https://gist.github.com/ahtcx/0cd94e62691f539160b32ecda18af3d6
+export const deepMerge = (target, source) => {
+  const result = { ...target, ...source }
+  const keys = Object.keys(result)
+
+  for (const key of keys) {
+    const tprop = target[key]
+    const sprop = source[key]
+    //if two objects are in conflict
+    if (typeof tprop == 'object' && typeof sprop == 'object') {
+      result[key] = deepMerge(tprop, sprop)
+    }
+  }
+
+  return result
 }
