@@ -51,17 +51,12 @@
         </div>
         <separator v-if="hasMultipleLocales" />
 
-        <a
-          :href="currentPage.previewUrl"
-          target="_blank"
-          class="px-6 flex items-center hover:bg-editor-primary hover:bg-opacity-5 transition-colors duration-200"
-        >
-          {{ $t('headerNav.previewSite') }}
-        </a>
+        <preview-toggler v-if="isSitePublishable" />
+        <preview-button v-else />
 
         <separator v-if="isSitePublishable" />
         <div
-          class="flex items-center h-full relative space-x-2 pr-4"
+          class="flex items-center h-full relative space-x-1 pr-4"
           v-if="isSitePublishable"
         >
           <publish-button />
@@ -79,6 +74,8 @@
 <script>
 import DeviceToggler from './device-toggler'
 import LocaleToggler from './locale-toggler'
+import PreviewButton from './preview-button.vue'
+import PreviewToggler from './preview-toggler.vue'
 import PublishButton from './publish-button'
 import SaveButton from './save-button'
 import Separator from './separator'
@@ -88,9 +85,11 @@ export default {
   components: {
     DeviceToggler,
     LocaleToggler,
+    PreviewButton,
     PublishButton,
     SaveButton,
     Separator,
+    PreviewToggler,
   },
   computed: {
     isListPagesActive() {

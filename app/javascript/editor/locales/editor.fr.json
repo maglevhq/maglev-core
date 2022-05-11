@@ -3,6 +3,11 @@
     "pages": "Pages :",
     "pageSettings": "Paramètres page",
     "previewSite": "Prévisualiser site",
+    "previewToggler": {
+      "button": "Voir site",
+      "draftLink": "Version brouillon",
+      "liveLink": "Version publiée"
+    },
     "publishButton": {
       "default": "Publier site",
       "inProgress": "En cours...",

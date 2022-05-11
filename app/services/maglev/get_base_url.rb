@@ -12,7 +12,7 @@ module Maglev
     argument :preview_mode, default: nil
 
     def call
-      preview_mode? ? site_preview_path : nil
+      preview_mode? ? site_preview_path : live_url
     end
 
     private
@@ -23,6 +23,10 @@ module Maglev
 
     def site_preview_path
       context.controller.site_preview_path
+    end
+
+    def live_url
+      nil
     end
   end
 end

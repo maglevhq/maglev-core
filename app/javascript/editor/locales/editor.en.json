@@ -3,6 +3,11 @@
     "pages": "Pages:",
     "pageSettings": "Page settings",
     "previewSite": "Preview site",
+    "previewToggler": {
+      "button": "Preview site",
+      "draftLink": "Draft version",
+      "liveLink": "Live version"
+    },
     "publishButton": {
       "default": "Publish site",
       "inProgress": "Publishing...",
