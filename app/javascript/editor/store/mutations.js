@@ -163,6 +163,9 @@ export default (services) => ({
     state.touchedSections = []
   },
   // === UI ===
+  SET_PUBLISH_BUTTON_STATE(state, newButton) {
+    state.ui.publishButtonState = newButton
+  },
   SET_SAVE_BUTTON_STATE(state, buttonState) {
     state.ui.saveButtonState = buttonState
   },

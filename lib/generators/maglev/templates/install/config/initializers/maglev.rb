@@ -16,6 +16,8 @@ Maglev.configure do |config|
   # config.primary_color = '#7E6EDB'
 
   # Action triggered when clicking on the very bottom left button in the Editor
+  # NOTE: If you want the user to signed out from the Editor UI once the back action has been triggered,
+  # you'll have to clear the `maglev_site_id` session variable.
   # config.back_action = 'https://www.mysite.dev' # External url
   # config.back_action = :my_account_path # name of the route in your Rails application
   # config.back_action = ->(site) { redirect_to main_app.my_account_path(site_id: site.id) }

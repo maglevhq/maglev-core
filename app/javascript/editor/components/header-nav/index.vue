@@ -44,24 +44,27 @@
         <div class="flex py-4 px-6">
           <device-toggler />
         </div>
-
         <separator />
 
         <div class="flex h-full relative" v-if="hasMultipleLocales">
           <locale-toggler />
         </div>
-
         <separator v-if="hasMultipleLocales" />
 
-        <a
-          :href="currentPage.previewUrl"
-          target="_blank"
-          class="px-6 flex items-center hover:bg-editor-primary hover:bg-opacity-5 transition-colors duration-200"
+        <preview-toggler v-if="isSitePublishable" />
+        <preview-button v-else />
+
+        <separator v-if="isSitePublishable" />
+        <div
+          class="flex items-center h-full relative space-x-1 pr-4"
+          v-if="isSitePublishable"
         >
-          {{ $t('headerNav.previewSite') }}
-        </a>
-        <div>
+          <publish-button />
           <save-button />
+        </div>
+
+        <div v-else>
+          <save-button :big="true" />
         </div>
       </div>
     </div>
@@ -71,12 +74,23 @@
 <script>
 import DeviceToggler from './device-toggler'
 import LocaleToggler from './locale-toggler'
+import PreviewButton from './preview-button.vue'
+import PreviewToggler from './preview-toggler.vue'
+import PublishButton from './publish-button'
 import SaveButton from './save-button'
 import Separator from './separator'
 
 export default {
   name: 'HeaderNav',
-  components: { DeviceToggler, LocaleToggler, SaveButton, Separator },
+  components: {
+    DeviceToggler,
+    LocaleToggler,
+    PreviewButton,
+    PublishButton,
+    SaveButton,
+    Separator,
+    PreviewToggler,
+  },
   computed: {
     isListPagesActive() {
       return this.$route.name === 'listPages'

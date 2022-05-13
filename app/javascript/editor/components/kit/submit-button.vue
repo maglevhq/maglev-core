@@ -14,12 +14,12 @@
 
     <span v-if="isSuccessState" class="flex items-center justify-center">
       <icon icon="circle-notch" name="check-line" color="#fff" />
-      <span class="ml-3" data-button-label>{{ successLabel }}</span>
+      <span class="ml-2" data-button-label>{{ successLabel }}</span>
     </span>
 
     <span v-if="isFailState" class="flex items-center justify-center">
       <icon icon="circle-notch" name="ri-alert-line" color="#fff" />
-      <span class="ml-3" data-button-label>{{ failLabel }}</span>
+      <span class="ml-2" data-button-label>{{ failLabel }}</span>
     </span>
   </button>
 </template>

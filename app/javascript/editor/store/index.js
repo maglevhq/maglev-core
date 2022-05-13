@@ -22,4 +22,7 @@ store.dispatch('fetchSite', true)
 store.dispatch('setTheme', window.theme)
 store.dispatch('setLocale', window.locale)
 
+if (store.state.editorSettings.sitePublishable)
+  store.dispatch('pollLastPublication')
+
 export default store

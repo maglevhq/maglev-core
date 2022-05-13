@@ -1,3 +1,4 @@
+import buildSiteActions from './site'
 import buildPageActions from './page'
 import buildSectionActions from './section'
 import buildSectionBlockActions from './section-block'
@@ -26,14 +27,10 @@ export default (services) => ({
     commit('SET_EDITOR_SETTINGS', {
       logoUrl: window.logoUrl,
       primaryColor: window.primaryColor,
+      sitePublishable: window.sitePublishable,
     })
   },
-  fetchSite({ commit }, locally) {
-    services.site.find(locally).then((site) => {
-      services.api.setSiteHandle(site.handle)
-      commit('SET_SITE', site)
-    })
-  },
+  ...buildSiteActions(services),
   ...buildPageActions(services),
   ...buildSectionActions(services),
   ...buildSectionBlockActions(services),

@@ -10,6 +10,9 @@ Vue.mixin({
     services() {
       return services
     },
+    isSitePublishable() {
+      return this.$store.state.editorSettings.sitePublishable
+    },
     currentSite() {
       return this.$store.state.site
     },

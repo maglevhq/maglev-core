@@ -7,4 +7,10 @@ export default (api) => ({
 
     return api.get(`/site`).then(({ data }) => data)
   },
+  publish() {
+    return api.post(`/publication`).then(({ data }) => data)
+  },
+  getLastPublication() {
+    return api.get(`/publication`).then(({ data }) => data)
+  },
 })

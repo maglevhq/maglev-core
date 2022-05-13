@@ -95,7 +95,7 @@ RSpec.describe 'Maglev::EditorController', type: :request do
         end
         it 'clears the maglev_site_id from the session' do
           get '/maglev/leave_editor'
-          expect(session[:maglev_site_id]).to eq nil
+          expect(session[:maglev_site_id]).not_to eq nil
         end
       end
       context 'a static url has been set for the back_action' do
@@ -113,10 +113,11 @@ RSpec.describe 'Maglev::EditorController', type: :request do
         end
       end
       context 'a Proc has been set for the back_action' do
-        let(:back_action) { ->(current_site) { redirect_to "/somewhere-#{current_site.id}" } }
+        let(:back_action) { ->(current_site) { session[:maglev_site_id] = nil; redirect_to "/somewhere-#{current_site.id}" } }
         it 'redirects to the url returned by the Proc' do
           get '/maglev/leave_editor'
           expect(response).to redirect_to("/somewhere-#{site.id}")
+          expect(session[:maglev_site_id]).to eq nil
         end
       end
     end

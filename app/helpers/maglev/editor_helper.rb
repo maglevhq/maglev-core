@@ -57,12 +57,22 @@ module Maglev
       editor_asset_path(maglev_config.favicon, 'favicon.png')
     end
 
+    def editor_site_publishable
+      !!maglev_config.site_publishable
+    end
+
     def editor_asset_path(source, default_source)
       if source.blank?
         asset_path("maglev/#{default_source}")
       else
         ActionController::Base.helpers.asset_path(source)
       end
+    end
+
+    def editor_custom_translations
+      I18n.available_locales.map do |locale| 
+        [locale, ::I18n.t('maglev', locale: locale, default: nil)]
+      end.to_h
     end
   end
 end
