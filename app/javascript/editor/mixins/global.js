@@ -71,7 +71,7 @@ Vue.mixin({
       return this.$store.getters.defaultPageAttributes
     },
     hasMultipleLocales() {
-      return this.$store.state.site.locales > 1
+      return this.$store.state.site.locales.length > 1
     },
     currentContent() {
       return this.$store.getters.content
