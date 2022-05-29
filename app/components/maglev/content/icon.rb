@@ -3,6 +3,8 @@
 module Maglev
   module Content
     class Icon < Base
+      def_delegators :icon_class, :blank?
+
       def icon_class
         @content
       end
@@ -10,8 +12,6 @@ module Maglev
       def to_s
         @content
       end
-
-      delegate :blank?, to: :icon_class
 
       def tag(view_context, options = {})
         view_context.content_tag(:i, '',

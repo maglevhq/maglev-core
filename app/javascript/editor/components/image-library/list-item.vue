@@ -7,7 +7,7 @@
     <div class="bg-gray-100 pb-full relative overflow-hidden rounded">
       <div class="absolute inset-0 h-full w-full rounded">
         <img
-          class="h-full w-full object-cover"
+          class="h-full w-full object-contain"
           :class="{
             'cursor-pointer': pickerMode,
           }"
