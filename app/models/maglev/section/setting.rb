@@ -27,7 +27,7 @@ class Maglev::Section::Setting
   end
 
   def build_default_image_content(default)
-    default.is_a?(String) ? { url: default } : {}
+    default.is_a?(String) ? { url: default } : default || {}
   end
 
   def build_default_link_content(default)

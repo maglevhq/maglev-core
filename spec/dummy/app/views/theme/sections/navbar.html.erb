@@ -13,7 +13,7 @@
             <ul>
               <% maglev_block.children.each do |nested_maglev_block| %>
                 <%= nested_maglev_block.wrapper_tag.li class: 'navbar-nested-item' do %>
-                  <%= nested_maglev_block.setting_tag :link do %>
+                  <%= nested_maglev_block.setting_tag :link, class: 'navbar-link' do %>
                     <%= nested_maglev_block.setting_tag :label, html_tag: :span %>
                   <% end %>
                 <% end %>

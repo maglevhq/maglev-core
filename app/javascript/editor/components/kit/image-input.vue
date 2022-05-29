@@ -23,7 +23,7 @@
           @mouseleave="hovered = false"
         >
           <img
-            class="h-full w-full object-cover rounded"
+            class="h-full w-full object-contain rounded"
             :src="value.url"
             @error="() => (this.errorOnLoading = true)"
             v-if="isValidImage"

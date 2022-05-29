@@ -53,7 +53,7 @@ module Maglev
 
       # rubocop:disable Rails/OutputSafety
       def text_tag(view_context)
-        view_context.tag.span(text, { data: { maglev_id: "#{tag_id}.text" } }).html_safe
+        view_context.tag.span(text, **{ data: { maglev_id: "#{tag_id}.text" } }).html_safe
       end
       # rubocop:enable Rails/OutputSafety
     end

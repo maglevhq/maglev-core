@@ -113,7 +113,12 @@ RSpec.describe 'Maglev::EditorController', type: :request do
         end
       end
       context 'a Proc has been set for the back_action' do
-        let(:back_action) { ->(current_site) { session[:maglev_site_id] = nil; redirect_to "/somewhere-#{current_site.id}" } }
+        let(:back_action) do
+          lambda { |current_site|
+            session[:maglev_site_id] = nil
+            redirect_to "/somewhere-#{current_site.id}"
+          }
+        end
         it 'redirects to the url returned by the Proc' do
           get '/maglev/leave_editor'
           expect(response).to redirect_to("/somewhere-#{site.id}")

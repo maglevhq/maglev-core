@@ -27,9 +27,9 @@ RSpec.describe 'Maglev::API::PublicationsController', type: :request do
   context 'Given the editor is authenticated' do
     before { api_sign_in }
     it 'returns an exception' do
-      expect {
+      expect do
         get '/maglev/api/publication', as: :json
-      }.to raise_error 'NOT IMPLEMENTED'
+      end.to raise_error 'NOT IMPLEMENTED'
     end
   end
 end

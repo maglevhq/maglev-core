@@ -5,12 +5,12 @@ Maglev::Engine.routes.draw do
   # API
   constraints format: :json do
     namespace 'api' do
-      resource :site, only: :show       
+      resource :site, only: :show
       resources :pages do
         resources :clones, controller: :page_clones, only: :create
       end
       resources :assets
-      resource :publication, only: [:show, :create]
+      resource :publication, only: %i[show create]
       scope 'collections/:collection_id' do
         get '/', to: 'collection_items#index', as: :collection_items
       end

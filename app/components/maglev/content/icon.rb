@@ -11,6 +11,8 @@ module Maglev
         @content
       end
 
+      delegate :blank?, to: :icon_class
+
       def tag(view_context, options = {})
         view_context.content_tag(:i, '',
                                  {

@@ -70,7 +70,7 @@ describe Maglev::EditorHelper do
       end
     end
     context 'the developer has replaced the logo by a Proc' do
-      let(:logo) { ->(site) { 'https://cdn.stuff.net/site-logo.png' } }
+      let(:logo) { ->(_site) { 'https://cdn.stuff.net/site-logo.png' } }
       it 'returns the new logo' do
         is_expected.to eq 'https://cdn.stuff.net/site-logo.png'
       end

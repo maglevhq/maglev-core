@@ -4,7 +4,7 @@ module Maglev
   module BackActionConcern
     private
 
-    def call_back_action    
+    def call_back_action
       maglev_redirect_on_leaving
     end
 

@@ -70,9 +70,9 @@ module Maglev
     end
 
     def editor_custom_translations
-      I18n.available_locales.map do |locale| 
-        [locale, ::I18n.t('maglev', locale: locale, default: nil)]
-      end.to_h
+      I18n.available_locales.index_with do |locale|
+        ::I18n.t('maglev', locale: locale, default: nil)
+      end
     end
   end
 end

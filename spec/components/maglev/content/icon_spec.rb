@@ -19,6 +19,10 @@ describe Maglev::Content::Icon do
     it { expect(instance.icon_class).to eq('fancy-icon-class') }
   end
 
+  describe '#blank?' do
+    it { expect(instance.blank?).to eq(false) }
+  end
+
   describe '#tag' do
     let(:template) do
       <<~HTML
