@@ -3,13 +3,20 @@ id: "theme"
 
 name: "theme"
 
+description: "A brief description of the theme"
+
 section_categories:
 - name: contents
 
-description: "A brief description of the theme"
+# Properties of your theme such as the primary color, font name, ...etc.
+style_settings: []
 
 pages:
 - title: "Home page"
   path:  "/index"
+
+# List of CSS class names used by your library of icons (font awesome, remixicons, ...etc)
+icons: []
+
 
 

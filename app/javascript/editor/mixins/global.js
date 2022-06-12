@@ -16,6 +16,9 @@ Vue.mixin({
     currentSite() {
       return this.$store.state.site
     },
+    currentStyle() {
+      return this.$store.state.style
+    },
     currentLocale() {
       return this.$store.state.locale
     },

@@ -380,3 +380,24 @@ export const updateMoveSection = (
   // scroll to the new placement of the section
   sectionElement.scrollIntoView(true)
 }
+
+export const previewStyle = (previewDocument, content, style) => {
+  const attributes = {
+    pageSections: JSON.stringify(content.pageSections),
+    style: JSON.stringify(style),
+  }
+
+  axios.post(previewDocument.location.href, attributes).then(({ data }) => {
+    let parser = new DOMParser()
+    const doc = parser.parseFromString(data, 'text/html')
+
+    // update the CSS variables
+    const selector = '#maglev-style'
+    const sourceElement = doc.querySelector(selector)
+    let targetElement = previewDocument.querySelector(selector)
+
+    if (sourceElement) {
+      targetElement.replaceWith(sourceElement)
+    }
+  })
+}

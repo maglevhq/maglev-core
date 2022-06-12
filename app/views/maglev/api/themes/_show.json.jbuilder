@@ -14,3 +14,4 @@ json.sections theme.sections do |section|
 end
 json.section_categories theme.section_categories.as_json
 json.icons theme.icons || []
+json.style_settings theme.style_settings.as_json

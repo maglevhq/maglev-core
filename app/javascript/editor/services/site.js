@@ -7,6 +7,9 @@ export default (api) => ({
 
     return api.get(`/site`).then(({ data }) => data)
   },
+  updateStyle(style) {
+    return api.put(`/style`, { site: { style } }).then(({ data }) => data)
+  },
   publish() {
     return api.post(`/publication`).then(({ data }) => data)
   },

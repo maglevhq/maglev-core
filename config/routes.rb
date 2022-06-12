@@ -6,6 +6,7 @@ Maglev::Engine.routes.draw do
   constraints format: :json do
     namespace 'api' do
       resource :site, only: :show
+      resource :style, controller: :style, only: :update
       resources :pages do
         resources :clones, controller: :page_clones, only: :create
       end

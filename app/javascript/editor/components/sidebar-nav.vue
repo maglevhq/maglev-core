@@ -33,6 +33,19 @@
           <icon name="ri-stack-line" size="1.5rem" />
         </router-link>
       </li>
+      <li v-if="hasStyle">
+        <router-link
+          :to="{ name: 'editStyle' }"
+          class="flex justify-center py-5 -ml-4 -mr-4 hover:bg-editor-primary hover:bg-opacity-5 transition-colors duration-200"
+          :class="{
+            'bg-white': !isEditStylePaneActive,
+            'bg-editor-primary bg-opacity-5': isEditStylePaneActive,
+          }"
+          v-tooltip.right="$t('sidebarNav.editStyleTooltip')"
+        >
+          <icon name="ri-drop-line" size="1.25rem" />
+        </router-link>
+      </li>
       <li>
         <a
           href="#"
@@ -83,11 +96,17 @@ import ImageLibrary from '@/components/image-library'
 export default {
   name: 'SidebarNav',
   computed: {
+    hasStyle() {
+      return !this.isBlank(this.currentStyle)
+    },
     isAddSectionPaneActive() {
       return this.$route.name === 'addSection'
     },
     isSectionListPaneActive() {
       return this.$route.name === 'listSections'
+    },
+    isEditStylePaneActive() {
+      return this.$route.name === 'editStyle'
     },
     leaveEditorUrl() {
       return window.leaveUrl

@@ -18,4 +18,13 @@ describe Maglev::Theme do
       it { is_expected.to eq false }
     end
   end
+
+  describe 'settings' do
+    let(:theme) { build(:theme) }
+    subject { theme.style_settings }
+
+    it 'returns the settings (definition) of the theme' do
+      expect(subject.map(&:id)).to eq(['primary_color', 'font_name'])
+    end
+  end
 end
