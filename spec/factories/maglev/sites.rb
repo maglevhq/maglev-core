@@ -40,7 +40,7 @@ FactoryBot.define do
       style do
         [
           { type: 'color', id: 'primary_color', value: '#ff00ff' },
-          { type: 'text', id: 'font_name', value: 'roboto' },
+          { type: 'text', id: 'font_name', value: 'roboto' }
         ]
       end
     end

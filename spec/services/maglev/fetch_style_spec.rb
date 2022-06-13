@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe Maglev::FetchStyle do  
+describe Maglev::FetchStyle do
   let!(:site) { create(:site) }
   let!(:theme) { build(:theme) }
   let(:service) { described_class.new }

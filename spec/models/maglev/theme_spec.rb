@@ -24,7 +24,7 @@ describe Maglev::Theme do
     subject { theme.style_settings }
 
     it 'returns the settings (definition) of the theme' do
-      expect(subject.map(&:id)).to eq(['primary_color', 'font_name'])
+      expect(subject.map(&:id)).to eq(%w[primary_color font_name])
     end
   end
 end

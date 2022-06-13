@@ -2,7 +2,6 @@
 
 # rubocop:disable Style/ClassAndModuleChildren
 class Maglev::Site::StyleValue
-  
   ## attributes ##
   attr_accessor :id, :value, :type
 
@@ -22,10 +21,18 @@ class Maglev::Site::StyleValue
       @array = array
     end
 
-    def method_missing(method_name, *args)
-      setting = array.find { |setting| setting.id == method_name.to_s }
-      raise "Unknown style '#{method_name}'" if !setting
-      setting.value
+    def method_missing(method_name, *_args)
+      setting = array.find { |local_setting| local_setting.id == method_name.to_s }
+      if setting
+        setting.value
+      else
+        super
+      end
+    end
+
+    def respond_to_missing?(method_name, include_private = false)
+      Rails.logger.debug 'yeasss!!!'
+      array.map(&:id).include?(method_name.to_s) || super
     end
 
     def as_json(**_options)
@@ -33,3 +40,4 @@ class Maglev::Site::StyleValue
     end
   end
 end
+# rubocop:enable Style/ClassAndModuleChildren

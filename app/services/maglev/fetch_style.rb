@@ -12,7 +12,7 @@ module Maglev
       Maglev::Site::StyleValue::Store.new(
         build_style_value_list
       )
-    end  
+    end
 
     protected
 
@@ -24,16 +24,15 @@ module Maglev
 
     def build_style_value(setting)
       Maglev::Site::StyleValue.new(
-        setting.id, 
-        setting.type, 
+        setting.id,
+        setting.type,
         custom_value(setting)
       )
     end
 
     def custom_value(setting)
-      value = site.style.find { |value| value['id'] == setting.id }
+      value = site.style.find { |local_value| local_value['id'] == setting.id }
       value && value['type'] == setting.type ? value['value'] : setting.default
     end
-
   end
 end

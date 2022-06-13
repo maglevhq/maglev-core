@@ -32,6 +32,11 @@ RSpec.describe 'Maglev::PagePreviewController', type: :request do
         expect(response.body).to include('<link rel="alternate" hreflang="en" href="http://www.example.com/">')
         expect(response.body).to include('<link rel="alternate" hreflang="fr" href="http://www.example.com/fr">')
       end
+
+      it 'renders the site the custom style' do
+        get '/'
+        expect(response.body).to include('--basic-theme-primary-color: #F87171;')
+      end
     end
 
     context 'with scoped site sections' do

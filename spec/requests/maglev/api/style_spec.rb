@@ -28,7 +28,8 @@ RSpec.describe 'Maglev::API::StyleController', type: :request do
     before { api_sign_in }
     it 'allows to change the style of the current site' do
       expect do
-        put '/maglev/api/style', params: { site: { style: [{ id: 'primary_color', type: 'color', value: '#00F'}] } }, as: :json
+        put '/maglev/api/style', params: { site: { style: [{ id: 'primary_color', type: 'color', value: '#00F' }] } },
+                                 as: :json
       end.to change { site.reload.style[0]['value'] }.to('#00F')
       expect(response).to have_http_status(:ok)
     end

@@ -34,8 +34,8 @@ RSpec.describe 'Maglev::API::SitesController', type: :request do
           homePageId: page.id,
           locales: [{ label: 'English', prefix: 'en' }, { label: 'French', prefix: 'fr' }],
           style: [
-            { id: 'primary_color', type: 'color', value: '#ff00ff'},
-            { id: 'font_name', type: 'text', value: 'roboto'}
+            { id: 'primary_color', type: 'color', value: '#ff00ff' },
+            { id: 'font_name', type: 'text', value: 'roboto' }
           ]
         }
       )

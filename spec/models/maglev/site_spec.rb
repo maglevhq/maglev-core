@@ -39,10 +39,12 @@ RSpec.describe Maglev::Site, type: :model do
     let(:site) { build(:site, :with_style) }
     subject { site.style }
     it 'lets the developer access to the theme style settings filled by the editor' do
+      # rubocop:disable Style/StringHashKeys
       is_expected.to include(
         a_hash_including('value' => '#ff00ff'),
-        a_hash_including('value' => 'roboto'),
+        a_hash_including('value' => 'roboto')
       )
+      # rubocop:enable Style/StringHashKeys
     end
   end
 end

@@ -41,4 +41,3 @@ class Maglev::Theme::StyleSetting
   end
 end
 # rubocop:enable Style/ClassAndModuleChildren
-

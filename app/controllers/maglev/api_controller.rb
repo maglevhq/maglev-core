@@ -34,7 +34,7 @@ module Maglev
 
     def maglev_theme
       @maglev_theme ||= maglev_services.fetch_theme.call
-    end    
+    end
 
     def record_errors(exception)
       render(json: { errors: exception.record.errors }, status: :bad_request)
