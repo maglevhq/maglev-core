@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_211_203_224_112) do
+ActiveRecord::Schema.define(version: 20_220_612_092_235) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'plpgsql'
 
@@ -94,6 +94,13 @@ ActiveRecord::Schema.define(version: 20_211_203_224_112) do
     t.jsonb 'locales', default: []
     t.jsonb 'sections_translations', default: {}
     t.integer 'lock_version'
+    t.string 'siteable_type'
+    t.bigint 'siteable_id'
+    t.string 'handle'
+    t.string 'theme_id'
+    t.string 'domain'
+    t.jsonb 'style', default: []
+    t.index %w[siteable_type siteable_id], name: 'index_maglev_sites_on_siteable'
   end
 
   create_table 'products', force: :cascade do |t|

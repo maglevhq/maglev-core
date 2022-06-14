@@ -36,6 +36,15 @@ FactoryBot.define do
       end
     end
 
+    trait :with_style do
+      style do
+        [
+          { type: 'color', id: 'primary_color', value: '#ff00ff' },
+          { type: 'text', id: 'font_name', value: 'roboto' }
+        ]
+      end
+    end
+
     trait :page_links do
       after :build do |record|
         record.find_section('navbar')['blocks'][0]['settings'][1]['value'] = {

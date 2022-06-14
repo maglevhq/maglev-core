@@ -16,7 +16,7 @@ module Maglev
     rescue_from ActiveRecord::StaleObjectError, with: :stale_record
     rescue_from Maglev::Errors::NotAuthorized, with: :unauthorized
 
-    helper_method :maglev_site
+    helper_method :maglev_site, :maglev_theme
 
     private
 
@@ -30,6 +30,10 @@ module Maglev
 
     def maglev_site
       @maglev_site ||= services.fetch_site.call
+    end
+
+    def maglev_theme
+      @maglev_theme ||= maglev_services.fetch_theme.call
     end
 
     def record_errors(exception)

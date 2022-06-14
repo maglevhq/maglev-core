@@ -17,6 +17,9 @@ export default (services) => ({
   SET_SITE(state, site) {
     state.site = site
   },
+  SET_STYLE(state, style) {
+    state.style = style
+  },
   SET_LOCALE(state, locale) {
     state.locale = locale
   },

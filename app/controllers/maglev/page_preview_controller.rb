@@ -19,6 +19,12 @@ module Maglev
 
     private
 
+    def fetch_maglev_site
+      super.tap do |site|
+        site.style = JSON.parse(params[:style]) if params[:style]
+      end
+    end
+
     def fetch_maglev_page_sections
       return super if action_name == 'index'
 

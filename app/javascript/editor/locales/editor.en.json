@@ -24,6 +24,7 @@
   "sidebarNav": {
     "addNewSectionTooltip": "Add a new section at the bottom of the page",
     "managePageSectionsTooltip": "Re-order / delete the sections of the page",
+    "editStyleTooltip": "Change the style of your site",
     "openImageLibraryTooltip": "Open the gallery of images",
     "leaveEditorTooltip": "Back to the main app"
   },
@@ -116,9 +117,20 @@
       "blocks": "Blocks",
       "advanced": "Advanced"
     }
-  },
+  },  
   "themeSectionList": {
     "emptyCategory": "No sections"
+  },
+  "style": {
+    "edit": {
+      "title": "Style your site",
+      "submitButton": {
+        "default": "Update style",
+        "inProgress": "Updating...",
+        "success": "Updated!",
+        "fail": "Fail!"
+      }
+    }
   },
   "imageInput": {
     "addButton": "Add image",

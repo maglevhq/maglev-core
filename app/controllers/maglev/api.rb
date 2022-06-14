@@ -3,6 +3,7 @@
 module Maglev
   module API
     autoload :SitesController, File.expand_path('api/sites_controller', __dir__)
+    autoload :StyleController, File.expand_path('api/style_controller', __dir__)
     autoload :PagesController, File.expand_path('api/pages_controller', __dir__)
     autoload :PageClonesController, File.expand_path('api/page_clones_controller', __dir__)
     autoload :PublicationsController, File.expand_path('api/publications_controller', __dir__)

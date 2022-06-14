@@ -8,6 +8,14 @@ FactoryBot.define do
     description { 'Super simple theme' }
 
     after(:build) do |theme, _evaluator|
+      theme.style_settings = [
+        Maglev::Theme::StyleSetting.build({
+          label: 'Primary color', id: 'primary_color', type: 'color', default: '#f00'
+        }.with_indifferent_access),
+        Maglev::Theme::StyleSetting.build({
+          label: 'Font name', id: 'font_name', type: 'text', default: 'comic sans'
+        }.with_indifferent_access)
+      ]
       theme.sections = Maglev::Section::Store.new([
                                                     Maglev::Section.build({
                                                       theme: theme,

@@ -5,6 +5,7 @@ import SlidePane2 from '@/views/slide-pane2'
 import pageRoutes from './page'
 import sectionRoutes from './section'
 import sectionBlockRoutes from './section-block'
+import styleRoutes from './style'
 
 export default [
   {
@@ -46,6 +47,7 @@ export default [
       ...pageRoutes,
       ...sectionRoutes,
       ...sectionBlockRoutes,
+      ...styleRoutes,
     ],
   },
 ]

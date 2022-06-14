@@ -1,8 +1,10 @@
 export default (services) => ({
   fetchSite({ commit }, locally) {
     services.site.find(locally).then((site) => {
+      const { style, ...rawSite } = site
       services.api.setSiteHandle(site.handle)
-      commit('SET_SITE', site)
+      commit('SET_SITE', rawSite)
+      commit('SET_STYLE', style)
     })
   },
   loadPublishButtonState({ commit }) {
@@ -18,5 +20,15 @@ export default (services) => ({
   pollLastPublication({ dispatch }) {
     dispatch('loadPublishButtonState')
     setInterval(() => dispatch('loadPublishButtonState'), 5000)
+  },
+  previewStyle({ getters, state: { previewDocument } }, newStyle) {
+    services.inlineEditing.previewStyle(
+      previewDocument,
+      getters.content,
+      newStyle,
+    )
+  },
+  setStyle({ commit }, newStyle) {
+    commit('SET_STYLE', newStyle)
   },
 })

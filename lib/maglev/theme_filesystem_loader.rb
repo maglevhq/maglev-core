@@ -22,6 +22,7 @@ module Maglev
     def add(hash)
       attributes = hash.merge(
         section_categories: Maglev::Theme::SectionCategory.build_many(hash['section_categories']),
+        style_settings: Maglev::Theme::StyleSetting.build_many(hash['style_settings']),
         sections: []
       )
 

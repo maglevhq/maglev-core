@@ -6,7 +6,7 @@ module Maglev
 
     included do
       helper_method :maglev_site, :maglev_theme, :maglev_page, :maglev_page_sections, :maglev_sections_path,
-                    :maglev_site_root_fullpath, :maglev_page_fullpaths
+                    :maglev_site_root_fullpath, :maglev_page_fullpaths, :maglev_style
     end
 
     private
@@ -96,6 +96,13 @@ module Maglev
           preview_mode: maglev_rendering_mode != :live
         ))
       end
+    end
+
+    def maglev_style
+      maglev_services.fetch_style.call(
+        site: maglev_site,
+        theme: maglev_theme
+      )
     end
   end
 end

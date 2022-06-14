@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Maglev::API::SitesController', type: :request do
+RSpec.describe 'Maglev::API::StyleController', type: :request do
   let!(:site) { create(:site, :with_style) }
   let!(:page) { create(:page) }
 
@@ -19,26 +19,19 @@ RSpec.describe 'Maglev::API::SitesController', type: :request do
 
   context 'Given the editor is not authenticated' do
     it 'returns a 401 error (unauthorized)' do
-      get '/maglev/api/site', as: :json
+      put '/maglev/api/style', as: :json
       expect(response).to have_http_status(:unauthorized)
     end
   end
 
   context 'Given the editor is authenticated' do
     before { api_sign_in }
-    it 'allows retrieval of the current site' do
-      get '/maglev/api/site', as: :json
-      expect(json_response.deep_symbolize_keys).to include(
-        {
-          id: site.id,
-          homePageId: page.id,
-          locales: [{ label: 'English', prefix: 'en' }, { label: 'French', prefix: 'fr' }],
-          style: [
-            { id: 'primary_color', type: 'color', value: '#ff00ff' },
-            { id: 'font_name', type: 'text', value: 'roboto' }
-          ]
-        }
-      )
+    it 'allows to change the style of the current site' do
+      expect do
+        put '/maglev/api/style', params: { site: { style: [{ id: 'primary_color', type: 'color', value: '#00F' }] } },
+                                 as: :json
+      end.to change { site.reload.style[0]['value'] }.to('#00F')
+      expect(response).to have_http_status(:ok)
     end
   end
 end
