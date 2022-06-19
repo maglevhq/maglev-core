@@ -6,6 +6,9 @@ module Maglev
     include ActiveModel::Serializers::JSON
     include ::Maglev::Section::ContentConcern
 
+    HASH_ATTRIBUTES = %w[id theme name site_scoped singleton viewport_fixed_position insert_button max_width_pane
+                         insert_at category blocks_label blocks_presentation sample screenshot_timestamp].freeze
+
     ## attributes ##
     attr_accessor :id, :theme, :name, :category,
                   :site_scoped, :singleton, :viewport_fixed_position,
@@ -45,16 +48,13 @@ module Maglev
     end
 
     def self.prepare_attributes(hash)
-      attributes = hash.slice('id', 'theme', 'name', 'site_scoped', 'singleton', 'viewport_fixed_position',
-                              'insert_button', 'max_width_pane', 'insert_at', 'category',
-                              'blocks_label', 'blocks_presentation',
-                              'sample', 'screenshot_timestamp')
+      attributes = hash.slice(*HASH_ATTRIBUTES)
 
-      attributes['site_scoped'] = false if attributes['site_scoped'].nil?
-      attributes['singleton'] = false if attributes['singleton'].nil?
-      attributes['viewport_fixed_position'] = false if attributes['viewport_fixed_position'].nil?
+      %w[site_scoped singleton viewport_fixed_position max_width_pane].each do |name|
+        attributes[name] = false if attributes[name].nil?
+      end
+
       attributes['insert_button'] = true if attributes['insert_button'].nil?
-      attributes['max_width_pane'] = false if attributes['max_width_pane'].nil?
 
       attributes
     end
