@@ -36,7 +36,7 @@ export const theme = {
           type: 'text',
           default:
             '\u003cp\u003eLorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque odio purus, suscipit nec arcu id, tempor feugiat risus. Maecenas cursus vehicula sagittis. Nulla varius sagittis nunc eget iaculis.\u003c/p\u003e',
-          options: { html: true, nbRows: 6 },
+          options: { html: true, nbRows: 6, htmlTable: false },
         },
         {
           id: 'image',
