@@ -9,24 +9,19 @@
     </label>
     <div class="mt-1">
       <editor-menu-bar :editor="editor" v-slot="{ commands, isActive }">
-        <div class="flex sticky top-0 z-10 pb-2 bg-white">
+        <div class="flex sticky top-0 z-10 pb-2 bg-white space-x-1">
           <editor-block-button
             :commands="commands"
             :isActive="isActive"
-            class="mr-1 relative"
+            class="relative"
             v-if="!lineBreak"
           />
 
-          <editor-format-buttons
-            :commands="commands"
-            :isActive="isActive"
-            class="mr-1"
-          />
+          <editor-format-buttons :commands="commands" :isActive="isActive" />
 
           <editor-list-buttons
             :commands="commands"
             :isActive="isActive"
-            class="mr-1"
             v-if="!lineBreak"
           />
 
@@ -34,6 +29,13 @@
             :editor="editor"
             :commands="commands"
             :isActive="isActive"
+          />
+
+          <editor-table-button
+            :commands="commands"
+            :isActive="isActive"
+            class="relative"
+            v-if="!lineBreak && table"
           />
         </div>
       </editor-menu-bar>
@@ -64,6 +66,10 @@ import {
   Strike,
   Underline,
   History,
+  Table,
+  TableHeader,
+  TableCell,
+  TableRow,
 } from 'tiptap-extensions'
 import Doc from './rich-text-input/extensions/Doc'
 import LineBreak from './rich-text-input/extensions/LineBreak'
@@ -72,6 +78,7 @@ import EditorBlockButton from './rich-text-input/block-button.vue'
 import EditorFormatButtons from './rich-text-input/format-buttons.vue'
 import EditorListButtons from './rich-text-input/list-buttons.vue'
 import EditorLinkButtons from './rich-text-input/link-buttons.vue'
+import EditorTableButton from './rich-text-input/table-button.vue'
 
 export default {
   name: 'RichTextInput',
@@ -83,6 +90,7 @@ export default {
     EditorFormatButtons,
     EditorListButtons,
     EditorLinkButtons,
+    EditorTableButton,
   },
   props: {
     label: { type: String, default: 'Label' },
@@ -90,6 +98,7 @@ export default {
     value: { type: String },
     lineBreak: { type: Boolean, default: false },
     rows: { type: Number, default: 2 },
+    table: { type: Boolean, default: false },
   },
   data() {
     return { editor: null }
@@ -160,6 +169,10 @@ export default {
           new BulletList(),
           new ListItem(),
           new OrderedList(),
+          new Table(),
+          new TableHeader(),
+          new TableCell(),
+          new TableRow(),
         ])
       }
     },

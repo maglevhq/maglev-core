@@ -2,7 +2,8 @@
   <layout
     :title="title"
     :overflowY="false"
-    :withPreTitle="isSectionBlockVersion"
+    :max-width-pane="isMaxWidthPane"
+    :with-pre-title="isSectionBlockVersion"
   >
     <template v-slot:pre-title v-if="isSectionBlockReady">
       <p class="text-gray-600 hover:text-gray-900">
@@ -69,6 +70,9 @@ export default {
     },
     isSectionBlockReady() {
       return this.isSectionBlockVersion && this.currentSectionBlock
+    },
+    isMaxWidthPane() {
+      return !!this.currentSectionDefinition?.maxWidthPane
     },
     reactiveKey() {
       return [!!this.currentPage, !!this.previewReady, this.$route.path].join(

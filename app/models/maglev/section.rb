@@ -9,7 +9,7 @@ module Maglev
     ## attributes ##
     attr_accessor :id, :theme, :name, :category,
                   :site_scoped, :singleton, :viewport_fixed_position,
-                  :insert_button, :insert_at,
+                  :insert_button, :insert_at, :max_width_pane,
                   :settings, :blocks, :blocks_label, :blocks_presentation,
                   :sample, :screenshot_timestamp
 
@@ -46,7 +46,7 @@ module Maglev
 
     def self.prepare_attributes(hash)
       attributes = hash.slice('id', 'theme', 'name', 'site_scoped', 'singleton', 'viewport_fixed_position',
-                              'insert_button', 'insert_at', 'category',
+                              'insert_button', 'max_width_pane', 'insert_at', 'category',
                               'blocks_label', 'blocks_presentation',
                               'sample', 'screenshot_timestamp')
 
@@ -54,6 +54,7 @@ module Maglev
       attributes['singleton'] = false if attributes['singleton'].nil?
       attributes['viewport_fixed_position'] = false if attributes['viewport_fixed_position'].nil?
       attributes['insert_button'] = true if attributes['insert_button'].nil?
+      attributes['max_width_pane'] = false if attributes['max_width_pane'].nil?
 
       attributes
     end
