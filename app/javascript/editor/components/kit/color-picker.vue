@@ -25,7 +25,7 @@
           <span
             class="block w-full h-full rounded-full transition transform duration-200 ease-in-out hover:scale-110 select-none"
             :class="{ 'border border-gray-300': isWhite(preset) }"
-            :style="{ 'background-color': preset }"
+            :style="{ 'background-color': realHexColor(preset) }"
           >
           </span>
         </label>
@@ -58,14 +58,21 @@ export default {
       },
     },
     selectedBorderColor() {
-      let color = hexToRgb(this.selectedColor)
+      let color = hexToRgb(this.realHexColor(this.selectedColor))
       if (this.isWhite()) color = { r: 0, g: 0, b: 0 }
       return `rgba(${color.r}, ${color.g}, ${color.b}, 0.40)`
     },
   },
   methods: {
-    isWhite(hexColor) {
-      const value = hexToRgb(hexColor || this.selectedColor)
+    realHexColor(hexColorOrStyle) {
+      return hexColorOrStyle.startsWith('--')
+        ? getComputedStyle(document.body).getPropertyValue(hexColorOrStyle)
+        : hexColorOrStyle
+    },
+    isWhite(hexColorOrStyle) {
+      const value = hexToRgb(
+        this.realHexColor(hexColorOrStyle || this.selectedColor),
+      )
       return value.r === 255 && value.g === 255 && value.b === 255
     },
   },
