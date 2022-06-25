@@ -1,4 +1,4 @@
-<% if sections.empty? %>
+<% if !sections || sections.empty? %>
   <%= render 'empty' %>
 <% else %>
   <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-6">

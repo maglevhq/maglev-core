@@ -1,8 +1,8 @@
 <template>
   <div class="w-full button-wrapper">
     <dropdown
-      placement="top"
       ref="dropdown"
+      placement="top"
       v-on="$listeners"
       v-if="hasMultipleTypes"
     >
@@ -17,7 +17,7 @@
           <button
             v-for="blockType in blockTypes"
             :key="blockType.type"
-            class="mb-2 text-base text-gray-900 py-2 hover:underline hover:text-black"
+            class="mb-2 text-base text-gray-900 py-2 px-14 hover:bg-gray-100 transition-colors"
             @click="addSectionBlockAndClose(blockType.type)"
           >
             {{ blockType.name }}
@@ -46,7 +46,11 @@ export default {
       return this.blockTypes.length > 1
     },
     blockTypes() {
-      return this.currentSectionDefinition.blocks
+      if (this.currentSectionDefinition.blocksPresentation === 'tree')
+        return this.currentSectionDefinition.blocks.filter(
+          (block) => block.root,
+        )
+      else return this.currentSectionDefinition.blocks
     },
   },
   methods: {
