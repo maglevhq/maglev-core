@@ -35,7 +35,7 @@ class Maglev::Section::Setting
   end
 
   def build_default_checkbox_content(default)
-    default.blank? ? false : default
+    default.presence || false
   end
 
   ## class methods ##
