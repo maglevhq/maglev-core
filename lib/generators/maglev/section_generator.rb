@@ -21,8 +21,10 @@ module Maglev
 
     def select_theme
       @category = options['category']
-      return unless @category.blank?
-      say 'You have to select a category for your section. Please check your Maglev theme.yml file to manage them.', :blue
+      return if @category.present?
+
+      say 'You have to select a category for your section. Please check your Maglev theme.yml file to manage them.',
+          :blue
       @category = ask 'Please choose a category', limited_to: categories, default: categories.first
     end
 
