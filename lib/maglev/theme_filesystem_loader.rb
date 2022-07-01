@@ -10,7 +10,7 @@ module Maglev
 
     def call(path)
       theme = add(YAML.safe_load(File.read(path.join('theme.yml'))))
-      sections = load_sections(theme, Pathname.new(path).join('sections/**/*.yml'))
+      sections = load_sections(theme, Pathname.new(path).join("sections/**/*.yml"))
       theme.sections = Maglev::Section::Store.new(sections)
       theme
     rescue Errno::ENOENT

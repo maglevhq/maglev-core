@@ -5,7 +5,7 @@ FactoryBot.define do
     id { 'jumbotron' }
     name { 'Jumbotron' }
     theme { build(:theme) }
-    category { 'Contents' }
+    category { 'content' }
     settings do
       [
         build(:section_setting),
@@ -37,6 +37,7 @@ FactoryBot.define do
     trait :navbar do
       id { 'navbar' }
       name { 'Navbar' }
+      category { 'headers' }
       settings do
         [build(:section_setting, id: 'logo', label: 'Logo', type: 'image', default: 'awesome-logo.png')]
       end

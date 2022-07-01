@@ -9,7 +9,7 @@ BLOCK_SETTINGS = 'title:text pre_title:text block:item:title block:item:image:im
 describe Maglev::SectionGenerator, type: :generator do
   destination File.expand_path('../tmp', __dir__)
 
-  arguments ['showcase', '--theme=simple', '--settings', BLOCK_SETTINGS.split(' ')].flatten
+  arguments ['showcase', '--theme=simple', '--category=features', '--settings', BLOCK_SETTINGS.split(' ')].flatten
 
   before(:all) do
     prepare_destination
@@ -17,7 +17,7 @@ describe Maglev::SectionGenerator, type: :generator do
   end
 
   it 'creates the YAML file to describe the section and its HTML/ERB template' do
-    assert_file 'app/theme/sections/showcase.yml', /name: "showcase"/
-    assert_file 'app/views/theme/sections/showcase.html.erb'
+    assert_file 'app/theme/sections/features/showcase.yml', /name: "showcase"/
+    assert_file 'app/views/theme/sections/features/showcase.html.erb'
   end
 end

@@ -6,7 +6,7 @@ name: "theme"
 description: "A brief description of the theme"
 
 section_categories:
-- name: contents
+- name: content
 
 # Properties of your theme such as the primary color, font name, ...etc.
 style_settings: []

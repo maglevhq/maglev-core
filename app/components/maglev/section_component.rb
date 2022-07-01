@@ -46,7 +46,7 @@ module Maglev
 
     def render
       super(
-        template: "#{templates_root_path}/sections/#{type}",
+        template: "#{templates_root_path}/sections/#{definition.category}/#{type}",
         locals: { section: self, maglev_section: self }
       )
     end
