@@ -51,6 +51,15 @@ export const getSettings = (definition, advanced) => {
   })
 }
 
+export const filterSettings = (settings, content) => {
+  return settings.filter((setting) => {
+    return (
+      !setting.options.if ||
+      content.find(({ id }) => id === setting.options.if)?.value
+    )
+  })
+}
+
 export const buildDefaultBlock = (blockType, { blocks: definitions }) => {
   if (isBlank(definitions)) return null
   let definition =

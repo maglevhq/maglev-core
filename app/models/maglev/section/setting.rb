@@ -16,7 +16,7 @@ class Maglev::Section::Setting
 
   # NOTE: any modification to that method must be reflected to the JS editor
   def build_default_content(custom_default = nil)
-    default = custom_default || self.default
+    default = custom_default.nil? ? self.default : custom_default
     case type.to_sym
     when :image then build_default_image_content(default)
     when :link then build_default_link_content(default)

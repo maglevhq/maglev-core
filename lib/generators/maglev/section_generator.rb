@@ -19,7 +19,7 @@ module Maglev
       raise Thor::Error, set_color('ERROR: You must add categories to your theme.', :red) if categories.blank?
     end
 
-    def select_theme
+    def select_category
       @category = options['category']
       return if @category.present?
 

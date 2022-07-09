@@ -26,7 +26,10 @@ export default {
     sectionSettings() {
       return this.advanced
         ? this.currentSectionAdvancedSettings
-        : this.currentSectionSettings
+        : this.services.section.filterSettings(
+            this.currentSectionSettings,
+            this.currentSectionContent,
+          )
     },
   },
   methods: {

@@ -73,6 +73,7 @@ export default {
       const value = hexToRgb(
         this.realHexColor(hexColorOrStyle || this.selectedColor),
       )
+      if (!value) return true
       return value.r === 255 && value.g === 255 && value.b === 255
     },
   },

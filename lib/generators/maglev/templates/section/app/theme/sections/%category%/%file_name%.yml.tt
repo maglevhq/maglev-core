@@ -1,8 +1,8 @@
 # Name of the section displayed in the editor UI
 name: "<%= file_name %>"
 
-# Category of the section in the editor UI (header, features, testimonials, ...etc)
-category: <%= options['category'] %>
+# Category of the section in the editor UI (headers, features, testimonials, ...etc)
+category: <%= category %>
 
 # A section might have the same content all over the site, like a menu or a footer for instance.
 # To enable this behavior, uncomment the following statement
