@@ -17,3 +17,10 @@ export const decodeTree = (tree, parentId) => {
     })
     .flat()
 }
+
+export const filterRoot = (blockDefinitions, content) => {
+  return blockDefinitions.filter((block) => {
+    const count = content.filter(({ type }) => block.type === type).length
+    return block.root && (block.limit === -1 || block.limit > count)
+  })
+}

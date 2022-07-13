@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full button-wrapper">
+  <div v-if="hasTypes" class="w-full button-wrapper">
     <dropdown
       ref="dropdown"
       placement="top"
@@ -42,13 +42,17 @@ import { mapActions } from 'vuex'
 export default {
   name: 'NewSectionBlockButton',
   computed: {
+    hasTypes() {
+      return this.blockTypes.length > 0
+    },
     hasMultipleTypes() {
       return this.blockTypes.length > 1
     },
     blockTypes() {
       if (this.currentSectionDefinition.blocksPresentation === 'tree')
-        return this.currentSectionDefinition.blocks.filter(
-          (block) => block.root,
+        return this.services.block.filterRoot(
+          this.currentSectionDefinition.blocks,
+          this.currentSectionBlocks,
         )
       else return this.currentSectionDefinition.blocks
     },

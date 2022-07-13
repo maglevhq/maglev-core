@@ -6,7 +6,7 @@ class Maglev::Section::Block
   include ActiveModel::Model
 
   ## attributes ##
-  attr_accessor :name, :type, :settings, :root, :accept
+  attr_accessor :name, :type, :settings, :root, :accept, :limit
 
   ## validation ##
   validates :name, :type, presence: true
@@ -21,8 +21,9 @@ class Maglev::Section::Block
   ## class methods ##
 
   def self.build(hash)
-    attributes = hash.slice('name', 'type', 'accept', 'root')
+    attributes = hash.slice('name', 'type', 'accept', 'root', 'limit')
     attributes['root'] = true if attributes['root'].nil?
+    attributes['limit'] = -1 if attributes['limit'].nil?
 
     new(
       attributes.merge(
