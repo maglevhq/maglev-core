@@ -3,7 +3,7 @@
     <label class="block font-semibold text-gray-800" :for="name">
       {{ label }}
     </label>
-    <div class="flex gap-2 mt-2">
+    <div class="flex flex-wrap gap-0.5 mt-2">
       <div v-for="preset in presets" :key="preset">
         <input
           type="radio"
@@ -16,14 +16,14 @@
         <label
           :for="`${name}-${preset}`"
           :title="preset"
-          class="inline-block w-9 h-9 mr-1 cursor-pointer p-0.5 border-4 rounded-full"
+          class="inline-block w-10 h-10 cursor-pointer p-0.5 border-4 rounded-sm"
           :style="{
             'border-color':
               preset === selectedColor ? selectedBorderColor : 'transparent',
           }"
         >
           <span
-            class="block w-full h-full rounded-full transition transform duration-200 ease-in-out hover:scale-110 select-none"
+            class="block w-full h-full rounded-sm transition transform duration-200 ease-in-out hover:scale-110 select-none"
             :class="{ 'border border-gray-300': isWhite(preset) }"
             :style="{ 'background-color': realHexColor(preset) }"
           >
