@@ -10,6 +10,8 @@ class CreateMaglevPages < ActiveRecord::Migration[6.0]
       t.timestamps
     end
 
-    add_index :maglev_pages, :path, unique: true
+    up_only do
+      add_index :maglev_pages, :path, unique: true
+    end
   end
 end

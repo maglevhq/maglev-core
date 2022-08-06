@@ -8,6 +8,6 @@ class CreateMaglevPagePaths < ActiveRecord::Migration[6.1]
 
     add_index :maglev_page_paths, [:value, :locale], unique: true
 
-    remove_column :maglev_pages, :path
+    remove_column :maglev_pages, :path, :string
   end
 end
