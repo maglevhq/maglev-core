@@ -4,9 +4,17 @@ module Maglev
   module API
     class SitesController < ::Maglev::APIController
       def show
-        @site = maglev_site
-        @home_page_id = ::Maglev::Page.home.pick(:id)
-        head :not_found if @site.nil?
+        if (@site = maglev_site).present?
+          @home_page_id = maglev_page_collection.home.pick(:id)
+        else
+          head :not_found
+        end
+      end
+
+      private
+
+      def maglev_page_collection
+        ::Maglev::Page
       end
     end
   end

@@ -30,7 +30,13 @@ module Maglev
     end
 
     def maglev_home_page_id
-      @maglev_home_page_id ||= ::Maglev::Page.home.pick(:id) || ::Maglev::Page.home(default_content_locale).pick(:id)
+      @maglev_home_page_id ||=
+        maglev_pages_collection.home.pick(:id) ||
+        maglev_pages_collection.home(default_content_locale).pick(:id)
+    end
+
+    def maglev_pages_collection
+      ::Maglev::Page
     end
 
     def fallback_to_default_locale

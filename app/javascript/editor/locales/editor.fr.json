@@ -41,7 +41,7 @@
     "list": {
       "title": "Liste des pages",
       "subTitle": "Gérer les pages de votre site",
-      "newButton": "Créer une nouvelle page",
+      "newButton": "Nouvelle page",
       "searchPlaceholder": "Tapez un titre de page...",
       "item": {
         "edit": "Éditer les paramètres",
