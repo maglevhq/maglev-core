@@ -1,3 +1,7 @@
+<script setup>
+const reloadPage = () => window.location.reload()
+</script>
+
 <template>
   <div class="pt-8 pb-4">
     <p class="text-gray-600 text-justify">
@@ -11,14 +15,3 @@
     </div>
   </div>
 </template>
-
-<script>
-export default {
-  name: 'StaleRecordError',
-  methods: {
-    reloadPage() {
-      window.location.reload()
-    },
-  },
-}
-</script>

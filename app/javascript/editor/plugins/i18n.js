@@ -1,8 +1,5 @@
-import Vue from 'vue'
-import VueI18n from 'vue-i18n'
+import { createI18n } from 'vue-i18n'
 import messages from '@/locales'
-
-Vue.use(VueI18n)
 
 const AVAILABLE_LOCALES = ['en', 'fr']
 var locale = 'en'
@@ -19,7 +16,9 @@ if (document.documentElement.lang) {
   }
 }
 
-const i18n = new VueI18n({
+const i18n = createI18n({
+  // legacy: false,
+  // globalInjection: true,
   locale,
   fallbackLocale: AVAILABLE_LOCALES[0],
   messages,

@@ -1,0 +1,16 @@
+{
+  "all": {
+    "sourceCodeDir": "app/javascript",
+    "watchAdditionalPaths": []
+  },
+  "development": {
+    "autoBuild": true,
+    "publicOutputDir": "maglev-assets",
+    "port": 3046
+  },
+  "test": {
+    "autoBuild": true,
+    "publicOutputDir": "maglev-assets",
+    "port": 3047
+  }
+}

@@ -1,13 +1,15 @@
 # frozen_string_literal: true
 
-require 'webpacker/helper'
+require 'vite_rails/version'
+require 'vite_rails/tag_helpers'
 
 module Maglev
   module ApplicationHelper
-    include ::Webpacker::Helper
-
-    def current_webpacker_instance
-      use_engine_webpacker? ? ::Maglev.webpacker : super
+    include ::ViteRails::TagHelpers
+    
+    # Override: Returns the engine assets manifest.
+    def vite_manifest
+      ::Maglev::Engine.vite_ruby.manifest
     end
   end
 end

@@ -19,8 +19,11 @@
     window.customTranslations = <%= h editor_custom_translations.to_json.html_safe %>
   </script>
   
-  <%= javascript_pack_tag 'editor' %>
-  <%= stylesheet_pack_tag 'editor' %>
+  <%#= javascript_pack_tag 'editor' %>
+  <%#= stylesheet_pack_tag 'editor' %>
+
+  <%= vite_client_tag %>
+  <%= vite_javascript_tag 'editor' %>
 
   <%= favicon_link_tag editor_favicon_url %>
 

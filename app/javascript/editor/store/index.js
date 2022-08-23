@@ -1,14 +1,11 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
-import defaultState from './default-state'
+import { createStore } from 'vuex'
+import defaultState from './default-state.js'
 import buildActions from './actions'
-import buildMutations from './mutations'
-import buildGetters from './getters'
+import buildMutations from './mutations.js'
+import buildGetters from './getters.js'
 import services from '@/services'
 
-Vue.use(Vuex)
-
-const store = new Vuex.Store({
+const store = createStore({
   strict: process.env.NODE_ENV !== 'production',
   state: { ...defaultState },
   mutations: buildMutations(services),

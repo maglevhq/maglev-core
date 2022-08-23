@@ -1,19 +1,33 @@
-import Vue from 'vue'
-import App from './App'
-import store from '@/store'
-import i18n from '@/plugins/i18n'
-import router from '@/router'
-import '@/mixins'
-import '@/plugins'
-import '@/components/kit'
+// import Vue from 'vue'
+import App from './App.vue'
+import { createApp } from 'vue'
 
-Vue.config.productionTip = false
+import stores from '@/stores'
+import store from '@/store'
+import router from '@/router'
+import i18n from '@/plugins/i18n.js'
+import createUIKit from '@/components/kit'
+// import '@/mixins'
+// import '@/plugins'
+// import '@/components/kit'
+
+// Vue.config.productionTip = false
 
 document.addEventListener('DOMContentLoaded', () => {
-  new Vue({
-    store,
-    router,
-    i18n,
-    render: (h) => h(App),
-  }).$mount('#maglev-app')
+  const app = createApp(App)
+
+  app.use(store)
+  app.use(stores)
+  app.use(router)
+  app.use(i18n)
+
+  createUIKit(app)
+
+  app.mount('#maglev-app')
+  // new Vue({
+  //   store,
+  //   router,
+  //   i18n,
+  //   render: (h) => h(App),
+  // }).$mount('#maglev-app')
 })
