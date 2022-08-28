@@ -15,7 +15,7 @@ export default (services) => ({
   async persistPage({
     commit,
     dispatch,
-    state: { page, site },
+    state: { page, site, style },
     getters: { content, defaultPageAttributes },
   }) {
     commit('SET_SAVE_BUTTON_STATE', 'inProgress')
@@ -26,10 +26,11 @@ export default (services) => ({
       ...defaultPageAttributes,
     }
     const siteAttributes = isBlank(content.siteSections)
-      ? {}
+      ? { style }
       : {
           sections: content.siteSections,
           lockVersion: site.lockVersion,
+          style,
         }
 
     services.page

@@ -16,6 +16,7 @@ module Maglev
       ActiveRecord::Base.transaction do
         persist_page!
         persist_site!
+        persist_style!
         page
       end
     end
@@ -36,6 +37,13 @@ module Maglev
       site_attributes[:sections].each do |section|
         site.add_section(section)
       end
+      site.save!
+    end
+
+    def persist_style!
+      return if site_attributes&.dig(:style).blank?
+
+      site.style = site_attributes[:style]
       site.save!
     end
 

@@ -8,7 +8,9 @@ export default (api) => ({
     return api.get(`/site`).then(({ data }) => data)
   },
   updateStyle(style) {
-    return api.put(`/style`, { site: { style } }).then(({ data }) => data)
+    return api.put(`/style`, { site: { style } }).then((response) => {
+      return response.headers['lock-version']
+    })
   },
   publish() {
     return api.post(`/publication`).then(({ data }) => data)

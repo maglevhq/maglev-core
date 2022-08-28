@@ -7,19 +7,7 @@
         :content="style"
         @change="onChange"
       />
-    </div>
-    <div class="mt-auto">
-      <submit-button
-        type="button"
-        class="big-submit-button"
-        defaultColorClass="bg-editor-primary"
-        :labels="$t('style.edit.submitButton')"
-        :buttonState="submitState"
-        @click="updateStyle"
-      >
-        {{ $t('style.edit.submitButton') }}
-      </submit-button>
-    </div>
+    </div>    
   </div>
 </template>
 
@@ -31,13 +19,10 @@ export default {
   name: 'StylePane',
   components: { DynamicForm },
   data() {
-    return { submitState: 'default', style: [] }
+    return { style: [] }
   },
   mounted() {
     this.style = this.currentStyle
-  },
-  beforeDestroy() {
-    this.previewStyle(this.currentStyle)
   },
   computed: {
     styleSettings() {
@@ -45,17 +30,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions(['previewStyle', 'setStyle']),
-    updateStyle() {
-      this.submitState = 'inProgress'
-      this.services.site
-        .updateStyle(this.style)
-        .then(() => {
-          this.submitState = 'success'
-          this.setStyle(this.style)
-        })
-        .catch(() => (this.submitState = 'fail'))
-    },
+    ...mapActions(['previewStyle']),
     onChange(change) {
       this.style = this.style.map((value) => {
         const newValue = { ...value }

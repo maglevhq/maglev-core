@@ -44,7 +44,8 @@ module Maglev
       def site_params
         lock_version = params.dig(:site, :lock_version)
         sections = params.dig(:site, :sections)
-        lock_version && sections ? { lock_version: lock_version, sections: sections } : {}
+        style = params.dig(:site, :style)
+        (lock_version && sections ? { lock_version: lock_version, sections: sections } : {}).merge(style: style)
       end
 
       def persist!(page)
