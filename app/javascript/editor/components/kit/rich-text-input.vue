@@ -169,7 +169,7 @@ export default {
           new BulletList(),
           new ListItem(),
           new OrderedList(),
-          new Table(),
+          new Table({ resizable: true }),
           new TableHeader(),
           new TableCell(),
           new TableRow(),

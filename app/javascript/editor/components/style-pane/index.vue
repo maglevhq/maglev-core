@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col h-full overflow-hidden">
-    <div class="flex-1 overflow-y-scroll">
+    <div class="flex-1 overflow-y-scroll px-4">
       <dynamic-form
         parentKey="style"
         :settings="styleSettings"
