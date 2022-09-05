@@ -27,7 +27,7 @@ module Maglev
     def dom_id
       "section-#{id}"
     end
-    
+
     # rubocop:disable Rails/OutputSafety
     def dom_data
       "data-maglev-section-id=\"#{id}\"".html_safe
