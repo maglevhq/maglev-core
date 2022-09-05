@@ -177,26 +177,26 @@ RSpec.describe 'Maglev::PagePreviewController', type: :request do
         .to include(<<-HTML
               <nav>
                 <ul>
-                  <li class="navbar-item" data-maglev-block-id="block-0">
+                  <li class="navbar-item" id="block-block-0" data-maglev-block-id="block-0">
                     <a data-maglev-id="block-0.link" href="/maglev/preview">
                       <em>
                         <span data-maglev-id="block-0.label">Item #0</span>
                       </em>
                     </a>
                     <ul>
-                      <li class="navbar-nested-item" data-maglev-block-id="block-0-0">
+                      <li class="navbar-nested-item" id="block-block-0-0" data-maglev-block-id="block-0-0">
                         <a data-maglev-id="block-0-0.link" class="navbar-link" href="/maglev/preview">
                           <span data-maglev-id="block-0-0.label">Item #0-0</span>
                         </a>
                       </li>
-                      <li class="navbar-nested-item" data-maglev-block-id="block-0-1">
+                      <li class="navbar-nested-item" id="block-block-0-1" data-maglev-block-id="block-0-1">
                         <a data-maglev-id="block-0-1.link" class="navbar-link" href="/maglev/preview">
                           <span data-maglev-id="block-0-1.label">Item #0-1</span>
                         </a>
                       </li>
                     </ul>
                   </li>
-                  <li class="navbar-item" data-maglev-block-id="block-1">
+                  <li class="navbar-item" id="block-block-1" data-maglev-block-id="block-1">
                     <a data-maglev-id="block-1.link" href="/maglev/preview">
                       <em>
                         <span data-maglev-id="block-1.label">Item #1</span>

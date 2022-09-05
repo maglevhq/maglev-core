@@ -29,6 +29,10 @@ module Maglev
       children.present?
     end
 
+    def dom_id
+      "block-#{id}"
+    end
+
     # rubocop:disable Rails/OutputSafety
     def dom_data
       "data-maglev-block-id=\"#{id}\"".html_safe

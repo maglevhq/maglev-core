@@ -26,13 +26,13 @@ RSpec.describe 'Maglev::PagePreviewController', type: :request do
               </title>
             </head>
             <body>
-              <div class="navbar" data-maglev-section-id="yyy">
+              <div class="navbar" id="section-yyy" data-maglev-section-id="yyy">
                 <a href="/">
                   <img src="mynewlogo.png" data-maglev-id="yyy.logo" class="brand-logo"/>
                 </a>
                 <nav>
                   <ul>
-                    <li class="navbar-item" data-maglev-block-id="zzz">
+                    <li class="navbar-item" id="block-zzz" data-maglev-block-id="zzz">
                       <a data-maglev-id="zzz.link" target="_blank" href="https://www.nocoffee.fr">
                         <em>
                           <span data-maglev-id="zzz.label">Home</span>

@@ -13,7 +13,7 @@ module Maglev::GetPageSections::TransformLinkConcern
 
     if path
       anchor = link['section_id']
-      link['href'] = anchor.present? ? "#{path}##{anchor}" : path
+      link['href'] = anchor.present? ? "#{path}#section-#{anchor}" : path
     end
 
     link

@@ -5,7 +5,7 @@ module Maglev
     def wrapper_tag(options = nil, &block)
       return WrapperTagBuilder.new(view_context, self) if options.nil?
 
-      tag_options = options || {}
+      tag_options = (options || {}).merge(id: dom_id)
       tag_options[:data] = (tag_options[:data] || {}).merge(tag_data)
       content = view_context.capture(&block)
       view_context.tag.public_send(

@@ -50,32 +50,32 @@ describe Maglev::SectionComponent do
       let(:definition) { build(:section, :navbar) }
       it 'returns a valid HTML' do
         is_expected.to eq(<<~HTML
-          <div class="navbar" data-maglev-section-id="abc">
+          <div class="navbar" id="section-abc" data-maglev-section-id="abc">
             <a href="/">
               <img src="logo.png" data-maglev-id="abc.logo" class="brand-logo"/>
             </a>
             <nav>
               <ul>
-                <li class="navbar-item" data-maglev-block-id="menu-item-0">
+                <li class="navbar-item" id="block-menu-item-0" data-maglev-block-id="menu-item-0">
                   <a data-maglev-id="menu-item-0.link" href="/">
                     <em>
                       <span data-maglev-id="menu-item-0.label">Home</span>
                     </em>
                   </a>
                 </li>
-                <li class="navbar-item" data-maglev-block-id="menu-item-1">
+                <li class="navbar-item" id="block-menu-item-1" data-maglev-block-id="menu-item-1">
                   <a data-maglev-id="menu-item-1.link" href="/about-us">
                     <em>
                       <span data-maglev-id="menu-item-1.label">About us</span>
                     </em>
                   </a>
                   <ul>
-                    <li class="navbar-nested-item" data-maglev-block-id="menu-item-1-1">
+                    <li class="navbar-nested-item" id="block-menu-item-1-1" data-maglev-block-id="menu-item-1-1">
                       <a data-maglev-id="menu-item-1-1.link" class="navbar-link" href="/about-us/team">
                         <span data-maglev-id="menu-item-1-1.label">Our team</span>
                       </a>
                     </li>
-                    <li class="navbar-nested-item" data-maglev-block-id="menu-item-1-2">
+                    <li class="navbar-nested-item" id="block-menu-item-1-2" data-maglev-block-id="menu-item-1-2">
                       <a data-maglev-id="menu-item-1-2.link" target="_blank" class="navbar-link" href="/about-us/office">
                         <span data-maglev-id="menu-item-1-2.label">Our office</span>
                       </a>
