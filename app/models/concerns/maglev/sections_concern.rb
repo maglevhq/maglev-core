@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # rubocop:disable Style/ClassAndModuleChildren
-module Maglev::Page::SectionsConcern
+module Maglev::SectionsConcern
   def prepare_sections
     # NOTE: pages defined in the theme definition
     # don't include the ids for sections/blocks
@@ -20,6 +20,7 @@ module Maglev::Page::SectionsConcern
       block['id'] ||= SecureRandom.urlsafe_base64(8)
       block['settings'] = prepare_settings(block['settings'])
     end
+    section
   end
 
   def prepare_settings(settings)

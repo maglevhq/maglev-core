@@ -4,8 +4,8 @@ module Maglev
   class Page < ApplicationRecord
     ## concerns ##
     include Maglev::Translatable
+    include Maglev::SectionsConcern
     include Maglev::Page::PathConcern
-    include Maglev::Page::SectionsConcern
     include Maglev::Page::SearchConcern
 
     ## translations ##

@@ -32,11 +32,8 @@ module Maglev
     def persist_site!
       return unless can_persist_site?
 
-      # lock_version can be nil when we setup a brand new site
-      site.lock_version = site_attributes[:lock_version] if site_attributes[:lock_version]
-      site_attributes[:sections].each do |section|
-        site.add_section(section)
-      end
+      site.attributes = site_attributes
+      site.prepare_sections
       site.save!
     end
 
