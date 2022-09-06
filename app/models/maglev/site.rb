@@ -20,6 +20,6 @@ module Maglev
 
     def find_section(type)
       sections&.find { |section| section['type'] == type }
-    end    
+    end
   end
 end

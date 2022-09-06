@@ -50,7 +50,7 @@ RSpec.configure do |config|
 
   config.include ActionDispatch::TestProcess::FixtureFile
   config.include FactoryBot::Syntax::Methods
-  config.include Maglev::SpecHelpers::APIAuthentication, type: :request  
+  config.include Maglev::SpecHelpers::APIAuthentication, type: :request
 
   config.before(:each) do
     Maglev.configure do |c|
