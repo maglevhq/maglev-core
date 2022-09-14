@@ -156,8 +156,8 @@ export const getBlockLabel = (block, definition) => {
       case 'text':
         if (!label) {
           label = value
-          if (setting.html) {
-            let doc = new DOMParser().parseFromString(label, 'text/html')
+          if (setting.options.html) {
+            let doc = new DOMParser().parseFromString(value, 'text/html')
             label = doc.body.textContent
           }
         }
