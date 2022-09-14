@@ -23,8 +23,12 @@ module Maglev
           Maglev::Page.new(
             title: 'Preview section',
             path: 'preview',
-            sections: [fetch_section.build_default_content]
+            sections: [fetch_section!.build_default_content]
           )
+        end
+
+        def fetch_section!
+          fetch_section || (raise ::Maglev::Errors::UnknownSection, "Unknown section #{params[:id]}")
         end
 
         def fetch_section
