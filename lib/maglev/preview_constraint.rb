@@ -11,7 +11,7 @@ module Maglev
     end
 
     def matches?(request)
-      request.format == :html && (!preview_host || preview_host == request.host)
+      %i(html xml).include?(request.format.symbol) && (!preview_host || preview_host == request.host)
     end
 
     protected

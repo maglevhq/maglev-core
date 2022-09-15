@@ -5,7 +5,7 @@ module Maglev
     extend ActiveSupport::Concern
 
     included do
-      helper_method :maglev_config
+      helper_method :maglev_config, :maglev_services
     end
 
     private
