@@ -4,7 +4,7 @@ module Maglev
   module Content
     class Image < Base
       def url
-        return image[:url] if asset_host.nil? || !uploaded?
+        return image[:url] if asset_host.nil? || !hosted_on_platform?
 
         URI.join(asset_host, URI.parse(image[:url]).path).to_s
       end
@@ -47,8 +47,8 @@ module Maglev
                    end
       end
 
-      def uploaded?
-        width.present? && height.present?
+      def hosted_on_platform?
+        (width.present? && height.present?) || image[:url] =~ /^\/themes?\//
       end
     end
   end
