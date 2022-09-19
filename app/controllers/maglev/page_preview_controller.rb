@@ -21,6 +21,8 @@ module Maglev
 
     def fetch_maglev_site
       super.tap do |site|
+        raise ActiveRecord::RecordNotFound if site.nil?
+
         site.style = JSON.parse(params[:style]) if params[:style]
       end
     end

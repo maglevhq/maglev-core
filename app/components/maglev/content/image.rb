@@ -48,7 +48,7 @@ module Maglev
       end
 
       def hosted_on_platform?
-        (width.present? && height.present?) || image[:url] =~ /^\/themes?\//
+        (width.present? && height.present?) || image[:url] =~ %r{^/themes?/}
       end
     end
   end
