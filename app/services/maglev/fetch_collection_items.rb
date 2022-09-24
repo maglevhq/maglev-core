@@ -65,6 +65,14 @@ module Maglev
       collection.dig(:fields, :image)&.to_sym
     end
 
+    def item_label(item)
+      item[label_field]
+    end
+
+    def item_image(item)
+      image_field && item.respond_to?(image_field) ? item.public_send(image_field) : nil
+    end
+
     def fetch_method_name
       collection[:fetch_method_name]
     end
@@ -78,8 +86,8 @@ module Maglev
 
       Item.new(
         original_item.id,
-        original_item[label_field],
-        original_item.respond_to?(image_field) ? original_item.public_send(image_field) : nil,
+        item_label(original_item),
+        item_image(original_item),
         original_item
       )
     end
