@@ -8,7 +8,7 @@ GIT
 PATH
   remote: .
   specs:
-    maglev (0.1.0)
+    maglev (1.0.0.rc1)
       injectable (~> 2.1.1)
       jbuilder (~> 2.11.2)
       kaminari (~> 1.2.1)

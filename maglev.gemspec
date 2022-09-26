@@ -10,9 +10,9 @@ Gem::Specification.new do |spec|
   spec.name        = 'maglev'
   spec.version     = Maglev::VERSION
   spec.authors     = ['Didier Lafforgue']
-  spec.email       = ['didier@nocoffee.fr']
-  spec.homepage    = 'https://www.nocoffee.fr'
-  spec.summary     = 'Embed a multi sites page builder in your Ruby on Rails app'
+  spec.email       = ['contact@maglev.dev']
+  spec.homepage    = 'https://www.maglev.dev/'
+  spec.summary     = 'Page builder Ruby on Rails'
   spec.description = <<-DOC
   Maglev adds a fancy page builder inside your Ruby on Rails application. This gem comes with a simple but solid CMS engine.'
   DOC

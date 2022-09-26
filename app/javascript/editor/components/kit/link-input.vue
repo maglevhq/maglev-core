@@ -17,25 +17,25 @@
       class="flex items-center w-full mt-2 py-3 px-3 rounded bg-gray-100 text-gray-800 cursor-pointer"
       @click="openLinkPickerModal"
     >
-      <div class="flex items-center pr-6" v-if="isPage">
-        <page-icon :page="{ path: value.href }" />
+      <div class="flex-1 flex items-center overflow-hidden" v-if="isPage">
+        <page-icon :page="{ path: value.href }" class="flex-shrink-0" />
         <span class="ml-3">{{ value.linkLabel }}</span>
       </div>
-      <div class="flex items-center pr-6" v-if="isUrl">
-        <icon name="ri-external-link-line" />
-        <span class="ml-3">{{ value.href }}</span>
+      <div class="flex-1 flex items-center overflow-hidden" v-if="isUrl">
+        <icon name="ri-external-link-line" class="flex-shrink-0" />
+        <span class="ml-3 shrink">{{ value.href }}</span>
       </div>
-      <div class="flex items-center pr-6" v-if="isEmail">
-        <icon name="ri-mail-line" />
+      <div class="flex-1 flex items-center overflow-hidden" v-if="isEmail">
+        <icon name="ri-mail-line" class="flex-shrink-0" />
         <span class="ml-3">{{ value.email }}</span>
       </div>
 
-      <div class="pr-6 text-gray-400" v-if="isBlank(value)">
+      <div class="flex-1 flex items-center overflow-hidden text-gray-400" v-if="isBlank(value)">
         {{ $t('linkInput.placeholder') }}
       </div>
 
       <button
-        class="ml-auto"
+        class="ml-3"
         @click.prevent.stop="clear"
         v-if="!isBlank(value)"
       >
@@ -66,7 +66,7 @@ export default {
       )
     },
     isUrl() {
-      return this.value?.linkType === 'url'
+      return (this.value && !this.value.linkType) || this.value?.linkType === 'url'
     },
     isEmail() {
       return this.value?.linkType === 'email'
@@ -94,7 +94,7 @@ export default {
           'openNewWindow',
           'text',
         ),
-        text: this.value.text,
+        text: this.value?.text || '',
       })
       this.closeModal()
     },
