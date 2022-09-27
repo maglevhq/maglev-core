@@ -1,18 +1,11 @@
-GIT
-  remote: https://github.com/Papipo/injectable.git
-  revision: a1114caa9eee9c6d8e05d8e80bbacab552182f02
-  branch: override-with-class
-  specs:
-    injectable (2.1.1)
-
 PATH
   remote: .
   specs:
     maglev (1.0.0.rc1)
-      injectable (~> 2.1.1)
       jbuilder (~> 2.11.2)
       kaminari (~> 1.2.1)
-      rails (>= 6.1.4.4, <= 7.1)
+      maglev-injectable (~> 2.1.1)
+      rails (>= 6.1.6, <= 7.1)
       webpacker (~> 5.1)
 
 GEM
@@ -117,9 +110,10 @@ GEM
       activerecord
       kaminari-core (= 1.2.2)
     kaminari-core (1.2.2)
-    loofah (2.18.0)
+    loofah (2.19.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
+    maglev-injectable (2.1.1)
     mail (2.7.1)
       mini_mime (>= 0.1.1)
     marcel (1.0.2)
@@ -170,7 +164,7 @@ GEM
       thor (~> 1.0)
     rainbow (3.1.1)
     rake (13.0.6)
-    regexp_parser (2.5.0)
+    regexp_parser (2.6.0)
     rexml (3.2.5)
     rspec-core (3.11.0)
       rspec-support (~> 3.11.0)
@@ -201,18 +195,18 @@ GEM
       unicode-display_width (>= 1.4.0, < 3.0)
     rubocop-ast (1.21.0)
       parser (>= 3.1.1.0)
-    rubocop-minitest (0.22.0)
+    rubocop-minitest (0.22.1)
       rubocop (>= 0.90, < 2.0)
     rubocop-packaging (0.5.2)
       rubocop (>= 1.33, < 2.0)
     rubocop-performance (1.15.0)
       rubocop (>= 1.7.0, < 2.0)
       rubocop-ast (>= 0.4.0)
-    rubocop-rails (2.16.0)
+    rubocop-rails (2.16.1)
       activesupport (>= 4.2.0)
       rack (>= 1.1)
       rubocop (>= 1.33.0, < 2.0)
-    rubocop-rails_config (1.11.2)
+    rubocop-rails_config (1.11.3)
       railties (>= 5.0)
       rubocop (>= 1.29.0)
       rubocop-ast (>= 1.0.1)
@@ -220,7 +214,7 @@ GEM
       rubocop-packaging (~> 0.5)
       rubocop-performance (~> 1.11)
       rubocop-rails (~> 2.0)
-    rubocop-rspec (2.13.1)
+    rubocop-rspec (2.13.2)
       rubocop (~> 1.33)
     ruby-progressbar (1.11.0)
     ruby-vips (2.1.4)
@@ -242,7 +236,7 @@ GEM
     thor (1.2.1)
     tzinfo (2.0.5)
       concurrent-ruby (~> 1.0)
-    unicode-display_width (2.2.0)
+    unicode-display_width (2.3.0)
     webpacker (5.4.3)
       activesupport (>= 5.2)
       rack-proxy (>= 0.6.1)
@@ -261,7 +255,6 @@ DEPENDENCIES
   factory_bot_rails
   generator_spec
   image_processing (~> 1.12.2)
-  injectable!
   maglev!
   mini_magick (~> 4.11)
   nokogiri (>= 1.13.2)

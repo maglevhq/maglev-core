@@ -17,7 +17,7 @@ gem 'mini_magick', '~> 4.11'
 gem 'image_processing', '~> 1.12.2'
 
 # Temporary use this branch because it solves a bug
-gem 'injectable', github: 'Papipo/injectable', branch: 'override-with-class'
+# gem 'maglev-injectable', path: '../injectable'
 
 # Declare any dependencies that are still in development here instead of in
 # your gemspec. These might include edge Rails or gems from your path or

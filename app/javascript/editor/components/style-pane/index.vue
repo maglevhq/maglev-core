@@ -7,7 +7,7 @@
         :content="style"
         @change="onChange"
       />
-    </div>    
+    </div>
   </div>
 </template>
 
