@@ -59,7 +59,7 @@ module Maglev
       # keep the same section id all over the pages
       section.merge!(
         'id' => site_section['id'],
-        'settings' => site_section['settings'], 
+        'settings' => site_section['settings'],
         'blocks' => site_section['blocks']
       )
     end
