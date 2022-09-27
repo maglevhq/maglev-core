@@ -29,7 +29,7 @@ describe Maglev::GetPageSections do
     it 'fetches the content of the site scoped sections of a page from the site' do
       is_expected.to eq([
                           {
-                            'id' => 'abc',
+                            'id' => 'yyy',
                             'type' => 'navbar',
                             'settings' => [{ 'id' => 'logo', 'value' => 'mynewlogo.png' }],
                             'blocks' => [

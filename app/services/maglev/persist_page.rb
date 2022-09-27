@@ -32,6 +32,13 @@ module Maglev
     def persist_site!
       return unless can_persist_site?
 
+      # unlike the pages, we don't want to erase
+      # the global sections of a site.
+      site.sections.each do |section|
+        next if site_section_types.include?(section['type'])
+        site_attributes[:sections].push(section)
+      end if site.sections
+
       site.attributes = site_attributes
       site.prepare_sections
       site.save!
@@ -46,6 +53,10 @@ module Maglev
 
     def theme
       @theme ||= fetch_theme.call
+    end
+
+    def site_section_types
+      @site_section_types ||= site_attributes[:sections].map { |section| section[:type] }
     end
 
     def can_persist_site?

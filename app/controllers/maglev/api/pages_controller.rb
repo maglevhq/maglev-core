@@ -43,7 +43,7 @@ module Maglev
 
       def site_params
         lock_version = params.dig(:site, :lock_version)
-        sections = params.dig(:site, :sections)
+        sections = params[:site].to_unsafe_hash[:sections] unless params.dig(:site, :sections).nil?
         style = params.dig(:site, :style)
         (lock_version && sections ? { lock_version: lock_version, sections: sections } : {}).merge(style: style)
       end

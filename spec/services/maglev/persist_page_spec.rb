@@ -52,6 +52,16 @@ describe Maglev::PersistPage do
       end
     end
 
+    context 'Given a brand new page with no global sections' do
+      let(:site) { create(:site, :with_footer) }
+      it "doesn't erase the existing site sections" do
+        subject
+        expect(site.reload.sections.size).to eq 2
+        expect(site.reload.find_section('navbar')).not_to eq nil
+        expect(site.reload.find_section('footer')).not_to eq nil
+      end
+    end
+
     context 'Given the site has a new style' do
       let(:site_attributes) { { style: [{ id: 'font_size', value: '16px' }] } }
       it 'assigns the new style' do

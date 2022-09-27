@@ -36,6 +36,21 @@ FactoryBot.define do
       end
     end
 
+    trait :with_footer do
+      sections do
+        [
+          {
+            type: 'footer',
+            id: 'footer',
+            settings: [
+              { id: :copyright, value: '(c) 2022 NoCoffee SARL' }
+            ],
+            blocks: []
+          }
+        ]
+      end
+    end
+
     trait :with_style do
       style do
         [
