@@ -37,11 +37,11 @@ module Maglev
     def instructions
       $stdout.puts <<~INFO
         Done! 🎉
-        
+
         You can now tweak /config/initializers/maglev.rb.
         You can also modify your theme (in /app/theme and /app/views/theme)
         and generate new sections with rails g maglev:section.
-        
+
         👉 The next step is to create a site using `rails maglev:create_site`.
 
         🚨 Don't forget to do it in production as well!
