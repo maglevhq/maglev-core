@@ -42,16 +42,7 @@ export default {
     index: { type: Number, required: true },
   },
   data() {
-    const [label, image] = this.$store.getters.sectionBlockLabel(
-      this.sectionBlock,
-    )
     return {
-      label:
-        label ||
-        this.$t('sectionPane.blockList.defaultLabel', {
-          index: this.index + 1,
-        }),
-      image,
       imageLoaded: false,
     }
   },
@@ -59,6 +50,18 @@ export default {
     isList() {
       return this.currentSectionDefinition.blocksPresentation !== 'tree'
     },
+    presentation() {
+      const label = this.$store.getters.sectionBlockLabel(
+        this.sectionBlock, this.index + 1
+      )
+      return { label: label[0], image: label[1] }
+    },
+    label() {
+      return this.presentation.label
+    },
+    image() {
+      return this.presentation.image
+    }
   },
   methods: {
     ...mapActions(['removeSectionBlock']),

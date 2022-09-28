@@ -70,11 +70,11 @@ export default (services) => ({
   },
   sectionBlockLabel:
     ({ sectionDefinition }) =>
-    (sectionBlock) => {
+    (sectionBlock, index) => {
       const definition = sectionDefinition.blocks.find(
         (def) => def.type === sectionBlock.type,
       )
-      return services.section.getBlockLabel(sectionBlock, definition)
+      return services.section.getBlockLabel(sectionBlock, definition, index)
     },
   sectionBlockIndex: ({ section, sectionBlock }) => {
     // console.log(section.blocks, sectionBlock)

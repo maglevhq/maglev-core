@@ -107,8 +107,7 @@
       "advanced": "Advanced"
     },
     "blockList": {
-      "add": "Add new item",
-      "defaultLabel": "Item #{index}"
+      "add": "Add new item"
     }
   },
   "sectionBlockPane": {

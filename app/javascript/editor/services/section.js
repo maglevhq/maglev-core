@@ -146,7 +146,7 @@ const buildDefaultBlocks = (definition) => {
   return blocks
 }
 
-export const getBlockLabel = (block, definition) => {
+export const getBlockLabel = (block, definition, index) => {
   let label, image
   definition.settings.forEach((setting) => {
     const value = block.settings.find(
@@ -176,5 +176,5 @@ export const getBlockLabel = (block, definition) => {
         break
     }
   })
-  return [isBlank(label) ? null : label, image]
+  return [isBlank(label) ? `${definition.name} #${index}` : label, image]
 }

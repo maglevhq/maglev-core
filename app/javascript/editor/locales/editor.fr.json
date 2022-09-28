@@ -106,8 +106,7 @@
       "advanced": "Paramètres avancés"
     },
     "blockList": {
-      "add": "Ajouter un nouvel élément",
-      "defaultLabel": "Élément #{index}"
+      "add": "Ajouter un nouvel élément"
     }
   },
   "sectionBlockPane": {
