@@ -4,7 +4,7 @@
     @mouseover="hovered = true"
     @mouseleave="hovered = false"
   >
-    <div class="bg-gray-100 pb-full relative overflow-hidden rounded">
+    <div class="bg-checkerboard pb-full relative overflow-hidden rounded">
       <div class="absolute inset-0 h-full w-full rounded">
         <img
           class="h-full w-full object-contain"
@@ -51,7 +51,7 @@
       </div>
     </div>
     <div class="mt-1 px-2 text-xs font-bold text-gray-900">
-      {{ image.filename }}
+      {{ image.filename | truncate(26) }}
     </div>
     <div
       class="px-2 mb-1 flex items-center text-xs justify-between text-gray-700"

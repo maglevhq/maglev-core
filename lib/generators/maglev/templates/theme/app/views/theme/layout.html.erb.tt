@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title><%%= maglev_site.name %></title>
+  <title><%%= maglev_page.seo_title.presence || maglev_site.name %></title>
   <meta content="width=device-width, initial-scale=1" name="viewport">
 
   <meta name="description" content="<%%= maglev_page.meta_description %>" />  
@@ -11,7 +11,7 @@
 
   <%%= render_maglev_alternate_links %>
 
-  <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
 </head>
 <body class="bg-white">
   <main data-maglev-dropzone>

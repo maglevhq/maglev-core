@@ -14,6 +14,7 @@ namespace :maglev do
     Maglev::GenerateSite.call(
       theme: Maglev.local_themes.first
     )
+    puts "🎉 Your site has been created with success!"
   end
 
   desc 'Change site locales'

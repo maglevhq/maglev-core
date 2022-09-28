@@ -14,6 +14,9 @@ category: <%= category %>
 # Insert this section at the top or the bottom of the page (default: nil)
 # insert_at: top 
 
+# one single instance per page?
+# singleton: true
+
 # Definition of the settings:
 # A setting type can be one of the following values: text, image, link, collection_item, checkbox, color and icon.
 # Please visit: https://docs.maglev.dev/concepts/setting for more explanation.
@@ -26,6 +29,7 @@ settings:
   <%- when 'text' -%>
   # html: true
   # line_break: true
+  # nb_rows: 5
   <%- when 'select', 'radio' -%>
   options:
   - label: Option 1
@@ -54,6 +58,7 @@ blocks: <%- if blocks.blank? -%>[]
     <%- when 'text' -%>
     # html: true
     # line_break: true
+    # nb_rows: 5
     <%- when 'select', 'radio' -%>
     options:
     - label: Option 1

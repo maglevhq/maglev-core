@@ -21,12 +21,8 @@ module Maglev
       directory 'public'
     end
 
-    def generate_theme
+    def generate_blank_theme
       generate 'maglev:theme'
-    end
-
-    def generate_section
-      generate 'maglev:section', 'Dummy'
     end
 
     def mount_engine
@@ -40,12 +36,15 @@ module Maglev
 
     def instructions
       $stdout.puts <<~INFO
-        Done! 🚅
+        Done! 🎉
+        
         You can now tweak /config/initializers/maglev.rb.
         You can also modify your theme (in /app/theme and /app/views/theme)
         and generate new sections with rails g maglev:section.
-        The next step is to create a site using `rails maglev:create_site`.
-        You'll want to to this last step in production as well!
+        
+        👉 The next step is to create a site using `rails maglev:create_site`.
+
+        🚨 Don't forget to do it in production as well!
       INFO
     end
   end

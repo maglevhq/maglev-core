@@ -15,17 +15,18 @@ module Maglev
     initializer 'maglev.theme_reloader' do |app|
       require_relative './theme_filesystem_loader'
       theme_path = Rails.root.join('app/theme')
-      theme_reloader = app.config.file_watcher.new([], { theme_path.to_s => ['.yml'] }) do
+      theme_reloader = app.config.file_watcher.new([], { theme_path.to_s => ['.yml', 'yml'] }) do
         theme_loader = Maglev::ThemeFilesystemLoader.new(
           Maglev.services(context: nil).fetch_section_screenshot_path
         )
         Maglev.local_themes = [theme_loader.call(theme_path)]
       end
+
       app.reloaders << theme_reloader
 
       config.to_prepare do
         # everytime the code of the app or the engine changes, we reload the themes
-        # theme_reloader.execute
+        theme_reloader.execute
       end
 
       config.after_initialize do

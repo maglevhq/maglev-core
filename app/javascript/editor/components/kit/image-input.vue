@@ -18,7 +18,7 @@
       </div>
       <div v-else>
         <div
-          class="relative bg-gray-100 h-48 rounded overflow-hidden"
+          class="relative bg-checkerboard h-48 rounded overflow-hidden"
           @mouseover="hovered = true"
           @mouseleave="hovered = false"
         >
