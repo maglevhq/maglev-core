@@ -11,6 +11,7 @@
       v-else
       class="rounded-sm py-2 px-4 border transition-colors duration-200"
       :class="{
+        'text-gray-400 border-gray-100 hover:bg-editor-primary hover:bg-opacity-5 cursor-not-allowed': hasModifiedSections,
         'text-gray-900 border-gray-400 hover:bg-editor-primary hover:bg-opacity-5':
           isReady,
         'text-gray-900 cursor-wait': isInProgress,
@@ -18,7 +19,7 @@
         'bg-red-600 border-red-600 text-white': isFail,
       }"
       @click="publish"
-      :disabled="isInProgress"
+      :disabled="isInProgress || hasModifiedSections"
     >
       <span class="flex items-center justify-center space-x-2">
         <icon
@@ -51,8 +52,11 @@ export default {
     isUninitialized() {
       return !this.status
     },
+    hasModifiedSections() {
+      return !this.isBlank(this.$store.state.touchedSections)
+    },
     isReady() {
-      return this.status === 'default'
+      return this.status === 'default' && !this.hasModifiedSections
     },
     isInProgress() {
       return this.status === 'inProgress'
