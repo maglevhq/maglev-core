@@ -36,5 +36,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'rails', '<= 7.1', '>= 6.1.6'
   spec.add_dependency 'webpacker', '~> 5.1'
 
-  spec.add_development_dependency 'pg', '~> 1.2.1'
+  spec.add_development_dependency 'pg', '~> 1.4.3'
 end

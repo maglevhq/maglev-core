@@ -129,7 +129,7 @@ GEM
     parallel (1.22.1)
     parser (3.1.2.1)
       ast (~> 2.4.1)
-    pg (1.2.3)
+    pg (1.4.3)
     racc (1.6.0)
     rack (2.2.4)
     rack-proxy (0.7.4)
@@ -258,7 +258,7 @@ DEPENDENCIES
   maglevcms!
   mini_magick (~> 4.11)
   nokogiri (>= 1.13.2)
-  pg (~> 1.2.1)
+  pg (~> 1.4.3)
   rails (~> 6.1.6, >= 6.1.6)
   rspec-rails
   rubocop
@@ -268,4 +268,4 @@ DEPENDENCIES
   webpacker (~> 5.1)
 
 BUNDLED WITH
-   2.1.4
+   2.3.10
