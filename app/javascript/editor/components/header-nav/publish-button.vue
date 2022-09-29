@@ -11,7 +11,8 @@
       v-else
       class="rounded-sm py-2 px-4 border transition-colors duration-200"
       :class="{
-        'text-gray-400 border-gray-100 hover:bg-editor-primary hover:bg-opacity-5 cursor-not-allowed': hasModifiedSections,
+        'text-gray-400 border-gray-100 hover:bg-editor-primary hover:bg-opacity-5 cursor-not-allowed':
+          hasModifiedSections,
         'text-gray-900 border-gray-400 hover:bg-editor-primary hover:bg-opacity-5':
           isReady,
         'text-gray-900 cursor-wait': isInProgress,

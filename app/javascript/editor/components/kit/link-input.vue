@@ -30,15 +30,14 @@
         <span class="ml-3">{{ value.email }}</span>
       </div>
 
-      <div class="flex-1 flex items-center overflow-hidden text-gray-400" v-if="isBlank(value)">
+      <div
+        class="flex-1 flex items-center overflow-hidden text-gray-400"
+        v-if="isBlank(value)"
+      >
         {{ $t('linkInput.placeholder') }}
       </div>
 
-      <button
-        class="ml-3"
-        @click.prevent.stop="clear"
-        v-if="!isBlank(value)"
-      >
+      <button class="ml-3" @click.prevent.stop="clear" v-if="!isBlank(value)">
         <icon name="ri-close-line" />
       </button>
     </div>
@@ -66,7 +65,9 @@ export default {
       )
     },
     isUrl() {
-      return (this.value && !this.value.linkType) || this.value?.linkType === 'url'
+      return (
+        (this.value && !this.value.linkType) || this.value?.linkType === 'url'
+      )
     },
     isEmail() {
       return this.value?.linkType === 'email'

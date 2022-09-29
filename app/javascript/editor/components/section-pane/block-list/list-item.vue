@@ -52,7 +52,8 @@ export default {
     },
     presentation() {
       const label = this.$store.getters.sectionBlockLabel(
-        this.sectionBlock, this.index + 1
+        this.sectionBlock,
+        this.index + 1,
       )
       return { label: label[0], image: label[1] }
     },
@@ -61,7 +62,7 @@ export default {
     },
     image() {
       return this.presentation.image
-    }
+    },
   },
   methods: {
     ...mapActions(['removeSectionBlock']),
