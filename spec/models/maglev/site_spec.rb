@@ -47,4 +47,15 @@ RSpec.describe Maglev::Site, type: :model do
       # rubocop:enable Style/StringHashKeys
     end
   end
+
+  describe '#prepare_sections' do
+    let(:site) { build(:site, :with_preset_navbar) }
+    before { site.prepare_sections }
+    it 'assign an id to each section and block' do
+      expect(site.sections.first['blocks'].count).to eq(2)
+      expect(site.sections.first['blocks'].first['id']).not_to eq nil
+      expect(site.sections.first['blocks'].last['id']).not_to eq nil
+      expect(site.sections.first['blocks'].last['parent_id']).not_to eq nil
+    end
+  end
 end

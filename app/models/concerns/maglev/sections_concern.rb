@@ -16,11 +16,22 @@ module Maglev::SectionsConcern
   def prepare_section(section)
     section['id'] ||= SecureRandom.urlsafe_base64(8)
     section['settings'] = prepare_settings(section['settings'])
-    (section['blocks'] || []).each do |block|
-      block['id'] ||= SecureRandom.urlsafe_base64(8)
-      block['settings'] = prepare_settings(block['settings'])
-    end
+    section['blocks'] = (section['blocks'] || []).map do |block|
+      prepare_block(block)
+    end.flatten
     section
+  end
+
+  def prepare_block(block)
+    block['id'] ||= SecureRandom.urlsafe_base64(8)
+    block['settings'] = prepare_settings(block['settings'])
+
+    # the children key is accepted when the sections come from a theme preset
+    children = (block.delete('children') || []).map do |nested_block|
+      nested_block['parent_id'] = block['id']
+      prepare_block(nested_block)
+    end
+    [block, children].flatten
   end
 
   def prepare_settings(settings)

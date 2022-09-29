@@ -6,8 +6,7 @@ module Maglev
     source_root File.expand_path('templates/install', __dir__)
     hook_for :maglev_install
 
-    def setup_webpacker
-      rake 'webpacker:install'
+    def compile_editor_assets
       rake 'maglev:webpacker:compile'
     end
 

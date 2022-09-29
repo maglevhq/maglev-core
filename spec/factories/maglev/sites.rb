@@ -4,9 +4,11 @@ FactoryBot.define do
   factory :site, class: Maglev::Site do
     name { 'My awesome site' }
     locales { [{ label: 'English', prefix: 'en' }, { label: 'French', prefix: 'fr' }] }
+
     trait :empty do
       sections { [] }
     end
+
     trait :with_navbar do
       sections do
         [
@@ -68,6 +70,39 @@ FactoryBot.define do
           open_new_window: true,
           href: '/path-to-something'
         }
+      end
+    end
+
+    trait :with_preset_navbar do
+      sections do
+        [
+          {
+            type: 'navbar',
+            settings: [
+              { id: :logo, value: 'mynewlogo.png' }
+            ],
+            blocks: [
+              {
+                type: 'menu_group',
+                settings: [],
+                children: [
+                  {
+                    type: 'menu_item',
+                    settings: [
+                      { id: 'label', value: 'Home' },
+                      {
+                        id: 'link',
+                        value: {
+                          link_type: 'url', open_new_window: true, href: 'https://www.nocoffee.fr'
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
       end
     end
   end
