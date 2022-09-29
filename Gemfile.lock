@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    maglev (1.0.0.rc1)
+    maglevcms (1.0.0.rc1)
       jbuilder (~> 2.11.2)
       kaminari (~> 1.2.1)
       maglev-injectable (~> 2.1.1)
@@ -255,7 +255,7 @@ DEPENDENCIES
   factory_bot_rails
   generator_spec
   image_processing (~> 1.12.2)
-  maglev!
+  maglevcms!
   mini_magick (~> 4.11)
   nokogiri (>= 1.13.2)
   pg (~> 1.2.1)

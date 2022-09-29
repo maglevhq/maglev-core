@@ -7,7 +7,7 @@ require 'maglev/version'
 
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |spec|
-  spec.name        = 'maglev'
+  spec.name        = 'maglevcms'
   spec.version     = Maglev::VERSION
   spec.authors     = ['Didier Lafforgue']
   spec.email       = ['contact@maglev.dev']
