@@ -28,7 +28,20 @@ Gem::Specification.new do |spec|
   #     "public gem pushes."
   # end
 
-  spec.files = Dir['{app,config,db,lib}/**/*', 'MIT-LICENSE', 'Rakefile', 'README.md']
+  spec.files = Dir[
+    '.babelrc',
+    '.eslintrc.js',
+    '{app,config,db,lib}/**/*', 
+    'bin/webpack',
+    'bin/webpack-dev-server',
+    'package.json',
+    'yarn.lock',
+    'postcss.config.js',
+    'tailwind.config.js',
+    'MIT-LICENSE',
+    'Rakefile',
+    'README.md'
+  ]
 
   spec.add_dependency 'jbuilder', '~>  2.11.2'
   spec.add_dependency 'kaminari', '~> 1.2.1'
