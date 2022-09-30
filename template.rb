@@ -10,6 +10,6 @@ gem 'image_processing', '~> 1.2'
 after_bundle do
   generate 'maglev:install'
   generate 'maglev:hyperui:install', '--force'
-  
+
   rails_command 'maglev:create_site'
 end

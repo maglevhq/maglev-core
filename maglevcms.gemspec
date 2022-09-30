@@ -6,6 +6,7 @@ $LOAD_PATH.push File.expand_path('lib', __dir__)
 require 'maglev/version'
 
 # Describe your gem and declare its dependencies:
+# rubocop:disable Metrics/BlockLength
 Gem::Specification.new do |spec|
   spec.name        = 'maglevcms'
   spec.version     = Maglev::VERSION
@@ -31,7 +32,7 @@ Gem::Specification.new do |spec|
   spec.files = Dir[
     '.babelrc',
     '.eslintrc.js',
-    '{app,config,db,lib}/**/*', 
+    '{app,config,db,lib}/**/*',
     'bin/webpack',
     'bin/webpack-dev-server',
     'package.json',
@@ -51,3 +52,4 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency 'pg', '~> 1.4.3'
 end
+# rubocop:enable Metrics/BlockLength
