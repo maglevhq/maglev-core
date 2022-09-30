@@ -17,3 +17,4 @@ coverage/
 .idea/
 .env
 podman.sh
+template.dev.rb
