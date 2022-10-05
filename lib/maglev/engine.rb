@@ -55,7 +55,8 @@ module Maglev
 
     # Serves the engine's webpack when requested
     initializer 'maglev.webpacker.static' do |app|
-      app.config.middleware.use(
+      app.config.middleware.insert_before(
+        1,
         Rack::Static,
         urls: ['/maglev-packs'],
         root: File.expand_path(File.join(__dir__, '..', '..', 'public'))
