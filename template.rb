@@ -5,7 +5,8 @@
 # - Rails 7 and Ruby 3+
 
 if Rails.version.start_with?('6.') && RUBY_VERSION.start_with?('3.')
-  puts "🚨 We're sorry but Maglev works with Rails 6 and Ruby 2.7.x.\nPlease either upgrade Rails to the version 7 or use Ruby 2.7."
+  puts "🚨 We're sorry but Maglev works with Rails 6 and Ruby 2.7.x.\n
+    Please either upgrade Rails to the version 7 or use Ruby 2.7."
   exit
 end
 
