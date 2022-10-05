@@ -5,7 +5,7 @@ PATH
       jbuilder (~> 2.11.2)
       kaminari (~> 1.2.1)
       maglev-injectable (~> 2.1.1)
-      rails (>= 6.1.6, <= 7.1)
+      rails (>= 6, <= 7.1)
       webpacker (~> 5.1)
 
 GEM
