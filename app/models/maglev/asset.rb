@@ -10,7 +10,7 @@ module Maglev
     ## methods ##
 
     def to_param
-      "#{id}-#{filename}"
+      "#{id}-#{filename.parameterize}"
     end
 
     ## class methods ##
