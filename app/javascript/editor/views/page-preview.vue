@@ -134,17 +134,18 @@ export default {
   methods: {
     ...mapActions(['setPreviewDocument']),
     onIframeLoaded() {
-      const newUrl = new URL(
-        this.$refs['iframe'].contentWindow.document.location.href,
-      )
-
-      if (this.currentPage.previewUrl !== newUrl.pathname) {
-        this.setPreviewDocument(null)
-        this.$refs['iframe'].src = this.currentPage.previewUrl
-        return false
-      }
-
-      this.setPreviewDocument(this.$refs['iframe'].contentDocument)
+      // console.log('ok 1')
+      // const newUrl = new URL(
+      //   this.$refs['iframe'].contentWindow.document.location.href,
+      // )
+      // console.log('ok 2')
+      // if (this.currentPage.previewUrl !== newUrl.pathname) {
+      //   this.setPreviewDocument(null)
+      //   this.$refs['iframe'].src = this.currentPage.previewUrl
+      //   return false
+      // }
+      // console.log('ok 3')
+      // this.setPreviewDocument(this.$refs['iframe'].contentDocument)
     },
   },
   watch: {

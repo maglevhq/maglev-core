@@ -17,3 +17,16 @@ document.addEventListener('DOMContentLoaded', () => {
     render: (h) => h(App),
   }).$mount('#maglev-app')
 })
+
+console.log('window.targetWin', window.targetWin)
+window.addEventListener('message', function(event) {
+  console.log('📡 Editor receiving', event.data)
+  // if (event.origin != 'http://javascript.info') {
+  //   // something from an unknown domain, let's ignore it
+  //   return;
+  // }
+
+  // alert( "received: " + event.data );
+
+  // // can message back using event.source.postMessage(...)
+});

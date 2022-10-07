@@ -19,6 +19,15 @@ Maglev::Engine.routes.draw do
 
   root to: redirect { Maglev::Engine.routes.url_helpers.admin_root_path }
 
+  # Settings
+  get '/settings', to: 'settings#index'
+  get 'dev-live-preview-client.js', to: redirect(status: 302) {
+    [
+      'http://localhost:3000',
+      ::Maglev.webpacker.manifest.lookup_pack_with_chunks!('live-preview-client', type: :javascript)
+    ].join
+  }, as: :dev_live_preview_client_js
+
   # Admin
   namespace :admin do
     root to: 'dashboard#index'
