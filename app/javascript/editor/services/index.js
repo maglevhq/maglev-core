@@ -6,7 +6,7 @@ import buildCollectionItemService from './collection-item'
 import buildImageService from './image'
 import * as section from './section'
 import * as block from './block'
-import * as inlineEditing from './inline-editing'
+// import * as inlineEditing from './inline-editing'
 
 export default {
   api,
@@ -16,6 +16,6 @@ export default {
   section,
   block,
   image: buildImageService(api),
-  inlineEditing,
+  // inlineEditing,
   collectionItem: buildCollectionItemService(api),
 }

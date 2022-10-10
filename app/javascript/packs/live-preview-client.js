@@ -1,2 +1,2 @@
 console.log('Maglev Live Preview 🚀')
-require('live-preview-client/main')
+require('live-preview-client/index')

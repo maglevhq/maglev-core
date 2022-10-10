@@ -77,6 +77,7 @@
 import { mapState, mapActions } from 'vuex'
 import TransformationMixin from '@/mixins/preview-transformation'
 import SectionHighlighter from '@/components/section-highlighter'
+import setupIframePreview from '@/services/iframe-preview'
 
 export default {
   name: 'PagePreview',
@@ -134,6 +135,7 @@ export default {
   methods: {
     ...mapActions(['setPreviewDocument']),
     onIframeLoaded() {
+      setupIframePreview(this.$refs['iframe'])
       // console.log('ok 1')
       // const newUrl = new URL(
       //   this.$refs['iframe'].contentWindow.document.location.href,

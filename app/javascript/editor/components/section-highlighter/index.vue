@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+// import { mapState } from 'vuex'
 import TransformationMixin from '@/mixins/preview-transformation'
 import TopLeftActions from './top-left-actions'
 import TopRightActions from './top-right-actions'
@@ -66,21 +66,19 @@ export default {
     window.removeEventListener('maglev:preview:scroll', this.onPreviewScroll)
   },
   computed: {
-    ...mapState(['previewDocument']),
+    // ...mapState(['previewDocument']),
     style() {
       if (!this.hoveredSection && !this.shadow) return {}
-      const { el } = this.hoveredSection || this.shadow
-      const rect = el.getBoundingClientRect()
-      return this.performStyle(rect)
+      const { sectionRect } = this.hoveredSection || this.shadow
+      return this.performStyle(sectionRect)
     },
     minTop() {
-      return (
-        this.services.inlineEditing.getMinTop(
-          this.previewDocument,
-          this.hoveredSection,
-          this.currentSectionList,
-        ) || 0
-      )
+      if (!this.hoveredSection) return 0
+      const sectionId = this.currentSectionList.find(
+        (section) => section.viewportFixedPosition,
+      )?.id
+      if (!sectionId || this.hoveredSection.sectionId === sectionId) return 0
+      return this.hoveredSection.sectionOffsetHeight
     },
   },
   methods: {
@@ -94,7 +92,6 @@ export default {
         Object.entries(newStyle).forEach(
           ([key, value]) => (self.$el.style[key] = value),
         )
-        self.previewDocument.ticking = false
       })
     },
     performStyle(boundingRect) {
@@ -110,7 +107,7 @@ export default {
         height: `${height * this.previewScaleRatio}px`,
         width: `calc(${boundingRect.width}px * ${this.previewScaleRatio})`,
       }
-    },
+    },  
   },
   watch: {
     hoveredSection(value, oldValue) {
