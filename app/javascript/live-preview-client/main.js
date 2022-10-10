@@ -11,5 +11,8 @@ document.addEventListener('DOMContentLoaded', () => {
     return 
   }
   console.log('notify the parent window!')
-  window.parent.postMessage('👋, I\'m a Nuxt app and I\'m ready', '*')
+  window.parent.postMessage({
+    type: 'hello',
+    message: '👋, I\'m a Nuxt app and I\'m ready'
+  }, '*')
 })

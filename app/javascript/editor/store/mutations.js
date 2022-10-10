@@ -5,6 +5,11 @@ export default (services) => ({
   SET_DEVICE(state, value) {
     state.device = value
   },
+  MARK_PREVIEW_AS_READY(state) {
+    state.hoveredSection = null
+    state.section = null
+    state.previewReady = true
+  },
   SET_PREVIEW_DOCUMENT(state, previewDocument) {
     state.hoveredSection = null
     state.section = null

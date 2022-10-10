@@ -14,6 +14,9 @@ export default (services) => ({
     services.api.setLocale(locale)
     commit('SET_LOCALE', locale)
   },
+  markPreviewAsReady({ commit }) {
+    commit('MARK_PREVIEW_AS_READY')
+  },
   setPreviewDocument({ commit }, previewDocument) {
     commit('SET_PREVIEW_DOCUMENT', previewDocument)
     if (previewDocument) {
