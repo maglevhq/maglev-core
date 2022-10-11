@@ -66,7 +66,6 @@ export default {
     window.removeEventListener('maglev:preview:scroll', this.onPreviewScroll)
   },
   computed: {
-    // ...mapState(['previewDocument']),
     style() {
       if (!this.hoveredSection && !this.shadow) return {}
       const { sectionRect } = this.hoveredSection || this.shadow

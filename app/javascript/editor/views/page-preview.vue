@@ -74,10 +74,9 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapState } from 'vuex'
 import TransformationMixin from '@/mixins/preview-transformation'
 import SectionHighlighter from '@/components/section-highlighter'
-import setupIframePreview from '@/services/iframe-preview'
 
 export default {
   name: 'PagePreview',
@@ -133,9 +132,12 @@ export default {
     },
   },
   methods: {
-    ...mapActions(['setPreviewDocument']),
+    // ...mapActions(['setPreviewDocument']),
     onIframeLoaded() {
-      setupIframePreview(this.$refs['iframe'])
+      this.services.livePreview.start(this.$refs['iframe'])
+
+      // TODO: to be refactored
+
       // console.log('ok 1')
       // const newUrl = new URL(
       //   this.$refs['iframe'].contentWindow.document.location.href,

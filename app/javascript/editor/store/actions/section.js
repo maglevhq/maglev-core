@@ -33,13 +33,12 @@ export default (services) => ({
     services.inlineEditing.removeSection(previewDocument, sectionId)
   },
   updateSectionContent(
-    { commit, getters, state: { previewDocument, section } },
+    { commit, getters, state: { section } },
     change,
   ) {
     commit('UPDATE_SECTION_CONTENT', change)
     commit('TOUCH_SECTION', section.id)
-    services.inlineEditing.updateSectionSetting(
-      previewDocument,
+    services.livePreview.updateSectionSetting(
       getters.content,
       section,
       null,
