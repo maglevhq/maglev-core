@@ -61,7 +61,8 @@ describe Maglev::EditorHelper do
   describe '#editor_logo_url' do
     subject { helper.editor_logo_url }
     it 'returns the default logo url' do
-      is_expected.to include('/assets/maglev/logo-')
+      expect(helper).to receive(:asset_pack_path).with('media/images/logo.png')
+      subject
     end
     context 'the developer has replaced the logo by a String' do
       let(:logo) { 'new-logo.png' }

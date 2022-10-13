@@ -6,3 +6,5 @@
 import 'style/application'
 console.log('Maglev ADMIN loaded')
 import 'controllers'
+
+require.context('../images', true, /\.(gif|jpg|png|svg)$/i)

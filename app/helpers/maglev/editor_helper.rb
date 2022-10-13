@@ -54,7 +54,14 @@ module Maglev
     end
 
     def editor_favicon_url
-      editor_asset_path(maglev_config.favicon, 'favicon.png')
+      case maglev_config.favicon
+      when nil
+        editor_asset_path(nil, 'favicon.png')
+      when String
+        editor_asset_path(maglev_config.favicon, 'favicon.png')
+      when Proc
+        instance_exec(maglev_site, &maglev_config.favicon)
+      end
     end
 
     def editor_site_publishable
@@ -63,8 +70,11 @@ module Maglev
 
     def editor_asset_path(source, default_source)
       if source.blank?
-        asset_path("maglev/#{default_source}")
+        asset_pack_path("media/images/#{default_source}")
+      elsif source =~ %r{^(https?://|/)}
+        source
       else
+        # rely on Sprockets by default
         ActionController::Base.helpers.asset_path(source)
       end
     end
