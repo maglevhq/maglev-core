@@ -7,10 +7,16 @@ Maglev.configure do |config|
   # Logo of the Editor (top left corner).
   # Put your custom logo in the app/assets/images folder of your Rails application.
   # config.logo = 'logo.png'
+  # Or use the following option:
+  # config.logo = ->(site) { site.siteable.avatar_url }
+  # config.logo = ->(site) { ActionController::Base.helpers.vite_asset_path('logo.png') }
 
   # Favicon (window tab)
   # Put your custom favicon in the app/assets/images folder of your Rails application.
   # config.favicon = 'favicon.ico'
+  # Or use the following options:
+  # config.favicon = ->(site) { site.siteable.favicon_url }
+  # config.favicon = ->(site) { ActionController::Base.helpers.vite_asset_path('favicon.png') }
 
   # Primary color of the Editor
   # config.primary_color = '#7E6EDB'

@@ -10,8 +10,6 @@ module Maglev
       g.factory_bot dir: 'spec/factories'
     end
 
-    config.assets.precompile += %w[maglev/logo.png maglev/favicon.png]
-
     initializer 'maglev.theme_reloader' do |app|
       require_relative './theme_filesystem_loader'
       theme_path = Rails.root.join('app/theme')
