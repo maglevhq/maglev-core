@@ -11,6 +11,8 @@
 
   <%%= render_maglev_alternate_links %>
 
+  <%%= maglev_live_preview_client_javascript_tag %>
+
   <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
 </head>
 <body class="bg-white">

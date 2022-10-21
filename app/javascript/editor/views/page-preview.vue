@@ -74,7 +74,7 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapState } from 'vuex'
 import TransformationMixin from '@/mixins/preview-transformation'
 import SectionHighlighter from '@/components/section-highlighter'
 
@@ -132,19 +132,8 @@ export default {
     },
   },
   methods: {
-    ...mapActions(['setPreviewDocument']),
     onIframeLoaded() {
-      const newUrl = new URL(
-        this.$refs['iframe'].contentWindow.document.location.href,
-      )
-
-      if (this.currentPage.previewUrl !== newUrl.pathname) {
-        this.setPreviewDocument(null)
-        this.$refs['iframe'].src = this.currentPage.previewUrl
-        return false
-      }
-
-      this.setPreviewDocument(this.$refs['iframe'].contentDocument)
+      this.services.livePreview.start(this.$refs['iframe'])
     },
   },
   watch: {

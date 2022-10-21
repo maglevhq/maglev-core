@@ -6,7 +6,7 @@ module Maglev
 
     included do
       helper_method :maglev_site, :maglev_theme, :maglev_page, :maglev_page_sections, :maglev_sections_path,
-                    :maglev_site_root_fullpath, :maglev_page_fullpaths, :maglev_style
+                    :maglev_site_root_fullpath, :maglev_page_fullpaths, :maglev_style, :maglev_rendering_mode
     end
 
     private

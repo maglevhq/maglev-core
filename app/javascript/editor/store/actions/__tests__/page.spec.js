@@ -47,7 +47,9 @@ describe('Page Actions', () => {
           sections: expect.any(Array),
           lockVersion: 1,
         },
-        {},
+        {
+          style: null,
+        },
       )
       expect(store.state.ui.saveButtonState).toEqual('success')
     })
@@ -71,6 +73,7 @@ describe('Page Actions', () => {
         {
           sections: expect.any(Array),
           lockVersion: 1,
+          style: null,
         },
       )
       expect(store.state.touchedSections).toEqual([])

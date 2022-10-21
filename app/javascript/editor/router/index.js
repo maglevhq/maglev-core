@@ -13,7 +13,7 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   if (to.params.pageId !== from.params.pageId && from.params.pageId)
-    store.dispatch('setPreviewDocument', null) // force the display of the loader
+    store.dispatch('resetPreview') // force the display of the loader
   next()
 })
 

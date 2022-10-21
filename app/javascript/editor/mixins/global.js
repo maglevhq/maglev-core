@@ -99,7 +99,6 @@ Vue.mixin({
     ...mapActions([
       'setDevice',
       'setLocale',
-      'setPreviewDocument',
       'fetchSite',
       'fetchPage',
       'fetchSection',

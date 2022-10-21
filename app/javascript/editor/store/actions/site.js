@@ -21,12 +21,8 @@ export default (services) => ({
     dispatch('loadPublishButtonState')
     setInterval(() => dispatch('loadPublishButtonState'), 5000)
   },
-  previewStyle({ commit, getters, state: { previewDocument } }, newStyle) {
+  previewStyle({ commit, getters }, newStyle) {
     commit('SET_STYLE', newStyle)
-    services.inlineEditing.previewStyle(
-      previewDocument,
-      getters.content,
-      newStyle,
-    )
+    services.livePreview.updateStyle(getters.content, newStyle)
   },
 })

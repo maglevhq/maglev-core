@@ -51,13 +51,17 @@ const imageService = {
   destroy: jest.fn(),
 }
 
-const inlineEditingService = {
-  setup: jest.fn(),
-  getMinTop: jest.fn(),
-  updateSectionSetting: jest.fn(),
+const livePreviewService = {
+  start: jest.fn(),
+  updateStyle: jest.fn(),
   addSection: jest.fn(),
+  moveSection: jest.fn(),
+  updateSection: jest.fn(),
   removeSection: jest.fn(),
-  updateMoveSection: jest.fn(),
+  addBlock: jest.fn(),
+  moveBlock: jest.fn(),
+  updateBlock: jest.fn(),
+  removeBlock: jest.fn(),
 }
 
 const collectionItemService = {
@@ -72,6 +76,6 @@ export default {
   section: sectionService,
   block: blockService,
   image: imageService,
-  inlineEditing: inlineEditingService,
+  livePreview: livePreviewService,
   collectionItem: collectionItemService,
 }

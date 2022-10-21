@@ -14,14 +14,11 @@ export default (services) => ({
     services.api.setLocale(locale)
     commit('SET_LOCALE', locale)
   },
-  setPreviewDocument({ commit }, previewDocument) {
-    commit('SET_PREVIEW_DOCUMENT', previewDocument)
-    if (previewDocument) {
-      services.inlineEditing.setup(previewDocument)
-    } else {
-      commit('SET_SECTION', null)
-      commit('SET_HOVERED_SECTION', null)
-    }
+  markPreviewAsReady({ commit }) {
+    commit('MARK_PREVIEW_AS_READY')
+  },
+  resetPreview({ commit }) {
+    commit('RESET_PREVIEW')
   },
   fetchEditorSettings({ commit }) {
     commit('SET_EDITOR_SETTINGS', {

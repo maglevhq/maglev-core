@@ -13,54 +13,43 @@ export default (services) => ({
     commit('SET_HOVERED_SECTION', null)
   },
   addSection(
-    { commit, getters, state: { site, previewDocument } },
+    { commit, getters, state: { site } },
     { sectionDefinition, insertAt },
   ) {
     if (sectionDefinition.insertAt) insertAt = sectionDefinition.insertAt
     const section = services.section.build(sectionDefinition, site)
     commit('ADD_SECTION', { section, insertAt })
     commit('TOUCH_SECTION', section.id)
-    services.inlineEditing.addSection(
-      previewDocument,
-      getters.content,
-      section,
-      insertAt,
-    )
+    services.livePreview.addSection(getters.content, section, insertAt)
     return section
   },
-  removeSection({ commit, state: { previewDocument } }, sectionId) {
+  removeSection({ commit }, sectionId) {
     commit('REMOVE_SECTION', sectionId)
-    services.inlineEditing.removeSection(previewDocument, sectionId)
+    services.livePreview.removeSection(sectionId)
   },
-  updateSectionContent(
-    { commit, getters, state: { previewDocument, section } },
-    change,
-  ) {
+  updateSectionContent({ commit, getters, state: { section } }, change) {
     commit('UPDATE_SECTION_CONTENT', change)
     commit('TOUCH_SECTION', section.id)
-    services.inlineEditing.updateSectionSetting(
-      previewDocument,
+    services.livePreview.updateSection(
       getters.content,
-      section,
-      null,
+      getters.denormalizedSection,
       change,
     )
   },
   moveSection(
     {
       commit,
+      getters,
       state: {
-        previewDocument,
         page: { sections },
       },
     },
     { from, to },
   ) {
-    // console.log('moveSection', from, sections[from], 'to', sections[to], to)
     if (isBlank(from) || isBlank(to)) return
     commit('MOVE_HOVERED_SECTION', { fromIndex: from, toIndex: to })
-    services.inlineEditing.updateMoveSection(
-      previewDocument,
+    services.livePreview.moveSection(
+      getters.content,
       sections[from],
       sections[to],
       from < to ? 'down' : 'up',
