@@ -44,7 +44,7 @@ group :development, :test do
 
   gem 'generator_spec'
 
-  gem 'nokogiri', '>= 1.13.2'
+  gem 'nokogiri', '>= 1.13.9'
 end
 
 group :test do
