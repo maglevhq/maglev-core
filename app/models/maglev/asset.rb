@@ -10,7 +10,7 @@ module Maglev
     ## methods ##
 
     def to_param
-      "#{id}-#{filename.parameterize}"
+      "#{id}-#{File.basename(filename, '.*').parameterize}#{File.extname(filename)}"
     end
 
     ## class methods ##
