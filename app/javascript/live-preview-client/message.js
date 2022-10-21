@@ -3,18 +3,18 @@ import { start as decorateIframe } from './iframe-decorator'
 const mainWindow = window.parent
 
 export const listenMessages = () => {
-  window.addEventListener('message', ({ data: { type, ...data }}) => {
+  window.addEventListener('message', ({ data: { type, ...data } }) => {
     // a message MUST have a type
     if (!type) return
 
     switch (type) {
       case 'config':
-        decorateIframe({ 
-          primaryColor: data.primaryColor
+        decorateIframe({
+          primaryColor: data.primaryColor,
         })
 
         // we answer back we're ready!
-        postMessage('ready', { message: '👋, I\'m a Maglev site and I\'m ready'})
+        postMessage('ready', { message: "👋, I'm a Maglev site and I'm ready" })
         break
       case 'section:add':
       case 'section:move':
@@ -24,6 +24,7 @@ export const listenMessages = () => {
       case 'block:move':
       case 'block:update':
       case 'block:remove':
+      case 'style:update':
         triggerEvent(type, data)
         break
       default:

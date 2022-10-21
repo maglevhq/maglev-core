@@ -20,21 +20,14 @@ export default (services) => ({
     const section = services.section.build(sectionDefinition, site)
     commit('ADD_SECTION', { section, insertAt })
     commit('TOUCH_SECTION', section.id)
-    services.livePreview.addSection(
-      getters.content,
-      section,
-      insertAt,
-    )
+    services.livePreview.addSection(getters.content, section, insertAt)
     return section
   },
   removeSection({ commit }, sectionId) {
     commit('REMOVE_SECTION', sectionId)
     services.livePreview.removeSection(sectionId)
   },
-  updateSectionContent(
-    { commit, getters, state: { section } },
-    change,
-  ) {
+  updateSectionContent({ commit, getters, state: { section } }, change) {
     commit('UPDATE_SECTION_CONTENT', change)
     commit('TOUCH_SECTION', section.id)
     services.livePreview.updateSection(

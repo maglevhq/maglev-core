@@ -3,13 +3,18 @@ import store from '@/store'
 
 let iframe = null
 
-// Actions on sections
+// === Section related actions ===
 export const addSection = (content, section, insertAt) => {
   postMessage('section:add', { content, section, insertAt })
 }
 
 export const moveSection = (content, sectionId, targetSectionId, direction) => {
-  postMessage('section:move', { content, sectionId, targetSectionId, direction })
+  postMessage('section:move', {
+    content,
+    sectionId,
+    targetSectionId,
+    direction,
+  })
 }
 
 // the editor modifies the content of a section setting
@@ -21,21 +26,27 @@ export const removeSection = (sectionId) => {
   postMessage('section:remove', { sectionId })
 }
 
-// Actions on blocks
+// === Block related actions ===
 export const addBlock = (content, section, sectionBlock) => {
-  postMessage('block:add', { content, section, sectionBlock }) 
+  postMessage('block:add', { content, section, sectionBlock })
 }
 
 export const moveBlock = (content, section) => {
-  postMessage('block:move', { content, section }) 
+  postMessage('block:move', { content, section })
 }
 
 export const updateBlock = (content, section, sectionBlock, change) => {
-  postMessage('block:update', { content, section, sectionBlock, change }) 
+  postMessage('block:update', { content, section, sectionBlock, change })
 }
 
 export const removeBlock = (content, section, sectionBlockId) => {
-  postMessage('block:remove', { content, section, sectionBlockId }) 
+  postMessage('block:remove', { content, section, sectionBlockId })
+}
+
+// === Other actions ===
+
+export const updateStyle = (content, style) => {
+  postMessage('style:update', { content, style })
 }
 
 // Start everything
@@ -44,29 +55,31 @@ export const start = (newIframe) => {
   iframe = newIframe
 
   // say hi to the iFrame by giving it the configuration
-  postMessage('config', { primaryColor: store.state.editorSettings.primaryColor })
+  postMessage('config', {
+    primaryColor: store.state.editorSettings.primaryColor,
+  })
 
   // treat all the message coming from the iFrame
   listenMessages()
 }
 
 const listenMessages = () => {
-  window.addEventListener('message', ({ data: { type, ...data }}) => {
+  window.addEventListener('message', ({ data: { type, ...data } }) => {
     // a message MUST have a type
     if (!type) return
-    
+
     switch (type) {
       case 'ready':
         store.dispatch('markPreviewAsReady')
         break
-      case 'scroll': 
+      case 'scroll':
         notifyScrolling(data.boundingRect)
         break
       case 'section:hover':
-        store.dispatch('hoverSection', { 
-          sectionId: data.sectionId, 
+        store.dispatch('hoverSection', {
+          sectionId: data.sectionId,
           sectionRect: data.sectionRect,
-          sectionOffsetHeight: data.sectionOffsetHeight
+          sectionOffsetHeight: data.sectionOffsetHeight,
         })
         break
       case 'section:leave':
@@ -79,7 +92,6 @@ const listenMessages = () => {
         openSettingPane('editSectionBlockSetting', data)
         break
       default:
-        console.log('[maglev][mainWindow] unknown message type', type)
         break
     }
   })

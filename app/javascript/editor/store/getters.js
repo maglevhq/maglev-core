@@ -47,7 +47,7 @@ export default (services) => ({
       blocks: sectionBlocks,
     })
     return pageContent.sections.find((s) => s.id == section.id)
-  },  
+  },
   sectionContent: ({ section }) => {
     return section ? [...section.settings] : null
   },

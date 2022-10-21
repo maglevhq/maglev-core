@@ -1,9 +1,9 @@
 import { listenMessages } from './message'
 
 document.addEventListener('DOMContentLoaded', () => {
-  if (window.location === window.parent.location ) {
+  if (window.location === window.parent.location) {
     console.log('🚨 not in the Maglev editor')
-    return 
+    return
   }
   listenMessages()
 })

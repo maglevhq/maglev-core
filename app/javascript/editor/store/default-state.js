@@ -1,7 +1,6 @@
 export default {
   device: 'desktop',
   previewReady: false,
-  previewDocument: null,
   site: null,
   style: null,
   locale: null,

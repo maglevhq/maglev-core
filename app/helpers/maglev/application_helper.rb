@@ -15,10 +15,10 @@ module Maglev
       return '' unless maglev_rendering_mode == :editor
 
       javascript_include_tag(
-        *%w(live-preview-rails-client).map do |name| 
-          ::Maglev.webpacker.manifest.lookup_pack_with_chunks!(name.to_s, type: :javascript) 
+        *%w[live-preview-rails-client].map do |name|
+          ::Maglev.webpacker.manifest.lookup_pack_with_chunks!(name.to_s, type: :javascript)
         end.flatten.uniq
-      )      
+      )
     end
   end
 end

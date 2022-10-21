@@ -132,24 +132,8 @@ export default {
     },
   },
   methods: {
-    // ...mapActions(['setPreviewDocument']),
     onIframeLoaded() {
       this.services.livePreview.start(this.$refs['iframe'])
-
-      // TODO: to be refactored
-
-      // console.log('ok 1')
-      // const newUrl = new URL(
-      //   this.$refs['iframe'].contentWindow.document.location.href,
-      // )
-      // console.log('ok 2')
-      // if (this.currentPage.previewUrl !== newUrl.pathname) {
-      //   this.setPreviewDocument(null)
-      //   this.$refs['iframe'].src = this.currentPage.previewUrl
-      //   return false
-      // }
-      // console.log('ok 3')
-      // this.setPreviewDocument(this.$refs['iframe'].contentDocument)
     },
   },
   watch: {

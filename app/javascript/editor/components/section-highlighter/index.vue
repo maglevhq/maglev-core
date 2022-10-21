@@ -106,7 +106,7 @@ export default {
         height: `${height * this.previewScaleRatio}px`,
         width: `calc(${boundingRect.width}px * ${this.previewScaleRatio})`,
       }
-    },  
+    },
   },
   watch: {
     hoveredSection(value, oldValue) {

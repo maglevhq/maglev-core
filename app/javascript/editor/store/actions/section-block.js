@@ -27,28 +27,19 @@ export default (services) => ({
       sectionBlock,
     )
   },
-  removeSectionBlock(
-    { commit, getters, state: { section } },
-    id,
-  ) {
+  removeSectionBlock({ commit, getters, state: { section } }, id) {
     commit('REMOVE_SECTION_BLOCK', id)
     commit('TOUCH_SECTION', section.id)
     services.livePreview.removeBlock(
       getters.content,
       getters.denormalizedSection,
-      id
+      id,
     )
   },
-  sortSectionBlocks(
-    { commit, getters, state: { section } },
-    change,
-  ) {
+  sortSectionBlocks({ commit, getters, state: { section } }, change) {
     commit('SORT_SECTION_BLOCKS', change)
     commit('TOUCH_SECTION', section.id)
-    services.livePreview.moveBlock(
-      getters.content,
-      getters.denormalizedSection
-    )
+    services.livePreview.moveBlock(getters.content, getters.denormalizedSection)
   },
   updateSectionBlockContent(
     { commit, getters, state: { section, sectionBlock } },

@@ -10,11 +10,10 @@ export default (services) => ({
     state.section = null
     state.previewReady = true
   },
-  SET_PREVIEW_DOCUMENT(state, previewDocument) {
+  RESET_PREVIEW(state) {
     state.hoveredSection = null
     state.section = null
-    state.previewReady = !!previewDocument
-    state.previewDocument = previewDocument
+    state.previewReady = false
   },
   SET_EDITOR_SETTINGS(state, editorSettings) {
     state.editorSettings = editorSettings

@@ -109,8 +109,7 @@ const listenScrolling = (previewDocument) => {
       .elementFromPoint(mouseX, mouseY)
       ?.closest('[data-maglev-section-id]')
 
-    if (el)
-      postMessage('scroll', { boundingRect: el.getBoundingClientRect() })
+    if (el) postMessage('scroll', { boundingRect: el.getBoundingClientRect() })
   }, 10)
 
   addEventListener(previewDocument, 'scroll', debouncedScrollNotifier)
@@ -119,10 +118,10 @@ const listenScrolling = (previewDocument) => {
 const onSectionHovered = (el) => {
   const sectionId = el.dataset.maglevSectionId
   if (hoveredSectionId !== sectionId) {
-    postMessage('section:hover', { 
-      sectionId, 
+    postMessage('section:hover', {
+      sectionId,
       sectionRect: el.getBoundingClientRect(),
-      sectionOffsetHeight: el.offsetHeight
+      sectionOffsetHeight: el.offsetHeight,
     })
     hoveredSectionId = sectionId
   }
@@ -153,13 +152,14 @@ const onSettingClicked = (el, event) => {
   event.stopPropagation() & event.preventDefault()
 
   const fragments = el.dataset.maglevId.split('.')
-    
+
   // is it a section or a block setting?
   const isSectionBlock = !!el.closest('[data-maglev-block-id]')
   const prefix = isSectionBlock ? 'sectionBlock' : 'section'
 
-  postMessage(`${prefix}:setting:clicked`, { 
-    [`${prefix}Id`]: fragments[0], settingId: fragments[1] 
+  postMessage(`${prefix}:setting:clicked`, {
+    [`${prefix}Id`]: fragments[0],
+    settingId: fragments[1],
   })
 }
 
