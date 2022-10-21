@@ -15,10 +15,17 @@ export const listenMessages = () => {
 
         // we answer back we're ready!
         postMessage('ready', { message: '👋, I\'m a Maglev site and I\'m ready'})
-      break
-      case 'section:setting:update':
-        triggerEvent('section:setting:update', data)
-      break
+        break
+      case 'section:add':
+      case 'section:move':
+      case 'section:update':
+      case 'section:remove':
+      case 'block:add':
+      case 'block:move':
+      case 'block:update':
+      case 'block:remove':
+        triggerEvent(type, data)
+        break
       default:
         console.log('[maglev][iframe] unknown message type', type)
         break

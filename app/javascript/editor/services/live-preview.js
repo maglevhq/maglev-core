@@ -3,9 +3,39 @@ import store from '@/store'
 
 let iframe = null
 
+// Actions on sections
+export const addSection = (content, section, insertAt) => {
+  postMessage('section:add', { content, section, insertAt })
+}
+
+export const moveSection = (content, sectionId, targetSectionId, direction) => {
+  postMessage('section:move', { content, sectionId, targetSectionId, direction })
+}
+
 // the editor modifies the content of a section setting
-export const updateSectionSetting = (content, section, sectionBlock, change) => {
-  postMessage('section:setting:update', { content, section, sectionBlock, change })
+export const updateSection = (content, section, change) => {
+  postMessage('section:update', { content, section, change })
+}
+
+export const removeSection = (sectionId) => {
+  postMessage('section:remove', { sectionId })
+}
+
+// Actions on blocks
+export const addBlock = (content, section, sectionBlock) => {
+  postMessage('block:add', { content, section, sectionBlock }) 
+}
+
+export const moveBlock = (content, section) => {
+  postMessage('block:move', { content, section }) 
+}
+
+export const updateBlock = (content, section, sectionBlock, change) => {
+  postMessage('block:update', { content, section, sectionBlock, change }) 
+}
+
+export const removeBlock = (content, section, sectionBlockId) => {
+  postMessage('block:remove', { content, section, sectionBlockId }) 
 }
 
 // Start everything
@@ -40,12 +70,12 @@ const listenMessages = () => {
         })
         break
       case 'section:leave':
-        console.log('👷🏽 section:leave')
+        store.dispatch('leaveSection')
         break
       case 'section:setting:clicked':
         openSettingPane('editSectionSetting', data)
         break
-      case 'block:setting:clicked':
+      case 'sectionBlock:setting:clicked':
         openSettingPane('editSectionBlockSetting', data)
         break
       default:

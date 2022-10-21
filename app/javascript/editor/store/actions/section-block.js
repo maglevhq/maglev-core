@@ -11,7 +11,7 @@ export default (services) => ({
     return sectionBlock
   },
   addSectionBlock(
-    { commit, getters, state: { previewDocument, section, sectionDefinition } },
+    { commit, getters, state: { section, sectionDefinition } },
     { blockType, parentId },
   ) {
     const sectionBlock = services.section.buildDefaultBlock(
@@ -21,52 +21,44 @@ export default (services) => ({
     if (parentId) sectionBlock.parentId = parentId
     commit('ADD_SECTION_BLOCK', sectionBlock)
     commit('TOUCH_SECTION', section.id)
-    services.inlineEditing.updateSectionSetting(
-      previewDocument,
+    services.livePreview.addBlock(
       getters.content,
-      section,
+      getters.denormalizedSection,
       sectionBlock,
-      null,
     )
   },
   removeSectionBlock(
-    { commit, getters, state: { previewDocument, section } },
+    { commit, getters, state: { section } },
     id,
   ) {
     commit('REMOVE_SECTION_BLOCK', id)
     commit('TOUCH_SECTION', section.id)
-    services.inlineEditing.updateSectionSetting(
-      previewDocument,
+    services.livePreview.removeBlock(
       getters.content,
-      section,
-      null,
-      null,
+      getters.denormalizedSection,
+      id
     )
   },
   sortSectionBlocks(
-    { commit, getters, state: { previewDocument, section } },
+    { commit, getters, state: { section } },
     change,
   ) {
     commit('SORT_SECTION_BLOCKS', change)
     commit('TOUCH_SECTION', section.id)
-    services.inlineEditing.updateSectionSetting(
-      previewDocument,
+    services.livePreview.moveBlock(
       getters.content,
-      section,
-      null,
-      null,
+      getters.denormalizedSection
     )
   },
   updateSectionBlockContent(
-    { commit, getters, state: { previewDocument, section, sectionBlock } },
+    { commit, getters, state: { section, sectionBlock } },
     change,
   ) {
     commit('UPDATE_SECTION_BLOCK_CONTENT', change)
     commit('TOUCH_SECTION', section.id)
-    services.inlineEditing.updateSectionSetting(
-      previewDocument,
+    services.livePreview.updateBlock(
       getters.content,
-      section,
+      getters.denormalizedSection,
       sectionBlock,
       change,
     )

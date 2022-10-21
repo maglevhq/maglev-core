@@ -41,6 +41,13 @@ export default (services) => ({
       siteSections: hasModifiedSiteScopedSections ? siteSections : [],
     }
   },
+  denormalizedSection: ({ page, sections, sectionBlocks, section }) => {
+    const pageContent = services.page.denormalize(page, {
+      sections,
+      blocks: sectionBlocks,
+    })
+    return pageContent.sections.find((s) => s.id == section.id)
+  },  
   sectionContent: ({ section }) => {
     return section ? [...section.settings] : null
   },

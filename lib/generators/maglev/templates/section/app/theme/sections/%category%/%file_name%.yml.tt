@@ -14,7 +14,7 @@ category: <%= category %>
 # Insert this section at the top or the bottom of the page (default: nil)
 # insert_at: top 
 
-# one single instance per page?
+# One single instance per page?
 # singleton: true
 
 # Definition of the settings:
@@ -37,7 +37,7 @@ settings:
   - label: Option 2
     value: option_2
   <%- when 'color' -%>
-  presents: ['#E5E7EB', '#FECACA', '#FDE68A', '#A7F3D0', '#BFDBFE']
+  presets: ['#E5E7EB', '#FECACA', '#FDE68A', '#A7F3D0', '#BFDBFE']
   <%- end -%>
   <% if setting.value? -%>default: <%= setting.default %><% end -%>
 

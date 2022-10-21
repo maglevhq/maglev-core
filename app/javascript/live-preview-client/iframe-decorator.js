@@ -107,7 +107,7 @@ const listenScrolling = (previewDocument) => {
   const debouncedScrollNotifier = debounce(() => {
     const el = previewDocument
       .elementFromPoint(mouseX, mouseY)
-      .closest('[data-maglev-section-id]')
+      ?.closest('[data-maglev-section-id]')
 
     if (el)
       postMessage('scroll', { boundingRect: el.getBoundingClientRect() })
@@ -156,7 +156,7 @@ const onSettingClicked = (el, event) => {
     
   // is it a section or a block setting?
   const isSectionBlock = !!el.closest('[data-maglev-block-id]')
-  const prefix = isSectionBlock ? 'block' : 'section'
+  const prefix = isSectionBlock ? 'sectionBlock' : 'section'
 
   postMessage(`${prefix}:setting:clicked`, { 
     [`${prefix}Id`]: fragments[0], settingId: fragments[1] 
