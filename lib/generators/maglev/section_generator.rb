@@ -21,7 +21,8 @@ module Maglev
 
     def select_category
       @category = options['category']
-      return if @category.present?
+
+      return if @category.present? && categories.include?(@category)
 
       say 'You have to select a category for your section. Please check your Maglev theme.yml file to manage them.',
           :blue
