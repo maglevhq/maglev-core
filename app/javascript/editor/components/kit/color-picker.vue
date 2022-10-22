@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import { hexToRgb } from '@/utils'
+import { hexToRgb } from '@/misc/utils'
 
 export default {
   name: 'ColorPicker',

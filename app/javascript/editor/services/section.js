@@ -1,4 +1,4 @@
-import { isBlank, uuid8, camelize } from '@/utils'
+import { isBlank, uuid8, camelize } from '@/misc/utils'
 import { normalize as coreNormalize } from 'normalizr'
 import { SECTION_SCHEMA } from './page'
 

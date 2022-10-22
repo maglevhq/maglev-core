@@ -21,8 +21,6 @@
 </template>
 
 <script>
-import { numberToHumanSize } from '@/utils'
-
 export default {
   name: 'ImageLibraryUploader',
   props: {
@@ -57,7 +55,7 @@ export default {
       } else {
         alert(
           this.$t('imageLibrary.uploader.wrongFiles', {
-            limit: numberToHumanSize(this.maxsize),
+            limit: this.$options.filters.numberToHumanSize(this.maxsize),
           }),
         )
       }

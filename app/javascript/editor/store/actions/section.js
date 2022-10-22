@@ -1,4 +1,4 @@
-import { isBlank } from '@/utils'
+import { isBlank } from '@/misc/utils'
 
 export default (services) => ({
   fetchSection({ commit, state: { sections } }, id) {

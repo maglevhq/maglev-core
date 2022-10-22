@@ -1,4 +1,4 @@
-import { isBlank } from '@/utils'
+import { isBlank } from '@/misc/utils'
 
 export default (services) => ({
   // Fetch a page from an id (or a path)

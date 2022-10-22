@@ -1,5 +1,5 @@
 import * as axios from 'axios'
-import { debounce } from '@/utils'
+import { debounce } from '@/misc/utils'
 
 const parentDocument = window.parent.document
 const previewDocument = window.document

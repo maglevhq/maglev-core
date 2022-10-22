@@ -1,6 +1,5 @@
 export default (api) => ({
   findAll: (page, perPage, query) => {
-    console.log('[ImageService] Fetching all the images, page #', page, query)
     const options = { params: { page, perPage, query, assetType: 'image' } }
     return api.get('/assets', options).then(({ data }) => data)
   },

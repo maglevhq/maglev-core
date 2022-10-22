@@ -2,7 +2,7 @@ import Vue from 'vue'
 import { mapState, mapActions } from 'vuex'
 import { ModalBus } from '@/plugins/event-bus'
 import services from '@/services'
-import { isBlank } from '@/utils'
+import { isBlank } from '@/misc/utils'
 
 Vue.mixin({
   computed: {

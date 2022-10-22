@@ -83,7 +83,7 @@
 </template>
 
 <script>
-import { debounce } from '@/utils'
+import { debounce } from '@/misc/utils'
 
 export default {
   name: 'SelectInput',

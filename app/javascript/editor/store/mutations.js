@@ -1,4 +1,4 @@
-import { arraymove, pick, omitEmpty } from '@/utils'
+import { arraymove, pick, omitEmpty } from '@/misc/utils'
 import { SETTING_ATTRIBUTES as PAGE_SETTING_ATTRIBUTES } from '@/services/page'
 
 export default (services) => ({

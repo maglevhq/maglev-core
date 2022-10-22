@@ -3,7 +3,7 @@ import {
   denormalize as coreDenormalize,
   schema,
 } from 'normalizr'
-import { pick } from '@/utils'
+import { pick } from '@/misc/utils'
 
 export const BLOCK_SCHEMA = new schema.Entity('blocks')
 export const SECTION_SCHEMA = new schema.Entity('sections', {

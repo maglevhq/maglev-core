@@ -46,7 +46,7 @@
 
 <script>
 import LinkPicker from '@/components/link-picker'
-import { pick } from '@/utils'
+import { pick } from '@/misc/utils'
 
 export default {
   name: 'LinkInput',
