@@ -19,7 +19,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [16.x, 18.x]
+        node: [16]
 
     steps:
       - name: Checkout code
@@ -30,11 +30,11 @@ jobs:
         with:
           bundler-cache: true
 
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Use Node.js ${{ matrix.node }}
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
-          cache: yarn-${{ matrix.node-version }}
+          node-version: ${{ matrix.node }}
+          cache: yarn-${{ matrix.node }}
 
       - name: Install packages
         run: |
