@@ -10,7 +10,6 @@ jobs:
       postgres:
         image: postgres:13.8
         env:          
-          POSTGRES_DB: "maglev_engine_test"
           POSTGRES_USER: "maglev"
           POSTGRES_PASSWORD: "password"
         ports:
@@ -40,11 +39,13 @@ jobs:
       - name: Setup test database
         env:
           RAILS_ENV: test
-          MAGLEV_APP_DATABASE_HOST: "localhost"
           MAGLEV_APP_DATABASE_USERNAME: "maglev"
           MAGLEV_APP_DATABASE_PASSWORD: "password"
         run: |
           bin/rails db:setup
 
       - name: Run tests
+        env:
+          MAGLEV_APP_DATABASE_USERNAME: "maglev"
+          MAGLEV_APP_DATABASE_PASSWORD: "password"
         run: bundle exec rspec
