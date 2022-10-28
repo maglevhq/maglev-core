@@ -44,8 +44,11 @@ jobs:
         run: |
           bin/rails db:setup
 
-      - name: Run tests
+      - name: Run Rails tests
         env:
           MAGLEV_APP_DATABASE_USERNAME: "maglev"
           MAGLEV_APP_DATABASE_PASSWORD: "password"
         run: bundle exec rspec
+
+      - name: Run Javascript tests
+        run: yarn test
