@@ -5,14 +5,18 @@ jobs:
   tests:
     name: Tests
     runs-on: ubuntu-latest
+
     services:
       postgres:
         image: postgres:13.8
-        env:
-          POSTGRES_USER: maglev
-          POSTGRES_DB: maglev_engine_test
-          POSTGRES_PASSWORD: ""
-        ports: ["5432:5432"]
+        env:          
+          POSTGRES_DB: "maglev_engine_test"
+          POSTGRES_USER: "maglev"
+          POSTGRES_PASSWORD: "password"
+        ports:
+          - 5432:5432
+        # needed because the postgres container does not provide a healthcheck
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
 
     steps:
       - name: Checkout code
@@ -36,8 +40,9 @@ jobs:
       - name: Setup test database
         env:
           RAILS_ENV: test
-          MAGLEV_APP_DATABASE_USERNAME: maglev
-          MAGLEV_APP_DATABASE_PASSWORD: ""
+          MAGLEV_APP_DATABASE_HOST: "localhost"
+          MAGLEV_APP_DATABASE_USERNAME: "maglev"
+          MAGLEV_APP_DATABASE_PASSWORD: "password"
         run: |
           bin/rails db:setup
 
