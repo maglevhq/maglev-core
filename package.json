@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "prettier-format": "prettier --config .prettierrc 'app/javascript/**/*.{vue,js}' --write",
-    "test": "jest"
+    "test": "vitest"
   },
   "dependencies": {
     "axios": "^0.21.1",
@@ -24,8 +24,11 @@
   "version": "0.1.0",
   "devDependencies": {
     "@vitejs/plugin-vue2": "^2.0.0",
+    "@vue/compiler-dom": "^3.2.41",
+    "@vue/test-utils": "^1.3.1",
     "autoprefixer": "^10.4.13",
     "eslint": "^8.26.0",
+    "jsdom": "^20.0.2",
     "postcss": "^8.4.18",
     "prettier": "^2.3.2",
     "sass": "^1.55.0",
@@ -34,6 +37,7 @@
     "vite-plugin-eslint": "^1.8.1",
     "vite-plugin-ruby": "^3.1.2",
     "vite-plugin-vue2-svg": "^0.3.0",
+    "vitest": "^0.24.4",
     "vue-template-compiler": "^2.7.13"
   },
   "resolutions": {
@@ -45,25 +49,5 @@
     "minimist": "^1.2.6",
     "eventsource": "^1.1.1",
     "async": "^2.6.4"
-  },
-  "jest": {
-    "roots": [
-      "app/javascript/editor"
-    ],
-    "testMatch": [
-      "**/__tests__/**/*.spec.js"
-    ],
-    "moduleFileExtensions": [
-      "js",
-      "json",
-      "vue"
-    ],
-    "moduleNameMapper": {
-      "@/(.*)$": "<rootDir>/app/javascript/editor/$1"
-    },
-    "transform": {
-      "^.+\\.js$": "<rootDir>/node_modules/babel-jest"
-    },
-    "testEnvironment": "jsdom"
-  }
+  }  
 }

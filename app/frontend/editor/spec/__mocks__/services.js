@@ -1,71 +1,73 @@
+import { vi } from 'vitest'
+
 const apiService = {
-  setSiteHandle: jest.fn(),
-  setSiteLocale: jest.fn(),
-  get: jest.fn(),
-  post: jest.fn(),
-  put: jest.fn(),
-  destroy: jest.fn(),
+  setSiteHandle: vi.fn(),
+  setSiteLocale: vi.fn(),
+  get: vi.fn(),
+  post: vi.fn(),
+  put: vi.fn(),
+  destroy: vi.fn(),
 }
 
 const siteService = {
-  find: jest.fn(),
+  find: vi.fn(),
 }
 
 const themeService = {
-  buildCategories: jest.fn(),
+  buildCategories: vi.fn(),
 }
 
 const pageService = {
-  isIndex: jest.fn(),
-  build: jest.fn(),
-  findAll: jest.fn(),
-  findById: jest.fn(),
-  create: jest.fn(),
-  update: jest.fn(),
-  updateSettings: jest.fn(),
-  setVisible: jest.fn(),
-  clone: jest.fn(),
-  destroy: jest.fn(),
-  normalize: jest.fn(),
-  denormalize: jest.fn(),
+  isIndex: vi.fn(),
+  build: vi.fn(),
+  findAll: vi.fn(),
+  findById: vi.fn(),
+  create: vi.fn(),
+  update: vi.fn(),
+  updateSettings: vi.fn(),
+  setVisible: vi.fn(),
+  clone: vi.fn(),
+  destroy: vi.fn(),
+  normalize: vi.fn(),
+  denormalize: vi.fn(),
 }
 
 const sectionService = {
-  calculateMovingIndices: jest.fn(),
-  canBeAddedToPage: jest.fn(),
-  normalize: jest.fn(),
-  build: jest.fn(),
-  getSettings: jest.fn(),
-  buildDefaultBlock: jest.fn(),
+  calculateMovingIndices: vi.fn(),
+  canBeAddedToPage: vi.fn(),
+  normalize: vi.fn(),
+  build: vi.fn(),
+  getSettings: vi.fn(),
+  buildDefaultBlock: vi.fn(),
 }
 
 const blockService = {
-  encodeToTree: jest.fn(),
-  decodeTree: jest.fn(),
+  encodeToTree: vi.fn(),
+  decodeTree: vi.fn(),
 }
 
 const imageService = {
-  findAll: jest.fn(),
-  find: jest.fn(),
-  create: jest.fn(),
-  destroy: jest.fn(),
+  findAll: vi.fn(),
+  find: vi.fn(),
+  create: vi.fn(),
+  destroy: vi.fn(),
 }
 
 const livePreviewService = {
-  start: jest.fn(),
-  updateStyle: jest.fn(),
-  addSection: jest.fn(),
-  moveSection: jest.fn(),
-  updateSection: jest.fn(),
-  removeSection: jest.fn(),
-  addBlock: jest.fn(),
-  moveBlock: jest.fn(),
-  updateBlock: jest.fn(),
-  removeBlock: jest.fn(),
+  start: vi.fn(),
+  updateStyle: vi.fn(),
+  addSection: vi.fn(),
+  moveSection: vi.fn(),
+  updateSection: vi.fn(),
+  removeSection: vi.fn(),
+  addBlock: vi.fn(),
+  moveBlock: vi.fn(),
+  updateBlock: vi.fn(),
+  removeBlock: vi.fn(),
 }
 
 const collectionItemService = {
-  findAll: jest.fn(),
+  findAll: vi.fn(),
 }
 
 export default {

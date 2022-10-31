@@ -10,9 +10,9 @@ export default defineConfig({
     vue(),
     createSvgPlugin()
   ],
- resolve: {
-   alias: {
-     '@': path.resolve(__dirname, './app/frontend/editor')
-   },
- },
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, './app/frontend/editor')
+    },
+  },
 })

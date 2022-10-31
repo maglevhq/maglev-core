@@ -1,4 +1,5 @@
 import Vuex from 'vuex'
+import { vi } from 'vitest'
 import { createLocalVue } from '@vue/test-utils'
 import defaultState from '@/store/default-state'
 import buildActions from '@/store/actions'
@@ -36,12 +37,12 @@ describe('SectionBlock Actions', () => {
 
   describe('#addSectionBlock', () => {
     it('marks the current section as touched', async () => {
-      mockedServices.page.normalize = jest.fn(() => normalizedPage)
-      mockedServices.page.denormalize = jest.fn(() => page)
-      mockedServices.section.normalize = jest.fn(
+      mockedServices.page.normalize = vi.fn(() => normalizedPage)
+      mockedServices.page.denormalize = vi.fn(() => page)
+      mockedServices.section.normalize = vi.fn(
         () => normalizedNavContentSection,
       )
-      mockedServices.section.buildDefaultBlock = jest.fn(
+      mockedServices.section.buildDefaultBlock = vi.fn(
         () => navContentSectionBlock,
       )
       store.commit('SET_PAGE', page)
@@ -56,9 +57,9 @@ describe('SectionBlock Actions', () => {
 
   describe('#removeSectionBlock', () => {
     it('marks the current section as touched', async () => {
-      mockedServices.page.normalize = jest.fn(() => normalizedPage)
-      mockedServices.page.denormalize = jest.fn(() => page)
-      mockedServices.section.normalize = jest.fn(
+      mockedServices.page.normalize = vi.fn(() => normalizedPage)
+      mockedServices.page.denormalize = vi.fn(() => page)
+      mockedServices.section.normalize = vi.fn(
         () => normalizedNavContentSection,
       )
       store.commit('SET_PAGE', page)
@@ -70,9 +71,9 @@ describe('SectionBlock Actions', () => {
 
   describe('#sortSectionBlocks', () => {
     it('marks the current section as touched', async () => {
-      mockedServices.page.normalize = jest.fn(() => normalizedPage)
-      mockedServices.page.denormalize = jest.fn(() => page)
-      mockedServices.section.normalize = jest.fn(
+      mockedServices.page.normalize = vi.fn(() => normalizedPage)
+      mockedServices.page.denormalize = vi.fn(() => page)
+      mockedServices.section.normalize = vi.fn(
         () => normalizedNavContentSection,
       )
       store.commit('SET_PAGE', page)
@@ -89,9 +90,9 @@ describe('SectionBlock Actions', () => {
 
   describe('#updateSectionBlockContent', () => {
     it('marks the current section as touched', async () => {
-      mockedServices.page.normalize = jest.fn(() => normalizedPage)
-      mockedServices.page.denormalize = jest.fn(() => page)
-      mockedServices.section.normalize = jest.fn(
+      mockedServices.page.normalize = vi.fn(() => normalizedPage)
+      mockedServices.page.denormalize = vi.fn(() => page)
+      mockedServices.section.normalize = vi.fn(
         () => normalizedNavContentSection,
       )
       store.commit('SET_PAGE', page)

@@ -33,7 +33,7 @@ export default (services) => ({
           style,
         }
 
-    services.page
+    return services.page
       .update(page.id, pageAttributes, siteAttributes)
       .then(() => {
         commit('SET_SAVE_BUTTON_STATE', 'success')

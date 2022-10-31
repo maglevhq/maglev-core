@@ -1,4 +1,5 @@
 import Vuex from 'vuex'
+import { vi } from 'vitest'
 import { createLocalVue } from '@vue/test-utils'
 import defaultState from '@/store/default-state'
 import buildActions from '@/store/actions'
@@ -36,10 +37,10 @@ describe('Section Actions', () => {
 
   describe('#addSection', () => {
     it('marks the new section as touched', async () => {
-      mockedServices.section.build = jest.fn(() => simpleContentSection)
-      mockedServices.page.normalize = jest.fn(() => normalizedPage)
-      mockedServices.page.denormalize = jest.fn(() => page)
-      mockedServices.section.normalize = jest.fn(
+      mockedServices.section.build = vi.fn(() => simpleContentSection)
+      mockedServices.page.normalize = vi.fn(() => normalizedPage)
+      mockedServices.page.denormalize = vi.fn(() => page)
+      mockedServices.section.normalize = vi.fn(
         () => normalizedSimpleContentSection,
       )
       store.commit('SET_PAGE', page)

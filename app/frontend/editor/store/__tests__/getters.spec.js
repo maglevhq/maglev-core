@@ -1,4 +1,5 @@
 import Vuex from 'vuex'
+import { vi } from 'vitest'
 import { createLocalVue } from '@vue/test-utils'
 import defaultState from '@/store/default-state'
 import buildGetters from '@/store/getters'
@@ -30,7 +31,7 @@ describe('Getters', () => {
 
   describe('#content', () => {
     it('returns the content of the sections for the page', () => {
-      mockedServices.page.denormalize = jest.fn(() => page)
+      mockedServices.page.denormalize = vi.fn(() => page)
       expect(
         store.getters.content.pageSections.map((section) => section.id),
       ).toStrictEqual(['GrYZW-VP', '8hKSujtd', 'xM6f-kyh'])
@@ -40,7 +41,7 @@ describe('Getters', () => {
     })
     it('returns the site content sections since they have been touched', () => {
       store.commit('TOUCH_SECTION', 'GrYZW-VP')
-      mockedServices.page.denormalize = jest.fn(() => page)
+      mockedServices.page.denormalize = vi.fn(() => page)
       expect(
         store.getters.content.pageSections.map((section) => section.id),
       ).toStrictEqual(['GrYZW-VP', '8hKSujtd', 'xM6f-kyh'])
@@ -55,7 +56,7 @@ describe('Getters', () => {
       it('returns the title + path', () => {
         const newNormalizedPage = { ...normalizedPage }
         newNormalizedPage.entities.page['1'].translated = false
-        mockedServices.page.normalize = jest.fn(() => normalizedPage)
+        mockedServices.page.normalize = vi.fn(() => normalizedPage)
         store.commit('SET_PAGE', page)
         expect(store.getters.defaultPageAttributes).toStrictEqual({
           title: 'Home page',
@@ -67,7 +68,7 @@ describe('Getters', () => {
       it('returns an empty object', () => {
         const newNormalizedPage = { ...normalizedPage }
         newNormalizedPage.entities.page['1'].translated = true
-        mockedServices.page.normalize = jest.fn(() => normalizedPage)
+        mockedServices.page.normalize = vi.fn(() => normalizedPage)
         store.commit('SET_PAGE', page)
         expect(store.getters.defaultPageAttributes).toStrictEqual({})
       })
@@ -76,7 +77,7 @@ describe('Getters', () => {
 
   describe('#sectionList', () => {
     it('returns a list of objects (id, type, name, viewportFixedPosition)', () => {
-      mockedServices.page.denormalize = jest.fn(() => page)
+      mockedServices.page.denormalize = vi.fn(() => page)
       expect(store.getters.sectionList).toStrictEqual([
         {
           id: 'GrYZW-VP',
