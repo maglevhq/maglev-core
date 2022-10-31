@@ -18,3 +18,12 @@ coverage/
 .env
 podman.sh
 template.dev.rb
+
+# Vite Ruby
+/public/vite*
+/public/maglev*
+node_modules
+# Vite uses dotenv and suggests to ignore local-only env files. See
+# https://vitejs.dev/guide/env-and-mode.html#env-files
+*.local
+

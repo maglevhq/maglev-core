@@ -1,17 +1,14 @@
 module.exports = {
-  purge: {
-    enabled: ['production', 'staging'].includes(process.env.NODE_ENV),
-    content: [
-      './**/*.html.erb',
-      './app/helpers/**/*.rb',
-      './app/javascript/**/*.{js,vue}',
-    ],
-  },
-  darkMode: false, // or 'media' or 'class'
+  content: [
+    './**/*.html.erb',
+    './app/helpers/**/*.rb',
+    './app/javascript/**/*.{js,vue}',
+    './app/frontend/**/*.{js,vue}',
+  ],
   theme: {
     extend: {
-      colors: {        
-        'editor-primary': 'var(--editor-color-primary)',
+      colors: {
+        'editor-primary': 'rgb(var(--editor-color-primary-rgb) / <alpha-value>)',
         'gray': {
           '100': '#f5f5f5',
           '200': '#eeeeee',

@@ -1,13 +1,13 @@
 # frozen_string_literal: true
-
-require 'webpacker/helper'
+require 'vite_rails/version'
+require 'vite_rails/tag_helpers'
 
 module Maglev
   module ApplicationHelper
-    include ::Webpacker::Helper
+    include ::ViteRails::TagHelpers
 
-    def current_webpacker_instance
-      use_engine_webpacker? ? ::Maglev.webpacker : super
+    def vite_manifest
+      inside_engine? ? maglev_asset_manifest : super
     end
 
     def maglev_live_preview_client_javascript_tag
@@ -16,9 +16,13 @@ module Maglev
 
       javascript_include_tag(
         *%w[live-preview-rails-client].map do |name|
-          ::Maglev.webpacker.manifest.lookup_pack_with_chunks!(name.to_s, type: :javascript)
+          maglev_asset_manifest.lookup_pack_with_chunks!(name.to_s, type: :javascript)
         end.flatten.uniq
       )
+    end
+
+    def maglev_asset_manifest
+      ::Maglev::Engine.vite_ruby.manifest
     end
   end
 end

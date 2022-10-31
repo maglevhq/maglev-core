@@ -70,7 +70,7 @@ module Maglev
 
     def editor_asset_path(source, default_source)
       if source.blank?
-        asset_pack_path("media/images/#{default_source}")
+        vite_asset_path("images/#{default_source}")
       elsif source =~ %r{^(https?://|/)}
         source
       else

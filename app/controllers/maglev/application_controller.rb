@@ -6,11 +6,11 @@ module Maglev
 
     protect_from_forgery with: :exception
 
-    helper_method :services, :use_engine_webpacker?
+    helper_method :services, :inside_engine?
 
     private
 
-    def use_engine_webpacker?
+    def inside_engine?
       true
     end
   end

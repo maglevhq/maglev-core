@@ -6,7 +6,7 @@ PATH
       kaminari (~> 1.2.1)
       maglev-injectable (~> 2.1.1)
       rails (>= 6, <= 7.1)
-      webpacker (~> 5.1)
+      vite_rails (>= 3, <= 4)
 
 GEM
   remote: https://rubygems.org/
@@ -77,6 +77,7 @@ GEM
     crass (1.0.6)
     diff-lcs (1.5.0)
     docile (1.4.0)
+    dry-cli (0.7.0)
     erubi (1.11.0)
     factory_bot (6.2.1)
       activesupport (>= 5.0.0)
@@ -237,6 +238,13 @@ GEM
     tzinfo (2.0.5)
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.3.0)
+    vite_rails (3.0.12)
+      railties (>= 5.1, < 8)
+      vite_ruby (~> 3.0, >= 3.2.2)
+    vite_ruby (3.2.8)
+      dry-cli (~> 0.7.0)
+      rack-proxy (~> 0.6, >= 0.6.1)
+      zeitwerk (~> 2.2)
     webpacker (5.4.3)
       activesupport (>= 5.2)
       rack-proxy (>= 0.6.1)
