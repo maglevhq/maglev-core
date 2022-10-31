@@ -2,7 +2,7 @@
   "name": "maglev",
   "private": true,
   "scripts": {
-    "prettier-format": "prettier --config .prettierrc 'app/javascript/**/*.{vue,js}' --write",
+    "prettier-format": "prettier --config .prettierrc 'app/frontend/**/*.{vue,js}' --write",
     "test": "vitest"
   },
   "dependencies": {

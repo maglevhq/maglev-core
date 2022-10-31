@@ -4,4 +4,3 @@ document.addEventListener('DOMContentLoaded', () => {
   console.log('Maglev Live Preview 🚀')
   Client.start()
 })
-

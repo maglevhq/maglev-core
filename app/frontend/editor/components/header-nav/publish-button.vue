@@ -13,8 +13,7 @@
       :class="{
         'text-gray-400 border-gray-100 hover:bg-editor-primary/5 cursor-not-allowed':
           hasModifiedSections,
-        'text-gray-900 border-gray-400 hover:bg-editor-primary/5':
-          isReady,
+        'text-gray-900 border-gray-400 hover:bg-editor-primary/5': isReady,
         'text-gray-900 cursor-wait': isInProgress,
         'bg-green-500 border-green-500 text-white': isSuccess,
         'bg-red-600 border-red-600 text-white': isFail,
