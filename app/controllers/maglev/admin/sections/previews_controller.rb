@@ -39,7 +39,7 @@ module Maglev
           :section
         end
 
-        def use_engine_webpacker?
+        def use_engine_vite?
           action_name == 'show'
         end
 

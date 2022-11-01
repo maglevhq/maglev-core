@@ -1,11 +1,9 @@
 # frozen_string_literal: true
 
-def ensure_log_goes_to_stdout
-  old_logger = Webpacker.logger
-  Webpacker.logger = ActiveSupport::Logger.new($stdout)
-  yield
-ensure
-  Webpacker.logger = old_logger
+$stdout.sync = true
+
+def within_engine_folder(&block)
+  Dir.chdir(File.join(__dir__, '..', '..'), &block)
 end
 
 namespace :maglev do
@@ -57,52 +55,80 @@ namespace :maglev do
     end
   end
 
-  namespace :webpacker do
-    desc 'Install deps with yarn'
-    task yarn_install: :environment do
-      Dir.chdir(File.join(__dir__, '..', '..')) do
-        system 'yarn install --no-progress'
+  namespace :vite do
+    desc 'Bundle frontend entrypoints using ViteRuby'
+    task build: :'vite:verify_install' do
+      within_engine_folder do
+        ViteRuby.commands.build_from_task
       end
     end
 
-    desc 'Compile JavaScript packs using webpack for production with digests'
-    task compile: %i[yarn_install environment] do
-      Webpacker.with_node_env('production') do
-        ensure_log_goes_to_stdout do
-          if Maglev.webpacker.commands.compile
-            # Successful compilation!
-          else
-            # Failed compilation
-            exit!
-          end
-        end
+    desc 'Bundle entrypoints using Vite Ruby (SSR only if enabled)'
+    task build_all: :'vite:verify_install' do
+      within_engine_folder do
+        ViteRuby.commands.build_from_task
+        ViteRuby.commands.build_from_task('--ssr') if ViteRuby.config.ssr_build_enabled
+      end
+    end
+
+    desc 'Ensure build dependencies like Vite are installed before bundling'
+    task install_dependencies: :environment do
+      within_engine_folder do
+        cmd = ViteRuby.commands.legacy_npm_version? ? 'npx ci --yes' : 'npx --yes ci'
+        system({ 'NODE_ENV' => 'development' }, cmd)
+      end
+    end
+
+    desc 'Verify if ViteRuby is properly installed in the app'
+    task verify_install: :environment do
+      within_engine_folder do
+        ViteRuby.commands.verify_install
+      end
+    end
+
+    desc 'Remove old bundles created by ViteRuby'
+    task :clean, %i[keep age] => :'vite:verify_install' do |_, args|
+      within_engine_folder do
+        ViteRuby.commands.clean_from_task(args)
+      end
+    end
+
+    desc 'Remove the build output directory for ViteRuby'
+    task clobber: :'vite:verify_install' do
+      within_engine_folder do
+        ViteRuby.commands.clobber
+      end
+    end
+
+    desc "Provide information on ViteRuby's environment"
+    task info: :environment do
+      within_engine_folder do
+        ViteRuby.commands.print_info
       end
     end
   end
 end
 
-def yarn_install_available?
-  rails_major = Rails::VERSION::MAJOR
-  rails_minor = Rails::VERSION::MINOR
-
-  rails_major > 5 || (rails_major == 5 && rails_minor >= 1)
-end
-
-def enhance_assets_precompile
-  # yarn:install was added in Rails 5.1
-  deps = yarn_install_available? ? [] : ['maglev:webpacker:yarn_install']
-  Rake::Task['assets:precompile'].enhance(deps) do
-    Rake::Task['maglev:webpacker:compile'].invoke
-  end
-end
-
-# Compile packs after we've compiled all other assets during precompilation
-skip_webpacker_precompile = %w[no false n f].include?(ENV['WEBPACKER_PRECOMPILE'])
-
-unless skip_webpacker_precompile
+unless ENV['VITE_RUBY_SKIP_ASSETS_PRECOMPILE_EXTENSION'] == 'true'
   if Rake::Task.task_defined?('assets:precompile')
-    enhance_assets_precompile
+    Rake::Task['assets:precompile'].enhance do |_task|
+      Rake::Task['maglev:vite:install_dependencies'].invoke
+      Rake::Task['maglev:vite:build_all'].invoke
+    end
   else
-    Rake::Task.define_task("assets:precompile": 'maglev:webpacker:compile')
+    Rake::Task.define_task("assets:precompile": ['maglev:vite:install_dependencies', 'maglev:vite:build_all'])
+  end
+
+  Rake::Task.define_task('assets:clean', %i[keep age]) unless Rake::Task.task_defined?('assets:clean')
+  Rake::Task['assets:clean'].enhance do |_, args|
+    Rake::Task['maglev:vite:clean'].invoke(*args.to_h.values)
+  end
+
+  if Rake::Task.task_defined?('assets:clobber')
+    Rake::Task['assets:clobber'].enhance do
+      Rake::Task['maglev:vite:clobber'].invoke
+    end
+  else
+    Rake::Task.define_task("assets:clobber": 'maglev:vite:clobber')
   end
 end
