@@ -23,11 +23,10 @@ export default {
     library: { type: String, default: 'remixicons' },
   },
   computed: {
-    iconPath() {
-      return `../../assets/${this.library}/${this.name}.svg`
-    },
     icon() {
-      return defineAsyncComponent(() => import(this.iconPath))
+      return defineAsyncComponent(() =>
+        import(`../../assets/${this.library}/${this.name}.svg`),
+      )
     },
   },
 }

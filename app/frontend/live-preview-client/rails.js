@@ -3,13 +3,16 @@ import { debounce } from './utils'
 
 const parentDocument = window.parent.document
 const previewDocument = window.document
-const csrfParam = window.location !== window.parent.location ? {
-  [parentDocument
-    .querySelector("meta[name='csrf-param']")
-    .getAttribute('content')]: parentDocument
-    .querySelector("meta[name='csrf-token']")
-    .getAttribute('content'),
-} : {}
+const csrfParam =
+  window.location !== window.parent.location
+    ? {
+        [parentDocument
+          .querySelector("meta[name='csrf-param']")
+          .getAttribute('content')]: parentDocument
+          .querySelector("meta[name='csrf-token']")
+          .getAttribute('content'),
+      }
+    : {}
 
 const start = () => {
   // Within a Rails site, no need to remove the event listeners
