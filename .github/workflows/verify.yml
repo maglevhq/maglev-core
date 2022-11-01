@@ -19,7 +19,7 @@ jobs:
 
     strategy:
       matrix:
-        node: [16]
+        node: [16, 18]
 
     steps:
       - name: Checkout code
