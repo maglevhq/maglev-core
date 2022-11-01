@@ -7,6 +7,7 @@ module Maglev
     hook_for :maglev_install
 
     def compile_editor_assets
+      rake 'maglev:vite:install_dependencies'
       rake 'maglev:vite:build_all'
     end
 
