@@ -5,8 +5,8 @@ if Rails.version.start_with?('7.') && RUBY_VERSION.start_with?('2.')
   exit
 end
 
-gem 'maglevcms', '~> 1.0.0'
-gem 'maglevcms-hyperui-kit', '~> 1.0.1'
+gem 'maglevcms', '~> 1.1.0'
+gem 'maglevcms-hyperui-kit', '~> 1.1.0'
 gem 'image_processing', '~> 1.2'
 
 after_bundle do
