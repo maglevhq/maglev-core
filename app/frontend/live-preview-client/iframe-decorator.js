@@ -121,7 +121,7 @@ const onSectionHovered = (previewDocument, el, stickySectionIds) => {
     postMessage('section:hover', {
       sectionId,
       sectionRect: el.getBoundingClientRect(),
-      sectionOffsetTop: getMinTop(previewDocument, sectionId, stickySectionIds)
+      sectionOffsetTop: getMinTop(previewDocument, sectionId, stickySectionIds),
     })
     hoveredSectionId = sectionId
   }
