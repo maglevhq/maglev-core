@@ -21,7 +21,7 @@ export const start = (config) => {
   listen(previewDocument, 'mouseenter', (el, type) => {
     switch (type) {
       case 'section':
-        return onSectionHovered(el)
+        return onSectionHovered(previewDocument, el, config.stickySectionIds)
       case 'setting':
         return onSettingHovered(el)
       default:
@@ -115,16 +115,29 @@ const listenScrolling = (previewDocument) => {
   addEventListener(previewDocument, 'scroll', debouncedScrollNotifier)
 }
 
-const onSectionHovered = (el) => {
+const onSectionHovered = (previewDocument, el, stickySectionIds) => {
   const sectionId = el.dataset.maglevSectionId
   if (hoveredSectionId !== sectionId) {
     postMessage('section:hover', {
       sectionId,
       sectionRect: el.getBoundingClientRect(),
-      sectionOffsetHeight: el.offsetHeight,
+      sectionOffsetTop: getMinTop(previewDocument, sectionId, stickySectionIds)
     })
     hoveredSectionId = sectionId
   }
+}
+
+const getMinTop = (previewDocument, currentSectionId, stickySectionIds) => {
+  for (var i = 0; i < stickySectionIds.length; i++) {
+    const sectionId = stickySectionIds[i]
+    if (sectionId === currentSectionId) return 0 // hovering a sticky section!
+
+    const selector = `[data-maglev-section-id='${sectionId}']`
+    const stickyElement = previewDocument.querySelector(selector)
+
+    if (stickyElement) return stickyElement.offsetHeight // found sticky element found
+  }
+  return 0
 }
 
 const onSectionLeft = () => {

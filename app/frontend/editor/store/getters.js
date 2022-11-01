@@ -18,6 +18,9 @@ export default (services) => ({
       }
     })
   },
+  stickySectionList: ({}, { sectionList }) => {
+    return sectionList.filter((section) => section.viewportFixedPosition)
+  },
   defaultPageAttributes: ({ page }) => {
     if (page.translated) return {}
     return { title: page.title, path: page.path }

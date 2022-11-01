@@ -11,6 +11,7 @@ export const listenMessages = () => {
       case 'config':
         decorateIframe({
           primaryColor: data.primaryColor,
+          stickySectionIds: data.stickySectionIds,
         })
 
         // we answer back we're ready!

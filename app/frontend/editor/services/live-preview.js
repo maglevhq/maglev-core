@@ -57,6 +57,7 @@ export const start = (newIframe) => {
   // say hi to the iFrame by giving it the configuration
   postMessage('config', {
     primaryColor: store.state.editorSettings.primaryColor,
+    stickySectionIds: store.getters.stickySectionList.map((section) => section.id)
   })
 
   // treat all the message coming from the iFrame
@@ -75,13 +76,14 @@ const listenMessages = () => {
       case 'scroll':
         notifyScrolling(data.boundingRect)
         break
-      case 'section:hover':
+      case 'section:hover': {
         store.dispatch('hoverSection', {
           sectionId: data.sectionId,
           sectionRect: data.sectionRect,
-          sectionOffsetHeight: data.sectionOffsetHeight,
+          sectionOffsetTop: data.sectionOffsetTop, //sectionOffsetHeight,
         })
         break
+      }
       case 'section:leave':
         store.dispatch('leaveSection')
         break

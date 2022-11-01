@@ -72,12 +72,7 @@ export default {
       return this.performStyle(sectionRect)
     },
     minTop() {
-      if (!this.hoveredSection) return 0
-      const sectionId = this.currentSectionList.find(
-        (section) => section.viewportFixedPosition,
-      )?.id
-      if (!sectionId || this.hoveredSection.sectionId === sectionId) return 0
-      return this.hoveredSection.sectionOffsetHeight
+      return this.hoveredSection?.sectionOffsetTop || 0
     },
   },
   methods: {
