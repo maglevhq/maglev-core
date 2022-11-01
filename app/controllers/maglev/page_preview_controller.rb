@@ -37,7 +37,7 @@ module Maglev
       params[:rendering_mode] || super
     end
 
-    def use_engine_webpacker?
+    def use_engine_vite?
       false
     end
 

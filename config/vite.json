@@ -6,11 +6,11 @@
   "development": {
     "autoBuild": true,
     "publicOutputDir": "maglev-assets",
-    "port": 3036
+    "port": 3136
   },
   "test": {
     "autoBuild": true,
     "publicOutputDir": "maglev-assets",
-    "port": 3037
+    "port": 3137
   }
 }

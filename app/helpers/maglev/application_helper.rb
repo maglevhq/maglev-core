@@ -8,7 +8,7 @@ module Maglev
     include ::ViteRails::TagHelpers
 
     def vite_manifest
-      inside_engine? ? maglev_asset_manifest : super
+      use_engine_vite? ? maglev_asset_manifest : super
     end
 
     def maglev_live_preview_client_javascript_tag
