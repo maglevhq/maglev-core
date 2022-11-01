@@ -14,7 +14,7 @@ module Maglev
       theme.sections = Maglev::Section::Store.new(sections)
       theme
     rescue Errno::ENOENT
-      Kernel.puts "Missing theme file(s) in #{path}"
+      log_missing_theme_file(path)
     end
 
     private
@@ -50,6 +50,14 @@ module Maglev
     def find_section_screenshot_timestamp(theme, section)
       path = fetch_section_screenshot_path.call(theme: theme, section: section, absolute: true)
       File.exist?(path) ? File.mtime(path).to_i : nil
+    end
+
+    def log_missing_theme_file(path)
+      # don't log the error if the ruby code is not executed inside
+      # the Rails console or when the Rails server is running
+      return if !Rails.const_defined?('Console') && !Rails.const_defined?('Server')
+
+      Kernel.puts "Missing theme file(s) in #{path}"
     end
   end
 end
