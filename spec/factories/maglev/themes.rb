@@ -2,7 +2,7 @@
 
 # rubocop:disable Layout/LineLength
 FactoryBot.define do
-  factory :theme, class: Maglev::Theme do
+  factory :theme, class: 'Maglev::Theme' do
     id { 'simple' }
     name { 'Simple' }
     description { 'Super simple theme' }

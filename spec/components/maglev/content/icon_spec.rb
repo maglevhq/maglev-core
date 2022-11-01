@@ -24,6 +24,8 @@ describe Maglev::Content::Icon do
   end
 
   describe '#tag' do
+    subject { view_context.render(inline: template, locals: { section: section_component }) }
+
     let(:template) do
       <<~HTML
         <%= section.setting_tag :my_icon, class: 'maglev-icon' %>
@@ -31,7 +33,6 @@ describe Maglev::Content::Icon do
         .strip
     end
     let(:view_context) { ApplicationController.new.view_context }
-    subject { view_context.render(inline: template, locals: { section: section_component }) }
 
     before do
       allow(section_component).to receive(:setting_tag) { |_collection_id, &block|
@@ -41,8 +42,9 @@ describe Maglev::Content::Icon do
 
     context 'no content' do
       let(:content) { nil }
+
       it {
-        is_expected.to eq(<<~HTML
+        expect(subject).to eq(<<~HTML
           <i class="maglev-icon" data-maglev-id="my-section.my_icon"></i>
         HTML
       .strip)
@@ -51,8 +53,9 @@ describe Maglev::Content::Icon do
 
     context 'the content is an icon class' do
       let(:content) { 'fancy-icon-class' }
+
       it {
-        is_expected.to eq(<<~HTML
+        expect(subject).to eq(<<~HTML
           <i class="maglev-icon fancy-icon-class" data-maglev-id="my-section.my_icon"></i>
         HTML
       .strip)

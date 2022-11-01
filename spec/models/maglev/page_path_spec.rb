@@ -23,6 +23,7 @@ RSpec.describe Maglev::PagePath, type: :model do
 
   describe 'with a different locale' do
     let!(:value) { Maglev::I18n.with_locale(Maglev::I18n.default_locale) { page.path } }
+
     it 'allows same canonical in different locale' do
       Maglev::I18n.with_locale('es') do
         expect(page.paths.build(canonical: true, value: value)).to be_valid

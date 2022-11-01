@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
-  factory :section, class: Maglev::Section do
+  factory :section, class: 'Maglev::Section' do
     id { 'jumbotron' }
     name { 'Jumbotron' }
     theme { build(:theme) }

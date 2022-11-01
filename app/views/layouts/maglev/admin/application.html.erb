@@ -2,13 +2,14 @@
 <html>
 <head>
   <title>Maglev - Admin</title>
+  
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
 
-  <%= javascript_pack_tag 'application' %>
-  <%= stylesheet_pack_tag 'application' %>
-
-  <%= favicon_pack_tag 'media/images/favicon.png' %>
+  <%= vite_javascript_tag 'admin' %>
+  <%= vite_stylesheet_tag 'admin.scss' %>
+  
+  <%= favicon_link_tag vite_asset_path 'images/favicon.png' %>
 </head>
 <body class="bg-gray-100">
   <main role="main" class="container mx-auto">

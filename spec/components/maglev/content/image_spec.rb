@@ -28,6 +28,7 @@ describe Maglev::Content::Image do
     context 'using a asset_host' do
       context 'the asset_host is a string' do
         let(:asset_host) { 'https://assets.maglev.local' }
+
         it { expect(image.url).to eq('https://placeholder.net/random-image.png') }
       end
     end
@@ -58,18 +59,21 @@ describe Maglev::Content::Image do
     context 'using a asset_host' do
       context 'the asset_host is a string' do
         let(:asset_host) { 'https://assets.maglev.local' }
+
         it { expect(image.url).to eq('https://assets.maglev.local/maglev/assets/42-welcome.png') }
 
         context 'the image is from the public folder of the application' do
           let(:content) do
             { url: '/themes/placeholder.png', alt_text: 'Hello world' }
           end
+
           it { expect(image.url).to eq('https://assets.maglev.local/themes/placeholder.png') }
         end
       end
 
       context 'the asset_host is a Proc' do
         let(:asset_host) { ->(_site) { 'https://maglev.local' } }
+
         it { expect(image.url).to eq('https://maglev.local/maglev/assets/42-welcome.png') }
       end
     end

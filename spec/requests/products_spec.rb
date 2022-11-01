@@ -14,7 +14,9 @@ RSpec.describe 'Maglev::PagePreviewController', type: :request do
         sections: attributes_for(:site, :with_navbar)[:sections]
       )
     end
+
     let(:product) { create(:product, name: 'My awesome product') }
+
     it 'renders a page of the main app' do
       get "/products/#{product.id}"
       expect(pretty_html(response.body))

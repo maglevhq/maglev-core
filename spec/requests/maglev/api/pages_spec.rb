@@ -83,26 +83,32 @@ RSpec.describe 'Maglev::API::PagesController', type: :request do
         get '/maglev/api/pages/foo%2Ffoo', as: :json
         expect(json_response['title']).to eq 'Foo foo!'
       end
+
       it 'returns the lock version of the page' do
         get "/maglev/api/pages/#{page.id}", as: :json
         expect(json_response['lockVersion']).to eq 0
       end
+
       context 'the page doesn\'t have been translated in the requested locale' do
         it 'returns the translated property set to false' do
           get "/maglev/api/pages/#{page.id}", params: { locale: 'fr' }, as: :json
           expect(json_response['translated']).to eq(false)
         end
       end
+
       context 'the page has been translated in the requested locale' do
         before { Maglev::I18n.with_locale(:fr) { page.update!(title: 'Bonjour', path: 'index-fr') } }
+
         it 'returns the translated property set to false' do
           get "/maglev/api/pages/#{page.id}", params: { locale: 'fr' }, as: :json
           expect(json_response['translated']).to eq(true)
         end
+
         it 'returns an attribute listing the paths of the page in all the locales' do
           get "/maglev/api/pages/#{page.id}", as: :json
           expect(json_response['pathHash']).to eq({ 'en' => 'index', 'fr' => 'index-fr' })
         end
+
         it 'returns the lock version of the page' do
           get "/maglev/api/pages/#{page.id}", as: :json
           expect(json_response['lockVersion']).to eq 1
@@ -139,6 +145,7 @@ RSpec.describe 'Maglev::API::PagesController', type: :request do
           expect(response.headers['Page-Lock-Version']).to eq('1')
         end
       end
+
       context 'Given the page has been updated in the meantime' do
         it "doesn't update the page in DB" do
           expect do
@@ -148,10 +155,12 @@ RSpec.describe 'Maglev::API::PagesController', type: :request do
           expect(response).to have_http_status(:conflict)
         end
       end
+
       context 'Given the site has been updated in the meantime' do
         let(:sections) { [attributes_for(:page, :with_navbar)[:sections][0]] }
         let(:site_attributes) { { sections: sections, lock_version: 0 } }
         let(:page_attributes) { { title: 'New title', lock_version: 0 } }
+
         it "doesn't update the page in DB" do
           expect do
             site.update(name: 'New name')

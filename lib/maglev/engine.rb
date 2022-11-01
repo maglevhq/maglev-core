@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'vite_ruby'
+
 module Maglev
   class Engine < ::Rails::Engine
     isolate_namespace Maglev
@@ -36,29 +38,34 @@ module Maglev
       Rails.application.config.i18n.load_path += Dir["#{config.root}/config/locales/**/*.yml"]
     end
 
-    initializer 'maglev.webpacker.proxy' do |app|
-      insert_middleware = begin
-        Maglev.webpacker.config.dev_server.present?
-      rescue StandardError
-        nil
-      end
-      next unless insert_middleware
+    delegate :vite_ruby, to: :class
 
-      app.middleware.insert_before(
-        0, Webpacker::DevServerProxy,
-        ssl_verify_none: true,
-        webpacker: Maglev.webpacker
+    def self.vite_ruby
+      @vite_ruby ||= ::ViteRuby.new(root: root)
+    end
+
+    # Serves the engine's vite-ruby when requested
+    initializer 'maglev.vite_rails.static' do |app|
+      app.config.middleware.use(
+        Rack::Static,
+        urls: ["/#{vite_ruby.config.public_output_dir}"],
+        root: root.join(vite_ruby.config.public_dir)
       )
     end
 
-    # Serves the engine's webpack when requested
-    initializer 'maglev.webpacker.static' do |app|
-      app.config.middleware.insert_before(
-        1,
-        Rack::Static,
-        urls: ['/maglev-packs'],
-        root: File.expand_path(File.join(__dir__, '..', '..', 'public'))
-      )
+    initializer 'maglev.vite_rails_engine.proxy' do |app|
+      if vite_ruby.run_proxy?
+        app.middleware.insert_before 0,
+                                     ViteRuby::DevServerProxy,
+                                     ssl_verify_none: true,
+                                     vite_ruby: vite_ruby
+      end
+    end
+
+    initializer 'maglev.vite_rails_engine.logger' do
+      config.after_initialize do
+        vite_ruby.logger = Rails.logger
+      end
     end
   end
 end

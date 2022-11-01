@@ -52,7 +52,7 @@ RSpec.configure do |config|
   config.include FactoryBot::Syntax::Methods
   config.include Maglev::SpecHelpers::APIAuthentication, type: :request
 
-  config.before(:each) do
+  config.before do
     Maglev.configure do |c|
       c.services = {}
       c.admin_username = nil

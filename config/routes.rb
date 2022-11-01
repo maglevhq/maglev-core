@@ -20,12 +20,14 @@ Maglev::Engine.routes.draw do
   root to: redirect { Maglev::Engine.routes.url_helpers.admin_root_path }
 
   # JS client lib for a headless use of Maglev
-  get 'live-preview-client.js', to: redirect(status: 302) { |_, request|
+  get 'live-preview-client.js', to: (redirect(status: 302) do |_, request|
+    manifest = ::Maglev::Engine.vite_ruby.manifest
+    entries = manifest.resolve_entries(*%w[live-preview-rails-client], type: :javascript)
     [
       request.base_url,
-      ::Maglev.webpacker.manifest.lookup_pack_with_chunks!('live-preview-client', type: :javascript)
+      *entries.fetch(:scripts).flatten.uniq
     ].join
-  }, as: :live_preview_client_js
+  end), as: :live_preview_client_js
 
   # Admin
   namespace :admin do

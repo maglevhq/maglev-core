@@ -13,17 +13,23 @@ describe Maglev::Content::CollectionItem do
 
   describe '#exists?' do
     subject { instance.exists? }
+
     context 'no content' do
       let(:content) { nil }
+
       it { is_expected.to eq(false) }
     end
+
     context 'the content references the model instance' do
       let(:content) { { item: item } }
+
       it { is_expected.to eq(true) }
     end
   end
 
   describe '#tag' do
+    subject { view_context.render(inline: template, locals: { section: section_component }) }
+
     let(:template) do
       <<~HTML
         <%= section.setting_tag :product do |product| %>
@@ -34,7 +40,6 @@ describe Maglev::Content::CollectionItem do
         .strip
     end
     let(:view_context) { ApplicationController.new.view_context }
-    subject { view_context.render(inline: template, locals: { section: section_component }) }
 
     before do
       allow(section_component).to receive(:setting_tag) { |_collection_id, &block|
@@ -44,13 +49,15 @@ describe Maglev::Content::CollectionItem do
 
     context 'no content' do
       let(:content) { nil }
+
       it { is_expected.to eq('') }
     end
 
     context 'the content references the model instance' do
       let(:content) { { item: item } }
+
       it {
-        is_expected.to eq(<<~HTML
+        expect(subject).to eq(<<~HTML
           <div data-maglev-id="my-section.product">
             <h1>My product</h1>
             <p>REF-0001</p>

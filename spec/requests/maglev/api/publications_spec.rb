@@ -26,6 +26,7 @@ RSpec.describe 'Maglev::API::PublicationsController', type: :request do
 
   context 'Given the editor is authenticated' do
     before { api_sign_in }
+
     it 'returns an exception' do
       expect do
         get '/maglev/api/publication', as: :json

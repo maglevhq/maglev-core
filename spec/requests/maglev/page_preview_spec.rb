@@ -59,6 +59,7 @@ RSpec.describe 'Maglev::PagePreviewController', type: :request do
 
   context 'requesting the page in a different locale' do
     before { Maglev::I18n.with_locale(:fr) { home_page.update!(title: 'Bonjour !', path: 'index') } }
+
     it 'renders the page in the locale' do
       get '/maglev/preview/fr'
       expect(response.body).to include('<title>Default - Bonjour !</title>')
@@ -71,12 +72,14 @@ RSpec.describe 'Maglev::PagePreviewController', type: :request do
       page = Maglev::Page.create(title: 'Contact us', path: 'contact')
       page.update!(path: 'contact-us')
     end
+
     context 'inside the editor UI' do
       it 'redirects to the canonical path of the page' do
         get '/maglev/preview/contact'
         expect(response).to redirect_to('/maglev/preview/contact-us')
       end
     end
+
     context 'live site' do
       it 'redirects to the canonical path of the page' do
         get '/contact'

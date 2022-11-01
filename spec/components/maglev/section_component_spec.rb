@@ -21,8 +21,9 @@ describe Maglev::SectionComponent do
 
   describe '#dom_data' do
     subject { component.dom_data }
+
     it 'returns a HTML formatted data attribute' do
-      is_expected.to eq 'data-maglev-section-id="def"'
+      expect(subject).to eq 'data-maglev-section-id="def"'
     end
   end
 
@@ -31,7 +32,7 @@ describe Maglev::SectionComponent do
 
     context 'using low-level tags (ex: jumbotron)' do
       it 'returns a valid HTML' do
-        is_expected.to eq(<<~HTML
+        expect(subject).to eq(<<~HTML
           <div data-maglev-section-id="def" class="jumbotron">
             <div class="container">
               <h1 data-maglev-id="def.title" class="display-3">Hello world</h1>
@@ -48,8 +49,9 @@ describe Maglev::SectionComponent do
     context 'using the fancy Maglev tags (ex: navbar)' do
       let(:attributes) { page.sections[0].deep_symbolize_keys }
       let(:definition) { build(:section, :navbar) }
+
       it 'returns a valid HTML' do
-        is_expected.to eq(<<~HTML
+        expect(subject).to eq(<<~HTML
           <div class="navbar" id="section-abc" data-maglev-section-id="abc">
             <a href="/">
               <img src="logo.png" data-maglev-id="abc.logo" class="brand-logo"/>

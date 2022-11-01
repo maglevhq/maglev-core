@@ -3,11 +3,12 @@
 require 'rails_helper'
 
 describe Maglev::PersistPage do
+  subject { service.call(page: page, page_attributes: page_attributes, site: site, site_attributes: site_attributes) }
+
   let(:site) { create(:site) }
   let(:fetch_theme) { double('FetchTheme', call: build(:theme)) }
   let(:service) { described_class.new(fetch_theme: fetch_theme) }
   let(:site_attributes) { nil }
-  subject { service.call(page: page, page_attributes: page_attributes, site: site, site_attributes: site_attributes) }
 
   context 'brand new page' do
     let(:page) { build(:page) }
@@ -46,7 +47,9 @@ describe Maglev::PersistPage do
         another_site_instance = Maglev::Site.find(site.id)
         another_site_instance.update(attributes_for(:site, :with_navbar))
       end
+
       let(:site_attributes) { { sections: [section], lock_version: 0 } }
+
       it 'raises an exception about the stale site' do
         expect { subject }.to raise_exception(ActiveRecord::StaleObjectError)
       end
@@ -54,6 +57,7 @@ describe Maglev::PersistPage do
 
     context 'Given a brand new page with no global sections' do
       let(:site) { create(:site, :with_footer) }
+
       it "doesn't erase the existing site sections" do
         subject
         expect(site.reload.sections.size).to eq 2
@@ -64,6 +68,7 @@ describe Maglev::PersistPage do
 
     context 'Given the site has a new style' do
       let(:site_attributes) { { style: [{ id: 'font_size', value: '16px' }] } }
+
       it 'assigns the new style' do
         subject
         # rubocop:disable Style/StringHashKeys

@@ -6,47 +6,56 @@ RSpec.describe Maglev::Page, type: :model do
   describe 'validation' do
     it "doesn't allow creating a page without a path" do
       create(:page) # create the index page
-      page = Maglev::Page.new(title: 'Hello world')
+      page = described_class.new(title: 'Hello world')
       expect(page).to be_invalid
       expect(page.errors.full_messages).to eq(['Path can\'t be blank'])
     end
 
     it "doesn't allow creating a page with a blank path" do
       create(:page) # create the index page
-      page = Maglev::Page.new(title: 'Hello world', path: '')
+      page = described_class.new(title: 'Hello world', path: '')
       expect(page).to be_invalid
       expect(page.errors.full_messages).to eq(['Path can\'t be blank'])
     end
 
     it "doesn't allow creating a page with a path which already exists" do
       create(:page) # create the index page
-      page = Maglev::Page.new(title: 'Hello world', path: 'index')
+      page = described_class.new(title: 'Hello world', path: 'index')
       expect(page).to be_invalid
       expect(page.errors.full_messages).to eq(['Path has already been taken'])
     end
   end
 
   describe 'cleaning path' do
-    let(:path) { Maglev::PagePath.new(value: value) }
-    before(:each) { path.valid? }
     subject { path.value }
+
+    let(:path) { Maglev::PagePath.new(value: value) }
+
+    before { path.valid? }
+
     context 'the path contains a leading slash' do
       let(:value) { '/foo' }
+
       it { is_expected.to eq 'foo' }
     end
+
     context 'the path contains a trailing slash' do
       let(:value) { 'foo/' }
+
       it { is_expected.to eq 'foo' }
     end
+
     context 'the path contains multiple slashes' do
       let(:value) { 'foo///bar/index' }
+
       it { is_expected.to eq 'foo/bar/index' }
     end
   end
 
   describe 'adding a second canonical path' do
-    let(:page) { create(:page) }
     subject { page.paths.create!(canonical: true, value: 'canonical-wannabe') }
+
+    let(:page) { create(:page) }
 
     it 'fails miserably' do
       expect { subject }.to raise_error(ActiveRecord::RecordInvalid)
@@ -55,7 +64,8 @@ RSpec.describe Maglev::Page, type: :model do
 
   describe 'with multiple paths' do
     let!(:page) { create(:page, path: 'original') }
-    let(:redirection) { Maglev::Page.by_path('original').first }
+    let(:redirection) { described_class.by_path('original').first }
+
     before { page.update!(path: 'newer') }
 
     it 'spawn new paths' do
@@ -100,22 +110,25 @@ RSpec.describe Maglev::Page, type: :model do
       Maglev::I18n.with_locale(:en) do
         page.reload.update(title: 'About us', path: 'about-us')
       end
-      expect(Maglev::Page.by_path('about-us', :en).count).to eq 1
+      expect(described_class.by_path('about-us', :en).count).to eq 1
     end
   end
 
   describe '#default_path' do
-    let!(:page) { create(:page, path: 'about-us') }
     subject { page.default_path }
+
+    let!(:page) { create(:page, path: 'about-us') }
+
     context 'Given the current locale is the default one' do
       it 'returns the path in the default locale' do
-        is_expected.to eq 'about-us'
+        expect(subject).to eq 'about-us'
       end
     end
+
     context 'Given the current locale is different from the default one' do
       it 'returns the path in the default locale' do
         Maglev::I18n.with_locale(:es) do
-          is_expected.to eq 'about-us'
+          expect(subject).to eq 'about-us'
         end
       end
     end
@@ -123,17 +136,21 @@ RSpec.describe Maglev::Page, type: :model do
 
   # rubocop:disable Style/StringHashKeys
   describe '#path_hash' do
-    let!(:page) { create(:page, path: 'about-us') }
     subject { page.path_hash }
+
+    let!(:page) { create(:page, path: 'about-us') }
+
     context 'Given the page hasn\'t been translated in FR' do
       it 'returns the paths in the default locale only' do
-        is_expected.to eq({ 'en' => 'about-us' })
+        expect(subject).to eq({ 'en' => 'about-us' })
       end
     end
+
     context 'Given the page has been translated in FR' do
       before { Maglev::I18n.with_locale(:fr) { page.update!(title: 'A notre sujet', path: 'a-notre-sujet') } }
+
       it 'returns the paths in the default locale only' do
-        is_expected.to eq({ 'en' => 'about-us', 'fr' => 'a-notre-sujet' })
+        expect(subject).to eq({ 'en' => 'about-us', 'fr' => 'a-notre-sujet' })
       end
     end
   end

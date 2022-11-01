@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
-  factory :page, class: Maglev::Page do
+  factory :page, class: 'Maglev::Page' do
     title { 'Home' }
     path { 'index' }
     sections do

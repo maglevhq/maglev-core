@@ -19,15 +19,15 @@
     window.customTranslations = <%= h editor_custom_translations.to_json.html_safe %>
   </script>
   
-  <%= javascript_pack_tag 'editor' %>
-  <%= stylesheet_pack_tag 'editor' %>
+  <%= vite_client_tag %>
+  <%= vite_javascript_tag 'editor' %>
 
   <%= favicon_link_tag editor_favicon_url %>
 
   <style>
     :root {
       --editor-color-primary: <%= editor_primary_hex_color %>;
-      --editor-color-primary-non-hex: <%= editor_primary_rgb_color.join(', ') %>;
+      --editor-color-primary-rgb: <%= editor_primary_rgb_color.join(' ') %>;
     }
   </style>
 

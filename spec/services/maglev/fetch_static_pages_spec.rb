@@ -3,6 +3,8 @@
 require 'rails_helper'
 
 describe Maglev::FetchStaticPages do
+  subject { service.call }
+
   let(:config) do
     Maglev::Config.new.tap do |config|
       config.static_pages = static_pages
@@ -10,12 +12,11 @@ describe Maglev::FetchStaticPages do
   end
   let(:service) { described_class.new(config: config) }
 
-  subject { service.call }
-
   describe 'no static pages in the config' do
     let(:static_pages) { nil }
+
     it 'returns an empty array' do
-      is_expected.to eq([])
+      expect(subject).to eq([])
     end
   end
 
@@ -32,6 +33,7 @@ describe Maglev::FetchStaticPages do
         }
       ]
     end
+
     it 'returns a list of static pages in the current locale (EN)' do
       Maglev::I18n.with_locale(:en) do
         expect(subject.map(&:id)).to eq(%w[d6e53783538bd10eaa24f654d88a84b4 24ba6bc2acc3cee432e57c75f4fb286b])

@@ -25,6 +25,7 @@ RSpec.describe 'Maglev::API::PageClonesController', type: :request do
 
   context 'Given the editor is authenticated' do
     before { api_sign_in }
+
     it 'creates a clone of the page' do
       post "/maglev/api/pages/#{page.id}/clones", as: :json
       expect(response).to have_http_status(:created)

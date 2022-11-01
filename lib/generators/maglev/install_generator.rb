@@ -7,7 +7,7 @@ module Maglev
     hook_for :maglev_install
 
     def compile_editor_assets
-      rake 'maglev:webpacker:compile'
+      rake 'maglev:vite:build_all'
     end
 
     def migrations

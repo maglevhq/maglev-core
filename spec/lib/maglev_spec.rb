@@ -5,33 +5,35 @@ require 'rails_helper'
 describe Maglev do
   describe '.VERSION' do
     subject { Maglev::VERSION }
+
     it { is_expected.not_to eq nil }
   end
 
   describe 'config' do
     it 'provides a default nil favicon' do
-      expect(Maglev.config.favicon).to eq(nil)
+      expect(described_class.config.favicon).to eq(nil)
     end
 
     it 'provides a default nil logo' do
-      expect(Maglev.config.logo).to eq(nil)
+      expect(described_class.config.logo).to eq(nil)
     end
 
     it 'provides a default primary color' do
-      expect(Maglev.config.primary_color).to eq('#7E6EDB')
+      expect(described_class.config.primary_color).to eq('#7E6EDB')
     end
   end
 
   describe '#configure' do
-    let!(:original) { Maglev.config.favicon }
-    after { Maglev.config.favicon = original }
+    let!(:original) { described_class.config.favicon }
+
+    after { described_class.config.favicon = original }
 
     it 'yields the config' do
-      Maglev.configure do |config|
+      described_class.configure do |config|
         config.favicon = 'someicon.ico'
       end
 
-      expect(Maglev.config.favicon).to eq('someicon.ico')
+      expect(described_class.config.favicon).to eq('someicon.ico')
     end
   end
 end

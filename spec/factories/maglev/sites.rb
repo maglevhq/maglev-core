@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
-  factory :site, class: Maglev::Site do
+  factory :site, class: 'Maglev::Site' do
     name { 'My awesome site' }
     locales { [{ label: 'English', prefix: 'en' }, { label: 'French', prefix: 'fr' }] }
 

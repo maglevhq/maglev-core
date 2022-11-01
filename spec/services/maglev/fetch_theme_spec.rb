@@ -3,8 +3,9 @@
 require 'rails_helper'
 
 describe Maglev::FetchTheme do
-  let(:service) { described_class.new }
   subject { service.call }
+
+  let(:service) { described_class.new }
 
   it 'returns the local theme' do
     expect(subject.name).to eq 'My simple theme'

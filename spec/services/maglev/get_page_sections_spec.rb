@@ -3,6 +3,8 @@
 require 'rails_helper'
 
 describe Maglev::GetPageSections do
+  subject { service.call(page: page, locale: :en) }
+
   let(:site) { create(:site, :with_navbar) }
   let(:get_page_fullpath) { double('GetPageFullPath', call: nil) }
   let(:fetch_collection_items) { double('FetchCollectionItems', call: nil) }
@@ -14,108 +16,113 @@ describe Maglev::GetPageSections do
       fetch_collection_items: fetch_collection_items
     )
   end
-  subject { service.call(page: page, locale: :en) }
 
   context 'the page has no sections' do
     let(:page) { build(:page, sections: []) }
+
     it 'returns an empty array' do
-      is_expected.to eq([])
+      expect(subject).to eq([])
     end
   end
 
   # rubocop:disable Style/StringHashKeys
   context 'the page is full of sections' do
     let(:page) { build(:page, :with_blank_navbar) }
+
     it 'fetches the content of the site scoped sections of a page from the site' do
-      is_expected.to eq([
-                          {
-                            'id' => 'yyy',
-                            'type' => 'navbar',
-                            'settings' => [{ 'id' => 'logo', 'value' => 'mynewlogo.png' }],
-                            'blocks' => [
+      expect(subject).to eq([
                               {
-                                'id' => 'zzz',
-                                'type' => 'menu_item',
-                                'settings' => [
-                                  { 'id' => 'label', 'value' => 'Home' },
+                                'id' => 'yyy',
+                                'type' => 'navbar',
+                                'settings' => [{ 'id' => 'logo', 'value' => 'mynewlogo.png' }],
+                                'blocks' => [
                                   {
-                                    'id' => 'link',
-                                    'value' => {
-                                      'href' => 'https://www.nocoffee.fr',
-                                      'link_type' => 'url',
-                                      'open_new_window' => true
-                                    }
+                                    'id' => 'zzz',
+                                    'type' => 'menu_item',
+                                    'settings' => [
+                                      { 'id' => 'label', 'value' => 'Home' },
+                                      {
+                                        'id' => 'link',
+                                        'value' => {
+                                          'href' => 'https://www.nocoffee.fr',
+                                          'link_type' => 'url',
+                                          'open_new_window' => true
+                                        }
+                                      }
+                                    ]
+                                  }
+                                ]
+                              },
+                              {
+                                'id' => 'def',
+                                'type' => 'jumbotron',
+                                'settings' => [
+                                  { 'id' => 'title', 'value' => 'Hello world' },
+                                  { 'id' => 'body', 'value' => '<p>Lorem ipsum</p>' }
+                                ],
+                                'blocks' => []
+                              },
+                              {
+                                'id' => 'ghi',
+                                'type' => 'showcase',
+                                'settings' => [
+                                  { 'id' => 'title', 'value' => 'Our projects' }
+                                ], 'blocks' => [
+                                  {
+                                    'type' => 'project',
+                                    'settings' => [
+                                      { 'id' => 'name', 'value' => 'My first project' },
+                                      { 'id' => 'screenshot', 'value' => '/assets/screenshot-01.png' }
+                                    ]
                                   }
                                 ]
                               }
-                            ]
-                          },
-                          {
-                            'id' => 'def',
-                            'type' => 'jumbotron',
-                            'settings' => [
-                              { 'id' => 'title', 'value' => 'Hello world' },
-                              { 'id' => 'body', 'value' => '<p>Lorem ipsum</p>' }
-                            ],
-                            'blocks' => []
-                          },
-                          {
-                            'id' => 'ghi',
-                            'type' => 'showcase',
-                            'settings' => [
-                              { 'id' => 'title', 'value' => 'Our projects' }
-                            ], 'blocks' => [
-                              {
-                                'type' => 'project',
-                                'settings' => [
-                                  { 'id' => 'name', 'value' => 'My first project' },
-                                  { 'id' => 'screenshot', 'value' => '/assets/screenshot-01.png' }
-                                ]
-                              }
-                            ]
-                          }
-                        ])
+                            ])
     end
+
     context "the site doesn't have a global content" do
       let(:site) { create(:site, :empty) }
+
       it 'fallbacks to the page version of the site scoped section' do
-        is_expected.to eq([
-                            {
-                              'id' => 'abc',
-                              'type' => 'navbar',
-                              'settings' => [{ 'id' => 'logo', 'value' => 'logo.png' }],
-                              'blocks' => []
-                            },
-                            {
-                              'id' => 'def',
-                              'type' => 'jumbotron',
-                              'settings' => [
-                                { 'id' => 'title', 'value' => 'Hello world' },
-                                { 'id' => 'body', 'value' => '<p>Lorem ipsum</p>' }
-                              ],
-                              'blocks' => []
-                            },
-                            {
-                              'id' => 'ghi',
-                              'type' => 'showcase',
-                              'settings' => [
-                                { 'id' => 'title', 'value' => 'Our projects' }
-                              ], 'blocks' => [
+        expect(subject).to eq([
                                 {
-                                  'type' => 'project',
+                                  'id' => 'abc',
+                                  'type' => 'navbar',
+                                  'settings' => [{ 'id' => 'logo', 'value' => 'logo.png' }],
+                                  'blocks' => []
+                                },
+                                {
+                                  'id' => 'def',
+                                  'type' => 'jumbotron',
                                   'settings' => [
-                                    { 'id' => 'name', 'value' => 'My first project' },
-                                    { 'id' => 'screenshot', 'value' => '/assets/screenshot-01.png' }
+                                    { 'id' => 'title', 'value' => 'Hello world' },
+                                    { 'id' => 'body', 'value' => '<p>Lorem ipsum</p>' }
+                                  ],
+                                  'blocks' => []
+                                },
+                                {
+                                  'id' => 'ghi',
+                                  'type' => 'showcase',
+                                  'settings' => [
+                                    { 'id' => 'title', 'value' => 'Our projects' }
+                                  ], 'blocks' => [
+                                    {
+                                      'type' => 'project',
+                                      'settings' => [
+                                        { 'id' => 'name', 'value' => 'My first project' },
+                                        { 'id' => 'screenshot', 'value' => '/assets/screenshot-01.png' }
+                                      ]
+                                    }
                                   ]
                                 }
-                              ]
-                            }
-                          ])
+                              ])
       end
     end
+
     context 'the sections include links' do
       let(:site) { create(:site, :with_navbar, :page_links) }
       let(:page) { build(:page, :with_navbar, :page_links) }
+
       it 'sets the href properties' do
         expect(get_page_fullpath).to receive(:call).with(page: '42',
                                                          locale: :en).twice.and_return('/preview/awesome-path')
@@ -123,8 +130,10 @@ describe Maglev::GetPageSections do
         expect(subject[1]['settings'][1]['value']).to include('<a href="/preview/awesome-path"')
       end
     end
+
     context 'the sections include collection items' do
       let(:page) { build(:page, :featured_product) }
+
       it 'fetches the product from the DB' do
         expect(fetch_collection_items).to receive(:call).with(collection_id: 'products', id: 42).and_return(
           instance_double('CollectionItem', label: 'New product name', source: 'Product fetched')
