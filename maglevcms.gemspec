@@ -38,7 +38,7 @@ Gem::Specification.new do |spec|
     'yarn.lock',
     'postcss.config.js',
     'tailwind.config.js',
-    'vite.config.js',
+    'vite.config.ts',
     'MIT-LICENSE',
     'Rakefile',
     'README.md'
