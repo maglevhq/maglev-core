@@ -14,6 +14,7 @@ RSpec.describe 'Maglev::API::CollectionItemsController', type: :request do
 
   context 'Given the editor is authenticated' do
     before { api_sign_in }
+
     describe 'find all the items of a collection defined in the Maglev config file' do
       describe 'allows retrieval of items based on keyword' do
         it 'returns an empty array if the keyword is empty' do

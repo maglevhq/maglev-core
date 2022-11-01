@@ -19,6 +19,7 @@ RSpec.describe 'Maglev::Admin::DashboardController', type: :request do
 
   context 'the admin is authenticated' do
     let(:authorization) { ActionController::HttpAuthentication::Basic.encode_credentials('admin', 'easyone') }
+
     # rubocop:disable Style/StringHashKeys
     it 'redirects the user to the list of themes' do
       get '/maglev/admin', headers: { 'HTTP_AUTHORIZATION' => authorization }

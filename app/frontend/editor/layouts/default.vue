@@ -29,7 +29,6 @@ export default {
   name: 'MaglevDefaultLayout',
   computed: {
     logoUrl() {
-      console.log(this.$store.state.editorSettings.logoUrl)
       return this.$store.state.editorSettings.logoUrl
     },
   },

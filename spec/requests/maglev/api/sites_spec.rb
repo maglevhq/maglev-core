@@ -26,6 +26,7 @@ RSpec.describe 'Maglev::API::SitesController', type: :request do
 
   context 'Given the editor is authenticated' do
     before { api_sign_in }
+
     it 'allows retrieval of the current site' do
       get '/maglev/api/site', as: :json
       expect(json_response.deep_symbolize_keys).to include(

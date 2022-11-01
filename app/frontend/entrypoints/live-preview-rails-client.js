@@ -3,6 +3,7 @@ import RailsClient from '~/live-preview-client/rails'
 
 document.addEventListener('DOMContentLoaded', () => {
   console.log('[Rails] Maglev Live Preview 🚀')
-  Client.start()
-  RailsClient.start()
+  if (Client.start()) {
+    RailsClient.start()
+  }
 })

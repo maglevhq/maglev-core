@@ -1,5 +1,5 @@
 import { postMessage } from './message'
-import { debounce, isBlank } from '@/misc/utils'
+import { debounce, isBlank } from './utils'
 
 // keep track of the current hovered section
 let listeners = []

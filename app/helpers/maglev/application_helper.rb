@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'vite_rails/version'
 require 'vite_rails/tag_helpers'
 

@@ -3,6 +3,8 @@
 require 'rails_helper'
 
 describe Maglev::PersistSectionScreenshot do
+  subject { service.call(base64_image: base64_image, section_id: 'jumbotron') }
+
   before { FileUtils.rm_rf(Rails.root.join('public/theme')) }
 
   let(:theme) { build(:theme) }
@@ -16,19 +18,20 @@ describe Maglev::PersistSectionScreenshot do
       fetch_section_screenshot_path: fetch_section_screenshot_path
     )
   end
-  subject { service.call(base64_image: base64_image, section_id: 'jumbotron') }
 
   context 'the base64 image is empty' do
     let(:base64_image) { nil }
+
     it 'returns nil' do
-      is_expected.to eq false
+      expect(subject).to eq false
     end
   end
 
   context 'the base64 image is present' do
     let(:base64_image) { "data:image/png;base64,#{raw_base64_logo}" }
+
     it 'persists the PNG in the filesystem' do
-      is_expected.to eq true
+      expect(subject).to eq true
       expect(File.exist?(Rails.root.join('public/theme/jumbotron.jpg'))).to eq true
     end
   end

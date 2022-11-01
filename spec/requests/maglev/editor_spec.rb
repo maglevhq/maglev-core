@@ -12,6 +12,7 @@ RSpec.describe 'Maglev::EditorController', type: :request do
         config.is_authenticated = ->(_site) { false }
       end
     end
+
     describe 'GET /maglev/editor' do
       it 'redirects to a path defined by the ApplicationController of the main app' do
         get '/maglev/editor'
@@ -28,6 +29,7 @@ RSpec.describe 'Maglev::EditorController', type: :request do
         config.is_authenticated = ->(_site) { true }
       end
     end
+
     describe 'GET /maglev/editor' do
       it 'redirects to the index page in the default site locale' do
         get '/maglev/editor'
@@ -54,8 +56,10 @@ RSpec.describe 'Maglev::EditorController', type: :request do
             config.is_authenticated = ->(_site) { true }
           end
         end
+
         context 'by using a string as the UI locale' do
           let(:ui_locale) { 'fr' }
+
           it 'renders the editor in the defined locale' do
             get '/maglev/editor/en/index'
             expect(response.body).to include('<html class="h-full" lang="fr">')
@@ -64,6 +68,7 @@ RSpec.describe 'Maglev::EditorController', type: :request do
 
         context 'by using a method of the main app returning the UI locale' do
           let(:ui_locale) { :exotic_locale }
+
           it 'renders the editor in the defined locale' do
             get '/maglev/editor/en/index'
             expect(response.body).to include('<html class="h-full" lang="fr">')
@@ -72,6 +77,7 @@ RSpec.describe 'Maglev::EditorController', type: :request do
 
         context 'by using a Proc returning the UI locale' do
           let(:ui_locale) { ->(_current_site) { 'fr' } }
+
           it 'renders the editor in the defined locale' do
             get '/maglev/editor/en/index'
             expect(response.body).to include(%(<html class="h-full" lang="fr">))
@@ -87,31 +93,39 @@ RSpec.describe 'Maglev::EditorController', type: :request do
           config.back_action = back_action
         end
       end
+
       context 'no back_action defined' do
         let(:back_action) { nil }
+
         it 'redirects to the root path of the application' do
           get '/maglev/leave_editor'
           expect(response).to redirect_to('/')
         end
+
         it 'clears the maglev_site_id from the session' do
           get '/maglev/leave_editor'
           expect(session[:maglev_site_id]).not_to eq nil
         end
       end
+
       context 'a static url has been set for the back_action' do
         let(:back_action) { '/foo/bar' }
+
         it 'redirects to the static url' do
           get '/maglev/leave_editor'
           expect(response).to redirect_to('/foo/bar')
         end
       end
+
       context 'a route path has been set for the back_action' do
         let(:back_action) { :nocoffee_path }
+
         it 'redirects to the route path' do
           get '/maglev/leave_editor'
           expect(response).to redirect_to('/nocoffee_site')
         end
       end
+
       context 'a Proc has been set for the back_action' do
         let(:back_action) do
           lambda { |current_site|
@@ -119,6 +133,7 @@ RSpec.describe 'Maglev::EditorController', type: :request do
             redirect_to "/somewhere-#{current_site.id}"
           }
         end
+
         it 'redirects to the url returned by the Proc' do
           get '/maglev/leave_editor'
           expect(response).to redirect_to("/somewhere-#{site.id}")

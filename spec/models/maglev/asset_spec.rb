@@ -9,8 +9,9 @@ RSpec.describe Maglev::Asset, type: :model do
 
   describe '#to_param' do
     subject { build(:asset, id: 1, filename: 'Et voilà.jpg').to_param }
+
     it 'removes accents, dots from the filename' do
-      is_expected.to eq '1-et-voila.jpg'
+      expect(subject).to eq '1-et-voila.jpg'
     end
   end
 end
