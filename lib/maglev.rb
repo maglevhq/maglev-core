@@ -59,12 +59,5 @@ module Maglev
     def services(overrides = {})
       ::Maglev::AppContainer.new(config.services.merge(overrides)).call
     end
-
-    def webpacker
-      @webpacker ||= ::Webpacker::Instance.new(
-        root_path: ROOT_PATH,
-        config_path: ROOT_PATH.join('config/webpacker.yml')
-      )
-    end
   end
 end
