@@ -254,7 +254,7 @@ PLATFORMS
 
 DEPENDENCIES
   bcrypt
-  factory_bot_rails
+  factory_bot_rails (~> 6.2.0)
   generator_spec
   image_processing (~> 1.12.2)
   maglevcms!

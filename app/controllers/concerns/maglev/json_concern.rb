@@ -3,7 +3,7 @@
 require 'active_support/concern'
 
 module Maglev
-  module JSONConcern
+  module JsonConcern
     extend ActiveSupport::Concern
 
     included do
@@ -17,5 +17,3 @@ module Maglev
     end
   end
 end
-
-Maglev::JsonConcern = Maglev::JSONConcern

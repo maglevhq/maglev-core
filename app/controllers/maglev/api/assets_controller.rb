@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 module Maglev
-  module API
-    class AssetsController < ::Maglev::APIController
+  module Api
+    class AssetsController < ::Maglev::ApiController
       include ::ActiveStorage::SetCurrent
 
       def index

@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Maglev::API::SitesController', type: :request do
+RSpec.describe 'Maglev::Api::SitesController', type: :request do
   let!(:site) { create(:site, :with_style) }
   let!(:page) { create(:page) }
 

@@ -31,7 +31,7 @@ group :development, :test do
   # Use SCSS for stylesheets
   gem 'bcrypt'
 
-  gem 'factory_bot_rails'
+  gem 'factory_bot_rails', '~> 6.2.0'
   gem 'rspec-rails'
 
   gem 'rubocop', require: false

@@ -3,7 +3,7 @@
 require 'rails_helper'
 require 'open-uri'
 
-RSpec.describe 'Maglev::API::AssetsController', type: :request do
+RSpec.describe 'Maglev::Api::AssetsController', type: :request do
   before { create(:site) }
 
   context 'Given the editor is not authenticated' do

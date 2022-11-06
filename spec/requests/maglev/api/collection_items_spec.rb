@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Maglev::API::CollectionItemsController', type: :request do
+RSpec.describe 'Maglev::Api::CollectionItemsController', type: :request do
   let!(:site) { create(:site) }
 
   context 'Given the editor is not authenticated' do

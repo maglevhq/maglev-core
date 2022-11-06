@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 module Maglev
-  class APIController < ::Maglev::ApplicationController
-    include Maglev::JSONConcern
+  class ApiController < ::Maglev::ApplicationController
+    include Maglev::JsonConcern
     include Maglev::UiLocaleConcern
     include Maglev::ContentLocaleConcern
 
@@ -57,5 +57,3 @@ module Maglev
     end
   end
 end
-
-Maglev::ApiController = Maglev::APIController

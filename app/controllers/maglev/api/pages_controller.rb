@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 module Maglev
-  module API
-    class PagesController < ::Maglev::APIController
+  module Api
+    class PagesController < ::Maglev::ApiController
       def index
         @pages = services.search_pages.call(q: params[:q], content_locale: content_locale,
                                             default_locale: default_content_locale)

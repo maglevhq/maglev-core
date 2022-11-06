@@ -3,7 +3,7 @@
 module Maglev
   class PagePreviewController < ApplicationController
     include Maglev::RenderingConcern
-    include Maglev::JSONConcern
+    include Maglev::JsonConcern
     include Maglev::ContentLocaleConcern
 
     before_action :fetch_maglev_site

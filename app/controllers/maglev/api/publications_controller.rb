@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 module Maglev
-  module API
-    class PublicationsController < ::Maglev::APIController
+  module Api
+    class PublicationsController < ::Maglev::ApiController
       def show
         raise 'NOT IMPLEMENTED'
       end

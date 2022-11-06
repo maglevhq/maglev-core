@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Maglev::API::PageClonesController', type: :request do
+RSpec.describe 'Maglev::Api::PageClonesController', type: :request do
   let(:site) { create(:site) }
   let!(:page) { create(:page) }
 

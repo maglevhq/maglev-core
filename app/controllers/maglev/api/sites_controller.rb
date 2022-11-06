@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 module Maglev
-  module API
-    class SitesController < ::Maglev::APIController
+  module Api
+    class SitesController < ::Maglev::ApiController
       def show
         if (@site = maglev_site).present?
           @home_page_id = maglev_page_collection.home.pick(:id)

@@ -2,7 +2,7 @@
 
 module Maglev
   module SpecHelpers
-    module APIAuthentication
+    module ApiAuthentication
       def api_sign_in
         allow(Maglev.config).to receive(:is_authenticated).and_return(->(_site) { true })
         get '/maglev/editor'
