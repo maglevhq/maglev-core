@@ -3,12 +3,14 @@ import { Controller } from 'stimulus'
 export default class extends Controller {
   connect() {
     this.element.addEventListener('load', () => {
-      let height =
-        this.element.contentDocument.querySelector('body').clientHeight
+      setTimeout(() => {
+        let height =
+          this.element.contentDocument.querySelector('body').clientHeight
 
-      if (height < 200) height = 200
+        if (height < 200) height = 200
 
-      this.element.style.height = `${height}px`
+        this.element.style.height = `${height}px`  
+      }, 500)
     })
   }
 }

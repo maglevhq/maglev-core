@@ -1,5 +1,5 @@
 # Name of the section displayed in the editor UI
-name: "<%= file_name %>"
+name: "<%= section_name %>"
 
 # Category of the section in the editor UI (headers, features, testimonials, ...etc)
 category: <%= category %>

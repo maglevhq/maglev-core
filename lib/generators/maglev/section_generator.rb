@@ -4,12 +4,17 @@ module Maglev
   class SectionGenerator < Rails::Generators::NamedBase
     source_root File.expand_path('templates/section', __dir__)
 
+    class_option :name, type: :string, default: nil
     class_option :category, type: :string, default: nil
     class_option :settings, type: :array, default: []
 
     hook_for :maglev_section
 
-    attr_reader :theme_name, :category, :settings, :blocks
+    attr_reader :theme_name, :section_name, :category, :settings, :blocks
+
+    def set_section_name
+      @section_name = options['name'] || file_name.humanize
+    end
 
     def verify_theme_exists
       raise Thor::Error, set_color('ERROR: You must first create a theme.', :red) if theme.nil?
