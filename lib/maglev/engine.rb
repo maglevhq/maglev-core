@@ -46,10 +46,10 @@ module Maglev
 
     # Serves the engine's vite-ruby when requested
     initializer 'maglev.vite_rails.static' do |app|
-      app.middleware.insert_before 0,
-                                   Rack::Static,
-                                   urls: ["/#{vite_ruby.config.public_output_dir}"],
-                                   root: root.join(vite_ruby.config.public_dir)
+      app.middleware.insert_after ActionDispatch::Static,
+                                  Rack::Static,
+                                  urls: ["/#{vite_ruby.config.public_output_dir}"],
+                                  root: root.join(vite_ruby.config.public_dir)
     end
 
     initializer 'maglev.vite_rails_engine.proxy' do |app|
