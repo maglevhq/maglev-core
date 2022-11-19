@@ -46,10 +46,20 @@ module Maglev
 
     # Serves the engine's vite-ruby when requested
     initializer 'maglev.vite_rails.static' do |app|
-      app.middleware.insert_after ActionDispatch::Static,
-                                  Rack::Static,
-                                  urls: ["/#{vite_ruby.config.public_output_dir}"],
-                                  root: root.join(vite_ruby.config.public_dir)
+      if Rails.application.config.public_file_server.enabled
+        # this is the right setup when the main application is already
+        # using Vite for the theme assets.
+        app.middleware.insert_after ActionDispatch::Static,
+                                    Rack::Static,
+                                    urls: ["/#{vite_ruby.config.public_output_dir}"],
+                                    root: root.join(vite_ruby.config.public_dir)
+      else
+        # mostly when running the application in production behind NGINX or APACHE
+        app.middleware.insert_before 0,
+                                     Rack::Static,
+                                     urls: ["/#{vite_ruby.config.public_output_dir}"],
+                                     root: root.join(vite_ruby.config.public_dir)
+      end
     end
 
     initializer 'maglev.vite_rails_engine.proxy' do |app|
