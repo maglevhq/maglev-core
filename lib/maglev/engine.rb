@@ -41,7 +41,7 @@ module Maglev
     delegate :vite_ruby, to: :class
 
     def self.vite_ruby
-      @vite_ruby ||= ::ViteRuby.new(root: root)
+      @vite_ruby ||= ::ViteRuby.new(root: root, mode: Rails.env)
     end
 
     # Serves the engine's vite-ruby when requested
