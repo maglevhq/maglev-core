@@ -48,7 +48,7 @@ FactoryBot.define do
                 type: 'menu_item',
                 settings: [
                   build(:section_setting, id: 'label', label: 'Label'),
-                  build(:section_setting, id: 'link', label: 'Link', type: 'link')
+                  build(:section_setting, :link)
                 ])
         ]
       end

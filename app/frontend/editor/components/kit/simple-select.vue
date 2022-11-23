@@ -8,8 +8,8 @@
         v-model="selectedOption"
         class="block w-full mt-1 py-2 px-3 rounded bg-gray-100 text-gray-800 focus:outline-none focus:ring placeholder-gray-500"
       >
-        <option v-for="option in selectOptions" :key="option" :value="option">
-          {{ option }}
+        <option v-for="(option, index) in selectOptions" :key="index" :value="getOptionValue(option)">
+          {{ getOptionLabel(option) }}
         </option>
       </select>
     </div>
@@ -40,5 +40,13 @@ export default {
       },
     },
   },
+  methods: {
+    getOptionLabel(option) {      
+      return typeof(option) === 'object' ? option.label : option
+    },
+    getOptionValue(option) {
+      return typeof(option) === 'object' ? option.value : option
+    }
+  }
 }
 </script>

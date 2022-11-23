@@ -30,6 +30,8 @@ settings:
   # html: true
   # line_break: true
   # nb_rows: 5
+  <%- when 'link' -%>
+  with_text: true
   <%- when 'select', 'radio' -%>
   options:
   - label: Option 1
@@ -59,6 +61,8 @@ blocks: <%- if blocks.blank? -%>[]
     # html: true
     # line_break: true
     # nb_rows: 5
+    <%- when 'link' -%>
+    with_text: true
     <%- when 'select', 'radio' -%>
     options:
     - label: Option 1
