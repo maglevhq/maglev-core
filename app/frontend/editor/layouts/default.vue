@@ -1,11 +1,23 @@
 <template>
   <div class="h-full">
     <header class="flex h-16 border-b border-gray-200">
-      <div
+      <router-link
+        v-if="currentSite && currentPage && currentLocale"
+        :to="{
+          name: 'editPage',
+          params: { locale: currentLocale, pageId: pageId },
+        }"
         class="w-16 h-full flex justify-center items-center border-r border-gray-200"
       >
         <img v-bind:src="logoUrl" class="w-2/4" />
+      </router-link>
+      <div
+        class="w-16 h-full flex justify-center items-center border-r border-gray-200"
+        v-else
+      >
+        <img v-bind:src="logoUrl" class="w-2/4" />
       </div>
+
       <div class="flex flex-grow items-center h-full">
         <slot name="header"> [Layout] Default header </slot>
       </div>
@@ -30,6 +42,9 @@ export default {
   computed: {
     logoUrl() {
       return this.$store.state.editorSettings.logoUrl
+    },
+    pageId() {
+      return this.currentPage.pathHash[this.currentLocale]
     },
   },
 }
