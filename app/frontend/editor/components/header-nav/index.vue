@@ -2,7 +2,7 @@
   <nav class="h-full w-full">
     <div
       class="flex items-center justify-between h-full w-full animate-pulse"
-      v-if="!currentPage"
+      v-if="isLoading"
     >
       <div class="h-6 bg-gray-200 rounded w-1/4 mx-6"></div>
       <div class="h-6 bg-gray-200 rounded w-1/4 mx-6"></div>
@@ -92,6 +92,9 @@ export default {
     PreviewToggler,
   },
   computed: {
+    isLoading() {
+      return !this.currentSite || !this.currentPage
+    },
     isListPagesActive() {
       return this.$route.name === 'listPages'
     },

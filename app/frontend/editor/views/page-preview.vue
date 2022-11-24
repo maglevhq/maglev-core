@@ -94,10 +94,6 @@ export default {
   },
   computed: {
     ...mapState(['hoveredSection']),
-    fullpath() {
-      // TODO: why here? why not in the App.vue instead?
-      return [this.locale, this.pageId]
-    },
     isPageEmpty() {
       return this.currentSectionList.length === 0
     },
@@ -134,19 +130,6 @@ export default {
   methods: {
     onIframeLoaded() {
       this.services.livePreview.start(this.$refs['iframe'])
-    },
-  },
-  watch: {
-    fullpath: {
-      immediate: true,
-      handler(newFullpath, oldFullpath) {
-        const [newLocale, newPageId] = newFullpath
-        const [oldLocale, oldPageId] = oldFullpath || []
-        if ((newLocale !== oldLocale || newPageId !== oldPageId) && newPageId) {
-          this.setLocale(newLocale)
-          Promise.all([this.fetchPage(newPageId), this.fetchSite()])
-        }
-      },
     },
   },
 }

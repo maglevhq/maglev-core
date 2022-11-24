@@ -125,3 +125,17 @@ export const deepMerge = (target, source) => {
 
   return result
 }
+
+export const hasChanged = (newObject, oldObject, property) => {
+  return (
+    !!oldObject[property] &&
+    !!newObject[property] &&
+    oldObject[property] !== newObject[property]
+  )
+}
+
+export const hasAnyChanged = (newObject, oldObject, ...properties) => {
+  return properties.some((property) =>
+    hasChanged(newObject, oldObject, property),
+  )
+}

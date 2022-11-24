@@ -1,6 +1,6 @@
 export default (services) => ({
-  fetchSite({ commit }, locally) {
-    services.site.find(locally).then((site) => {
+  async fetchSite({ commit }, locally) {
+    return services.site.find(locally).then((site) => {
       const { style, ...rawSite } = site
       services.api.setSiteHandle(site.handle)
       commit('SET_SITE', rawSite)

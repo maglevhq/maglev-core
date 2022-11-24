@@ -3,10 +3,9 @@
     v-bind:is="icon"
     v-bind="$attrs"
     viewBox="0 0 24 24"
-    :width="size"
-    :height="size"
     class="fill-current"
     :class="{ 'animate-spin': spin, 'animate-bounce': bounce }"
+    :style="{ width: size, height: size }"
   ></component>
 </template>
 

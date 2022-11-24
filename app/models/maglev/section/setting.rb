@@ -31,9 +31,11 @@ class Maglev::Section::Setting
   end
 
   def build_default_link_content(default)
-    default.is_a?(String) ? 
-    { text: 'Link', link_type: 'url', href: default } : 
-    { text: 'Link', link_type: 'url', href: '#' }.merge(default)
+    if default.is_a?(String)
+      { text: 'Link', link_type: 'url', href: default }
+    else
+      { text: 'Link', link_type: 'url', href: '#' }.merge(default)
+    end
   end
 
   def build_default_checkbox_content(default)

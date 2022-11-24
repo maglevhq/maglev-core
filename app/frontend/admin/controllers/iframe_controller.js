@@ -9,7 +9,7 @@ export default class extends Controller {
 
         if (height < 200) height = 200
 
-        this.element.style.height = `${height}px`  
+        this.element.style.height = `${height}px`
       }, 500)
     })
   }

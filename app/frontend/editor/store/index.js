@@ -19,6 +19,7 @@ const store = new Vuex.Store({
 
 store.dispatch('fetchEditorSettings')
 store.dispatch('fetchSite', true)
+store.dispatch('setPage', window.page)
 store.dispatch('setTheme', window.theme)
 store.dispatch('setLocale', window.locale)
 
