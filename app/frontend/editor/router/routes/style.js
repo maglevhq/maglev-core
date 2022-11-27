@@ -3,7 +3,7 @@ import EditStylePane from '@/views/style/edit-pane.vue'
 
 export default [
   {
-    path: '__style',
+    path: 'style',
     name: 'editStyle',
     components: {
       default: PagePreview,
