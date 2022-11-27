@@ -1,5 +1,6 @@
 import * as axios from 'axios'
 import { debounce } from './utils'
+import runScripts from './run-scripts'
 
 const parentDocument = window.parent.document
 const previewDocument = window.document
@@ -164,6 +165,8 @@ const updatePreviewDocument = async (content, section, insertAt) => {
     insertSectionInDOM(sourceElement, insertAt)
     targetElement = previewDocument.querySelector(selector)
   }
+
+  runScripts(targetElement)
 
   targetElement.scrollIntoView(true)
 }
