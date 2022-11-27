@@ -27,7 +27,7 @@ module Maglev
 
     def fetch_maglev_page
       @fetch_maglev_page ||= maglev_services.fetch_page.call(
-        path: params[:path],
+        path: maglev_page_path_from_params,
         locale: content_locale,
         default_locale: default_content_locale,
         fallback_to_default_locale: fallback_to_default_locale
@@ -70,6 +70,18 @@ module Maglev
 
     def maglev_page
       fetch_maglev_page
+    end
+
+    def maglev_page_path_from_params
+      maglev_page_path_segments.join('/')
+    end
+
+    def maglev_page_path_segments
+      # we drop the path after the "_" segment
+      params[:path].split('/').reduce([]) do |memo, segment|
+        return memo if segment == '_'
+        memo.push(segment)
+      end
     end
 
     def maglev_page_sections

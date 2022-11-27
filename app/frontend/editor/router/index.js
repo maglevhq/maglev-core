@@ -13,6 +13,18 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
+  // The router hasn't found a component to display so get back
+  // to the screen without any UI drawer opened.
+  if (to.matched.length === 0) {
+    return next({
+      name: 'editPage',
+      params: {
+        pageId: store.state.page.pathHash[store.state.locale],
+        locale: store.state.locale,
+      },
+    })
+  }
+
   // When an user wants to edit another page or to edit the current page
   // in a different locale, the router detects it and dispatch the new
   // page information to the Vuex store.

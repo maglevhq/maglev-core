@@ -58,7 +58,7 @@ export default (api) => ({
   findById: (site, id) => {
     if (id === 'index') id = site.homePageId
 
-    const safeId = String(id).replace('/', '%2F')
+    const safeId = String(id).replaceAll('/', '%2F')
 
     console.log('[PageService] Fetching page by id', safeId)
 

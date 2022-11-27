@@ -25,6 +25,12 @@ export default [
         },
         props: { default: true },
       },
+    ],
+  },
+  {
+    path: '/:locale/:pageId/_',
+    component: AppLayout,
+    children: [
       {
         path: 'foo-test',
         name: 'test',

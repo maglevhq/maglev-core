@@ -44,11 +44,22 @@ RSpec.describe 'Maglev::EditorController', type: :request do
         expect(response.body).to include('window.baseUrl = "/maglev/editor"')
         expect(response.body).to include('window.apiBaseUrl = "/maglev/api"')
         expect(response.body).to include('window.site = {')
+        expect(response.body).to include('window.page = {')
         expect(response.body).to include('window.theme = {')
         expect(response.body).to include('"nbRows":6')
       end
 
-      describe 'the developer changed the UI locale' do
+      describe 'Given the content editor had the sections tab opened in the UI' do
+        it 'renders the editor UI' do
+          get '/maglev/editor/en/about-us/_/editSettings'
+          expect(response.body).to include('My simple theme')
+          expect(response.body).to include('About us')
+          expect(response.body).to include('window.site = {')
+          expect(response.body).to include('window.page = {')
+        end
+      end
+
+      describe 'Given the developer defined another UI locale' do
         before do
           Maglev.configure do |config|
             config.ui_locale = ui_locale
@@ -57,7 +68,7 @@ RSpec.describe 'Maglev::EditorController', type: :request do
           end
         end
 
-        context 'by using a string as the UI locale' do
+        context 'Given the developer defines it as a string' do
           let(:ui_locale) { 'fr' }
 
           it 'renders the editor in the defined locale' do
@@ -66,7 +77,7 @@ RSpec.describe 'Maglev::EditorController', type: :request do
           end
         end
 
-        context 'by using a method of the main app returning the UI locale' do
+        context 'Given the developer defines it using a method in the main app' do
           let(:ui_locale) { :exotic_locale }
 
           it 'renders the editor in the defined locale' do
@@ -75,7 +86,7 @@ RSpec.describe 'Maglev::EditorController', type: :request do
           end
         end
 
-        context 'by using a Proc returning the UI locale' do
+        context 'Given the developer defines it by using a Proc' do
           let(:ui_locale) { ->(_current_site) { 'fr' } }
 
           it 'renders the editor in the defined locale' do

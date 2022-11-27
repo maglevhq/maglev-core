@@ -4,7 +4,7 @@ import EditPage from '@/views/pages/edit.vue'
 
 export default [
   {
-    path: '__pages',
+    path: 'pages',
     name: 'listPages',
     components: {
       default: PagePreview,
