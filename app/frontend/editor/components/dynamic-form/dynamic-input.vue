@@ -80,6 +80,7 @@
       :label="setting.label"
       :name="setting.id"
       v-model="inputValue"
+      :collection-id="options.collectionId"
       v-if="setting.type == 'collection_item'"
     />
   </div>

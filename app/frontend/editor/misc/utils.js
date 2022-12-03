@@ -8,10 +8,27 @@ export const isBlank = (object) => {
 }
 
 export const camelize = (str) => {
+  if (!str.includes('_')) return str
   return str
     .toLowerCase()
     .replace(/[^a-zA-Z0-9]+(.)/g, (m, chr) => chr.toUpperCase())
 }
+
+export const camelizeKeys = (obj) => {
+  if (Array.isArray(obj)) {
+    return obj.map(v => camelizeKeys(v));
+  } else if (obj != null && obj.constructor === Object) {
+    return Object.keys(obj).reduce(
+      (result, key) => ({
+        ...result,
+        [camelize(key)]: camelizeKeys(obj[key]),
+      }),
+      {},
+    );
+  }
+  return obj;
+}
+
 
 export const numberToHumanSize = (size, i18n) => {
   if (isBlank(size)) return null

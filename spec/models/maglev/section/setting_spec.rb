@@ -34,8 +34,8 @@ describe Maglev::Section::Setting do
       it { is_expected.to eq false }
     end
 
-    context 'type must include  [text, image, checkbox, link, color, select]' do
-      %w[text image checkbox link color select].each do |type|
+    context 'type must include  [text, image, checkbox, link, color, select, collection_item]' do
+      %w[text image checkbox link color select, collection_item].each do |type|
         let(:setting) { build(:section_setting, type: type) }
         it { is_expected.to eq true }
       end

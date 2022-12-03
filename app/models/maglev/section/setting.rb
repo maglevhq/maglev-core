@@ -21,6 +21,7 @@ class Maglev::Section::Setting
     when :image then build_default_image_content(default)
     when :link then build_default_link_content(default)
     when :checkbox then build_default_checkbox_content(default)
+    when :collection_item then build_default_collection_item_content(default)
     else
       default || label
     end
@@ -40,6 +41,10 @@ class Maglev::Section::Setting
 
   def build_default_checkbox_content(default)
     default.presence || false
+  end
+
+  def build_default_collection_item_content(default)
+    { id: default }
   end
 
   ## class methods ##

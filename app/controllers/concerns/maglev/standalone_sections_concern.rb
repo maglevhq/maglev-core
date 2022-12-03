@@ -15,6 +15,7 @@ module Maglev
     private
 
     def fetch_maglev_site_scoped_sections
+      return if within_maglev_engine?
       fetch_maglev_site
       fetch_maglev_theme
       fetch_maglev_dummy_page
@@ -23,6 +24,10 @@ module Maglev
 
     def fetch_maglev_dummy_page
       @fetch_maglev_page = ::Maglev::Page.new(title: 'DummyPage', sections: fetch_maglev_site.sections)
+    end
+
+    def within_maglev_engine?
+      controller_path.starts_with?('maglev/')
     end
   end
 end

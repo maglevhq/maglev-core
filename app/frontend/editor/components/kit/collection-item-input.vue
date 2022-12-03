@@ -10,7 +10,7 @@
       :searchEnabled="true"
       :searchPlaceholder="$t(`collectionItemInput.select.searchPlaceholder`)"
       :emptyLabel="$t(`collectionItemInput.select.emptyLabel`)"
-      :fetchList="(q) => services.collectionItem.findAll('products', { q })"
+      :fetchList="(q) => services.collectionItem.findAll(collectionId, { q })"
       :clearEnabled="true"
       buttonClass="h-10"
       v-model="selectedCollectionItem"
@@ -42,18 +42,21 @@
 </template>
 
 <script>
+import { camelizeKeys } from '@/misc/utils'
+
 export default {
   name: 'CollectionItemInput',
   props: {
     label: { type: String, default: 'Label' },
     name: { type: String, default: 'image' },
     value: { default: () => null },
+    collectionId: { type: String },
     isFocused: { type: Boolean, default: false },
   },
   computed: {
     selectedCollectionItem: {
       get() {
-        return this.value
+        return camelizeKeys(this.value)
       },
       set(collectionItem) {
         this.$emit('input', collectionItem ? { ...collectionItem } : null)

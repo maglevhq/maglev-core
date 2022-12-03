@@ -78,7 +78,10 @@ module Maglev
     end
 
     def collection
-      config.collections[collection_id.to_sym]
+      config.collections[collection_id.to_sym].tap do |collection|
+        next if collection
+        raise "[Maglev] unregistered '#{collection_id}' collection in the Maglev configuration." 
+      end
     end
 
     def build_item(original_item)

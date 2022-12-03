@@ -3,7 +3,7 @@
 # rubocop:disable Style/ClassAndModuleChildren
 module Maglev::GetPageSections::TransformCollectionItemConcern
   def transform_collection_item_content_setting(content, setting)
-    item_id = content.dig('value', 'id')
+    item_id = content&.dig('value', 'id')
     return if item_id.blank?
 
     item = fetch_collection_items.call(

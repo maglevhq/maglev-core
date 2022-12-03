@@ -40,6 +40,8 @@ settings:
     value: option_2
   <%- when 'color' -%>
   presets: ['#E5E7EB', '#FECACA', '#FDE68A', '#A7F3D0', '#BFDBFE']
+  <%- when 'collection_item' -%>
+  collection_id: products # check your config/initializers/maglev.rb to register your collection
   <%- end -%>
   <% if setting.value? -%>default: <%= setting.default %><% end -%>
 
@@ -69,6 +71,8 @@ blocks: <%- if blocks.blank? -%>[]
       value: option_1
     - label: Option 2
       value: option_2
+    <%- when 'collection_item' -%>
+    collection_id: products # check your config/initializers/maglev.rb to register your collection
     <%- end -%>
     <%- if setting.value? -%>
     default: <%= setting.default %>
