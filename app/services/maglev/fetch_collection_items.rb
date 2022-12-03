@@ -80,7 +80,8 @@ module Maglev
     def collection
       config.collections[collection_id.to_sym].tap do |collection|
         next if collection
-        raise "[Maglev] unregistered '#{collection_id}' collection in the Maglev configuration." 
+
+        raise "[Maglev] unregistered '#{collection_id}' collection in the Maglev configuration."
       end
     end
 

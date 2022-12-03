@@ -80,6 +80,7 @@ module Maglev
       # we drop the path after the "_" segment
       params[:path].split('/').reduce([]) do |memo, segment|
         return memo if segment == '_'
+
         memo.push(segment)
       end
     end
