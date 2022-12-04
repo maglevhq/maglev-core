@@ -113,7 +113,7 @@ module Maglev
         when 'color' then '#E5E7EB'
         when 'radio', 'select' then 'option_1'
         when 'icon' then 'default-icon-class'
-        when 'collection_item' then nil
+        when 'collection_item' then 'any'
         end
       end
       # rubocop:enable Metrics/CyclomaticComplexity

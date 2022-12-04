@@ -33,7 +33,7 @@ module Maglev
 
     def fetch_item
       build_item(
-        fetch_original_items.find_by(id: id)
+        id == 'any' ? fetch_original_items.first : fetch_original_items.find_by(id: id)
       )
     end
 

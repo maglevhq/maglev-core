@@ -46,7 +46,7 @@ describe Maglev::FetchCollectionItems do
   describe 'fetching one single item' do
     subject { service.call(collection_id: 'products', id: product_id) }
 
-    let(:product) { create(:product, name: 'My product') }
+    let!(:product) { create(:product, name: 'My product') }
 
     context 'the id doesn\'t belong to an existing item' do
       let(:product_id) { product.id + 1 }
@@ -60,6 +60,14 @@ describe Maglev::FetchCollectionItems do
       let(:product_id) { product.id }
 
       it 'returns the item' do
+        expect(subject.label).to eq 'My product'
+      end
+    end
+
+    context 'the id is "any"' do
+      let(:product_id) { 'any' }
+
+      it 'returns the first item in DB' do
         expect(subject.label).to eq 'My product'
       end
     end
