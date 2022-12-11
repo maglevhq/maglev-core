@@ -1,4 +1,4 @@
-class CreateMaglevPagePaths < ActiveRecord::Migration[6.1]
+class CreateMaglevPagePaths < ActiveRecord::Migration[6.0]
   def change
     create_table :maglev_page_paths do |t|
       t.references :maglev_page
