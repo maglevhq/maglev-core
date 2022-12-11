@@ -40,7 +40,7 @@ group :development, :test do
 
   gem 'generator_spec'
 
-  gem 'nokogiri', '>= 1.13.9'
+  gem 'nokogiri', '>= 1.13.10'
 end
 
 group :test do
