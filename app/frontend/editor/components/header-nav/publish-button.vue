@@ -28,7 +28,7 @@
           spin
           v-if="isInProgress"
         />
-        <icon name="check-line" v-if="isSuccess" />
+        <icon name="ri-check-line" v-if="isSuccess" />
         <icon name="ri-alert-line" v-if="isFail" />
         <span>{{ label }}</span>
       </span>
