@@ -8,9 +8,11 @@ BLOCK_SETTINGS = %w[
   title:text
   pre_title:text
   call_to_action:link
+  size:select
   block:item:title
   block:item:image:image
   block:item:description
+  block:item:alignment:select
 ].freeze
 
 describe Maglev::SectionGenerator, type: :generator do
@@ -34,5 +36,13 @@ describe Maglev::SectionGenerator, type: :generator do
 
   it 'provides sample link' do
     assert_file 'app/theme/sections/features/showcase.yml', /call_to_action: { text: "Link", href: "#" }/
+  end
+
+  it 'provides select options' do
+    assert_file 'app/theme/sections/features/showcase.yml', /^ {2}select_options:/
+  end
+
+  it 'provides block-level select options' do
+    assert_file 'app/theme/sections/features/showcase.yml', /^ {4}select_options:/
   end
 end
