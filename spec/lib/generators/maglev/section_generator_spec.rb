@@ -4,12 +4,18 @@ require 'rails_helper'
 require 'generator_spec'
 require 'generators/maglev/section_generator'
 
-BLOCK_SETTINGS = 'title:text pre_title:text block:item:title block:item:image:image block:item:description'
+BLOCK_SETTINGS = %w[
+  title:text
+  pre_title:text
+  block:item:title
+  block:item:image:image
+  block:item:description
+].freeze
 
 describe Maglev::SectionGenerator, type: :generator do
   destination File.expand_path('../tmp', __dir__)
 
-  arguments ['showcase', '--theme=simple', '--category=features', '--settings', BLOCK_SETTINGS.split(' ')].flatten
+  arguments %w[showcase --theme=simple --category=features --settings] + BLOCK_SETTINGS
 
   before(:all) do
     prepare_destination
