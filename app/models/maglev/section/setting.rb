@@ -44,7 +44,7 @@ class Maglev::Section::Setting
   end
 
   def build_default_collection_item_content(default)
-    { id: default }
+    default
   end
 
   ## class methods ##
