@@ -12,7 +12,7 @@ category: <%= category %>
 # insert_button: false
 
 # Insert this section at the top or the bottom of the page (default: nil)
-# insert_at: top 
+# insert_at: top
 
 # One single instance per page?
 # singleton: true
@@ -48,7 +48,7 @@ settings:
 <%- end -%>
 # Definition of the blocks.
 # You can define as many types of blocks as you want.
-blocks: <%- if blocks.blank? -%>[]
+blocks:<%- if blocks.blank? -%> []
 <% end %>
 <%- blocks.each do |(type, settings)| -%>
 - name: "<%= type.humanize %>"
@@ -84,12 +84,12 @@ blocks: <%- if blocks.blank? -%>[]
 # The title can be changed with the following property:
 # blocks_label: "My list of items"
 
-# By default, blocks are presented as a list in the editor UI. 
-# If you like to use blocks to build a menu with sub menu items, 
+# By default, blocks are presented as a list in the editor UI.
+# If you like to use blocks to build a menu with sub menu items,
 # consider using the tree presentation
 # blocks_presentation: "tree"
 
-# In order to get a section with "meaning" content for the editors, 
+# In order to get a section with "meaning" content for the editors,
 # you can set the default content of a new instance of this section.
 # (it's also be useful when taking a screenshot of the section).
 # sample:
@@ -98,13 +98,13 @@ blocks: <%- if blocks.blank? -%>[]
 #     <% if setting.value? -%><%= setting.id %>: <%= setting.default %><% end -%>
 
     <%- end -%>
-#   blocks: <%- if blocks.blank? -%>[]
+#   blocks:<%- if blocks.blank? -%> []
   <% end %>
   <%- blocks.each do |(type, settings)| -%>
 #   - type: <%= type %>
 #     settings:
        <%- settings.each do |setting| -%>
 #       <% if setting.value? -%><%= setting.id %>: <%= setting.default %><% end -%>
-        
+
        <%- end -%>
   <%- end -%>
