@@ -10,6 +10,7 @@ module Maglev::GetPageSections::TransformCollectionItemConcern
       collection_id: setting.options[:collection_id],
       id: item_id
     )
+    return if item.nil?
 
     content['value']['label'] = item.label
     content['value']['item'] = item.source
