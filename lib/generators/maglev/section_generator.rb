@@ -109,7 +109,7 @@ module Maglev
         when 'text' then label
         when 'image' then '"/theme/image-placeholder.jpg"'
         when 'checkbox' then true
-        when 'link' then '{ text: "Link", url: "#" }'
+        when 'link' then '{ text: "Link", href: "#" }'
         when 'color' then '#E5E7EB'
         when 'radio', 'select' then 'option_1'
         when 'icon' then 'default-icon-class'
