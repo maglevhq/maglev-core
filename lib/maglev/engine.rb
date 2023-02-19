@@ -52,13 +52,19 @@ module Maglev
         app.middleware.insert_after ActionDispatch::Static,
                                     Rack::Static,
                                     urls: ["/#{vite_ruby.config.public_output_dir}"],
-                                    root: root.join(vite_ruby.config.public_dir)
+                                    root: root.join(vite_ruby.config.public_dir),
+                                    header_rules: [
+                                      [:all, {'Access-Control-Allow-Origin' => '*'}]
+                                    ]
       else
         # mostly when running the application in production behind NGINX or APACHE
         app.middleware.insert_before 0,
                                      Rack::Static,
                                      urls: ["/#{vite_ruby.config.public_output_dir}"],
-                                     root: root.join(vite_ruby.config.public_dir)
+                                     root: root.join(vite_ruby.config.public_dir),
+                                     header_rules: [
+                                       [:all, {'Access-Control-Allow-Origin' => '*'}]
+                                     ]
       end
     end
 

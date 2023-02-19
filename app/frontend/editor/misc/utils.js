@@ -111,14 +111,27 @@ export const omitEmpty = (obj) =>
   Object.keys(obj).forEach((key) => obj[key] === undefined && delete obj[key])
 
 export const hexToRgb = (hex) => {
-  var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex.trim())
+  if (!hex) return null
+  var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})?$/i.exec(hex.trim())
   return result
     ? {
         r: parseInt(result[1], 16),
         g: parseInt(result[2], 16),
-        b: parseInt(result[3], 16),
+        b: result[3] ? parseInt(result[3], 16) : 0,
       }
     : null
+}
+
+export const colorVariableToHex = (variable) => {
+  if (!variable) return null
+  const color = (variable.startsWith('--')
+    ? getComputedStyle(document.body).getPropertyValue(variable)
+    : variable).trim().toLowerCase()
+  return color === 'transparent' ? '' : color
+}
+
+export const colorVariableToRgb = (variable) => {
+  return hexToRgb(colorVariableToHex(variable))
 }
 
 // Static pages have absolute path ("/something") but regular pages have no leading slash
