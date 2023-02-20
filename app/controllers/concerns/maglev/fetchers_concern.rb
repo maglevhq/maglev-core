@@ -77,6 +77,8 @@ module Maglev
     end
 
     def maglev_page_path_segments
+      return [] if params[:path].blank? # when called outside the editor/preview
+
       # we drop the path after the "_" segment
       params[:path].split('/').reduce([]) do |memo, segment|
         return memo if segment == '_'
