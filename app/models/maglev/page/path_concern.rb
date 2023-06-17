@@ -27,7 +27,14 @@ module Maglev::Page::PathConcern
   end
 
   def path=(value)
-    current_path.value = value
+    unless value.respond_to?(:each_pair)
+      current_path.value = value 
+      return
+    end
+
+    value.each_pair do |locale, value|
+      Maglev::I18n.with_locale(locale) { self.path = value }
+    end
   end
 
   def current_path
