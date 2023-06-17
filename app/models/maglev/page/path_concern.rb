@@ -28,12 +28,12 @@ module Maglev::Page::PathConcern
 
   def path=(value)
     unless value.respond_to?(:each_pair)
-      current_path.value = value 
+      current_path.value = value
       return
     end
 
-    value.each_pair do |locale, value|
-      Maglev::I18n.with_locale(locale) { self.path = value }
+    value.each_pair do |locale, new_path|
+      Maglev::I18n.with_locale(locale) { self.path = new_path }
     end
   end
 

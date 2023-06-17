@@ -48,7 +48,6 @@ module Maglev
         select_site_scoped_sections(sections)
       end
       sections_translations.any? { |_, sections| sections.blank? } ? nil : sections_translations
-      
     end
 
     def attributes_in_all_locales(attributes)
@@ -69,14 +68,14 @@ module Maglev
     end
 
     def fill_translations(value)
-      site.locale_prefixes.map { |locale| [locale, value] }.to_h
+      site.locale_prefixes.index_with { |_locale| value }
     end
 
     def select_site_scoped_sections(sections)
       (sections || []).find_all do |section|
-          definition = theme.sections.find(section['type'])
-          definition.site_scoped?
-        end
+        definition = theme.sections.find(section['type'])
+        definition.site_scoped?
+      end
     end
   end
 end
