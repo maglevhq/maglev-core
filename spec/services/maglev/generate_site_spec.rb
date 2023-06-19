@@ -14,4 +14,31 @@ describe Maglev::GenerateSite do
     end.to change(Maglev::Site, :count).by(1)
                                        .and change(Maglev::Page, :count).by(3)
   end
+
+  context 'Given Maglev was set up to be used with 2 locales' do
+    let(:home_page) { Maglev::Page.first }
+
+    it 'sets the same page title for all the locales' do
+      subject
+      # rubocop:disable Style/StringHashKeys
+      expect(Maglev::Page.pluck(:title_translations)).to eq(
+        [
+          { 'en' => 'Home', 'fr' => 'Home' },
+          { 'en' => 'About us', 'fr' => 'About us' },
+          { 'en' => 'Empty', 'fr' => 'Empty' }
+        ]
+      )
+      # rubocop:enable Style/StringHashKeys
+    end
+
+    it 'sets the same sections for all the locales' do
+      subject
+      Maglev::I18n.with_locale(:en) do
+        expect(home_page.sections.last['settings'][0]['value']).to eq 'Our projects'
+      end
+      Maglev::I18n.with_locale(:fr) do
+        expect(home_page.sections.last['settings'][0]['value']).to eq 'Our projects'
+      end
+    end
+  end
 end

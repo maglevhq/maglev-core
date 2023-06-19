@@ -24,6 +24,14 @@ module Maglev::Site::LocalesConcern
     locales.map { |locale| locale.prefix.to_sym }
   end
 
+  def each_locale
+    locale_prefixes.each do |locale|
+      Maglev::I18n.with_locale(locale) do
+        yield(locale)
+      end
+    end
+  end
+
   class LocalesSerializer
     def self.dump(array)
       (array || []).map(&:as_json)
