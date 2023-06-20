@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Maglev
   class SitemapController < ApplicationController
     include Maglev::FetchersConcern
