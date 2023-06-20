@@ -1,18 +1,26 @@
 module Maglev
-  class SitemapsController < ApplicationController
-    include Maglev::RenderingConcern
+  class SitemapController < ApplicationController
+    include Maglev::FetchersConcern
     include Maglev::ServicesConcern
     include Maglev::ContentLocaleConcern
 
     before_action :verify_request_format!
     before_action :fetch_maglev_site
 
-    def show
-      @pages = services.search_pages.call(content_locale: content_locale,
-                                          default_locale: maglev_site.default_locale.prefix).select(&:visible)
+    def index
+      @host = request.protocol + fetch_host
+      @pages = fetch_pages
     end
 
     protected
+
+    def fetch_host
+      request.headers['HTTP_X_MAGLEV_HOST'] || request.host
+    end
+
+    def fetch_pages
+      Maglev::Page.all.visible
+    end
 
     def verify_request_format!
       raise ActionController::UnknownFormat, 'Sitemap is only rendered as XML' if request.format != 'xml'
