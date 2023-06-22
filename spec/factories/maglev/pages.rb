@@ -156,5 +156,20 @@ FactoryBot.define do
         ]
       end
     end
+
+    trait :any_featured_product do
+      sections do
+        [
+          {
+            type: 'featured_product',
+            settings: [
+              { id: :title, value: 'My awesome product' },
+              { id: :product, value: 'any' }
+            ],
+            blocks: []
+          }
+        ]
+      end
+    end
   end
 end
