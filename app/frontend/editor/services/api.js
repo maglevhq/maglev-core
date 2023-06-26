@@ -18,10 +18,10 @@ const api = axios.create({
     Accept: 'application/json',
   },
   transformResponse(data) {
-    // camelcase in JS
+    // for "security" (even if the Rails API already camelcases the JSON), 
+    // we also camelcase the response in the Editor.
     // console.log('[DEBUG] API response', data)
     return data ? camelcaseObjectDeep(JSON.parse(data)) : {}
-    // return data ? JSON.parse(data) : {} // LEGACY
   },
 })
 
