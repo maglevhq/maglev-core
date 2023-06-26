@@ -64,7 +64,7 @@ RSpec.configure do |config|
   end
 
   config.after(:suite) do
-    FileUtils.rm_rf(Dir["#{::Rails.root}/spec/dummy/tmp/storage"])
+    FileUtils.rm_rf(Dir[Rails.root.join('spec/dummy/tmp/storage')])
   end
 
   # If you're not using ActiveRecord, or you'd prefer not to run each of your

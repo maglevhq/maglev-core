@@ -31,6 +31,8 @@ module Maglev
     dependency :persist_section_screenshot, class: Maglev::PersistSectionScreenshot,
                                             depends_on: %i[fetch_theme fetch_section_screenshot_path]
 
+    dependency :change_site_locales,        class: Maglev::ChangeSiteLocales
+
     dependency :fetch_page,                 class: Maglev::FetchPage, depends_on: :fetch_site
     dependency :get_page_fullpath,          class: Maglev::GetPageFullpath, depends_on: %i[fetch_site get_base_url]
     dependency :get_page_sections,          class: Maglev::GetPageSections,

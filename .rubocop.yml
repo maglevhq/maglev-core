@@ -29,6 +29,7 @@ AllCops:
     - 'log'
     - 'node_modules/**/*'
     - 'public/**/*'
+    - 'spec/dummy/db/schema.rb'
     - 'storage/**/*'
     - 'tmp/**/*'
     - 'vendor/**/*'

@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-json.sections services.get_page_sections.call(page: page)
-
 json.key_format! camelize: :lower
 json.deep_format_keys!
 
@@ -20,5 +18,6 @@ json.og_image_url page.og_image_url
 json.preview_url services.get_page_fullpath.call(page: page, preview_mode: true, locale: content_locale)
 json.live_url services.get_page_fullpath.call(page: page, preview_mode: false, locale: content_locale)
 json.section_names services.get_page_section_names.call(page: page)
+json.sections services.get_page_sections.call(page: page)
 json.lock_version page.lock_version
 json.translated page.path.present?

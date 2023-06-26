@@ -11,6 +11,16 @@ module Maglev::SectionsConcern
     end
   end
 
+  def prepare_sections_translations
+    return if sections_translations.blank?
+
+    sections_translations.each_key do |locale|
+      Maglev::I18n.with_locale(locale) do
+        prepare_sections
+      end
+    end
+  end
+
   private
 
   def prepare_section(section)

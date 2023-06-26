@@ -141,6 +141,18 @@ describe Maglev::GetPageSections do
         expect(subject[0]['settings'][1]['value']['label']).to eq('New product name')
         expect(subject[0]['settings'][1]['value']['item']).to eq('Product fetched')
       end
+
+      context 'the setting content points to the any item' do
+        let(:page) { build(:page, :any_featured_product) }
+
+        it 'fetches the first product' do
+          expect(fetch_collection_items).to receive(:call).with(collection_id: 'products', id: 'any').and_return(
+            instance_double('CollectionItem', label: 'New product name', source: 'Product fetched')
+          )
+          expect(subject[0]['settings'][1]['value']['label']).to eq('New product name')
+          expect(subject[0]['settings'][1]['value']['item']).to eq('Product fetched')
+        end
+      end
     end
   end
   # rubocop:enable Style/StringHashKeys
