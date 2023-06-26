@@ -11,22 +11,39 @@
       type="text"
       :value="inputColor"
       @input="updateInput"
-      class="py-2 pl-14 pr-3 rounded bg-gray-100 text-gray-800 focus:outline-none focus:ring placeholder-gray-500 font-normal"
+      class="py-2 pl-14 rounded bg-gray-100 text-gray-800 focus:outline-none focus:ring placeholder-gray-500 font-normal"
+      :class="{
+        'pr-8': hasPresets,
+        'pr-2': !hasPresets
+      }"
       autocomplete="off"
       minlength="4" 
       maxlength="8"
       size="7"
     />
+
+    <preset-dropdown 
+      v-model="updatableValue" 
+      :presets="presets" 
+      v-if="hasPresets"
+    />
   </div>
 </template>
 
 <script>
+import PresetDropdown from './preset-dropdown.vue'
+
 import { colorVariableToHex, colorVariableToRgb } from '@/misc/utils'
 
 export default {
   name: 'CoreInput',
+  components: { PresetDropdown },
   props: {
     value: { type: String },
+    presets: {
+      type: Array,
+      default: () => [],
+    },
   },
   computed: {
     inputColor() {
@@ -45,10 +62,23 @@ export default {
     isTransparent() {
       return this.value === ''
     },
+    hasPresets() {
+      return this.presets && this.presets.length > 0
+    },
+    updatableValue: {
+      get() {
+        return this.value
+      },
+      set(color) {
+        this.$emit('input', color)
+      },
+    },
   },
   methods: {
     updateInput(event) {
-      this.$emit('input', event.target.value)
+      var value = event.target.value
+      if (value.length > 0) value = `#${value}`
+      this.$emit('input', value)
     }
   }
 }

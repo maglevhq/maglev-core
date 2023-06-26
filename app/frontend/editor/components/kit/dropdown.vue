@@ -5,6 +5,7 @@
     :open="open"
     :placement="placement"
     class="flex"
+    v-on:auto-hide="close"
   >
     <div
       class="z-10 relative flex items-center focus:outline-none select-none cursor-pointer w-full"
