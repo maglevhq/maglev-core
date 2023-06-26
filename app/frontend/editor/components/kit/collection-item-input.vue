@@ -56,7 +56,7 @@ export default {
   computed: {
     selectedCollectionItem: {
       get() {
-        return camelizeKeys(this.value)
+        return this.value === 'any' ? null : camelizeKeys(this.value)
       },
       set(collectionItem) {
         this.$emit('input', collectionItem ? { ...collectionItem } : null)
