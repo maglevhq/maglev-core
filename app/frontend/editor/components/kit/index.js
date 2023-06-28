@@ -19,7 +19,7 @@ import CheckboxInput from './checkbox-input.vue'
 import SearchInput from './search-input.vue'
 import Pagination from './pagination/index.vue'
 import PageIcon from './page-icon.vue'
-import ColorPicker from './color-picker.vue'
+import ColorInput from './color-input.vue'
 import SimpleSelect from './simple-select.vue'
 import CollectionItemInput from './collection-item-input.vue'
 import ListItemButton from './list-item-button.vue'
@@ -44,7 +44,7 @@ Vue.component('checkbox-input', CheckboxInput)
 Vue.component('search-input', SearchInput)
 Vue.component('pagination', Pagination)
 Vue.component('page-icon', PageIcon)
-Vue.component('color-picker', ColorPicker)
+Vue.component('color-input', ColorInput)
 Vue.component('simple-select', SimpleSelect)
 Vue.component('collection-item-input', CollectionItemInput)
 Vue.component('list-item-button', ListItemButton)

@@ -16,7 +16,7 @@ module Maglev
     end
 
     def api_base_path
-      "#{root_path}api"
+      api_root_path
     end
 
     def editor_window_title

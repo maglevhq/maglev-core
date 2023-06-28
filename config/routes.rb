@@ -5,6 +5,7 @@ Maglev::Engine.routes.draw do
   # API
   constraints format: :json do
     namespace :api do
+      root to: proc { [200, {}, ['{}']] }
       resource :site, only: :show
       resources :pages do
         resources :clones, controller: :page_clones, only: :create
