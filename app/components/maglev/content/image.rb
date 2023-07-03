@@ -3,6 +3,8 @@
 module Maglev
   module Content
     class Image < Base
+      def_delegators :url, :present?
+
       def url
         return image[:url] if asset_host.nil? || !hosted_on_platform?
 
@@ -19,10 +21,6 @@ module Maglev
 
       def alt_text
         image[:alt_text]
-      end
-
-      def present?
-        url.present?
       end
 
       def to_s
