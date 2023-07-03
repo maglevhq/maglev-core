@@ -21,6 +21,10 @@ module Maglev
         image[:alt_text]
       end
 
+      def present?
+        url.present?
+      end
+
       def to_s
         url
       end

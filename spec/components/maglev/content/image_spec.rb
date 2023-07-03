@@ -25,6 +25,15 @@ describe Maglev::Content::Image do
       it { expect(image.url).to eq('https://placeholder.net/random-image.png') }
     end
 
+    describe 'present? method' do
+      it { expect(image.present?).to eq true }
+
+      describe 'content is blank' do
+        let(:content) { nil }
+        it { expect(image.present?).to eq false }
+      end
+    end
+
     context 'using a asset_host' do
       context 'the asset_host is a string' do
         let(:asset_host) { 'https://assets.maglev.local' }
