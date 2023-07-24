@@ -74,8 +74,11 @@ namespace :maglev do
     desc 'Ensure build dependencies like Vite are installed before bundling'
     task install_dependencies: :environment do
       within_engine_folder do
+        install_env_args = ENV['VITE_RUBY_SKIP_INSTALL_DEV_DEPENDENCIES'] == 'true' ? {} : { 'NODE_ENV' => 'development' }
         cmd = Maglev::Engine.vite_ruby.commands.legacy_npm_version? ? 'npx ci --yes' : 'npx --yes ci'
-        system({ 'NODE_ENV' => 'development' }, cmd)
+        result = system(install_env_args, cmd)
+        # Fallback to `yarn` if `npx` is not available.
+        system(install_env_args, 'yarn install --frozen-lockfile') if result.nil?
       end
     end
 
