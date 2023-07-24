@@ -10,11 +10,10 @@ module Maglev
       private
 
       def maglev_authenticate
-        username = maglev_config.admin_username
-        password = maglev_config.admin_password
-        return if !username || !password
+        return unless Maglev.config.admin_username.present? && Maglev.config.admin_password.present?
 
-        redirect_to main_app.root_path unless authenticate_with_http_basic { |u, p| username == u && password == p }
+        http_basic_authenticate_or_request_with name: Maglev.config.admin_username,
+                                                password: Maglev.config.admin_password
       end
     end
   end

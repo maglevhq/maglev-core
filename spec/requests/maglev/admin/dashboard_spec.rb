@@ -13,7 +13,7 @@ RSpec.describe 'Maglev::Admin::DashboardController', type: :request do
   context 'the admin is not authenticated' do
     it 'redirects the user to the index page of the site' do
       get '/maglev/admin'
-      expect(response).to redirect_to('/')
+      expect(response.status).to eq(401)
     end
   end
 

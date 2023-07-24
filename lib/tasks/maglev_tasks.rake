@@ -74,7 +74,10 @@ namespace :maglev do
     desc 'Ensure build dependencies like Vite are installed before bundling'
     task install_dependencies: :environment do
       within_engine_folder do
-        install_env_args = ENV['VITE_RUBY_SKIP_INSTALL_DEV_DEPENDENCIES'] == 'true' ? {} : { 'NODE_ENV' => 'development' }
+        install_dev_dependencies = ENV['VITE_RUBY_SKIP_INSTALL_DEV_DEPENDENCIES'] == 'true'
+        # rubocop:disable Style/StringHashKeys
+        install_env_args = install_dev_dependencies ? {} : { 'NODE_ENV' => 'development' }
+        # rubocop:enable Style/StringHashKeys
         cmd = Maglev::Engine.vite_ruby.commands.legacy_npm_version? ? 'npx ci --yes' : 'npx --yes ci'
         result = system(install_env_args, cmd)
         # Fallback to `yarn` if `npx` is not available.
