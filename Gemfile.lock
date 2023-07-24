@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    maglevcms (1.2.0)
+    maglevcms (1.2.1)
       jbuilder (~> 2.11.2)
       kaminari (~> 1.2.1)
       maglev-injectable (~> 2.1.1)
@@ -262,10 +262,10 @@ GEM
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.4.2)
-    vite_rails (3.0.14)
+    vite_rails (3.0.15)
       railties (>= 5.1, < 8)
       vite_ruby (~> 3.0, >= 3.2.2)
-    vite_ruby (3.3.2)
+    vite_ruby (3.3.4)
       dry-cli (>= 0.7, < 2)
       rack-proxy (~> 0.6, >= 0.6.1)
       zeitwerk (~> 2.2)
