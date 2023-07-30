@@ -66,7 +66,7 @@ module Maglev
     end
 
     def item_label(item)
-      item[label_field]
+      label_field && item.respond_to?(label_field) ? item.public_send(label_field) : nil
     end
 
     def item_image(item)

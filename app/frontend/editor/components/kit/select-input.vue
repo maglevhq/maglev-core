@@ -18,24 +18,16 @@
           <span v-else>{{ placeholder }}</span>
           <button
             type="button"
-            class="ml-auto"
+            class="ml-auto flex-shrink-0"
             @click.stop.prevent="clear"
             v-if="canClear"
           >
             <icon name="ri-close-line" />
           </button>
-          <icon
-            name="arrow-up-s-line"
-            size="1.5rem"
-            :class="{ 'ml-1': canClear, 'ml-auto': !canClear }"
-            v-if="isOpen"
-          />
-          <icon
-            name="arrow-down-s-line"
-            size="1.5rem"
-            :class="{ 'ml-1': canClear, 'ml-auto': !canClear }"
-            v-else
-          />
+          <div :class="{ 'flex-shrink-0': true, 'ml-1': canClear, 'ml-auto': !canClear }"> 
+            <icon name="arrow-up-s-line" size="1.5rem" :class="{ 'hidden': !isOpen }" />
+            <icon name="arrow-down-s-line" size="1.5rem" :class="{ 'hidden': isOpen }" />
+          </div>
         </div>
       </button>
       <div

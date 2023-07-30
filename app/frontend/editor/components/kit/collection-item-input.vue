@@ -16,7 +16,7 @@
       v-model="selectedCollectionItem"
     >
       <template v-slot:value>
-        <div class="flex items-center">
+        <div class="flex items-center flex-grow-0 overflow-x-hidden" :title="selectedCollectionItem.label">
           <div
             class="h-10 w-10 bg-gray-400 mr-3"
             v-if="selectedCollectionItem.imageUrl"
@@ -26,15 +26,15 @@
               :src="selectedCollectionItem.imageUrl"
             />
           </div>
-          <span>{{ selectedCollectionItem.label }}</span>
+          <span class="truncate">{{ selectedCollectionItem.label }}</span>
         </div>
       </template>
       <template v-slot:item="{ item }">
-        <div class="flex items-center">
+        <div class="flex items-center" :title="item.label">
           <div class="h-10 w-10 bg-gray-400 mr-3" v-if="item.imageUrl">
             <img class="object-cover w-full h-full" :src="item.imageUrl" />
           </div>
-          <span class="font-bold">{{ item.label }}</span>
+          <span class="truncate font-bold">{{ item.label }}</span>
         </div>
       </template>
     </select-input>
