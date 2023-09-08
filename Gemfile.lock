@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    maglevcms (1.2.1)
+    maglevcms (1.2.2)
       jbuilder (~> 2.11.2)
       kaminari (~> 1.2.1)
       maglev-injectable (~> 2.1.1)
@@ -147,7 +147,7 @@ GEM
     pg (1.4.6)
     racc (1.7.1)
     rack (2.2.7)
-    rack-proxy (0.7.6)
+    rack-proxy (0.7.7)
       rack
     rack-test (2.1.0)
       rack (>= 1.3)
