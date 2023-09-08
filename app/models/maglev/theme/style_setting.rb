@@ -10,7 +10,7 @@ class Maglev::Theme::StyleSetting
 
   ## validations ##
   validates :id, :label, :type, :default, 'maglev/presence': true
-  validates :type, inclusion: { in: %w[text color select checkbox] }
+  validates :type, inclusion: { in: %w[text color select checkbox divider hint] }
 
   ## methods ##
 

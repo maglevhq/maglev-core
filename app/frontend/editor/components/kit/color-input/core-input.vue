@@ -76,7 +76,7 @@ export default {
   },
   methods: {
     updateInput(event) {
-      var value = event.target.value
+      var value = event.target.value.replace('#', '')
       if (value.length > 0) value = `#${value}`
       this.$emit('input', value)
     }

@@ -24,6 +24,7 @@
   "sidebarNav": {
     "addNewSectionTooltip": "Ajouter une nouvelle section au bas de la page",
     "managePageSectionsTooltip": "Gérer les sections de la page",
+    "editStyleTooltip": "Modifier le style du site",
     "openImageLibraryTooltip": "Ouvrir la galerie d'images",
     "leaveEditorTooltip": "Retour vers l'application principale"
   },
@@ -103,7 +104,7 @@
     "tabs": {
       "settings": "Contenu",
       "blocks": "Blocs",
-      "advanced": "Paramètres avancés"
+      "advanced": "Paramètres"
     },
     "blockList": {
       "add": "Ajouter un nouvel élément"
@@ -112,11 +113,16 @@
   "sectionBlockPane": {
     "tabs": {
       "settings": "Contenu",
-      "advanced": "Paramètres avancés"
+      "advanced": "Paramètres"
     }
   },
   "themeSectionList": {
     "emptyCategory": "Aucune section"
+  },
+  "style": {
+    "edit": {
+      "title": "Styler site"
+    }
   },
   "imageInput": {
     "addButton": "Ajouter une image",

@@ -23,6 +23,8 @@ import ColorInput from './color-input.vue'
 import SimpleSelect from './simple-select.vue'
 import CollectionItemInput from './collection-item-input.vue'
 import ListItemButton from './list-item-button.vue'
+import Divider from './divider.vue'
+import Hint from './hint.vue'
 
 Vue.component('icon', Icon)
 Vue.component('v-popoper', VPopover)
@@ -48,3 +50,5 @@ Vue.component('color-input', ColorInput)
 Vue.component('simple-select', SimpleSelect)
 Vue.component('collection-item-input', CollectionItemInput)
 Vue.component('list-item-button', ListItemButton)
+Vue.component('divider', Divider)
+Vue.component('hint', Hint)

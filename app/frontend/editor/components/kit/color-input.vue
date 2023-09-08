@@ -5,7 +5,7 @@
       :for="name"
       v-if="showLabel"
     >
-      <span>{{ label }}</span>
+      <span class="pr-2">{{ label }}</span>
       <core-input :presets="presets" v-model="updatableValue" />
     </label>
   </div>

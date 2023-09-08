@@ -83,6 +83,17 @@
       :collection-id="options.collectionId"
       v-if="setting.type == 'collection_item'"
     />
+
+    <divider 
+      :text="setting.label"
+      :hint="options.hint"
+      v-if="setting.type == 'divider'"
+    />
+
+    <hint 
+      :text="setting.label"
+      v-if="setting.type == 'hint'"
+    />
   </div>
 </template>
 
