@@ -172,6 +172,9 @@ export const getBlockLabel = (block, definition, index) => {
           label = value.text
         }
         break
+      case 'collection_item':
+        if (!label && !isBlank(value?.label)) label = value.label
+        if (!image && !isBlank(value?.imageUrl)) image = value.imageUrl
       default:
         break
     }
