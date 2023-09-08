@@ -6,7 +6,7 @@
       :to="{ name: 'editSection', params: { sectionId: section.id } }"
       class="flex items-center"
     >
-      <span>{{ section.name | truncate(40) }}</span>
+      <span>{{ name | truncate(40) }}</span>
     </router-link>
     <confirmation-button @confirm="removeSection(section.id)" v-on="$listeners">
       <button
@@ -25,6 +25,11 @@ export default {
   name: 'SectionListItem',
   props: {
     section: { type: Object, required: true },
+  },
+  computed: {
+    name() {
+      return this.$st(`${this.currentI18nScope}.sections.${this.section.type}.name`) || this.section.name
+    }
   },
   methods: {
     ...mapActions(['removeSection']),

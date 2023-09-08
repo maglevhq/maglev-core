@@ -7,6 +7,7 @@
       :setting="setting"
       :content="content"
       :isFocused="focusedSetting === setting.id"
+      :i18nScope="i18nScope"
       @blur="$emit('blur')"
       @change="onChange"
     />
@@ -24,6 +25,7 @@ export default {
     settings: { type: Array, default: () => [] },
     content: { type: Array, default: () => [] },
     focusedSetting: { type: String, default: undefined },
+    i18nScope: { type: String, required: false }
   },
   methods: {
     onChange(change) {

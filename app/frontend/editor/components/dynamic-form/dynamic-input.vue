@@ -1,7 +1,7 @@
 <template>
   <div>
     <text-input
-      :label="setting.label"
+      :label="label"
       :name="setting.id"
       :isFocused="isFocused"
       @blur="$emit('blur')"
@@ -13,7 +13,7 @@
       "
     />
     <textarea-input
-      :label="setting.label"
+      :label="label"
       :name="setting.id"
       :isFocused="isFocused"
       :rows="options.nbRows"
@@ -24,7 +24,7 @@
       "
     />
     <rich-text-input
-      :label="setting.label"
+      :label="label"
       :name="setting.id"
       :isFocused="isFocused"
       :lineBreak="options.lineBreak"
@@ -35,27 +35,27 @@
       v-if="setting.type == 'text' && options.html"
     />
     <image-input
-      :label="setting.label"
+      :label="label"
       :name="setting.id"
       :isFocused="isFocused"
       v-model="inputValue"
       v-if="setting.type == 'image'"
     />
     <icon-input
-      :label="setting.label"
+      :label="label"
       :name="setting.id"
       :isFocused="isFocused"
       v-model="inputValue"
       v-if="setting.type == 'icon'"
     />
     <checkbox-input
-      :label="setting.label"
+      :label="label"
       :name="setting.id"
       v-model="inputValue"
       v-if="setting.type == 'checkbox'"
     />
     <link-input
-      :label="setting.label"
+      :label="label"
       :name="setting.id"
       :isFocused="isFocused"
       :withText="options.withText"
@@ -63,21 +63,21 @@
       v-if="setting.type == 'link'"
     />
     <color-input
-      :label="setting.label"
+      :label="label"
       :name="setting.id"
       v-model="inputValue"
       :presets="options.presets"
       v-if="setting.type == 'color'"
     />
     <simple-select
-      :label="setting.label"
+      :label="label"
       :name="setting.id"
       v-model="inputValue"
       :selectOptions="options.selectOptions"
       v-if="setting.type == 'select'"
     />
     <collection-item-input
-      :label="setting.label"
+      :label="label"
       :name="setting.id"
       v-model="inputValue"
       :collection-id="options.collectionId"
@@ -85,13 +85,13 @@
     />
 
     <divider 
-      :text="setting.label"
-      :hint="options.hint"
+      :text="label"
+      :withHint="options.withHint"
       v-if="setting.type == 'divider'"
     />
 
     <hint 
-      :text="setting.label"
+      :text="label"
       v-if="setting.type == 'hint'"
     />
   </div>
@@ -104,8 +104,17 @@ export default {
     setting: { type: Object, default: () => ({ type: 'text' }) },
     content: { type: Array, required: true },
     isFocused: { type: Boolean, default: false },
+    i18nScope: { type: String, required: false }
   },
   computed: {
+    label() {
+      // i18n key examples: 
+      // - themes.simple.style.settings.main_color
+      // - themes.simple.sections.navbar_01.settings.title
+      const i18nKey = `${this.i18nScope}.${this.setting.id}`
+      const translation = !this.isBlank(this.i18nScope) ? this.$st(i18nKey) : null
+      return translation || this.setting.label
+    },
     options() {
       return this.setting.options
     },

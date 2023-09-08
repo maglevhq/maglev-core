@@ -53,10 +53,10 @@ export default {
       else return null
     },
     sectionTitle() {
-      return this.currentSectionDefinition?.name
+      return this.$st(`${this.currentSectionI18nScope}.name`) || this.currentSectionDefinition?.name
     },
     sectionBlockTitle() {
-      return (
+      return this.$st(`${this.currentSectionI18nScope}.blocks.label`) || (
         this.currentSectionBlockDefinition?.name +
         ' ' +
         `#${this.currentSectionBlockIndex}`

@@ -4,7 +4,7 @@
       class="bg-editor-primary text-white py-1 px-3 rounded-l-2xl text-xs flex items-center"
       :class="{ 'rounded-r-2xl': !displayMoveArrows }"
     >
-      <span>{{ hoveredSection.name }}</span>
+      <span>{{ name }}</span>
     </div>
     <button
       type="button"
@@ -34,6 +34,12 @@ export default {
     hoveredSection: { type: Object },
   },
   computed: {
+    name() {
+      return this.$st(`${this.currentI18nScope}.sections.${this.sectionType}.name`) || this.hoveredSection.name
+    },
+    sectionType() {
+      return this.hoveredSection.definition.id
+    },
     displayMoveArrows() {
       return !this.currentSection && !this.hoveredSection.definition.insertAt
     },

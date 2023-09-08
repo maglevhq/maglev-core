@@ -11,7 +11,9 @@ module Maglev
         color: Maglev::Content::Color,
         select: Maglev::Content::Select,
         collection_item: Maglev::Content::CollectionItem,
-        icon: Maglev::Content::Icon
+        icon: Maglev::Content::Icon,
+        divider: Maglev::Content::Void,
+        hint: Maglev::Content::Void
       }.freeze
 
       def build(scope, content, setting)

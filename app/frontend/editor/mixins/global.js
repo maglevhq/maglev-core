@@ -16,8 +16,14 @@ Vue.mixin({
     currentSite() {
       return this.$store.state.site
     },
+    currentI18nScope() {
+      return `themes.${this.currentTheme.id}`
+    },
     currentStyle() {
       return this.$store.state.style
+    },
+    currentStyleI18nScope() {
+      return `${this.currentI18nScope}.style`
     },
     currentLocale() {
       return this.$store.state.locale
@@ -33,6 +39,9 @@ Vue.mixin({
     },
     currentSection() {
       return this.$store.state.section
+    },
+    currentSectionI18nScope() {
+      return `${this.currentI18nScope}.sections.${this.currentSection.type}`
     },
     currentSectionList() {
       return this.$store.getters.sectionList
@@ -54,6 +63,9 @@ Vue.mixin({
     },
     currentSectionBlock() {
       return this.$store.state.sectionBlock
+    },
+    currentSectionBlockI18nScope() {
+      return `${this.currentSectionI18nScope}.blocks.${this.currentSectionBlock.type}`
     },
     currentSectionBlockIndex() {
       return this.$store.getters.sectionBlockIndex
@@ -120,5 +132,9 @@ Vue.mixin({
     closeModal() {
       ModalBus.$emit('close')
     },
+    $st(key) {
+      // console.log('$st', key, this.$te(key) ? this.$t(key) : null)
+      return this.$te(key) ? this.$t(key) : null
+    }
   },
 })

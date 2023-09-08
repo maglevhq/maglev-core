@@ -1,5 +1,5 @@
 <template>
-  <div class="py-4 text-gray-600 text-sm">{{ text }}</div>
+  <div class="text-gray-600 text-sm">{{ text }}</div>
 </template>
 
 <script>

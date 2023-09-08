@@ -62,6 +62,7 @@ export default {
     },
     blocksLabel() {
       return (
+        this.$st(`${this.currentSectionI18nScope}.blocks.label`) ||
         this.currentSectionDefinition.blocksLabel ||
         this.$t('sectionPane.tabs.blocks')
       )
@@ -70,7 +71,7 @@ export default {
       return this.currentSectionDefinition.blocksPresentation === 'tree'
         ? BlockTree
         : BlockList
-    },
+    }
   },
   methods: {
     findTabIndexFromRoute() {

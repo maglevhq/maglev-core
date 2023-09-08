@@ -5,6 +5,7 @@
     :settings="sectionBlockSettings"
     :content="currentSectionBlockContent"
     :focusedSetting="settingId"
+    :i18nScope="i18nScope"
     @blur="onBlur"
     @change="updateSectionBlockContent"
   />
@@ -31,6 +32,9 @@ export default {
             this.currentSectionBlockContent,
           )
     },
+    i18nScope() {
+      return `${this.currentSectionBlockI18nScope}.settings`
+    }
   },
   methods: {
     ...mapActions(['updateSectionBlockContent']),

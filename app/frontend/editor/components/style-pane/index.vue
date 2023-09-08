@@ -5,6 +5,7 @@
         parentKey="style"
         :settings="styleSettings"
         :content="style"
+        :i18nScope="i18nScope"
         @change="onChange"
       />
     </div>
@@ -28,6 +29,9 @@ export default {
     styleSettings() {
       return this.currentTheme.styleSettings
     },
+    i18nScope() {
+      return `${this.currentStyleI18nScope}.settings`
+    }
   },
   methods: {
     ...mapActions(['previewStyle']),
