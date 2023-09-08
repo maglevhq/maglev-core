@@ -9,7 +9,7 @@ module Maglev
     end
 
     def call(path)
-      theme = add(YAML.safe_load(File.read(path.join('theme.yml'))))
+      theme = add(YAML.safe_load(File.read(path.join('theme.yml')), aliases: true))
       sections = load_sections(theme, Pathname.new(path).join('sections/**/*.yml'))
       theme.sections = Maglev::Section::Store.new(sections)
       theme
