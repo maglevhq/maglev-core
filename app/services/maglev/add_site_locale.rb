@@ -46,7 +46,7 @@ module Maglev
 
         # set a default content which will be the same as in the default locale
         page.translate_in(locale.prefix, site.default_locale_prefix)
-        
+
         page.save!
       end
     end
