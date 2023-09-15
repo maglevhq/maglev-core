@@ -12,6 +12,12 @@ module Maglev::Site::LocalesConcern
     validates :locales, 'maglev/collection': true, length: { minimum: 1 }
   end
 
+  def add_locale(locale)
+    return nil if locale_prefixes.include?(locale.prefix.to_sym)
+    locales << locale
+    locales
+  end
+
   def default_locale
     locales.first
   end

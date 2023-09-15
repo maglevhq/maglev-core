@@ -2,7 +2,7 @@
 
 module Maglev
   # Change the locales of a site.
-  # The new locales are an array of maps with 2 required keys: :name & :prefix.
+  # The new locales are an array of Maglev::Site::Locale objects
   class ChangeSiteLocales
     include Injectable
 
