@@ -7,7 +7,7 @@ describe Maglev::AddSiteLocale do
 
   let(:site) { create(:site, :with_navbar, locales: [{ label: 'English', prefix: 'en' }]) }
   let(:service) { described_class.new }
-  
+
   describe 'no new locale is passed to the service' do
     let(:new_locale) { nil }
 

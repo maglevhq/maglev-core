@@ -26,7 +26,7 @@ module Maglev
     protected
 
     def apply_to_site
-      Maglev::I18n.with_locale(locale.prefix) do 
+      Maglev::I18n.with_locale(locale.prefix) do
         site.translate_sections_in(locale.prefix, site.default_locale_prefix)
       end
     end
@@ -34,13 +34,13 @@ module Maglev
     def apply_to_pages
       resources.find_each do |page|
         # the path will be the same as in the default locale
-        Maglev::I18n.with_locale(locale.prefix) do 
+        Maglev::I18n.with_locale(locale.prefix) do
           page.path = default_page_path(page)
         end
 
         # set a default content which will be the same as in the default locale
         page.translate_sections_in(locale.prefix, site.default_locale_prefix)
-        
+
         page.save
       end
     end

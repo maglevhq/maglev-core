@@ -14,6 +14,7 @@ module Maglev::Site::LocalesConcern
 
   def add_locale(locale)
     return nil if locale_prefixes.include?(locale.prefix.to_sym)
+
     locales << locale
     locales
   end
