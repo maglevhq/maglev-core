@@ -11,10 +11,18 @@ module Maglev
     def call
       return if locale.blank? || !site.add_locale(locale)
 
+      ActiveRecord::Base.transaction do
+        unsafe_call
+      end
+    end
+
+    protected
+
+    def unsafe_call
       # Set a default content for site_scoped sections
       apply_to_site
 
-      site.save # persist the new locale
+      site.save! # persist the new locale
 
       # add a default content in the new locale to all the pages of the site
       # based on the default locale. Also take care of the path.
@@ -23,11 +31,9 @@ module Maglev
       true
     end
 
-    protected
-
     def apply_to_site
       Maglev::I18n.with_locale(locale.prefix) do
-        site.translate_sections_in(locale.prefix, site.default_locale_prefix)
+        site.translate_in(locale.prefix, site.default_locale_prefix)
       end
     end
 
@@ -39,9 +45,9 @@ module Maglev
         end
 
         # set a default content which will be the same as in the default locale
-        page.translate_sections_in(locale.prefix, site.default_locale_prefix)
-
-        page.save
+        page.translate_in(locale.prefix, site.default_locale_prefix)
+        
+        page.save!
       end
     end
 

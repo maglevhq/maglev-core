@@ -34,5 +34,11 @@ module Maglev
     def static?
       false
     end
+
+    def translate_in(locale, source_locale)
+      %i[title sections seo_title meta_description og_title og_description og_image_url].each do |attr|
+        translate_attr_in(attr, locale, source_locale)
+      end
+    end
   end
 end

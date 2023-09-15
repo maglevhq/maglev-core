@@ -21,10 +21,6 @@ module Maglev::SectionsConcern
     end
   end
 
-  def translate_sections_in(locale, source_locale)
-    sections_translations[locale.to_s] ||= sections_translations[source_locale.to_s]
-  end
-
   private
 
   def prepare_section(section)

@@ -11,6 +11,10 @@ module Maglev
       public_send("#{attr}_translations")
     end
 
+    def translate_attr_in(attr, locale, source_locale)
+      translations_for(attr)[locale.to_s] ||= translations_for(attr)[source_locale.to_s]
+    end
+
     class_methods do
       def order_by_translated(attr, direction)
         order(Arel.sql("#{attr}_translations->>'#{Maglev::I18n.current_locale}'") => direction)

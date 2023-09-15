@@ -29,6 +29,7 @@ describe Maglev::AddSiteLocale do
       Maglev::I18n.with_locale(:fr) do
         expect(site.reload.sections).not_to eq nil
         page = Maglev::Page.first
+        expect(page.title).to eq 'Home'
         expect(page.path).to eq 'index'
         expect(page.sections).not_to eq nil
       end
