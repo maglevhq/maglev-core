@@ -44,7 +44,7 @@ module Maglev
 
     def build_fullpath(base_url, path)
       fullpath = [base_url]
-      fullpath.push(locale) unless same_as_default_locale?
+      fullpath.push(locale) if prefix_by_default_locale?
       fullpath.push(path) unless path == 'index' # for SEO purpose)
       fullpath.push(nil) if fullpath == [nil] # avoid "" as the fullpath
       fullpath.join('/')
@@ -52,6 +52,10 @@ module Maglev
 
     def site
       @site ||= fetch_site.call
+    end
+
+    def prefix_by_default_locale?
+      !same_as_default_locale?
     end
 
     def same_as_default_locale?
