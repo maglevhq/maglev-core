@@ -4,7 +4,7 @@ module Maglev
   module Content
     class Checkbox < Base
       def true?
-        !!content
+        !!cast_content
       end
 
       def false?
@@ -13,6 +13,12 @@ module Maglev
 
       def to_s
         content
+      end
+
+      private
+
+      def cast_content
+        @cast_content ||= ActiveModel::Type::Boolean.new.cast(content)
       end
     end
   end
