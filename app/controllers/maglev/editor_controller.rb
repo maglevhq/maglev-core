@@ -45,6 +45,6 @@ module Maglev
 
     def maglev_rendering_mode
       :editor
-    end 
+    end
   end
 end

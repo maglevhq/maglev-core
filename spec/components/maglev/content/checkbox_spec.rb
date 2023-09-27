@@ -7,7 +7,7 @@ describe Maglev::Content::Checkbox do
   let(:content) { true }
   let(:setting) do
     double('Maglev::Section::Checkbox', default: false, id: 'display_title', label: 'Display title?', type: 'checkbox',
-                                     options: {})
+                                        options: {})
   end
   let(:checkbox) { described_class.new(section_component, content, setting) }
 
