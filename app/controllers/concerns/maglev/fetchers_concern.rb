@@ -30,7 +30,8 @@ module Maglev
         path: maglev_page_path_from_params,
         locale: content_locale,
         default_locale: default_content_locale,
-        fallback_to_default_locale: fallback_to_default_locale
+        fallback_to_default_locale: fallback_to_default_locale,
+        only_visible: maglev_rendering_mode == :live
       )
     end
 

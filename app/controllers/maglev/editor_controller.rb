@@ -42,5 +42,9 @@ module Maglev
     def fallback_to_default_locale
       true
     end
+
+    def maglev_rendering_mode
+      :editor
+    end 
   end
 end
