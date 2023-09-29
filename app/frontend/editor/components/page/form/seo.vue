@@ -86,7 +86,7 @@ export default {
         return { url: this.page.ogImageUrl }
       },
       set(ogImage) {
-        this.$emit('on-change', { ogImageUrl: ogImage.url })
+        this.$emit('on-change', { ogImageUrl: ogImage?.url ?? null })
       },
     },
   },
