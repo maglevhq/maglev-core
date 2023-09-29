@@ -54,7 +54,7 @@ module Maglev
                                     urls: ["/#{vite_ruby.config.public_output_dir}"],
                                     root: root.join(vite_ruby.config.public_dir),
                                     header_rules: [
-                                      [:all, { "Access-Control-Allow-Origin": '*' }]
+                                      [:all, { "Access-Control-Allow-Origin" => '*' }]
                                     ]
       else
         # mostly when running the application in production behind NGINX or APACHE
@@ -63,7 +63,7 @@ module Maglev
                                      urls: ["/#{vite_ruby.config.public_output_dir}"],
                                      root: root.join(vite_ruby.config.public_dir),
                                      header_rules: [
-                                       [:all, { "Access-Control-Allow-Origin": '*' }]
+                                       [:all, { "Access-Control-Allow-Origin" => '*' }]
                                      ]
       end
     end
