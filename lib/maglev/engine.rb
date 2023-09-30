@@ -55,7 +55,7 @@ module Maglev
                                     root: root.join(vite_ruby.config.public_dir),
                                     header_rules: [
                                       # rubocop:disable Style/StringHashKeys
-                                      [:all, { "Access-Control-Allow-Origin" => '*' }]
+                                      [:all, { 'Access-Control-Allow-Origin' => '*' }]
                                       # rubocop:enable Style/StringHashKeys
                                     ]
       else
@@ -65,8 +65,8 @@ module Maglev
                                      urls: ["/#{vite_ruby.config.public_output_dir}"],
                                      root: root.join(vite_ruby.config.public_dir),
                                      header_rules: [
-                                        # rubocop:disable Style/StringHashKeys
-                                       [:all, { "Access-Control-Allow-Origin" => '*' }]
+                                       # rubocop:disable Style/StringHashKeys
+                                       [:all, { 'Access-Control-Allow-Origin' => '*' }]
                                        # rubocop:enable Style/StringHashKeys
                                      ]
       end

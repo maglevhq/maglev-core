@@ -4,6 +4,8 @@ require 'uri'
 
 module Maglev
   class PreviewConstraint
+    CRAWLER_USER_AGENTS = /Googlebot|Twitterbot|facebookexternalhit/o.freeze
+
     attr_reader :preview_host
 
     def initialize(preview_host: nil)
@@ -11,7 +13,7 @@ module Maglev
     end
 
     def matches?(request)
-      %i[html xml].include?(request.format.symbol) && (!preview_host || preview_host == request.host)
+      (accepted_format?(request) || crawler?(request)) && match_host?(request)
     end
 
     protected
@@ -20,6 +22,18 @@ module Maglev
       return nil if Maglev.config.preview_host.blank?
 
       URI.parse(Maglev.config.preview_host).host # make sure we get only the host here
+    end
+
+    def accepted_format?(request)
+      %i[html xml].include?(request.format.symbol)
+    end
+
+    def crawler?(request)
+      request.format.symbol.nil? && CRAWLER_USER_AGENTS.match?(request.user_agent)
+    end
+
+    def match_host?(request)
+      !preview_host || preview_host == request.host
     end
   end
 end

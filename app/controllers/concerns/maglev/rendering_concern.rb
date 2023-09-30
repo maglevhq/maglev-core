@@ -11,8 +11,6 @@ module Maglev
     private
 
     def render_maglev_page
-      raise ActionController::UnknownFormat, 'Maglev renders HTML pages only' if request.format != 'html'
-
       fetch_maglev_page_content
 
       verify_canonical_path and return

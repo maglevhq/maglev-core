@@ -37,6 +37,36 @@ RSpec.describe 'Maglev::PagePreviewController', type: :request do
         get '/'
         expect(response.body).to include('--basic-theme-primary-color: #F87171;')
       end
+
+      describe 'Given Facebook/Google/Twitter crawl the index page' do
+        # rubocop:disable Style/StringHashKeys
+        let(:headers) { { 'HTTP_CONTENT_TYPE' => '*/*', 'HTTP_ACCEPT' => '*/*', 'HTTP_USER_AGENT' => user_agent } }
+        # rubocop:enable Style/StringHashKeys
+
+        describe 'Given Facebook crawls it' do
+          let(:user_agent) { 'facebookexternalhit/1.1' }
+          it 'renders the index page' do
+            get '/index', headers: headers
+            expect(response.body).to include('<title>Default - Home</title>')
+          end
+        end
+
+        describe 'Given Twitter crawls it' do
+          let(:user_agent) { 'Twitterbot' }
+          it 'renders the index page' do
+            get '/index', headers: headers
+            expect(response.body).to include('<title>Default - Home</title>')
+          end
+        end
+
+        describe 'Given Twitter crawls it' do
+          let(:user_agent) { 'Googlebot/2.1' }
+          it 'renders the index page' do
+            get '/index', headers: headers
+            expect(response.body).to include('<title>Default - Home</title>')
+          end
+        end
+      end
     end
 
     context 'with scoped site sections' do
