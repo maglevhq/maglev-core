@@ -1,0 +1,257 @@
+{
+  "headerNav": {
+    "pages": "Páginas:",
+    "pageSettings": "Configurações da página",
+    "previewSite": "Visualizar site",
+    "previewToggler": {
+      "button": "Visualizar site",
+      "draftLink": "Versão de rascunho",
+      "liveLink": "Versão publicada"
+    },
+    "publishButton": {
+      "default": "Publicar site",
+      "inProgress": "Publicando...",
+      "success": "Publicado!",
+      "fail": "Falhou!"
+    },
+    "saveButton": {
+      "default": "Salvar",
+      "inProgress": "Salvando...",
+      "success": "Salvo!",
+      "fail": "Falhou!"
+    }
+  },
+  "sidebarNav": {
+    "addNewSectionTooltip": "Adicionar uma nova seção na parte inferior da página",
+    "managePageSectionsTooltip": "Reordenar / excluir as seções da página",
+    "editStyleTooltip": "Alterar o estilo do seu site",
+    "openImageLibraryTooltip": "Abrir a galeria de imagens",
+    "leaveEditorTooltip": "Voltar para o aplicativo principal"
+  },
+  "pagePreview": {
+    "loading": "Carregando...",
+    "empty": {
+      "title": {
+        "withoutLocale": "Sua página está em branco",
+        "withLocale": "Sua página em %{localeName} está em branco"
+      },
+      "message": "Por favor, adicione a primeira seção clicando no botão {icon} na barra lateral esquerda."
+    }
+  },
+  "page": {
+    "list": {
+      "title": "Lista de páginas",
+      "subTitle": "Gerenciar as páginas do seu site",
+      "newButton": "Nova página",
+      "searchPlaceholder": "Digite sua pesquisa aqui...",
+      "item": {
+        "edit": "Editar configurações da página",
+        "clone": "Clonar página",
+        "hide": "Ocultar página",
+        "show": "Mostrar página",
+        "delete": "Excluir página"
+      }
+    },
+    "new": {
+      "title": "Criar uma nova página",
+      "submitButton": {
+        "default": "Criar página",
+        "inProgress": "Criando...",
+        "success": "Criado!",
+        "fail": "Falhou!"
+      },
+      "cancelButton": "Cancelar"
+    },
+    "edit": {
+      "title": "Editando uma página",
+      "currentPage": {
+        "title": "Editando a página atual"
+      },
+      "submitButton": {
+        "default": "Atualizar página",
+        "inProgress": "Atualizando...",
+        "success": "Atualizado!",
+        "fail": "Falhou!"
+      },
+      "cancelButton": "Cancelar"
+    },
+    "form": {
+      "tabs": {
+        "main": "Principal",
+        "seo": "SEO"
+      },
+      "title": "Título",
+      "path": "Caminho",
+      "visible": "Visível",
+      "visiblePlaceholder": "Mostrar/Ocultar a página",
+      "seoTitle": "Título meta",
+      "metaDescription": "Descrição meta",
+      "ogTitle": "og:title",
+      "ogDescription": "og:description",
+      "ogImageUrl": "og:image"
+    }
+  },
+  "sections": {
+    "addPane": {
+      "title": "Adicionar uma seção"
+    },
+    "listPane": {
+      "title": "Organizar seções",
+      "empty": "Não há seções."
+    }
+  },
+  "sectionPane": {
+    "tabs": {
+      "settings": "Conteúdo",
+      "blocks": "Blocos",
+      "advanced": "Avançado"
+    },
+    "blockList": {
+      "add": "Adicionar novo item"
+    }
+  },
+  "sectionBlockPane": {
+    "tabs": {
+      "settings": "Conteúdo",
+      "blocks": "Blocos",
+      "advanced": "Avançado"
+    }
+  },
+  "themeSectionList": {
+    "emptyCategory": "Nenhuma seção"
+  },
+  "style": {
+    "edit": {
+      "title": "Estilizar seu site",
+      "submitButton": {
+        "default": "Atualizar estilo",
+        "inProgress": "Atualizando...",
+        "success": "Atualizado!",
+        "fail": "Falhou!"
+      }
+    }
+  },
+  "imageInput": {
+    "addButton": "Adicionar imagem",
+    "replaceButton": "Substituir imagem",
+    "clearButton": "Limpar",
+    "altTextPlaceholder": "Texto alternativo para ajudar os mecanismos de busca"
+  },
+  "imageLibrary": {
+    "title": "Lista de imagens",
+    "pickerTitle": "Selecionar uma imagem",
+    "none": "Nenhuma imagem enviada ainda",
+    "searchPlaceholder": "Buscar por um nome de arquivo",
+    "pagination": {
+      "label": "%{start} - %{end} de %{totalItems} imagens",
+      "noItems": "Nenhuma imagem"
+    },
+    "destroy": {
+      "text": "Tem certeza?",
+      "ok": "Sim, exclua",
+      "cancel": "Cancelar"
+    },
+    "uploader": {
+      "wrongFiles": "Certifique-se de que o tamanho de cada imagem não seja maior que %{limit}.",
+      "uploadButton": {
+        "default": "Enviar imagens",
+        "inProgress": "Enviando...",
+        "success": "Enviado!",
+        "fail": "Falha!"
+      }
+    }
+  },
+  "iconInput": {
+    "addButton": "Adicionar ícone",
+    "replaceButton": "Substituir ícone",
+    "clearButton": "Limpar"
+  },
+  "iconLibrary": {
+    "title": "Ícones",
+    "pickerTitle": "Escolher um ícone"
+  },
+  "linkInput": {
+    "placeholder": "Clique aqui para selecionar um link",
+    "withNestedTextLabel": "Ativar texto",
+    "nestedTextPlaceholder": "Texto"
+  },
+  "linkPicker": {
+    "title": "Selecionar um link",
+    "insertTitle": "Inserir um link",
+    "page": {
+      "name": "Página",
+      "input": {
+        "label": "Página",
+        "placeholder": "Selecione uma página",
+        "searchPlaceholder": "Pesquisar...",
+        "emptyLabel": "Nenhuma página encontrada"
+      },
+      "sectionInput": {
+        "label": "Seção",
+        "placeholder": "Selecione uma seção",
+        "emptyLabel": "Nenhuma seção selecionada"
+      }
+    },
+    "url": {
+      "name": "URL",
+      "input": {
+        "label": "URL"
+      }
+    },
+    "email": {
+      "name": "Email",
+      "input": {
+        "label": "Email"
+      }
+    },
+    "shared": {
+      "mainButton": {
+        "select": "Selecionar",
+        "insert": "Adicionar"
+      },
+      "cancelButton": "Cancelar",
+      "newWindowInput": {
+        "label": "Abrir em nova janela"
+      }
+    }
+  },
+  "collectionItemInput": {
+    "select": {
+      "placeholder": "Selecione um item",
+      "searchPlaceholder": "Pesquisar...",
+      "emptyLabel": "Nenhum item encontrado"
+    }
+  },
+  "pagination": {
+    "defaultLabel": "%{start} - %{end} de %{totalItems} itens",
+    "defaultNoItems": "Nenhum"
+  },
+  "confirmationButton": {
+    "text": "Você tem certeza de que deseja realizar esta ação?",
+    "confirmButtonLabel": "Sim",
+    "cancelButtonLabel": "Não"
+  },
+  "errorModals": {
+    "staleRecord": {
+      "title": "Pedimos desculpas 🙇",
+      "message": "Não conseguimos salvar suas alterações porque outra pessoa atualizou o conteúdo no intervalo de tempo.",
+      "button": "Por favor, recarregue a página"
+    }
+  },
+  "support": {
+    "human": {
+      "storageUnits": {
+        "format": "%{number} %{unit}",
+        "units": {
+          "byte": {
+            "one": "Byte",
+            "other": "Bytes"
+          },
+          "kb": "KB",
+          "mb": "MB",
+          "gb": "GB"
+        }
+      }
+    }
+  }
+}
