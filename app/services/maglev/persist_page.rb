@@ -29,9 +29,9 @@ module Maglev
       # the sections_translations attribute is put by the SetupPages service
       # when we generate a brand new site
       if page_attributes.key?(:sections_translations)
-        page.prepare_sections_translations
+        page.prepare_sections_translations(theme)
       else
-        page.prepare_sections
+        page.prepare_sections(theme)
       end
 
       page.save!
@@ -40,15 +40,7 @@ module Maglev
     def persist_site!
       return unless can_persist_site?
 
-      # the sections_translations attribute is put by the SetupPages service
-      # when we generate a brand new site
-      if site_attributes.key?(:sections_translations)
-        site.attributes = site_attributes
-        site.prepare_sections_translations
-      else
-        site.attributes = site_attributes_with_consistent_sections
-        site.prepare_sections
-      end
+      assign_sections_to_site
 
       site.save!
     end
@@ -88,6 +80,18 @@ module Maglev
         site_attributes[:sections].present? ||
         site_attributes[:sections_translations].present?
       )
+    end
+
+    def assign_sections_to_site
+      # the sections_translations attribute is put by the SetupPages service
+      # when we generate a brand new site
+      if site_attributes.key?(:sections_translations)
+        site.attributes = site_attributes
+        site.prepare_sections_translations(theme)
+      else
+        site.attributes = site_attributes_with_consistent_sections
+        site.prepare_sections(theme)
+      end
     end
   end
 end

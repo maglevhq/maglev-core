@@ -41,7 +41,7 @@ FactoryBot.define do
                                                       id: 'jumbotron',
                                                       category: 'headers',
                                                       settings: [
-                                                        { label: 'Title', id: 'title', type: 'text', defautl: 'Title' },
+                                                        { label: 'Title', id: 'title', type: 'text', default: 'Title' },
                                                         { label: 'Body', id: 'body', type: 'text', html: true, line_break: true,
                                                           default: 'Body' }
                                                       ],
@@ -53,7 +53,7 @@ FactoryBot.define do
                                                       id: 'featured_product',
                                                       category: 'features',
                                                       settings: [
-                                                        { label: 'Title', id: 'title', type: 'text', defautl: 'Title' },
+                                                        { label: 'Title', id: 'title', type: 'text', default: 'Title' },
                                                         { label: 'Product', id: 'product', type: 'collection_item', collection_id: 'products' }
                                                       ],
                                                       blocks: []
@@ -66,17 +66,26 @@ FactoryBot.define do
                                                       settings: [{ label: 'Title', id: 'title', type: 'text', default: 'My work' }],
                                                       blocks: [
                                                         {
-                                                          name: 'Menu item',
-                                                          type: 'menu_item',
+                                                          name: 'Showcase item',
+                                                          type: 'showcase_item',
                                                           settings: [
-                                                            { label: 'Title', id: 'title', type: 'text', default: 'Work #1' },
-                                                            { label: 'Image', id: 'image', type: 'image',
+                                                            { label: 'Name', id: 'name', type: 'text', default: 'Work #1' },
+                                                            { label: 'Screenshot', id: 'screenshot', type: 'image',
                                                               default: '/samples/images/default.svg' },
                                                             { label: 'Description', id: 'description', type: 'text',
                                                               default: 'Description' }
                                                           ]
                                                         }
                                                       ]
+                                                    }.with_indifferent_access),
+                                                    Maglev::Section.build({
+                                                      theme: theme,
+                                                      name: 'Footer',
+                                                      id: 'footer',
+                                                      category: 'footers',
+                                                      site_scoped: true,
+                                                      settings: [{ label: 'Copyright', id: 'copyright', type: 'text' }],
+                                                      blocks: []
                                                     }.with_indifferent_access)
                                                   ])
     end

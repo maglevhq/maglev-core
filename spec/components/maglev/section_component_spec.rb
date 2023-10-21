@@ -3,7 +3,8 @@
 require 'rails_helper'
 
 describe Maglev::SectionComponent do
-  let(:page) { build(:page, :with_navbar).tap(&:prepare_sections) }
+  let(:theme) { build(:theme) }
+  let(:page) { build(:page, :with_navbar).tap { |page| page.prepare_sections(theme) } }
   let(:config) { instance_double('MaglevConfig', asset_host: 'https://assets.maglev.local') }
   let(:page_component) { instance_double('PageCommponent', page: page, config: config) }
   let(:attributes) { page.sections[1].deep_symbolize_keys }

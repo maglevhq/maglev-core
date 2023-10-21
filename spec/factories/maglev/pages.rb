@@ -19,7 +19,7 @@ FactoryBot.define do
           settings: [{ id: :title, value: 'Our projects' }],
           blocks: [
             {
-              type: 'project',
+              type: 'showcase_item',
               settings: [
                 { id: :name, value: 'My first project' },
                 { id: :screenshot, value: '/assets/screenshot-01.png' }
@@ -88,7 +88,7 @@ FactoryBot.define do
             settings: [{ id: :title, value: 'Our projects' }],
             blocks: [
               {
-                type: 'project',
+                type: 'showcase_item',
                 settings: [
                   { id: :name, value: 'My first project' },
                   { id: :screenshot, value: '/assets/screenshot-01.png' }
@@ -123,7 +123,7 @@ FactoryBot.define do
             settings: [{ id: :title, value: 'Our projects' }],
             blocks: [
               {
-                type: 'project',
+                type: 'showcase_item',
                 settings: [
                   { id: :name, value: 'My first project' },
                   { id: :screenshot, value: '/assets/screenshot-01.png' }

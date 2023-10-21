@@ -60,8 +60,9 @@ RSpec.describe Maglev::Site, type: :model do
 
   describe '#prepare_sections' do
     let(:site) { build(:site, :with_preset_navbar) }
+    let(:theme) { build(:theme) }
 
-    before { site.prepare_sections }
+    before { site.prepare_sections(theme) }
 
     it 'assign an id to each section and block' do
       expect(site.sections.first['blocks'].count).to eq(2)

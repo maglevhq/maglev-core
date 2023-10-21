@@ -17,7 +17,7 @@ describe Maglev::GetPageSectionNames do
   end
 
   context 'the page has a couple of sections' do
-    let(:page) { build(:page).tap(&:prepare_sections) }
+    let(:page) { build(:page).tap { |page| page.prepare_sections(theme) } }
 
     it 'returns an array of hashes containing the id and name of a page section' do
       expect(subject).to match([a_hash_including(name: 'Jumbotron'), a_hash_including(name: 'Showcase')])

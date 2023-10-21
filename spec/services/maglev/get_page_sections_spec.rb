@@ -69,7 +69,7 @@ describe Maglev::GetPageSections do
                                   { 'id' => 'title', 'value' => 'Our projects' }
                                 ], 'blocks' => [
                                   {
-                                    'type' => 'project',
+                                    'type' => 'showcase_item',
                                     'settings' => [
                                       { 'id' => 'name', 'value' => 'My first project' },
                                       { 'id' => 'screenshot', 'value' => '/assets/screenshot-01.png' }
@@ -107,7 +107,7 @@ describe Maglev::GetPageSections do
                                     { 'id' => 'title', 'value' => 'Our projects' }
                                   ], 'blocks' => [
                                     {
-                                      'type' => 'project',
+                                      'type' => 'showcase_item',
                                       'settings' => [
                                         { 'id' => 'name', 'value' => 'My first project' },
                                         { 'id' => 'screenshot', 'value' => '/assets/screenshot-01.png' }
