@@ -50,12 +50,16 @@ jobs:
           MAGLEV_APP_DATABASE_PASSWORD: "password"
         run: |
           bin/rails db:setup
+        env:
+          BUNDLE_GEMFILE: ${{ matrix.gemfile }}
 
       - name: Run Rails tests
         env:
           MAGLEV_APP_DATABASE_USERNAME: "maglev"
           MAGLEV_APP_DATABASE_PASSWORD: "password"
         run: bundle exec rspec
+        env:
+          BUNDLE_GEMFILE: ${{ matrix.gemfile }}
 
       - name: Run Javascript tests
         run: yarn test
