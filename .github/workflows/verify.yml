@@ -20,15 +20,18 @@ jobs:
     strategy:
       matrix:
         node: [16, 18]
+        rails: ["6.1", "7.1"]
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Setup Ruby and install gems
+      - name: Setup Ruby and install gems for Rails ${{ matrix.rails }}
         uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
+        env:
+          RAILS_VERSION: ${{ matrix.rails }}
 
       - name: Use Node.js ${{ matrix.node }}
         uses: actions/setup-node@v3

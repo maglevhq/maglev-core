@@ -8,13 +8,20 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 # development dependencies will be added by default to the :development group.
 gemspec
 
-gem 'rails', '~> 6.1.6', '>= 6.1.7.5'
+if ENV['RAILS_VERSION']
+  gem 'rails', "~> #{ENV['RAILS_VERSION']}"
+else
+  gem 'rails', '~> 7.1'
+end
 
 # Active Storage analyser
 gem 'mini_magick', '~> 4.11'
 
 # Use Active Storage variant
 gem 'image_processing', '~> 1.12.2'
+
+# Use Sprockets to deal with assets in the dummy app
+gem "sprockets-rails"
 
 # Temporary use this branch because it solves a bug
 # gem 'maglev-injectable', path: '../injectable'

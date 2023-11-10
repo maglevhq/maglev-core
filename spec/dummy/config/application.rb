@@ -10,8 +10,12 @@ require 'maglev'
 module Dummy
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 6.0
-
+    if Rails::VERSION::MAJOR > 6
+      config.load_defaults 7.0
+    else
+      config.load_defaults 6.0
+    end
+    
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading

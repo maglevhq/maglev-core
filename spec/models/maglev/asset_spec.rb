@@ -7,6 +7,23 @@ RSpec.describe Maglev::Asset, type: :model do
     expect(build(:asset)).to be_valid
   end
 
+  describe 'Given we analyze the uploaded file' do
+    let(:asset) { described_class.new }
+
+    before do
+      asset.file.attach(
+        io: File.open(Rails.root.join('../fixtures/files/asset.jpg').to_s),
+        filename: 'asset.jpg',
+        content_type: 'image/jpg'
+      )
+    end
+
+    it 'sets the width and height of the image' do
+      asset.save
+      expect(asset.width).to eq 800
+    end
+  end
+
   describe '#to_param' do
     subject { build(:asset, id: 1, filename: 'Et voilà.jpg').to_param }
 

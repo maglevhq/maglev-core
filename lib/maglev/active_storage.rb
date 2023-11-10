@@ -5,9 +5,9 @@ module Maglev
     extend ActiveSupport::Concern
 
     included do
-      after_commit :save_metadata_now, on: :create
-
       has_one_attached :file
+
+      after_commit :save_metadata_now, on: :create, prepend: true
 
       delegate :url, :download, to: :file
     end

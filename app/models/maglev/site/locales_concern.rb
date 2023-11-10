@@ -6,7 +6,11 @@ module Maglev::Site::LocalesConcern
 
   included do
     ## serializers ##
-    serialize :locales, LocalesSerializer
+    if Rails::VERSION::MAJOR > 6
+      serialize :locales, coder: LocalesSerializer
+    else
+      serialize :locales, LocalesSerializer
+    end
 
     ## validation ##
     validates :locales, 'maglev/collection': true, length: { minimum: 1 }
