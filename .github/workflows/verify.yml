@@ -26,12 +26,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Setup Ruby and install gems using ${{ gemfile }}
+      - name: Setup Ruby and install gems using ${{ matrix.gemfile }}
         uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
         env:
-          BUNDLE_GEMFILE: ${{ gemfile }}
+          BUNDLE_GEMFILE: ${{ matrix.gemfile }}
 
       - name: Use Node.js ${{ matrix.node }}
         uses: actions/setup-node@v3
