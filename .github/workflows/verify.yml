@@ -20,18 +20,18 @@ jobs:
     strategy:
       matrix:
         node: [16, 18]
-        rails: ["6.1", "7.1"]
+        gemfile: ["Gemfile.legacy", "Gemfile"]
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Setup Ruby and install gems for Rails ${{ matrix.rails }}
+      - name: Setup Ruby and install gems using ${{ gemfile }}
         uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
         env:
-          RAILS_VERSION: ${{ matrix.rails }}
+          BUNDLE_GEMFILE: ${{ gemfile }}
 
       - name: Use Node.js ${{ matrix.node }}
         uses: actions/setup-node@v3
