@@ -328,7 +328,6 @@ DEPENDENCIES
   generator_spec
   image_processing (~> 1.12.2)
   maglevcms!
-  mini_magick (~> 4.11)
   nokogiri (>= 1.13.10)
   pg (~> 1.4.3)
   rails (~> 7.1)

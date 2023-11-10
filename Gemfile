@@ -10,9 +10,6 @@ gemspec
 
 gem 'rails', '~> 7.1'
 
-# Active Storage analyser
-gem 'mini_magick', '~> 4.11'
-
 # Use Active Storage variant
 gem 'image_processing', '~> 1.12.2'
 
