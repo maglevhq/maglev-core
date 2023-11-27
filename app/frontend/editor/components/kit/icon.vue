@@ -23,9 +23,11 @@ export default {
   },
   computed: {
     icon() {
-      return defineAsyncComponent(() =>
-        import(`../../assets/${this.library}/${this.name}.svg`),
-      )
+      return defineAsyncComponent(() => {
+        const path = `../../assets/${this.library}/${this.name}.svg`
+        return import(/* @vite-ignore */ path)
+      })
+        
     },
   },
 }
