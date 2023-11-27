@@ -16,7 +16,10 @@
       v-model="selectedCollectionItem"
     >
       <template v-slot:value>
-        <div class="flex items-center flex-grow-0 overflow-x-hidden" :title="selectedCollectionItem.label">
+        <div
+          class="flex items-center flex-grow-0 overflow-x-hidden"
+          :title="selectedCollectionItem.label"
+        >
           <div
             class="h-10 w-10 bg-gray-400 mr-3"
             v-if="selectedCollectionItem.imageUrl"

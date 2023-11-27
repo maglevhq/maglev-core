@@ -35,7 +35,11 @@ export default {
   },
   computed: {
     name() {
-      return this.$st(`${this.currentI18nScope}.sections.${this.sectionType}.name`) || this.hoveredSection.name
+      return (
+        this.$st(
+          `${this.currentI18nScope}.sections.${this.sectionType}.name`,
+        ) || this.hoveredSection.name
+      )
     },
     sectionType() {
       return this.hoveredSection.definition.id

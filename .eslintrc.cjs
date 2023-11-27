@@ -17,18 +17,6 @@ module.exports = {
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     quotes: [2, 'single', { avoidEscape: true, allowTemplateLiterals: true }],
-    // 'prettier': [
-    //   'warn',
-    //   {
-    //     semi: false,
-    //     trailingComma: 'all',
-    //     singleQuote: true,
-    //     printWidth: 80,
-    //     tabWidth: 2,
-    //     arrow_parens: 'avoid',
-    //     endOfLine: 'lf',
-    //   },
-    // ],
   },
   overrides: [
     {

@@ -9,11 +9,12 @@
     </template>
     <template v-slot:content>
       <div class="flex flex-wrap gap-1">
-        <preset-button 
-          v-for="preset in presets" 
+        <preset-button
+          v-for="preset in presets"
           v-model="updatableValue"
           :preset="preset"
-          :key="preset" />
+          :key="preset"
+        />
       </div>
     </template>
   </dropdown>
@@ -41,6 +42,6 @@ export default {
         this.$emit('input', color)
       },
     },
-  }
+  },
 }
 </script>

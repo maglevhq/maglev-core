@@ -84,16 +84,13 @@
       v-if="setting.type == 'collection_item'"
     />
 
-    <divider 
+    <divider
       :text="label"
       :withHint="options.withHint"
       v-if="setting.type == 'divider'"
     />
 
-    <hint 
-      :text="label"
-      v-if="setting.type == 'hint'"
-    />
+    <hint :text="label" v-if="setting.type == 'hint'" />
   </div>
 </template>
 
@@ -104,15 +101,17 @@ export default {
     setting: { type: Object, default: () => ({ type: 'text' }) },
     content: { type: Array, required: true },
     isFocused: { type: Boolean, default: false },
-    i18nScope: { type: String, required: false }
+    i18nScope: { type: String, required: false },
   },
   computed: {
     label() {
-      // i18n key examples: 
+      // i18n key examples:
       // - themes.simple.style.settings.main_color
       // - themes.simple.sections.navbar_01.settings.title
       const i18nKey = `${this.i18nScope}.${this.setting.id}`
-      const translation = !this.isBlank(this.i18nScope) ? this.$st(i18nKey) : null
+      const translation = !this.isBlank(this.i18nScope)
+        ? this.$st(i18nKey)
+        : null
       return translation || this.setting.label
     },
     options() {

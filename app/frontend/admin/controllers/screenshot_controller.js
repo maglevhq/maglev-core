@@ -21,7 +21,11 @@ export default class extends Controller {
       '[data-maglev-dropzone]',
     )
     this.sourceTarget.contentWindow
-      .html2canvas(realSource, { allowTaint: true, logging: true, useCORS: true })
+      .html2canvas(realSource, {
+        allowTaint: true,
+        logging: true,
+        useCORS: true,
+      })
       .then((canvas) => {
         this.outputTarget.src = canvas.toDataURL() // for debugging purpose
         axios

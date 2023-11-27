@@ -27,7 +27,6 @@ export default {
         const path = `../../assets/${this.library}/${this.name}.svg`
         return import(/* @vite-ignore */ path)
       })
-        
     },
   },
 }

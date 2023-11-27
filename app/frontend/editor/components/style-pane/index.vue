@@ -31,7 +31,7 @@ export default {
     },
     i18nScope() {
       return `${this.currentStyleI18nScope}.settings`
-    }
+    },
   },
   methods: {
     ...mapActions(['previewStyle']),

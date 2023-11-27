@@ -1,11 +1,14 @@
 <template>
   <div class="relative">
-    <div 
-      class="absolute left-3 top-2 w-6 h-6 rounded-sm border border-gray-200" 
+    <div
+      class="absolute left-3 top-2 w-6 h-6 rounded-sm border border-gray-200"
       :class="{ 'bg-checkerboard': isTransparent }"
-      :style="{ 'background-color': styleRgbaColor }"></div>
+      :style="{ 'background-color': styleRgbaColor }"
+    ></div>
 
-    <span class="absolute left-11 top-1.5 font-bold text-gray-900 text-lg">#</span>
+    <span class="absolute left-11 top-1.5 font-bold text-gray-900 text-lg"
+      >#</span
+    >
 
     <input
       type="text"
@@ -14,17 +17,17 @@
       class="py-2 pl-14 rounded bg-gray-100 text-gray-800 focus:outline-none focus:ring placeholder-gray-500 font-normal"
       :class="{
         'pr-8': hasPresets,
-        'pr-2': !hasPresets
+        'pr-2': !hasPresets,
       }"
       autocomplete="off"
-      minlength="4" 
+      minlength="4"
       maxlength="8"
       size="7"
     />
 
-    <preset-dropdown 
-      v-model="updatableValue" 
-      :presets="presets" 
+    <preset-dropdown
+      v-model="updatableValue"
+      :presets="presets"
       v-if="hasPresets"
     />
   </div>
@@ -56,7 +59,9 @@ export default {
       return colorVariableToRgb(this.value)
     },
     styleRgbaColor() {
-      const color = this.isTransparent ? { r: 255, g: 255, b: 255 } : (this.rgbColor || { r: 0, g: 0, b: 0 })
+      const color = this.isTransparent
+        ? { r: 255, g: 255, b: 255 }
+        : this.rgbColor || { r: 0, g: 0, b: 0 }
       return `rgba(${color.r}, ${color.g}, ${color.b}, 1)`
     },
     isTransparent() {
@@ -79,7 +84,7 @@ export default {
       var value = event.target.value.replace('#', '')
       if (value.length > 0) value = `#${value}`
       this.$emit('input', value)
-    }
-  }
+    },
+  },
 }
 </script>

@@ -71,7 +71,7 @@ export default {
       return this.currentSectionDefinition.blocksPresentation === 'tree'
         ? BlockTree
         : BlockList
-    }
+    },
   },
   methods: {
     findTabIndexFromRoute() {

@@ -34,7 +34,7 @@ export default {
     },
     i18nScope() {
       return `${this.currentSectionI18nScope}.settings`
-    }
+    },
   },
   methods: {
     ...mapActions(['updateSectionContent']),

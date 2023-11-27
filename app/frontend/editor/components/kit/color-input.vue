@@ -12,8 +12,6 @@
 </template>
 
 <script>
-import { hexToRgb } from '@/misc/utils'
-
 import CoreInput from '@/components/kit/color-input/core-input.vue'
 
 export default {
@@ -27,7 +25,7 @@ export default {
       default: () => [],
     },
     value: { type: String },
-    showLabel: { type: Boolean, default: true }
+    showLabel: { type: Boolean, default: true },
   },
   computed: {
     updatableValue: {

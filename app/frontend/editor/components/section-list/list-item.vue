@@ -28,8 +28,12 @@ export default {
   },
   computed: {
     name() {
-      return this.$st(`${this.currentI18nScope}.sections.${this.section.type}.name`) || this.section.name
-    }
+      return (
+        this.$st(
+          `${this.currentI18nScope}.sections.${this.section.type}.name`,
+        ) || this.section.name
+      )
+    },
   },
   methods: {
     ...mapActions(['removeSection']),

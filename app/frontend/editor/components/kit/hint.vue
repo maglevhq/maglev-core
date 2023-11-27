@@ -7,6 +7,6 @@ export default {
   name: 'Hint',
   props: {
     text: { type: String, default: 'Hint goes here' },
-  }
+  },
 }
 </script>
