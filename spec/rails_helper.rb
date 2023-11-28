@@ -46,7 +46,7 @@ rescue ActiveRecord::PendingMigrationError => e
 end
 RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
-  config.fixture_path = File.join(File.dirname(__FILE__), 'fixtures')
+  config.fixture_paths = [File.join(File.dirname(__FILE__), 'fixtures')]
 
   config.include ActionDispatch::TestProcess::FixtureFile
   config.include FactoryBot::Syntax::Methods
