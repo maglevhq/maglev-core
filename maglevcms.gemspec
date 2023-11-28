@@ -51,6 +51,6 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'vite_rails', '< 4', '>= 3'
   spec.add_dependency 'vite_ruby', '>= 3.5'
 
-  spec.add_development_dependency 'pg', '~> 1.4.3'
+  spec.add_development_dependency 'pg', '~> 1.5.4'
 end
 # rubocop:enable Metrics/BlockLength
