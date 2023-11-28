@@ -1,10 +1,10 @@
 <template>
-  <icon :name="iconName" />
+  <uikit-icon :name="iconName" />
 </template>
 
 <script>
 export default {
-  name: 'PageIcon',
+  name: 'UIKitPageIcon',
   props: {
     page: { type: Object, required: true },
     size: { type: String, default: '1.25rem' },

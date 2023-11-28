@@ -22,7 +22,7 @@
             @click.stop.prevent="clear"
             v-if="canClear"
           >
-            <icon name="ri-close-line" />
+            <uikit-icon name="ri-close-line" />
           </button>
           <div
             :class="{
@@ -31,12 +31,12 @@
               'ml-auto': !canClear,
             }"
           >
-            <icon
+            <uikit-icon
               name="arrow-up-s-line"
               size="1.5rem"
               :class="{ hidden: !isOpen }"
             />
-            <icon
+            <uikit-icon
               name="arrow-down-s-line"
               size="1.5rem"
               :class="{ hidden: isOpen }"
@@ -92,7 +92,7 @@
 import { debounce } from '@/misc/utils'
 
 export default {
-  name: 'SelectInput',
+  name: 'UIKitSelectInput',
   props: {
     label: { type: String, default: 'Label' },
     name: { type: String, default: 'text' },

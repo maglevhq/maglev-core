@@ -1,10 +1,10 @@
 <template>
-  <dropdown v-on="$listeners" class="absolute top-1.5 right-1">
+  <uikit-dropdown v-on="$listeners" class="absolute top-1.5 right-1">
     <template v-slot:button>
       <button
         class="px-1 py-1 hover:text-gray-900 focus:outline-none transition-colors duration-200"
       >
-        <icon name="ri-palette-line" size="1.25rem" />
+        <uikit-icon name="ri-palette-line" size="1.25rem" />
       </button>
     </template>
     <template v-slot:content>
@@ -17,7 +17,7 @@
         />
       </div>
     </template>
-  </dropdown>
+  </uikit-dropdown>
 </template>
 
 <script>

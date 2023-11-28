@@ -13,7 +13,7 @@
 import { defineAsyncComponent } from 'vue'
 
 export default {
-  name: 'MaglevIcon',
+  name: 'UIKitIcon',
   props: {
     name: { type: String },
     size: { type: String, default: '1.25rem' },

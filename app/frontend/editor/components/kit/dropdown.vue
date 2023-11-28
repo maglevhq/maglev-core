@@ -24,7 +24,7 @@
 import { ModalBus } from '@/plugins/event-bus'
 
 export default {
-  name: 'Dropdown',
+  name: 'UIKitDropdown',
   props: {
     placement: {
       type: String,

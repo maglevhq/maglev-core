@@ -1,13 +1,13 @@
 <template>
   <div>
-    <dropdown placement="bottom" ref="dropdown" class="h-full flex">
+    <uikit-dropdown placement="bottom" ref="dropdown" class="h-full flex">
       <template v-slot:button>
         <button
           class="h-full w-full px-6 hover:bg-editor-primary hover:bg-opacity-5 transition-colors duration-200 flex items-center focus:outline-none focus:none"
         >
-          <icon name="ri-global-line" class="mr-2" />
+          <uikit-icon name="ri-global-line" class="mr-2" />
           <span class="mr-1">{{ currentLabel }}</span>
-          <icon name="arrow-down-s-line" />
+          <uikit-icon name="arrow-down-s-line" />
         </button>
       </template>
       <template v-slot:content>
@@ -20,7 +20,7 @@
           />
         </div>
       </template>
-    </dropdown>
+    </uikit-dropdown>
   </div>
 </template>
 

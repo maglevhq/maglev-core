@@ -1,6 +1,6 @@
 <template>
   <div class="flex items-center">
-    <icon
+    <uikit-icon
       v-for="(icon, index) in icons"
       :key="icon.device"
       :name="icon.name"

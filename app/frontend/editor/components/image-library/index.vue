@@ -6,7 +6,7 @@
         @uploaded="refresh"
         class="flex-shrink-0"
       />
-      <search-input
+      <uikit-search-input
         class="w-72 ml-auto"
         :placeholder="$t('imageLibrary.searchPlaceholder')"
         @search="search"
@@ -31,7 +31,7 @@
           />
         </transition>
       </div>
-      <pagination
+      <uikit-pagination
         labelI18nKey="imageLibrary.pagination.label"
         noItemsI18nKey="imageLibrary.pagination.noItems"
         :activePage="activePage"

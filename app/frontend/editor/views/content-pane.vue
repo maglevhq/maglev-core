@@ -15,7 +15,7 @@
           }"
           class="flex items-center"
         >
-          <icon name="arrow-drop-left" />
+          <uikit-icon name="arrow-drop-left" />
           <span class="text-xs">{{ sectionTitle }}</span>
         </router-link>
       </p>

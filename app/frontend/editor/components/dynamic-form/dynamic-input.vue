@@ -1,6 +1,6 @@
 <template>
   <div>
-    <text-input
+    <uikit-text-input
       :label="label"
       :name="setting.id"
       :isFocused="isFocused"
@@ -12,7 +12,7 @@
         parseInt(options.nbRows || 1) < 2
       "
     />
-    <textarea-input
+    <uikit-textarea-input
       :label="label"
       :name="setting.id"
       :isFocused="isFocused"
@@ -23,7 +23,7 @@
         setting.type == 'text' && !options.html && parseInt(options.nbRows) > 1
       "
     />
-    <rich-text-input
+    <uikit-rich-text-input
       :label="label"
       :name="setting.id"
       :isFocused="isFocused"
@@ -34,27 +34,27 @@
       v-model="inputValue"
       v-if="setting.type == 'text' && options.html"
     />
-    <image-input
+    <uikit-image-input
       :label="label"
       :name="setting.id"
       :isFocused="isFocused"
       v-model="inputValue"
       v-if="setting.type == 'image'"
     />
-    <icon-input
+    <uikit-icon-input
       :label="label"
       :name="setting.id"
       :isFocused="isFocused"
       v-model="inputValue"
       v-if="setting.type == 'icon'"
     />
-    <checkbox-input
+    <uikit-checkbox-input
       :label="label"
       :name="setting.id"
       v-model="inputValue"
       v-if="setting.type == 'checkbox'"
     />
-    <link-input
+    <uikit-link-input
       :label="label"
       :name="setting.id"
       :isFocused="isFocused"
@@ -62,21 +62,21 @@
       v-model="inputValue"
       v-if="setting.type == 'link'"
     />
-    <color-input
+    <uikit-color-input
       :label="label"
       :name="setting.id"
       v-model="inputValue"
       :presets="options.presets"
       v-if="setting.type == 'color'"
     />
-    <simple-select
+    <uikit-simple-select
       :label="label"
       :name="setting.id"
       v-model="inputValue"
       :selectOptions="options.selectOptions"
       v-if="setting.type == 'select'"
     />
-    <collection-item-input
+    <uikit-collection-item-input
       :label="label"
       :name="setting.id"
       v-model="inputValue"
@@ -84,13 +84,13 @@
       v-if="setting.type == 'collection_item'"
     />
 
-    <divider
+    <uikit-divider
       :text="label"
       :withHint="options.withHint"
       v-if="setting.type == 'divider'"
     />
 
-    <hint :text="label" v-if="setting.type == 'hint'" />
+    <uikit-hint :text="label" v-if="setting.type == 'hint'" />
   </div>
 </template>
 

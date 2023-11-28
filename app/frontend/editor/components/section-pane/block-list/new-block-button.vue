@@ -1,6 +1,6 @@
 <template>
   <div v-if="hasTypes" class="w-full button-wrapper">
-    <dropdown
+    <uikit-dropdown
       ref="dropdown"
       placement="top"
       v-on="$listeners"
@@ -8,7 +8,7 @@
     >
       <template v-slot:button>
         <button class="big-submit-button bg-editor-primary">
-          <icon name="ri-add-line" size="1.5rem" />
+          <uikit-icon name="ri-add-line" size="1.5rem" />
           <span class="ml-3">{{ $t('sectionPane.blockList.add') }}</span>
         </button>
       </template>
@@ -24,13 +24,13 @@
           </button>
         </div>
       </template>
-    </dropdown>
+    </uikit-dropdown>
     <button
       class="big-submit-button bg-editor-primary"
       @click="addSectionBlock"
       v-else
     >
-      <icon name="ri-add-line" size="1.5rem" />
+      <uikit-icon name="ri-add-line" size="1.5rem" />
       <span class="ml-3">{{ $t('sectionPane.blockList.add') }}</span>
     </button>
   </div>

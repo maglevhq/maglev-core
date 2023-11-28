@@ -4,7 +4,7 @@
       {{ label }}
     </label>
 
-    <text-input
+    <uikit-text-input
       v-model="textInput"
       :showLabel="false"
       :placeholder="$t('linkInput.nestedTextPlaceholder')"
@@ -18,15 +18,15 @@
       @click="openLinkPickerModal"
     >
       <div class="flex-1 flex items-center overflow-hidden" v-if="isPage">
-        <page-icon :page="{ path: value.href }" class="flex-shrink-0" />
+        <uikit-page-icon :page="{ path: value.href }" class="flex-shrink-0" />
         <span class="ml-3">{{ value.linkLabel }}</span>
       </div>
       <div class="flex-1 flex items-center overflow-hidden" v-if="isUrl">
-        <icon name="ri-external-link-line" class="flex-shrink-0" />
+        <uikit-icon name="ri-external-link-line" class="flex-shrink-0" />
         <span class="ml-3 shrink">{{ value.href }}</span>
       </div>
       <div class="flex-1 flex items-center overflow-hidden" v-if="isEmail">
-        <icon name="ri-mail-line" class="flex-shrink-0" />
+        <uikit-icon name="ri-mail-line" class="flex-shrink-0" />
         <span class="ml-3">{{ value.email }}</span>
       </div>
 
@@ -38,7 +38,7 @@
       </div>
 
       <button class="ml-3" @click.prevent.stop="clear" v-if="!isBlank(value)">
-        <icon name="ri-close-line" />
+        <uikit-icon name="ri-close-line" />
       </button>
     </div>
   </div>
@@ -49,7 +49,7 @@ import LinkPicker from '@/components/link-picker/index.vue'
 import { pick } from '@/misc/utils'
 
 export default {
-  name: 'LinkInput',
+  name: 'UIKitLinkInput',
   props: {
     label: { type: String, default: 'Label' },
     name: { type: String, default: 'image' },

@@ -25,7 +25,7 @@
       class="bg-white w-full h-16 flex items-center justify-center"
       v-if="isImageNotFound"
     >
-      <icon name="ri-bug-line" />
+      <uikit-icon name="ri-bug-line" />
     </div>
     <div
       class="flex items-center px-2 bg-editor-primary bg-opacity-5 py-4 w-full font-bold text-sm"

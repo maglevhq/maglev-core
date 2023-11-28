@@ -20,7 +20,7 @@
 
 <script>
 export default {
-  name: 'CheckboxInput',
+  name: 'UIKitCheckboxInput',
   props: {
     label: { type: String, default: 'Label' },
     name: { type: String, default: 'text' },

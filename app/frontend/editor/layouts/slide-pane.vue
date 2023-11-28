@@ -31,7 +31,7 @@
 
           <div class="ml-auto">
             <router-link :to="{ name: 'editPage' }">
-              <icon name="ri-close-circle-line" />
+              <uikit-icon name="ri-close-circle-line" />
             </router-link>
           </div>
         </div>

@@ -22,7 +22,7 @@
 
 <script>
 export default {
-  name: 'Simple-Select',
+  name: 'UIKitSimpleSelect',
   props: {
     label: { type: String, default: 'Label' },
     name: { type: String, default: 'select' },

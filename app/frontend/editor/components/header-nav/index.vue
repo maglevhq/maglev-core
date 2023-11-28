@@ -18,9 +18,9 @@
           }"
         >
           <span>{{ $t('headerNav.pages') }}</span>
-          <page-icon class="ml-4" :page="currentPage" />
+          <uikit-page-icon class="ml-4" :page="currentPage" />
           <span class="ml-2">{{ currentPage.title }}</span>
-          <icon name="arrow-down-s-line" class="ml-3" />
+          <uikit-icon name="arrow-down-s-line" class="ml-3" />
         </router-link>
 
         <separator />
@@ -33,7 +33,7 @@
             'bg-editor-primary bg-opacity-5': isEditPageActive,
           }"
         >
-          <icon name="settings-4-line" size="1.25rem" />
+          <uikit-icon name="settings-4-line" size="1.25rem" />
           <span class="ml-2">{{ $t('headerNav.pageSettings') }}</span>
         </router-link>
 

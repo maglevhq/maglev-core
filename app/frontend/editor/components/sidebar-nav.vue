@@ -17,7 +17,7 @@
           }"
           v-tooltip.right="$t('sidebarNav.addNewSectionTooltip')"
         >
-          <icon name="add-box-line" size="1.5rem" />
+          <uikit-icon name="add-box-line" size="1.5rem" />
         </router-link>
       </li>
       <li>
@@ -30,7 +30,7 @@
           }"
           v-tooltip.right="$t('sidebarNav.managePageSectionsTooltip')"
         >
-          <icon name="ri-stack-line" size="1.5rem" />
+          <uikit-icon name="ri-stack-line" size="1.5rem" />
         </router-link>
       </li>
       <li v-if="hasStyle">
@@ -43,7 +43,7 @@
           }"
           v-tooltip.right="$t('sidebarNav.editStyleTooltip')"
         >
-          <icon name="ri-drop-line" size="1.25rem" />
+          <uikit-icon name="ri-drop-line" size="1.25rem" />
         </router-link>
       </li>
       <li>
@@ -53,7 +53,7 @@
           @click.prevent="openImageLibraryModal"
           v-tooltip.right="$t('sidebarNav.openImageLibraryTooltip')"
         >
-          <icon name="image-line" size="1.5rem" />
+          <uikit-icon name="image-line" size="1.5rem" />
         </a>
       </li>
       <li v-if="false">
@@ -83,7 +83,7 @@
           class="flex justify-center py-5 -ml-4 -mr-4 hover:bg-editor-primary hover:bg-opacity-5 transition-colors duration-200"
           v-tooltip.right="$t('sidebarNav.leaveEditorTooltip')"
         >
-          <icon name="logout-box-r-line" size="1.5rem" />
+          <uikit-icon name="logout-box-r-line" size="1.5rem" />
         </a>
       </li>
     </ol>

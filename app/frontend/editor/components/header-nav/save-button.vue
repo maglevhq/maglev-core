@@ -1,5 +1,5 @@
 <template>
-  <submit-button
+  <uikit-submit-button
     type="button"
     class="block text-white bg-opacity-95 hover:bg-opacity-100 transition-colors duration-200"
     :class="{

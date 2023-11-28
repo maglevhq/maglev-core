@@ -11,7 +11,7 @@
       }"
       :style="{ 'background-color': hexColor }"
     >
-      <icon name="ri-check-line" size="1rem" v-if="selected" />
+      <uikit-icon name="ri-check-line" size="1rem" v-if="selected" />
     </div>
   </div>
 </template>

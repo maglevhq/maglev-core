@@ -1,5 +1,5 @@
 <template>
-  <tabs
+  <uikit-tabs
     :tabs="tabs"
     :firstIndex="tabIndexFromRoute"
     :otherProps="{ sectionBlockId: currentSectionBlock.id, settingId }"

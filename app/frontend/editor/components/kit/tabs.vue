@@ -43,7 +43,7 @@
 
 <script>
 export default {
-  name: 'Tabs',
+  name: 'UIKitTabs',
   props: {
     tabs: { type: Array, default: () => [] },
     firstIndex: { type: Number, default: 0 },

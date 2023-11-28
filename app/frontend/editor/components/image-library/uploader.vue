@@ -1,6 +1,6 @@
 <template>
   <div>
-    <submit-button
+    <uikit-submit-button
       type="button"
       class="rounded-sm text-white py-2 px-4"
       defaultColorClass="bg-editor-primary"

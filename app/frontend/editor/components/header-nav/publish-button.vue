@@ -22,14 +22,14 @@
       :disabled="isInProgress || hasModifiedSections"
     >
       <span class="flex items-center justify-center space-x-2">
-        <icon
+        <uikit-icon
           icon="circle-notch"
           name="ri-loader-4-line"
           spin
           v-if="isInProgress"
         />
-        <icon name="ri-check-line" v-if="isSuccess" />
-        <icon name="ri-alert-line" v-if="isFail" />
+        <uikit-icon name="ri-check-line" v-if="isSuccess" />
+        <uikit-icon name="ri-alert-line" v-if="isFail" />
         <span>{{ label }}</span>
       </span>
     </button>

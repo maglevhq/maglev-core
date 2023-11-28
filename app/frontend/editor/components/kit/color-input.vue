@@ -15,7 +15,7 @@
 import CoreInput from '@/components/kit/color-input/core-input.vue'
 
 export default {
-  name: 'ColorInput',
+  name: 'UIKitColorInput',
   components: { CoreInput },
   props: {
     label: { type: String, default: 'Label' },

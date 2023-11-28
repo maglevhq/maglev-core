@@ -24,7 +24,7 @@
               class="px-1 py-1 bg-white rounded-full flex items-center justify-center text-gray-900 ml-auto"
               @click="() => (this.askingForRemoval = true)"
             >
-              <icon name="delete-bin-line" size="1rem" />
+              <uikit-icon name="delete-bin-line" size="1rem" />
             </button>
           </div>
         </transition>

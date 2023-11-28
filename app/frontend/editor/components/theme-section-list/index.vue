@@ -1,6 +1,6 @@
 <template>
   <div>
-    <accordion
+    <uikit-accordion
       v-for="(category, index) in categories"
       :key="index"
       headerClass="px-3 py-3 mb-3 bg-editor-primary text-white rounded-sm"
@@ -26,7 +26,7 @@
           {{ $t('themeSectionList.emptyCategory') }}
         </div>
       </div>
-    </accordion>
+    </uikit-accordion>
   </div>
 </template>
 

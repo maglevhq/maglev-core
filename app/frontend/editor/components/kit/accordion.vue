@@ -7,13 +7,13 @@
     >
       <slot name="header">HINT</slot>
       <button class="ml-auto">
-        <icon
+        <uikit-icon
           name="arrow-up-s-line"
           size="1.5rem"
           class="ml-auto"
           v-if="show"
         />
-        <icon name="arrow-down-s-line" size="1.5rem" class="ml-auto" v-else />
+        <uikit-icon name="arrow-down-s-line" size="1.5rem" class="ml-auto" v-else />
       </button>
     </div>
     <transition
@@ -35,7 +35,7 @@
 
 <script>
 export default {
-  name: 'Accordion',
+  name: 'UIKitAccordion',
   props: {
     headerClass: { type: String, default: '' },
   },

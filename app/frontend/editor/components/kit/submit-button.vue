@@ -8,17 +8,17 @@
     <span v-if="isDefaultState" data-button-label>{{ defaultLabel }}</span>
 
     <span v-if="isInProgressState" class="flex items-center justify-center">
-      <icon name="ri-loader-4-line" spin color="#fff" key="progress" />
+      <uikit-icon name="ri-loader-4-line" spin color="#fff" key="progress" />
       <span class="ml-2" data-button-label>{{ inProgressLabel }}</span>
     </span>
 
     <span v-if="isSuccessState" class="flex items-center justify-center">
-      <icon name="ri-check-line" color="#fff" key="success" />
+      <uikit-icon name="ri-check-line" color="#fff" key="success" />
       <span class="ml-2" data-button-label>{{ successLabel }}</span>
     </span>
 
     <span v-if="isFailState" class="flex items-center justify-center">
-      <icon name="ri-alert-line" color="#fff" key="fail" />
+      <uikit-icon name="ri-alert-line" color="#fff" key="fail" />
       <span class="ml-2" data-button-label>{{ failLabel }}</span>
     </span>
   </button>
@@ -26,7 +26,7 @@
 
 <script>
 export default {
-  name: 'SubmitButton',
+  name: 'UIKitSubmitButton',
   props: {
     type: {
       type: String,

@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col flex-1 overflow-y-hidden">
-    <tabs
+    <uikit-tabs
       :tabs="tabs"
       :otherProps="{ page: editedPage, errors }"
       sharedClass="px-1/2"
@@ -8,7 +8,7 @@
       @on-change="onChange"
     />
     <div class="mt-auto">
-      <submit-button
+      <uikit-submit-button
         type="button"
         class="big-submit-button"
         defaultColorClass="bg-editor-primary"
@@ -17,7 +17,7 @@
         @click="updatePage"
       >
         {{ $t('page.edit.submitButton') }}
-      </submit-button>
+      </uikit-submit-button>
       <button
         class="cancel-button"
         v-if="insideModal"

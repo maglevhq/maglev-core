@@ -12,7 +12,7 @@
           class="flex items-center justify-center flex-col"
           @click="openImagePickerModal"
         >
-          <icon name="camera-line" />
+          <uikit-icon name="camera-line" />
           <p class="uppercase text-xs mt-1">{{ $t('imageInput.addButton') }}</p>
         </button>
       </div>
@@ -37,7 +37,7 @@
                 class="flex items-center justify-center flex-col mr-4"
                 @click="openImagePickerModal"
               >
-                <icon name="camera-line" />
+                <uikit-icon name="camera-line" />
                 <p class="uppercase text-xs mt-1">
                   {{ $t('imageInput.replaceButton') }}
                 </p>
@@ -47,7 +47,7 @@
                 class="flex items-center justify-center flex-col"
                 @click="removeImage"
               >
-                <icon name="delete-bin-line" />
+                <uikit-icon name="delete-bin-line" />
                 <p class="uppercase text-xs mt-1">
                   {{ $t('imageInput.clearButton') }}
                 </p>
@@ -56,7 +56,7 @@
           </transition>
         </div>
 
-        <text-input
+        <uikit-text-input
           class="mt-2"
           :showLabel="false"
           :placeholder="$t('imageInput.altTextPlaceholder')"
@@ -73,7 +73,7 @@ import FocusedInputMixin from '@/mixins/focused-input'
 import ImageLibrary from '@/components/image-library/index.vue'
 
 export default {
-  name: 'ImageInput',
+  name: 'UIKitImageInput',
   mixins: [FocusedInputMixin],
   props: {
     label: { type: String, default: 'Label' },

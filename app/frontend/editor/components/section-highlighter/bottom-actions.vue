@@ -17,7 +17,7 @@
         @keypress.enter="navigate"
         class="button top-4"
       >
-        <icon name="ri-add-line" size="1.5rem" />
+        <uikit-icon name="ri-add-line" size="1.5rem" />
       </button>
     </router-link>
   </div>

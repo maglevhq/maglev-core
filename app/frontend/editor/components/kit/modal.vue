@@ -14,7 +14,7 @@
               type="button"
               @click="$emit('on-close', true)"
             >
-              <icon name="ri-close-circle-line" />
+              <uikit-icon name="ri-close-circle-line" />
             </button>
           </div>
 
@@ -29,7 +29,7 @@
 
 <script>
 export default {
-  name: 'Modal',
+  name: 'UIKitModal',
   props: {
     isOpen: Boolean,
     title: { type: String, default: 'Modal' },

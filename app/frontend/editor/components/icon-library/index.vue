@@ -1,7 +1,7 @@
 <template>
   <div class="space-y-2">
     <div>
-      <search-input @search="(q) => (query = q)" />
+      <uikit-search-input @search="(q) => (query = q)" />
     </div>
     <div class="overflow-y-auto h-64">
       <div class="grid grid-cols-6 gap-2 pt-2 pb-8">

@@ -1,12 +1,12 @@
 <template>
   <div>
-    <text-input
+    <uikit-text-input
       :label="$t(`linkPicker.url.input.label`)"
       name="href"
       v-model="hrefInput"
     />
 
-    <checkbox-input
+    <uikit-checkbox-input
       :label="$t(`linkPicker.shared.newWindowInput.label`)"
       name="openNewWindow"
       class="mt-6"

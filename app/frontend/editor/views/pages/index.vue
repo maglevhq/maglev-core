@@ -6,7 +6,7 @@
   >
     <div class="h-full flex flex-col px-4 pb-4">
       <div class="py-2">
-        <search-input
+        <uikit-search-input
           @search="search"
           class="py-4"
           :placeholder="$t('page.list.searchPlaceholder')"

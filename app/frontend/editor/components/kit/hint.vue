@@ -4,7 +4,7 @@
 
 <script>
 export default {
-  name: 'Hint',
+  name: 'UIKitHint',
   props: {
     text: { type: String, default: 'Hint goes here' },
   },

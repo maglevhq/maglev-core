@@ -10,7 +10,7 @@
     </div>
     <div class="flex items-center" v-if="visible">
       <page-button :page="activePage - 1" @click="change" class="mr-1">
-        <icon name="arrow-drop-left" />
+        <uikit-icon name="arrow-drop-left" />
       </page-button>
 
       <page-button
@@ -37,7 +37,7 @@
       />
 
       <page-button :page="activePage + 1" @click="change">
-        <icon name="arrow-drop-right" />
+        <uikit-icon name="arrow-drop-right" />
       </page-button>
     </div>
   </div>
@@ -48,7 +48,7 @@
 import PageButton from './button.vue'
 
 export default {
-  name: 'Pagination',
+  name: 'UIKitPagination',
   components: { PageButton },
   props: {
     labelI18nKey: { type: String, default: 'pagination.defaultLabel' },

@@ -4,7 +4,7 @@
     class="flex items-center py-2 px-4 rounded bg-gray-100 text-gray-800 focus:outline-none focus:ring"
   >
     <button class="mr-2" type="submit">
-      <icon name="search-line" class="text-gray-500" />
+      <uikit-icon name="search-line" class="text-gray-500" />
     </button>
 
     <input
@@ -21,14 +21,14 @@
       @click.stop.prevent="reset"
       type="button"
     >
-      <icon name="close-line" />
+      <uikit-icon name="close-line" />
     </button>
   </form>
 </template>
 
 <script>
 export default {
-  name: 'SearchInput',
+  name: 'UIKitSearchInput',
   props: {
     placeholder: { type: String, default: 'Type your query here' },
   },

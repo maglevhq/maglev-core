@@ -4,7 +4,7 @@
       {{ label }}
     </label>
 
-    <select-input
+    <uikit-select-input
       :withLabel="false"
       :placeholder="$t(`collectionItemInput.select.placeholder`)"
       :searchEnabled="true"
@@ -40,7 +40,7 @@
           <span class="truncate font-bold">{{ item.label }}</span>
         </div>
       </template>
-    </select-input>
+    </uikit-select-input>
   </div>
 </template>
 
@@ -48,7 +48,7 @@
 import { camelizeKeys } from '@/misc/utils'
 
 export default {
-  name: 'CollectionItemInput',
+  name: 'UIKitCollectionItemInput',
   props: {
     label: { type: String, default: 'Label' },
     name: { type: String, default: 'image' },
