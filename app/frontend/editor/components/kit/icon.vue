@@ -21,12 +21,16 @@ export default {
     bounce: { type: Boolean, default: false },
     library: { type: String, default: 'remixicons' },
   },
+  data() {
+    return {
+      icons: import.meta.glob(`../../assets/**/*.svg`)
+    }
+  },
   computed: {
     icon() {
-      return defineAsyncComponent(() => {
-        const path = `../../assets/${this.library}/${this.name}.svg`
-        return import(/* @vite-ignore */ path)
-      })
+      return defineAsyncComponent(
+        () => this.icons[`../../assets/${this.library}/${this.name}.svg`]()
+      )
     },
   },
 }
