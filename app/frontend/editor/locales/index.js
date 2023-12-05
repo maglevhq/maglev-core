@@ -7,11 +7,14 @@ import { deepMerge } from '@/misc/utils'
 const overriddenEN = window.customTranslations?.en ?? {}
 const overriddenES = window.customTranslations?.es ?? {}
 const overriddenFR = window.customTranslations?.fr ?? {}
-const overriddenPTBR = (window.customTranslations && window.customTranslations['pt-BR']) ? window.customTranslations['pt-BR'] : {}
+const overriddenPTBR =
+  window.customTranslations && window.customTranslations['pt-BR']
+    ? window.customTranslations['pt-BR']
+    : {}
 
 export default {
   en: deepMerge(EditorEN, overriddenEN),
   es: deepMerge(EditorES, overriddenES),
   fr: deepMerge(EditorFR, overriddenFR),
-  "pt-BR": deepMerge(EditorPTBR, overriddenPTBR),
+  'pt-BR': deepMerge(EditorPTBR, overriddenPTBR),
 }

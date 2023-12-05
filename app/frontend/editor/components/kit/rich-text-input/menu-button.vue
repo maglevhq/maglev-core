@@ -7,7 +7,7 @@
     }"
     @click="$emit('click')"
   >
-    <icon :name="iconName" class="w-4 h-4 text-dark" />
+    <uikit-icon :name="iconName" class="w-4 h-4 text-dark" />
   </button>
 </template>
 

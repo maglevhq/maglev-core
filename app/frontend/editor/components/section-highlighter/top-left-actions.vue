@@ -12,7 +12,7 @@
       @click="moveHoveredSection('up')"
       v-if="displayMoveArrows"
     >
-      <icon name="arrow-up-s-line" />
+      <uikit-icon name="arrow-up-s-line" />
     </button>
     <button
       type="button"
@@ -20,7 +20,7 @@
       @click="moveHoveredSection('down')"
       v-if="displayMoveArrows"
     >
-      <icon name="arrow-down-s-line" />
+      <uikit-icon name="arrow-down-s-line" />
     </button>
   </div>
 </template>
@@ -35,7 +35,11 @@ export default {
   },
   computed: {
     name() {
-      return this.$st(`${this.currentI18nScope}.sections.${this.sectionType}.name`) || this.hoveredSection.name
+      return (
+        this.$st(
+          `${this.currentI18nScope}.sections.${this.sectionType}.name`,
+        ) || this.hoveredSection.name
+      )
     },
     sectionType() {
       return this.hoveredSection.definition.id

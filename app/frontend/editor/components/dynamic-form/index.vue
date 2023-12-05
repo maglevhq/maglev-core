@@ -25,7 +25,7 @@ export default {
     settings: { type: Array, default: () => [] },
     content: { type: Array, default: () => [] },
     focusedSetting: { type: String, default: undefined },
-    i18nScope: { type: String, required: false }
+    i18nScope: { type: String, required: false },
   },
   methods: {
     onChange(change) {

@@ -12,7 +12,7 @@
           class="flex items-center justify-center flex-col"
           @click="openIconPickerModal"
         >
-          <icon name="ri-book-line" />
+          <uikit-icon name="ri-book-line" />
           <p class="uppercase text-xs mt-1">{{ $t('iconInput.addButton') }}</p>
         </button>
       </div>
@@ -32,7 +32,7 @@
                 class="flex items-center justify-center flex-col mr-4"
                 @click="openIconPickerModal"
               >
-                <icon name="ri-book-line" />
+                <uikit-icon name="ri-book-line" />
                 <p class="uppercase text-xs mt-1">
                   {{ $t('iconInput.replaceButton') }}
                 </p>
@@ -42,7 +42,7 @@
                 class="flex items-center justify-center flex-col"
                 @click="removeIcon"
               >
-                <icon name="delete-bin-line" />
+                <uikit-icon name="delete-bin-line" />
                 <p class="uppercase text-xs mt-1">
                   {{ $t('iconInput.clearButton') }}
                 </p>
@@ -60,7 +60,7 @@ import FocusedInputMixin from '@/mixins/focused-input'
 import IconLibrary from '@/components/icon-library/index.vue'
 
 export default {
-  name: 'IconInput',
+  name: 'UIKitIconInput',
   mixins: [FocusedInputMixin],
   props: {
     label: { type: String, default: 'Label' },

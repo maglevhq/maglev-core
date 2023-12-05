@@ -4,7 +4,7 @@
       {{ label }}
     </label>
 
-    <select-input
+    <uikit-select-input
       :withLabel="false"
       :placeholder="$t(`collectionItemInput.select.placeholder`)"
       :searchEnabled="true"
@@ -16,7 +16,10 @@
       v-model="selectedCollectionItem"
     >
       <template v-slot:value>
-        <div class="flex items-center flex-grow-0 overflow-x-hidden" :title="selectedCollectionItem.label">
+        <div
+          class="flex items-center flex-grow-0 overflow-x-hidden"
+          :title="selectedCollectionItem.label"
+        >
           <div
             class="h-10 w-10 bg-gray-400 mr-3"
             v-if="selectedCollectionItem.imageUrl"
@@ -37,7 +40,7 @@
           <span class="truncate font-bold">{{ item.label }}</span>
         </div>
       </template>
-    </select-input>
+    </uikit-select-input>
   </div>
 </template>
 
@@ -45,7 +48,7 @@
 import { camelizeKeys } from '@/misc/utils'
 
 export default {
-  name: 'CollectionItemInput',
+  name: 'UIKitCollectionItemInput',
   props: {
     label: { type: String, default: 'Label' },
     name: { type: String, default: 'image' },

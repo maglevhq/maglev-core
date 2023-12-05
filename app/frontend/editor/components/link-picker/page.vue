@@ -1,6 +1,6 @@
 <template>
   <div>
-    <select-input
+    <uikit-select-input
       :label="$t(`linkPicker.page.input.label`)"
       :placeholder="$t(`linkPicker.page.input.placeholder`)"
       :searchEnabled="true"
@@ -23,10 +23,10 @@
           </span>
         </div>
       </template>
-    </select-input>
+    </uikit-select-input>
 
     <div class="mt-6" v-if="hasPageSections">
-      <select-input
+      <uikit-select-input
         :label="$t(`linkPicker.page.sectionInput.label`)"
         :placeholder="$t(`linkPicker.page.sectionInput.placeholder`)"
         :emptyLabel="$t(`linkPicker.page.sectionInput.emptyLabel`)"
@@ -42,10 +42,10 @@
             <span class="font-bold">{{ item.name }}</span>
           </div>
         </template>
-      </select-input>
+      </uikit-select-input>
     </div>
 
-    <checkbox-input
+    <uikit-checkbox-input
       :label="$t(`linkPicker.shared.newWindowInput.label`)"
       name="openNewWindow"
       class="mt-6"

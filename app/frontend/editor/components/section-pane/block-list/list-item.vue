@@ -22,12 +22,12 @@
     </router-link>
     <div class="flex items-center">
       <slot name="actions"></slot>
-      <confirmation-button
+      <uikit-confirmation-button
         @confirm="removeSectionBlock(sectionBlock.id)"
         v-on="$listeners"
       >
-        <list-item-button iconName="ri-close-line" />
-      </confirmation-button>
+        <uikit-list-item-button iconName="ri-close-line" />
+      </uikit-confirmation-button>
     </div>
   </div>
 </template>

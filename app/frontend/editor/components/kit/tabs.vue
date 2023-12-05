@@ -8,7 +8,7 @@
         v-for="(tab, index) in tabs"
         :key="`tab-${index}`"
         type="button"
-        class=" py-1 pb-0 px-4 block hover:text-editor-primary focus:outline-none border-b-2 z-10"
+        class="py-1 pb-0 px-4 block hover:text-editor-primary focus:outline-none border-b-2 z-10"
         :class="{
           'text-gray-500 border-transparent': index !== currentIndex,
           'text-editor-primary font-medium border-editor-primary':
@@ -43,7 +43,7 @@
 
 <script>
 export default {
-  name: 'Tabs',
+  name: 'UIKitTabs',
   props: {
     tabs: { type: Array, default: () => [] },
     firstIndex: { type: Number, default: 0 },

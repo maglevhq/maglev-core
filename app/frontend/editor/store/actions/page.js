@@ -3,7 +3,7 @@ import { isBlank } from '@/misc/utils'
 export default (services) => ({
   // editPage : Action triggered when the user wants to edit another page
   // or to change the locale of the current page.
-  editPage({ state, commit, dispatch }, { id, locale }) {
+  editPage({ state, dispatch }, { id, locale }) {
     console.log('editPage', id, locale)
 
     // display the loader

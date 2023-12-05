@@ -81,7 +81,7 @@ import EditorLinkButtons from './rich-text-input/link-buttons.vue'
 import EditorTableButton from './rich-text-input/table-button.vue'
 
 export default {
-  name: 'RichTextInput',
+  name: 'UIKitRichTextInput',
   mixins: [FocusedInputMixin],
   components: {
     EditorContent,

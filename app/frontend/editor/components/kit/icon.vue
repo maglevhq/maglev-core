@@ -13,7 +13,7 @@
 import { defineAsyncComponent } from 'vue'
 
 export default {
-  name: 'MaglevIcon',
+  name: 'UIKitIcon',
   props: {
     name: { type: String },
     size: { type: String, default: '1.25rem' },
@@ -21,10 +21,15 @@ export default {
     bounce: { type: Boolean, default: false },
     library: { type: String, default: 'remixicons' },
   },
+  data() {
+    return {
+      icons: import.meta.glob(`../../assets/**/*.svg`)
+    }
+  },
   computed: {
     icon() {
-      return defineAsyncComponent(() =>
-        import(`../../assets/${this.library}/${this.name}.svg`),
+      return defineAsyncComponent(
+        () => this.icons[`../../assets/${this.library}/${this.name}.svg`]()
       )
     },
   },

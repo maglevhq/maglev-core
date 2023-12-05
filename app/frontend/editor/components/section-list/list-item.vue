@@ -8,13 +8,13 @@
     >
       <span>{{ name | truncate(40) }}</span>
     </router-link>
-    <confirmation-button @confirm="removeSection(section.id)" v-on="$listeners">
+    <uikit-confirmation-button @confirm="removeSection(section.id)" v-on="$listeners">
       <button
         class="px-1 py-1 rounded-full bg-gray-600 bg-opacity-0 hover:text-gray-900 text-gray-600 focus:outline-none hover:bg-opacity-10 transition-colors duration-200"
       >
-        <icon name="ri-close-line" size="1.25rem" />
+        <uikit-icon name="ri-close-line" size="1.25rem" />
       </button>
-    </confirmation-button>
+    </uikit-confirmation-button>
   </div>
 </template>
 
@@ -28,8 +28,12 @@ export default {
   },
   computed: {
     name() {
-      return this.$st(`${this.currentI18nScope}.sections.${this.section.type}.name`) || this.section.name
-    }
+      return (
+        this.$st(
+          `${this.currentI18nScope}.sections.${this.section.type}.name`,
+        ) || this.section.name
+      )
+    },
   },
   methods: {
     ...mapActions(['removeSection']),

@@ -1,6 +1,6 @@
 <template>
   <div class="mt-4">
-    <tabs
+    <uikit-tabs
       :tabs="tabs"
       :firstIndex="firstTabIndex"
       :otherProps="{ currentLink: link }"

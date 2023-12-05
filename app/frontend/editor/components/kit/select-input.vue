@@ -22,11 +22,25 @@
             @click.stop.prevent="clear"
             v-if="canClear"
           >
-            <icon name="ri-close-line" />
+            <uikit-icon name="ri-close-line" />
           </button>
-          <div :class="{ 'flex-shrink-0': true, 'ml-1': canClear, 'ml-auto': !canClear }"> 
-            <icon name="arrow-up-s-line" size="1.5rem" :class="{ 'hidden': !isOpen }" />
-            <icon name="arrow-down-s-line" size="1.5rem" :class="{ 'hidden': isOpen }" />
+          <div
+            :class="{
+              'flex-shrink-0': true,
+              'ml-1': canClear,
+              'ml-auto': !canClear,
+            }"
+          >
+            <uikit-icon
+              name="arrow-up-s-line"
+              size="1.5rem"
+              :class="{ hidden: !isOpen }"
+            />
+            <uikit-icon
+              name="arrow-down-s-line"
+              size="1.5rem"
+              :class="{ hidden: isOpen }"
+            />
           </div>
         </div>
       </button>
@@ -78,7 +92,7 @@
 import { debounce } from '@/misc/utils'
 
 export default {
-  name: 'SelectInput',
+  name: 'UIKitSelectInput',
   props: {
     label: { type: String, default: 'Label' },
     name: { type: String, default: 'text' },

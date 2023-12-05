@@ -1,7 +1,7 @@
 <template>
   <div>
     <router-view />
-    <modal-root />
+    <uikit-modal-root />
   </div>
 </template>
 

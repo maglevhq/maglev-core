@@ -1,6 +1,6 @@
 <template>
   <div class="w-full">
-    <dropdown
+    <uikit-dropdown
       placement="left"
       ref="dropdown"
       :fullWidth="true"
@@ -8,7 +8,7 @@
       v-if="hasMultipleTypes"
     >
       <template v-slot:button>
-        <list-item-button iconName="ri-add-line" />
+        <uikit-list-item-button iconName="ri-add-line" />
       </template>
       <template v-slot:content>
         <div class="w-full flex flex-col">
@@ -22,8 +22,8 @@
           </button>
         </div>
       </template>
-    </dropdown>
-    <list-item-button
+    </uikit-dropdown>
+    <uikit-list-item-button
       iconName="ri-add-line"
       @click.native="addNestedSectionBlock"
       v-else

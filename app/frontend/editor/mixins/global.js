@@ -135,6 +135,6 @@ Vue.mixin({
     $st(key) {
       // console.log('$st', key, this.$te(key) ? this.$t(key) : null)
       return this.$te(key) ? this.$t(key) : null
-    }
+    },
   },
 })

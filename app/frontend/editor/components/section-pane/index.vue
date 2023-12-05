@@ -1,5 +1,5 @@
 <template>
-  <tabs
+  <uikit-tabs
     :tabs="tabs"
     :firstIndex="tabIndexFromRoute"
     :otherProps="{ sectionId: currentSection.id, settingId }"
@@ -71,7 +71,7 @@ export default {
       return this.currentSectionDefinition.blocksPresentation === 'tree'
         ? BlockTree
         : BlockList
-    }
+    },
   },
   methods: {
     findTabIndexFromRoute() {

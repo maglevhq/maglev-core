@@ -15,7 +15,7 @@
           }"
           class="flex items-center"
         >
-          <icon name="arrow-drop-left" />
+          <uikit-icon name="arrow-drop-left" />
           <span class="text-xs">{{ sectionTitle }}</span>
         </router-link>
       </p>
@@ -53,13 +53,17 @@ export default {
       else return null
     },
     sectionTitle() {
-      return this.$st(`${this.currentSectionI18nScope}.name`) || this.currentSectionDefinition?.name
+      return (
+        this.$st(`${this.currentSectionI18nScope}.name`) ||
+        this.currentSectionDefinition?.name
+      )
     },
     sectionBlockTitle() {
-      return this.$st(`${this.currentSectionI18nScope}.blocks.label`) || (
+      return (
+        this.$st(`${this.currentSectionI18nScope}.blocks.label`) ||
         this.currentSectionBlockDefinition?.name +
-        ' ' +
-        `#${this.currentSectionBlockIndex}`
+          ' ' +
+          `#${this.currentSectionBlockIndex}`
       )
     },
     isSectionReady() {

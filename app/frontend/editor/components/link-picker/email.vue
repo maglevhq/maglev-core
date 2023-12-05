@@ -1,6 +1,6 @@
 <template>
   <div>
-    <text-input
+    <uikit-text-input
       :label="$t(`linkPicker.email.input.label`)"
       name="email"
       v-model="emailInput"

@@ -1,5 +1,5 @@
 <template>
-  <modal
+  <uikit-modal
     :isOpen="!!currentModal"
     :title="title"
     :containerClass="containerClass"
@@ -14,14 +14,14 @@
       v-on="modal.listeners"
       v-show="index === stack.length - 1"
     />
-  </modal>
+  </uikit-modal>
 </template>
 
 <script>
 import { ModalBus } from '@/plugins/event-bus'
 
 export default {
-  name: 'ModalRoot',
+  name: 'UIKitModalRoot',
   data() {
     return {
       stack: [], // NOTE: we stack modals!

@@ -16,7 +16,7 @@ export const camelize = (str) => {
 
 export const camelizeKeys = (obj) => {
   if (Array.isArray(obj)) {
-    return obj.map(v => camelizeKeys(v));
+    return obj.map((v) => camelizeKeys(v))
   } else if (obj != null && obj.constructor === Object) {
     return Object.keys(obj).reduce(
       (result, key) => ({
@@ -24,11 +24,10 @@ export const camelizeKeys = (obj) => {
         [camelize(key)]: camelizeKeys(obj[key]),
       }),
       {},
-    );
+    )
   }
-  return obj;
+  return obj
 }
-
 
 export const numberToHumanSize = (size, i18n) => {
   if (isBlank(size)) return null
@@ -124,9 +123,13 @@ export const hexToRgb = (hex) => {
 
 export const colorVariableToHex = (variable) => {
   if (!variable) return null
-  const color = (variable.startsWith('--')
-    ? getComputedStyle(document.body).getPropertyValue(variable)
-    : variable).trim().toLowerCase()
+  const color = (
+    variable.startsWith('--')
+      ? getComputedStyle(document.body).getPropertyValue(variable)
+      : variable
+  )
+    .trim()
+    .toLowerCase()
   return color === 'transparent' ? '' : color
 }
 

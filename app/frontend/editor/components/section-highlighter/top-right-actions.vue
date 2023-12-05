@@ -15,7 +15,7 @@
         @keypress.enter="navigate"
         class="ml-2 button"
       >
-        <icon name="ri-pencil-line" />
+        <uikit-icon name="ri-pencil-line" />
       </button>
     </router-link>
 
@@ -35,7 +35,7 @@
         @keypress.enter="navigate"
         class="ml-2 button"
       >
-        <icon name="ri-play-list-add-line" />
+        <uikit-icon name="ri-play-list-add-line" />
       </button>
     </router-link>
 
@@ -55,15 +55,15 @@
         @keypress.enter="navigate"
         class="ml-2 button"
       >
-        <icon name="ri-settings-5-line" />
+        <uikit-icon name="ri-settings-5-line" />
       </button>
     </router-link>
 
-    <confirmation-button class="ml-2 pointer-events-auto" @confirm="remove">
+    <uikit-confirmation-button class="ml-2 pointer-events-auto" @confirm="remove">
       <div class="button">
-        <icon name="delete-bin-line" />
+        <uikit-icon name="delete-bin-line" />
       </div>
-    </confirmation-button>
+    </uikit-confirmation-button>
   </div>
 </template>
 

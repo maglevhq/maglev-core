@@ -1,13 +1,13 @@
 <template>
   <div class="mt-2 grid grid-cols-1 gap-4">
-    <text-input
+    <uikit-text-input
       :label="$t(`page.form.title`)"
       name="title"
       v-model="titleInput"
       :error="errors.title"
     />
 
-    <text-input
+    <uikit-text-input
       :label="$t(`page.form.path`)"
       name="path"
       v-model="pathInput"
@@ -15,7 +15,7 @@
       v-if="!isPageIndex || !page.id"
     />
 
-    <checkbox-input
+    <uikit-checkbox-input
       :label="$t(`page.form.visible`)"
       :placeholder="$t(`page.form.visiblePlaceholder`)"
       name="visible"

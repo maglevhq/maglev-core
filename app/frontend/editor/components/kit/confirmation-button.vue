@@ -1,5 +1,5 @@
 <template>
-  <dropdown
+  <uikit-dropdown
     :placement="placement"
     v-on="$listeners"
     class="relative"
@@ -33,12 +33,12 @@
         </div>
       </div>
     </template>
-  </dropdown>
+  </uikit-dropdown>
 </template>
 
 <script>
 export default {
-  name: 'ConfirmationButton',
+  name: 'UIKitConfirmationButton',
   props: {
     placement: { type: String, default: 'bottom' },
     text: { type: String, default: null },

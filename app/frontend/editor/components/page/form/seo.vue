@@ -1,6 +1,6 @@
 <template>
   <div class="mt-2 grid grid-cols-1 gap-4">
-    <textarea-input
+    <uikit-textarea-input
       :label="$t(`page.form.seoTitle`)"
       name="seo-title"
       :max-length="60"
@@ -8,7 +8,7 @@
       v-model="seoTitleInput"
     />
 
-    <textarea-input
+    <uikit-textarea-input
       :label="$t(`page.form.metaDescription`)"
       name="meta-description"
       :max-length="155"
@@ -16,7 +16,7 @@
       v-model="metaDescriptionInput"
     />
 
-    <textarea-input
+    <uikit-textarea-input
       :label="$t(`page.form.ogTitle`)"
       name="og-title"
       :max-length="60"
@@ -24,7 +24,7 @@
       v-model="ogTitleInput"
     />
 
-    <textarea-input
+    <uikit-textarea-input
       :label="$t(`page.form.ogDescription`)"
       name="og-description"
       :max-length="200"
@@ -32,7 +32,7 @@
       v-model="ogDescriptionInput"
     />
 
-    <image-input
+    <uikit-image-input
       :label="$t(`page.form.ogImageUrl`)"
       name="og-image-url"
       :hasAltText="false"

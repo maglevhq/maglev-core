@@ -13,10 +13,10 @@
 
 <script>
 export default {
-  name: 'Divider',
+  name: 'UIKitDivider',
   props: {
     text: { type: String, default: 'Text goes here' },
-    withHint: { type: Boolean, default: false }
-  }
+    withHint: { type: Boolean, default: false },
+  },
 }
 </script>

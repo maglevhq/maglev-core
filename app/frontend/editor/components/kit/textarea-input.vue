@@ -30,7 +30,7 @@
 import FocusedInputMixin from '@/mixins/focused-input'
 
 export default {
-  name: 'TextInput',
+  name: 'UIKitTextInput',
   mixins: [FocusedInputMixin],
   props: {
     label: { type: String, default: 'Label' },
