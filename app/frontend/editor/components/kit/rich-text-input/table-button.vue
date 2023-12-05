@@ -30,13 +30,19 @@
             class="py-2 px-3 hover:bg-gray-200"
             @click="commands.addColumnBefore"
           >
-            <uikit-icon name="ri-insert-column-left" class="w-4 h-4 text-dark" />
+            <uikit-icon
+              name="ri-insert-column-left"
+              class="w-4 h-4 text-dark"
+            />
           </button>
           <button
             class="py-2 px-3 hover:bg-gray-200"
             @click="commands.addColumnAfter"
           >
-            <uikit-icon name="ri-insert-column-right" class="w-4 h-4 text-dark" />
+            <uikit-icon
+              name="ri-insert-column-right"
+              class="w-4 h-4 text-dark"
+            />
           </button>
           <button
             class="py-2 px-3 hover:bg-gray-200"

@@ -63,7 +63,11 @@
             class="flex mt-4 text-gray-600"
           >
             <template v-slot:icon>
-              <uikit-icon name="add-box-line" size="1.5rem" class="mx-1 text-black" />
+              <uikit-icon
+                name="add-box-line"
+                size="1.5rem"
+                class="mx-1 text-black"
+              />
             </template>
           </i18n>
         </div>

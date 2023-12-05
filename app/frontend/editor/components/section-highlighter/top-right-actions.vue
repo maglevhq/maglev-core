@@ -59,7 +59,10 @@
       </button>
     </router-link>
 
-    <uikit-confirmation-button class="ml-2 pointer-events-auto" @confirm="remove">
+    <uikit-confirmation-button
+      class="ml-2 pointer-events-auto"
+      @confirm="remove"
+    >
       <div class="button">
         <uikit-icon name="delete-bin-line" />
       </div>

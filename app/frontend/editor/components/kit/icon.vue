@@ -23,13 +23,13 @@ export default {
   },
   data() {
     return {
-      icons: import.meta.glob(`../../assets/**/*.svg`)
+      icons: import.meta.glob(`../../assets/**/*.svg`),
     }
   },
   computed: {
     icon() {
-      return defineAsyncComponent(
-        () => this.icons[`../../assets/${this.library}/${this.name}.svg`]()
+      return defineAsyncComponent(() =>
+        this.icons[`../../assets/${this.library}/${this.name}.svg`](),
       )
     },
   },

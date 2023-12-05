@@ -13,7 +13,12 @@
           class="ml-auto"
           v-if="show"
         />
-        <uikit-icon name="arrow-down-s-line" size="1.5rem" class="ml-auto" v-else />
+        <uikit-icon
+          name="arrow-down-s-line"
+          size="1.5rem"
+          class="ml-auto"
+          v-else
+        />
       </button>
     </div>
     <transition
