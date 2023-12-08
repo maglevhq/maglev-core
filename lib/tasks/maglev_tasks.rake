@@ -29,7 +29,7 @@ namespace :maglev do
     ARGV.each { |a| task a.to_sym => :environment do; end }
     # rubocop:enable Style/BlockDelimiters
 
-    locales = ARGV[1..].map do |arg|
+    locales = (ARGV[1..] || []).map do |arg|
       label, prefix = arg.split(':')
       Maglev::Site::Locale.new(label: label, prefix: prefix)
     end
