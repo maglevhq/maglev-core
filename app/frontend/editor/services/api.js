@@ -1,4 +1,4 @@
-import * as axios from 'axios'
+import axios from 'axios'
 import camelcaseObjectDeep from 'camelcase-object-deep'
 
 let siteHandle = null
