@@ -1,4 +1,4 @@
-import * as axios from 'axios'
+import axios from 'axios'
 import { debounce } from './utils'
 import runScripts from './run-scripts'
 
