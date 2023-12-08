@@ -173,3 +173,21 @@ FactoryBot.define do
     end
   end
 end
+
+# == Schema Information
+#
+# Table name: maglev_pages
+#
+#  id                            :bigint           not null, primary key
+#  lock_version                  :integer
+#  meta_description_translations :jsonb
+#  og_description_translations   :jsonb
+#  og_image_url_translations     :jsonb
+#  og_title_translations         :jsonb
+#  sections_translations         :jsonb
+#  seo_title_translations        :jsonb
+#  title_translations            :jsonb
+#  visible                       :boolean          default(TRUE)
+#  created_at                    :datetime         not null
+#  updated_at                    :datetime         not null
+#

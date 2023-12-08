@@ -14,7 +14,7 @@ gem 'rails', '~> 7.1'
 gem 'image_processing', '~> 1.12.2'
 
 # Use Sprockets to deal with assets in the dummy app
-gem "sprockets-rails"
+gem 'sprockets-rails'
 
 # Temporary use this branch because it solves a bug
 # gem 'maglev-injectable', path: '../injectable'
@@ -41,6 +41,8 @@ group :development, :test do
   gem 'generator_spec'
 
   gem 'nokogiri', '>= 1.13.10'
+
+  gem 'annotate'
 end
 
 group :test do

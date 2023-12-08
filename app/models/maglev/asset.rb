@@ -26,3 +26,17 @@ module Maglev
     end
   end
 end
+
+# == Schema Information
+#
+# Table name: maglev_assets
+#
+#  id           :bigint           not null, primary key
+#  byte_size    :integer
+#  content_type :string
+#  filename     :string
+#  height       :integer
+#  width        :integer
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#

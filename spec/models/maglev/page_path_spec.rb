@@ -31,3 +31,20 @@ RSpec.describe Maglev::PagePath, type: :model do
     end
   end
 end
+
+# == Schema Information
+#
+# Table name: maglev_page_paths
+#
+#  id             :bigint           not null, primary key
+#  canonical      :boolean          default(TRUE)
+#  locale         :string           not null
+#  value          :string           not null
+#  maglev_page_id :bigint
+#
+# Indexes
+#
+#  canonical_speed                            (canonical,locale,value)
+#  index_maglev_page_paths_on_maglev_page_id  (maglev_page_id)
+#  scoped_canonical_speed                     (canonical,maglev_page_id,locale)
+#
