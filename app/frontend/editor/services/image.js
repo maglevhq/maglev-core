@@ -15,8 +15,12 @@ export default (api) => ({
   create: (attributes) => {
     let formData = new FormData()
     Object.entries(attributes).forEach(([key, value]) =>
-      formData.append(`asset[${key}]`, value),
+      formData.append(`asset[${key}]`, value)
     )
-    return api.post('/assets', formData)
+    return api.post('/assets', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    })
   },
 })
