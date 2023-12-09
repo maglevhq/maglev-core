@@ -1,6 +1,6 @@
-class CreateMaglevSites < ActiveRecord::Migration[6.0]
+class CreateMaglevSites < Maglev::Migration
   def change
-    create_table :maglev_sites do |t|
+    create_table :maglev_sites, id: primary_key_type do |t|
       t.string :name
       t.timestamps
     end

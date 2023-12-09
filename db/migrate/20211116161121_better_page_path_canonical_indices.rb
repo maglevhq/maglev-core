@@ -1,4 +1,4 @@
-class BetterPagePathCanonicalIndices < ActiveRecord::Migration[6.0]
+class BetterPagePathCanonicalIndices < Maglev::Migration
   def change
     remove_index :maglev_page_paths, [:value, :locale], unique: true
     remove_index :maglev_page_paths, %i[canonical maglev_page_id locale], unique: true, name: 'canonical_uniqueness'

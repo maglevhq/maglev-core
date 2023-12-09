@@ -1,4 +1,4 @@
-class CreateMaglevSectionContent < ActiveRecord::Migration[6.0]
+class CreateMaglevSectionContent < Maglev::Migration
   def change
     change_table :maglev_sites do |t|
       t.jsonb :sections, default: []

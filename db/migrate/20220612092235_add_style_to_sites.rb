@@ -1,4 +1,4 @@
-class AddStyleToSites < ActiveRecord::Migration[6.0]
+class AddStyleToSites < Maglev::Migration
   def change
     change_table :maglev_sites do |t|
       t.jsonb :style, default: []
