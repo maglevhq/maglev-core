@@ -13,5 +13,9 @@ module Maglev
     def use_engine_vite?
       true
     end
+
+    def resource_id
+      Maglev.uuid_as_primary_key? && params[:id] ? params[:id][0..35] : params[:id]
+    end
   end
 end

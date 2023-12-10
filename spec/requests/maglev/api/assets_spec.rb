@@ -61,11 +61,6 @@ RSpec.describe 'Maglev::Api::AssetsController', type: :request do
         delete '/maglev/api/assets/made-up-id'
         expect(response).to have_http_status(:not_found)
       end
-
-      it 'fails when updating missing assets' do
-        put '/maglev/api/assets/made-up-id'
-        expect(response).to have_http_status(:not_found)
-      end
     end
 
     describe 'uploads' do

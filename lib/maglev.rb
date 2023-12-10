@@ -54,5 +54,12 @@ module Maglev
     def services(overrides = {})
       ::Maglev::AppContainer.new(config.services.merge(overrides)).call
     end
+
+    def uuid_as_primary_key?
+      return @uuid_as_primary_key unless @uuid_as_primary_key.nil?
+
+      config = Rails.configuration.generators
+      @uuid_as_primary_key = config.options[config.orm][:primary_key_type] == :uuid
+    end
   end
 end

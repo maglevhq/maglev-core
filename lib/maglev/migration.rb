@@ -1,6 +1,7 @@
+# frozen_string_literal: true
+
 module Maglev
   class Migration < ActiveRecord::Migration[6.0]
-
     private
 
     def primary_key_type
@@ -15,5 +16,5 @@ module Maglev
       config = Rails.configuration.generators
       config.options[config.orm][:primary_key_type]
     end
-  end 
+  end
 end

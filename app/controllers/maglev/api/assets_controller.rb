@@ -12,7 +12,7 @@ module Maglev
       end
 
       def show
-        @asset = resources.find(params[:id])
+        @asset = resources.find(resource_id)
       end
 
       def create
@@ -21,12 +21,12 @@ module Maglev
       end
 
       def update
-        resources.find(params[:id]).update!(asset_params)
+        resources.find(resource_id).update!(asset_params)
         head :ok
       end
 
       def destroy
-        resources.find(params[:id]).destroy!
+        resources.find(resource_id).destroy!
         head :no_content
       end
 
