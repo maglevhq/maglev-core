@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Maglev
-  class Migration < ActiveRecord::Migration[6.0]
+  module Migration
     private
 
     def primary_key_type

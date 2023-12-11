@@ -1,4 +1,4 @@
-class AddOpenGraphTagsToPages < Maglev::Migration
+class AddOpenGraphTagsToPages < ActiveRecord::Migration[6.0]
   def change
     change_table :maglev_pages do |t|
       t.jsonb :og_title_translations, default: {}

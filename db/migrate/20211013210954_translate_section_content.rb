@@ -1,4 +1,4 @@
-class TranslateSectionContent < Maglev::Migration
+class TranslateSectionContent < ActiveRecord::Migration[6.0]
   def change
     remove_column :maglev_sites, :sections, :jsonb, default: []
     add_column :maglev_sites, :sections_translations, :jsonb, default: {}

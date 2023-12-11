@@ -1,4 +1,5 @@
-class CreateMaglevPages < Maglev::Migration
+class CreateMaglevPages < ActiveRecord::Migration[6.0]
+  include Maglev::Migration
   def change
     create_table :maglev_pages, id: primary_key_type do |t|
       t.string :title
