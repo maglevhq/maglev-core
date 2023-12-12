@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'vite_ruby'
+require 'maglev/migration'
 
 module Maglev
   class Engine < ::Rails::Engine

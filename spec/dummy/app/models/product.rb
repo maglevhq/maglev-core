@@ -21,3 +21,16 @@ class Product < ApplicationRecord
   end
   # rubocop:enable Lint/UnusedMethodArgument
 end
+
+# == Schema Information
+#
+# Table name: products
+#
+#  id         :bigint           not null, primary key
+#  name       :string
+#  price      :float
+#  sku        :string
+#  sold_out   :boolean          default(FALSE)
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
