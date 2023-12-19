@@ -15,7 +15,7 @@ describe Maglev::FetchPage do
   let(:service) { described_class.new }
   let(:fallback_to_default_locale) { false }
 
-  context 'the path is blank' do
+  context 'Given the path is blank' do
     let(:path) { nil }
 
     it 'returns the index page' do
@@ -23,7 +23,7 @@ describe Maglev::FetchPage do
     end
   end
 
-  context 'the path points to an existing page' do
+  context 'Given the path points to an existing page' do
     let!(:another_page) { create(:page, title: 'Hello world', path: 'hello-world') }
     let(:path) { 'hello-world' }
 
@@ -31,7 +31,7 @@ describe Maglev::FetchPage do
       expect(subject.title).to eq 'Hello world'
     end
 
-    context "the page hasn't been translated yet" do
+    context "Given the page hasn't been translated yet" do
       let(:locale) { :fr }
 
       it 'returns nil' do
@@ -40,7 +40,7 @@ describe Maglev::FetchPage do
         end
       end
 
-      context 'the option fallback_to_default_locale has been enabled' do
+      context 'Given the option fallback_to_default_locale has been enabled' do
         let(:fallback_to_default_locale) { true }
 
         it 'returns the page matching the path in the default locale' do
@@ -50,7 +50,7 @@ describe Maglev::FetchPage do
     end
   end
 
-  context 'the path points to an unknown page' do
+  context 'Given the path points to an unknown page' do
     let(:path) { 'unknown' }
 
     it 'returns nil' do
