@@ -24,7 +24,7 @@ module Maglev
       end
 
       def to_s
-        url
+        url || ''
       end
 
       def tag(view_context, options = {})
