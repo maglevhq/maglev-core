@@ -28,10 +28,7 @@ module Maglev
     def ensure_path_and_content_locale
       return unless params[:path].blank? || params[:locale].blank?
 
-      redirect_to editor_path(
-        params[:path] || 'index',
-        locale: params[:locale] || default_content_locale
-      )
+      redirect_to default_maglev_editor_path
     end
 
     def maglev_home_page_id
@@ -50,6 +47,13 @@ module Maglev
 
     def maglev_rendering_mode
       :editor
+    end
+
+    def default_maglev_editor_path
+      editor_path(
+        params[:path] || 'index',
+        locale: params[:locale] || default_content_locale
+      )
     end
   end
 end
