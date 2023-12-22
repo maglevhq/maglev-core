@@ -35,6 +35,11 @@ RSpec.describe 'Maglev::EditorController', type: :request do
         get '/maglev/editor'
         expect(response).to redirect_to('/maglev/editor/en/index')
       end
+
+      it 'redirects to the index page in the specified locale' do
+        get '/maglev/editor/fr'
+        expect(response).to redirect_to('/maglev/editor/fr/index')
+      end
     end
 
     describe 'GET /maglev/editor/:locale/(*path)' do

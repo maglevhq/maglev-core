@@ -9,7 +9,7 @@ module Maglev
     include Maglev::ContentLocaleConcern
 
     before_action :fetch_maglev_site, only: :show
-    before_action :ensure_content_locale_in_path, only: :show
+    before_action :ensure_path_and_content_locale, only: :show
     before_action :set_content_locale, only: :show
 
     helper_method :maglev_home_page_id
@@ -25,8 +25,13 @@ module Maglev
 
     private
 
-    def ensure_content_locale_in_path
-      redirect_to editor_path('index', locale: default_content_locale) if params[:locale].blank?
+    def ensure_path_and_content_locale
+      return unless params[:path].blank? || params[:locale].blank?
+
+      redirect_to editor_path(
+        params[:path] || 'index',
+        locale: params[:locale] || default_content_locale
+      )
     end
 
     def maglev_home_page_id
