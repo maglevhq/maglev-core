@@ -31,12 +31,12 @@ Gem::Specification.new do |spec|
 
   spec.files = Dir[
     '.babelrc',
-    '.eslintrc.js',
+    '.eslintrc.js',    
     '{app,config,db,lib}/**/*',
     'bin/vite',
     'package.json',
     'yarn.lock',
-    'postcss.config.js',
+    'postcss.config.cjs',
     'tailwind.config.js',
     'vite.config.ts',
     'MIT-LICENSE',
