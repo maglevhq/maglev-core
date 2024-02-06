@@ -4,7 +4,7 @@
 class Maglev::SettingTypes::CollectionItem < Maglev::SettingTypes::Base
   def cast_value(value)
     if value.is_a?(String)
-      { id: default }
+      { id: value }
     else
       value
     end
