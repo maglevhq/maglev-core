@@ -2,9 +2,9 @@
 
 FactoryBot.define do
   factory :asset, class: 'Maglev::Asset' do
-    file { Rack::Test::UploadedFile.new('spec/fixtures/files/asset.jpg', 'image/jpg') }
+    file { Rack::Test::UploadedFile.new('spec/fixtures/files/asset.jpg', 'image/jpeg') }
     filename { 'asset.jpg' }
-    content_type { 'image/jpg' }
+    content_type { 'image/jpeg' }
   end
 end
 

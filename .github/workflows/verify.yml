@@ -20,7 +20,7 @@ jobs:
     strategy:
       matrix:
         node: [18]
-        gemfile: ["Gemfile.legacy", "Gemfile"]
+        gemfile: ["Gemfile.rails_6", "Gemfile.rails_7", "Gemfile"]
 
     steps:
       - name: Checkout code

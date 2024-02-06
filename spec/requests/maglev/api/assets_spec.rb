@@ -67,7 +67,7 @@ RSpec.describe 'Maglev::Api::AssetsController', type: :request do
       let(:params) do
         {
           asset: {
-            file: fixture_file_upload('asset.jpg', 'image/jpg', true)
+            file: fixture_file_upload('asset.jpg', 'image/jpeg', true)
           }
         }
       end

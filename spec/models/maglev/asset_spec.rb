@@ -14,7 +14,7 @@ RSpec.describe Maglev::Asset, type: :model do
       asset.file.attach(
         io: File.open(Rails.root.join('../fixtures/files/asset.jpg').to_s),
         filename: 'asset.jpg',
-        content_type: 'image/jpg'
+        content_type: 'image/jpeg'
       )
     end
 
