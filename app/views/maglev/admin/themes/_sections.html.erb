@@ -16,9 +16,9 @@
             </strong>
             <div class="ml-auto">
               <% if section.valid? %>
-                <span class="bg-green-500 rounded-full text-white text-sm px-2 py-1">Valid 👍</span>
+                <span class="bg-green-500 rounded-full text-white text-sm px-2 py-1 whitespace-nowrap">Valid 👍</span>
               <% else %>
-                <span class="bg-red-500 rounded-full text-white text-sm px-2 py-1">Invalid 😞</span> 
+                <span class="bg-red-500 rounded-full text-white text-sm px-2 py-1 whitespace-nowrap">Invalid 😞</span> 
               <% end %>
             </div>
           </div>
@@ -29,7 +29,7 @@
             </div>
           <% end %>
 
-          <p class="px-5 text-sm border-b border-gray-200 py-4">
+          <p class="px-5 text-sm border-b border-gray-200 py-4 break-all">
             <span class="text-black font-bold">YAML Definition:</span> <%= section_file_path(section) %>
             <br/>
             <span class="text-black font-bold">Template:</span> <%= section_template_path(section) %>
