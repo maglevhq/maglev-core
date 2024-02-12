@@ -1,10 +1,18 @@
+let proConfig = { content: [] };
+
+try {
+  proConfig = require('./tailwind-maglev-pro.config.js')
+} catch(err) { 
+  console.log('No extra Maglev Pro Tailwindcss config');
+} 
+
 module.exports = {
   content: [
     './**/*.html.erb',
     './app/helpers/**/*.rb',
     './app/javascript/**/*.{js,vue}',
-    './app/frontend/**/*.{js,vue}',
-  ],
+    './app/frontend/**/*.{js,vue}'
+  ].concat(proConfig.content),
   theme: {
     extend: {
       colors: {
