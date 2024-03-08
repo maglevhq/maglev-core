@@ -13,7 +13,7 @@ require 'jbuilder'
 module Maglev
   ROOT_PATH = Pathname.new(File.join(__dir__, '..'))
 
-  ServiceContext = Struct.new(:rendering_mode, :controller, keyword_init: true)
+  ServiceContext = Struct.new(:rendering_mode, :controller, :site, keyword_init: true)
 
   class << self
     attr_accessor :local_themes

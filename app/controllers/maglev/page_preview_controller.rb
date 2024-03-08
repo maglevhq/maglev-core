@@ -23,6 +23,8 @@ module Maglev
       super.tap do |site|
         raise ActiveRecord::RecordNotFound if site.nil?
 
+        maglev_services.context.site = site
+
         site.style = JSON.parse(params[:style]) if params[:style]
       end
     end

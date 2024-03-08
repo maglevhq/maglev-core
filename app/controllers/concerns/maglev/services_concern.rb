@@ -24,7 +24,8 @@ module Maglev
     def build_maglev_service_context
       ::Maglev::ServiceContext.new(
         rendering_mode: maglev_rendering_mode,
-        controller: self
+        controller: self,
+        site: nil
       )
     end
 
