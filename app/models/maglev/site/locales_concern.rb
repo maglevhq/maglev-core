@@ -6,7 +6,7 @@ module Maglev::Site::LocalesConcern
 
   included do
     ## serializers ##
-    if Rails::VERSION::MAJOR >= 7 && Rails::VERSION::MINOR > 0
+    if Rails::VERSION::MAJOR >= 7 && Rails::VERSION::MINOR.positive?
       serialize :locales, coder: LocalesSerializer
     else
       serialize :locales, LocalesSerializer

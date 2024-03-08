@@ -17,7 +17,8 @@ module Maglev
 
       entries = maglev_asset_manifest.resolve_entries(*%w[live-preview-rails-client], type: :javascript)
 
-      javascript_include_tag(*entries.fetch(:scripts).flatten.uniq, crossorigin: 'anonymous', type: 'module', defer: true)
+      javascript_include_tag(*entries.fetch(:scripts).flatten.uniq, crossorigin: 'anonymous', type: 'module',
+                                                                    defer: true)
     end
 
     def maglev_asset_manifest
