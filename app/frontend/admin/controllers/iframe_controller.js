@@ -5,7 +5,7 @@ export default class extends Controller {
     this.element.addEventListener('load', () => {
       setTimeout(() => {
         let height =
-          this.element.contentDocument.querySelector('body').clientHeight
+          this.element.contentDocument.querySelector('[data-maglev-section-id]').clientHeight
 
         if (height < 200) height = 200
 

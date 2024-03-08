@@ -74,6 +74,9 @@ module Maglev
     def select_site_scoped_sections(sections)
       (sections || []).find_all do |section|
         definition = theme.sections.find(section['type'])
+
+        raise "[Maglev] Unknown section type: #{section['type']}" unless definition
+
         definition.site_scoped?
       end
     end
