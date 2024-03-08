@@ -4,7 +4,8 @@
     :firstIndex="tabIndexFromRoute"
     :otherProps="{ sectionId: currentSection.id, settingId }"
     class="overflow-y-hidden"
-    sharedClass="px-4"
+    navClass="px-4"
+    panelClass="px-3"
     ref="tabs"
   />
 </template>

@@ -1,8 +1,8 @@
 <template>
   <div>
-    <label class="block font-semibold text-gray-800" :for="name">
+    <div class="block font-semibold text-gray-800" @click="focus()">
       {{ label }}
-    </label>
+    </div>
     <div class="mt-1">
       <div
         class="flex items-center justify-center bg-gray-100 h-24 rounded"

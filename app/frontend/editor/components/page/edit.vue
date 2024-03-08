@@ -3,7 +3,8 @@
     <uikit-tabs
       :tabs="tabs"
       :otherProps="{ page: editedPage, errors }"
-      sharedClass="px-1/2"
+      navClass="mx-4"
+      panelClass="mx-3"
       class="overflow-y-hidden pb-4"
       @on-change="onChange"
     />

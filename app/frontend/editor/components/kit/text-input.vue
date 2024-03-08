@@ -1,5 +1,5 @@
 <template>
-  <div class="space-y-1">
+  <div class="space-y-1 flex flex-col">
     <label
       class="block font-semibold text-gray-800"
       :for="name"
@@ -15,12 +15,13 @@
       </transition>
     </label>
     <input
+      :id="name"
       type="text"
       :value="value"
       :placeholder="placeholder"
       @blur="blur()"
       @input="updateInput"
-      class="block w-full py-2 px-3 rounded bg-gray-100 text-gray-800 focus:outline-none focus:ring placeholder-gray-500"
+      class="block py-2 px-3 rounded bg-gray-100 text-gray-800 focus:outline-none focus:ring placeholder-gray-500"
       autocomplete="off"
       ref="input"
     />

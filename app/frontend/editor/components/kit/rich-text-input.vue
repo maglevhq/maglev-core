@@ -1,12 +1,12 @@
 <template>
   <div>
-    <label
+    <div
       class="block font-semibold text-gray-800"
       :for="name"
       @click="focus()"
     >
       {{ label }}
-    </label>
+    </div>
     <div class="mt-1">
       <editor-menu-bar :editor="editor" v-slot="{ commands, isActive }">
         <div class="flex sticky top-0 z-10 pb-2 bg-white space-x-1">

@@ -3,7 +3,10 @@
     class="flex flex-col flex-1"
     :class="{ 'overflow-y-hidden': enableOverflow }"
   >
-    <nav class="flex flex-col sm:flex-row" :class="sharedClass">
+    <nav class="flex flex-col sm:flex-row" :class="{
+      [sharedClass]: !isBlank(sharedClass),
+      [navClass]: !isBlank(navClass)
+    }">
       <button
         v-for="(tab, index) in tabs"
         :key="`tab-${index}`"
@@ -19,13 +22,17 @@
         {{ tab.name }}
       </button>
     </nav>
-    <div class="relative -mt-1/2" :class="sharedClass">
+    <div class="relative -mt-1/2" :class="{
+      [sharedClass]: !isBlank(sharedClass),
+      [navClass]: !isBlank(navClass)
+    }">
       <div class="w-full border-gray-200 border-t-2 h-0"></div>
     </div>
     <div
       class="flex-1 mt-4 pb-4"
       :class="{
         [sharedClass]: !isBlank(sharedClass),
+        [panelClass]: !isBlank(panelClass),
         'overflow-y-auto': enableOverflow,
       }"
     >
@@ -35,6 +42,7 @@
           :key="currentTabKey"
           v-on="$listeners"
           v-bind="{ ...otherProps, ...currentTabProps }"
+          class="px-1"
         />
       </transition>
     </div>
@@ -48,6 +56,8 @@ export default {
     tabs: { type: Array, default: () => [] },
     firstIndex: { type: Number, default: 0 },
     otherProps: { type: Object, default: () => ({}) },
+    navClass: { type: String, default: null },
+    panelClass: { type: String, default: null },
     sharedClass: { type: String, default: null },
     enableOverflow: { type: Boolean, default: true },
   },

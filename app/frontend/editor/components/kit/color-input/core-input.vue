@@ -11,6 +11,7 @@
     >
 
     <input
+      :id="name"
       type="text"
       :value="inputColor"
       @input="updateInput"
@@ -42,6 +43,7 @@ export default {
   name: 'CoreInput',
   components: { PresetDropdown },
   props: {
+    name: { type: String, default: 'color' },
     value: { type: String },
     presets: {
       type: Array,

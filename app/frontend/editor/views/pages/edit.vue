@@ -1,6 +1,6 @@
 <template>
   <layout :title="$t('page.edit.currentPage.title')" :overflowY="false">
-    <div class="flex flex-col flex-1 mx-4 pb-4 overflow-y-hidden">
+    <div class="flex flex-col flex-1 pb-4 overflow-y-hidden">
       <edit-page
         :page="currentPage"
         v-if="currentPage"

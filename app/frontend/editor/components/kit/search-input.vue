@@ -8,6 +8,7 @@
     </button>
 
     <input
+      name="search-input"
       type="text"
       v-model="query"
       class="block w-full border-0 bg-transparent focus:outline-none placeholder-gray-500"

@@ -1,10 +1,11 @@
 <template>
   <div>
-    <label class="block font-semibold text-gray-800" :for="name">
+    <div class="block font-semibold text-gray-800" @click="focus()">
       {{ label }}
-    </label>
+    </div>
 
     <uikit-text-input
+      :name="name"
       v-model="textInput"
       :showLabel="false"
       :placeholder="$t('linkInput.nestedTextPlaceholder')"
@@ -82,6 +83,9 @@ export default {
     },
   },
   methods: {
+    focus() {
+      this.openLinkPickerModal()
+    },
     setLink(link) {
       this.$emit('input', {
         ...pick(

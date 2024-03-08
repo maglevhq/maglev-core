@@ -4,7 +4,7 @@
       :tabs="tabs"
       :firstIndex="firstTabIndex"
       :otherProps="{ currentLink: link }"
-      sharedClass="px-1/2"
+      navClass="px-1"
       :enableOverflow="false"
       @select-tab="onTabSelected"
       @change="onChange"

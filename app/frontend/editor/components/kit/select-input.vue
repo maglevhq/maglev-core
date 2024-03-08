@@ -1,12 +1,12 @@
 <template>
   <div>
-    <label
+    <div
       class="block font-semibold text-gray-800"
-      :for="name"
+      @click="focus()"
       v-if="withLabel"
     >
       {{ label }}
-    </label>
+    </div>
     <div class="relative">
       <button
         class="text-left block w-full mt-1 py-2 px-3 rounded bg-gray-100 text-gray-800 focus:outline-none focus:ring"
@@ -51,6 +51,7 @@
       >
         <div class="px-3 pt-1 pb-3" v-if="searchEnabled">
           <input
+            :id="name"
             class="block mt-1 px-3 py-1 w-full border rounded border-gray-300 bg-gray-100 placeholder-gray-500 focus:ring focus:ring"
             type="text"
             v-model="q"
@@ -70,16 +71,16 @@
             class="py-1 px-4 cursor-pointer"
             :class="{
               'rounded-b': index === list.length - 1,
-              'bg-editor-primary text-white': index === focus,
+              'bg-editor-primary text-white': index === focusIndex,
             }"
-            @mouseover="focus = index"
-            @mouseleave="focus = undefined"
+            @mouseover="focusIndex = index"
+            @mouseleave="focusIndex = undefined"
             @click="select(item)"
           >
             <slot
               name="item"
               v-bind:item="item"
-              v-bind:hovered="index === focus"
+              v-bind:hovered="index === focusIndex"
             />
           </div>
         </div>
@@ -111,7 +112,7 @@ export default {
       isOpen: false,
       q: undefined,
       list: undefined,
-      focus: undefined,
+      focusIndex: undefined,
     }
   },
   created() {
@@ -126,13 +127,16 @@ export default {
     },
   },
   methods: {
+    focus() {
+      this.toggle();
+    },
     toggle() {
       this.isOpen = !this.isOpen
     },
     fetch() {
       this.fetchList(this.q).then((list) => {
         this.list = list
-        this.focus = list && list.length > 0 ? 0 : null
+        this.focusIndex = list && list.length > 0 ? 0 : null
       })
     },
     select(value) {
@@ -147,24 +151,24 @@ export default {
       if (!this) return
       switch (event.keyCode) {
         case 13:
-          if (this.focus !== undefined) {
-            this.select(this.list[this.focus])
+          if (this.focusIndex !== undefined) {
+            this.select(this.list[this.focusIndex])
           }
           event.stopPropagation() & event.preventDefault()
           break
         case 38:
-          if (!this.focus) {
-            this.focus = 0
-          } else if (this.focus > 0) {
-            this.focus--
+          if (!this.focusIndex) {
+            this.focusIndex = 0
+          } else if (this.focusIndex > 0) {
+            this.focusIndex--
           }
           event.stopPropagation() & event.preventDefault()
           break
         case 40:
-          if (!this.focus) {
-            this.focus = 0
-          } else if (this.focus < this.list.length - 1) {
-            this.focus++
+          if (!this.focusIndex) {
+            this.focusIndex = 0
+          } else if (this.focusIndex < this.list.length - 1) {
+            this.focusIndex++
           }
           event.stopPropagation() & event.preventDefault()
           break
@@ -174,7 +178,7 @@ export default {
       this.isOpen = false
       this.q = null
       this.list = undefined
-      this.focus = undefined
+      this.focusIndex = undefined
     },
   },
   watch: {
