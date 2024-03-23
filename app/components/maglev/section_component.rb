@@ -30,12 +30,12 @@ module Maglev
 
     # rubocop:disable Rails/OutputSafety
     def dom_data
-      "data-maglev-section-id=\"#{id}\"".html_safe
+      "data-maglev-section-id=\"#{id}\" data-maglev-section-type=\"#{type}\"".html_safe
     end
     # rubocop:enable Rails/OutputSafety
 
     def tag_data
-      { maglev_section_id: id }
+      { maglev_section_id: id, maglev_section_type: type }
     end
 
     def blocks

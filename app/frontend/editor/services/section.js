@@ -85,7 +85,7 @@ const buildSetting = (setting, sampleContent) => {
   let value = sampleContent ?? setting.default
   switch (setting.type) {
     case 'image':
-      value = typeof value === 'string' ? { url: value } : {}
+      value = typeof value === 'string' ? { url: value } : value || {}
       break
     case 'link':
       value =
