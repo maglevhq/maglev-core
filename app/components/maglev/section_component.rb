@@ -7,16 +7,17 @@ module Maglev
     extend Forwardable
     def_delegators :parent, :site, :config
 
-    attr_reader :parent, :id, :type, :settings, :attributes, :definition, :templates_root_path
+    attr_reader :parent, :id, :type, :settings, :attributes, :definition, :templates_root_path, :rendering_mode
 
     # rubocop:disable Lint/MissingSuper
-    def initialize(parent:, attributes:, definition:, templates_root_path:)
+    def initialize(parent:, attributes:, definition:, templates_root_path:, rendering_mode:)
       @parent = parent # aka a PageComponent
       @id = attributes[:id]
       @type = attributes[:type]
       @definition = definition
       @attributes = attributes
       @templates_root_path = templates_root_path
+      @rendering_mode = rendering_mode
 
       @settings = settings_proxy(
         build_settings_map(attributes[:settings])
@@ -53,6 +54,8 @@ module Maglev
         template: "#{templates_root_path}/sections/#{definition.category}/#{type}",
         locals: { section: self, maglev_section: self }
       )
+    rescue Exception => e
+      handle_error(e)
     end
 
     private
@@ -91,6 +94,33 @@ module Maglev
         definition: block_definition,
         attributes: block_attributes
       )
+    end
+
+    def handle_error(exception)
+      throw exception if %i(live section).include?(rendering_mode)
+
+      Rails.logger.error [
+        "⚠️  [Maglev] Error when rendering a \"#{type}\" type section ⚠️",
+        exception.message, 
+        *exception.backtrace
+      ].join($/)
+
+      render_error
+    end
+
+    def render_error
+      <<-HTML
+<div #{dom_data} style="padding: 5rem 0;">
+  <div style="max-width: 40rem; margin: 0 auto; background-color: rgb(254 242 242); color: rgb(153 27 27); padding: 1rem; border-radius: 0.375rem;">
+    <h3 style="font-weight: 500; color: rgb(153 27 27); font-size: 0.875rem; line-height: 1.25rem;">
+      We've encountered an error while rendering the <strong>"#{type}"</strong> section.
+    </h3>
+    <p style="margin-top: 0.5rem; font-size: 0.775rem; line-height: 1.25rem; color: rgb(185 28 28);">
+      Check out your application logs for more details.
+    </p>
+  </div>
+</div>
+      HTML
     end
   end
 end

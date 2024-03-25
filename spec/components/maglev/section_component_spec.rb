@@ -16,7 +16,8 @@ describe Maglev::SectionComponent do
       parent: page_component,
       attributes: attributes,
       definition: definition,
-      templates_root_path: templates_root_path
+      templates_root_path: templates_root_path,
+      rendering_mode: :preview
     ).tap { |c| c.view_context = view_context }
   end
 
@@ -24,7 +25,7 @@ describe Maglev::SectionComponent do
     subject { component.dom_data }
 
     it 'returns a HTML formatted data attribute' do
-      expect(subject).to eq 'data-maglev-section-id="def"'
+      expect(subject).to eq 'data-maglev-section-id="def" data-maglev-section-type="jumbotron"'
     end
   end
 
@@ -34,7 +35,7 @@ describe Maglev::SectionComponent do
     context 'using low-level tags (ex: jumbotron)' do
       it 'returns a valid HTML' do
         expect(subject).to eq(<<~HTML
-          <div data-maglev-section-id="def" class="jumbotron">
+          <div data-maglev-section-id="def" data-maglev-section-type="jumbotron" class="jumbotron">
             <div class="container">
               <h1 data-maglev-id="def.title" class="display-3">Hello world</h1>
               <div data-maglev-id="def.body">
@@ -53,7 +54,7 @@ describe Maglev::SectionComponent do
 
       it 'returns a valid HTML' do
         expect(subject).to eq(<<~HTML
-          <div class="navbar" id="section-abc" data-maglev-section-id="abc">
+          <div class="navbar" id="section-abc" data-maglev-section-id="abc" data-maglev-section-type="navbar">
             <a href="/">
               <img src="logo.png" data-maglev-id="abc.logo" class="brand-logo"/>
             </a>

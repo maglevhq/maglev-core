@@ -9,8 +9,11 @@ module Maglev
         theme: theme || maglev_theme,
         page: page || maglev_page,
         page_sections: page_sections || maglev_page_sections,
-        templates_root_path: maglev_sections_path,
-        config: maglev_config
+        context: {
+          templates_root_path: maglev_sections_path,
+          rendering_mode: maglev_rendering_mode,
+          config: maglev_config
+        }
       ).tap { |component| component.view_context = self }.render.html_safe
     end
     # rubocop:enable Rails/OutputSafety
