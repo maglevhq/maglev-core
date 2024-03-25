@@ -8,7 +8,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 # development dependencies will be added by default to the :development group.
 gemspec
 
-gem 'rails', '~> 7.1'
+gem 'rails', '~> 7.1.3.1'
 
 # Use Active Storage variant
 gem 'image_processing', '~> 1.12.2'
@@ -40,7 +40,7 @@ group :development, :test do
 
   gem 'generator_spec'
 
-  gem 'nokogiri', '>= 1.13.10'
+  gem 'nokogiri', '>= 1.15.6'
 
   gem 'annotate'
 end
