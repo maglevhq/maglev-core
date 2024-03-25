@@ -4,7 +4,7 @@ module Maglev
   class PageComponent < BaseComponent
     attr_reader :site, :theme, :page, :page_sections, :templates_root_path, :config, :rendering_mode
 
-    # rubocop:disable Lint/MissingSuper, Metrics/ParameterLists
+    # rubocop:disable Lint/MissingSuper
     def initialize(site:, theme:, page:, page_sections:, context:)
       @site = site
       @theme = theme
@@ -14,7 +14,7 @@ module Maglev
       @config = context[:config]
       @rendering_mode = context[:rendering_mode]
     end
-    # rubocop:enable Lint/MissingSuper, Metrics/ParameterLists
+    # rubocop:enable Lint/MissingSuper
 
     # Sections within a dropzone
     def sections

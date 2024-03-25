@@ -54,7 +54,7 @@ module Maglev
         template: "#{templates_root_path}/sections/#{definition.category}/#{type}",
         locals: { section: self, maglev_section: self }
       )
-    rescue Exception => e
+    rescue StandardError => e
       handle_error(e)
     end
 
@@ -97,29 +97,29 @@ module Maglev
     end
 
     def handle_error(exception)
-      throw exception if %i(live section).include?(rendering_mode)
+      throw exception if %i[live section].include?(rendering_mode)
 
       Rails.logger.error [
         "⚠️  [Maglev] Error when rendering a \"#{type}\" type section ⚠️",
-        exception.message, 
+        exception.message,
         *exception.backtrace
-      ].join($/)
+      ].join($INPUT_RECORD_SEPARATOR)
 
       render_error
     end
 
     def render_error
-      <<-HTML
-<div #{dom_data} style="padding: 5rem 0;">
-  <div style="max-width: 40rem; margin: 0 auto; background-color: rgb(254 242 242); color: rgb(153 27 27); padding: 1rem; border-radius: 0.375rem;">
-    <h3 style="font-weight: 500; color: rgb(153 27 27); font-size: 0.875rem; line-height: 1.25rem;">
-      We've encountered an error while rendering the <strong>"#{type}"</strong> section.
-    </h3>
-    <p style="margin-top: 0.5rem; font-size: 0.775rem; line-height: 1.25rem; color: rgb(185 28 28);">
-      Check out your application logs for more details.
-    </p>
-  </div>
-</div>
+      <<~HTML
+        <div #{dom_data} style="padding: 5rem 0;">
+          <div style="max-width: 40rem; margin: 0 auto; background-color: rgb(254 242 242); color: rgb(153 27 27); padding: 1rem; border-radius: 0.375rem;">
+            <h3 style="font-weight: 500; color: rgb(153 27 27); font-size: 0.875rem; line-height: 1.25rem;">
+              We've encountered an error while rendering the <strong>"#{type}"</strong> section.
+            </h3>
+            <p style="margin-top: 0.5rem; font-size: 0.775rem; line-height: 1.25rem; color: rgb(185 28 28);">
+              Check out your application logs for more details.
+            </p>
+          </div>
+        </div>
       HTML
     end
   end

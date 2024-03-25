@@ -9,11 +9,7 @@ module Maglev
         theme: theme || maglev_theme,
         page: page || maglev_page,
         page_sections: page_sections || maglev_page_sections,
-        context: {
-          templates_root_path: maglev_sections_path,
-          rendering_mode: maglev_rendering_mode,
-          config: maglev_config
-        }
+        context: maglev_rendering_context
       ).tap { |component| component.view_context = self }.render.html_safe
     end
     # rubocop:enable Rails/OutputSafety
@@ -55,6 +51,14 @@ module Maglev
 
     def maglev_site_link
       maglev_site_root_fullpath
+    end
+
+    def maglev_rendering_context
+      {
+        templates_root_path: maglev_sections_path,
+        rendering_mode: maglev_rendering_mode,
+        config: maglev_config
+      }
     end
 
     def rendering_maglev_page?
