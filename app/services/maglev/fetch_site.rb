@@ -6,7 +6,7 @@ module Maglev
     include Injectable
 
     def call
-      Maglev::Site.first.tap do |site|
+      @site ||= Maglev::Site.first.tap do |site|
         change_default_locales(site)
       end
     end
