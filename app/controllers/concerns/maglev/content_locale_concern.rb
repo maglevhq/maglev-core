@@ -5,7 +5,9 @@ module Maglev
     extend ActiveSupport::Concern
 
     included do
-      helper_method :content_locale
+      alias_method :maglev_content_locale, :content_locale
+
+      helper_method :maglev_content_locale, :content_locale
     end
 
     private

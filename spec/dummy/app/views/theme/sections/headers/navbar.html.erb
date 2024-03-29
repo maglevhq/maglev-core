@@ -24,4 +24,10 @@
       <% end %>
     </ul>
   </nav>
+
+  <div>
+    <% maglev_site.locales.each do |locale| %>
+      <%= link_to t("lang.#{locale.prefix}"), maglev_alt_link(locale.prefix), class: { 'active': maglev_current_locale?(locale.prefix) } %>
+    <% end %>
+  </div>
 <% end %>

@@ -97,7 +97,7 @@ module Maglev
     end
 
     def handle_error(exception)
-      throw exception if %i[live section].include?(rendering_mode)
+      throw exception if %i[live section].include?(rendering_mode) || Rails.env.test?
 
       Rails.logger.error [
         "⚠️  [Maglev] Error when rendering a \"#{type}\" type section ⚠️",

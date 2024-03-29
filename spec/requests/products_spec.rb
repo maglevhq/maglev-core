@@ -43,6 +43,10 @@ RSpec.describe 'Maglev::PagePreviewController', type: :request do
                     </li>
                   </ul>
                 </nav>
+                <div>
+                  <a class="active" href="http://www.example.com/empty">English</a>
+                  <a class="" href="http://www.example.com/fr/empty">Français</a>
+                </div>
               </div>
               <h1>My awesome product</h1>
               <p>Price: $42.00</p>

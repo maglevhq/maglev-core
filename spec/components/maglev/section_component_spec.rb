@@ -52,6 +52,8 @@ describe Maglev::SectionComponent do
       let(:attributes) { page.sections[0].deep_symbolize_keys }
       let(:definition) { build(:section, :navbar) }
 
+      before { create(:site) }
+
       it 'returns a valid HTML' do
         expect(subject).to eq(<<~HTML
           <div class="navbar" id="section-abc" data-maglev-section-id="abc" data-maglev-section-type="navbar">
@@ -88,6 +90,10 @@ describe Maglev::SectionComponent do
                 </li>
               </ul>
             </nav>
+            <div>
+              <a class="active" href="http://www.example.com/empty">English</a>
+              <a class="" href="http://www.example.com/fr/empty">Français</a>
+            </div>
           </div>
         HTML
         .strip)
@@ -99,9 +105,21 @@ end
 class FooController < ::ApplicationController
   include Maglev::StandaloneSectionsConcern
 
+  helper_method :request
+
   private
 
   def maglev_site_root_fullpath
     '/'
+  end
+
+  def request
+    ActionDispatch::Request.new(
+      Rack::MockRequest.env_for('http://www.example.com', params: { path: '/' })
+    )
+  end
+
+  def maglev_page_fullpaths
+    { en: '/empty', fr: '/fr/empty' }
   end
 end

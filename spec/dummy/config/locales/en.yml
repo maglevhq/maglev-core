@@ -31,3 +31,6 @@
 
 en:
   hello: "Hello world"
+  lang:
+    en: "English"
+    fr: "Français"

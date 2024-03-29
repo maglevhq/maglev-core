@@ -43,7 +43,7 @@ module Maglev
 
     def maglev_alt_link(locale, links: nil)
       links ||= maglev_page_fullpaths
-      link = links[locale]
+      link = links[locale.to_sym]
       return nil if link.nil?
 
       "#{request.base_url}#{link}"
@@ -51,6 +51,10 @@ module Maglev
 
     def maglev_site_link
       maglev_site_root_fullpath
+    end
+
+    def maglev_current_locale?(locale)
+      locale.to_sym == maglev_content_locale
     end
 
     def maglev_rendering_context
