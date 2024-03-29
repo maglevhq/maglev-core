@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    maglevcms (1.5.1)
+    maglevcms (1.6.0)
       jbuilder (~> 2.11.2)
       kaminari (~> 1.2.1)
       maglev-injectable (~> 2.1.1)
@@ -160,7 +160,7 @@ GEM
     parser (3.3.0.5)
       ast (~> 2.4.1)
       racc
-    pg (1.5.4)
+    pg (1.5.6)
     racc (1.7.3)
     rack (2.2.8)
     rack-proxy (0.7.7)
@@ -309,7 +309,7 @@ DEPENDENCIES
   maglevcms!
   mini_magick (~> 4.11)
   nokogiri (>= 1.13.10)
-  pg (~> 1.5.4)
+  pg (~> 1.5.6)
   rails (= 7.0.8)
   rspec-rails
   rubocop
