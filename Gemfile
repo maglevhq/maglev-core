@@ -16,6 +16,9 @@ gem 'image_processing', '~> 1.12.2'
 # Use Sprockets to deal with assets in the dummy app
 gem 'sprockets-rails'
 
+# Rack vulnerable to ReDoS in content type parsing
+gem 'rack', '~> 3.0.10'
+
 # Temporary use this branch because it solves a bug
 # gem 'maglev-injectable', path: '../injectable'
 
@@ -43,6 +46,8 @@ group :development, :test do
   gem 'nokogiri', '>= 1.15.6'
 
   gem 'annotate'
+
+  gem 'rdoc', '>= 6.6.3.1'
 end
 
 group :test do
