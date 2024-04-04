@@ -4,7 +4,7 @@ require 'uri'
 
 module Maglev
   class PreviewConstraint
-    CRAWLER_USER_AGENTS = /Googlebot|Twitterbot|facebookexternalhit/o.freeze
+    CRAWLER_USER_AGENTS = /Googlebot|Twitterbot|facebookexternalhit|LinkedInBot/o.freeze
 
     attr_reader :preview_host
 
