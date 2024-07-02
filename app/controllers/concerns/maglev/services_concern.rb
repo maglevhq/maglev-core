@@ -16,9 +16,13 @@ module Maglev
     end
 
     def maglev_services
-      @maglev_services ||= ::Maglev.services(
+      @maglev_services ||= ::Maglev.services(maglev_services_overrides)
+    end
+
+    def maglev_services_overrides
+      {
         context: build_maglev_service_context
-      )
+      }
     end
 
     def build_maglev_service_context

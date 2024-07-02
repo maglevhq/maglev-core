@@ -20,7 +20,7 @@ module Maglev
 
     # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
     def config
-      @config ||= Config.new.tap do |c|
+      @config ||= config_klass.new.tap do |c|
         c.title = 'Maglev - EDITOR'
         c.favicon = nil
         c.logo = nil
@@ -60,6 +60,10 @@ module Maglev
 
       config = Rails.configuration.generators
       @uuid_as_primary_key = config.options[config.orm][:primary_key_type] == :uuid
+    end
+
+    def config_klass
+      ::Maglev::Config
     end
   end
 end
