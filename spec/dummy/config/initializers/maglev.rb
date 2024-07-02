@@ -26,5 +26,5 @@ Maglev.configure do |config|
     }
   ]
 
-  config.reserved_paths = %w[products sign-in search]
+  config.reserved_paths = %w[products sign-in search posts/*]
 end

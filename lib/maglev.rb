@@ -6,6 +6,7 @@ require_relative 'maglev/config'
 require_relative 'maglev/errors'
 require_relative 'maglev/i18n'
 require_relative 'maglev/preview_constraint'
+require_relative 'maglev/reserved_paths'
 
 require 'injectable'
 require 'jbuilder'
@@ -43,7 +44,10 @@ module Maglev
     # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
     def configure
-      yield config
+      config.tap do
+        yield(config)
+        config.reserved_paths = Maglev::ReservedPaths.new(config.reserved_paths)
+      end
     end
 
     def uploader

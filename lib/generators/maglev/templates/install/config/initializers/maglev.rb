@@ -79,5 +79,5 @@ Maglev.configure do |config|
 
   # Prevent the content editors to create pages sharing the same path with other
   # existing pages of the application.
-  # config.reserved_paths = %w(products sign-in search)
+  # config.reserved_paths = %w(products sign-in search posts/*)
 end

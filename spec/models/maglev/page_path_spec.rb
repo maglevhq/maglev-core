@@ -9,6 +9,12 @@ RSpec.describe Maglev::PagePath, type: :model do
     expect(page.paths.build(canonical: true, value: 'products', locale: 'fr')).to be_invalid
   end
 
+  it "can't use a reserved path with a wildcard" do
+    expect(page.paths.build(canonical: true, value: 'posts/hello-world', locale: 'fr')).to be_invalid
+    expect(page.paths.build(canonical: true, value: 'posts/hello-world/bar', locale: 'fr')).to be_invalid
+    expect(page.paths.build(canonical: true, value: 'posts', locale: 'fr')).to be_valid
+  end
+
   it 'allows a path to be canonical in another locale' do
     expect(page.paths.build(canonical: true, value: page.path, locale: 'fr')).to be_valid
   end
