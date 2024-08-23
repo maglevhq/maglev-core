@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    maglevcms (1.6.1)
+    maglevcms (1.7.0)
       jbuilder (~> 2.11.2)
       kaminari (~> 1.2.1)
       maglev-injectable (~> 2.1.1)
@@ -102,6 +102,7 @@ GEM
     docile (1.4.0)
     drb (2.2.1)
     dry-cli (1.0.0)
+    error_highlight (0.6.0)
     erubi (1.13.0)
     factory_bot (6.2.1)
       activesupport (>= 5.0.0)
@@ -323,6 +324,7 @@ PLATFORMS
 DEPENDENCIES
   annotate
   bcrypt
+  error_highlight (>= 0.4.0)
   factory_bot_rails (~> 6.2.0)
   generator_spec
   image_processing (~> 1.12.2)

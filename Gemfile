@@ -51,6 +51,8 @@ group :development, :test do
   gem 'annotate'
 
   gem 'rdoc', '>= 6.6.3.1'
+
+  gem 'error_highlight', '>= 0.4.0'
 end
 
 group :test do
