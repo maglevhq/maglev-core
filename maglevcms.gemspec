@@ -44,10 +44,10 @@ Gem::Specification.new do |spec|
     'README.md'
   ]
 
-  spec.add_dependency 'jbuilder', '~>  2.11.2'
+  spec.add_dependency 'jbuilder', '~>  2.12.0'
   spec.add_dependency 'kaminari', '~> 1.2.1'
   spec.add_dependency 'maglev-injectable', '~> 2.1.1'
-  spec.add_dependency 'rails', '< 7.2', '>= 6'
+  spec.add_dependency 'rails', '< 7.3', '>= 6'
   spec.add_dependency 'vite_rails', '< 4', '>= 3'
   spec.add_dependency 'vite_ruby', '>= 3.5'
 
