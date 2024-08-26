@@ -20,7 +20,7 @@ gem 'sprockets-rails'
 gem 'rack', '~> 3.0.10'
 
 # REXML contains a denial of service vulnerability
-gem 'rexml', '>= 3.2.7'
+gem 'rexml', '>= 3.3.6'
 
 # Temporary use this branch because it solves a bug
 # gem 'maglev-injectable', path: '../injectable'

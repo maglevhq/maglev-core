@@ -219,7 +219,7 @@ GEM
     regexp_parser (2.9.2)
     reline (0.5.9)
       io-console (~> 0.5)
-    rexml (3.3.1)
+    rexml (3.3.6)
       strscan
     rspec-core (3.13.0)
       rspec-support (~> 3.13.0)
@@ -330,7 +330,7 @@ DEPENDENCIES
   rack (~> 3.0.10)
   rails (~> 7.2.1)
   rdoc (>= 6.6.3.1)
-  rexml (>= 3.2.7)
+  rexml (>= 3.3.6)
   rspec-rails
   rubocop
   rubocop-rails_config
