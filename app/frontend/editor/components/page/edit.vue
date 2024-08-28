@@ -3,12 +3,12 @@
     <uikit-tabs
       :tabs="tabs"
       :otherProps="{ page: editedPage, errors }"
-      navClass="mx-4"
-      panelClass="mx-3"
+      :navClass="!insideModal ? 'mx-4' : 'mx-1'"
+      :panelClass="!insideModal ? 'mx-3' : ''"
       class="overflow-y-hidden pb-4"
       @on-change="onChange"
     />
-    <div class="mt-auto">
+    <div class="mt-auto" :class="{ 'mx-4': !insideModal }">
       <uikit-submit-button
         type="button"
         class="big-submit-button"

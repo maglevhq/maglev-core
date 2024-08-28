@@ -10,7 +10,7 @@
       :key="`modal-${index}`"
       :is="modal.component"
       @on-close="handleClose"
-      v-bind="modal.props"
+      v-bind="getModalProps(modal)"
       v-on="modal.listeners"
       v-show="index === stack.length - 1"
     />
@@ -62,7 +62,7 @@ export default {
     },
     containerClass() {
       return this.currentModal?.props?.modalClass
-    },
+    }
   },
   methods: {
     handleOutsideClick(force) {
@@ -76,6 +76,10 @@ export default {
       if (!this.currentModal) return
       this.stack.pop()
     },
+    getModalProps(modal) {
+      const { modalClass, ...rest } = (modal.props ?? {})
+      return rest
+    }
   },
 }
 </script>
