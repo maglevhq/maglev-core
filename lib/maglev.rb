@@ -25,7 +25,7 @@ module Maglev
         c.title = 'Maglev - EDITOR'
         c.favicon = nil
         c.logo = nil
-        c.primary_color = '#7E6EDB'
+        c.primary_color = '#040712'
         c.uploader = 'active_storage'
         c.site_publishable = false
         c.preview_host = nil
