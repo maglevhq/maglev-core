@@ -5,7 +5,7 @@ require 'vite_rails'
 
 describe Maglev::EditorHelper do
   let(:title) { nil }
-  let(:primary_color) { '#7E6EDB' }
+  let(:primary_color) { '#040712' }
   let(:logo) { nil }
   let(:site) { build(:site) }
   let(:config) do
@@ -47,7 +47,7 @@ describe Maglev::EditorHelper do
     subject { helper.editor_primary_hex_color }
 
     it 'returns the primary color in a hexadecimal format' do
-      expect(subject).to eq '#7E6EDB'
+      expect(subject).to eq '#040712'
     end
   end
 
@@ -55,7 +55,7 @@ describe Maglev::EditorHelper do
     subject { helper.editor_primary_rgb_color }
 
     it 'returns the primary color in RGB (array)' do
-      expect(subject).to eq [126, 110, 219]
+      expect(subject).to eq [4, 7, 18]
     end
 
     context 'short version of the primary color' do

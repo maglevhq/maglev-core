@@ -19,7 +19,7 @@ describe Maglev do
     end
 
     it 'provides a default primary color' do
-      expect(described_class.config.primary_color).to eq('#7E6EDB')
+      expect(described_class.config.primary_color).to eq('#040712')
     end
   end
 

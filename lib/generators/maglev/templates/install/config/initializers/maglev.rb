@@ -19,7 +19,7 @@ Maglev.configure do |config|
   # config.favicon = ->(site) { ActionController::Base.helpers.vite_asset_path('favicon.png') }
 
   # Primary color of the Editor
-  # config.primary_color = '#7E6EDB'
+  # config.primary_color = '#040712'
 
   # Action triggered when clicking on the very bottom left button in the Editor
   # NOTE: If you want the user to signed out from the Editor UI once the back action has been triggered,

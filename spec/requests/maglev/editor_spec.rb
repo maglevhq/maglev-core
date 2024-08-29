@@ -25,7 +25,7 @@ RSpec.describe 'Maglev::EditorController', type: :request do
   context 'the editor is authenticated' do
     before do
       Maglev.configure do |config|
-        config.primary_color = '#7E6EDB'
+        config.primary_color = '#040712'
         config.is_authenticated = ->(_site) { true }
       end
     end
@@ -68,7 +68,7 @@ RSpec.describe 'Maglev::EditorController', type: :request do
         before do
           Maglev.configure do |config|
             config.ui_locale = ui_locale
-            config.primary_color = '#7E6EDB'
+            config.primary_color = '#040712'
             config.is_authenticated = ->(_site) { true }
           end
         end
