@@ -7,11 +7,14 @@ export const isBlank = (object) => {
   )
 }
 
+export const capitalize = (str) => {
+ return str.slice(0, 1).toUpperCase() + str.slice(1);
+}
+
 export const camelize = (str) => {
-  if (!str.includes('_')) return str
   return str
-    .toLowerCase()
-    .replace(/[^a-zA-Z0-9]+(.)/g, (m, chr) => chr.toUpperCase())
+    .replace(/^([A-Z])/, (m, chr) => chr.toLowerCase())
+    .replace(/(?:_|-)([a-z\d]*)/g, (m, chr) => capitalize(chr))
 }
 
 export const camelizeKeys = (obj) => {

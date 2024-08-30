@@ -32,7 +32,8 @@ Gem::Specification.new do |spec|
   spec.files = Dir[
     '.babelrc',
     '.eslintrc.js',
-    '{app,config,db,lib}/**/*',
+    '.yarnrc.yml',
+    '{.yarn,app,config,db,lib}/**/*',
     'bin/vite',
     'package.json',
     'yarn.lock',

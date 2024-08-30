@@ -1,5 +1,5 @@
 import axios from 'axios'
-import camelcaseObjectDeep from 'camelcase-object-deep'
+import { camelizeKeys } from '@/misc/utils'
 
 let siteHandle = null
 let locale = null
@@ -21,7 +21,7 @@ const api = axios.create({
     // for "security" (even if the Rails API already camelcases the JSON),
     // we also camelcase the response in the Editor.
     // console.log('[DEBUG] API response', data)
-    return data ? camelcaseObjectDeep(JSON.parse(data)) : {}
+    return data ? camelizeKeys(JSON.parse(data)) : {}
   },
 })
 
