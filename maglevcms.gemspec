@@ -13,9 +13,9 @@ Gem::Specification.new do |spec|
   spec.authors     = ['Didier Lafforgue']
   spec.email       = ['contact@maglev.dev']
   spec.homepage    = 'https://www.maglev.dev/'
-  spec.summary     = 'Page builder Ruby on Rails'
+  spec.summary     = 'Website/page builder Ruby on Rails engine'
   spec.description = <<-DOC
-  Maglev adds a fancy page builder inside your Ruby on Rails application. This gem comes with a simple but solid CMS engine.'
+  MaglevCMS integrates a powerful website/page builder with a polished UX/UI into your Ruby on Rails application, backed by a flexible and robust CMS engine.
   DOC
   spec.license = 'MIT'
   spec.required_ruby_version = '>= 2.6'
