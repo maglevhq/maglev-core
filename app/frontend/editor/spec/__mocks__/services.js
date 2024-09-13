@@ -14,7 +14,7 @@ const siteService = {
 }
 
 const themeService = {
-  buildCategories: vi.fn(),
+  buildCategories: vi.fn()
 }
 
 const pageService = {

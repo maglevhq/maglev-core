@@ -58,7 +58,9 @@ export default (services) => ({
   sectionDefinition:
     ({ theme }) =>
     (sectionContent) => {
-      return services.theme.findSectionDefinition(theme, sectionContent)
+      return theme.sections.find(
+        (definition) => definition['id'] === sectionContent['type']
+      )
     },
   sectionSettings:
     ({ sectionDefinition }) =>

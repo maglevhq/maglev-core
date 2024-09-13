@@ -1,6 +1,5 @@
 import { isBlank, uuid8, camelize } from '@/misc/utils'
 import { normalize as coreNormalize } from 'normalizr'
-import { findSectionDefinition } from './theme'
 import { SECTION_SCHEMA } from './page'
 
 const NUMBER_OF_DEFAULT_BLOCKS = 3
