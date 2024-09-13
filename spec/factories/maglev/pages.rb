@@ -171,5 +171,27 @@ FactoryBot.define do
         ]
       end
     end
+
+    trait :with_unused_settings do
+      sections do
+        [
+          {
+            id: 'ghi',
+            type: 'showcase',
+            settings: [{ id: :title, value: 'Our projects' }, { id: :foo, value: 'foo' }],
+            blocks: [
+              {
+                type: 'showcase_item',
+                settings: [
+                  { id: :name, value: 'My first project' },
+                  { id: :screenshot, value: '/assets/screenshot-01.png' },
+                  { id: :bar, value: 'bar' }
+                ]
+              }
+            ]
+          }
+        ]
+      end
+    end
   end
 end

@@ -23,7 +23,7 @@ module Maglev
     def call
       (page_sections || page.sections || []).map do |section|
         transform_section(section.dup)
-      end
+      end.compact
     end
 
     protected
@@ -39,7 +39,7 @@ module Maglev
     def transform_section(section)
       definition = theme.sections.find(section['type'])
 
-      raise "Unknown Maglev section type (#{section['type']})" unless definition
+      raise_unknown_section_error(section['type']) unless definition
 
       transform_if_site_scoped(section, definition)
       transform_section_blocks(section['blocks'], definition)
@@ -76,8 +76,11 @@ module Maglev
     end
 
     def transform_section_settings(section, definition)
+      remove_unused_settings(section, definition)
+
       definition.settings.each do |setting|
         section_setting = find_section_setting(section, setting.id)
+
         next unless section_setting
 
         transform_content_setting(section_setting, setting)
@@ -95,9 +98,23 @@ module Maglev
       end
     end
 
+    def remove_unused_settings(section, definition)
+      section['settings'].select! do |setting|
+        definition.settings.any? do |definition_setting|
+          definition_setting.id == setting['id']
+        end
+      end
+    end
+
     def find_section_setting(section, setting_id)
       # NOTE: works for both sections and blocks
       section['settings'].find { |setting| setting['id'] == setting_id }
+    end
+
+    def raise_unknown_section_error(type)
+      raise ::Maglev::Errors::UnknownSection, "Unknown Maglev section type (#{type})" unless Rails.env.production?
+
+      Rails.logger.warn "[#{theme.id}] unknown Maglev section type (#{type})"
     end
   end
 end

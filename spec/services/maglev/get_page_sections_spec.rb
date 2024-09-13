@@ -80,6 +80,30 @@ describe Maglev::GetPageSections do
                             ])
     end
 
+    context 'the section have unused settings' do
+      let(:page) { build(:page, :with_unused_settings) }
+      it 'skips the unused settings' do
+        expect(subject).to eq([
+                                {
+                                  'id' => 'ghi',
+                                  'type' => 'showcase',
+                                  'settings' => [
+                                    { 'id' => 'title', 'value' => 'Our projects' }
+                                  ], 'blocks' => [
+                                    {
+                                      'type' => 'showcase_item',
+                                      'settings' => [
+                                        { 'id' => 'name', 'value' => 'My first project' },
+                                        { 'id' => 'screenshot',
+                                          'value' => '/assets/screenshot-01.png' }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ])
+      end
+    end
+
     context "the site doesn't have a global content" do
       let(:site) { create(:site, :empty) }
 

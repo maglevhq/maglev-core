@@ -6,7 +6,7 @@ class Maglev::SettingTypes::Link < Maglev::SettingTypes::Base
     if value.is_a?(String)
       { text: 'Link', link_type: 'url', href: value }
     else
-      { text: 'Link', link_type: 'url', href: '#' }.merge(value)
+      { text: 'Link', link_type: 'url', href: '#' }.merge(value.symbolize_keys)
     end
   end
 end

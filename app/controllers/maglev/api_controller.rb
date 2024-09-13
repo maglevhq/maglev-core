@@ -14,6 +14,8 @@ module Maglev
     rescue_from ActiveRecord::RecordInvalid, with: :record_errors
     rescue_from ActiveRecord::RecordNotFound, with: :not_found
     rescue_from ActiveRecord::StaleObjectError, with: :stale_record
+    rescue_from Maglev::Errors::UnknownSection, with: :exception_message
+    rescue_from Maglev::Errors::UnknownSetting, with: :exception_message
     rescue_from Maglev::Errors::NotAuthorized, with: :unauthorized
 
     helper_method :maglev_site, :maglev_theme

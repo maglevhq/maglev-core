@@ -3,6 +3,7 @@ import {
   simpleContentSection,
   navContentSection,
 } from '@/spec/__mocks__/section'
+import { theme } from '@/spec/__mocks__/theme'
 
 describe('SectionService', () => {
   describe('#normalize', () => {

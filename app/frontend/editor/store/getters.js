@@ -33,6 +33,7 @@ export default (services) => ({
       sections,
       blocks: sectionBlocks,
     })
+
     const siteSections = pageContent.sections.filter(
       (sectionContent) => getSectiondefinition(sectionContent).siteScoped,
     )
@@ -57,9 +58,7 @@ export default (services) => ({
   sectionDefinition:
     ({ theme }) =>
     (sectionContent) => {
-      return theme.sections.find(
-        (definition) => definition['id'] === sectionContent['type'],
-      )
+      return services.theme.findSectionDefinition(theme, sectionContent)
     },
   sectionSettings:
     ({ sectionDefinition }) =>
