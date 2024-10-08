@@ -12,6 +12,7 @@
       :emptyLabel="$t(`collectionItemInput.select.emptyLabel`)"
       :fetchList="(q) => services.collectionItem.findAll(collectionId, { q })"
       :clearEnabled="true"
+      :displayAll="true"
       buttonClass="h-10"
       v-model="selectedCollectionItem"
     >
