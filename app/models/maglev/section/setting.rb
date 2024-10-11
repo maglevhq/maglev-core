@@ -10,7 +10,7 @@ class Maglev::Section::Setting
 
   ## validations ##
   validates :id, :label, :type, :default, 'maglev/presence': true
-  validates :type, inclusion: { in: -> { Maglev::SettingTypeRegistry.types.map(&:to_s) } }
+  validates :type, inclusion: { in: ->(_setting) { Maglev::SettingTypeRegistry.types.map(&:to_s) } }
 
   ## methods ##
 
