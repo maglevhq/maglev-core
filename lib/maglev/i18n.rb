@@ -33,7 +33,7 @@ module Maglev
       end
 
       def with_locale(locale, &block)
-        Current.set(locale: locale, &block)
+        Current.set(locale:, &block)
       end
     end
 

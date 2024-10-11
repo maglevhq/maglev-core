@@ -43,7 +43,7 @@ class Maglev::Section::Setting
     attributes = hash.slice('id', 'label', 'type', 'default')
     options = hash.except('id', 'label', 'type', 'default')
 
-    new(attributes.merge(options: options))
+    new(attributes.merge(options:))
   end
 
   def self.build_many(list)

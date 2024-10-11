@@ -18,7 +18,7 @@ Gem::Specification.new do |spec|
   MaglevCMS integrates a powerful website/page builder with a polished UX/UI into your Ruby on Rails application, backed by a flexible and robust CMS engine.
   DOC
   spec.license = 'MIT'
-  spec.required_ruby_version = '>= 2.6'
+  spec.required_ruby_version = '>= 3.1'
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
   # to allow pushing to a single host or delete this section to allow pushing to any host.

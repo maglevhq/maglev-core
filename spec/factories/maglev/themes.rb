@@ -18,7 +18,7 @@ FactoryBot.define do
       ]
       theme.sections = Maglev::Section::Store.new([
                                                     Maglev::Section.build({
-                                                      theme: theme,
+                                                      theme:,
                                                       name: 'Navbar',
                                                       id: 'navbar',
                                                       category: 'headers',
@@ -36,7 +36,7 @@ FactoryBot.define do
                                                       ]
                                                     }.with_indifferent_access),
                                                     Maglev::Section.build({
-                                                      theme: theme,
+                                                      theme:,
                                                       name: 'Jumbotron',
                                                       id: 'jumbotron',
                                                       category: 'headers',
@@ -48,7 +48,7 @@ FactoryBot.define do
                                                       blocks: []
                                                     }.with_indifferent_access),
                                                     Maglev::Section.build({
-                                                      theme: theme,
+                                                      theme:,
                                                       name: 'FeaturedProduct',
                                                       id: 'featured_product',
                                                       category: 'features',
@@ -59,7 +59,7 @@ FactoryBot.define do
                                                       blocks: []
                                                     }.with_indifferent_access),
                                                     Maglev::Section.build({
-                                                      theme: theme,
+                                                      theme:,
                                                       name: 'Showcase',
                                                       id: 'showcase',
                                                       category: 'features',
@@ -79,7 +79,7 @@ FactoryBot.define do
                                                       ]
                                                     }.with_indifferent_access),
                                                     Maglev::Section.build({
-                                                      theme: theme,
+                                                      theme:,
                                                       name: 'Footer',
                                                       id: 'footer',
                                                       category: 'footers',

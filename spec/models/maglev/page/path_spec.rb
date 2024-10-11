@@ -29,7 +29,7 @@ RSpec.describe Maglev::Page, type: :model do
   describe 'cleaning path' do
     subject { path.value }
 
-    let(:path) { Maglev::PagePath.new(value: value) }
+    let(:path) { Maglev::PagePath.new(value:) }
 
     before { path.valid? }
 

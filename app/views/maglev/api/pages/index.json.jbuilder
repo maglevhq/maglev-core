@@ -13,6 +13,6 @@ json.array! @pages do |page|
   json.og_description page.og_description
   json.og_image_url page.og_image_url
 
-  json.preview_url services.get_page_fullpath.call(page: page, preview_mode: true, locale: content_locale)
-  json.section_names services.get_page_section_names.call(page: page)
+  json.preview_url services.get_page_fullpath.call(page:, preview_mode: true, locale: content_locale)
+  json.section_names services.get_page_section_names.call(page:)
 end

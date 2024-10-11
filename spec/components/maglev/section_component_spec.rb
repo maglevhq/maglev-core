@@ -6,7 +6,7 @@ describe Maglev::SectionComponent do
   let(:theme) { build(:theme) }
   let(:page) { build(:page, :with_navbar).tap { |page| page.prepare_sections(theme) } }
   let(:config) { instance_double('MaglevConfig', asset_host: 'https://assets.maglev.local') }
-  let(:page_component) { instance_double('PageCommponent', page: page, config: config) }
+  let(:page_component) { instance_double('PageCommponent', page:, config:) }
   let(:attributes) { page.sections[1].deep_symbolize_keys }
   let(:definition) { build(:section, category: 'headers') }
   let(:view_context) { FooController.new.view_context }
@@ -14,9 +14,9 @@ describe Maglev::SectionComponent do
   let(:component) do
     described_class.new(
       parent: page_component,
-      attributes: attributes,
-      definition: definition,
-      templates_root_path: templates_root_path,
+      attributes:,
+      definition:,
+      templates_root_path:,
       rendering_mode: :preview
     ).tap { |c| c.view_context = view_context }
   end

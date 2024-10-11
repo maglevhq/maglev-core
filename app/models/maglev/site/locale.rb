@@ -13,7 +13,7 @@ class Maglev::Site::Locale
 
   ## methods ##
   def as_json(_options = nil)
-    { label: label, prefix: prefix }
+    { label:, prefix: }
   end
 end
 # rubocop:enable Style/ClassAndModuleChildren

@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe 'Maglev::PagePreviewController', type: :request do
   let(:theme) { build(:theme, :predefined_pages) }
   let!(:site) do
-    Maglev::GenerateSite.call(theme: theme)
+    Maglev::GenerateSite.call(theme:)
   end
 
   describe 'rendering sections outside the theme layout' do

@@ -33,7 +33,7 @@ module Maglev
 
     def fetch_item
       build_item(
-        id == 'any' ? fetch_original_items.first : fetch_original_items.find_by(id: id)
+        id == 'any' ? fetch_original_items.first : fetch_original_items.find_by(id:)
       )
     end
 
@@ -42,8 +42,8 @@ module Maglev
 
       model_class.public_send(fetch_method_name,
                               site: fetch_site.call,
-                              keyword: keyword,
-                              max_items: max_items)
+                              keyword:,
+                              max_items:)
     end
 
     def default_fetch_original_items

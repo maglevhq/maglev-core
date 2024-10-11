@@ -40,7 +40,7 @@ module Maglev::Page::PathConcern
   def current_path
     locale = Maglev::I18n.current_locale.to_sym
     @memoized_paths ||= {}
-    @memoized_paths[locale] ||= paths.canonical.find_or_initialize_by(locale: locale, canonical: true)
+    @memoized_paths[locale] ||= paths.canonical.find_or_initialize_by(locale:, canonical: true)
   end
 
   def path_hash

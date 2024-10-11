@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe Maglev::GenerateSite do
-  subject { service.call(theme: theme) }
+  subject { service.call(theme:) }
 
   let(:theme) { build(:theme, :predefined_pages) }
   let(:service) { described_class.new }

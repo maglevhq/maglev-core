@@ -35,7 +35,7 @@
     "jsdom": "^23.0.0",
     "postcss": "^8.4.40",
     "prettier": "^3.1.0",
-    "sass": "^1.69.5",
+    "sass": "^1.79.4",
     "tailwindcss": "^3.4.1",
     "vite": "^5.4.5",
     "vite-plugin-ruby": "^5.1.0",
@@ -54,5 +54,8 @@
     "async": "^2.6.4",
     "vite": "^5.4.5"
   },
+  "workspaces": [
+    "plugins/*"
+  ],
   "packageManager": "yarn@4.4.0"
 }

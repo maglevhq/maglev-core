@@ -47,7 +47,7 @@ module Maglev::SectionsConcern
   def prepare_settings(theme, section_type, block_type, settings)
     # NOTE: in the theme definition file, we allow developers to declare
     # default content like this: { <setting_id_1>: <setting_value_1>, ..., <setting_id_n>: <setting_value_n> }
-    settings = settings.map { |key, value| { id: key, value: value } } unless settings.is_a?(Array)
+    settings = settings.map { |key, value| { id: key, value: } } unless settings.is_a?(Array)
 
     settings.map do |setting|
       setting = setting.with_indifferent_access

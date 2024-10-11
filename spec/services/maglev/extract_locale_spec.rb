@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe Maglev::ExtractLocale do
-  subject { service.call(params: params, locales: locales) }
+  subject { service.call(params:, locales:) }
 
   let(:service) { described_class.new }
   let(:params) { { path: 'index' } }

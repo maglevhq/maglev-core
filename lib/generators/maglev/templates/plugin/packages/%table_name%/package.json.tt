@@ -1,0 +1,8 @@
+{
+  "name": "<%= table_name %>",
+  "version": "0.0.1",
+  "author": "Maglev",
+  "packageManager": "yarn@4.5.0",
+  "main": "./index.js",
+  "devDependencies": {}
+}

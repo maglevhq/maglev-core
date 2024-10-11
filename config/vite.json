@@ -1,7 +1,7 @@
 {
   "all": {
     "sourceCodeDir": "app/frontend",
-    "watchAdditionalPaths": [],
+    "watchAdditionalPaths": ["plugins/**/*"],
     "publicOutputDir": "maglev-assets"
   },
   "development": {

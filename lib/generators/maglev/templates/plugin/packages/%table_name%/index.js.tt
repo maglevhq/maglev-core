@@ -1,0 +1,7 @@
+// import { registerInput } from '@/misc/dynamic-inputs'
+
+export default function() {
+  console.log('Hello from the <%= human_name %> plugin 👋 v4.5')
+  
+  // registerInput('text', MyOwnTextInputComponent)
+}

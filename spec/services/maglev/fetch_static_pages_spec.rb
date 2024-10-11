@@ -10,7 +10,7 @@ describe Maglev::FetchStaticPages do
       config.static_pages = static_pages
     end
   end
-  let(:service) { described_class.new(config: config) }
+  let(:service) { described_class.new(config:) }
 
   describe 'no static pages in the config' do
     let(:static_pages) { nil }

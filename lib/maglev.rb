@@ -3,6 +3,7 @@
 require_relative 'maglev/version'
 require_relative 'maglev/engine'
 require_relative 'maglev/config'
+require_relative 'maglev/plugins'
 require_relative 'maglev/errors'
 require_relative 'maglev/i18n'
 require_relative 'maglev/preview_constraint'
@@ -68,6 +69,14 @@ module Maglev
 
     def config_klass
       ::Maglev::Config
+    end
+
+    def plugins
+      @plugins ||= Maglev::Plugins.new
+    end
+
+    def register_plugin(id:, root_path:, name: nil, version: nil)
+      plugins.register(id:, name:, root_path:, version:)
     end
   end
 end

@@ -20,9 +20,9 @@ module Maglev
       end
 
       render_maglev_sections(
-        site: site,
-        theme: theme,
-        page: page,
+        site:,
+        theme:,
+        page:,
         page_sections: sections
       )
     end

@@ -11,7 +11,7 @@ module Maglev
       private
 
       def clone_page(page)
-        services.clone_page.call(page: page)
+        services.clone_page.call(page:)
       end
 
       def resources

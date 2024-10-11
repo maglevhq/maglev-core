@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe Maglev::PersistSectionScreenshot do
-  subject { service.call(base64_image: base64_image, section_id: 'jumbotron') }
+  subject { service.call(base64_image:, section_id: 'jumbotron') }
 
   before { FileUtils.rm_rf(Rails.root.join('public/theme')) }
 
@@ -15,7 +15,7 @@ describe Maglev::PersistSectionScreenshot do
   let(:service) do
     described_class.new(
       fetch_theme: instance_double('FetchTheme', call: theme),
-      fetch_section_screenshot_path: fetch_section_screenshot_path
+      fetch_section_screenshot_path:
     )
   end
 

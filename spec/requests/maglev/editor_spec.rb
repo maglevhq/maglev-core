@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe 'Maglev::EditorController', type: :request do
   let(:theme) { build(:theme, :predefined_pages) }
-  let!(:site) { Maglev::GenerateSite.call(theme: theme) }
+  let!(:site) { Maglev::GenerateSite.call(theme:) }
 
   context 'the editor is not authenticated' do
     before do

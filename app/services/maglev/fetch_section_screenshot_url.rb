@@ -8,7 +8,7 @@ module Maglev
     argument :section
 
     def call
-      fetch_section_screenshot_path.call(section: section) + "?#{section.screenshot_timestamp}"
+      fetch_section_screenshot_path.call(section:) + "?#{section.screenshot_timestamp}"
     end
   end
 end

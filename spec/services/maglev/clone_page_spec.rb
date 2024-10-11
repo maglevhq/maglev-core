@@ -3,11 +3,11 @@
 require 'rails_helper'
 
 describe Maglev::ClonePage do
-  subject { service.call(page: page) }
+  subject { service.call(page:) }
 
   let(:site) { create(:site) }
   let(:fetch_site) { double('FetchSite', call: site) }
-  let(:service) { described_class.new(fetch_site: fetch_site) }
+  let(:service) { described_class.new(fetch_site:) }
 
   context "the original page doesn't exist yet" do
     let(:page) { build(:page) }

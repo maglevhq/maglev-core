@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe Maglev::GetPageSections do
-  subject { service.call(page: page, locale: :en) }
+  subject { service.call(page:, locale: :en) }
 
   let(:site) { create(:site, :with_navbar) }
   let(:get_page_fullpath) { double('GetPageFullPath', call: nil) }
@@ -12,8 +12,8 @@ describe Maglev::GetPageSections do
     described_class.new(
       fetch_site: double('FetchSite', call: site),
       fetch_theme: double('FetchTheme', call: build(:theme)),
-      get_page_fullpath: get_page_fullpath,
-      fetch_collection_items: fetch_collection_items
+      get_page_fullpath:,
+      fetch_collection_items:
     )
   end
 

@@ -36,4 +36,15 @@ describe Maglev do
       expect(described_class.config.favicon).to eq('someicon.ico')
     end
   end
+
+  describe '#plugins' do
+    let!(:original) { described_class.plugins }
+
+    after { described_class.instance_variable_set(:@plugins, original) }
+
+    it 'registers a new plugin' do
+      described_class.register_plugin(id: 'foo', name: 'Foo', root_path: File.dirname(__FILE__), version: '0.0.1')
+      expect(described_class.plugins.map(&:id)).to eq(['foo'])
+    end
+  end
 end

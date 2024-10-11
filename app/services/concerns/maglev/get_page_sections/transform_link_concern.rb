@@ -28,7 +28,7 @@ module Maglev::GetPageSections::TransformLinkConcern
       page = fetch_static_pages.call.find { |static_page| static_page.id == page_id }
       page&.path
     else
-      get_page_fullpath.call(page: page_id, locale: locale)
+      get_page_fullpath.call(page: page_id, locale:)
     end
   end
 end

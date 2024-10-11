@@ -1,3 +1,5 @@
 import './i18n'
 import './tooltip'
 import './filters'
+import './dynamic-inputs'
+import './plugins'

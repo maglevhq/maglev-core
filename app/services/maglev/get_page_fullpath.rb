@@ -15,7 +15,7 @@ module Maglev
     argument :locale
 
     def call
-      base_url = get_base_url.call(preview_mode: preview_mode)
+      base_url = get_base_url.call(preview_mode:)
       safe_path = path || fetch_path
 
       return unless safe_path

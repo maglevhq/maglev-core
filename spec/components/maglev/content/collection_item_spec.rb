@@ -21,7 +21,7 @@ describe Maglev::Content::CollectionItem do
     end
 
     context 'the content references the model instance' do
-      let(:content) { { item: item } }
+      let(:content) { { item: } }
 
       it { is_expected.to eq(true) }
     end
@@ -54,7 +54,7 @@ describe Maglev::Content::CollectionItem do
     end
 
     context 'the content references the model instance' do
-      let(:content) { { item: item } }
+      let(:content) { { item: } }
 
       it {
         expect(subject).to eq(<<~HTML

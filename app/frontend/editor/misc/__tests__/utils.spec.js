@@ -1,5 +1,5 @@
 import * as utils from '../utils'
-import i18n from '@/plugins/i18n.js'
+import i18n from '@/initializers/i18n.js'
 
 describe('numberToHumanSize', () => {
   it('takes a number and converts it into a human string', () => {

@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import { mapState, mapActions } from 'vuex'
-import { ModalBus } from '@/plugins/event-bus'
+import { ModalBus } from '@/initializers/event-bus'
 import services from '@/services'
 import { isBlank } from '@/misc/utils'
 
@@ -106,6 +106,9 @@ Vue.mixin({
         tablet: 1024,
       }
     },
+    modalBus() {
+      return ModalBus
+    }
   },
   methods: {
     ...mapActions([

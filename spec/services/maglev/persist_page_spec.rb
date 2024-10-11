@@ -3,11 +3,11 @@
 require 'rails_helper'
 
 describe Maglev::PersistPage do
-  subject { service.call(page: page, page_attributes: page_attributes, site: site, site_attributes: site_attributes) }
+  subject { service.call(page:, page_attributes:, site:, site_attributes:) }
 
   let(:site) { create(:site) }
   let(:fetch_theme) { double('FetchTheme', call: build(:theme)) }
-  let(:service) { described_class.new(fetch_theme: fetch_theme) }
+  let(:service) { described_class.new(fetch_theme:) }
   let(:site_attributes) { nil }
 
   context 'brand new page' do

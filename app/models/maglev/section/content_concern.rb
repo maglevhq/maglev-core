@@ -19,7 +19,7 @@ module Maglev::Section::ContentConcern
     (custom_settings || settings).map do |definition|
       source ||= sample[:settings]
       value = definition.build_default_content(source[definition.id.to_sym])
-      { id: definition.id, value: value }
+      { id: definition.id, value: }
     end
   end
 

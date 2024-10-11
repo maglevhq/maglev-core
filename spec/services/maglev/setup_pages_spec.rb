@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe Maglev::SetupPages do
-  subject { service.call(site: site, theme: theme) }
+  subject { service.call(site:, theme:) }
 
   let(:service) { described_class.new }
   let(:site) { build(:site) }

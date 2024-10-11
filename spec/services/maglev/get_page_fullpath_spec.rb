@@ -3,14 +3,14 @@
 require 'rails_helper'
 
 describe Maglev::GetPageFullpath do
-  subject { service.call(page: page_or_id, locale: locale) }
+  subject { service.call(page: page_or_id, locale:) }
 
   let(:site) { create(:site) }
   let(:fetch_site) { double('FetchSite', call: site) }
   let(:get_base_url) { double('GetBaseUrl', call: '/maglev/preview') }
   let(:page_or_id) { page.id }
   let(:locale) { :en }
-  let(:service) { described_class.new(fetch_site: fetch_site, get_base_url: get_base_url) }
+  let(:service) { described_class.new(fetch_site:, get_base_url:) }
 
   context "the page doesn't exist yet" do
     let(:page_or_id) { 42 }
@@ -21,7 +21,7 @@ describe Maglev::GetPageFullpath do
   end
 
   context 'we pass a path' do
-    subject { service.call(path: 'index', locale: locale) }
+    subject { service.call(path: 'index', locale:) }
 
     it 'returns the fullpath to the index page' do
       expect(subject).to eq '/maglev/preview'
@@ -59,7 +59,7 @@ describe Maglev::GetPageFullpath do
   end
 
   context 'we pass the existing page itself' do
-    subject { service.call(page: create(:page, path: 'hello-world'), locale: locale) }
+    subject { service.call(page: create(:page, path: 'hello-world'), locale:) }
 
     it 'returns the fullpath to the page' do
       expect(subject).to eq '/maglev/preview/hello-world'
@@ -67,7 +67,7 @@ describe Maglev::GetPageFullpath do
   end
 
   context 'we pass a static page' do
-    subject { service.call(page: page, locale: locale) }
+    subject { service.call(page:, locale:) }
 
     let(:page) do
       Maglev::StaticPage.new(id: '233456abcdef', path_translations: { fr: 'bonjour-le-monde', en: 'hello-world' })

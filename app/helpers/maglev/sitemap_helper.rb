@@ -3,7 +3,7 @@
 module Maglev
   module SitemapHelper
     def sitemap_url(host, page, locale = nil)
-      path = maglev_services.get_page_fullpath.call(page: page, locale: locale)
+      path = maglev_services.get_page_fullpath.call(page:, locale:)
 
       return path if path =~ %r{^https?://}
 

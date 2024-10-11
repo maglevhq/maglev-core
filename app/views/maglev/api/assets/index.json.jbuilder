@@ -2,7 +2,7 @@
 
 json.data do
   json.array! @assets do |asset|
-    json.partial!('show', asset: asset)
+    json.partial!('show', asset:)
   end
 end
 
