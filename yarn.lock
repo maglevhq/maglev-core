@@ -2543,12 +2543,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"maglev_dummy@workspace:plugins/maglev_dummy":
-  version: 0.0.0-use.local
-  resolution: "maglev_dummy@workspace:plugins/maglev_dummy"
-  languageName: unknown
-  linkType: soft
-
 "make-fetch-happen@npm:^13.0.0":
   version: 13.0.1
   resolution: "make-fetch-happen@npm:13.0.1"
