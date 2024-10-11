@@ -5,40 +5,31 @@ class Maglev::Section::Setting
   ## concerns ##
   include ActiveModel::Model
 
-  ## constants ##
-  REGISTERED_TYPES = %w[text image checkbox link color select collection_item icon divider hint].freeze
-
   ## attributes ##
   attr_accessor :id, :label, :type, :default, :options
 
   ## validations ##
   validates :id, :label, :type, :default, 'maglev/presence': true
-  validates :type, inclusion: { in: REGISTERED_TYPES }
+  validates :type, inclusion: { in: -> { Maglev::SettingTypeRegistry.types.map(&:to_s) } }
 
   ## methods ##
 
-  # shortcuts
-  REGISTERED_TYPES.each do |type|
-    define_method(:"#{type}_type?") do
-      self.type.to_s == type
-    end
-  end
-
-  def cast_value(value)
-    self.class.registered_types[type.to_s].cast_value(value)
-  end
-
   # NOTE: any modification to that method must be reflected in the JS editor
   def build_default_content(custom_default = nil)
-    default = custom_default.nil? ? self.default : custom_default
-
-    # special case: text type
-    default ||= label if text_type?
+    default = setting_type.default_for(
+      label:,
+      default: custom_default.nil? ? self.default : custom_default
+    )
 
     cast_value(default)
   end
 
+  delegate :cast_value, to: :setting_type
+
+  delegate :content_class, to: :setting_type
+
   ## class methods ##
+
   def self.build(hash)
     attributes = hash.slice('id', 'label', 'type', 'default')
     options = hash.except('id', 'label', 'type', 'default')
@@ -50,10 +41,10 @@ class Maglev::Section::Setting
     list.map { |hash| build(hash) }
   end
 
-  def self.registered_types
-    @registered_types ||= REGISTERED_TYPES.index_with do |type|
-      "Maglev::SettingTypes::#{type.camelize}".constantize.new
-    end
+  private
+
+  def setting_type
+    Maglev::SettingTypeRegistry[type]
   end
 end
 # rubocop:enable Style/ClassAndModuleChildren

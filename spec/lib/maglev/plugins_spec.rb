@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe Maglev::Plugins do
   let(:plugins) { described_class.new }
-  let(:engine_path) { File.join(File.dirname(__FILE__), '../..') }
+  let(:engine_path) { File.join(File.dirname(__FILE__), '../../..') }
   let(:plugins_path) { File.join(engine_path, 'plugins') }
   let(:fake_root_path) { File.dirname(__FILE__) }
 
