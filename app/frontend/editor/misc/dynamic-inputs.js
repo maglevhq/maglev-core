@@ -12,7 +12,7 @@ export const registerInput = function(name, component, transformProps = null) {
 export const getInput = function(name) {
   const input = dynamicInputs[name]
 
-  if (!input) console.log(`⚠️ Unable to find the ${name} type input. Are you sure you registered it correctly?`)
+  if (!input) console.log(`🚨 [Maglev ERROR] Unable to find the ${name} type input. Are you sure you registered it correctly?`)
 
   return dynamicInputs[name]
 }

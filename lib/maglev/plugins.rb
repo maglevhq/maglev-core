@@ -104,7 +104,7 @@ module Maglev
         File.open(frontend_plugin_path, 'w+') do |f|
           f.write(
             <<-JAVASCRIPT
-  import setup from 'dummy_plugin'
+  import setup from "#{id}.js"
   setup()
             JAVASCRIPT
           )

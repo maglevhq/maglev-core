@@ -78,5 +78,9 @@ module Maglev
     def register_plugin(id:, root_path:, name: nil, version: nil)
       plugins.register(id:, name:, root_path:, version:)
     end
+
+    def register_setting_type(id:, klass: nil)
+      ::Maglev::SettingTypeRegistry.register(id:, klass:)
+    end
   end
 end
