@@ -4,11 +4,13 @@ module <%= class_name %>
   class Engine < ::Rails::Engine
     isolate_namespace <%= class_name %>
 
-    Maglev.register_plugin(
-      id: '<%= name %>',
-      name: '<%= human_name %>',
-      version: <%= class_name %>::VERSION,
-      root_path: root
-    )
+    initializer 'maglev.plugins.<%= table_name %>' do
+      Maglev.register_plugin(
+        id: '<%= name %>',
+        name: '<%= human_name %>',
+        version: <%= class_name %>::VERSION,
+        root_path: root
+      )      
+    end
   end
 end

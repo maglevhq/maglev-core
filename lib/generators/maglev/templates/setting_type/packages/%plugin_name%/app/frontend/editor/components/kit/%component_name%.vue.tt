@@ -1,0 +1,31 @@
+<template>
+  <div class="space-y-1 flex flex-col">
+    <label
+      class="block font-semibold text-gray-800"
+      :for="name"
+    >
+      <span>{{ label }}</span>      
+    </label>
+
+    <!-- TODO: your input here -->    
+  </div>
+</template>
+
+<script>
+import FocusedInputMixin from '@/mixins/focused-input'
+
+export default {
+  name: 'UIKit<%= class_name %>Input',
+  mixins: [FocusedInputMixin],
+  props: {
+    label: { type: String, default: 'Label' },
+    name: { type: String, default: 'text' },
+    value: { type: String }
+  },  
+  methods: {    
+    focus() {
+      // TODO: called when the editor clicks on the highlighted content in the preview window
+    },
+  }
+}
+</script>
