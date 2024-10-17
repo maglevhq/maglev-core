@@ -4,12 +4,12 @@ module Maglev
   module Api
     class PagesController < ::Maglev::ApiController
       def index
-        @pages = services.search_pages.call(q: params[:q], content_locale: content_locale,
+        @pages = services.search_pages.call(q: params[:q], content_locale:,
                                             default_locale: default_content_locale)
       end
 
       def show
-        @page = services.search_pages.call(id: params[:id], content_locale: content_locale,
+        @page = services.search_pages.call(id: params[:id], content_locale:,
                                            default_locale: default_content_locale)
         head :not_found if @page.nil?
       end
@@ -45,12 +45,12 @@ module Maglev
         lock_version = params.dig(:site, :lock_version)
         sections = params[:site].to_unsafe_hash[:sections] unless params.dig(:site, :sections).nil?
         style = params.dig(:site, :style)
-        (lock_version && sections ? { lock_version: lock_version, sections: sections } : {}).merge(style: style)
+        (lock_version && sections ? { lock_version:, sections: } : {}).merge(style:)
       end
 
       def persist!(page)
         services.persist_page.call(
-          page: page,
+          page:,
           page_attributes: page_params,
           site: maglev_site,
           site_attributes: site_params

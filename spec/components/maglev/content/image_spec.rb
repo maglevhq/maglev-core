@@ -4,9 +4,9 @@ require 'rails_helper'
 
 describe Maglev::Content::Image do
   let(:asset_host) { nil }
-  let(:config) { instance_double('MaglevConfig', asset_host: asset_host) }
+  let(:config) { instance_double('MaglevConfig', asset_host:) }
   let(:site) { instance_double('MaglevSite') }
-  let(:section_component) { double('Maglev::SectionComponent', site: site, config: config) }
+  let(:section_component) { double('Maglev::SectionComponent', site:, config:) }
   let(:image) { described_class.new(section_component, content, setting) }
 
   context 'content is a string' do

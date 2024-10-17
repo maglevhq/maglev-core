@@ -16,7 +16,7 @@ module Maglev
         raise 'The translations for the new default locale are incomplete'
       end
 
-      site.update(locales: locales)
+      site.update(locales:)
     end
 
     protected

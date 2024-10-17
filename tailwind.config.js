@@ -11,7 +11,8 @@ module.exports = {
     './**/*.html.erb',
     './app/helpers/**/*.rb',
     './app/javascript/**/*.{js,vue}',
-    './app/frontend/**/*.{js,vue}'
+    './app/frontend/**/*.{js,vue}',
+    './plugins/*/app/frontend/**/*.{js,vue}'
   ].concat(proConfig.content),
   theme: {
     extend: {

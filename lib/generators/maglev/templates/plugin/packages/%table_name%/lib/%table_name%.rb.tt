@@ -1,0 +1,7 @@
+# frozen_string_literal: true
+
+require_relative '<%= table_name %>/version'
+require_relative '<%= table_name %>/engine'
+
+module <%= class_name %>
+end

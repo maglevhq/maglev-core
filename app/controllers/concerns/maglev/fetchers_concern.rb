@@ -30,7 +30,7 @@ module Maglev
         path: maglev_page_path_from_params,
         locale: content_locale,
         default_locale: default_content_locale,
-        fallback_to_default_locale: fallback_to_default_locale,
+        fallback_to_default_locale:,
         only_visible: maglev_rendering_mode == :live
       )
     end
@@ -38,7 +38,7 @@ module Maglev
     def fetch_maglev_page_sections(page_sections = nil)
       @fetch_maglev_page_sections ||= maglev_services.get_page_sections.call(
         page: fetch_maglev_page,
-        page_sections: page_sections,
+        page_sections:,
         locale: content_locale
       )
     end
@@ -106,7 +106,7 @@ module Maglev
       maglev_site.locale_prefixes.inject({}) do |memo, locale|
         memo.merge(locale => maglev_services.get_page_fullpath.call(
           page: maglev_page,
-          locale: locale,
+          locale:,
           preview_mode: maglev_rendering_mode != :live
         ))
       end

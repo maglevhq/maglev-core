@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe Maglev::ChangeSiteLocales do
-  subject { service.call(site: site, locales: locales) }
+  subject { service.call(site:, locales:) }
 
   let(:site) { create(:site, locales: [{ label: 'English', prefix: 'en' }]) }
   let(:service) { described_class.new }
@@ -52,6 +52,6 @@ describe Maglev::ChangeSiteLocales do
   end
 
   def build_locale(label, prefix)
-    Maglev::Site::Locale.new(label: label, prefix: prefix)
+    Maglev::Site::Locale.new(label:, prefix:)
   end
 end

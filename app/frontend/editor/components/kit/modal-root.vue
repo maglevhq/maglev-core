@@ -18,8 +18,6 @@
 </template>
 
 <script>
-import { ModalBus } from '@/plugins/event-bus'
-
 export default {
   name: 'UIKitModalRoot',
   data() {
@@ -28,7 +26,7 @@ export default {
     }
   },
   created() {
-    ModalBus.$on(
+    this.modalBus.$on(
       'open',
       ({
         component,
@@ -47,7 +45,7 @@ export default {
       },
     )
 
-    ModalBus.$on('close', () => this.handleClose())
+    this.modalBus.$on('close', () => this.handleClose())
     document.addEventListener('keyup', this.handleKeyup)
   },
   beforeDestroy() {

@@ -1,0 +1,2 @@
+  import setup from '<%= table_name %>'
+  setup()

@@ -41,14 +41,14 @@ module Maglev
 
     def build_section(theme, section_id, attributes)
       section = Maglev::Section.build(
-        attributes.merge(id: section_id, theme: theme)
+        attributes.merge(id: section_id, theme:)
       )
       section.screenshot_timestamp = find_section_screenshot_timestamp(theme, section)
       section
     end
 
     def find_section_screenshot_timestamp(theme, section)
-      path = fetch_section_screenshot_path.call(theme: theme, section: section, absolute: true)
+      path = fetch_section_screenshot_path.call(theme:, section:, absolute: true)
       File.exist?(path) ? File.mtime(path).to_i : nil
     end
 

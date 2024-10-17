@@ -3,13 +3,13 @@
 require 'rails_helper'
 
 describe Maglev::GetBaseUrl do
-  subject { service.call(preview_mode: preview_mode) }
+  subject { service.call(preview_mode:) }
 
   let!(:site) { create(:site) }
   let(:service) do
     described_class.new(
       fetch_site: double('FetchSite', call: build(:site)),
-      context: double('Context', rendering_mode: rendering_mode, controller: controller)
+      context: double('Context', rendering_mode:, controller:)
     )
   end
 

@@ -3,14 +3,14 @@
 require 'rails_helper'
 
 describe Maglev::SearchPages do
-  subject { service.call(id: page_id, q: q, content_locale: content_locale, default_locale: default_locale) }
+  subject { service.call(id: page_id, q:, content_locale:, default_locale:) }
 
   let(:site) { create(:site) }
   let(:fetch_site) { double('FetchSite', call: site) }
   let(:fetch_static_pages) { double('FetchStaticPages', call: [build(:static_page)]) }
   let(:content_locale) { 'en' }
   let(:default_locale) { 'en' }
-  let(:service) { described_class.new(fetch_site: fetch_site, fetch_static_pages: fetch_static_pages) }
+  let(:service) { described_class.new(fetch_site:, fetch_static_pages:) }
 
   let!(:persisted_pages) { [create(:page), create(:page, title: 'Features', path: 'features')] }
 

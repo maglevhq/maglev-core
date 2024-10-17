@@ -27,11 +27,11 @@ module Maglev
 
     def mount_engine
       inject_into_file 'config/routes.rb', before: /^end/ do
-        <<-CODE
+        <<-RUBY
   mount Maglev::Engine => '/maglev'
   get '/sitemap', to: 'maglev/sitemap#index', defaults: { format: 'xml' }
   get '(*path)', to: 'maglev/page_preview#index', defaults: { path: 'index' }, constraints: Maglev::PreviewConstraint.new
-        CODE
+        RUBY
       end
     end
 

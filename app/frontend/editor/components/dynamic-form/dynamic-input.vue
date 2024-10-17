@@ -1,100 +1,16 @@
 <template>
-  <div>
-    <uikit-text-input
-      :label="label"
-      :name="setting.id"
-      :isFocused="isFocused"
-      @blur="$emit('blur')"
-      v-model="inputValue"
-      v-if="
-        setting.type == 'text' &&
-        !options.html &&
-        parseInt(options.nbRows || 1) < 2
-      "
-    />
-    <uikit-textarea-input
-      :label="label"
-      :name="setting.id"
-      :isFocused="isFocused"
-      :rows="options.nbRows"
-      @blur="$emit('blur')"
-      v-model="inputValue"
-      v-if="
-        setting.type == 'text' && !options.html && parseInt(options.nbRows) > 1
-      "
-    />
-    <uikit-rich-text-input
-      :label="label"
-      :name="setting.id"
-      :isFocused="isFocused"
-      :lineBreak="options.lineBreak"
-      :rows="options.nbRows"
-      :table="options.htmlTable"
-      @blur="$emit('blur')"
-      v-model="inputValue"
-      v-if="setting.type == 'text' && options.html"
-    />
-    <uikit-image-input
-      :label="label"
-      :name="setting.id"
-      :isFocused="isFocused"
-      v-model="inputValue"
-      v-if="setting.type == 'image'"
-    />
-    <uikit-icon-input
-      :label="label"
-      :name="setting.id"
-      :isFocused="isFocused"
-      v-model="inputValue"
-      v-if="setting.type == 'icon'"
-    />
-    <uikit-checkbox-input
-      :label="label"
-      :name="setting.id"
-      v-model="inputValue"
-      v-if="setting.type == 'checkbox'"
-    />
-    <uikit-link-input
-      :label="label"
-      :name="setting.id"
-      :isFocused="isFocused"
-      :withText="options.withText"
-      v-model="inputValue"
-      v-if="setting.type == 'link'"
-    />
-    <uikit-color-input
-      :label="label"
-      :name="setting.id"
-      v-model="inputValue"
-      :presets="options.presets"
-      v-if="setting.type == 'color'"
-    />
-    <uikit-simple-select
-      :label="label"
-      :name="setting.id"
-      v-model="inputValue"
-      :selectOptions="options.selectOptions"
-      v-if="setting.type == 'select'"
-    />
-    <uikit-collection-item-input
-      :label="label"
-      :name="setting.id"
-      v-model="inputValue"
-      :collection-id="options.collectionId"
-      v-if="setting.type == 'collection_item'"
-    />
-
-    <uikit-divider
-      :text="label"
-      :withHint="options.withHint"
-      v-if="setting.type == 'divider'"
-    />
-
-    <uikit-hint :text="label" v-if="setting.type == 'hint'" />
-  </div>
+  <component 
+    :is="inputComponent"
+    v-bind="{...inputProps}"
+    v-model="inputValue"
+    @blur="$emit('blur')"
+    v-if="inputComponent" 
+  />
 </template>
 
 <script>
+import { getInput } from '@/misc/dynamic-inputs'
+
 export default {
   name: 'DynamicInput',
   props: {
@@ -104,6 +20,20 @@ export default {
     i18nScope: { type: String, required: false },
   },
   computed: {
+    inputComponent() {
+      return getInput(this.setting.type)?.component
+    },
+    inputProps() {
+      const input = getInput(this.setting.type)
+
+      if (!input) return {}
+
+      return input.transformProps({ 
+        label: this.label, 
+        name: this.name, 
+        isFocused: this.isFocused
+      }, this.options)
+    },
     label() {
       // i18n key examples:
       // - themes.simple.style.settings.main_color
@@ -114,9 +44,12 @@ export default {
         : null
       return translation || this.setting.label
     },
+    name() {
+      return this.setting.id
+    },
     options() {
       return this.setting.options
-    },
+    },    
     value() {
       const content = this.content.find(
         (sectionContent) => sectionContent.id === this.setting.id,

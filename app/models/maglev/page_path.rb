@@ -8,7 +8,7 @@ module Maglev
     ## scopes ##
     scope :canonical, -> { where(canonical: true) }
     scope :not_canonical, -> { where(canonical: false) }
-    scope :by_value, ->(value, locale = nil) { where(value: value, locale: locale || Maglev::I18n.current_locale) }
+    scope :by_value, ->(value, locale = nil) { where(value:, locale: locale || Maglev::I18n.current_locale) }
 
     ## validations ##
     validates :value, presence: true, exclusion: { in: Maglev.config.reserved_paths }

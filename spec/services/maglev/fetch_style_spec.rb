@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe Maglev::FetchStyle do
-  subject { service.call(site: site, theme: theme) }
+  subject { service.call(site:, theme:) }
 
   let!(:site) { create(:site) }
   let!(:theme) { build(:theme) }

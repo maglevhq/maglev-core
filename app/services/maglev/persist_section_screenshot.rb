@@ -48,7 +48,7 @@ module Maglev
     end
 
     def screenshot_filepath
-      fetch_section_screenshot_path.call(section: section, absolute: true)
+      fetch_section_screenshot_path.call(section:, absolute: true)
     end
 
     def screenshots_dir
