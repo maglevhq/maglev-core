@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe 'Maglev::PagePreviewController', type: :request do
   let(:theme) { build(:theme, :predefined_pages) }
   let!(:site) do
-    Maglev::GenerateSite.call(theme: theme)
+    Maglev::GenerateSite.call(theme:)
   end
   let(:home_page) { Maglev::Page.first }
 
@@ -46,7 +46,7 @@ RSpec.describe 'Maglev::PagePreviewController', type: :request do
         describe 'Given Facebook crawls it' do
           let(:user_agent) { 'facebookexternalhit/1.1' }
           it 'renders the index page' do
-            get '/index', headers: headers
+            get('/index', headers:)
             expect(response.body).to include('<title>Default - Home</title>')
           end
         end
@@ -54,7 +54,7 @@ RSpec.describe 'Maglev::PagePreviewController', type: :request do
         describe 'Given Twitter crawls it' do
           let(:user_agent) { 'Twitterbot' }
           it 'renders the index page' do
-            get '/index', headers: headers
+            get('/index', headers:)
             expect(response.body).to include('<title>Default - Home</title>')
           end
         end
@@ -62,7 +62,7 @@ RSpec.describe 'Maglev::PagePreviewController', type: :request do
         describe 'Given Google crawls it' do
           let(:user_agent) { 'Googlebot/2.1' }
           it 'renders the index page' do
-            get '/index', headers: headers
+            get('/index', headers:)
             expect(response.body).to include('<title>Default - Home</title>')
           end
         end
@@ -70,7 +70,7 @@ RSpec.describe 'Maglev::PagePreviewController', type: :request do
         describe 'Given LinkedIn crawls it' do
           let(:user_agent) { 'LinkedInBot/1.0' }
           it 'renders the index page' do
-            get '/index', headers: headers
+            get('/index', headers:)
             expect(response.body).to include('<title>Default - Home</title>')
           end
         end

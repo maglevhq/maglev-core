@@ -9,7 +9,7 @@ describe Maglev::FetchCollectionItems do
       config.collections = {
         products: {
           model: 'Product',
-          fetch_method_name: fetch_method_name,
+          fetch_method_name:,
           fields: {
             label: :name,
             image: :thumbnail_url
@@ -18,7 +18,7 @@ describe Maglev::FetchCollectionItems do
       }
     end
   end
-  let(:service) { described_class.new(config: config, fetch_site: instance_double('FetchSite', call: nil)) }
+  let(:service) { described_class.new(config:, fetch_site: instance_double('FetchSite', call: nil)) }
 
   describe 'fetching the first N items' do
     subject { service.call(collection_id: 'products') }

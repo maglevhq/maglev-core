@@ -27,11 +27,11 @@ module Maglev
 
     def create_page(page_attributes)
       persist_page.call(
-        site: site,
+        site:,
         site_attributes: site_attributes_from(page_attributes),
-        theme: theme,
+        theme:,
         page: Maglev::Page.new,
-        page_attributes: page_attributes
+        page_attributes:
       )
     end
 

@@ -21,8 +21,6 @@
 </template>
 
 <script>
-import { ModalBus } from '@/plugins/event-bus'
-
 export default {
   name: 'UIKitDropdown',
   props: {
@@ -39,7 +37,7 @@ export default {
     }
   },
   mounted() {
-    ModalBus.$on('open', () => this.close())
+    this.modalBus.$on('open', () => this.close())
     document.addEventListener('keydown', this.onEscape)
     this.$once('hook:beforeDestroy', () => {
       document.removeEventListener('keydown', this.onEscape)

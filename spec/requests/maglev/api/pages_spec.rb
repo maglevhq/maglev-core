@@ -158,7 +158,7 @@ RSpec.describe 'Maglev::Api::PagesController', type: :request do
 
       context 'Given the site has been updated in the meantime' do
         let(:sections) { [attributes_for(:page, :with_navbar)[:sections][0]] }
-        let(:site_attributes) { { sections: sections, lock_version: 0 } }
+        let(:site_attributes) { { sections:, lock_version: 0 } }
         let(:page_attributes) { { title: 'New title', lock_version: 0 } }
 
         it "doesn't update the page in DB" do

@@ -6,6 +6,10 @@ def within_engine_folder(&block)
   Dir.chdir(File.join(__dir__, '..', '..'), &block)
 end
 
+def within_plugin_folder(plugin, &block)
+  Dir.chdir(plugin.root_path, &block)
+end
+
 namespace :maglev do
   desc 'Create site'
   task create_site: :environment do
@@ -31,7 +35,7 @@ namespace :maglev do
 
     locales = (ARGV[1..] || []).map do |arg|
       label, prefix = arg.split(':')
-      Maglev::Site::Locale.new(label: label, prefix: prefix)
+      Maglev::Site::Locale.new(label:, prefix:)
     end
 
     if !locales.empty? && locales.any? { |locale| !locale.valid? }
@@ -48,10 +52,17 @@ namespace :maglev do
     service = Maglev::ChangeSiteLocales.new
 
     begin
-      service.call(site: site, locales: locales)
+      service.call(site:, locales:)
       puts 'Success! 🎉🎉🎉'
     rescue StandardError => e
       puts "[Error] #{e.message}"
+    end
+  end
+
+  namespace :plugins do
+    desc 'Uninstall all the registered plugins'
+    task uninstall_all: :environment do
+      Maglev.plugins.uninstall!
     end
   end
 
@@ -71,17 +82,35 @@ namespace :maglev do
       end
     end
 
-    desc 'Ensure build dependencies like Vite are installed before bundling'
-    task install_dependencies: :environment do
+    desc 'Ensure build dependencies like Vite + Maglev core and plugins are installed before bundling'
+    task install_dependencies: %i[install_plugins_dependencies install_engine_dependencies]
+
+    desc 'Ensure build dependencies like Vite + MaglevCore are installed before bundling'
+    task install_engine_dependencies: :environment do
       within_engine_folder do
         install_dev_dependencies = ENV['VITE_RUBY_SKIP_INSTALL_DEV_DEPENDENCIES'] == 'true'
         # rubocop:disable Style/StringHashKeys
         install_env_args = install_dev_dependencies ? {} : { 'NODE_ENV' => 'development' }
         # rubocop:enable Style/StringHashKeys
         cmd = Maglev::Engine.vite_ruby.commands.legacy_npm_version? ? 'npx ci --yes' : 'npx --yes ci'
+        cmd = 'yarn install' unless Maglev.plugins.empty?
         result = system(install_env_args, cmd)
         # Fallback to `yarn` if `npx` is not available.
         system(install_env_args, 'yarn install --frozen-lockfile') if result.nil?
+      end
+    end
+
+    desc 'Ensure plugin build dependencies are installed before bundling'
+    task install_plugins_dependencies: :environment do
+      install_dev_dependencies = ENV['VITE_RUBY_SKIP_INSTALL_DEV_DEPENDENCIES'] == 'true'
+      # rubocop:disable Style/StringHashKeys
+      install_env_args = install_dev_dependencies ? {} : { 'NODE_ENV' => 'development' }
+      # rubocop:enable Style/StringHashKeys
+      cmd = 'yarn install'
+      Maglev.plugins.each do |plugin|
+        within_plugin_folder(plugin) do
+          system(install_env_args, cmd)
+        end
       end
     end
 

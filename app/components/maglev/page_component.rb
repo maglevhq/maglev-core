@@ -36,10 +36,10 @@ module Maglev
       build(
         SectionComponent,
         parent: self,
-        definition: definition,
+        definition:,
         attributes: attributes.deep_transform_keys! { |k| k.to_s.underscore.to_sym },
-        templates_root_path: templates_root_path,
-        rendering_mode: rendering_mode
+        templates_root_path:,
+        rendering_mode:
       )
     end
   end

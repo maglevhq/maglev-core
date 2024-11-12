@@ -10,7 +10,7 @@ json.sections theme.sections do |section|
   json.settings section.settings.as_json
   json.blocks section.blocks.as_json
   json.theme_id theme.id
-  json.screenshot_path services.fetch_section_screenshot_url.call(section: section)
+  json.screenshot_path services.fetch_section_screenshot_url.call(section:)
 end
 json.section_categories theme.section_categories.as_json
 json.icons theme.icons || []

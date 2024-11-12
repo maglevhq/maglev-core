@@ -74,7 +74,7 @@ RSpec.describe 'Maglev::Api::AssetsController', type: :request do
 
       it 'work as expected' do
         expect do
-          post '/maglev/api/assets', params: params
+          post '/maglev/api/assets', params:
         end.to change(Maglev::Asset, :count).by(1)
         expect(response).to have_http_status(:created)
         expect(response.location).to eq(maglev.api_asset_path(Maglev::Asset.first))

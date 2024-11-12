@@ -1,0 +1,8 @@
+# frozen_string_literal: true
+
+module Maglev
+  module Content
+    class <%= class_name %> < Maglev::Content::Base 
+      # TODO: write methods here that will be exposed to the section template    
+    end
+  end

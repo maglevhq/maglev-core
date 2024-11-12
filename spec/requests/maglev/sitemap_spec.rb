@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe 'Maglev::SitemapController', type: :request do
   let(:theme) { build(:theme, :predefined_pages) }
-  let!(:site) { Maglev::GenerateSite.call(theme: theme) }
+  let!(:site) { Maglev::GenerateSite.call(theme:) }
 
   describe 'GET /sitemap (HTML)' do
     it 'renders an error' do

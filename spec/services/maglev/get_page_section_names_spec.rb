@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe Maglev::GetPageSectionNames do
-  subject { service.call(page: page) }
+  subject { service.call(page:) }
 
   let(:theme) { build(:theme) }
   let(:service) { described_class.new(fetch_theme: double('FetchTheme', call: theme)) }

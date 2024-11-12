@@ -39,10 +39,14 @@ module Maglev
       Rails.application.config.i18n.load_path += Dir["#{config.root}/config/locales/**/*.yml"]
     end
 
+    initializer 'maglev.plugins' do
+      Maglev.plugins.install!
+    end
+
     delegate :vite_ruby, to: :class
 
     def self.vite_ruby
-      @vite_ruby ||= ::ViteRuby.new(root: root, mode: Rails.env)
+      @vite_ruby ||= ::ViteRuby.new(root:, mode: Rails.env)
     end
 
     # Serves the engine's vite-ruby when requested
@@ -78,7 +82,7 @@ module Maglev
         app.middleware.insert_before 0,
                                      ViteRuby::DevServerProxy,
                                      ssl_verify_none: true,
-                                     vite_ruby: vite_ruby
+                                     vite_ruby:
       end
     end
 

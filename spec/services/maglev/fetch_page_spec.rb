@@ -4,8 +4,8 @@ require 'rails_helper'
 
 describe Maglev::FetchPage do
   subject do
-    service.call(path: path, locale: locale, default_locale: default_locale,
-                 fallback_to_default_locale: fallback_to_default_locale)
+    service.call(path:, locale:, default_locale:,
+                 fallback_to_default_locale:)
   end
 
   let!(:site) { create(:site) }

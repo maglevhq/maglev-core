@@ -81,7 +81,7 @@ module Maglev
 
     def editor_custom_translations
       I18n.available_locales.index_with do |locale|
-        ::I18n.t('maglev', locale: locale, default: nil)
+        ::I18n.t('maglev', locale:, default: nil)
       end
     end
   end

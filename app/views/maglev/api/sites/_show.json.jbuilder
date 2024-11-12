@@ -5,7 +5,7 @@ json.deep_format_keys!
 
 json.sections site.sections || []
 
-json.style services.fetch_style.call(site: site, theme: maglev_theme).as_json
+json.style services.fetch_style.call(site:, theme: maglev_theme).as_json
 
 json.locales site.locales
 
