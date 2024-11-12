@@ -93,9 +93,9 @@ namespace :maglev do
     end
 
     desc 'Remove old bundles created by ViteRuby'
-    task :clean, %i[keep age] => :'vite:verify_install' do |_, _args|
+    task :clean, %i[keep age] => :'vite:verify_install' do |_, args|
       within_engine_folder do
-        # Maglev::Engine.vite_ruby.commands.clean_from_task(args)
+        Maglev::Engine.vite_ruby.commands.clean_from_task(args)
       end
     end
 
