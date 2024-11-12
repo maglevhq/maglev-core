@@ -92,6 +92,10 @@ namespace :maglev do
       end
     end
 
+    desc 'Remove old bundles created by ViteRuby'
+    task :clean, %i[keep age] => :'vite:verify_install' do |_, args|
+    end
+
     desc 'Remove the build output directory for ViteRuby'
     task clobber: :'vite:verify_install' do
       within_engine_folder do
@@ -116,6 +120,11 @@ unless ENV['VITE_RUBY_SKIP_ASSETS_PRECOMPILE_EXTENSION'] == 'true'
     end
   else
     Rake::Task.define_task("assets:precompile": ['maglev:vite:install_dependencies', 'maglev:vite:build_all'])
+  end
+
+  Rake::Task.define_task('assets:clean', %i[keep age]) unless Rake::Task.task_defined?('assets:clean')
+  Rake::Task['assets:clean'].enhance do |_, args|
+    Rake::Task['maglev:vite:clean'].invoke(*args.to_h.values)
   end
 
   if Rake::Task.task_defined?('assets:clobber')
