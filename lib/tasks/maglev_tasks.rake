@@ -125,10 +125,10 @@ unless ENV['VITE_RUBY_SKIP_ASSETS_PRECOMPILE_EXTENSION'] == 'true'
     Rake::Task.define_task("assets:precompile": ['maglev:vite:install_dependencies', 'maglev:vite:build_all'])
   end
 
-  Rake::Task.define_task('assets:clean', %i[keep age]) unless Rake::Task.task_defined?('assets:clean')
-  Rake::Task['assets:clean'].enhance do |_, args|
-    Rake::Task['maglev:vite:clean'].invoke(*args.to_h.values)
-  end
+  # Rake::Task.define_task('assets:clean', %i[keep age]) unless Rake::Task.task_defined?('assets:clean')
+  # Rake::Task['assets:clean'].enhance do |_, args|
+  #   Rake::Task['maglev:vite:clean'].invoke(*args.to_h.values)
+  # end
 
   if Rake::Task.task_defined?('assets:clobber')
     Rake::Task['assets:clobber'].enhance do
