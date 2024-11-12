@@ -8,7 +8,10 @@ module Maglev
 
     def plugin_name
       (@plugin_name ||= options[:plugin]).tap do
-        raise 'Missing plugin option' if @plugin_name.blank?
+        if @plugin_name.blank?
+          puts '🚨 You need to pass the id of a Maglev plugin' 
+          exit 0
+        end
       end
     end
 
@@ -21,17 +24,29 @@ module Maglev
     end
 
     def register_setting_type_in_ruby
-      inject_into_file "packages/#{options[:plugin]}/lib/#{options[:plugin]}/engine.rb", before: /  end\n^end/ do
+      inject_into_file "packages/#{plugin_name}/lib/#{plugin_name}/engine.rb", before: /  end\n^end/ do
         <<-RUBY
     config.to_prepare do
       Maglev.register_setting_type(id: :#{table_name})
     end
+
         RUBY
       end
     end
 
     def register_setting_type_in_javascript
-      raise 'TODO'
+      prepend_to_file "packages/#{plugin_name}/index.js" do
+        <<-JAVASCRIPT
+import { registerInput } from '@/misc/dynamic-inputs'
+import UIKit#{class_name}Input from './app/frontend/editor/components/kit/#{table_name}-input.vue'
+        JAVASCRIPT
+      end
+
+      inject_into_file "packages/#{plugin_name}/index.js", before: /^}/ do
+        <<-JAVASCRIPT
+  registerInput('#{table_name}', UIKit#{class_name}Input, (props, _options) => props)
+        JAVASCRIPT
+      end
     end
 
     private

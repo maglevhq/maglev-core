@@ -20,7 +20,7 @@ module Maglev
     end
 
     def register(id:, klass: nil)
-      klass ||= "Maglev::SettingTypes::#{id.camelize}".constantize
+      klass ||= "Maglev::SettingTypes::#{id.to_s.camelize}".constantize
       @setting_types[id.to_sym] = klass.new
     end
 
