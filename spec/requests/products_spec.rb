@@ -19,10 +19,11 @@ RSpec.describe 'Maglev::PagePreviewController', type: :request do
 
     it 'renders a page of the main app' do
       get "/products/#{product.id}"
-      expect(response.body).to include('<title>My awesome product</title>')
-      expect(response.body).to include('<div class="navbar" id="section-yyy" data-maglev-section-id="yyy" data-maglev-section-type="navbar">')
-      expect(response.body).to include('<h1>My awesome product</h1>')
-      expect(response.body).to include('<p>Price: $42.00</p>')
+      html_response = pretty_html(response.body)
+      expect(html_response).to include('<title>My awesome product</title>')
+        .and include('<div class="navbar" id="section-yyy" data-maglev-section-id="yyy" data-maglev-section-type="navbar">')
+        .and include('<h1>My awesome product</h1>')
+        .and include('<p>Price: $42.00</p>')
     end
   end
 end
