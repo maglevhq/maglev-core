@@ -21,7 +21,9 @@ RSpec.describe 'Maglev::PagePreviewController', type: :request do
       get "/products/#{product.id}"
       html_response = pretty_html(response.body)
       expect(html_response).to include('<title>My awesome product</title>')
+        # rubocop:disable Layout/LineLength
         .and include('<div class="navbar" id="section-yyy" data-maglev-section-id="yyy" data-maglev-section-type="navbar">')
+        # rubocop:enable Layout/LineLength
         .and include('<h1>My awesome product</h1>')
         .and include('<p>Price: $42.00</p>')
     end

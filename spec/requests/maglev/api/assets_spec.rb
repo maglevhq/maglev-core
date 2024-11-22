@@ -83,7 +83,9 @@ RSpec.describe 'Maglev::Api::AssetsController', type: :request do
       it 'returns errors if asset is missing' do
         post '/maglev/api/assets'
         expect(json_response['errors'].size).to eq(1)
-        expect(json_response['errors'].first).to match(/(param is missing or the value is empty: asset|param is missing or the value is empty or invalid: asset)/)
+        expect(json_response['errors'].first).to match(/
+          (param is missing or the value is empty: asset|param is missing or the value is empty or invalid: asset)
+        /)
         expect(response).to have_http_status(:bad_request)
       end
     end
