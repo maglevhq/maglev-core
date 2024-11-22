@@ -8,7 +8,14 @@ require 'spec_helper'
 ENV['RAILS_ENV'] ||= 'test'
 ENGINE_ROOT = File.join(File.dirname(__FILE__), '../')
 # require File.expand_path('../config/environment', __dir__)
-require_relative './dummy/config/environment'
+
+require 'rails/version'
+if Rails::VERSION::MAJOR < 8
+  require_relative './legacy_dummy/config/environment'
+else
+  require_relative './dummy/config/environment'
+end
+
 # Prevent database truncation if the environment is production
 abort('The Rails environment is running in production mode!') if Rails.env.production?
 require 'rspec/rails'
@@ -46,7 +53,7 @@ rescue ActiveRecord::PendingMigrationError => e
 end
 RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
-  if Rails::VERSION::MAJOR >= 7 && Rails::VERSION::MINOR > 0
+  if Rails::VERSION::MAJOR >= 8 || (Rails::VERSION::MAJOR >= 7 && Rails::VERSION::MINOR > 0)
     config.fixture_paths = [File.join(File.dirname(__FILE__), 'fixtures')]
   else
     config.fixture_path = File.join(File.dirname(__FILE__), 'fixtures')

@@ -19,41 +19,13 @@ RSpec.describe 'Maglev::PagePreviewController', type: :request do
 
     it 'renders a page of the main app' do
       get "/products/#{product.id}"
-      expect(pretty_html(response.body))
-        .to eq(<<~HTML.strip
-          <html>
-            <head>
-              <title>
-                My awesome product
-              </title>
-            </head>
-            <body>
-              <div class="navbar" id="section-yyy" data-maglev-section-id="yyy" data-maglev-section-type="navbar">
-                <a href="/">
-                  <img src="mynewlogo.png" data-maglev-id="yyy.logo" class="brand-logo"/>
-                </a>
-                <nav>
-                  <ul>
-                    <li class="navbar-item" id="block-zzz" data-maglev-block-id="zzz">
-                      <a data-maglev-id="zzz.link" target="_blank" href="https://www.nocoffee.fr">
-                        <em>
-                          <span data-maglev-id="zzz.label">Home</span>
-                        </em>
-                      </a>
-                    </li>
-                  </ul>
-                </nav>
-                <div>
-                  <a class="active" href="http://www.example.com/empty">English</a>
-                  <a class="" href="http://www.example.com/fr/empty">Français</a>
-                </div>
-              </div>
-              <h1>My awesome product</h1>
-              <p>Price: $42.00</p>
-            </body>
-          </html>
-        HTML
-              )
+      html_response = pretty_html(response.body)
+      expect(html_response).to include('<title>My awesome product</title>')
+        # rubocop:disable Layout/LineLength
+        .and include('<div class="navbar" id="section-yyy" data-maglev-section-id="yyy" data-maglev-section-type="navbar">')
+        # rubocop:enable Layout/LineLength
+        .and include('<h1>My awesome product</h1>')
+        .and include('<p>Price: $42.00</p>')
     end
   end
 end

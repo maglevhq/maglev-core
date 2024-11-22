@@ -1,0 +1,17 @@
+<%= tag.section class: 'showcase', data: section.tag_data do %>
+  <div class="container">
+    <%= tag.h2 class: 'display-4', data: section.settings.title.tag_data do %>
+      <%= raw section.settings.title %>
+    <% end %>
+    <ul>
+      <% section.blocks.each do |block| %>
+        <%= tag.li data: block.tag_data do %>
+          <%= tag.h3 data: block.settings.title.tag_data do %>
+            <%= block.settings.title %>
+          <% end %>
+          <%= image_tag block.settings.image.url, alt: block.settings.image.alt_text, data: block.settings.image.tag_data %>
+        <% end %>
+      <% end %>
+    </ul>
+  </div>
+<% end %>

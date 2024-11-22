@@ -33,7 +33,7 @@ Maglev::Engine.routes.draw do
   # Admin
   namespace :admin do
     root to: 'dashboard#index'
-    resource :theme, only: %i[index show]
+    resource :theme, only: %i[show]
     namespace :sections, path: 'sections/:id' do
       get :preview, to: 'previews#show'
       get :preview_in_frame, to: 'previews#iframe_show'

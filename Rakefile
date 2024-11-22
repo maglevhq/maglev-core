@@ -20,7 +20,8 @@ require 'vite_ruby'
 ViteRuby.install_tasks
 ViteRuby.config.root # Ensure the engine is set as the root.
 
-APP_RAKEFILE = File.expand_path('spec/dummy/Rakefile', __dir__)
+rakefile_path = Rails::VERSION::MAJOR >= 8 ? 'spec/dummy/Rakefile' : 'spec/legacy_dummy/Rakefile'
+APP_RAKEFILE = File.expand_path(rakefile_path, __dir__)
 load 'rails/tasks/engine.rake'
 load 'rails/tasks/statistics.rake'
 
