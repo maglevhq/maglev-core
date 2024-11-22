@@ -362,7 +362,6 @@ DEPENDENCIES
   rubocop-rails_config
   rubocop-rspec
   simplecov
-  stringio
 
 BUNDLED WITH
    2.5.7
