@@ -8,19 +8,13 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 # development dependencies will be added by default to the :development group.
 gemspec
 
-gem 'rails', '~> 7.2.1'
+gem 'rails', '~> 8.0.0'
 
 # Use Active Storage variant
 gem 'image_processing', '~> 1.12.2'
 
-# Use Sprockets to deal with assets in the dummy app
-gem 'sprockets-rails'
-
-# Rack vulnerable to ReDoS in content type parsing
-gem 'rack', '~> 3.0.10'
-
-# REXML contains a denial of service vulnerability
-gem 'rexml', '>= 3.3.6'
+# Use Propshaft to deal with assets in the dummy app
+gem 'propshaft'
 
 # Temporary use this branch because it solves a bug
 # gem 'maglev-injectable', path: '../injectable'
@@ -34,7 +28,6 @@ gem 'rexml', '>= 3.3.6'
 # gem 'byebug', group: [:development, :test]
 
 group :development, :test do
-  # Use SCSS for stylesheets
   gem 'bcrypt'
 
   gem 'factory_bot_rails', '~> 6.2.0'

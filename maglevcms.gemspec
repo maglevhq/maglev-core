@@ -18,7 +18,7 @@ Gem::Specification.new do |spec|
   MaglevCMS integrates a powerful website/page builder with a polished UX/UI into your Ruby on Rails application, backed by a flexible and robust CMS engine.
   DOC
   spec.license = 'MIT'
-  spec.required_ruby_version = '>= 2.6'
+  spec.required_ruby_version = '>= 3.2'
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
   # to allow pushing to a single host or delete this section to allow pushing to any host.
@@ -48,10 +48,10 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'jbuilder', '~>  2.12.0'
   spec.add_dependency 'kaminari', '~> 1.2.1'
   spec.add_dependency 'maglev-injectable', '~> 2.1.1'
-  spec.add_dependency 'rails', '< 7.3', '>= 6'
+  spec.add_dependency 'rails', '< 9', '>= 8'
   spec.add_dependency 'vite_rails', '< 4', '>= 3'
   spec.add_dependency 'vite_ruby', '>= 3.5'
 
-  spec.add_development_dependency 'pg', '~> 1.5.6'
+  spec.add_development_dependency 'pg', '~> 1.5.9'
 end
 # rubocop:enable Metrics/BlockLength

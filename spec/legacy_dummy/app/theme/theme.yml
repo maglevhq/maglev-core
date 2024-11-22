@@ -1,0 +1,32 @@
+id: "simple"
+name: "My simple theme"
+
+section_categories:
+- name: Headers
+  id: headers
+- name: Features
+- name: Call to Actions
+
+style_settings:
+- label: "Primary color"
+  id: primary_color
+  type: color
+  presets: ["#F87171", "#FBBF24", "#34D399"]
+  default: "#F87171"
+- label: "Font name"
+  id: font_name
+  type: text
+
+pages:
+- title: "Home page"
+  path:  "index"
+  sections:
+  - type: "jumbotron"
+    settings:
+      title: "Let's create the product<br/>your clients<br/>will love."
+      body: "<p>NoCoffee, passionated developers,<br/>creators of web applications, mobiles apps and<br/>fancy R&D projects.</p>"
+    blocks: []
+  - type: "showcase"
+    settings: 
+      title: "Our projects"
+    blocks: []  

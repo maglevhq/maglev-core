@@ -1,0 +1,15 @@
+name: Featured product
+
+category: features
+
+settings:
+- label: "Title"
+  id: title
+  type: text
+  
+- label: "Product"
+  id: product
+  type: collection_item
+  collection_id: products
+  
+blocks: []
