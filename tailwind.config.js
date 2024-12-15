@@ -6,7 +6,7 @@ try {
   console.log('No extra Maglev Pro Tailwindcss config');
 } 
 
-module.exports = {
+export default {
   content: [
     './**/*.html.erb',
     './app/helpers/**/*.rb',
