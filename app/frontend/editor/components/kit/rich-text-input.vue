@@ -9,7 +9,7 @@
     </div>
     <div class="mt-1">
       <editor-menu-bar :editor="editor" v-slot="{ commands, isActive }">
-        <div class="flex sticky top-0 z-10 pb-2 bg-white space-x-1">
+        <div class="flex sticky top-0 z-10 pb-2 bg-white space-x-1 overflow-x-auto">
           <editor-block-button
             :commands="commands"
             :isActive="isActive"
@@ -17,7 +17,11 @@
             v-if="!lineBreak"
           />
 
-          <editor-format-buttons :commands="commands" :isActive="isActive" />
+          <editor-format-buttons 
+            :commands="commands" 
+            :isActive="isActive"
+            :extraExtensions="extraExtensions"
+          />
 
           <editor-list-buttons
             :commands="commands"
@@ -35,7 +39,7 @@
             :commands="commands"
             :isActive="isActive"
             class="relative"
-            v-if="!lineBreak && table"
+            v-if="!lineBreak && extraExtensions.table"
           />
         </div>
       </editor-menu-bar>
@@ -69,11 +73,12 @@ import {
   Table,
   TableHeader,
   TableCell,
-  TableRow,
+  TableRow
 } from 'tiptap-extensions'
 import Doc from './rich-text-input/extensions/Doc'
 import LineBreak from './rich-text-input/extensions/LineBreak'
 import Link from './rich-text-input/extensions/marks/Link'
+import Superscript from './rich-text-input/extensions/marks/Superscript'
 import EditorBlockButton from './rich-text-input/block-button.vue'
 import EditorFormatButtons from './rich-text-input/format-buttons.vue'
 import EditorListButtons from './rich-text-input/list-buttons.vue'
@@ -98,7 +103,7 @@ export default {
     value: { type: String },
     lineBreak: { type: Boolean, default: false },
     rows: { type: Number, default: 2 },
-    table: { type: Boolean, default: false },
+    extraExtensions: { type: Object, default: () => ({ table: false, superscript: false }) },
   },
   data() {
     return { editor: null }
@@ -151,6 +156,7 @@ export default {
         new Underline(),
         new Strike(),
         new Link({ openOnClick: false, target: null }),
+        new Superscript(),
         new History(),
       ]
     },

@@ -22,6 +22,13 @@
       :isActive="isActive.strike()"
       @click="commands.strike"
     />
+    <editor-menu-button
+      iconName="format-superscript"
+      class="rounded-r-sm"
+      :isActive="isActive.sup()"
+      @click="commands.sup"
+      v-if="extraExtensions.superscript"
+    />
   </div>
 </template>
 
@@ -34,6 +41,7 @@ export default {
   props: {
     commands: { type: Object, required: true },
     isActive: { type: Object, required: true },
-  },
+    extraExtensions: { type: Object, default: () => ({ table: false, superscript: false }) },
+  }
 }
 </script>

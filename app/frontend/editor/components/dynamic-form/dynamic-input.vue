@@ -29,7 +29,7 @@
       :isFocused="isFocused"
       :lineBreak="options.lineBreak"
       :rows="options.nbRows"
-      :table="options.htmlTable"
+      :extraExtensions="options.extraExtensions" 
       @blur="$emit('blur')"
       v-model="inputValue"
       v-if="setting.type == 'text' && options.html"
