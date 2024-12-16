@@ -3,6 +3,8 @@
 module Maglev
   module Content
     class Base
+      include ::Maglev::Inspector
+
       extend Forwardable
       def_delegators :scope, :site, :config
 
@@ -46,6 +48,12 @@ module Maglev
         when Proc
           instance_exec(site, &config.asset_host)
         end
+      end
+
+      private
+
+      def inspect_fields
+        %w[scope tag_id].map { |field| [field, send(field).inspect] }
       end
     end
   end

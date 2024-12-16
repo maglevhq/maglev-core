@@ -42,5 +42,15 @@ module Maglev
     def tag_data
       { maglev_block_id: id }
     end
+
+    private
+
+    def section_id
+      section.id
+    end
+
+    def inspect_fields
+      %w[id site_id section_id name type].map { |field| [field, send(field)] }
+    end
   end
 end

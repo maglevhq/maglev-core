@@ -2,6 +2,8 @@
 
 module Maglev
   class BaseComponent
+    include ::Maglev::Inspector
+
     extend Forwardable
     def_delegators :view_context, :render
 
@@ -49,6 +51,10 @@ module Maglev
       settings.public_send(setting_id)
     rescue NoMethodError
       raise "[Maglev] We're sorry but there is no '#{setting_id}' setting in your section/block."
+    end
+
+    def site_id
+      site.id
     end
   end
 end
