@@ -2,7 +2,7 @@
 
 [![Build Status](https://github.com/maglevhq/maglev-core/actions/workflows/verify.yml/badge.svg)](https://github.com/maglevhq/maglev-core/actions/workflows/verify.yml)
 
-MaglevCMS is a website builder / CMS that you can plug in any Ruby on Rails 6+ application.
+MaglevCMS is a website builder/CMS that you can integrate into any Ruby on Rails application from version 6 up to version 8.
 
 ## Demo
 
