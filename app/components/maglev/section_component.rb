@@ -122,5 +122,9 @@ module Maglev
         </div>
       HTML
     end
+
+    def inspect_fields
+      %w[id site_id type].map { |field| [field, send(field)] }
+    end
   end
 end

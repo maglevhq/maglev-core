@@ -42,5 +42,9 @@ module Maglev
         rendering_mode: rendering_mode
       )
     end
+
+    def inspect_fields
+      [['site_id', site.id], ['page_id', page.id], ['theme', theme.id]]
+    end
   end
 end
