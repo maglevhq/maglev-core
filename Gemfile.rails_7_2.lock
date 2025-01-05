@@ -191,6 +191,8 @@ GEM
     pg (1.5.9)
     psych (5.2.0)
       stringio
+    puma (6.5.0)
+      nio4r (~> 2.0)
     racc (1.8.1)
     rack (3.0.11)
     rack-proxy (0.7.7)
@@ -356,6 +358,7 @@ DEPENDENCIES
   maglevcms!
   nokogiri (>= 1.15.6)
   pg (~> 1.5.9)
+  puma
   rack (~> 3.0.10)
   rails (~> 7.2.2)
   rdoc (>= 6.6.3.1)

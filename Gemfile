@@ -16,7 +16,7 @@ gem 'image_processing', '~> 1.12.2'
 # Use Propshaft to deal with assets in the dummy app
 gem 'propshaft'
 
-# Use Puma to run the web server
+# Use Puma to run the web server for testing
 gem 'puma'
 
 # Temporary use this branch because it solves a bug
