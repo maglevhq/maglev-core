@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 Maglev.configure do |config|
-  config.logo = 'logo.svg'
+  # config.logo = 'logo.svg'
 
   config.uploader = :active_storage
 
