@@ -33,6 +33,10 @@ jobs:
         env:
           BUNDLE_GEMFILE: ${{ matrix.gemfile }}
 
+      - name: Install ImageMagick 🏞️
+        run: |
+          sudo apt-get update && sudo apt-get install -y imagemagick
+
       - name: Enable Corepack before setting up Node
         run: |
           corepack enable
