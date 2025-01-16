@@ -7,14 +7,14 @@ export default (services) => ({
       commit('SET_STYLE', style)
     })
   },
-  loadPublishButtonState({ commit }) {
+  loadPublishButtonState({ state, commit }) {
     services.site
-      .getLastPublication()
+      .getLastPublication({ pageId: state.page.id })
       .then((data) => commit('SET_PUBLISH_BUTTON_STATE', data))
   },
-  async publishSite({ commit }) {
+  async publishSite({ state, commit }) {
     services.site
-      .publish()
+      .publish({ pageId: state.page.id })
       .then((data) => commit('SET_PUBLISH_BUTTON_STATE', data))
   },
   pollLastPublication({ dispatch }) {

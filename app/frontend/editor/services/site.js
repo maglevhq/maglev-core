@@ -12,10 +12,10 @@ export default (api) => ({
       return response.headers['lock-version']
     })
   },
-  publish() {
-    return api.post(`/publication`).then(({ data }) => data)
+  publish({ pageId }) {
+    return api.post(`/publication`, { page_id: pageId }).then(({ data }) => data)
   },
-  getLastPublication() {
-    return api.get(`/publication`).then(({ data }) => data)
+  getLastPublication({ pageId }) {
+    return api.get('/publication', { params: { page_id: pageId }}).then(({ data }) => data)
   },
 })

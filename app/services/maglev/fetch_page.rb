@@ -6,6 +6,8 @@ module Maglev
   class FetchPage
     include Injectable
 
+    dependency :context
+
     argument :path
     argument :locale
     argument :default_locale

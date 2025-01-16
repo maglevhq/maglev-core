@@ -23,7 +23,7 @@ module Maglev
 
     dependency :fetch_collection_items, class: Maglev::FetchCollectionItems, depends_on: %i[fetch_site config]
     dependency :fetch_static_pages, class: Maglev::FetchStaticPages, depends_on: %i[config]
-    dependency :search_pages, class: Maglev::SearchPages, depends_on: %i[fetch_site fetch_static_pages]
+    dependency :search_pages, class: Maglev::SearchPages, depends_on: %i[fetch_site fetch_static_pages context]
 
     dependency :get_base_url,               class: Maglev::GetBaseUrl, depends_on: %i[context fetch_site]
     dependency :extract_locale,             class: Maglev::ExtractLocale
@@ -34,7 +34,7 @@ module Maglev
     dependency :add_site_locale,            class: Maglev::AddSiteLocale
     dependency :change_site_locales,        class: Maglev::ChangeSiteLocales
 
-    dependency :fetch_page,                 class: Maglev::FetchPage, depends_on: :fetch_site
+    dependency :fetch_page,                 class: Maglev::FetchPage, depends_on: %i[context fetch_site]
     dependency :get_page_fullpath,          class: Maglev::GetPageFullpath, depends_on: %i[fetch_site get_base_url]
     dependency :get_page_sections,          class: Maglev::GetPageSections,
                                             depends_on: %i[fetch_site fetch_theme

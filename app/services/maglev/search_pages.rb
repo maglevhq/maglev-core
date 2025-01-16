@@ -9,6 +9,7 @@ module Maglev
 
     dependency :fetch_site
     dependency :fetch_static_pages
+    dependency :context
 
     argument :id, default: nil
     argument :q, default: nil
