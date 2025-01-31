@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Maglev
-  module UiLocaleConcern
+  module UserInterfaceLocaleConcern
     extend ActiveSupport::Concern
 
     included do

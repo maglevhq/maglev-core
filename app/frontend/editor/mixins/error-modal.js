@@ -1,4 +1,5 @@
-import StaleRecord from '@/components/errors/stale-record.vue'
+import StaleRecordModal from '@/components/errors/stale-record.vue'
+import ForbiddenModal from '@/components/errors/forbidden.vue'
 
 export default {
   methods: {
@@ -7,9 +8,13 @@ export default {
 
       switch (errorType) {
         case 'staleRecord':
-          ModalComponent = StaleRecord
+          ModalComponent = StaleRecordModal
+          break
+        case 'forbidden':
+          ModalComponent = ForbiddenModal
           break
         default:
+          console.warn("Unknown errorType:", errorType)
           return // unknown error type
       }
 

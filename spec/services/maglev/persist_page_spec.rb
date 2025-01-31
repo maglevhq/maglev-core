@@ -30,6 +30,15 @@ describe Maglev::PersistPage do
     end
   end
 
+  context 'Given one of the sections is tied to a repository' do
+    let!(:page) { create(:page) }
+    let(:page_attributes) { attributes_for(:page, :with_ads) }
+
+    it 'creates a section repository in the DB (since the ads section belongs to a scope)' do
+      expect { subject }.to change(Maglev::Page, :count).by(0).and change(Maglev::SectionRepository, :count).by(1)
+    end
+  end
+
   context 'Given the site attributes are not empty' do
     let(:page) { create(:page) }
     let(:page_attributes) { attributes_for(:page, :with_navbar) }

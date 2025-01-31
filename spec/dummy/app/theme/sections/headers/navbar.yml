@@ -5,6 +5,16 @@ category: headers
 
 site_scoped: true
 
+# scope: page | site | .......... (section repository)
+
+# modal -> 
+#   SectionRepository
+#     - name 
+#     - list of sections (like page or site)
+#     - optimistic locking on it as well
+
+
+
 # Definition of the settings:
 # A setting type can be one of the following values: text, image, checkbox, link and color.
 # Please visit: https://docs.maglev.dev/concepts/setting for more explanation.

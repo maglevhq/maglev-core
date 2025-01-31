@@ -3,7 +3,7 @@
 module Maglev
   class ApiController < ::Maglev::ApplicationController
     include Maglev::JsonConcern
-    include Maglev::UiLocaleConcern
+    include Maglev::UserInterfaceLocaleConcern
     include Maglev::ContentLocaleConcern
 
     before_action :authenticate

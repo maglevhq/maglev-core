@@ -16,6 +16,10 @@ export default (services) => ({
     services.site
       .publish({ pageId: state.page.id })
       .then((data) => commit('SET_PUBLISH_BUTTON_STATE', data))
+      .catch(({ response: { status } }) => {
+        console.log('[Maglev] could not publish the page', status)
+        if (status === 403) commit('OPEN_ERROR_MODAL', 'forbidden')
+      })
   },
   pollLastPublication({ dispatch }) {
     dispatch('loadPublishButtonState')

@@ -6,12 +6,12 @@ module Maglev
     include ActiveModel::Serializers::JSON
     include ::Maglev::Section::ContentConcern
 
-    HASH_ATTRIBUTES = %w[id theme name site_scoped singleton viewport_fixed_position insert_button max_width_pane
+    HASH_ATTRIBUTES = %w[id theme name site_scoped scope singleton viewport_fixed_position insert_button max_width_pane
                          insert_at category blocks_label blocks_presentation sample screenshot_timestamp].freeze
 
     ## attributes ##
     attr_accessor :id, :theme, :name, :category,
-                  :site_scoped, :singleton, :viewport_fixed_position,
+                  :site_scoped, :scope, :singleton, :viewport_fixed_position,
                   :insert_button, :insert_at, :max_width_pane,
                   :settings, :blocks, :blocks_label, :blocks_presentation,
                   :sample, :screenshot_timestamp

@@ -5,7 +5,7 @@ module Maglev
     include Maglev::AuthenticationConcern
     include Maglev::FetchersConcern
     include Maglev::BackActionConcern
-    include Maglev::UiLocaleConcern
+    include Maglev::UserInterfaceLocaleConcern
     include Maglev::ContentLocaleConcern
 
     before_action :fetch_maglev_site, only: :show

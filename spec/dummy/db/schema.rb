@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2022_06_12_092235) do
+ActiveRecord::Schema[8.0].define(version: 2025_01_31_163058) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -81,6 +81,13 @@ ActiveRecord::Schema[8.0].define(version: 2022_06_12_092235) do
     t.jsonb "og_title_translations", default: {}
     t.jsonb "og_description_translations", default: {}
     t.jsonb "og_image_url_translations", default: {}
+  end
+
+  create_table "maglev_section_repositories", force: :cascade do |t|
+    t.string "name"
+    t.jsonb "sections_translations", default: {}
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "maglev_sites", force: :cascade do |t|

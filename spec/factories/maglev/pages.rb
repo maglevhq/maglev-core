@@ -193,5 +193,18 @@ FactoryBot.define do
         ]
       end
     end
+
+    trait :with_ads do
+      sections do
+        [
+          {
+            id: 'uyt',
+            type: 'ads',
+            settings: [{ id: :title, value: 'Buy our nice product' }],
+            blocks: []
+          }
+        ]
+      end
+    end
   end
 end

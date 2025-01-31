@@ -86,6 +86,15 @@ FactoryBot.define do
                                                       site_scoped: true,
                                                       settings: [{ label: 'Copyright', id: 'copyright', type: 'text' }],
                                                       blocks: []
+                                                    }.with_indifferent_access),
+                                                    Maglev::Section.build({
+                                                      theme: theme,
+                                                      name: 'Ads',
+                                                      id: 'ads',
+                                                      category: 'features',
+                                                      scope: 'shoes',
+                                                      settings: [{ id: 'title', type: 'text' }],
+                                                      blocks: []
                                                     }.with_indifferent_access)
                                                   ])
     end

@@ -25,6 +25,10 @@ module Maglev
       section_setting_types[key]
     end
 
+    def find_scope(section_id)
+      sections.find(section_id)&.scope
+    end
+
     private
 
     def section_setting_types
