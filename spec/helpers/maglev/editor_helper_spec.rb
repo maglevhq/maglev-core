@@ -34,11 +34,19 @@ describe Maglev::EditorHelper do
       expect(subject).to eq 'Maglev - EDITOR'
     end
 
-    context 'the developer has set a custom title' do
+    context 'the developer has set a custom title (String)' do
       let(:title) { 'My awesome CMS' }
 
       it 'returns the new title' do
         expect(subject).to eq 'My awesome CMS'
+      end
+    end
+
+    context 'the developer has set a custom title (Proc)' do
+      let(:title) { ->(site) { "#{site.name}!" } }
+
+      it 'returns the new title' do
+        expect(subject).to eq 'My awesome site!'
       end
     end
   end

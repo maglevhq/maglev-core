@@ -3,6 +3,7 @@
 Maglev.configure do |config|
   # Title of the Editor window
   # config.title = 'Maglev - Editor'
+  # config.title = ->(site) { "#{site.name} 👋" }
 
   # Logo of the Editor (top left corner).
   # Put your custom logo in the app/assets/images folder of your Rails application.

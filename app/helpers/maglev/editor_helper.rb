@@ -20,7 +20,14 @@ module Maglev
     end
 
     def editor_window_title
-      maglev_config.title.presence || 'Maglev - EDITOR'
+      case maglev_config.title
+      when nil
+        'Maglev - EDITOR'
+      when String
+        maglev_config.title
+      when Proc
+        instance_exec(maglev_site, &maglev_config.title)
+      end
     end
 
     def editor_primary_hex_color

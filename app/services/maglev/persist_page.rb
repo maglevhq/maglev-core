@@ -16,7 +16,6 @@ module Maglev
       ActiveRecord::Base.transaction do
         persist_page!
         persist_site!
-        persist_repositories!
         persist_style!
         page
       end
@@ -44,26 +43,6 @@ module Maglev
       assign_sections_to_site
 
       site.save!
-    end
-
-    def persist_repositories!
-      scoped_sections = page_attributes[:sections].each do |section_attributes|
-        type = section_attributes[:type]
-        scope = theme.find_scope(type)
-        next if scope.blank?
-
-        # section 1 (scope = dogs) 
-        # section 2
-        # section 3 (scope = dogs)
-        # section 4 (scope = cats)
-
-        repository = Maglev::SectionRepository.find_or_initialize_by(name: scope)
-        repository.attributes = { sections: [section_attributes] }
-
-        repository.prepare_sections(theme)
-        
-        repository.save!
-      end
     end
 
     def persist_style!
