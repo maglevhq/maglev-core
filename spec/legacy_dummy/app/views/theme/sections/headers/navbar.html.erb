@@ -1,0 +1,33 @@
+<%= maglev_section.wrapper_tag class: 'navbar' do %>
+  <%= link_to maglev_site_link do %>
+    <%= maglev_section.setting_tag :logo, class: 'brand-logo' %>
+  <% end %>  
+  <nav>
+    <ul>
+      <% maglev_section.blocks.each do |maglev_block| %>
+        <%= maglev_block.wrapper_tag.li class: 'navbar-item' do %>
+          <%= maglev_block.setting_tag :link do %>
+            <em><%= maglev_block.setting_tag :label, html_tag: :span %></em>
+          <% end %>
+          <% if maglev_block.children? %>
+            <ul>
+              <% maglev_block.children.each do |nested_maglev_block| %>
+                <%= nested_maglev_block.wrapper_tag.li class: 'navbar-nested-item' do %>
+                  <%= nested_maglev_block.setting_tag :link, class: 'navbar-link' do %>
+                    <%= nested_maglev_block.setting_tag :label, html_tag: :span %>
+                  <% end %>
+                <% end %>
+              <% end %>
+            </ul>
+          <% end %>
+        <% end %>
+      <% end %>
+    </ul>
+  </nav>
+
+  <div>
+    <% maglev_site.locales.each do |locale| %>
+      <%= link_to t("lang.#{locale.prefix}"), maglev_alt_link(locale.prefix), class: { 'active': maglev_current_locale?(locale.prefix) } %>
+    <% end %>
+  </div>
+<% end %>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= maglev_site.name %> - <%= maglev_page.title %></title>
+
+  <meta name="description" content="<%= maglev_page.meta_description %>" />  
+  <meta property="og:title" content="<%= maglev_page.og_title %>" />
+  <meta property="og:description" content="<%= maglev_page.og_description %>" />
+  <meta property="og:image" content="<%= maglev_page.og_title %>" />
+
+  <style id="maglev-style">
+    :root {
+      --basic-theme-primary-color: <%= maglev_style.primary_color %>;
+    }
+  </style>
+  
+  <meta name="hello" content="<%= I18n.t('hello') %>" />
+  <%= render_maglev_alternate_links %>
+  <%= maglev_live_preview_client_javascript_tag %>
+</head>
+<body>
+  <main data-maglev-dropzone>
+    <%= render_maglev_sections %>
+  </main>
+</body>
+</html>

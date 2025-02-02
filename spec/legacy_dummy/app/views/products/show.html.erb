@@ -1,0 +1,4 @@
+<%= render_maglev_section :navbar %>
+<% content_for(:page_title) { @product.name } %>
+<h1><%= @product.name %></h1>
+<p>Price: <%= number_to_currency @product.price %></p>
