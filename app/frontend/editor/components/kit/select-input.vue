@@ -106,8 +106,11 @@ export default {
     clearEnabled: { type: Boolean, default: false },
     withLabel: { type: Boolean, default: true },
     buttonClass: { type: [Object, String], default: () => ({}) },
+    displayAll: { type: Boolean, default: false },
   },
   data() {
+    if (this.displayAll) this.fetch()
+
     return {
       isOpen: false,
       q: undefined,
@@ -128,7 +131,7 @@ export default {
   },
   methods: {
     focus() {
-      this.toggle();
+      this.toggle()
     },
     toggle() {
       this.isOpen = !this.isOpen
@@ -177,13 +180,15 @@ export default {
     reset() {
       this.isOpen = false
       this.q = null
-      this.list = undefined
+      if (!this.displayAll) {
+        this.list = undefined
+      }
       this.focusIndex = undefined
     },
   },
   watch: {
     q() {
-      if (!this.q) return
+      if (!this.q && !this.displayAll) return
       this.debouncedFetch()
     },
     isOpen() {
