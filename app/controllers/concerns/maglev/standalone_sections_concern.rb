@@ -10,6 +10,12 @@ module Maglev
       include Maglev::ContentLocaleConcern
 
       helper Maglev::PagePreviewHelper
+
+      private
+
+      def maglev_rendering_mode
+        params[:rendering_mode] || super
+      end
     end
 
     private
