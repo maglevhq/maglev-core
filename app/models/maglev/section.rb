@@ -44,6 +44,16 @@ module Maglev
       assign_attributes(attributes)
     end
 
+    ## class methods ##
+
+    def self.build(hash)
+      new.tap do |section|
+        section.assign_attributes_from_yaml(hash)
+      end
+    end
+
+    ## private methods ##
+
     private
 
     def prepare_default_attributes(hash)
@@ -56,14 +66,6 @@ module Maglev
       attributes['insert_button'] = true if attributes['insert_button'].nil?
 
       attributes
-    end
-
-    ## class methods ##
-
-    def self.build(hash)
-      new.tap do |section|
-        section.assign_attributes_from_yaml(hash)
-      end
     end
 
     class Store
