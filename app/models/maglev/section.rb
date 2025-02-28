@@ -6,12 +6,12 @@ module Maglev
     include ActiveModel::Serializers::JSON
     include ::Maglev::Section::ContentConcern
 
-    HASH_ATTRIBUTES = %w[id theme name site_scoped scope singleton viewport_fixed_position insert_button max_width_pane
+    HASH_ATTRIBUTES = %w[id theme name site_scoped singleton viewport_fixed_position insert_button max_width_pane
                          insert_at category blocks_label blocks_presentation sample screenshot_timestamp].freeze
 
     ## attributes ##
     attr_accessor :id, :theme, :name, :category,
-                  :site_scoped, :scope, :singleton, :viewport_fixed_position,
+                  :site_scoped, :singleton, :viewport_fixed_position,
                   :insert_button, :insert_at, :max_width_pane,
                   :settings, :blocks, :blocks_label, :blocks_presentation,
                   :sample, :screenshot_timestamp
@@ -35,19 +35,18 @@ module Maglev
       !!viewport_fixed_position?
     end
 
-    ## class methods ##
-    def self.build(hash)
-      attributes = prepare_attributes(hash)
-
-      new(
-        attributes.merge(
-          settings: ::Maglev::Section::Setting.build_many(hash['settings']),
-          blocks: ::Maglev::Section::Block.build_many(hash['blocks'])
-        )
+    def assign_attributes_from_yaml(hash)
+      attributes = prepare_default_attributes(hash).merge(
+        settings: ::Maglev::Section::Setting.build_many(hash['settings']),
+        blocks: ::Maglev::Section::Block.build_many(hash['blocks'])
       )
+
+      assign_attributes(attributes)
     end
 
-    def self.prepare_attributes(hash)
+    private
+
+    def prepare_default_attributes(hash)
       attributes = hash.slice(*HASH_ATTRIBUTES)
 
       %w[site_scoped singleton viewport_fixed_position max_width_pane].each do |name|
@@ -57,6 +56,14 @@ module Maglev
       attributes['insert_button'] = true if attributes['insert_button'].nil?
 
       attributes
+    end
+
+    ## class methods ##
+
+    def self.build(hash)
+      new.tap do |section|
+        section.assign_attributes_from_yaml(hash)
+      end
     end
 
     class Store

@@ -48,7 +48,9 @@ module Maglev
     end
 
     def fetch_maglev_theme_layout
-      @fetch_maglev_theme_layout ||= maglev_services.fetch_theme_layout.call
+      @fetch_maglev_theme_layout ||= maglev_services.fetch_theme_layout.call(
+        page: fetch_maglev_page
+      )
     end
 
     def fetch_maglev_sections_path

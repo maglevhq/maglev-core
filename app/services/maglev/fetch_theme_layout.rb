@@ -7,6 +7,8 @@ module Maglev
 
     dependency :fetch_theme
 
+    argument :page
+
     def call
       'theme/layout'
     end
