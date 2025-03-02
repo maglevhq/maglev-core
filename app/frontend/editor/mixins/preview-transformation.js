@@ -9,7 +9,7 @@ export default {
     previewPaneMaxWidth() {
       const sectionPaneWidth =
         document.querySelector('.slide-pane')?.offsetWidth || 0
-      console.log('previewPaneMaxWidth', this.windowWidth, sectionPaneWidth)
+      // console.log('previewPaneMaxWidth', this.windowWidth, sectionPaneWidth)
       return this.windowWidth - sectionPaneWidth
     },
     previewScaleRatio() {
@@ -40,6 +40,12 @@ export default {
     calculatePreviewLeftPadding() {
       const sidebarWidth =
         document.querySelector('.content-area > aside')?.offsetWidth || 0
+      // const wrapperLeftOffset = 
+      //   document.getElementById('iframe-wrapper').getBoundingClientRect().left
+
+      // console.log('calculatePreviewLeftPadding', sidebarWidth, wrapperLeftOffset)
+
+      // return wrapperLeftOffset - sidebarWidth
       const sectionPaneWidth =
         document.querySelector('.slide-pane')?.offsetWidth || 0
       return sectionPaneWidth - sidebarWidth

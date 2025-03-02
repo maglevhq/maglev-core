@@ -19,6 +19,7 @@
         v-if="currentPage"
       >
         <div
+          id="iframe-wrapper"
           class="transition-all duration-100 ease-in-out"
           :class="{ [deviceClass]: true, hidden: isPageEmpty }"
           :style="{ opacity: previewReady ? 1 : 0 }"
