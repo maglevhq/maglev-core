@@ -117,7 +117,6 @@ const listenScrolling = (previewDocument) => {
 
 const onSectionHovered = (previewDocument, el, stickySectionIds) => {
   const sectionId = el.dataset.maglevSectionId
-  console.log(el.getBoundingClientRect())
   if (hoveredSectionId !== sectionId) {
     postMessage('section:hover', {
       sectionId,
