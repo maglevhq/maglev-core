@@ -41,7 +41,7 @@
       </div>
 
       <div class="flex">
-        <div class="flex py-4 px-6">
+        <div class="flex items-center px-6">
           <device-toggler />
         </div>
         <separator />
