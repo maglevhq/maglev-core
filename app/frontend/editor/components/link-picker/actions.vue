@@ -1,5 +1,5 @@
 <template>
-  <div class="mt-10 flex flex-col">
+  <div class="mt-10 flex flex-col px-1">
     <button
       class="big-submit-button bg-editor-primary"
       type="button"

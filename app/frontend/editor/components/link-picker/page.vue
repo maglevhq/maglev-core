@@ -33,6 +33,7 @@
         :fetchList="() => fetchPageSectionNames()"
         :clearEnabled="true"
         v-model="pageSection"
+        listClass="overflow-y-scroll h-56"
       >
         <template v-slot:value>
           {{ pageSection.name }}

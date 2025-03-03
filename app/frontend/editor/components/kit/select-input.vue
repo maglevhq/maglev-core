@@ -64,7 +64,7 @@
           {{ emptyLabel }}
         </div>
 
-        <div v-if="list">
+        <div v-if="list" :class="listClass">
           <div
             v-for="(item, index) in list"
             :key="item.id"
@@ -106,6 +106,7 @@ export default {
     clearEnabled: { type: Boolean, default: false },
     withLabel: { type: Boolean, default: true },
     buttonClass: { type: [Object, String], default: () => ({}) },
+    listClass: { type: [Object, String], default: () => ({}) },
   },
   data() {
     return {
