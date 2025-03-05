@@ -83,6 +83,13 @@ ActiveRecord::Schema[8.0].define(version: 2022_06_12_092235) do
     t.jsonb "og_image_url_translations", default: {}
   end
 
+  create_table "maglev_section_content_stores", force: :cascade do |t|
+    t.string "handle", null: false
+    t.jsonb "sections_translations", default: {}
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "maglev_sites", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
