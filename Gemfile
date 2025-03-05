@@ -30,6 +30,10 @@ gem 'puma'
 # To use a debugger
 # gem 'byebug', group: [:development, :test]
 
+# Gems not part of the standard library anymore
+gem 'ostruct'
+gem 'observer'
+
 group :development, :test do
   gem 'bcrypt'
 
