@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_03_05_221045) do
+ActiveRecord::Schema[8.0].define(version: 2025_03_07_104536) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -81,6 +81,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_05_221045) do
     t.jsonb "og_title_translations", default: {}
     t.jsonb "og_description_translations", default: {}
     t.jsonb "og_image_url_translations", default: {}
+    t.string "layout_id"
   end
 
   create_table "maglev_section_content_stores", force: :cascade do |t|

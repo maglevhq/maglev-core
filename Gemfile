@@ -31,8 +31,8 @@ gem 'puma'
 # gem 'byebug', group: [:development, :test]
 
 # Gems not part of the standard library anymore
-gem 'ostruct'
 gem 'observer'
+gem 'ostruct'
 
 group :development, :test do
   gem 'bcrypt'
