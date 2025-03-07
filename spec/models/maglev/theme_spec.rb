@@ -23,13 +23,27 @@ describe Maglev::Theme do
     end
   end
 
-  describe 'settings' do
+  describe 'style settings' do
     subject { theme.style_settings }
 
     let(:theme) { build(:theme) }
 
     it 'returns the settings (definition) of the theme' do
       expect(subject.map(&:id)).to eq(%w[primary_color font_name])
+    end
+  end
+
+  describe 'layouts' do
+    subject { theme.layouts }
+
+    let(:theme) { build(:theme, :basic_layouts) }
+
+    it 'returns the layouts' do
+      expect(subject.map(&:id)).to eq(%w[basic left_sidebar])
+    end
+
+    it 'returns the groups of a layout' do
+      expect(subject.first.groups.map(&:id)).to eq(%w[header main footer])
     end
   end
 end
