@@ -1,12 +1,9 @@
 # frozen_string_literal: true
 
 # rubocop:disable Style/ClassAndModuleChildren
-class Maglev::Theme::StyleSetting
-  ## concerns ##
-  include ActiveModel::Model
-
+class Maglev::Theme::StyleSetting < Maglev::Theme::BaseProperty
   ## attributes ##
-  attr_accessor :id, :label, :type, :default, :options
+  attr_accessor :type, :default, :options
 
   ## validations ##
   validates :id, :label, :type, :default, 'maglev/presence': true
@@ -30,14 +27,11 @@ class Maglev::Theme::StyleSetting
 
   ## class methods ##
   def self.build(hash)
-    attributes = hash.slice('id', 'label', 'type', 'default')
+    attributes = prepare_attributes(hash).slice('id', 'label', 'type', 'default')
+
     options = hash.except('id', 'label', 'type', 'default')
 
     new(attributes.merge(options: options))
-  end
-
-  def self.build_many(list)
-    list.map { |hash| build(hash) }
   end
 end
 # rubocop:enable Style/ClassAndModuleChildren

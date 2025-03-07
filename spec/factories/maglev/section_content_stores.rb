@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :section_content_store, class: 'Maglev::SectionContentStore' do
     handle { 'sidebar' }

@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 module Maglev
   class SectionContentStore < ApplicationRecord
     ## concerns ##
     include Maglev::Translatable
     include Maglev::SectionsConcern
-    
+
     ## translations ##
     translates :sections
 

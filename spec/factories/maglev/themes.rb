@@ -140,6 +140,26 @@ FactoryBot.define do
         ]
       end
     end
+
+    trait :basic_layouts do
+      layouts do
+        Maglev::Theme::Layout.build_many(JSON.parse([
+          {
+            label: 'Basic',
+            groups: ['header', { id: 'main', store: false }, 'footer']
+          },
+          {
+            label: 'Left sidebar',
+            groups: [
+              'header',
+              { id: 'main', store: false },
+              { label: 'Sidebar 😎', store: 'sidebar', accept: %w[sidebar_menu sidebar_ad] },
+              'footer'
+            ]
+          }
+        ].to_json))
+      end
+    end
   end
 end
 # rubocop:enable Layout/LineLength
