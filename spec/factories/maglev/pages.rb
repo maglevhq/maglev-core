@@ -21,7 +21,9 @@ FactoryBot.define do
   factory :page, class: 'Maglev::Page' do
     title { 'Home' }
     path { 'index' }
-    layout_id { 'default' }
+    layout_id { 'basic' }
+
+    # TODO: to be removed
     sections do
       [
         {
@@ -48,6 +50,7 @@ FactoryBot.define do
       ]
     end
 
+    # TODO: to be removed
     trait :with_navbar do
       sections do
         [

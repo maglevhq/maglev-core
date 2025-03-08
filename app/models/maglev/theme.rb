@@ -25,6 +25,10 @@ module Maglev
       section_setting_types[key]
     end
 
+    def find_layout(layout_id)
+      layouts.find { |layout| layout.id == layout_id }
+    end
+
     private
 
     def section_setting_types
