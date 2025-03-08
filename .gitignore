@@ -26,6 +26,7 @@ coverage/
 podman.sh
 template.dev.rb
 tailwind-maglev-pro.config.js
+plugins
 
 # Vite Ruby
 /public/vite*
@@ -36,3 +37,4 @@ node_modules
 
 *.local
 bin/test
+
