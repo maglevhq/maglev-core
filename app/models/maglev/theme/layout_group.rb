@@ -19,7 +19,7 @@ class Maglev::Theme::LayoutGroup < Maglev::Theme::BaseProperty
     attributes = prepare_attributes(hash).slice('id', 'label', 'store', 'accept')
 
     attributes['accept'] ||= []
-    attributes['store'] ||= attributes['id']
+    attributes['store'] = attributes['id'] if attributes['store'] != false && attributes['store'].blank?
 
     new(attributes)
   end
