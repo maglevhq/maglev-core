@@ -7,6 +7,7 @@ json.id    page.id
 json.title page.title || page.default_title
 json.path  page.path || page.default_path
 json.path_hash page.path_hash
+json.layout_id page.layout_id
 json.visible page.visible
 
 json.seo_title page.seo_title

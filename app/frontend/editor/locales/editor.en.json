@@ -82,6 +82,7 @@
       },
       "title": "Title",
       "path": "Path",
+      "layoutId": "Layout",
       "visible": "Visible",
       "visiblePlaceholder": "Show/Hide the page",
       "seoTitle": "Meta title",
