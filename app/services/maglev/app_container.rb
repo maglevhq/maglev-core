@@ -37,9 +37,9 @@ module Maglev
     dependency :fetch_page,                 class: Maglev::FetchPage, depends_on: %i[context fetch_site]
     dependency :get_page_fullpath,          class: Maglev::GetPageFullpath, depends_on: %i[fetch_site get_base_url]
     dependency :fetch_sections_from_store,  class: Maglev::FetchSectionsFromStore,
-                                             depends_on: %i[fetch_site fetch_theme
-                                                            fetch_static_pages
-                                                            fetch_collection_items get_page_fullpath]
+                                            depends_on: %i[fetch_site fetch_theme
+                                                           fetch_static_pages
+                                                           fetch_collection_items get_page_fullpath]
     dependency :get_page_sections,          class: Maglev::GetPageSections,
                                             depends_on: %i[fetch_theme
                                                            fetch_sections_from_store]

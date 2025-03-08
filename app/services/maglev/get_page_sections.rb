@@ -6,10 +6,10 @@ module Maglev
   # Also replace the links by their real values based on the context (live editing or not).
   class GetPageSections
     include Injectable
-    
+
     dependency :fetch_theme
     dependency :fetch_sections_from_store
-    
+
     argument :page
     argument :locale, default: nil
 
@@ -34,7 +34,7 @@ module Maglev
 
     def fetch_sections(group)
       fetch_sections_from_store.call(
-        handle: guess_store_handle(group), 
+        handle: guess_store_handle(group),
         locale: locale
       )
     end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -101,32 +103,6 @@ ActiveRecord::Schema.define(version: 20_250_307_104_536) do
     t.boolean 'sold_out', default: false
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
-  end
-
-  create_table 'maglev_sites', force: :cascade do |t|
-    t.string 'name'
-    t.datetime 'created_at', precision: 6, null: false
-    t.datetime 'updated_at', precision: 6, null: false
-    t.jsonb 'navigation', default: []
-    t.jsonb 'locales', default: []
-    t.jsonb 'sections_translations', default: {}
-    t.integer 'lock_version'
-    t.string 'siteable_type'
-    t.bigint 'siteable_id'
-    t.string 'handle'
-    t.string 'theme_id'
-    t.string 'domain'
-    t.jsonb 'style', default: []
-    t.index %w[siteable_type siteable_id], name: 'index_maglev_sites_on_siteable'
-  end
-
-  create_table 'products', force: :cascade do |t|
-    t.string 'name'
-    t.string 'sku'
-    t.float 'price'
-    t.boolean 'sold_out', default: false
-    t.datetime 'created_at', precision: 6, null: false
-    t.datetime 'updated_at', precision: 6, null: false
   end
 
   add_foreign_key 'active_storage_attachments', 'active_storage_blobs', column: 'blob_id'
