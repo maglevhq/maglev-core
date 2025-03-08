@@ -59,6 +59,8 @@ group :development, :test do
 
   gem 'generator_spec'
 
+  gem 'annotate'
+
   gem 'nokogiri', '>= 1.13.10'
 end
 
