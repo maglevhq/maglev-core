@@ -84,6 +84,7 @@
       },
       "title": "Título",
       "path": "Ruta",
+      "layoutId": "Disposición",
       "visible": "Visible",
       "visiblePlaceholder": "Mostrar/Ocultar la página",
       "seoTitle": "Meta title",

@@ -10,7 +10,9 @@ module Maglev
     argument :page
 
     def call
-      'theme/layout'
+      return 'theme/layout' if page.layout_id.blank?
+
+      "theme/layouts/#{page.layout_id}"
     end
   end
 end
