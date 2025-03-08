@@ -16,3 +16,14 @@ module Maglev
     end
   end
 end
+
+# == Schema Information
+#
+# Table name: maglev_section_content_stores
+#
+#  id                    :bigint           not null, primary key
+#  handle                :string           not null
+#  sections_translations :jsonb
+#  created_at            :datetime         not null
+#  updated_at            :datetime         not null
+#
