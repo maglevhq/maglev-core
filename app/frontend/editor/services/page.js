@@ -16,6 +16,7 @@ export const PAGE_SCHEMA = new schema.Entity('page', {
 export const SETTING_ATTRIBUTES = [
   'title',
   'path',
+  'layoutId',
   'visible',
   'seoTitle',
   'ogTitle',
@@ -34,6 +35,7 @@ export default (api) => ({
     return {
       title: '',
       path: '',
+      layoutId: null,
       visible: true,
       seoTitle: '',
       metaDescription: '',

@@ -82,6 +82,7 @@
       },
       "title": "Titre",
       "path": "Chemin",
+      "layoutId": "Gabarit",
       "visible": "Visible",
       "visiblePlaceholder": "Afficher/Cacher la page",
       "seoTitle": "Meta title",

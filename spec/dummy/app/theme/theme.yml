@@ -28,7 +28,20 @@ layouts:
   - label: "Main"
     id: "main"
     store: false # by default, the Page model will be used as the storage unit
-  - label: "Footer"
+  - "Footer"
+
+- label: "Sidebar"
+  groups:
+  - label: "Header"
+    id: "header"
+    store: "header" # the sections will be persisted in a SectionContentStore model (handle: header)
+    accept: ["navbar"]
+  - label: "Main"
+    id: "main"
+    store: false # by default, the Page model will be used as the storage unit
+  - "Sidebar"
+  - "Footer"
+  
 
 pages:
 - title: "Home page"
