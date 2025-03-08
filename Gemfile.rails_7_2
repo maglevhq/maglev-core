@@ -33,6 +33,10 @@ gem 'puma'
 # Git. Remember to move these dependencies to your gemspec before releasing
 # your gem to rubygems.org.
 
+# Gems not part of the standard library anymore
+gem 'observer'
+gem 'ostruct'
+
 # To use a debugger
 # gem 'byebug', group: [:development, :test]
 
