@@ -19,10 +19,10 @@ describe Maglev::GetPageSections do
 
     it 'returns the layout groups empty' do
       expect(subject).to eq([
-        { id: 'header', sections: [] }, 
-        { id: 'main', sections: [] },
-        { id: 'footer', sections: [] },
-      ])
+                              { id: 'header', sections: [] },
+                              { id: 'main', sections: [] },
+                              { id: 'footer', sections: [] }
+                            ])
     end
   end
 
@@ -39,8 +39,8 @@ describe Maglev::GetPageSections do
     end
 
     it 'returns the sections of the main region' do
-      expect(subject[0][:sections].map { |section| section['type'] }).to eq(%w(navbar))
-      expect(subject[1][:sections].map { |section| section['type'] }).to eq(%w(jumbotron showcase))
+      expect(subject[0][:sections].map { |section| section['type'] }).to eq(%w[navbar])
+      expect(subject[1][:sections].map { |section| section['type'] }).to eq(%w[jumbotron showcase])
       expect(subject[2][:sections].size).to eq 0
     end
   end

@@ -33,31 +33,31 @@ describe Maglev::FetchSectionsFromStore do
 
     it 'returns the sections' do
       expect(subject).to eq([
-        {
-          'id' => 'def',
-          'type' => 'jumbotron',
-          'settings' => [
-            { 'id' => 'title', 'value' => 'Hello world' },
-            { 'id' => 'body', 'value' => '<p>Lorem ipsum</p>' }
-          ],
-          'blocks' => []
-        },
-        {
-          'id' => 'ghi',
-          'type' => 'showcase',
-          'settings' => [
-            { 'id' => 'title', 'value' => 'Our projects' }
-          ], 'blocks' => [
-            {
-              'type' => 'showcase_item',
-              'settings' => [
-                { 'id' => 'name', 'value' => 'My first project' },
-                { 'id' => 'screenshot', 'value' => '/assets/screenshot-01.png' }
-              ]
-            }
-          ]
-        }
-      ])
+                              {
+                                'id' => 'def',
+                                'type' => 'jumbotron',
+                                'settings' => [
+                                  { 'id' => 'title', 'value' => 'Hello world' },
+                                  { 'id' => 'body', 'value' => '<p>Lorem ipsum</p>' }
+                                ],
+                                'blocks' => []
+                              },
+                              {
+                                'id' => 'ghi',
+                                'type' => 'showcase',
+                                'settings' => [
+                                  { 'id' => 'title', 'value' => 'Our projects' }
+                                ], 'blocks' => [
+                                  {
+                                    'type' => 'showcase_item',
+                                    'settings' => [
+                                      { 'id' => 'name', 'value' => 'My first project' },
+                                      { 'id' => 'screenshot', 'value' => '/assets/screenshot-01.png' }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ])
     end
 
     context 'the section have unused settings' do
@@ -128,7 +128,7 @@ describe Maglev::FetchSectionsFromStore do
         end
       end
     end
-  end  
+  end
 
   # rubocop:enable Style/StringHashKeys
 end

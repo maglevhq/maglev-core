@@ -6,7 +6,7 @@ FactoryBot.define do
       page { nil }
     end
 
-    handle { "main" + (page ? "-#{page.id}" : "") }
+    handle { "main#{page ? "-#{page.id}" : ''}" }
 
     sections do
       [
@@ -36,7 +36,7 @@ FactoryBot.define do
     trait :header do
       handle { 'header' }
       sections do
-      [
+        [
           {
             id: 'abc',
             type: 'navbar',
@@ -131,7 +131,7 @@ FactoryBot.define do
     end
 
     # work with the sidebar trait
-    trait :page_link_in_link do 
+    trait :page_link_in_link do
       after :build do |record|
         record.find_section('navbar')['blocks'][0]['settings'][1]['value'] = {
           link_type: 'page',
