@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
-  factory :section_content_store, class: 'Maglev::SectionContentStore' do
+  factory :sections_content_store, class: 'Maglev::SectionsContentStore' do
     transient do
       page { nil }
     end

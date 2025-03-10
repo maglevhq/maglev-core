@@ -82,13 +82,16 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_07_104536) do
     t.jsonb "og_description_translations", default: {}
     t.jsonb "og_image_url_translations", default: {}
     t.string "layout_id"
+    t.index ["layout_id"], name: "index_maglev_pages_on_layout_id", unique: true
   end
 
-  create_table "maglev_section_content_stores", force: :cascade do |t|
+  create_table "maglev_sections_content_stores", force: :cascade do |t|
     t.string "handle", null: false
     t.jsonb "sections_translations", default: {}
+    t.integer "lock_version"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["handle"], name: "index_maglev_sections_content_stores_on_handle"
   end
 
   create_table "maglev_sites", force: :cascade do |t|
