@@ -36,17 +36,18 @@ module Maglev
 
     dependency :fetch_page,                 class: Maglev::FetchPage, depends_on: %i[context fetch_site]
     dependency :get_page_fullpath,          class: Maglev::GetPageFullpath, depends_on: %i[fetch_site get_base_url]
-    dependency :fetch_sections_from_store,  class: Maglev::FetchSectionsFromStore,
+    dependency :fetch_sections_content,     class: Maglev::FetchSectionsContent,
                                             depends_on: %i[fetch_site fetch_theme
                                                            fetch_static_pages
                                                            fetch_collection_items get_page_fullpath]
     dependency :get_page_sections,          class: Maglev::GetPageSections,
                                             depends_on: %i[fetch_theme
-                                                           fetch_sections_from_store]
+                                                           fetch_sections_content]
 
     dependency :get_page_section_names,     class: Maglev::GetPageSectionNames, depends_on: :fetch_theme
     dependency :clone_page,                 class: Maglev::ClonePage, depends_on: :fetch_site
     dependency :persist_page,               class: Maglev::PersistPage, depends_on: %i[fetch_theme]
+    dependency :persist_sections_content,   class: Maglev::PersistSectionsContent, depends_on: %i[fetch_theme]
 
     def call
       self

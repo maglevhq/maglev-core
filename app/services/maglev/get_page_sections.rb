@@ -8,16 +8,18 @@ module Maglev
     include Injectable
 
     dependency :fetch_theme
-    dependency :fetch_sections_from_store
+    dependency :fetch_sections_content
 
     argument :page
     argument :locale, default: nil
 
     def call
       layout.groups.map do |group|
+        sections, lock_version = fetch_sections(group)
         {
           id: group.id,
-          sections: fetch_sections(group)
+          sections: sections,
+          lock_version: lock_version
         }
       end
     end
@@ -33,14 +35,10 @@ module Maglev
     end
 
     def fetch_sections(group)
-      fetch_sections_from_store.call(
-        handle: guess_store_handle(group),
+      fetch_sections_content.call(
+        handle: group.guess_store_handle(page),
         locale: locale
       )
-    end
-
-    def guess_store_handle(group)
-      group.store? ? group.store : "#{group.id}-#{page.id}"
     end
   end
 end
