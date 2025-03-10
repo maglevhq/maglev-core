@@ -33,9 +33,15 @@ describe Maglev::GetPageSections do
     let(:footer_sections) { build(:sections_content_store, :footer).sections }
 
     before do
-      allow(fetch_sections_content).to receive(:call).with(handle: 'header', locale: :en).and_return([header_sections, 0])
+      allow(fetch_sections_content).to receive(:call).with(handle: 'header',
+                                                           locale: :en).and_return([
+                                                                                     header_sections, 0
+                                                                                   ])
       allow(fetch_sections_content).to receive(:call).with(handle: 'main-1', locale: :en).and_return([main_sections, 0])
-      allow(fetch_sections_content).to receive(:call).with(handle: 'footer', locale: :en).and_return([footer_sections, 0])
+      allow(fetch_sections_content).to receive(:call).with(handle: 'footer',
+                                                           locale: :en).and_return([
+                                                                                     footer_sections, 0
+                                                                                   ])
     end
 
     it 'returns the sections of the main region' do

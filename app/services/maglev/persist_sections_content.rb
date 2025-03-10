@@ -24,7 +24,7 @@ module Maglev
       end
     end
 
-    private 
+    private
 
     def theme
       @theme ||= fetch_theme.call
@@ -32,9 +32,7 @@ module Maglev
 
     def layout
       theme.find_layout(page.layout_id).tap do |layout|
-        if layout.nil?
-          raise Maglev::Errors::MissingLayout, "#{layout_id} doesn't match a layout of the theme"
-        end
+        raise Maglev::Errors::MissingLayout, "#{layout_id} doesn't match a layout of the theme" if layout.nil?
       end
     end
 
