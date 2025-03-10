@@ -51,7 +51,7 @@ jobs:
         run: |
           yarn install
 
-      - name: Setup test database
+      - name: Setup test database (Postgres)
         env:
           BUNDLE_GEMFILE: ${{ matrix.gemfile }}
           RAILS_ENV: test
@@ -59,12 +59,26 @@ jobs:
           MAGLEV_APP_DATABASE_PASSWORD: "password"
         run: |
           bin/rails db:setup
-        
-      - name: Run Rails tests
+
+      - name: Setup test database (SQLite)
+        env:
+          BUNDLE_GEMFILE: ${{ matrix.gemfile }}
+          RAILS_ENV: test
+          DATABASE_URL: "sqlite3:storage/maglev_test.sqlite3"
+        run: |
+          bin/rails db:setup
+
+      - name: Run Rails tests (Postgres)
         env:
           BUNDLE_GEMFILE: ${{ matrix.gemfile }}
           MAGLEV_APP_DATABASE_USERNAME: "maglev"
           MAGLEV_APP_DATABASE_PASSWORD: "password"
+        run: bundle exec rspec
+
+      - name: Run Rails tests (SQLite)
+        env:
+          BUNDLE_GEMFILE: ${{ matrix.gemfile }}
+          DATABASE_URL: "sqlite3:storage/maglev_test.sqlite3"
         run: bundle exec rspec
         
       - name: Run Javascript tests
