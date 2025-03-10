@@ -24,7 +24,7 @@ module Maglev
       [
         store.sections.map do |section|
           transform_section(section.dup)
-        end.compact, 
+        end.compact,
         store.lock_version
       ]
     end
