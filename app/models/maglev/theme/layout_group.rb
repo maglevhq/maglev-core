@@ -13,6 +13,10 @@ class Maglev::Theme::LayoutGroup < Maglev::Theme::BaseProperty
     store.present? || store != false
   end
 
+  def guess_store_handle(page)
+    store? ? store : "#{id}-#{page.id}"
+  end
+
   ## class methods ##
 
   def self.build(hash)

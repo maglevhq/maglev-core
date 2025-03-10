@@ -4,7 +4,7 @@ module Maglev
   # Get the content of a store in a specific locale.
   # The content comes from the sections of the store.
   # Also replace the links by their real values based on the context (live editing or not).
-  class FetchSectionsFromStore
+  class FetchSectionsContent
     include Injectable
     include Maglev::GetPageSections::TransformTextConcern
     include Maglev::GetPageSections::TransformLinkConcern
@@ -20,9 +20,13 @@ module Maglev
     argument :locale, default: nil
 
     def call
-      find_store.sections.map do |section|
-        transform_section(section.dup)
-      end.compact
+      store = find_store
+      [
+        store.sections.map do |section|
+          transform_section(section.dup)
+        end.compact, 
+        store.lock_version
+      ]
     end
 
     private
@@ -101,7 +105,7 @@ module Maglev
     end
 
     def scoped_store
-      Maglev::SectionContentStore
+      Maglev::SectionsContentStore
     end
   end
 end

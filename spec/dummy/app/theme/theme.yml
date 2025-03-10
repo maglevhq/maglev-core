@@ -23,7 +23,7 @@ layouts:
   groups:
   - label: "Header"
     id: "header"
-    store: "header" # the sections will be persisted in a SectionContentStore model (handle: header)
+    store: "header" # the sections will be persisted in a SectionsContentStore model (handle: header)
     accept: ["navbar"]
   - label: "Main"
     id: "main"
@@ -34,7 +34,7 @@ layouts:
   groups:
   - label: "Header"
     id: "header"
-    store: "header" # the sections will be persisted in a SectionContentStore model (handle: header)
+    store: "header" # the sections will be persisted in a SectionsContentStore model (handle: header)
     accept: ["navbar"]
   - label: "Main"
     id: "main"

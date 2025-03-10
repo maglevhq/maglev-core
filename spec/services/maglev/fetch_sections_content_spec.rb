@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe Maglev::FetchSectionsFromStore do
+describe Maglev::FetchSectionsContent do
   subject { service.call(handle: handle, locale: :en) }
 
   let(:site) { build(:site) }
@@ -21,7 +21,7 @@ describe Maglev::FetchSectionsFromStore do
   context 'the store doesn\'t exist yet' do
     let(:handle) { 'unknown' }
 
-    it { is_expected.to eq([]) }
+    it { is_expected.to eq([[], 0]) }
   end
 
   # rubocop:disable Style/StringHashKeys
@@ -29,10 +29,10 @@ describe Maglev::FetchSectionsFromStore do
     let(:page) { create(:page) }
     let(:handle) { "main-#{page.id}" }
 
-    let!(:store) { create(:section_content_store, page: page) }
+    let!(:store) { create(:sections_content_store, page: page) }
 
     it 'returns the sections' do
-      expect(subject).to eq([
+      expect(subject).to eq([[
                               {
                                 'id' => 'def',
                                 'type' => 'jumbotron',
@@ -57,13 +57,13 @@ describe Maglev::FetchSectionsFromStore do
                                   }
                                 ]
                               }
-                            ])
+                            ], 0])
     end
 
     context 'the section have unused settings' do
-      let!(:store) { create(:section_content_store, :with_unused_settings, page: page) }
+      let!(:store) { create(:sections_content_store, :with_unused_settings, page: page) }
       it 'skips the unused settings' do
-        expect(subject).to eq([
+        expect(subject).to eq([[
                                 {
                                   'id' => 'ghi',
                                   'type' => 'showcase',
@@ -80,51 +80,51 @@ describe Maglev::FetchSectionsFromStore do
                                     }
                                   ]
                                 }
-                              ])
+                              ], 0])
       end
     end
 
     context 'the sections include a link in text type setting' do
-      let!(:store) { create(:section_content_store, :page_link_in_text, page: page) }
+      let!(:store) { create(:sections_content_store, :page_link_in_text, page: page) }
 
       it 'sets the href properties' do
         expect(get_page_fullpath).to receive(:call).with(page: '42',
                                                          locale: :en).once.and_return('/preview/awesome-path')
-        expect(subject[0]['settings'][1]['value']).to include('<a href="/preview/awesome-path"')
+        expect(subject[0][0]['settings'][1]['value']).to include('<a href="/preview/awesome-path"')
       end
     end
 
     context 'the sections include a link in link type setting' do
-      let!(:store) { create(:section_content_store, :sidebar, :page_link_in_link) }
+      let!(:store) { create(:sections_content_store, :sidebar, :page_link_in_link) }
       let(:handle) { 'sidebar' }
 
       it 'sets the href properties' do
         expect(get_page_fullpath).to receive(:call).with(page: '42',
                                                          locale: :en).once.and_return('/preview/awesome-path')
-        expect(subject[0]['blocks'][0]['settings'][1]['value']['href']).to eq('/preview/awesome-path')
+        expect(subject[0][0]['blocks'][0]['settings'][1]['value']['href']).to eq('/preview/awesome-path')
       end
     end
 
     context 'the sections include collection items' do
-      let!(:store) { create(:section_content_store, :featured_product, page: page) }
+      let!(:store) { create(:sections_content_store, :featured_product, page: page) }
 
       it 'fetches the product from the DB' do
         expect(fetch_collection_items).to receive(:call).with(collection_id: 'products', id: 42).and_return(
           instance_double('CollectionItem', label: 'New product name', source: 'Product fetched')
         )
-        expect(subject[0]['settings'][1]['value']['label']).to eq('New product name')
-        expect(subject[0]['settings'][1]['value']['item']).to eq('Product fetched')
+        expect(subject[0][0]['settings'][1]['value']['label']).to eq('New product name')
+        expect(subject[0][0]['settings'][1]['value']['item']).to eq('Product fetched')
       end
 
       context 'the setting content points to the any item' do
-        let!(:store) { create(:section_content_store, :any_featured_product, page: page) }
+        let!(:store) { create(:sections_content_store, :any_featured_product, page: page) }
 
         it 'fetches the first product' do
           expect(fetch_collection_items).to receive(:call).with(collection_id: 'products', id: 'any').and_return(
             instance_double('CollectionItem', label: 'New product name', source: 'Product fetched')
           )
-          expect(subject[0]['settings'][1]['value']['label']).to eq('New product name')
-          expect(subject[0]['settings'][1]['value']['item']).to eq('Product fetched')
+          expect(subject[0][0]['settings'][1]['value']['label']).to eq('New product name')
+          expect(subject[0][0]['settings'][1]['value']['item']).to eq('Product fetched')
         end
       end
     end
