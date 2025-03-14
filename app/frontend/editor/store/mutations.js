@@ -31,17 +31,45 @@ export default (services) => ({
     state.theme = theme
   },
   SET_PAGE(state, page) {
+    // TODO: don't need to normalize / denormalize it :-)
     const { entities } = services.page.normalize(page)
     state.page = entities.page[page.id]
-    state.sections = { ...state.sections, ...entities.sections }
-    state.sectionBlocks = { ...state.sectionBlocks, ...entities.blocks }
-    state.hoveredSection = null
+
+    // console.log(entities)
+
+    // TO BE REMOVED
+    // state.layoutGroups = { ...state.layoutGroups, ...entities.layoutGroups }
+    // state.sections = { ...state.sections, ...entities.sections }
+    // state.sectionBlocks = { ...state.sectionBlocks, ...entities.blocks }
+    // state.hoveredSection = null    
   },
   SET_PAGE_SETTINGS(state, page) {
     const attributes = pick(page, ...PAGE_SETTING_ATTRIBUTES)
     omitEmpty(attributes)
     state.page = { ...state.page, ...attributes }
   },
+  // === SECTIONS CONTENT ===
+  SET_SECTIONS_CONTENT(state, content) {
+    console.log('SET_SECTIONS_CONTENT', content)
+    const { entities, result } = services.sectionsContent.normalize(content)
+
+    console.log(entities, result)
+    
+    state.sectionsContent = [...result]
+    state.layoutGroups = { ...state.layoutGroups, ...entities.layoutGroups }
+    state.sections = { ...state.sections, ...entities.sections }
+    state.sectionBlocks = { ...state.sectionBlocks, ...entities.blocks }
+    state.hoveredSection = null
+  },
+  SET_SECTIONS_CONTENT_LOCK_VERSIONS(state, lockVersions) {
+    for (const layoutGroupId in lockVersions) {
+      state.layoutGroups[layoutGroupId] = { 
+        ...state.layoutGroups[layoutGroupId], 
+        lockVersion: lockVersions[layoutGroupId]
+      }
+    }
+  },
+  // === SECTION ===
   SET_SECTION(state, section) {
     if (section) {
       const sectionDefinition = state.theme.sections.find(
@@ -79,39 +107,41 @@ export default (services) => ({
     state.sections[state.section.id] = updatedSection
     state.section = updatedSection
   },
-  ADD_SECTION(state, { section, insertAt }) {
+  ADD_SECTION(state, { layoutGroupId, section, insertAt }) {
     const {
       entities: { sections, blocks },
     } = services.section.normalize(section)
     state.sections = { ...state.sections, [section.id]: sections[section.id] }
     state.sectionBlocks = { ...state.sectionBlocks, ...blocks } // hmmm???
-    const updatedPage = { ...state.page }
-
+    const layoutGroup = { ...state.layoutGroups[layoutGroupId] }
+    
     switch (insertAt) {
       case 'top':
-        updatedPage.sections.unshift(section.id)
+        layoutGroup.sections.unshift(section.id)
         break
       case 'bottom':
       case undefined:
       case null:
       case '':
-        updatedPage.sections.push(section.id)
+        layoutGroup.sections.push(section.id)
         break
       default:
-        updatedPage.sections.splice(
-          updatedPage.sections.indexOf(insertAt) + 1,
+        layoutGroup.sections.splice(
+          layoutGroup.sections.indexOf(insertAt) + 1,
           0,
           section.id,
         )
     }
 
-    state.page = updatedPage
+    state.layoutGroups[layoutGroupId] = layoutGroup
   },
-  REMOVE_SECTION(state, sectionId) {
-    state.page.sections.splice(state.page.sections.indexOf(sectionId), 1)
+  REMOVE_SECTION(state, { layoutGroupId, sectionId }) {
+    const sections = state.layoutGroups[layoutGroupId].sections
+    sections.splice(sections.indexOf(sectionId), 1)
   },
-  MOVE_HOVERED_SECTION(state, { fromIndex, toIndex }) {
-    state.page.sections = arraymove(state.page.sections, fromIndex, toIndex)
+  MOVE_HOVERED_SECTION(state, { layoutGroupId, fromIndex, toIndex }) {
+    const layoutGroup = state.layoutGroups[layoutGroupId]
+    layoutGroup.sections = arraymove(layoutGroup.sections, fromIndex, toIndex)
   },
   SET_SECTION_BLOCK(state, sectionBlock) {
     state.sectionBlock = sectionBlock

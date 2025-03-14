@@ -2,6 +2,7 @@ import buildSiteActions from './site'
 import buildPageActions from './page'
 import buildSectionActions from './section'
 import buildSectionBlockActions from './section-block'
+import buildSectionsContentActions from './sections-content'
 
 export default (services) => ({
   setDevice({ commit }, value) {
@@ -31,4 +32,5 @@ export default (services) => ({
   ...buildPageActions(services),
   ...buildSectionActions(services),
   ...buildSectionBlockActions(services),
+  ...buildSectionsContentActions(services),
 })

@@ -1,6 +1,7 @@
 import { isBlank } from '@/misc/utils'
 
 export default (services) => ({
+<<<<<<< HEAD
   currentPagePath: ({ page }) => {
     const nakedPath = page.liveUrl.startsWith('http') ? new URL(page.liveUrl).pathname : page.liveUrl
     return page.path === 'index' ? `${nakedPath}/index`.replace('//', '/') : nakedPath
@@ -9,62 +10,139 @@ export default (services) => ({
     if (page.liveUrl.startsWith('http')) return page.liveUrl
     return new URL(page.liveUrl, location.origin).toString()
   },
+=======
+  // we need it to build the "Organize sections" pane
+  sectionsContent: (
+    { sectionsContent, layoutGroups, sections, sectionBlocks },
+    { sectionDefinition: getSectiondefinition, layoutGroupDefinition: getLayoutGroupDefinition },
+  ) => {
+    const content = services.sectionsContent.denormalize(sectionsContent, {
+      layoutGroups,
+      sections,
+      blocks: sectionBlocks
+    })
+
+    return content.map(layoutGroup => {
+      const layoutDefinition = getLayoutGroupDefinition(layoutGroup.id)
+      return {
+        label: layoutDefinition.label,
+        ...layoutGroup,
+        sections: layoutGroup.sections.map(sectionContent => {
+          const sectionDefinition = getSectiondefinition(sectionContent)
+          return {
+            id: sectionContent.id,
+            type: sectionContent['type'],
+            name: sectionDefinition.name,
+            viewportFixedPosition: !!sectionDefinition.viewportFixedPosition,
+          }
+        })
+      }
+    })
+  },
+
+>>>>>>> 1d4ab51 (feat: first working version of the EditorUI using the layouts (WIP))
   sectionList: (
     { page, sections, sectionBlocks },
     { sectionDefinition: getSectiondefinition },
   ) => {
-    const pageContent = services.page.denormalize(page, {
-      sections,
-      blocks: sectionBlocks,
-    })
-    if (!pageContent?.sections) return []
-    return pageContent.sections.map((sectionContent) => {
-      const sectionDefinition = getSectiondefinition(sectionContent)
-      return {
-        id: sectionContent.id,
-        type: sectionContent['type'],
-        name: sectionDefinition.name,
-        viewportFixedPosition: !!sectionDefinition.viewportFixedPosition,
-      }
-    })
+    throw 'DEPRECATED'
+
+    console.log('🚨🚨🚨 getters.sectionList is deprecated')
+    return []
+
+    // // TODO: ???
+    // console.log('HERE!!!')
+
+    // const 
+
+
+    // const pageContent = services.page.denormalize(page, {
+    //   sections,
+    //   blocks: sectionBlocks,
+    // })
+    // if (!pageContent?.sections) return []
+    // return pageContent.sections.map((sectionContent) => {
+    //   const sectionDefinition = getSectiondefinition(sectionContent)
+    //   return {
+    //     id: sectionContent.id,
+    //     type: sectionContent['type'],
+    //     name: sectionDefinition.name,
+    //     viewportFixedPosition: !!sectionDefinition.viewportFixedPosition,
+    //   }
+    // })
   },
-  stickySectionList: (_, { sectionList }) => {
-    return sectionList.filter((section) => section.viewportFixedPosition)
+  stickySectionList: ({ sections }, { sectionDefinition: getSectiondefinition }) => {
+    return Object.values(sections).filter((sectionContent) => {
+      const sectionDefinition = getSectiondefinition(sectionContent)
+      return !!sectionDefinition.viewportFixedPosition
+    })
   },
   defaultPageAttributes: ({ page }) => {
     if (page.translated) return {}
     return { title: page.title, path: page.path }
   },
   content: (
-    { page, sections, sectionBlocks, touchedSections },
-    { sectionDefinition: getSectiondefinition },
+    { sectionsContent, layoutGroups, sections, sectionBlocks, touchedSections }
   ) => {
-    const pageContent = services.page.denormalize(page, {
+    const content = services.sectionsContent.denormalize(sectionsContent, {
+      layoutGroups,
       sections,
       blocks: sectionBlocks,
     })
 
-    const siteSections = pageContent.sections.filter(
-      (sectionContent) => getSectiondefinition(sectionContent).siteScoped,
-    )
-    const hasModifiedSiteScopedSections = siteSections.some(
-      (sectionContent) => touchedSections.indexOf(sectionContent.id) !== -1,
-    )
-    return {
-      pageSections: pageContent.sections,
-      siteSections: hasModifiedSiteScopedSections ? siteSections : [],
-    }
+    return content
+
+    // const pageContent = services.page.denormalize(page, {
+    //   sections,
+    //   blocks: sectionBlocks,
+    // })
+
+    // const siteSections = pageContent.sections.filter(
+    //   (sectionContent) => getSectiondefinition(sectionContent).siteScoped,
+    // )
+    // const hasModifiedSiteScopedSections = siteSections.some(
+    //   (sectionContent) => touchedSections.indexOf(sectionContent.id) !== -1,
+    // )
+    // return {
+    //   pageSections: pageContent.sections,
+    //   siteSections: hasModifiedSiteScopedSections ? siteSections : [],
+    // }
   },
-  denormalizedSection: ({ page, sections, sectionBlocks, section }) => {
-    const pageContent = services.page.denormalize(page, {
-      sections,
-      blocks: sectionBlocks,
-    })
-    return pageContent.sections.find((s) => s.id == section.id)
+  denormalizedSection: ({ section: { id: sectionId } }, { content }) => {
+    for (const layoutGroupId in content) {
+      const sections = content[layoutGroupId].sections
+      const section = sections.find(s => s.id === sectionId)
+      if (section) return section
+    }
+    return null // it mustn't happen
+    // // const pageContent = services.page.denormalize(page, {
+    // //   sections,
+    // //   blocks: sectionBlocks,
+    // // })
+    // return pageContent.sections.find((s) => s.id == section.id)
   },
   sectionContent: ({ section }) => {
     return section ? [...section.settings] : null
   },
+  layoutDefinition:
+    ({ theme, page }) => {
+      return theme.layouts.find(layout => layout.id === page.layoutId)
+    },
+  layoutGroupDefinition:
+    ({}, { layoutDefinition }) =>
+    (layoutGroupId) => {
+      return layoutDefinition.groups.find(group => group.id === layoutGroupId)
+    },
+  sectionLayoutGroupIdMap:
+    ({ layoutGroups }) => {
+      const memo = {}
+      for (const layoutGroupId in layoutGroups) {
+        layoutGroups[layoutGroupId].sections.forEach(sectionId => {
+          memo[sectionId] = layoutGroupId
+        })
+      }
+      return memo
+    },
   sectionDefinition:
     ({ theme }) =>
     (sectionContent) => {

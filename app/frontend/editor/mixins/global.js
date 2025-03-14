@@ -43,11 +43,18 @@ Vue.mixin({
     currentSectionI18nScope() {
       return `${this.currentI18nScope}.sections.${this.currentSection.type}`
     },
+    currentSectionsContent() {
+      return this.$store.getters.sectionsContent
+    },
     currentSectionList() {
-      return this.$store.getters.sectionList
+      console.log('🚨🚨🚨 currentSectionList is deprecated')
+      return []; //this.$store.getters.sectionList
     },
     currentSectionContent() {
       return this.$store.getters.sectionContent
+    },
+    currentSectionLayoutGroupIdMap() {
+      return this.$store.getters.sectionLayoutGroupIdMap
     },
     currentSectionDefinition() {
       return this.$store.state.sectionDefinition
@@ -87,6 +94,9 @@ Vue.mixin({
     },
     hasMultipleLocales() {
       return this.$store.state.site.locales.length > 1
+    },
+    hasSections() {
+      return Object.keys(this.$store.state.sections).length > 0
     },
     currentContent() {
       return this.$store.getters.content

@@ -16,7 +16,8 @@
           v-for="section in category.children"
           :key="section.id"
           :section="section"
-          :insertAfter="insertAfter"
+          :layout-group-id="layoutGroupId"
+          :insert-after="insertAfter"
         />
 
         <div
@@ -37,6 +38,7 @@ export default {
   name: 'ThemeSectionList',
   components: { ListItem },
   props: {
+    layoutGroupId: { type: String, required: true },
     insertAfter: { type: String },
   },
   data() {

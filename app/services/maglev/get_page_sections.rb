@@ -6,11 +6,13 @@ module Maglev
   # Also replace the links by their real values based on the context (live editing or not).
   class GetPageSections
     include Injectable
+    include Maglev::FetchSectionsContent::TransformSectionConcern
 
     dependency :fetch_theme
     dependency :fetch_sections_content
 
     argument :page
+    argument :sections_content, default: nil
     argument :locale, default: nil
 
     def call
@@ -31,14 +33,35 @@ module Maglev
     end
 
     def layout
-      theme.find_layout(page.layout_id)
+      theme.find_layout(page.layout_id).tap do |layout|
+        raise Maglev::Errors::MissingLayout, "The page misses the layout_id property" if layout.nil?
+      end
     end
 
     def fetch_sections(group)
+      if sections_content
+        fetch_local_sections(group)
+      else
+        fetch_stored_sections(group)
+      end
+    end
+
+    def fetch_stored_sections(group)
       fetch_sections_content.call(
         handle: group.guess_store_handle(page),
         locale: locale
       )
+    end
+
+    def fetch_local_sections(group)
+      content_group = sections_content.find { |content_group| content_group['id'] == group.id }
+
+      return [[], 0] if content_group.blank?
+      
+      [
+        content_group['sections'].map { |section| transform_section(section) }, 
+        0
+      ]
     end
   end
 end

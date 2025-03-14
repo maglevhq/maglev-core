@@ -5,7 +5,7 @@ import SectionListPane from '@/views/sections/list-pane.vue'
 
 export default [
   {
-    path: 'add-section',
+    path: 'add-section/:layoutGroupId',
     name: 'addSection',
     components: {
       default: PagePreview,
@@ -17,7 +17,7 @@ export default [
     },
   },
   {
-    path: 'add-section/:sectionId',
+    path: 'add-section/:layoutGroupId/:sectionId',
     name: 'addSectionAfter',
     components: {
       default: PagePreview,
