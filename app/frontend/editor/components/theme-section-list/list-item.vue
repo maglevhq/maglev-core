@@ -42,6 +42,7 @@ export default {
   name: 'ThemeSectionListItem',
   props: {
     section: { type: Object, required: true, default: null },
+    layoutGroupId: { type: String, required: true },
     insertAfter: { type: String },
   },
   data() {
@@ -63,6 +64,7 @@ export default {
     select() {
       if (!this.canBeAdded) return
       this.addSection({
+        layoutGroupId: this.layoutGroupId,
         sectionDefinition: this.section,
         insertAt: this.insertAfter,
       }).then(() => {

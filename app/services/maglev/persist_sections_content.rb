@@ -15,13 +15,12 @@ module Maglev
       ActiveRecord::Base.transaction do
         unsafe_call
       end
-      true
     end
 
     def unsafe_call
-      layout.groups.each do |group|
-        persist_group_content(group)
-      end
+      layout.groups.map do |group|
+        [group.id, persist_group_content(group)]
+      end.to_h
     end
 
     private
@@ -40,6 +39,7 @@ module Maglev
       store = find_store(group.guess_store_handle(page))
       store.attributes = extract_store_attributes(group)
       store.save!
+      store
     end
 
     def extract_store_attributes(group)

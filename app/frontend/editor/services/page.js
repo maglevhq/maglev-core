@@ -9,8 +9,11 @@ export const BLOCK_SCHEMA = new schema.Entity('blocks')
 export const SECTION_SCHEMA = new schema.Entity('sections', {
   blocks: [BLOCK_SCHEMA],
 })
-export const PAGE_SCHEMA = new schema.Entity('page', {
+export const LAYOUT_GROUP_SCHEMA = new schema.Entity('layoutGroups', {
   sections: [SECTION_SCHEMA],
+})
+export const PAGE_SCHEMA = new schema.Entity('page', {
+  sections: [LAYOUT_GROUP_SCHEMA],
 })
 
 export const SETTING_ATTRIBUTES = [

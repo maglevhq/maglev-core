@@ -9,19 +9,6 @@
     <ol class="divide-y divide-gray-300 px-4" v-else>
       <li>
         <router-link
-          :to="{ name: 'addSection' }"
-          class="flex justify-center py-5 -ml-4 -mr-4 hover:bg-editor-primary hover:bg-opacity-5 transition-colors duration-200"
-          :class="{
-            'bg-white': !isAddSectionPaneActive,
-            'bg-editor-primary bg-opacity-5': isAddSectionPaneActive,
-          }"
-          v-tooltip.right="$t('sidebarNav.addNewSectionTooltip')"
-        >
-          <uikit-icon name="add-box-line" size="1.5rem" />
-        </router-link>
-      </li>
-      <li>
-        <router-link
           :to="{ name: 'listSections' }"
           class="flex justify-center py-5 -ml-4 -mr-4 hover:bg-editor-primary hover:bg-opacity-5 transition-colors duration-200"
           :class="{

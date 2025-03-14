@@ -3,7 +3,7 @@ import { isBlank } from '@/misc/utils'
 export default (services) => ({
   // editPage : Action triggered when the user wants to edit another page
   // or to change the locale of the current page.
-  editPage({ state, dispatch }, { id, locale }) {
+  async editPage({ state, dispatch }, { id, locale }) {
     console.log('editPage', id, locale)
 
     // display the loader
@@ -11,8 +11,10 @@ export default (services) => ({
 
     if (state.locale !== locale) {
       dispatch('setLocale', locale)
-      Promise.all([dispatch('fetchPage', id), dispatch('fetchSite')])
-    } else dispatch('fetchPage', id)
+      await Promise.all([dispatch('fetchPage', id), dispatch('fetchSite')])
+    } else await dispatch('fetchPage', id)
+
+    dispatch('fetchSectionsContent', state.page.id)
   },
 
   // Set page
@@ -24,7 +26,7 @@ export default (services) => ({
     return services.page
       .findById(site, id)
       .then((page) => commit('SET_PAGE', page))
-  },
+  },  
   // Persist the content of a page (including or not the site content)
   async persistPage({
     commit,
@@ -32,6 +34,8 @@ export default (services) => ({
     state: { page, site, style },
     getters: { content, defaultPageAttributes },
   }) {
+    console.log('🚨🚨🚨 services.page.persistPage is DEPRECATED')
+
     commit('SET_SAVE_BUTTON_STATE', 'inProgress')
 
     const pageAttributes = {

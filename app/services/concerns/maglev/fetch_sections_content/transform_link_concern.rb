@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # rubocop:disable Style/ClassAndModuleChildren
-module Maglev::GetPageSections::TransformLinkConcern
+module Maglev::FetchSectionsContent::TransformLinkConcern
   def transform_link_content_setting(content, _setting)
     return unless content['value'].is_a?(Hash) && %w[page static_page].include?(content.dig('value', 'link_type'))
 

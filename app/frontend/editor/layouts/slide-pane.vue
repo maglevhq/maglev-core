@@ -30,7 +30,7 @@
           </div>
 
           <div class="ml-auto">
-            <router-link :to="{ name: 'editPage' }">
+            <router-link :to="closeRouteTo">
               <uikit-icon name="ri-close-circle-line" />
             </router-link>
           </div>
@@ -75,7 +75,8 @@ export default {
     overflowY: { type: Boolean, default: true },
     maxWidthPane: { type: Boolean, default: false },
     withPreTitle: { type: Boolean, default: false },
-  },
+    closeRouteTo: { type: Object, default: () => ({ name: 'editPage' }) }
+  }
 }
 </script>
 

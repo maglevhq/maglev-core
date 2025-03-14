@@ -14,23 +14,29 @@ export default (services) => ({
   },
   addSection(
     { commit, getters, state: { site } },
-    { sectionDefinition, insertAt },
+    { layoutGroupId, sectionDefinition, insertAt },
   ) {
     if (sectionDefinition.insertAt) insertAt = sectionDefinition.insertAt
     const section = services.section.build(sectionDefinition, site)
-    commit('ADD_SECTION', { section, insertAt })
+    
+    commit('ADD_SECTION', { layoutGroupId, section, insertAt })
     commit('TOUCH_SECTION', section.id)
-    services.livePreview.addSection(getters.content, section, insertAt)
+
+    services.livePreview.addSection(layoutGroupId, getters.content, section, insertAt)
+
     return section
   },
-  removeSection({ commit }, sectionId) {
-    commit('REMOVE_SECTION', sectionId)
-    services.livePreview.removeSection(sectionId)
+  removeSection({ commit, getters }, sectionId) {
+    const layoutGroupId = getters.sectionLayoutGroupIdMap[sectionId]
+    commit('REMOVE_SECTION', { layoutGroupId, sectionId })
+    services.livePreview.removeSection(layoutGroupId, sectionId)
   },
   updateSectionContent({ commit, getters, state: { section } }, change) {
     commit('UPDATE_SECTION_CONTENT', change)
     commit('TOUCH_SECTION', section.id)
+
     services.livePreview.updateSection(
+      getters.sectionLayoutGroupIdMap[section.id],
       getters.content,
       getters.denormalizedSection,
       change,
@@ -40,15 +46,18 @@ export default (services) => ({
     {
       commit,
       getters,
-      state: {
-        page: { sections },
-      },
+      state: { layoutGroups },
     },
-    { from, to },
+    { layoutGroupId, from, to },
   ) {
     if (isBlank(from) || isBlank(to)) return
-    commit('MOVE_HOVERED_SECTION', { fromIndex: from, toIndex: to })
+
+    const sections = layoutGroups[layoutGroupId].sections
+
+    commit('MOVE_HOVERED_SECTION', { layoutGroupId, fromIndex: from, toIndex: to })
+
     services.livePreview.moveSection(
+      layoutGroupId,
       getters.content,
       sections[from],
       sections[to],
@@ -60,16 +69,19 @@ export default (services) => ({
       dispatch,
       state: {
         hoveredSection: { sectionId },
-        page: { sections },
+        layoutGroups,
       },
+      getters
     },
     direction,
   ) {
+    const layoutGroupId = getters.sectionLayoutGroupIdMap[sectionId]
+    const sections = layoutGroups[layoutGroupId].sections
     const indices = services.section.calculateMovingIndices(
       sections,
       sectionId,
       direction,
-    )
-    dispatch('moveSection', { from: indices.fromIndex, to: indices.toIndex })
+    )    
+    dispatch('moveSection', { layoutGroupId, from: indices.fromIndex, to: indices.toIndex })
   },
 })

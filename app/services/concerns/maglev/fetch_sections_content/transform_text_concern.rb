@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 # rubocop:disable Style/ClassAndModuleChildren
-module Maglev::GetPageSections::TransformTextConcern
+module Maglev::FetchSectionsContent::TransformTextConcern
   def transform_text_content_setting(content, setting)
     return unless setting.options['html']
 
-    content['value'] = replace_links_in_text(content['value'])
+    content['value'] = replace_links_in_text(content['value'] || '')
   end
 
   def replace_links_in_text(text)
