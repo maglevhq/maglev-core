@@ -49,6 +49,7 @@ module Maglev
       end
 
       def persist!(page)
+        # TODO: don't use the PersistPage anymore, just use the AR methods
         services.persist_page.call(
           page: page,
           page_attributes: page_params,

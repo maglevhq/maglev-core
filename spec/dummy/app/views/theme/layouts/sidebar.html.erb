@@ -24,15 +24,19 @@
   <%= maglev_live_preview_client_javascript_tag %>
 </head>
 <body>
+  <header data-maglev-header-dropzone class="bg-blue-100 min-h-[10rem]">
+    <%= render_maglev_group :header %>
+  </header>
   <div class="sm:flex">
-    <div class="w-full sm:w-96 bg-red-100">
-      TODO
-    </div>
-    <div class="bg-green-100">
-      <main data-maglev-dropzone>
-        <%= render_maglev_sections %>
-      </main>
-    </div>
+    <aside data-maglev-sidebar-dropzone class="w-full sm:w-96 bg-red-100 min-h-[10rem]">
+      <%= render_maglev_group :sidebar %>
+    </aside>
+    <main data-maglev-main-dropzone class="bg-green-100 min-h-[10rem] w-full">
+      <%= render_maglev_group :main %>
+    </main>
   </div>
+  <footer data-maglev-footer-dropzone class="bg-yellow-100 min-h-[10rem]">
+    <%= render_maglev_group :footer %>
+  </footer>
 </body>
 </html>

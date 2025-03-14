@@ -4,6 +4,7 @@ module Maglev
   module Errors
     class NotAuthorized < StandardError; end
     class MissingLayout < StandardError; end
+    class UnknownLayoutGroup < StandardError; end
     class UnknownSection < StandardError; end
 
     class UnknownSetting < StandardError

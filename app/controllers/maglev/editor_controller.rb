@@ -13,7 +13,7 @@ module Maglev
     before_action :set_content_locale, only: :show
 
     helper_method :maglev_home_page_id
-
+    
     def show
       fetch_maglev_page_content
       render layout: nil
