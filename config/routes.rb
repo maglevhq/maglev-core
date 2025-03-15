@@ -13,6 +13,7 @@ Maglev::Engine.routes.draw do
       end
       resources :assets
       resource :publication, only: %i[show create]
+      resource :style, only: :update
       scope 'collections/:collection_id' do
         get '/', to: 'collection_items#index', as: :collection_items
       end
