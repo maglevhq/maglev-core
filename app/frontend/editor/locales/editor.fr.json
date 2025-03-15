@@ -124,7 +124,13 @@
   },
   "style": {
     "edit": {
-      "title": "Styler site"
+      "title": "Styler site",
+      "submitButton": {
+        "default": "Mettre à jour",
+        "inProgress": "En cours de mise à jour...",
+        "success": "Mise à jour !",
+        "fail": "Échec !"
+      }
     }
   },
   "imageInput": {

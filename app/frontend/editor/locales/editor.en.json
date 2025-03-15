@@ -127,7 +127,7 @@
     "edit": {
       "title": "Style your site",
       "submitButton": {
-        "default": "Update style",
+        "default": "Persist style",
         "inProgress": "Updating...",
         "success": "Updated!",
         "fail": "Fail!"
