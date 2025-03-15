@@ -9,6 +9,18 @@
         @change="onChange"
       />
     </div>
+    <div class="mt-auto px-4 pt-4">
+      <uikit-submit-button
+        type="button"
+        class="big-submit-button"
+        defaultColorClass="bg-editor-primary"
+        :labels="$t('style.edit.submitButton')"
+        :buttonState="submitState"
+        @click="updatePage"
+      >
+      {{ $t('style.edit.submitButton') }}
+      </uikit-submit-button>
+    </div>
   </div>
 </template>
 
@@ -20,7 +32,7 @@ export default {
   name: 'StylePane',
   components: { DynamicForm },
   data() {
-    return { style: [] }
+    return { style: [], submitState: 'default' }
   },
   mounted() {
     this.style = this.currentStyle
@@ -34,7 +46,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions(['previewStyle']),
+    ...mapActions(['previewStyle', 'updateSite']),
     onChange(change) {
       this.style = this.style.map((value) => {
         const newValue = { ...value }
@@ -43,6 +55,13 @@ export default {
       })
       this.previewStyle(this.style)
     },
+    updatePage() {
+      this.submitState = 'inProgress'
+      this.services.site
+      .updateStyle(this.style)
+      .then(() => this.submitState = 'success')
+      .catch(() => this.submitState = 'fail')
+    }
   },
 }
 </script>

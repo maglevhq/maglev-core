@@ -8,7 +8,7 @@ export default (api) => ({
     return api.get(`/site`).then(({ data }) => data)
   },
   updateStyle(style) {
-    return api.put(`/style`, { site: { style } }).then((response) => {
+    return api.put(`/style`, { style }).then((response) => {
       return response.headers['lock-version']
     })
   },
