@@ -33,7 +33,6 @@
         :fetchList="() => fetchPageSectionNames()"
         :clearEnabled="true"
         v-model="pageSection"
-        listClass="overflow-y-scroll h-56"
       >
         <template v-slot:value>
           {{ pageSection.name }}
@@ -41,6 +40,12 @@
         <template v-slot:item="{ item }">
           <div class="flex items-center">
             <span class="font-bold">{{ item.name }}</span>
+            <span
+            class="ml-auto"
+            :class="{ 'text-gray-500': !hovered, 'text-white': hovered }"
+          >
+            {{ item.layoutGroupLabel }}
+          </span>
           </div>
         </template>
       </uikit-select-input>
