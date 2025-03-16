@@ -21,11 +21,4 @@ json.live_url services.get_page_fullpath.call(page: page, preview_mode: false, l
 json.lock_version page.lock_version
 json.translated page.path.present?
 
-# json.section_names services.get_page_section_names.call(page: page)
-# json.sections services.get_page_sections.call(page: page)
-
-# json.sections services.get_page_sections.call(page: page) do |group|
-#   json.id group[:id]
-#   json.sections group[:sections]
-#   json.lock_version group[:lock_version]
-# end
+json.section_names services.get_page_section_names.call(page: page)
