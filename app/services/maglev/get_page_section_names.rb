@@ -16,11 +16,17 @@ module Maglev
     # ]
     def call
       fetch_stores.map do |(store, group_label)|
-        store.sections.map do |section|
+        # if the store hasn't been translated yet, there won't any sections
+        (store.sections || []).map do |section|
           definition = theme.sections.find(section['type'])
           { id: section['id'], name: definition.name, layout_group_label: group_label }
         end
       end.flatten
+    rescue Maglev::Errors::MissingLayout => e
+      # for instance, static pages might not have a defined layout
+      # AND by default, all the other pages must have a layout_id property
+      Rails.logger.warn e.message
+      []
     end
 
     protected
