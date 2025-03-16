@@ -76,7 +76,7 @@ export default (api) => ({
   },
 
   update: (id, attributes, siteAttributes) => {
-    console.log('[PageService] Updating page #', id)
+    console.log('🚨🚨🚨🚨🚨 [PageService] Updating page #', id)
     return api.put(`/pages/${id}`, { page: attributes, site: siteAttributes })
   },
 

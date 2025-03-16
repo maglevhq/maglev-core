@@ -34,7 +34,7 @@ module Maglev
 
     def layout
       theme.find_layout(page.layout_id).tap do |layout|
-        raise Maglev::Errors::MissingLayout, "The page misses the layout_id property" if layout.nil?
+        raise Maglev::Errors::MissingLayout, "The page #{page.id} misses the layout_id property" if layout.nil?
       end
     end
 
