@@ -4,11 +4,11 @@ module Maglev
   class Site < ApplicationRecord
     ## concerns ##
     include Maglev::Site::LocalesConcern
-    include Maglev::SectionsConcern
     include Maglev::Translatable
+    include Maglev::SectionsConcern # @deprecated Use SectionsContentStore instead
 
     ## translations ##
-    translates :sections
+    translates :sections # @deprecated Use SectionsContentStore instead
 
     ## validations ##
     validates :name, presence: true
@@ -19,10 +19,12 @@ module Maglev
     end
 
     def find_section(type)
+      ActiveSupport::Deprecation.warn('Not used anymore, replaced by SectionsContentStore')
       sections&.find { |section| section['type'] == type }
     end
 
     def translate_in(locale, source_locale)
+      ActiveSupport::Deprecation.warn('Not used anymore, replaced by SectionsContentStore')
       translate_attr_in(:sections, locale, source_locale)
     end
   end

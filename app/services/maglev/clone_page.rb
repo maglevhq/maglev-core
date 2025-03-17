@@ -2,10 +2,13 @@
 
 module Maglev
   # Clone a page in all the locales.
-  # The service also makes sure that
-  # the path of the cloned page will be unique.
+  # The service also makes sure that the path of the cloned page will be unique.
   class ClonePage
     include Injectable
+    include Maglev::FetchThemeConcern
+
+    dependency :fetch_site
+    dependency :fetch_theme
 
     argument :page
 
@@ -22,6 +25,7 @@ module Maglev
         cloned_page.disable_spawn_redirection
         clone_paths(cloned_page)
         cloned_page.save!
+        clone_sections_content_stores(cloned_page)
       end
     end
 
@@ -29,13 +33,13 @@ module Maglev
 
     def cloned_attributes
       {
+        layout_id: page.layout_id,
         title_translations: clone_title,
         seo_title_translations: page.seo_title_translations,
         meta_description_translations: page.meta_description_translations,
         og_title_translations: page.og_title_translations,
         og_description_translations: page.og_description_translations,
         og_image_url_translations: page.og_image_url_translations,
-        sections_translations: page.sections_translations
       }
     end
 
@@ -57,6 +61,23 @@ module Maglev
     def generate_clone_code(number)
       charset = Array('A'..'Z') + Array('a'..'z')
       Array.new(number) { charset.sample }.join
+    end
+
+    def clone_sections_content_stores(cloned_page)
+      layout_page_groups.each do |group|
+        store = sections_content_stores.find_by_handle(group.guess_store_handle(page))
+
+        next if store.nil?
+        
+        clone_sections_content_store(store, group.guess_store_handle(cloned_page))
+      end
+    end
+
+    def clone_sections_content_store(store, handle)
+      sections_content_stores.create!(
+        handle: handle,
+        sections_translations: store.sections_translations
+      )
     end
   end
 end
