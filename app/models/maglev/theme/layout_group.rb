@@ -9,12 +9,17 @@ class Maglev::Theme::LayoutGroup < Maglev::Theme::BaseProperty
 
   ## instance methods ##
 
+  # TODO: will be deprecated since we rely on page_store?
   def store?
     store.present? || store != false
   end
 
+  def page_store?
+    store == 'page' || store == false # TODO: store == false will be deprecated
+  end
+
   def guess_store_handle(page)
-    store? ? store : "#{id}-#{page.id}"
+    page_store? ? "#{id}-#{page.id}" : store
   end
 
   ## class methods ##

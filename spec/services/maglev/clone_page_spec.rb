@@ -5,9 +5,9 @@ require 'rails_helper'
 describe Maglev::ClonePage do
   subject { service.call(page: page) }
 
-  let(:site) { create(:site) }
-  let(:fetch_site) { double('FetchSite', call: site) }
-  let(:service) { described_class.new(fetch_site: fetch_site) }
+  let(:fetch_site) { double('FetchSite', call: create(:site)) }
+  let(:fetch_theme) { double('FetchTheme', call: build(:theme, :basic_layouts)) }
+  let(:service) { described_class.new(fetch_site: fetch_site, fetch_theme: fetch_theme) }
 
   context "the original page doesn't exist yet" do
     let(:page) { build(:page) }
@@ -22,10 +22,10 @@ describe Maglev::ClonePage do
     let!(:page) { create(:page, :with_navbar) }
 
     it 'creates another page with the same attributes' do
-      expect { subject }.to change(Maglev::Page, :count).by(1)
+      expect { subject }.to change(Maglev::Page, :count).by(1).and(change(Maglev::SectionsContentStore, :count).by(1))
       expect(subject.title).to eq 'Home COPY'
       expect(subject.path).not_to eq page.path
-      expect(subject.sections.count).to eq 3
+      expect(Maglev::SectionsContentStore.last.sections.size).to eq 2
     end
 
     # rubocop:disable Style/StringHashKeys
