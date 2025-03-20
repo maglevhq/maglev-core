@@ -67,6 +67,11 @@ export const start = (newIframe) => {
   listenMessages()
 }
 
+export const reload = () => {
+  if (!iframe) return
+  iframe.contentWindow.location.reload()
+}
+
 const listenMessages = () => {
   window.addEventListener('message', ({ data: { type, ...data } }) => {
     // a message MUST have a type

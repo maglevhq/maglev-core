@@ -58,6 +58,9 @@ export default {
         },
       ]
     },
+    hasLayoutIdChanged() {
+      return this.editedPage.layoutId !== this.page.layoutId
+    }
   },
   methods: {
     updatePage() {
@@ -74,6 +77,9 @@ export default {
             ...attributes,
             lockVersion: headers['page-lock-version'],
           })
+
+          if (this.hasLayoutIdChanged)
+            this.$store.dispatch('reloadPage', { id: pageId })
         })
         .catch(({ response: { status, data } }) => {
           console.log('[Maglev] could not update the page', status)
