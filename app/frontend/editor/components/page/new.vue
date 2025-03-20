@@ -36,7 +36,9 @@ export default {
     return { page: {}, errors: {}, submitState: 'default' }
   },
   mounted() {
-    this.page = this.services.page.build()
+    this.page = this.services.page.build({
+      layoutId: this.currentTheme.layouts[0].id 
+    })
   },
   computed: {
     tabs() {
