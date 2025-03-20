@@ -166,7 +166,7 @@ const updatePreviewDocument = async (content, section, insertAt) => {
     targetElement = previewDocument.querySelector(selector)
   }
 
-  runScripts(targetElement)
+  runScripts(sourceElement)
 
   targetElement.scrollIntoView(true)
 }
