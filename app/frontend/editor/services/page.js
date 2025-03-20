@@ -34,11 +34,11 @@ export default (api) => ({
     return page.path === 'index' || page.path === '/index'
   },
 
-  build: () => {
+  build: ({ layoutId }) => {
     return {
       title: '',
       path: '',
-      layoutId: null,
+      layoutId,
       visible: true,
       seoTitle: '',
       metaDescription: '',
