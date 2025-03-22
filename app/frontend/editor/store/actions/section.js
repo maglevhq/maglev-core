@@ -42,6 +42,45 @@ export default (services) => ({
       change,
     )
   },
+  // source: the information related to the section we want to mirror in the current page
+  // target: the information about where to put the new section (layoutGroupId, insertAt)
+  async addMirroredSection(
+    { commit, getters },
+    { source, target: { layoutGroupId, insertAt } },
+  ) {
+    // get the content of the mirror section
+    const pageContent = await services.sectionsContent.find(source.pageId)
+    const layoutGroup = pageContent.find(layoutGroup => layoutGroup.id === source.layoutGroupId)
+    const section = layoutGroup.sections.find(section => section.id === source.sectionId)
+
+    section.mirrorOf = source
+
+    commit('ADD_SECTION', { layoutGroupId, section, insertAt })
+    commit('TOUCH_SECTION', section.id)
+
+    services.livePreview.addSection(layoutGroupId, getters.content, section, insertAt)
+
+    return section
+  },
+  async mirrorSectionContent({ commit, getters }, { source, target }) {
+    // get the content of the mirror section
+    const pageContent = await services.sectionsContent.find(source.pageId)
+    const layoutGroup = pageContent.find(layoutGroup => layoutGroup.id === source.layoutGroupId)
+    const section = layoutGroup.sections.find(section => section.id === source.sectionId)
+
+    section.id = target.sectionId
+
+    commit('SET_SECTION', section) // required to update the current section form
+    commit('SET_SECTION_CONTENT', section) // required to update the preview iframe
+    commit('TOUCH_SECTION', target.sectionId)
+
+    services.livePreview.updateSection(
+      getters.sectionLayoutGroupIdMap[target.sectionId],
+      getters.content,
+      getters.denormalizedSection,
+      {},
+    )
+  },  
   moveSection(
     {
       commit,

@@ -101,12 +101,7 @@ export default (services) => ({
       const section = sections.find(s => s.id === sectionId)
       if (section) return section
     }
-    return null // it mustn't happen
-    // // const pageContent = services.page.denormalize(page, {
-    // //   sections,
-    // //   blocks: sectionBlocks,
-    // // })
-    // return pageContent.sections.find((s) => s.id == section.id)
+    return null
   },
   sectionContent: ({ section }) => {
     return section ? [...section.settings] : null

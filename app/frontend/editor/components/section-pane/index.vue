@@ -14,6 +14,7 @@
 import SettingList from './setting-list.vue'
 import BlockList from './block-list/index.vue'
 import BlockTree from './block-tree/index.vue'
+import MirrorSettings from './mirror-settings.vue'
 
 export default {
   name: 'SectionPane',
@@ -39,9 +40,15 @@ export default {
           name: this.$t('sectionPane.tabs.advanced'),
           tab: SettingList,
           type: 'advanced',
-          condition: () => this.hasAdvancedSettings,
-          props: () => ({ advanced: true }),
+          condition: () => this.hasAdvancedSettings || this.hasMirrorFeatureEnabled,
+          props: () => ({ advanced: true, mirrorFeature: this.hasMirrorFeatureEnabled }),
         },
+        // {
+        //   name: 'POC',
+        //   tab: MirrorSettings,
+        //   type: 'mirror',
+        //   condition: () => this.hasMirrorFeatureEnabled
+        // },
       ]
     },
     tabs() {
@@ -57,6 +64,9 @@ export default {
     },
     hasAdvancedSettings() {
       return !this.isBlank(this.currentSectionAdvancedSettings)
+    },
+    hasMirrorFeatureEnabled() {
+      return this.currentSectionDefinition.mirror
     },
     hasBlocks() {
       return !this.isBlank(this.currentSectionDefinition.blocks)

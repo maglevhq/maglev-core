@@ -17,6 +17,7 @@ import TextInput from './text-input.vue'
 import RichTextInput from './rich-text-input.vue'
 import CheckboxInput from './checkbox-input.vue'
 import SearchInput from './search-input.vue'
+import MirrorSectionInput from './mirror-section-input.vue'
 import Pagination from './pagination/index.vue'
 import PageIcon from './page-icon.vue'
 import ColorInput from './color-input.vue'
@@ -47,6 +48,7 @@ Vue.component('uikit-search-input', SearchInput)
 Vue.component('uikit-pagination', Pagination)
 Vue.component('uikit-page-icon', PageIcon)
 Vue.component('uikit-color-input', ColorInput)
+Vue.component('uikit-mirror-section-input', MirrorSectionInput)
 Vue.component('uikit-simple-select', SimpleSelect)
 Vue.component('uikit-collection-item-input', CollectionItemInput)
 Vue.component('uikit-list-item-button', ListItemButton)
