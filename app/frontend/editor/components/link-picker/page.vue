@@ -80,7 +80,7 @@ export default {
     },
     hasPageSections() {
       return !this.isBlank(this.page?.sectionNames)
-    },
+    }
   },
   methods: {
     async fetchPageSectionNames() {

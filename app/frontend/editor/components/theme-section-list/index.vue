@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="space-y-4">
     <uikit-accordion
       v-for="(category, index) in categories"
       :key="index"
@@ -28,15 +28,18 @@
         </div>
       </div>
     </uikit-accordion>
+
+    <mirror-section-button :layoutGroupId="layoutGroupId" :insertAfter="insertAfter" />
   </div>
 </template>
 
 <script>
 import ListItem from './list-item.vue'
+import MirrorSectionButton from './mirror-button.vue'
 
 export default {
   name: 'ThemeSectionList',
-  components: { ListItem },
+  components: { ListItem, MirrorSectionButton },
   props: {
     layoutGroupId: { type: String, required: true },
     insertAfter: { type: String },

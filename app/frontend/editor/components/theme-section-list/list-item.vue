@@ -72,7 +72,6 @@ export default {
       })
     },
     imageLoaded() {
-      // console.log('imageLoaded', this.section.name, event)
       this.isImageLoaded = true
     },
     imageNotFound(event) {

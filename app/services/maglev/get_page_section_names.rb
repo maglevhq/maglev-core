@@ -10,16 +10,15 @@ module Maglev
     argument :page
 
     # [
-    #   { id: 'abc', name: 'Navbar', layoutGroupLabel: 'Header' },
-    #   { id: 'dfdf', name: 'Jumbotron', layoutGroupLabel: 'Main' },
-    #   { id: 'gdgg', name: 'BigFooter', layoutGroupLabel: 'Footer' }
+    #   { id: 'abc', name: 'Navbar', layoutGroupId: 'header', layoutGroupLabel: 'Header' },
+    #   { id: 'dfdf', name: 'Jumbotron', layoutGroupId: 'main', layoutGroupLabel: 'Main' },
+    #   { id: 'gdgg', name: 'BigFooter', layoutGroupId: 'footer', layoutGroupLabel: 'Footer' }
     # ]
     def call
-      fetch_stores.map do |(store, group_label)|
+      fetch_stores.map do |(store, group)|
         # if the store hasn't been translated yet, there won't any sections
         (store.sections || []).map do |section|
-          definition = theme.sections.find(section['type'])
-          { id: section['id'], name: definition.name, layout_group_label: group_label }
+          build_item(section, group)
         end
       end.flatten
     rescue Maglev::Errors::MissingLayout => e
@@ -31,9 +30,19 @@ module Maglev
 
     protected
 
+    def build_item(section, group)
+      definition = theme.sections.find(section['type'])
+      { 
+        id: section['id'],
+        name: definition.name,
+        layout_group_id: group.id,
+        layout_group_label: group.label
+      }
+    end
+
     def fetch_stores
       handles = layout.groups.inject({}) do |memo, group| 
-        memo[group.guess_store_handle(page)] = group.label
+        memo[group.guess_store_handle(page)] = group
         memo
       end
       scoped_store.by_handles(handles.keys).map do |store|

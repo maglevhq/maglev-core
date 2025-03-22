@@ -20,10 +20,11 @@ describe Maglev::GetPageSectionNames do
     let(:page) { create(:page) }
     let(:handle) { "main-#{page.id}" }
 
-    let!(:store) { create(:sections_content_store, page: page) }
-
     it 'returns an array of hashes containing the id and name of a page section' do
-      expect(subject).to match([a_hash_including(name: 'Jumbotron'), a_hash_including(name: 'Showcase')])
+      expect(subject).to match([
+        a_hash_including(name: 'Jumbotron'), 
+        a_hash_including(name: 'Showcase')
+      ])
     end
   end
 end

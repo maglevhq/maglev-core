@@ -50,16 +50,19 @@ export default (services) => ({
   },
   // === SECTIONS CONTENT ===
   SET_SECTIONS_CONTENT(state, content) {
-    console.log('SET_SECTIONS_CONTENT', content)
     const { entities, result } = services.sectionsContent.normalize(content)
 
-    console.log(entities, result)
-    
     state.sectionsContent = [...result]
     state.layoutGroups = { ...state.layoutGroups, ...entities.layoutGroups }
     state.sections = { ...state.sections, ...entities.sections }
     state.sectionBlocks = { ...state.sectionBlocks, ...entities.blocks }
     state.hoveredSection = null
+  },
+  SET_SECTION_CONTENT(state, content) {
+    const { entities, result } = services.sectionsContent.normalizeSection(content)
+
+    state.sections = { ...state.sections, ...entities.sections }
+    state.sectionBlocks = { ...state.sectionBlocks, ...entities.blocks }
   },
   SET_SECTIONS_CONTENT_LOCK_VERSIONS(state, lockVersions) {
     for (const layoutGroupId in lockVersions) {
