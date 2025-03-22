@@ -18,6 +18,9 @@ export default (api) => ({
   normalize: (content) => {
     return coreNormalize(content, SECTIONS_CONTENT_SCHEMA)
   },
+  normalizeSection: (content) => {
+    return coreNormalize(content, SECTION_SCHEMA)
+  },
   denormalize: (content, entities) => {
     return coreDenormalize(content, SECTIONS_CONTENT_SCHEMA, entities)
   },

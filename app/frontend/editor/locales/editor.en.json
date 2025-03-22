@@ -173,6 +173,31 @@
     "title": "Icons",
     "pickerTitle": "Pick an icon"
   },
+  "mirrorSectionInput": {
+    "label": "Is a mirror of",
+    "none": "None"
+  },
+  "mirrorSectionSetup": {
+    "addButton": "...or add a mirrored section",
+    "title": "Setup mirror section",
+    "enabled": "Enable section mirror",
+    "confirmButton": "Setup",
+    "cancelButton": "Cancel",
+    "page": {
+      "name": "Page",
+      "input": {
+        "label": "Page",
+        "placeholder": "Select a page",
+        "searchPlaceholder": "Search...",
+        "emptyLabel": "No pages found"
+      },
+      "sectionInput": {
+        "label": "Section",
+        "placeholder": "Select a section",
+        "emptyLabel": "No section selected"
+      }
+    }
+  },
   "linkInput": {
     "placeholder": "Click here to select a link",
     "withNestedTextLabel": "Enable text",
