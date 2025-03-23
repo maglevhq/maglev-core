@@ -49,7 +49,7 @@ export default (services) => ({
     { source, target: { layoutGroupId, insertAt } },
   ) {
     // get the content of the section we want to mirror
-    const section = await services.sectionsContent.findSingleSection(mirrorOf.pageId, mirrorOf.layoutGroupId, mirrorOf.sectionId)
+    const section = await services.sectionsContent.findSingleSection(source.pageId, source.layoutGroupId, source.sectionId)
 
     section.mirrorOf = { enabled: true, ...source }
 

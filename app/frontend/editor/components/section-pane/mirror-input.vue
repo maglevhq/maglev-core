@@ -6,8 +6,6 @@
       name="mirrorSectionEnabled"
       v-model="mirrorSectionEnabled"
     />
-
-    <pre>{{ currentSection?.mirrorOf }}</pre>
   </div>
 </template>
 

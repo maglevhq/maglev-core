@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module Maglev
+  # @deprecated
   class PersistPage
     include Injectable
 

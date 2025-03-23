@@ -1,7 +1,4 @@
-import { isBlank } from '@/misc/utils'
-
 export default (services) => ({
-<<<<<<< HEAD
   currentPagePath: ({ page }) => {
     const nakedPath = page.liveUrl.startsWith('http') ? new URL(page.liveUrl).pathname : page.liveUrl
     return page.path === 'index' ? `${nakedPath}/index`.replace('//', '/') : nakedPath
@@ -10,7 +7,6 @@ export default (services) => ({
     if (page.liveUrl.startsWith('http')) return page.liveUrl
     return new URL(page.liveUrl, location.origin).toString()
   },
-=======
   // we need it to build the "Organize sections" pane
   sectionsContent: (
     { sectionsContent, layoutGroups, sections, sectionBlocks },
@@ -41,38 +37,6 @@ export default (services) => ({
       }
     })
   },
-
->>>>>>> 1d4ab51 (feat: first working version of the EditorUI using the layouts (WIP))
-  sectionList: (
-    { page, sections, sectionBlocks },
-    { sectionDefinition: getSectiondefinition },
-  ) => {
-    throw 'DEPRECATED'
-
-    console.log('🚨🚨🚨 getters.sectionList is deprecated')
-    return []
-
-    // // TODO: ???
-    // console.log('HERE!!!')
-
-    // const 
-
-
-    // const pageContent = services.page.denormalize(page, {
-    //   sections,
-    //   blocks: sectionBlocks,
-    // })
-    // if (!pageContent?.sections) return []
-    // return pageContent.sections.map((sectionContent) => {
-    //   const sectionDefinition = getSectiondefinition(sectionContent)
-    //   return {
-    //     id: sectionContent.id,
-    //     type: sectionContent['type'],
-    //     name: sectionDefinition.name,
-    //     viewportFixedPosition: !!sectionDefinition.viewportFixedPosition,
-    //   }
-    // })
-  },
   stickySectionList: ({ sections }, { sectionDefinition: getSectiondefinition }) => {
     return Object.values(sections).filter((sectionContent) => {
       const sectionDefinition = getSectiondefinition(sectionContent)
@@ -86,29 +50,11 @@ export default (services) => ({
   content: (
     { sectionsContent, layoutGroups, sections, sectionBlocks, touchedSections }
   ) => {
-    const content = services.sectionsContent.denormalize(sectionsContent, {
+    return services.sectionsContent.denormalize(sectionsContent, {
       layoutGroups,
       sections,
       blocks: sectionBlocks,
     })
-
-    return content
-
-    // const pageContent = services.page.denormalize(page, {
-    //   sections,
-    //   blocks: sectionBlocks,
-    // })
-
-    // const siteSections = pageContent.sections.filter(
-    //   (sectionContent) => getSectiondefinition(sectionContent).siteScoped,
-    // )
-    // const hasModifiedSiteScopedSections = siteSections.some(
-    //   (sectionContent) => touchedSections.indexOf(sectionContent.id) !== -1,
-    // )
-    // return {
-    //   pageSections: pageContent.sections,
-    //   siteSections: hasModifiedSiteScopedSections ? siteSections : [],
-    // }
   },
   denormalizedSection: ({ section: { id: sectionId } }, { content }) => {
     for (const layoutGroupId in content) {

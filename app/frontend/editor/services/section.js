@@ -15,9 +15,24 @@ export const calculateMovingIndices = (sectionIds, sectionId, direction) => {
   return { fromIndex, toIndex }
 }
 
-export const canBeAddedToPage = (newSectionDefinition, sections) => {
+export const canBeAddedToPage = (newSectionDefinition, sectionTypes) => {
   if (!newSectionDefinition.singleton) return true
-  return !sections.some((section) => newSectionDefinition.id === section.type)
+  return !sectionTypes.some((type) => newSectionDefinition.id === type)
+}
+
+export const canAddMirroredSection = ({ numberOfPages, page, sections, mirrorOf }) => {
+  if (numberOfPages === 1) return false
+
+  // when canAddMirroredSection is called from the list of sections, let's assume everything is good
+  if (mirrorOf === undefined) return true 
+
+  // mirroring a section from the current page
+  if (page.id === mirrorOf.pageId) return false
+
+  // mirroring a section already mirrored in the current page
+  if (Object.keys(sections).some((sectionId) => sectionId === mirrorOf.sectionId)) return false
+
+  return true
 }
 
 export const normalize = (section) => {

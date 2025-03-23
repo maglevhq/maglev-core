@@ -55,7 +55,7 @@ export default {
     canBeAdded() {
       return this.services.section.canBeAddedToPage(
         this.section,
-        this.currentSectionList,
+        this.currentSectionTypes,
       )
     },
   },
