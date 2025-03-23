@@ -14,6 +14,10 @@ export const LAYOUT_GROUP_SCHEMA = new schema.Entity('layoutGroups', {
 })
 export const SECTIONS_CONTENT_SCHEMA = new schema.Array(LAYOUT_GROUP_SCHEMA)
 
+const findSectionsContent = (api, pageId) => {
+  return api.get(`/pages/${pageId}/sections_content`).then(({ data }) => data)
+}
+
 export default (api) => ({
   normalize: (content) => {
     return coreNormalize(content, SECTIONS_CONTENT_SCHEMA)
@@ -25,10 +29,15 @@ export default (api) => ({
     return coreDenormalize(content, SECTIONS_CONTENT_SCHEMA, entities)
   },
   find: (pageId) => {
-    return api.get(`/pages/${pageId}/sections_content`).then(({ data }) => data)
+    return findSectionsContent(api, pageId)
   },
   update: (pageId, content) => {
     console.log('[SectionsContentService] Updating content of page #', pageId)
     return api.put(`/pages/${pageId}/sections_content`, { sections_content: content }).then(({ data }) => data)
   },
+  findSingleSection: async (pageId, layoutGroupId, sectionId) => {
+    const pageContent = await findSectionsContent(api, pageId)
+    const layoutGroup = pageContent?.find(layoutGroup => layoutGroup.id === layoutGroupId)
+    return layoutGroup?.sections?.find(section => section.id === sectionId)
+  }
 })

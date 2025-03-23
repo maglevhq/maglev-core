@@ -42,29 +42,6 @@ layouts:
   - "Sidebar"
   - "Footer"
 
-# Option #1
-
-# - Knees layout 
-
-# Option #2
-
-# Page A with the sidebar layout:
-#   - sidebar: showcase, ad section
-
-# Page B with the sidebar layout:
-#   - sidebar: knees_menu
-
-# Page C with the sidebar layout:
-#   - sidebar: knees_menu (with the same content as page B)
-
-# knees_menu section will have the store attribute with the `knees` value for instance.
-#   -> store: "knees"
-
-# Option #3: (disclaimer feature)
-
-# "married section" -> (clone)
-
-
 pages:
 - title: "Home page"
   path:  "index"

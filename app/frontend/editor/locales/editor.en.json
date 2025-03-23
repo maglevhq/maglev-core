@@ -171,14 +171,10 @@
     "title": "Icons",
     "pickerTitle": "Pick an icon"
   },
-  "mirrorSectionInput": {
-    "label": "Is a mirror of",
-    "none": "None"
-  },
   "mirrorSectionSetup": {
+    "inputLabel": "Enable section mirroring",
     "addButton": "...or add a mirrored section",
     "title": "Setup mirror section",
-    "enabled": "Enable section mirror",
     "confirmButton": "Setup",
     "cancelButton": "Cancel",
     "page": {

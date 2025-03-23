@@ -48,12 +48,10 @@ export default (services) => ({
     { commit, getters },
     { source, target: { layoutGroupId, insertAt } },
   ) {
-    // get the content of the mirror section
-    const pageContent = await services.sectionsContent.find(source.pageId)
-    const layoutGroup = pageContent.find(layoutGroup => layoutGroup.id === source.layoutGroupId)
-    const section = layoutGroup.sections.find(section => section.id === source.sectionId)
+    // get the content of the section we want to mirror
+    const section = await services.sectionsContent.findSingleSection(mirrorOf.pageId, mirrorOf.layoutGroupId, mirrorOf.sectionId)
 
-    section.mirrorOf = source
+    section.mirrorOf = { enabled: true, ...source }
 
     commit('ADD_SECTION', { layoutGroupId, section, insertAt })
     commit('TOUCH_SECTION', section.id)
@@ -62,25 +60,31 @@ export default (services) => ({
 
     return section
   },
-  async mirrorSectionContent({ commit, getters }, { source, target }) {
-    // get the content of the mirror section
-    const pageContent = await services.sectionsContent.find(source.pageId)
-    const layoutGroup = pageContent.find(layoutGroup => layoutGroup.id === source.layoutGroupId)
-    const section = layoutGroup.sections.find(section => section.id === source.sectionId)
+  async toggleMirroredSectionEnabled({ commit, dispatch }, enabled) {
+    commit('SET_SECTION_MIRROR_OF_ENABLED', enabled)
 
-    section.id = target.sectionId
+    if (!enabled) return
+
+    // update the content of the current section with the one from the mirror
+    dispatch('updateMirrorOfSectionContent')
+  },
+  async updateMirrorOfSectionContent({ state, commit, getters }) {
+    const mirrorOf = state.section.mirrorOf
+    const section = await services.sectionsContent.findSingleSection(mirrorOf.pageId, mirrorOf.layoutGroupId, mirrorOf.sectionId)
+
+    section.mirrorOf = { enabled: true, ...mirrorOf }
 
     commit('SET_SECTION', section) // required to update the current section form
-    commit('SET_SECTION_CONTENT', section) // required to update the preview iframe
-    commit('TOUCH_SECTION', target.sectionId)
+    commit('SET_SECTION_CONTENT', section) // required to prepare the update of the preview iframe
+    commit('TOUCH_SECTION', state.section.id)
 
     services.livePreview.updateSection(
-      getters.sectionLayoutGroupIdMap[target.sectionId],
+      getters.sectionLayoutGroupIdMap[state.section.id],
       getters.content,
       getters.denormalizedSection,
       {},
     )
-  },  
+  },
   moveSection(
     {
       commit,
