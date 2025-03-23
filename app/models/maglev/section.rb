@@ -6,7 +6,7 @@ module Maglev
     include ActiveModel::Serializers::JSON
     include ::Maglev::Section::ContentConcern
 
-    HASH_ATTRIBUTES = %w[id theme name site_scoped singleton viewport_fixed_position insert_button max_width_pane mirror
+    HASH_ATTRIBUTES = %w[id theme name site_scoped singleton viewport_fixed_position insert_button max_width_pane
                          insert_at category blocks_label blocks_presentation sample screenshot_timestamp].freeze
 
     ## attributes ##
@@ -14,8 +14,7 @@ module Maglev
                   :site_scoped, :singleton, :viewport_fixed_position,
                   :insert_button, :insert_at, :max_width_pane,
                   :settings, :blocks, :blocks_label, :blocks_presentation,
-                  :sample, :screenshot_timestamp,
-                  :mirror
+                  :sample, :screenshot_timestamp
 
     ## validations ##
     validates :id, :theme, :name, :category, presence: true
@@ -34,10 +33,6 @@ module Maglev
 
     def viewport_fixed_position?
       !!viewport_fixed_position?
-    end
-
-    def mirror?
-      !!mirror
     end
 
     def assign_attributes_from_yaml(hash)
@@ -64,7 +59,7 @@ module Maglev
     def prepare_default_attributes(hash)
       attributes = hash.slice(*HASH_ATTRIBUTES)
 
-      %w[site_scoped singleton viewport_fixed_position max_width_pane mirror].each do |name|
+      %w[site_scoped singleton viewport_fixed_position max_width_pane].each do |name|
         attributes[name] = false if attributes[name].nil?
       end
 

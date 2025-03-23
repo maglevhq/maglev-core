@@ -43,12 +43,6 @@ export default {
           condition: () => this.hasAdvancedSettings || this.hasMirrorFeatureEnabled,
           props: () => ({ advanced: true, mirrorFeature: this.hasMirrorFeatureEnabled }),
         },
-        // {
-        //   name: 'POC',
-        //   tab: MirrorSettings,
-        //   type: 'mirror',
-        //   condition: () => this.hasMirrorFeatureEnabled
-        // },
       ]
     },
     tabs() {
@@ -66,7 +60,7 @@ export default {
       return !this.isBlank(this.currentSectionAdvancedSettings)
     },
     hasMirrorFeatureEnabled() {
-      return this.currentSectionDefinition.mirror
+      return !this.isBlank(this.currentSection.mirrorOf)
     },
     hasBlocks() {
       return !this.isBlank(this.currentSectionDefinition.blocks)

@@ -29,7 +29,11 @@
       </div>
     </uikit-accordion>
 
-    <mirror-section-button :layoutGroupId="layoutGroupId" :insertAfter="insertAfter" />
+    <mirror-section-button 
+      :layoutGroupId="layoutGroupId" 
+      :insertAfter="insertAfter"
+      v-if="allowSectionMirroring"
+    />
   </div>
 </template>
 
@@ -51,6 +55,9 @@ export default {
     categories() {
       return this.services.theme.buildCategories(this.currentTheme)
     },
+    allowSectionMirroring() {
+      return this.currentTheme.mirrorSection
+    }
   },
 }
 </script>
