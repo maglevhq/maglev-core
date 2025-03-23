@@ -25,7 +25,8 @@ module Maglev
         section_categories: Maglev::Theme::SectionCategory.build_many(hash['section_categories']),
         style_settings: Maglev::Theme::StyleSetting.build_many(hash['style_settings']),
         layouts: Maglev::Theme::Layout.build_many(hash['layouts']),
-        sections: []
+        sections: [],
+        mirror_section: false
       )
 
       Maglev::Theme.new(HashWithIndifferentAccess.new(attributes)).tap do |theme|

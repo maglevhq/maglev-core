@@ -18,5 +18,18 @@ pages:
 # List of CSS class names used by your library of icons (font awesome, remixicons, ...etc)
 icons: []
 
+# Enable the section mirroring feature (default: false)
+# mirror_section: true
 
-
+layouts:
+- label: "Default"
+  id: "default"
+  groups:
+  - label: "Header"
+    id: "header"
+    store: "header"
+    # accept: ["navbar"]
+  - label: "Main"
+    id: "main"
+    store: "page"
+  - "Footer"

@@ -110,6 +110,13 @@ export default (services) => ({
     state.sections[state.section.id] = updatedSection
     state.section = updatedSection
   },
+  SET_SECTION_MIRROR_OF_ENABLED(state, enabled) {
+    let updatedSection = { ...state.section }
+    updatedSection.mirrorOf.enabled = enabled
+
+    state.sections[state.section.id] = updatedSection
+    state.section = updatedSection
+  },
   ADD_SECTION(state, { layoutGroupId, section, insertAt }) {
     const {
       entities: { sections, blocks },
