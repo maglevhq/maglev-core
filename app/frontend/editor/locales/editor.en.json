@@ -176,6 +176,7 @@
     "addButton": "...or add a mirrored section",
     "tooltip": "This section is mirrored from the \"%{pageTitle}\".<br/>Changes made here will reflect across all pages using this section",
     "title": "Setup mirror section",
+    "errorMessage": "Oops! You can’t mirror this section. It’s either already mirrored on this page, or it comes from the same page you're editing.",
     "confirmButton": "Setup",
     "cancelButton": "Cancel",
     "page": {

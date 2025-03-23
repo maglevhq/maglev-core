@@ -55,8 +55,13 @@ export default {
     categories() {
       return this.services.theme.buildCategories(this.currentTheme)
     },
+    canAddMirroredSection() {
+      return this.services.section.canAddMirroredSection({ 
+        numberOfPages: this.currentSite.numberOfPages 
+      })
+    },
     allowSectionMirroring() {
-      return this.currentTheme.mirrorSection
+      return this.currentTheme.mirrorSection && this.canAddMirroredSection
     }
   },
 }

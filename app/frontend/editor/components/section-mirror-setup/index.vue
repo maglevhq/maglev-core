@@ -1,12 +1,12 @@
 <template>
   <div class="flex flex-col h-full">
+    <div 
+      class="text-red-700 bg-red-100 text-sm py-3 px-4 rounded mb-4"
+      v-if="doesDisplayErrors"
+      v-html="$t('mirrorSectionSetup.errorMessage')"
+    />
+     
     <div class="flex-1 overflow-y-scroll space-y-6 px-1">
-      <!-- <uikit-checkbox-input
-        :label="$t(`mirrorSectionSetup.enabled`)"
-        name="enabled"
-        v-model="enabled"
-      /> -->
-
       <section-selector v-model="source" />
     </div>
 
@@ -37,13 +37,24 @@ export default {
     }
   },
   computed: {
-    isValid() {
+    isFilled() {
       return (
         !this.isBlank(this.source.pageId) && 
         !this.isBlank(this.source.layoutGroupId) &&
         !this.isBlank(this.source.sectionId)
       )
     },
+    isValid() {
+      return this.isFilled && this.services.section.canAddMirroredSection({ 
+        numberOfPages: this.currentSite.numberOfPages,
+        page: this.currentPage,
+        sections: this.currentSections,
+        mirrorOf: this.source
+      })
+    },
+    doesDisplayErrors() {
+      return this.isFilled && !this.isValid
+    }
   },
   methods: {
     onConfirm() {
