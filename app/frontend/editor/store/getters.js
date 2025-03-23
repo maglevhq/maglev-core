@@ -21,6 +21,8 @@ export default (services) => ({
             id: sectionContent.id,
             type: sectionContent['type'],
             name: sectionDefinition.name,
+            isMirrored: sectionContent.mirrorOf?.enabled ?? false,
+            mirroredPageTitle: sectionContent.mirrorOf?.pageTitle,
             viewportFixedPosition: !!sectionDefinition.viewportFixedPosition,
           }
         })
