@@ -14,7 +14,6 @@
 import SettingList from './setting-list.vue'
 import BlockList from './block-list/index.vue'
 import BlockTree from './block-tree/index.vue'
-import MirrorSettings from './mirror-settings.vue'
 
 export default {
   name: 'SectionPane',
