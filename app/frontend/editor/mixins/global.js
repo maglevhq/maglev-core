@@ -37,6 +37,9 @@ Vue.mixin({
     currentTheme() {
       return this.$store.state.theme
     },
+    currentSections() {
+      return this.$store.state.sections
+    },
     currentSection() {
       return this.$store.state.section
     },
@@ -46,9 +49,8 @@ Vue.mixin({
     currentSectionsContent() {
       return this.$store.getters.sectionsContent
     },
-    currentSectionList() {
-      console.log('🚨🚨🚨 currentSectionList is deprecated')
-      return []; //this.$store.getters.sectionList
+    currentSectionTypes() {
+      return this.$store.getters.sectionTypes
     },
     currentSectionContent() {
       return this.$store.getters.sectionContent

@@ -29,6 +29,10 @@ module Maglev
       layouts.find { |layout| layout.id == layout_id }
     end
 
+    def mirror_section?
+      !!mirror_section
+    end
+
     private
 
     def section_setting_types

@@ -30,35 +30,9 @@ export default (services) => ({
     })
   },
 
-  sectionList: (
-    { page, sections, sectionBlocks },
-    { sectionDefinition: getSectiondefinition },
-  ) => {
-    throw 'DEPRECATED'
-
-    console.log('🚨🚨🚨 getters.sectionList is deprecated')
-    return []
-
-    // // TODO: ???
-    // console.log('HERE!!!')
-
-    // const 
-
-
-    // const pageContent = services.page.denormalize(page, {
-    //   sections,
-    //   blocks: sectionBlocks,
-    // })
-    // if (!pageContent?.sections) return []
-    // return pageContent.sections.map((sectionContent) => {
-    //   const sectionDefinition = getSectiondefinition(sectionContent)
-    //   return {
-    //     id: sectionContent.id,
-    //     type: sectionContent['type'],
-    //     name: sectionDefinition.name,
-    //     viewportFixedPosition: !!sectionDefinition.viewportFixedPosition,
-    //   }
-    // })
+  // return all the section types in the page
+  sectionTypes: ({ sections }) => {
+    return Object.values(sections).map((section) => section.type)
   },
   stickySectionList: ({ sections }, { sectionDefinition: getSectiondefinition }) => {
     return Object.values(sections).filter((sectionContent) => {
@@ -73,29 +47,11 @@ export default (services) => ({
   content: (
     { sectionsContent, layoutGroups, sections, sectionBlocks, touchedSections }
   ) => {
-    const content = services.sectionsContent.denormalize(sectionsContent, {
+    return services.sectionsContent.denormalize(sectionsContent, {
       layoutGroups,
       sections,
       blocks: sectionBlocks,
     })
-
-    return content
-
-    // const pageContent = services.page.denormalize(page, {
-    //   sections,
-    //   blocks: sectionBlocks,
-    // })
-
-    // const siteSections = pageContent.sections.filter(
-    //   (sectionContent) => getSectiondefinition(sectionContent).siteScoped,
-    // )
-    // const hasModifiedSiteScopedSections = siteSections.some(
-    //   (sectionContent) => touchedSections.indexOf(sectionContent.id) !== -1,
-    // )
-    // return {
-    //   pageSections: pageContent.sections,
-    //   siteSections: hasModifiedSiteScopedSections ? siteSections : [],
-    // }
   },
   denormalizedSection: ({ section: { id: sectionId } }, { content }) => {
     for (const layoutGroupId in content) {
