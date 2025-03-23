@@ -4,6 +4,7 @@
     :overflowY="false"
     :max-width-pane="isMaxWidthPane"
     :with-pre-title="isSectionBlockVersion"
+    :with-custom-title="isMirroredSection"
   >
     <template v-slot:pre-title v-if="isSectionBlockReady">
       <p class="text-gray-600 hover:text-gray-900">
@@ -19,6 +20,20 @@
           <span class="text-xs">{{ sectionTitle }}</span>
         </router-link>
       </p>
+    </template>
+
+    <template v-slot:title v-if="isMirroredSection">
+      <div class="flex items-center space-x-2">
+        <span class="text-gray-800 font-semibold antialiased text-lg capitalize-first">
+          {{ title }}
+        </span>
+        <uikit-icon
+          name="ri-links-line" 
+          size="0.9rem" 
+          class="text-black"
+          v-tooltip="mirroredTooltip"
+        />
+      </div>
     </template>
 
     <section-pane :settingId="settingId" v-if="isSectionReady" />
@@ -75,6 +90,9 @@ export default {
     isSectionBlockReady() {
       return this.isSectionBlockVersion && this.currentSectionBlock
     },
+    isMirroredSection() {
+      return this.currentSection?.mirrorOf?.enabled
+    },
     isMaxWidthPane() {
       return !!this.currentSectionDefinition?.maxWidthPane
     },
@@ -83,6 +101,13 @@ export default {
         '-',
       )
     },
+    mirroredTooltip() {
+      return {
+        placement: 'right-end',
+        autoHide: false,
+        content: this.$t('mirrorSectionSetup.tooltip', { pageTitle: this.currentSection.mirrorOf.pageTitle })
+      }
+    }
   },
   destroyed() {
     this.fetchSection(null)

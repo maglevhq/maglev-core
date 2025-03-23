@@ -21,7 +21,7 @@ export default {
     return { mirrorSectionEnabled: undefined }
   },
   mounted() {
-    this.mirrorSectionEnabled = !this.isBlank(this.currentSection?.mirrorOf?.enabled)
+    this.mirrorSectionEnabled = this.currentSection?.mirrorOf?.enabled
   },
   computed: {
     mirrorOf() {
