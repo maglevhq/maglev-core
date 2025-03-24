@@ -171,6 +171,29 @@
     "title": "Iconos",
     "pickerTitle": "Elige un icono"
   },
+  "mirrorSectionSetup": {
+    "inputLabel": "Activar reflejo de sección",
+    "addButton": "...o añadir una sección reflejada",
+    "tooltip": "Esta sección está reflejada desde \"%{pageTitle}\".<br/>Los cambios realizados aquí se aplicarán en todas las páginas que usen esta sección",
+    "title": "Configurar sección reflejada",
+    "errorMessage": "¡Ups! No puedes reflejar esta sección. Ya está reflejada en esta página o proviene de la misma página que estás editando.",
+    "confirmButton": "Configurar",
+    "cancelButton": "Cancelar",
+    "page": {
+      "name": "Página",
+      "input": {
+        "label": "Página",
+        "placeholder": "Selecciona una página",
+        "searchPlaceholder": "Buscar...",
+        "emptyLabel": "No se encontraron páginas"
+      },
+      "sectionInput": {
+        "label": "Sección",
+        "placeholder": "Selecciona una sección",
+        "emptyLabel": "Ninguna sección seleccionada"
+      }
+    }
+  },
   "linkInput": {
     "placeholder": "Pulsa aquí para seleccionar un enlace",
     "withNestedTextLabel": "Activar texto",
