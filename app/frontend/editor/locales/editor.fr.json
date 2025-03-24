@@ -172,6 +172,29 @@
     "title": "Icônes",
     "pickerTitle": "Sélectionner une icône"
   },
+  "mirrorSectionSetup": {
+    "inputLabel": "Activer la mise en miroir de la section",
+    "addButton": "...ou ajouter une section en miroir",
+    "tooltip": "Cette section est en miroir depuis \"%{pageTitle}\".<br/>Les modifications apportées ici seront répercutées sur toutes les pages utilisant cette section",
+    "title": "Configurer la section en miroir",
+    "errorMessage": "Oups ! Vous ne pouvez pas mettre cette section en miroir. Elle est déjà présente sur cette page ou provient de la page que vous êtes en train de modifier.",
+    "confirmButton": "Configurer",
+    "cancelButton": "Annuler",
+    "page": {
+      "name": "Page",
+      "input": {
+        "label": "Page",
+        "placeholder": "Sélectionnez une page",
+        "searchPlaceholder": "Rechercher...",
+        "emptyLabel": "Aucune page trouvée"
+      },
+      "sectionInput": {
+        "label": "Section",
+        "placeholder": "Sélectionnez une section",
+        "emptyLabel": "Aucune section sélectionnée"
+      }
+    }
+  },
   "linkInput": {
     "placeholder": "Cliquez ici pour sélectionner un lien",
     "withNestedTextLabel": "Activer le texte",
