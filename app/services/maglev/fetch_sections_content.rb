@@ -7,6 +7,7 @@ module Maglev
   class FetchSectionsContent
     include Injectable
     include Maglev::FetchSectionsContent::TransformSectionConcern
+    include Maglev::MirroredSectionsConcern
     
     dependency :fetch_site
     dependency :fetch_theme
@@ -18,13 +19,8 @@ module Maglev
     argument :locale, default: nil
 
     def call
-      store = find_store
-      [
-        store.sections.map do |section|
-          transform_section(section.dup)
-        end.compact,
-        store.lock_version
-      ]
+      store = find_or_build_store
+      [transform_sections(store), store.lock_version]
     end
 
     private
@@ -33,14 +29,46 @@ module Maglev
       @theme ||= fetch_theme.call
     end
 
-    def find_store
-      scoped_store.find_or_initialize_by(handle: handle) do |store|
+    def find_or_build_store
+      scoped_stores.find_or_initialize_by(handle: handle) do |store|
         store.sections = []
       end
     end
 
-    def scoped_store
+    def transform_sections(store)
+      # look for mirrored sections and get the fresh content
+      set_content_from_mirror_sections(store)
+
+      store.sections.map do |section|
+        transform_section(section.dup)
+      end.compact
+    end
+
+    def set_content_from_mirror_sections(store)
+      store.sections.each do |section|
+        next unless section.dig('mirror_of', 'enabled')
+        mirror_section = find_section_from_mirrored_section(section['mirror_of'])
+        next unless mirror_section
+        store.replace_section_content(section, mirror_section)
+      end
+    end
+
+    def fetch_layout(layout_id = nil)
+      theme.find_layout(layout_id || page.layout_id).tap do |layout|
+        raise Maglev::Errors::MissingLayout, "#{layout_id || page.layout_id} doesn't match a layout of the theme" if layout.nil?
+      end
+    end
+
+    def find_store(handle)
+      scoped_stores.find_by(handle: handle)
+    end
+
+    def scoped_stores
       Maglev::SectionsContentStore
+    end
+
+    def scoped_pages
+      Maglev::Page
     end
   end
 end
