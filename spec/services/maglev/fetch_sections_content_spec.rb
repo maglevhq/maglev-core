@@ -26,10 +26,8 @@ describe Maglev::FetchSectionsContent do
 
   # rubocop:disable Style/StringHashKeys
   context 'the store has some sections' do
-    let(:page) { create(:page) }
+    let!(:page) { create(:page) }
     let(:handle) { "main-#{page.id}" }
-
-    let!(:store) { create(:sections_content_store, page: page) }
 
     it 'returns the sections' do
       expect(subject).to eq([[
@@ -61,7 +59,7 @@ describe Maglev::FetchSectionsContent do
     end
 
     context 'the section have unused settings' do
-      let!(:store) { create(:sections_content_store, :with_unused_settings, page: page) }
+      let!(:page) { create(:page, :with_unused_settings) }
       it 'skips the unused settings' do
         expect(subject).to eq([[
                                 {
@@ -85,6 +83,7 @@ describe Maglev::FetchSectionsContent do
     end
 
     context 'the sections include a link in text type setting' do
+      let(:page) { create(:page, sections: nil) }
       let!(:store) { create(:sections_content_store, :page_link_in_text, page: page) }
 
       it 'sets the href properties' do
@@ -95,7 +94,8 @@ describe Maglev::FetchSectionsContent do
     end
 
     context 'the sections include a link in link type setting' do
-      let!(:store) { create(:sections_content_store, :sidebar, :page_link_in_link) }
+      let(:page) { create(:page, sections: nil) }
+      let!(:store) { create(:sections_content_store, :sidebar, :page_link_in_link, page: page) }
       let(:handle) { 'sidebar' }
 
       it 'sets the href properties' do
@@ -106,7 +106,7 @@ describe Maglev::FetchSectionsContent do
     end
 
     context 'the sections include collection items' do
-      let!(:store) { create(:sections_content_store, :featured_product, page: page) }
+      let!(:page) { create(:page, :featured_product) }
 
       it 'fetches the product from the DB' do
         expect(fetch_collection_items).to receive(:call).with(collection_id: 'products', id: 42).and_return(
@@ -117,7 +117,7 @@ describe Maglev::FetchSectionsContent do
       end
 
       context 'the setting content points to the any item' do
-        let!(:store) { create(:sections_content_store, :any_featured_product, page: page) }
+        let!(:page) { create(:page, :any_featured_product) }
 
         it 'fetches the first product' do
           expect(fetch_collection_items).to receive(:call).with(collection_id: 'products', id: 'any').and_return(
@@ -126,6 +126,56 @@ describe Maglev::FetchSectionsContent do
           expect(subject[0][0]['settings'][1]['value']['label']).to eq('New product name')
           expect(subject[0][0]['settings'][1]['value']['item']).to eq('Product fetched')
         end
+      end
+    end
+
+    context 'there is a mirrored section' do
+      let(:another_sections_content) do
+        JSON.parse([
+            {
+              id: 'fake-section-id',
+              type: 'jumbotron',
+              settings: [{ id: :title, value: 'Hello world 🤓' }, { id: :body, value: '<p>Lorem ipsum!</p>' }],
+              blocks: []
+            },
+          ].to_json)
+      end
+      let(:another_page) { create(:page, title: 'another page', path: 'another-page', sections: another_sections_content) }
+
+      let(:sections_content) do
+        JSON.parse([
+          {
+            type: 'jumbotron',
+            settings: [{ id: :title, value: '' }, { id: :body, value: '' }],
+            blocks: [],
+            mirror_of: {
+              enabled: true,
+              page_id: another_page.id,
+              layout_group_id: 'main',
+              section_id: 'fake-section-id'
+            }
+          },
+        ].to_json)
+      end
+      let!(:page) { create(:page, sections: sections_content) }
+      
+      it 'returns the sections' do
+        expect(subject).to eq([[
+                                {
+                                  'type' => 'jumbotron',
+                                  'settings' => [
+                                    { 'id' => 'title', 'value' => 'Hello world 🤓' },
+                                    { 'id' => 'body', 'value' => '<p>Lorem ipsum!</p>' }
+                                  ],
+                                  'blocks' => [],
+                                  'mirror_of' => {
+                                    'enabled' => true,
+                                    'page_id' => another_page.id,
+                                    'layout_group_id' => 'main',
+                                    'section_id' => 'fake-section-id'
+                                  }
+                                }
+                              ], 0])
       end
     end
   end

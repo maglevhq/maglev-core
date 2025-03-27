@@ -3,6 +3,7 @@
 module Maglev
   class PersistSectionsContent
     include Injectable
+    include Maglev::MirroredSectionsConcern
 
     dependency :fetch_theme
 
@@ -20,7 +21,9 @@ module Maglev
     def unsafe_call
       layout.groups.map do |group|
         [group.id, persist_group_content(group)]
-      end.to_h
+      end.to_h.tap do
+        persist_mirrored_sections(sections_content)
+      end
     end
 
     private
@@ -30,9 +33,7 @@ module Maglev
     end
 
     def layout
-      theme.find_layout(page.layout_id).tap do |layout|
-        raise Maglev::Errors::MissingLayout, "#{layout_id} doesn't match a layout of the theme" if layout.nil?
-      end
+      @layout ||= fetch_layout(page.layout_id)
     end
 
     def persist_group_content(group)
@@ -49,11 +50,21 @@ module Maglev
     end
 
     def find_store(handle)
-      scoped_store.find_or_create_by(handle: handle)
+      scoped_stores.find_or_create_by(handle: handle)
     end
 
-    def scoped_store
+    def fetch_layout(layout_id = nil)
+      theme.find_layout(layout_id || page.layout_id).tap do |layout|
+        raise Maglev::Errors::MissingLayout, "#{layout_id || page.layout_id} doesn't match a layout of the theme" if layout.nil?
+      end
+    end
+
+    def scoped_stores
       Maglev::SectionsContentStore
+    end
+
+    def scoped_pages
+      Maglev::Page
     end
   end
 end

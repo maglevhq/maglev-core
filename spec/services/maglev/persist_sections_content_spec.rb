@@ -6,7 +6,7 @@ describe Maglev::PersistSectionsContent do
   subject { service.call(site: site, page: page, sections_content: sections_content) }
 
   let(:site) { create(:site) }
-  let!(:page) { create(:page) }
+  let!(:page) { create(:page, sections: []) }
   let(:fetch_theme) { double('FetchTheme', call: build(:theme, :basic_layouts)) }
   let(:service) { described_class.new(fetch_theme: fetch_theme) }
 
@@ -39,6 +39,42 @@ describe Maglev::PersistSectionsContent do
     expect(subject.values.map(&:lock_version)).to eq([1, 1, 1])
   end
 
+  context 'Given a section is a mirror of another page/section' do
+    let(:another_page) { create(:page, title: 'another page', path: 'another-page') }
+
+    let(:sections_content) do
+      JSON.parse([
+        { id: 'header', sections: [] },
+        {
+          id: 'main',
+          sections: [
+            {
+              type: 'jumbotron',
+              settings: [{ id: :title, value: 'Hello world 🤓' }, { id: :body, value: '<p>Lorem ipsum!</p>' }],
+              blocks: [],
+              mirror_of: {
+                enabled: true,
+                page_id: another_page.id,
+                layout_group_id: 'main',
+                section_id: 'def'
+              }
+            },
+          ]
+        }, { id: 'footer', sections: [] }
+      ].to_json)
+    end
+
+    it 'changes the content of remote section' do
+      subject
+      expect(fetch_sections_content("main-#{another_page.id}")[0]['settings']).to match([
+        # rubocop:disable Style/StringHashKeys
+        hash_including({ 'value' => 'Hello world 🤓' }),
+        hash_including({ 'value' => '<p>Lorem ipsum!</p>' }),
+        # rubocop:enable Style/StringHashKeys
+      ])
+    end
+  end
+
   context 'Given a store has been modified while persisting the content' do
     let!(:header_store) { create(:sections_content_store, :header) }
     let(:logo_url) { header_store.reload.sections[0]['settings'][0]['value'] }
@@ -67,10 +103,13 @@ describe Maglev::PersistSectionsContent do
     end
   end
 
-  def section_types(store_handle)
+  def fetch_sections_content(store_handle)
     Maglev::SectionsContentStore
       .find_by(handle: store_handle)
       .sections
-      .map { |section| section['type'] }
+  end
+
+  def section_types(store_handle)
+    fetch_sections_content(store_handle).map { |section| section['type'] }
   end
 end

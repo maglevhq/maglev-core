@@ -133,7 +133,7 @@ FactoryBot.define do
     # work with the sidebar trait
     trait :page_link_in_link do
       after :build do |record|
-        record.find_section('navbar')['blocks'][0]['settings'][1]['value'] = {
+        record.find_section_by_type('navbar')['blocks'][0]['settings'][1]['value'] = {
           link_type: 'page',
           link_id: '42',
           open_new_window: true,

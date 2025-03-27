@@ -21,6 +21,26 @@ module Maglev::SectionsConcern
     end
   end
 
+  def find_section_by_type(type)
+    sections&.find { |section| section['type'] == type }
+  end
+
+  def find_section(id)
+    sections.find { |section| section['id'] == id }
+  end
+
+  def update_section_content(id, attributes)
+    find_section(id).tap do |section|
+      replace_section_content(section, attributes)
+    end
+  end
+
+  def replace_section_content(section, attributes)
+    section['settings'] = attributes['settings']
+    section['blocks'] = attributes['blocks']
+    section
+  end
+
   private
 
   def prepare_section(theme, section)
