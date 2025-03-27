@@ -27,6 +27,7 @@ FactoryBot.define do
       sections do
         [
           {
+            id: 'def',
             type: 'jumbotron',
             settings: [
               { id: :title, value: 'Hello world' },
@@ -35,6 +36,7 @@ FactoryBot.define do
             blocks: []
           },
           {
+            id: 'ghi',
             type: 'showcase',
             settings: [
               { id: :title, value: 'Our projects' }
