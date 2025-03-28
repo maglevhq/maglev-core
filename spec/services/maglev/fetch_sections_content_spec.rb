@@ -132,15 +132,17 @@ describe Maglev::FetchSectionsContent do
     context 'there is a mirrored section' do
       let(:another_sections_content) do
         JSON.parse([
-            {
-              id: 'fake-section-id',
-              type: 'jumbotron',
-              settings: [{ id: :title, value: 'Hello world 🤓' }, { id: :body, value: '<p>Lorem ipsum!</p>' }],
-              blocks: []
-            },
-          ].to_json)
+          {
+            id: 'fake-section-id',
+            type: 'jumbotron',
+            settings: [{ id: :title, value: 'Hello world 🤓' }, { id: :body, value: '<p>Lorem ipsum!</p>' }],
+            blocks: []
+          }
+        ].to_json)
       end
-      let(:another_page) { create(:page, title: 'another page', path: 'another-page', sections: another_sections_content) }
+      let(:another_page) do
+        create(:page, title: 'another page', path: 'another-page', sections: another_sections_content)
+      end
 
       let(:sections_content) do
         JSON.parse([
@@ -154,11 +156,11 @@ describe Maglev::FetchSectionsContent do
               layout_group_id: 'main',
               section_id: 'fake-section-id'
             }
-          },
+          }
         ].to_json)
       end
       let!(:page) { create(:page, sections: sections_content) }
-      
+
       it 'returns the sections' do
         expect(subject).to eq([[
                                 {

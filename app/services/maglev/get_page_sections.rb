@@ -53,13 +53,13 @@ module Maglev
       )
     end
 
-    def fetch_local_sections(group)
-      content_group = sections_content.find { |content_group| content_group['id'] == group.id }
+    def fetch_local_sections(layout_group)
+      content_group = sections_content.find { |group| group['id'] == layout_group.id }
 
       return [[], 0] if content_group.blank?
-      
+
       [
-        content_group['sections'].map { |section| transform_section(section) }, 
+        content_group['sections'].map { |section| transform_section(section) },
         0
       ]
     end

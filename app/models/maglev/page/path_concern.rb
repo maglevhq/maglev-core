@@ -15,7 +15,7 @@ module Maglev::Page::PathConcern
 
     ## callbacks ##
     before_validation { path } # force the initialization of a new path if it doesn't exist
-    after_validation :rewrite_path_error # use 'path' as the error attribute name 
+    after_validation :rewrite_path_error # use 'path' as the error attribute name
     before_save :spawn_redirection, if: :spawn_redirection?
   end
 
@@ -77,6 +77,7 @@ module Maglev::Page::PathConcern
 
   def rewrite_path_error
     return if errors['paths.value'].blank?
+
     errors['paths.value'].each { |message| errors.add(:path, message) }
     errors.delete('paths.value')
   end

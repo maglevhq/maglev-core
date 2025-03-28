@@ -3,7 +3,6 @@
 module Maglev
   module SpecHelpers
     module SectionsContentHelper
-
       def fetch_sections_content(store_handle)
         Maglev::SectionsContentStore
           .find_by(handle: store_handle)
@@ -13,7 +12,6 @@ module Maglev
       def section_types(store_handle)
         fetch_sections_content(store_handle).map { |section| section['type'] }
       end
-
     end
   end
 end

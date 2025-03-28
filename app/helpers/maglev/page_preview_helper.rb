@@ -3,11 +3,9 @@
 module Maglev
   module PagePreviewHelper
     def render_maglev_group(layout_group_id, site: nil, theme: nil, page: nil)
-      layout_group = maglev_page_sections.find do |layout_group| 
-        layout_group[:id] == layout_group_id.to_s
-      end
+      layout_group = maglev_page_sections.find { |group| group[:id] == layout_group_id.to_s }
 
-      if !layout_group
+      unless layout_group
         raise Maglev::Errors::UnknownLayoutGroup, "Layout group #{layout_group_id} hasn't been defined in the theme"
       end
 

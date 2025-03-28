@@ -75,3 +75,4 @@ module Maglev::FetchSectionsContent::TransformSectionConcern
     Rails.logger.warn "[#{theme.id}][#{handle}] unknown Maglev section type (#{type})"
   end
 end
+# rubocop:enable Style/ClassAndModuleChildren

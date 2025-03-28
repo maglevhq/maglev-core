@@ -32,7 +32,7 @@ module Maglev
 
     def build_item(section, group)
       definition = theme.sections.find(section['type'])
-      { 
+      {
         id: section['id'],
         name: definition.name,
         layout_group_id: group.id,
@@ -41,9 +41,8 @@ module Maglev
     end
 
     def fetch_stores
-      handles = layout.groups.inject({}) do |memo, group| 
-        memo[group.guess_store_handle(page)] = group
-        memo
+      handles = layout.groups.index_by do |group|
+        group.guess_store_handle(page)
       end
       scoped_store.by_handles(handles.keys).map do |store|
         [store, handles[store.handle]]
