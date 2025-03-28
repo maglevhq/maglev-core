@@ -31,7 +31,7 @@ module Maglev::SectionsConcern
 
   def update_section_content(id, attributes)
     find_section(id).tap do |section|
-      replace_section_content(section, attributes)
+      replace_section_content(section, attributes) if section
     end
   end
 

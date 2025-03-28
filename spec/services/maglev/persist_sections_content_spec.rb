@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe Maglev::PersistSectionsContent do
+describe Maglev::PersistSectionsContent, type: :service do
   subject { service.call(site: site, page: page, sections_content: sections_content) }
 
   let(:site) { create(:site) }
@@ -73,6 +73,71 @@ describe Maglev::PersistSectionsContent do
         # rubocop:enable Style/StringHashKeys
       ])
     end
+
+    context 'the mirrored section points to another mirrored section' do
+      let(:first_page_sections) do
+        JSON.parse([
+            {
+              id: 'fake-section-id',
+              type: 'jumbotron',
+              settings: [{ id: :title, value: 'Hello world 😎' }, { id: :body, value: '<p>Lorem ipsum 😎</p>' }],
+              blocks: []
+            },
+          ].to_json)
+      end
+      let(:first_page) { create(:page, title: 'first page', path: 'first-page', sections: first_page_sections) }
+
+
+      let(:second_page_sections) do
+        JSON.parse([
+            {
+              id: 'fake-section-id',
+              type: 'jumbotron',
+              settings: [{ id: :title, value: 'Hello world 😎' }, { id: :body, value: '<p>Lorem ipsum 😎</p>' }],
+              blocks: [],
+              mirror_of: {
+                enabled: true,
+                page_id: first_page.id,
+                layout_group_id: 'main',
+                section_id: 'fake-section-id'
+              }
+            },
+          ].to_json)
+      end
+      let(:second_page) { create(:page, title: 'second page', path: 'second-page', sections: second_page_sections) }
+
+      let(:sections_content) do
+        JSON.parse([
+          { id: 'header', sections: [] },
+          {
+            id: 'main',
+            sections: [
+              {
+                type: 'jumbotron',
+                settings: [{ id: :title, value: 'Hello world 🤓' }, { id: :body, value: '<p>Lorem ipsum 🤓</p>' }],
+                blocks: [],
+                mirror_of: {
+                  enabled: true,
+                  page_id: second_page.id,
+                  layout_group_id: 'main',
+                  section_id: 'fake-section-id'
+                }
+              },
+            ]
+          }, { id: 'footer', sections: [] }
+        ].to_json)
+      end
+
+      it 'changes the content of the original mirror section' do
+        subject
+        expect(fetch_sections_content("main-#{first_page.id}")[0]['settings']).to match([
+          # rubocop:disable Style/StringHashKeys
+          hash_including({ 'value' => 'Hello world 🤓' }),
+          hash_including({ 'value' => '<p>Lorem ipsum 🤓</p>' }),
+          # rubocop:enable Style/StringHashKeys
+        ])
+      end
+    end
   end
 
   context 'Given a store has been modified while persisting the content' do
@@ -101,15 +166,5 @@ describe Maglev::PersistSectionsContent do
     it "doesn't update the content in DB" do 
       expect { subject rescue nil }.not_to change { logo_url }
     end
-  end
-
-  def fetch_sections_content(store_handle)
-    Maglev::SectionsContentStore
-      .find_by(handle: store_handle)
-      .sections
-  end
-
-  def section_types(store_handle)
-    fetch_sections_content(store_handle).map { |section| section['type'] }
   end
 end

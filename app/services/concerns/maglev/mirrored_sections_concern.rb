@@ -14,8 +14,15 @@ module Maglev::MirroredSectionsConcern
 
   def persist_mirror_section(section, mirror_of)
     store = find_store_from_mirrored_section(mirror_of)
-    store.update_section_content(mirror_of['section_id'], section)
+    mirror_section = store.update_section_content(mirror_of['section_id'], section)
     store.save
+
+    # is the mirror section a mirrored section too?!
+    if mirror_section&.dig('mirror_of', 'enabled')
+      # No need to detect a circular dependency because this is impossible 
+      # to change the mirror_of attributes of an existing section in the editor
+      persist_mirror_section(mirror_section.except('mirror_of'), mirror_section['mirror_of'])
+    end
   end
 
   def find_store_from_mirrored_section(mirror_of)
