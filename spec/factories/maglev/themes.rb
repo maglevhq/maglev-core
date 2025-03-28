@@ -90,57 +90,6 @@ FactoryBot.define do
                                                   ])
     end
 
-    trait :predefined_pages do
-      pages do
-        [
-          {
-            title: 'Home',
-            path: 'index',
-            sections: [
-              {
-                type: 'navbar',
-                settings: {},
-                blocks: []
-              },
-              {
-                type: 'jumbotron',
-                settings: {
-                  "title": "Let's create the product<br/>your clients<br/>will love.",
-                  "body": '<p>NoCoffee, passionated developers,<br/>creators of web applications, mobiles apps and<br/>fancy R&D projects.</p>'
-                },
-                blocks: []
-              },
-              {
-                type: 'showcase',
-                settings: {
-                  title: 'Our projects'
-                },
-                blocks: []
-              }
-            ]
-          }.with_indifferent_access,
-          {
-            title: 'About us',
-            path: 'about-us',
-            sections: [
-              {
-                type: 'jumbotron',
-                settings: {
-                  "title": 'About our awesome team',
-                  "body": '<p>NoCoffee, passionated developers,<br/>creators of web applications, mobiles apps and<br/>fancy R&D projects.</p>'
-                },
-                blocks: []
-              }
-            ]
-          }.with_indifferent_access,
-          {
-            title: 'Empty',
-            path: 'empty'
-          }.with_indifferent_access
-        ]
-      end
-    end
-
     trait :basic_layouts do
       layouts do
         Maglev::Theme::Layout.build_many(JSON.parse([
@@ -158,6 +107,66 @@ FactoryBot.define do
             ]
           }
         ].to_json))
+      end
+    end
+
+    trait :predefined_pages do
+      pages do
+        [
+          {
+            title: 'Home',
+            path: 'index',
+            layout_id: 'basic',
+            sections_content: {
+              header: [
+                {
+                  type: 'navbar',
+                  settings: {},
+                  blocks: []
+                }
+              ],
+              main: [
+                {
+                  type: 'jumbotron',
+                  settings: {
+                    "title": "Let's create the product<br/>your clients<br/>will love.",
+                    "body": '<p>NoCoffee, passionated developers,<br/>creators of web applications, mobiles apps and<br/>fancy R&D projects.</p>'
+                  },
+                  blocks: []
+                },
+                {
+                  type: 'showcase',
+                  settings: {
+                    title: 'Our projects'
+                  },
+                  blocks: []
+                }
+              ]
+            }
+          }.with_indifferent_access,
+          {
+            title: 'About us',
+            path: 'about-us',
+            layout_id: 'basic',
+            sections_content: {
+              main: [
+                {
+                  type: 'jumbotron',
+                  settings: {
+                    "title": 'About our awesome team',
+                    "body": '<p>NoCoffee, passionated developers,<br/>creators of web applications, mobiles apps and<br/>fancy R&D projects.</p>'
+                  },
+                  blocks: []
+                }
+              ]
+            }
+          }.with_indifferent_access,
+          {
+            title: 'Empty',
+            path: 'empty',
+            layout_id: 'basic'
+          }.with_indifferent_access
+        ]
       end
     end
   end
