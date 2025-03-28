@@ -8,7 +8,7 @@ module Maglev
     private
 
     def persist_mirrored_sections(sections_content)
-      sections_content.map { |group| group['sections'] }.flatten.find do |section|
+      sections_content.map { |group| group['sections'] }.flatten.compact.find do |section|
         next unless section.dig('mirror_of', 'enabled')
 
         persist_mirror_section(section.except('mirror_of'), section['mirror_of'])
