@@ -28,7 +28,7 @@ describe Maglev::SetupPages, type: :service do
       expect { subject }.to change(Maglev::SectionsContentStore, :count).by(4)
       expect(section_types('header')).to eq ['navbar']
       expect(section_types('footer')).to eq []
-      expect(section_types("main-#{Maglev::Page.home.first.id}")).to eq ['jumbotron', 'showcase']
+      expect(section_types("main-#{Maglev::Page.home.first.id}")).to eq %w[jumbotron showcase]
     end
   end
 end
