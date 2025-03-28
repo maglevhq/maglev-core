@@ -20,7 +20,7 @@ module Maglev
 
     def unsafe_call
       content = layout.groups.map do |group|
-        [group.id, persist_group_content(group)]
+        [group.id, persist_group_content(group, extract_store_attributes(group))]
       end.to_h
 
       persist_mirrored_sections(sections_content)
@@ -38,9 +38,16 @@ module Maglev
       @layout ||= fetch_layout(page.layout_id)
     end
 
-    def persist_group_content(group)
+    def persist_group_content(group, attributes)
       store = find_store(group.guess_store_handle(page))
-      store.attributes = extract_store_attributes(group)
+      store.attributes = attributes
+      
+      if attributes.key?('sections_translations')
+        store.prepare_sections_translations(theme)
+      else
+        store.prepare_sections(theme)
+      end
+
       store.save!
       store
     end
@@ -48,7 +55,7 @@ module Maglev
     def extract_store_attributes(group)
       (sections_content.find do |content_group|
         content_group['id'] == group.id
-      end || {}).slice('sections', 'lock_version')
+      end || {}).slice('sections', 'sections_translations', 'lock_version')
     end
 
     def find_store(handle)
