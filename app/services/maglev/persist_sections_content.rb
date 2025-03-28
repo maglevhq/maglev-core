@@ -41,7 +41,7 @@ module Maglev
     def persist_group_content(group, attributes)
       store = find_store(group.guess_store_handle(page))
       store.attributes = attributes
-      
+
       if attributes.key?('sections_translations')
         store.prepare_sections_translations(theme)
       else
