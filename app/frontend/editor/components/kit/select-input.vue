@@ -64,7 +64,7 @@
           {{ emptyLabel }}
         </div>
 
-        <div v-if="list" :class="listClass">
+        <div v-if="list" :class="listClass" class="max-h-56 overflow-y-scroll">
           <div
             v-for="(item, index) in list"
             :key="item.id"

@@ -34,8 +34,8 @@ export default { start }
 // === Section related actions ===
 
 const addSection = (event) => {
-  const { content, section, insertAt } = event.detail
-  debouncedUpdatePreviewDocument(content, section, insertAt)
+  const { layoutGroupId, content, section, insertAt } = event.detail
+  debouncedUpdatePreviewDocument(layoutGroupId, content, section, insertAt)
 }
 
 const moveSections = (event) => {
@@ -56,7 +56,7 @@ const moveSections = (event) => {
   else
     targetSectionElement.parentNode.insertBefore(
       sectionElement,
-      targetSectionElement.nextSibling,
+      targetSectionElement.nextElementSibling,
     )
 
   // scroll to the new placement of the section
@@ -64,8 +64,8 @@ const moveSections = (event) => {
 }
 
 const updateSection = (event) => {
-  const { content, section, change } = event.detail
-  updateSectionOrBlock(content, section, section, change)
+  const { layoutGroupId, content, section, change } = event.detail
+  updateSectionOrBlock(layoutGroupId, content, section, section, change)
 }
 
 const removeSection = (event) => {
@@ -78,13 +78,13 @@ const removeSection = (event) => {
 // === Block related actions ===
 
 const updateBlock = (event) => {
-  const { content, section, sectionBlock, change } = event.detail
-  updateSectionOrBlock(content, section, sectionBlock, change)
+  const { layoutGroupId, content, section, sectionBlock, change } = event.detail
+  updateSectionOrBlock(layoutGroupId, content, section, sectionBlock, change)
 }
 
 const replaceSection = (event) => {
-  const { content, section } = event.detail
-  debouncedUpdatePreviewDocument(content, section)
+  const { layoutGroupId, content, section } = event.detail
+  debouncedUpdatePreviewDocument(layoutGroupId, content, section)
 }
 
 // === Other actions ===
@@ -93,7 +93,7 @@ const updateStyle = async (event) => {
   const { content, style } = event.detail
 
   const doc = await getUpdatedDoc({
-    pageSections: JSON.stringify(content.pageSections),
+    sectionsContent: JSON.stringify(content),
     style: JSON.stringify(style),
   })
 
@@ -109,9 +109,9 @@ const updateStyle = async (event) => {
 
 // === Helpers ===
 
-const updateSectionOrBlock = (content, section, source, change) => {
+const updateSectionOrBlock = (layoutGroupId, content, section, source, change) => {
   const foundSetting = updateSetting(source, change)
-  if (!foundSetting) debouncedUpdatePreviewDocument(content, section)
+  if (!foundSetting) debouncedUpdatePreviewDocument(layoutGroupId, content, section)
 }
 
 const updateSetting = (source, change) => {
@@ -140,11 +140,14 @@ const updateTextSetting = (source, change) => {
   return settings.length > 0
 }
 
-const updatePreviewDocument = async (content, section, insertAt) => {
+const updatePreviewDocument = async (layoutGroupId, content, section, insertAt) => {
   const doc = await getUpdatedDoc({
-    pageSections: JSON.stringify([
-      content.pageSections.find((s) => s.id == section.id), // no need to render the other sections
-    ]),
+    sections_content: JSON.stringify([
+      {
+        id: layoutGroupId,
+        sections: [section]
+      }
+    ])
   })
 
   // NOTE: Instructions to refresh the whole document
@@ -162,7 +165,7 @@ const updatePreviewDocument = async (content, section, insertAt) => {
   if (targetElement) {
     targetElement.replaceWith(sourceElement)
   } else {
-    insertSectionInDOM(sourceElement, insertAt)
+    insertSectionInDOM(sourceElement, layoutGroupId, insertAt)
     targetElement = previewDocument.querySelector(selector)
   }
 
@@ -173,10 +176,11 @@ const updatePreviewDocument = async (content, section, insertAt) => {
 
 const debouncedUpdatePreviewDocument = debounce(updatePreviewDocument, 300)
 
-const insertSectionInDOM = (element, insertAt) => {
+const insertSectionInDOM = (element, layoutGroupId, insertAt) => {
+  const dropzoneSelector = `[data-maglev-${layoutGroupId}-dropzone]`
   switch (insertAt) {
     case 'top': {
-      const parentNode = previewDocument.querySelector('[data-maglev-dropzone]')
+      const parentNode = previewDocument.querySelector(dropzoneSelector)
       parentNode.prepend(element)
       break
     }
@@ -184,7 +188,7 @@ const insertSectionInDOM = (element, insertAt) => {
     case undefined:
     case null:
     case '': {
-      const parentNode = previewDocument.querySelector('[data-maglev-dropzone]')
+      const parentNode = previewDocument.querySelector(dropzoneSelector)
       parentNode.appendChild(element)
       break
     }

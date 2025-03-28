@@ -100,7 +100,7 @@ export default {
   computed: {
     ...mapState(['hoveredSection']),
     isPageEmpty() {
-      return this.currentSectionList.length === 0
+      return !this.hasSections
     },
     numberOfLocales() {
       return this.currentSite.locales.length

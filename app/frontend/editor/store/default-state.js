@@ -11,6 +11,8 @@ export default {
   hoveredSection: null,
   sectionBlock: null,
   sectionBlockDefinition: null,
+  sectionsContent: [], // array of layoutGroups
+  layoutGroups: {}, // each layoutGroup has a list of sections
   sections: {},
   sectionBlocks: {},
   editorSettings: {},

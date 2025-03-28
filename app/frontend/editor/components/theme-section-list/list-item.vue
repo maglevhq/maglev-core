@@ -42,6 +42,7 @@ export default {
   name: 'ThemeSectionListItem',
   props: {
     section: { type: Object, required: true, default: null },
+    layoutGroupId: { type: String, required: true },
     insertAfter: { type: String },
   },
   data() {
@@ -54,7 +55,7 @@ export default {
     canBeAdded() {
       return this.services.section.canBeAddedToPage(
         this.section,
-        this.currentSectionList,
+        this.currentSectionTypes,
       )
     },
   },
@@ -63,6 +64,7 @@ export default {
     select() {
       if (!this.canBeAdded) return
       this.addSection({
+        layoutGroupId: this.layoutGroupId,
         sectionDefinition: this.section,
         insertAt: this.insertAfter,
       }).then(() => {
@@ -70,7 +72,6 @@ export default {
       })
     },
     imageLoaded() {
-      // console.log('imageLoaded', this.section.name, event)
       this.isImageLoaded = true
     },
     imageNotFound(event) {

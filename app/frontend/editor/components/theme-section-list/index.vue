@@ -1,12 +1,12 @@
 <template>
-  <div>
+  <div class="space-y-4">
     <uikit-accordion
       v-for="(category, index) in categories"
       :key="index"
       headerClass="px-3 py-3 mb-3 bg-editor-primary text-white rounded-sm"
     >
       <div slot="header" class="flex items-center">
-        <div class="capitalize-first">{{ category.name }}</div>
+        <div class="capitalize-first">{{ category.label }}</div>
         <div class="ml-2 px-3 bg-white bg-opacity-25 text-xs rounded-full">
           {{ category.children.length }}
         </div>
@@ -16,7 +16,8 @@
           v-for="section in category.children"
           :key="section.id"
           :section="section"
-          :insertAfter="insertAfter"
+          :layout-group-id="layoutGroupId"
+          :insert-after="insertAfter"
         />
 
         <div
@@ -27,16 +28,24 @@
         </div>
       </div>
     </uikit-accordion>
+
+    <mirror-section-button 
+      :layoutGroupId="layoutGroupId" 
+      :insertAfter="insertAfter"
+      v-if="allowSectionMirroring"
+    />
   </div>
 </template>
 
 <script>
 import ListItem from './list-item.vue'
+import MirrorSectionButton from './mirror-button.vue'
 
 export default {
   name: 'ThemeSectionList',
-  components: { ListItem },
+  components: { ListItem, MirrorSectionButton },
   props: {
+    layoutGroupId: { type: String, required: true },
     insertAfter: { type: String },
   },
   data() {
@@ -46,6 +55,14 @@ export default {
     categories() {
       return this.services.theme.buildCategories(this.currentTheme)
     },
+    canAddMirroredSection() {
+      return this.services.section.canAddMirroredSection({ 
+        numberOfPages: this.currentSite.numberOfPages 
+      })
+    },
+    allowSectionMirroring() {
+      return this.currentTheme.mirrorSection && this.canAddMirroredSection
+    }
   },
 }
 </script>

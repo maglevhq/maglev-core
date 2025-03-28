@@ -18,6 +18,7 @@
     window.primaryColor = <%= editor_primary_hex_color.to_json.html_safe %>;
     window.sitePublishable = <%= editor_site_publishable.to_json %>;
     window.customTranslations = <%= h editor_custom_translations.to_json.html_safe %>
+    window.sectionsContent = <%= h render(partial: 'maglev/api/sections_content/show', formats: :json, locals: { sections_content: maglev_page_sections }).html_safe %>
   </script>
   
   <%= vite_client_tag %>
@@ -32,7 +33,7 @@
     }
   </style>
 
-  <%= render 'header' %>  
+  <%= render 'header' %>
 </head>
 <body class="h-full overflow-y-hidden font-nunito">
   <div id="maglev-app"></div>
