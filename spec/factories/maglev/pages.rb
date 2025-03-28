@@ -149,37 +149,6 @@ FactoryBot.define do
       end
     end
 
-    # TODO: to be removed /refactored
-    trait :page_links do
-      sections do
-        [
-          {
-            type: 'jumbotron',
-            settings: [
-              { id: :title, value: 'Hello world' },
-              { id: :body, value: '<p><a href="/bar">Bar</a> - <a href="/foo" maglev-link-type="page" maglev-link-id="42">TEST</a></p>' }
-            ],
-            blocks: []
-          },
-          {
-            type: 'showcase',
-            settings: [
-              { id: :title, value: 'Our projects' }
-            ],
-            blocks: [
-              {
-                type: 'showcase_item',
-                settings: [
-                  { id: :name, value: 'My first project' },
-                  { id: :screenshot, value: '/assets/screenshot-01.png' }
-                ]
-              }
-            ]
-          }
-        ]
-      end
-    end
-
     trait :featured_product do
       sections do
         [

@@ -33,10 +33,10 @@ RSpec.describe 'Maglev::Api::SectionsContentController', type: :request do
       get maglev.api_page_sections_content_path(page), as: :json
       # rubocop:disable Style/StringHashKeys
       expect(json_response).to match([
-        { 'id' => 'header', 'sections' => [], 'lockVersion' => 0 },
-        { 'id' => 'main', 'sections' => [], 'lockVersion' => 0 },
-        { 'id' =>'footer', 'sections' => [], 'lockVersion' => 0 }
-      ])
+                                       { 'id' => 'header', 'sections' => [], 'lockVersion' => 0 },
+                                       { 'id' => 'main', 'sections' => [], 'lockVersion' => 0 },
+                                       { 'id' => 'footer', 'sections' => [], 'lockVersion' => 0 }
+                                     ])
       # rubocop:enable Style/StringHashKeys
     end
 
@@ -64,8 +64,8 @@ RSpec.describe 'Maglev::Api::SectionsContentController', type: :request do
           expect(response).to have_http_status(:ok)
           # rubocop:disable Style/StringHashKeys
           expect(json_response).to match({
-            'lockVersions' => { 'footer'=> 1, 'header' => 1, 'main' => 1 }
-          })
+                                           'lockVersions' => { 'footer' => 1, 'header' => 1, 'main' => 1 }
+                                         })
           # rubocop:enable Style/StringHashKeys
         end
       end
@@ -83,7 +83,7 @@ RSpec.describe 'Maglev::Api::SectionsContentController', type: :request do
           ].to_json)
         end
 
-        it "returns a conflict error code (409)" do
+        it 'returns a conflict error code (409)' do
           put maglev.api_page_sections_content_path(page), params: { sections_content: sections_content }, as: :json
           expect(response).to have_http_status(:conflict)
         end

@@ -131,7 +131,7 @@ RSpec.describe 'Maglev::Api::PagesController', type: :request do
       post '/maglev/api/pages', params: { page: { title: '', path: '' } }, as: :json
       expect(json_response).to eq(
         {
-          errors: { 
+          errors: {
             title: ["can't be blank"],
             path: ["can't be blank"]
           }

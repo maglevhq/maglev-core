@@ -7,7 +7,7 @@ module Maglev
     include Maglev::SectionsConcern
 
     ## scopes ##
-    scope :by_handles, -> (handles) { where(Maglev::SectionsContentStore.arel_table[:handle].in(handles)) }
+    scope :by_handles, ->(handles) { where(Maglev::SectionsContentStore.arel_table[:handle].in(handles)) }
 
     ## translations ##
     translates :sections

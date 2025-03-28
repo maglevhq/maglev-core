@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe 'Maglev::Api::StylesController', type: :request do
   let!(:site) { create(:site) }
-  
+
   before do
     allow(Maglev::I18n).to receive(:available_locales).and_return(%i[en fr])
     Maglev.configure do |config|
@@ -29,7 +29,7 @@ RSpec.describe 'Maglev::Api::StylesController', type: :request do
     before { api_sign_in }
 
     let(:attributes) { attributes_for(:site, :with_style)[:style] }
-    
+
     it 'updates the style of the site' do
       put '/maglev/api/style', params: { style: attributes }, as: :json
       expect(response).to have_http_status(:ok)
