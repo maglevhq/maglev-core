@@ -8,7 +8,7 @@ module Maglev
     include Injectable
     include Maglev::FetchSectionsContent::TransformSectionConcern
     include Maglev::MirroredSectionsConcern
-    
+
     dependency :fetch_site
     dependency :fetch_theme
     dependency :fetch_collection_items
@@ -37,25 +37,30 @@ module Maglev
 
     def transform_sections(store)
       # look for mirrored sections and get the fresh content
-      set_content_from_mirror_sections(store)
+      replace_content_from_mirror_sections(store)
 
       store.sections.map do |section|
         transform_section(section.dup)
       end.compact
     end
 
-    def set_content_from_mirror_sections(store)
+    def replace_content_from_mirror_sections(store)
       store.sections.each do |section|
         next unless section.dig('mirror_of', 'enabled')
+
         mirror_section = find_section_from_mirrored_section(section['mirror_of'])
         next unless mirror_section
+
         store.replace_section_content(section, mirror_section)
       end
     end
 
     def fetch_layout(layout_id = nil)
       theme.find_layout(layout_id || page.layout_id).tap do |layout|
-        raise Maglev::Errors::MissingLayout, "#{layout_id || page.layout_id} doesn't match a layout of the theme" if layout.nil?
+        if layout.nil?
+          raise Maglev::Errors::MissingLayout,
+                "#{layout_id || page.layout_id} doesn't match a layout of the theme"
+        end
       end
     end
 

@@ -19,11 +19,13 @@ module Maglev
     end
 
     def unsafe_call
-      layout.groups.map do |group|
+      content = layout.groups.map do |group|
         [group.id, persist_group_content(group)]
-      end.to_h.tap do
-        persist_mirrored_sections(sections_content)
-      end
+      end.to_h
+
+      persist_mirrored_sections(sections_content)
+
+      content
     end
 
     private
@@ -55,7 +57,10 @@ module Maglev
 
     def fetch_layout(layout_id = nil)
       theme.find_layout(layout_id || page.layout_id).tap do |layout|
-        raise Maglev::Errors::MissingLayout, "#{layout_id || page.layout_id} doesn't match a layout of the theme" if layout.nil?
+        if layout.nil?
+          raise Maglev::Errors::MissingLayout,
+                "#{layout_id || page.layout_id} doesn't match a layout of the theme"
+        end
       end
     end
 

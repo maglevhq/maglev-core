@@ -58,7 +58,7 @@ describe Maglev::PersistSectionsContent, type: :service do
                 layout_group_id: 'main',
                 section_id: 'def'
               }
-            },
+            }
           ]
         }, { id: 'footer', sections: [] }
       ].to_json)
@@ -66,43 +66,44 @@ describe Maglev::PersistSectionsContent, type: :service do
 
     it 'changes the content of remote section' do
       subject
-      expect(fetch_sections_content("main-#{another_page.id}")[0]['settings']).to match([
-        # rubocop:disable Style/StringHashKeys
-        hash_including({ 'value' => 'Hello world 🤓' }),
-        hash_including({ 'value' => '<p>Lorem ipsum!</p>' }),
-        # rubocop:enable Style/StringHashKeys
-      ])
+      expect(
+        fetch_sections_content("main-#{another_page.id}")[0]['settings']
+      ).to match([
+                   # rubocop:disable Style/StringHashKeys
+                   hash_including({ 'value' => 'Hello world 🤓' }),
+                   hash_including({ 'value' => '<p>Lorem ipsum!</p>' })
+                   # rubocop:enable Style/StringHashKeys
+                 ])
     end
 
     context 'the mirrored section points to another mirrored section' do
       let(:first_page_sections) do
         JSON.parse([
-            {
-              id: 'fake-section-id',
-              type: 'jumbotron',
-              settings: [{ id: :title, value: 'Hello world 😎' }, { id: :body, value: '<p>Lorem ipsum 😎</p>' }],
-              blocks: []
-            },
-          ].to_json)
+          {
+            id: 'fake-section-id',
+            type: 'jumbotron',
+            settings: [{ id: :title, value: 'Hello world 😎' }, { id: :body, value: '<p>Lorem ipsum 😎</p>' }],
+            blocks: []
+          }
+        ].to_json)
       end
       let(:first_page) { create(:page, title: 'first page', path: 'first-page', sections: first_page_sections) }
 
-
       let(:second_page_sections) do
         JSON.parse([
-            {
-              id: 'fake-section-id',
-              type: 'jumbotron',
-              settings: [{ id: :title, value: 'Hello world 😎' }, { id: :body, value: '<p>Lorem ipsum 😎</p>' }],
-              blocks: [],
-              mirror_of: {
-                enabled: true,
-                page_id: first_page.id,
-                layout_group_id: 'main',
-                section_id: 'fake-section-id'
-              }
-            },
-          ].to_json)
+          {
+            id: 'fake-section-id',
+            type: 'jumbotron',
+            settings: [{ id: :title, value: 'Hello world 😎' }, { id: :body, value: '<p>Lorem ipsum 😎</p>' }],
+            blocks: [],
+            mirror_of: {
+              enabled: true,
+              page_id: first_page.id,
+              layout_group_id: 'main',
+              section_id: 'fake-section-id'
+            }
+          }
+        ].to_json)
       end
       let(:second_page) { create(:page, title: 'second page', path: 'second-page', sections: second_page_sections) }
 
@@ -122,7 +123,7 @@ describe Maglev::PersistSectionsContent, type: :service do
                   layout_group_id: 'main',
                   section_id: 'fake-section-id'
                 }
-              },
+              }
             ]
           }, { id: 'footer', sections: [] }
         ].to_json)
@@ -130,12 +131,14 @@ describe Maglev::PersistSectionsContent, type: :service do
 
       it 'changes the content of the original mirror section' do
         subject
-        expect(fetch_sections_content("main-#{first_page.id}")[0]['settings']).to match([
-          # rubocop:disable Style/StringHashKeys
-          hash_including({ 'value' => 'Hello world 🤓' }),
-          hash_including({ 'value' => '<p>Lorem ipsum 🤓</p>' }),
-          # rubocop:enable Style/StringHashKeys
-        ])
+        expect(
+          fetch_sections_content("main-#{first_page.id}")[0]['settings']
+        ).to match([
+                     # rubocop:disable Style/StringHashKeys
+                     hash_including({ 'value' => 'Hello world 🤓' }),
+                     hash_including({ 'value' => '<p>Lorem ipsum 🤓</p>' })
+                     # rubocop:enable Style/StringHashKeys
+                   ])
       end
     end
   end
@@ -163,8 +166,12 @@ describe Maglev::PersistSectionsContent, type: :service do
       expect { subject }.to raise_exception(ActiveRecord::StaleObjectError)
     end
 
-    it "doesn't update the content in DB" do 
-      expect { subject rescue nil }.not_to change { logo_url }
+    it "doesn't update the content in DB" do
+      expect do
+        subject
+      rescue StandardError
+        nil
+      end.not_to(change { logo_url })
     end
   end
 end

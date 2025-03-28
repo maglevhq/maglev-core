@@ -22,9 +22,9 @@ describe Maglev::GetPageSectionNames do
 
     it 'returns an array of hashes containing the id and name of a page section' do
       expect(subject).to match([
-        a_hash_including(name: 'Jumbotron'), 
-        a_hash_including(name: 'Showcase')
-      ])
+                                 a_hash_including(name: 'Jumbotron'),
+                                 a_hash_including(name: 'Showcase')
+                               ])
     end
   end
 end

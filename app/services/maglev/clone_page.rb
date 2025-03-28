@@ -39,7 +39,7 @@ module Maglev
         meta_description_translations: page.meta_description_translations,
         og_title_translations: page.og_title_translations,
         og_description_translations: page.og_description_translations,
-        og_image_url_translations: page.og_image_url_translations,
+        og_image_url_translations: page.og_image_url_translations
       }
     end
 
@@ -65,10 +65,10 @@ module Maglev
 
     def clone_sections_content_stores(cloned_page)
       layout_page_groups.each do |group|
-        store = sections_content_stores.find_by_handle(group.guess_store_handle(page))
+        store = sections_content_stores.find_by(handle: group.guess_store_handle(page))
 
         next if store.nil?
-        
+
         clone_sections_content_store(store, group.guess_store_handle(cloned_page))
       end
     end

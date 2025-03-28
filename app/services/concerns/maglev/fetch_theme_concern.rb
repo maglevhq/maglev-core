@@ -13,10 +13,11 @@ module Maglev::FetchThemeConcern
   end
 
   def layout_page_groups
-    layout.groups.find_all { |group| group.page_store? }
+    layout.groups.find_all(&:page_store?)
   end
 
   def sections_content_stores
     Maglev::SectionsContentStore
   end
 end
+# rubocop:enable Style/ClassAndModuleChildren
