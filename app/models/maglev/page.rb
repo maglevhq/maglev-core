@@ -6,11 +6,9 @@ module Maglev
     include Maglev::Translatable
     include Maglev::Page::PathConcern
     include Maglev::Page::SearchConcern
-    include Maglev::SectionsConcern # @deprecated Use SectionsContentStore instead
 
     ## translations ##
     translates :title, presence: true
-    translates :sections # @deprecated Use SectionsContentStore instead
     translates :seo_title, :meta_description
     translates :og_title, :og_description, :og_image_url
 

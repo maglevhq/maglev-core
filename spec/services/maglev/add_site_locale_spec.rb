@@ -5,7 +5,7 @@ require 'rails_helper'
 describe Maglev::AddSiteLocale do
   subject { service.call(site: site, locale: new_locale) }
 
-  let(:site) { create(:site, :with_navbar, locales: [{ label: 'English', prefix: 'en' }]) }
+  let(:site) { create(:site, locales: [{ label: 'English', prefix: 'en' }]) }
   let(:service) { described_class.new }
 
   describe 'no new locale is passed to the service' do
@@ -27,11 +27,9 @@ describe Maglev::AddSiteLocale do
     it 'sets a default content to all the pages in the new locale' do
       subject
       Maglev::I18n.with_locale(:fr) do
-        expect(site.reload.sections).not_to eq nil
-        page = Maglev::Page.first
-        expect(page.title).to eq 'Home'
+        expect(page.reload.title).to eq 'Home'
         expect(page.path).to eq 'index'
-        expect(page.sections).not_to eq nil
+        expect(Maglev::SectionsContentStore.first.sections).not_to be_empty
       end
     end
   end
