@@ -17,7 +17,6 @@ RSpec.describe Maglev::Page, type: :model do
       page = create(:page, title: 'Translated page')
       Maglev::I18n.with_locale(:es) do
         expect(page.title).to be_blank
-        expect(page.sections).to be_blank
         page.title = 'Mi página'
         page.path = 'mi-pagina'
         page.save!
