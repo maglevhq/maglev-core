@@ -8,7 +8,7 @@ describe Maglev::FetchThemeLayout do
 
   subject { service.call(page: page) }
 
-  it { is_expected.to eq 'theme/layouts/default' }
+  it { is_expected.to eq 'theme/layouts/basic' }
 
   context 'legacy page with no layout_id' do
     let(:page) { build(:page, layout_id: nil) }
