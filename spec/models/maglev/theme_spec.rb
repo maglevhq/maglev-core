@@ -39,7 +39,7 @@ describe Maglev::Theme do
     let(:theme) { build(:theme) }
 
     it 'returns the layouts' do
-      expect(subject.map(&:id)).to eq(%w[basic left_sidebar])
+      expect(subject.map(&:id)).to eq(%w[default sidebar])
     end
 
     it 'returns the groups of a layout' do
