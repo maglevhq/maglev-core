@@ -105,7 +105,7 @@ describe Maglev::SectionComponent do
 end
 
 class FooController < ::ApplicationController
-  include Maglev::StandaloneSectionsConcern
+  include Maglev::InAppRenderingConcern
 
   helper_method :request
 

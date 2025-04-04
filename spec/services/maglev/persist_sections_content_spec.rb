@@ -7,7 +7,7 @@ describe Maglev::PersistSectionsContent, type: :service do
 
   let(:site) { create(:site) }
   let!(:page) { create(:page, sections: []) }
-  let(:fetch_theme) { double('FetchTheme', call: build(:theme, :basic_layouts)) }
+  let(:fetch_theme) { double('FetchTheme', call: build(:theme)) }
   let(:service) { described_class.new(fetch_theme: fetch_theme) }
 
   let(:sections_content) do

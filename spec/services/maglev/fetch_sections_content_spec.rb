@@ -6,7 +6,7 @@ describe Maglev::FetchSectionsContent do
   subject { service.call(handle: handle, locale: :en) }
 
   let(:site) { build(:site) }
-  let(:theme) { build(:theme, :basic_layouts) }
+  let(:theme) { build(:theme) }
   let(:get_page_fullpath) { double('GetPageFullPath', call: nil) }
   let(:fetch_collection_items) { double('FetchCollectionItems', call: nil) }
   let(:service) do
