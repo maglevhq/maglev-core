@@ -9,7 +9,7 @@ describe Maglev::SetupPages, type: :service do
   let(:site) { build(:site) }
 
   context 'the theme has no pre-defined pages' do
-    let(:theme) { build(:theme, :basic_layouts) }
+    let(:theme) { build(:theme) }
 
     it "doesn't create any page" do
       expect { subject }.to change(Maglev::Page, :count).by(0)
@@ -17,7 +17,7 @@ describe Maglev::SetupPages, type: :service do
   end
 
   context 'the theme has pre-defined pages' do
-    let(:theme) { build(:theme, :basic_layouts, :predefined_pages) }
+    let(:theme) { build(:theme, :predefined_pages) }
 
     it 'creates the pages in DB' do
       expect { subject }.to change(Maglev::Page, :count).by(3)

@@ -29,9 +29,13 @@ module Maglev
       @theme ||= fetch_theme.call
     end
 
+    def site
+      @site ||= fetch_site.call
+    end
+
     def find_or_build_store
       scoped_stores.find_or_initialize_by(handle: handle) do |store|
-        store.sections = []
+        store.sections_translations = site.locale_prefixes.index_with { |_locale| [] }
       end
     end
 

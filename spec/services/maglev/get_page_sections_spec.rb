@@ -5,7 +5,7 @@ require 'rails_helper'
 describe Maglev::GetPageSections do
   subject { service.call(page: page, locale: :en) }
 
-  let(:theme) { build(:theme, :basic_layouts) }
+  let(:theme) { build(:theme) }
   let(:fetch_sections_content) { double('FetchSectionsContent', call: [[], 0]) }
   let(:service) do
     described_class.new(

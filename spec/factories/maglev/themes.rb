@@ -7,6 +7,24 @@ FactoryBot.define do
     name { 'Simple' }
     description { 'Super simple theme' }
 
+    layouts do
+      Maglev::Theme::Layout.build_many(JSON.parse([
+        {
+          label: 'Default',
+          groups: ['header', { id: 'main', store: false }, 'footer']
+        },
+        {
+          label: 'Sidebar',
+          groups: [
+            'header',
+            { id: 'main', store: false },
+            { label: 'Sidebar 😎', store: 'sidebar', accept: %w[sidebar_menu sidebar_ad] },
+            'footer'
+          ]
+        }
+      ].to_json))
+    end
+
     after(:build) do |theme, _evaluator|
       theme.style_settings = [
         Maglev::Theme::StyleSetting.build({
@@ -90,33 +108,13 @@ FactoryBot.define do
                                                   ])
     end
 
-    trait :basic_layouts do
-      layouts do
-        Maglev::Theme::Layout.build_many(JSON.parse([
-          {
-            label: 'Basic',
-            groups: ['header', { id: 'main', store: false }, 'footer']
-          },
-          {
-            label: 'Left sidebar',
-            groups: [
-              'header',
-              { id: 'main', store: false },
-              { label: 'Sidebar 😎', store: 'sidebar', accept: %w[sidebar_menu sidebar_ad] },
-              'footer'
-            ]
-          }
-        ].to_json))
-      end
-    end
-
     trait :predefined_pages do
       pages do
         [
           {
             title: 'Home',
             path: 'index',
-            layout_id: 'basic',
+            layout_id: 'default',
             sections_content: {
               header: [
                 {
@@ -147,7 +145,7 @@ FactoryBot.define do
           {
             title: 'About us',
             path: 'about-us',
-            layout_id: 'basic',
+            layout_id: 'default',
             sections_content: {
               main: [
                 {
@@ -164,7 +162,7 @@ FactoryBot.define do
           {
             title: 'Empty',
             path: 'empty',
-            layout_id: 'basic'
+            layout_id: 'default'
           }.with_indifferent_access
         ]
       end

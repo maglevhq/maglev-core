@@ -37,7 +37,8 @@ RSpec.describe 'Maglev::Api::SitesController', type: :request do
           style: [
             { id: 'primary_color', type: 'color', value: '#ff00ff' },
             { id: 'font_name', type: 'text', value: 'roboto' }
-          ]
+          ],
+          numberOfPages: 1
         }
       )
     end

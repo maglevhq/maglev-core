@@ -5,7 +5,7 @@ require 'rails_helper'
 describe Maglev::GenerateSite, type: :service do
   subject { service.call(theme: theme) }
 
-  let(:theme) { build(:theme, :basic_layouts, :predefined_pages) }
+  let(:theme) { build(:theme, :predefined_pages) }
   let(:service) { described_class.new }
 
   it 'creates a new site' do

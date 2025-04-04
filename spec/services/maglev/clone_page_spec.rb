@@ -6,7 +6,7 @@ describe Maglev::ClonePage do
   subject { service.call(page: page) }
 
   let(:fetch_site) { double('FetchSite', call: create(:site)) }
-  let(:fetch_theme) { double('FetchTheme', call: build(:theme, :basic_layouts)) }
+  let(:fetch_theme) { double('FetchTheme', call: build(:theme)) }
   let(:service) { described_class.new(fetch_site: fetch_site, fetch_theme: fetch_theme) }
 
   context "the original page doesn't exist yet" do
