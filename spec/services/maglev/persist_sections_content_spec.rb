@@ -36,7 +36,7 @@ describe Maglev::PersistSectionsContent, type: :service do
 
   it 'returns the persisted stores' do
     expect(subject.keys).to eq(%w[header main footer])
-    expect(subject.values.map(&:lock_version)).to eq([1, 1, 1])
+    expect(subject.values.map(&:lock_version)).to eq([1, 1, 0])
   end
 
   context 'Given a section is a mirror of another page/section' do
