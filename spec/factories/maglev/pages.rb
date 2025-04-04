@@ -4,7 +4,7 @@ FactoryBot.define do
   factory :page, class: 'Maglev::Page' do
     title { 'Home' }
     path { 'index' }
-    layout_id { 'basic' }
+    layout_id { 'default' }
 
     transient do
       sections do

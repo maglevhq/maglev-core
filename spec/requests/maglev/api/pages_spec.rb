@@ -12,7 +12,7 @@ RSpec.describe 'Maglev::Api::PagesController', type: :request do
       config.services = {
         context: double('Context', controller: double('Controller')),
         fetch_site: double('FetchSite', call: site),
-        fetch_theme: double('FetchTheme', call: build(:theme, :basic_layouts)),
+        fetch_theme: double('FetchTheme', call: build(:theme)),
         get_base_url: double('getBaseUrl', call: '/maglev/preview'),
         generate_site: double('GenerateSite', call: site)
       }
@@ -37,15 +37,14 @@ RSpec.describe 'Maglev::Api::PagesController', type: :request do
           id: page.id,
           title: page.title,
           path: page.path,
-          layout_id: 'basic',
+          layout_id: 'default',
           visible: true,
           seo_title: nil,
           meta_description: nil,
           og_title: nil,
           og_description: nil,
           og_image_url: nil,
-          preview_url: '/maglev/preview',
-          section_names: [a_hash_including(name: 'Jumbotron'), a_hash_including(name: 'Showcase')]
+          preview_url: '/maglev/preview'
         }
       )
     end
@@ -64,15 +63,14 @@ RSpec.describe 'Maglev::Api::PagesController', type: :request do
             id: page.id,
             title: page.title,
             path: page.path,
-            layout_id: 'basic',
+            layout_id: 'default',
             visible: true,
             seo_title: nil,
             meta_description: nil,
             og_title: nil,
             og_description: nil,
             og_image_url: nil,
-            preview_url: '/maglev/preview',
-            section_names: [a_hash_including(name: 'Jumbotron'), a_hash_including(name: 'Showcase')]
+            preview_url: '/maglev/preview'
           }
         )
       end
@@ -133,7 +131,8 @@ RSpec.describe 'Maglev::Api::PagesController', type: :request do
         {
           errors: {
             title: ["can't be blank"],
-            path: ["can't be blank"]
+            path: ["can't be blank"],
+            layout_id: ["can't be blank"]
           }
         }.as_json
       )

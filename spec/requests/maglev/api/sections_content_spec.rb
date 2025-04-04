@@ -12,7 +12,7 @@ RSpec.describe 'Maglev::Api::SectionsContentController', type: :request do
       config.services = {
         context: double('Context', controller: double('Controller')),
         fetch_site: double('FetchSite', call: site),
-        fetch_theme: double('FetchTheme', call: build(:theme, :basic_layouts)),
+        fetch_theme: double('FetchTheme', call: build(:theme)),
         get_base_url: double('getBaseUrl', call: '/maglev/preview'),
         generate_site: double('GenerateSite', call: site)
       }
@@ -34,7 +34,10 @@ RSpec.describe 'Maglev::Api::SectionsContentController', type: :request do
       # rubocop:disable Style/StringHashKeys
       expect(json_response).to match([
                                        { 'id' => 'header', 'sections' => [], 'lockVersion' => 0 },
-                                       { 'id' => 'main', 'sections' => [], 'lockVersion' => 0 },
+                                       { 'id' => 'main', 'sections' => [
+                                        a_hash_including({ 'type' => 'jumbotron' }),
+                                        a_hash_including({ 'type' => 'showcase' }),
+                                       ], 'lockVersion' => 0 },
                                        { 'id' => 'footer', 'sections' => [], 'lockVersion' => 0 }
                                      ])
       # rubocop:enable Style/StringHashKeys
@@ -64,7 +67,7 @@ RSpec.describe 'Maglev::Api::SectionsContentController', type: :request do
           expect(response).to have_http_status(:ok)
           # rubocop:disable Style/StringHashKeys
           expect(json_response).to match({
-                                           'lockVersions' => { 'footer' => 1, 'header' => 1, 'main' => 1 }
+                                           'lockVersions' => { 'footer' => 0, 'header' => 1, 'main' => 1 }
                                          })
           # rubocop:enable Style/StringHashKeys
         end

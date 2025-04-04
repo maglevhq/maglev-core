@@ -34,6 +34,10 @@ module Maglev
       @theme ||= fetch_theme.call
     end
 
+    def site
+      @site ||= fetch_site.call
+    end
+
     def layout
       @layout ||= fetch_layout(page.layout_id)
     end
@@ -59,7 +63,9 @@ module Maglev
     end
 
     def find_store(handle)
-      scoped_stores.find_or_create_by(handle: handle)
+      scoped_stores.find_or_create_by(handle: handle) do |store|
+        store.sections_translations = site.locale_prefixes.index_with { |_locale| [] }
+      end
     end
 
     def fetch_layout(layout_id = nil)

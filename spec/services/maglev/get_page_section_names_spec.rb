@@ -5,7 +5,7 @@ require 'rails_helper'
 describe Maglev::GetPageSectionNames do
   subject { service.call(page: page) }
 
-  let(:theme) { build(:theme, :basic_layouts) }
+  let(:theme) { build(:theme) }
   let(:service) { described_class.new(fetch_theme: double('FetchTheme', call: theme)) }
 
   context 'the page has no sections (stores)' do

@@ -36,7 +36,7 @@ describe Maglev::Theme do
   describe 'layouts' do
     subject { theme.layouts }
 
-    let(:theme) { build(:theme, :basic_layouts) }
+    let(:theme) { build(:theme) }
 
     it 'returns the layouts' do
       expect(subject.map(&:id)).to eq(%w[basic left_sidebar])
