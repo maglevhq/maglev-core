@@ -39,8 +39,8 @@ export default {
           name: this.$t('sectionPane.tabs.advanced'),
           tab: SettingList,
           type: 'advanced',
-          condition: () => this.hasAdvancedSettings,
-          props: () => ({ advanced: true }),
+          condition: () => this.hasAdvancedSettings || this.hasMirrorFeatureEnabled,
+          props: () => ({ advanced: true, mirrorFeature: this.hasMirrorFeatureEnabled }),
         },
       ]
     },
@@ -57,6 +57,9 @@ export default {
     },
     hasAdvancedSettings() {
       return !this.isBlank(this.currentSectionAdvancedSettings)
+    },
+    hasMirrorFeatureEnabled() {
+      return !this.isBlank(this.currentSection.mirrorOf)
     },
     hasBlocks() {
       return !this.isBlank(this.currentSectionDefinition.blocks)

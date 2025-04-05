@@ -1,60 +1,88 @@
 export default (services) => ({
-  sectionList: (
-    { page, sections, sectionBlocks },
-    { sectionDefinition: getSectiondefinition },
+  // we need it to build the "Organize sections" pane
+  sectionsContent: (
+    { sectionsContent, layoutGroups, sections, sectionBlocks },
+    { sectionDefinition: getSectiondefinition, layoutGroupDefinition: getLayoutGroupDefinition },
   ) => {
-    const pageContent = services.page.denormalize(page, {
+    const content = services.sectionsContent.denormalize(sectionsContent, {
+      layoutGroups,
       sections,
-      blocks: sectionBlocks,
+      blocks: sectionBlocks
     })
-    if (!pageContent?.sections) return []
-    return pageContent.sections.map((sectionContent) => {
-      const sectionDefinition = getSectiondefinition(sectionContent)
+
+    return content.map(layoutGroup => {
+      const layoutDefinition = getLayoutGroupDefinition(layoutGroup.id)
       return {
-        id: sectionContent.id,
-        type: sectionContent['type'],
-        name: sectionDefinition.name,
-        viewportFixedPosition: !!sectionDefinition.viewportFixedPosition,
+        label: layoutDefinition.label,
+        ...layoutGroup,
+        sections: layoutGroup.sections.map(sectionContent => {
+          const sectionDefinition = getSectiondefinition(sectionContent)
+          return {
+            id: sectionContent.id,
+            type: sectionContent['type'],
+            name: sectionDefinition.name,
+            isMirrored: sectionContent.mirrorOf?.enabled ?? false,
+            mirroredPageTitle: sectionContent.mirrorOf?.pageTitle,
+            viewportFixedPosition: !!sectionDefinition.viewportFixedPosition,
+          }
+        })
       }
     })
   },
-  stickySectionList: (_, { sectionList }) => {
-    return sectionList.filter((section) => section.viewportFixedPosition)
+
+  // return all the section types in the page
+  sectionTypes: ({ sections }) => {
+    return Object.values(sections).map((section) => section.type)
+  },
+  stickySectionList: ({ sections }, { sectionDefinition: getSectiondefinition }) => {
+    return Object.values(sections).filter((sectionContent) => {
+      const sectionDefinition = getSectiondefinition(sectionContent)
+      return !!sectionDefinition.viewportFixedPosition
+    })
   },
   defaultPageAttributes: ({ page }) => {
     if (page.translated) return {}
     return { title: page.title, path: page.path }
   },
   content: (
-    { page, sections, sectionBlocks, touchedSections },
-    { sectionDefinition: getSectiondefinition },
+    { sectionsContent, layoutGroups, sections, sectionBlocks, touchedSections }
   ) => {
-    const pageContent = services.page.denormalize(page, {
+    return services.sectionsContent.denormalize(sectionsContent, {
+      layoutGroups,
       sections,
       blocks: sectionBlocks,
     })
-
-    const siteSections = pageContent.sections.filter(
-      (sectionContent) => getSectiondefinition(sectionContent).siteScoped,
-    )
-    const hasModifiedSiteScopedSections = siteSections.some(
-      (sectionContent) => touchedSections.indexOf(sectionContent.id) !== -1,
-    )
-    return {
-      pageSections: pageContent.sections,
-      siteSections: hasModifiedSiteScopedSections ? siteSections : [],
-    }
   },
-  denormalizedSection: ({ page, sections, sectionBlocks, section }) => {
-    const pageContent = services.page.denormalize(page, {
-      sections,
-      blocks: sectionBlocks,
-    })
-    return pageContent.sections.find((s) => s.id == section.id)
+  denormalizedSection: ({ section: { id: sectionId } }, { content }) => {
+    for (const layoutGroupId in content) {
+      const sections = content[layoutGroupId].sections
+      const section = sections.find(s => s.id === sectionId)
+      if (section) return section
+    }
+    return null
   },
   sectionContent: ({ section }) => {
     return section ? [...section.settings] : null
   },
+  layoutDefinition:
+    ({ theme, page }) => {
+      return theme.layouts.find(layout => layout.id === page.layoutId)
+    },
+  layoutGroupDefinition:
+    ({}, { layoutDefinition }) =>
+    (layoutGroupId) => {
+      return layoutDefinition.groups.find(group => group.id === layoutGroupId)
+    },
+  sectionLayoutGroupIdMap:
+    ({ layoutGroups }) => {
+      const memo = {}
+      for (const layoutGroupId in layoutGroups) {
+        layoutGroups[layoutGroupId].sections.forEach(sectionId => {
+          memo[sectionId] = layoutGroupId
+        })
+      }
+      return memo
+    },
   sectionDefinition:
     ({ theme }) =>
     (sectionContent) => {

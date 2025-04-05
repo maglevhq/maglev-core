@@ -22,6 +22,7 @@ store.dispatch('fetchSite', true)
 store.dispatch('setTheme', window.theme)
 store.dispatch('setPage', window.page)
 store.dispatch('setLocale', window.locale)
+store.dispatch('setSectionsContent', window.sectionsContent)
 
 if (store.state.editorSettings.sitePublishable)
   store.dispatch('pollLastPublication')

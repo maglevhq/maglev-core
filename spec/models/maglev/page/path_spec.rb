@@ -6,21 +6,21 @@ RSpec.describe Maglev::Page, type: :model do
   describe 'validation' do
     it "doesn't allow creating a page without a path" do
       create(:page) # create the index page
-      page = described_class.new(title: 'Hello world')
+      page = described_class.new(title: 'Hello world', layout_id: 'basic')
       expect(page).to be_invalid
       expect(page.errors.full_messages).to eq(['Path can\'t be blank'])
     end
 
     it "doesn't allow creating a page with a blank path" do
       create(:page) # create the index page
-      page = described_class.new(title: 'Hello world', path: '')
+      page = described_class.new(title: 'Hello world', layout_id: 'basic', path: '')
       expect(page).to be_invalid
       expect(page.errors.full_messages).to eq(['Path can\'t be blank'])
     end
 
     it "doesn't allow creating a page with a path which already exists" do
       create(:page) # create the index page
-      page = described_class.new(title: 'Hello world', path: 'index')
+      page = described_class.new(title: 'Hello world', layout_id: 'basic', path: 'index')
       expect(page).to be_invalid
       expect(page.errors.full_messages).to eq(['Path has already been taken'])
     end

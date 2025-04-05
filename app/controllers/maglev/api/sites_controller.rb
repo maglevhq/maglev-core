@@ -6,6 +6,7 @@ module Maglev
       def show
         if (@site = maglev_site).present?
           @home_page_id = maglev_page_collection.home.pick(:id)
+          @number_of_pages = maglev_page_collection.count
         else
           head :not_found
         end

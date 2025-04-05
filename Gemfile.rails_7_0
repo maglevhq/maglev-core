@@ -33,6 +33,15 @@ gem 'puma'
 # To use a debugger
 # gem 'byebug', group: [:development, :test]
 
+# Gems not part of the standard library anymore
+gem 'observer'
+gem 'ostruct'
+gem 'base64'
+gem 'mutex_m'
+gem 'drb'
+gem 'bigdecimal'
+gem 'benchmark'
+
 group :development, :test do
   # Use SCSS for stylesheets
   gem 'bcrypt'
@@ -45,6 +54,8 @@ group :development, :test do
   gem 'rubocop-rspec'
 
   gem 'generator_spec'
+
+  gem 'annotate'
 
   gem 'nokogiri', '>= 1.13.10'
 end

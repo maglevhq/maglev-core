@@ -3,28 +3,35 @@ import { isBlank } from '@/misc/utils'
 export default (services) => ({
   // editPage : Action triggered when the user wants to edit another page
   // or to change the locale of the current page.
-  editPage({ state, dispatch }, { id, locale }) {
-    console.log('editPage', id, locale)
-
+  async editPage({ state, dispatch }, { id, locale }) {
     // display the loader
     dispatch('resetPreview')
 
-    if (state.locale !== locale) {
+    if (locale && state.locale !== locale) {
       dispatch('setLocale', locale)
-      Promise.all([dispatch('fetchPage', id), dispatch('fetchSite')])
-    } else dispatch('fetchPage', id)
+      await Promise.all([dispatch('fetchPage', id), dispatch('fetchSite')])
+    } else await dispatch('fetchPage', id)
+
+    dispatch('fetchSectionsContent', state.page.id)
   },
 
   // Set page
   setPage({ commit }, page) {
     commit('SET_PAGE', page)
   },
+
+  // Reload a page: get fresh content + reload the preview iframe
+  async reloadPage({ state, dispatch }, { id }) {
+    await dispatch('editPage', { id })
+    services.livePreview.reload()
+  },
+
   // Fetch a page from an id (or a path)
   async fetchPage({ commit, state: { site } }, id) {
     return services.page
       .findById(site, id)
       .then((page) => commit('SET_PAGE', page))
-  },
+  },  
   // Persist the content of a page (including or not the site content)
   async persistPage({
     commit,
@@ -32,6 +39,8 @@ export default (services) => ({
     state: { page, site, style },
     getters: { content, defaultPageAttributes },
   }) {
+    console.log('🚨🚨🚨 services.page.persistPage is DEPRECATED')
+
     commit('SET_SAVE_BUTTON_STATE', 'inProgress')
 
     const pageAttributes = {

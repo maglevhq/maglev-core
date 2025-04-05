@@ -9,13 +9,17 @@ export const BLOCK_SCHEMA = new schema.Entity('blocks')
 export const SECTION_SCHEMA = new schema.Entity('sections', {
   blocks: [BLOCK_SCHEMA],
 })
-export const PAGE_SCHEMA = new schema.Entity('page', {
+export const LAYOUT_GROUP_SCHEMA = new schema.Entity('layoutGroups', {
   sections: [SECTION_SCHEMA],
+})
+export const PAGE_SCHEMA = new schema.Entity('page', {
+  sections: [LAYOUT_GROUP_SCHEMA],
 })
 
 export const SETTING_ATTRIBUTES = [
   'title',
   'path',
+  'layoutId',
   'visible',
   'seoTitle',
   'ogTitle',
@@ -30,10 +34,11 @@ export default (api) => ({
     return page.path === 'index' || page.path === '/index'
   },
 
-  build: () => {
+  build: ({ layoutId }) => {
     return {
       title: '',
       path: '',
+      layoutId,
       visible: true,
       seoTitle: '',
       metaDescription: '',
@@ -71,7 +76,7 @@ export default (api) => ({
   },
 
   update: (id, attributes, siteAttributes) => {
-    console.log('[PageService] Updating page #', id)
+    console.log('🚨🚨🚨🚨🚨 [PageService] Updating page #', id)
     return api.put(`/pages/${id}`, { page: attributes, site: siteAttributes })
   },
 

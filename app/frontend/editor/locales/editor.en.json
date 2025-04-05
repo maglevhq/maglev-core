@@ -82,6 +82,7 @@
       },
       "title": "Title",
       "path": "Path",
+      "layoutId": "Layout",
       "visible": "Visible",
       "visiblePlaceholder": "Show/Hide the page",
       "seoTitle": "Meta title",
@@ -124,7 +125,7 @@
     "edit": {
       "title": "Style your site",
       "submitButton": {
-        "default": "Update style",
+        "default": "Persist style",
         "inProgress": "Updating...",
         "success": "Updated!",
         "fail": "Fail!"
@@ -169,6 +170,29 @@
   "iconLibrary": {
     "title": "Icons",
     "pickerTitle": "Pick an icon"
+  },
+  "mirrorSectionSetup": {
+    "inputLabel": "Enable section mirroring",
+    "addButton": "...or add a mirrored section",
+    "tooltip": "This section is mirrored from the \"%{pageTitle}\".<br/>Changes made here will reflect across all pages using this section",
+    "title": "Setup mirror section",
+    "errorMessage": "Oops! You can’t mirror this section. It’s either already mirrored on this page, or it comes from the same page you're editing.",
+    "confirmButton": "Setup",
+    "cancelButton": "Cancel",
+    "page": {
+      "name": "Page",
+      "input": {
+        "label": "Page",
+        "placeholder": "Select a page",
+        "searchPlaceholder": "Search...",
+        "emptyLabel": "No pages found"
+      },
+      "sectionInput": {
+        "label": "Section",
+        "placeholder": "Select a section",
+        "emptyLabel": "No section selected"
+      }
+    }
   },
   "linkInput": {
     "placeholder": "Click here to select a link",
