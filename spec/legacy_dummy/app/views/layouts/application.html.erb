@@ -1,11 +1,17 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= content_for?(:page_title) ? yield(:page_title) : 'Dummy' %></title>
+    <title><%= content_for(:title) || "Dummy" %></title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
   </head>
   <body>
-    <%= yield %>
+    <%= render_maglev_group :header %>
+    
+    <main>
+      <%= yield %>
+    </main>
+
+    <%= render_maglev_group :footer %>
   </body>
 </html>

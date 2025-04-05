@@ -62,3 +62,7 @@ end
 #  updated_at                    :datetime         not null
 #  layout_id                     :string
 #
+# Indexes
+#
+#  index_maglev_pages_on_layout_id  (layout_id)
+#
