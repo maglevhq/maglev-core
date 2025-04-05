@@ -22,11 +22,16 @@ end
 
 # == Schema Information
 #
-# Table name: maglev_section_content_stores
+# Table name: maglev_sections_content_stores
 #
 #  id                    :bigint           not null, primary key
 #  handle                :string           not null
+#  lock_version          :integer
 #  sections_translations :jsonb
 #  created_at            :datetime         not null
 #  updated_at            :datetime         not null
+#
+# Indexes
+#
+#  index_maglev_sections_content_stores_on_handle  (handle)
 #

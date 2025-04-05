@@ -40,6 +40,7 @@ gem 'base64'
 gem 'mutex_m'
 gem 'drb'
 gem 'bigdecimal'
+gem 'benchmark'
 
 group :development, :test do
   # Use SCSS for stylesheets
