@@ -1,4 +1,4 @@
-class CreateMaglevSectionsContentStores < ActiveRecord::Migration[8.0]
+class CreateMaglevSectionsContentStores < ActiveRecord::Migration[6.0]
   def change
     create_table :maglev_sections_content_stores do |t|
       t.string :handle, null: false, index: true

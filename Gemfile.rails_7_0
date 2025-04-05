@@ -45,6 +45,7 @@ gem 'bigdecimal'
 gem 'mutex_m'
 gem 'drb'
 gem 'fiddle'
+gem 'benchmark'
 
 group :development, :test do
   # Use SCSS for stylesheets

@@ -17,10 +17,20 @@
   <meta name="hello" content="<%= I18n.t('hello') %>" />
   <%= render_maglev_alternate_links %>
   <%= maglev_live_preview_client_javascript_tag %>
+
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
-  <main data-maglev-dropzone>
-    <%= render_maglev_sections %>
+  <header data-maglev-header-dropzone="" class="bg-red-100 min-h-[10rem]">
+    <%= render_maglev_group :header %>
+  </header>
+
+  <main data-maglev-main-dropzone="" class="bg-blue-100 min-h-[10rem]">
+    <%= render_maglev_group :main %>
   </main>
+
+  <footer data-maglev-footer-dropzone="" class="bg-green-100 min-h-[10rem]">
+    <%= render_maglev_group :footer %>
+  </footer>
 </body>
 </html>
