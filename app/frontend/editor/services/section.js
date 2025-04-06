@@ -1,6 +1,6 @@
 import { isBlank, uuid8, camelize } from '@/misc/utils'
 import { normalize as coreNormalize } from 'normalizr'
-import { SECTION_SCHEMA } from './page'
+import { SECTION_SCHEMA } from './sections-content'
 
 const NUMBER_OF_DEFAULT_BLOCKS = 3
 
@@ -13,11 +13,6 @@ export const calculateMovingIndices = (sectionIds, sectionId, direction) => {
   if (toIndex < 0 || toIndex > sectionIds.length - 1) return false
 
   return { fromIndex, toIndex }
-}
-
-export const canBeAddedToPage = (newSectionDefinition, sectionTypes) => {
-  if (!newSectionDefinition.singleton) return true
-  return !sectionTypes.some((type) => newSectionDefinition.id === type)
 }
 
 export const canAddMirroredSection = ({ numberOfPages, page, sections, mirrorOf }) => {
@@ -41,19 +36,9 @@ export const normalize = (section) => {
 
 export const build = (definition, site) => {
   const type = definition.id
-  const siteSection = site.sections.find(
-    (siteSection) => siteSection.type === type,
-  )
-  let settings, blocks
-
-  if (definition.siteScoped && !isBlank(siteSection)) {
-    settings = [].concat(siteSection.settings || [])
-    blocks = [].concat(siteSection.blocks || [])
-  } else {
-    settings = buildSettings(definition, definition.sample?.settings)
-    blocks = buildBlocks(definition)
-  }
-
+  const settings = buildSettings(definition, definition.sample?.settings)
+  const blocks = buildBlocks(definition)
+  
   return { id: uuid8(), type, settings, blocks }
 }
 

@@ -515,4 +515,24 @@ export const theme = {
     'icon-shop',
     'icon-workshop',
   ],
+  layouts: [
+    {
+      id: 'default',
+      label: 'Default',
+      groups: [
+        {
+          id: 'header',
+          label: 'Header'
+        },
+        {
+          id: 'main',
+          label: 'Main'
+        },
+        {
+          id: 'footer',
+          label: 'Footer'
+        }
+      ]
+    }
+  ]
 }

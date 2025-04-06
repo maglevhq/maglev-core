@@ -31,17 +31,7 @@ export default (services) => ({
     state.theme = theme
   },
   SET_PAGE(state, page) {
-    // TODO: don't need to normalize / denormalize it :-)
-    const { entities } = services.page.normalize(page)
-    state.page = entities.page[page.id]
-
-    // console.log(entities)
-
-    // TO BE REMOVED
-    // state.layoutGroups = { ...state.layoutGroups, ...entities.layoutGroups }
-    // state.sections = { ...state.sections, ...entities.sections }
-    // state.sectionBlocks = { ...state.sectionBlocks, ...entities.blocks }
-    // state.hoveredSection = null    
+    state.page = page
   },
   SET_PAGE_SETTINGS(state, page) {
     const attributes = pick(page, ...PAGE_SETTING_ATTRIBUTES)
@@ -59,7 +49,7 @@ export default (services) => ({
     state.hoveredSection = null
   },
   SET_SECTION_CONTENT(state, content) {
-    const { entities, result } = services.sectionsContent.normalizeSection(content)
+    const { entities, result } = services.section.normalize(content)
 
     state.sections = { ...state.sections, ...entities.sections }
     state.sectionBlocks = { ...state.sectionBlocks, ...entities.blocks }
