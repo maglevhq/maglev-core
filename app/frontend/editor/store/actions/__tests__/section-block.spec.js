@@ -13,6 +13,7 @@ import {
 } from '@/spec/__mocks__/section'
 import { site } from '@/spec/__mocks__/site'
 import { theme } from '@/spec/__mocks__/theme'
+import { normalizedSectionsContent, sectionsContent, headerSections } from '@/spec/__mocks__/sections-content'
 
 const localVue = createLocalVue()
 localVue.use(Vuex)
@@ -37,16 +38,16 @@ describe('SectionBlock Actions', () => {
 
   describe('#addSectionBlock', () => {
     it('marks the current section as touched', async () => {
-      mockedServices.page.normalize = vi.fn(() => normalizedPage)
-      mockedServices.page.denormalize = vi.fn(() => page)
+      mockedServices.sectionsContent.normalize = vi.fn(() => normalizedSectionsContent)
+      mockedServices.sectionsContent.denormalize = vi.fn(() => sectionsContent)
       mockedServices.section.normalize = vi.fn(
         () => normalizedNavContentSection,
       )
       mockedServices.section.buildDefaultBlock = vi.fn(
         () => navContentSectionBlock,
       )
-      store.commit('SET_PAGE', page)
-      store.commit('SET_SECTION', pageSections[0])
+      store.commit('SET_SECTIONS_CONTENT', sectionsContent)
+      store.commit('SET_SECTION', headerSections[0])
       await store.dispatch('addSectionBlock', {
         blockType: 'navbar_item',
         parentId: null,
@@ -57,13 +58,13 @@ describe('SectionBlock Actions', () => {
 
   describe('#removeSectionBlock', () => {
     it('marks the current section as touched', async () => {
-      mockedServices.page.normalize = vi.fn(() => normalizedPage)
-      mockedServices.page.denormalize = vi.fn(() => page)
+      mockedServices.sectionsContent.normalize = vi.fn(() => normalizedSectionsContent)
+      mockedServices.sectionsContent.denormalize = vi.fn(() => sectionsContent)
       mockedServices.section.normalize = vi.fn(
         () => normalizedNavContentSection,
       )
-      store.commit('SET_PAGE', page)
-      store.commit('SET_SECTION', pageSections[0])
+      store.commit('SET_SECTIONS_CONTENT', sectionsContent)
+      store.commit('SET_SECTION', headerSections[0])
       await store.dispatch('removeSectionBlock', 'RiEo8C3f')
       expect(store.state.touchedSections).toStrictEqual(['GrYZW-VP'])
     })
@@ -71,13 +72,13 @@ describe('SectionBlock Actions', () => {
 
   describe('#sortSectionBlocks', () => {
     it('marks the current section as touched', async () => {
-      mockedServices.page.normalize = vi.fn(() => normalizedPage)
-      mockedServices.page.denormalize = vi.fn(() => page)
+      mockedServices.sectionsContent.normalize = vi.fn(() => normalizedSectionsContent)
+      mockedServices.sectionsContent.denormalize = vi.fn(() => sectionsContent)
       mockedServices.section.normalize = vi.fn(
         () => normalizedNavContentSection,
       )
-      store.commit('SET_PAGE', page)
-      store.commit('SET_SECTION', pageSections[0])
+      store.commit('SET_SECTIONS_CONTENT', sectionsContent)
+      store.commit('SET_SECTION', headerSections[0])
       await store.dispatch('sortSectionBlocks', [
         { id: 'P1fGieWs' },
         { id: 'RiEo8C3f' },
@@ -90,14 +91,14 @@ describe('SectionBlock Actions', () => {
 
   describe('#updateSectionBlockContent', () => {
     it('marks the current section as touched', async () => {
-      mockedServices.page.normalize = vi.fn(() => normalizedPage)
-      mockedServices.page.denormalize = vi.fn(() => page)
+      mockedServices.sectionsContent.normalize = vi.fn(() => normalizedSectionsContent)
+      mockedServices.sectionsContent.denormalize = vi.fn(() => sectionsContent)
       mockedServices.section.normalize = vi.fn(
         () => normalizedNavContentSection,
       )
-      store.commit('SET_PAGE', page)
-      store.commit('SET_SECTION', pageSections[0])
-      store.commit('SET_SECTION_BLOCK', pageSections[0].blocks[0])
+      store.commit('SET_SECTIONS_CONTENT', sectionsContent)
+      store.commit('SET_SECTION', headerSections[0])
+      store.commit('SET_SECTION_BLOCK', headerSections[0].blocks[0])
       await store.dispatch('updateSectionBlockContent', {})
       expect(store.state.touchedSections).toStrictEqual(['GrYZW-VP'])
     })

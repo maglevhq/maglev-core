@@ -1,10 +1,6 @@
 <template>
   <div
-    class="relative mb-6 w-full transition duration-150 ease-in-out transform hover:-translate-y-1 border border-gray-200"
-    :class="{
-      'cursor-pointer': canBeAdded,
-      'cursor-not-allowed': !canBeAdded,
-    }"
+    class="relative mb-6 w-full transition duration-150 ease-in-out transform hover:-translate-y-1 border border-gray-200 cursor-pointer"
     @click="select"
   >
     <img
@@ -52,17 +48,10 @@ export default {
     hasScreenshot() {
       return this.section.screenshotPath
     },
-    canBeAdded() {
-      return this.services.section.canBeAddedToPage(
-        this.section,
-        this.currentSectionTypes,
-      )
-    },
   },
   methods: {
     ...mapActions(['addSection']),
     select() {
-      if (!this.canBeAdded) return
       this.addSection({
         layoutGroupId: this.layoutGroupId,
         sectionDefinition: this.section,

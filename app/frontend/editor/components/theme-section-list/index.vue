@@ -53,7 +53,11 @@ export default {
   },
   computed: {
     categories() {
-      return this.services.theme.buildCategories(this.currentTheme)
+      return this.services.theme.buildCategories({
+        theme: this.currentTheme,
+        layoutId: this.currentPage.layoutId,
+        layoutGroupId: this.layoutGroupId
+      })
     },
     canAddMirroredSection() {
       return this.services.section.canAddMirroredSection({ 
