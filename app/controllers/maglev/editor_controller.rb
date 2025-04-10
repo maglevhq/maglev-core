@@ -53,6 +53,10 @@ module Maglev
       :editor
     end
 
+    def maglev_include_deleted_sections?
+      true
+    end
+
     def default_maglev_editor_path
       editor_path(
         params[:path] || 'index',

@@ -1,3 +1,5 @@
+ import { isBlank } from '@/misc/utils.js'
+
 export default (services) => ({
   // we need it to build the "Organize sections" pane
   sectionsContent: (
@@ -16,6 +18,7 @@ export default (services) => ({
         label: layoutDefinition.label,
         ...layoutGroup,
         sections: layoutGroup.sections.map(sectionContent => {
+          if (sectionContent.deleted) return
           const sectionDefinition = getSectiondefinition(sectionContent)
           return {
             id: sectionContent.id,
@@ -25,10 +28,24 @@ export default (services) => ({
             mirroredPageTitle: sectionContent.mirrorOf?.pageTitle,
             viewportFixedPosition: !!sectionDefinition.viewportFixedPosition,
           }
-        })
+        }).filter(content => content)
       }
     })
   },
+
+  categoriesByLayoutGroupId: 
+    ({ theme, page: { layoutId } }, { sectionsByLayoutGroupId }) => 
+    (layoutGroupId) => {
+      const insertedSectionTypes = sectionsByLayoutGroupId(layoutGroupId).map(section => {
+        return isBlank(section.deleted) || section.deleted === false ? section.type : undefined
+      }).filter(section => section)
+      return services.theme.buildCategories({
+        theme,
+        layoutId,
+        layoutGroupId,
+        insertedSectionTypes
+      })
+    },
 
   // return all the section types in the page
   sectionTypes: ({ sections }) => {
@@ -53,7 +70,12 @@ export default (services) => ({
       blocks: sectionBlocks,
     })
   },
-  denormalizedSection: ({ section: { id: sectionId } }, { content }) => {
+  // denormalize the current section in the state
+  denormalizedSection: ({ section: { id: sectionId } }, { denormalizeSection }) => {
+    return denormalizeSection(sectionId)
+  },
+  denormalizeSection: ({}, { content }) => 
+    (sectionId) => {
     for (const layoutGroupId in content) {
       const sections = content[layoutGroupId].sections
       const section = sections.find(s => s.id === sectionId)
@@ -82,6 +104,27 @@ export default (services) => ({
         })
       }
       return memo
+    },
+  sectionsByLayoutGroupId:
+    ({ layoutGroups, sections }) => 
+    (layoutGroupId) => {
+      for (const groupId in layoutGroups) {
+        if (layoutGroupId !== groupId) break
+        const layoutGroup = layoutGroups[groupId]
+        return layoutGroup.sections.map(sectionId => sections[sectionId])
+      }
+      return []
+    },
+  deletedSection:
+    ({}, { layoutGroupDefinition, sectionsByLayoutGroupId }) =>
+    (layoutGroupId, type) => {
+      const recoverable = layoutGroupDefinition(layoutGroupId).recoverable
+
+      // if the section isn't recoverable, no need to get further
+      if (isBlank(recoverable) || recoverable.indexOf(type) === -1) return undefined
+
+      const sections = sectionsByLayoutGroupId(layoutGroupId)
+      return sections.find(section => section.type === type && section.deleted)
     },
   sectionDefinition:
     ({ theme }) =>
@@ -116,7 +159,6 @@ export default (services) => ({
       return services.section.getBlockLabel(sectionBlock, definition, index)
     },
   sectionBlockIndex: ({ section, sectionBlock }) => {
-    // console.log(section.blocks, sectionBlock)
     return sectionBlock ? section.blocks.indexOf(sectionBlock.id) + 1 : null
   },
   sectionBlockContent: ({ sectionBlock }) => {
@@ -127,4 +169,10 @@ export default (services) => ({
     (advanced) => {
       return services.section.getSettings(sectionBlockDefinition, advanced)
     },
+  canAddSection: 
+    ({ theme, page: { layoutId } }, { categoriesByLayoutGroupId }) => 
+    (layoutGroupId) => {
+      const categories = categoriesByLayoutGroupId(layoutGroupId)
+      return categories.some(({ children }) => children.length > 0)
+    }
 })

@@ -38,6 +38,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import ListItem from './list-item.vue'
 import MirrorSectionButton from './mirror-button.vue'
 
@@ -52,12 +53,9 @@ export default {
     return { activeCategory: null }
   },
   computed: {
+    ...mapGetters(['categoriesByLayoutGroupId']),
     categories() {
-      return this.services.theme.buildCategories({
-        theme: this.currentTheme,
-        layoutId: this.currentPage.layoutId,
-        layoutGroupId: this.layoutGroupId
-      })
+      return this.categoriesByLayoutGroupId(this.layoutGroupId)
     },
     canAddMirroredSection() {
       return this.services.section.canAddMirroredSection({ 

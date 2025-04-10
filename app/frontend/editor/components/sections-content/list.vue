@@ -19,7 +19,7 @@
       </transition-group>
     </draggable>
 
-    <p class="flex justify-center">
+    <p class="flex justify-center" v-if="canAdd">
       <router-link
         :to="{ name: 'addSection', params: { layoutGroupId } }"
         class="flex items-center space-x-1 transition-colors duration-200 text-gray-500 hover:text-editor-primary">
@@ -44,6 +44,7 @@ export default {
     layoutGroup: { type: Object, required: true },
   },
   computed: {
+    ...mapGetters(['canAddSection']),
     list() {
       return this.layoutGroup.sections
     },
@@ -56,11 +57,15 @@ export default {
     dragOptions() {
       return {
         animation: 0,
-        group: 'description',
+        group: `sections-${this.layoutGroupId}`,
         disabled: false,
         ghostClass: 'ghost',
       }
     },
+    canAdd()  {
+      return this.canAddSection(this.layoutGroupId)
+      // return false
+    }
   },
   methods: {
     ...mapActions(['moveSection']),

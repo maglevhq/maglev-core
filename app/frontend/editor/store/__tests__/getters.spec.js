@@ -112,4 +112,42 @@ describe('Getters', () => {
       ])
     })
   })
+
+  describe('#canAddSection', () => {
+    beforeEach(() => {
+      mockedServices.sectionsContent.normalize = vi.fn(() => normalizedSectionsContent)
+      store.commit('SET_PAGE', page)
+      store.commit('SET_SECTIONS_CONTENT', sectionsContent)
+    })
+    describe('the theme has many categories but without any sections', () => {
+      it('returns false', () => {
+        mockedServices.theme.buildCategories = vi.fn(() => ([
+          {
+            label: 'Navbars',
+            children: []
+          },
+          {
+            label: 'Features',
+            children: []
+          }
+        ]))
+        expect(store.getters.canAddSection('header')).toStrictEqual(false)
+      })
+    })
+    describe('the theme has many categories with sections', () => {
+      it('returns true', () => {
+        mockedServices.theme.buildCategories = vi.fn(() => ([
+          {
+            label: 'Navbars',
+            children: [{ id: 'navbar_01' }, { id: 'navbar_02' }]
+          },
+          {
+            label: 'Features',
+            children: [{ id: 'feature_01' }, { id: 'feature_02' }, { id: 'feature_03' }]
+          }
+        ]))
+        expect(store.getters.canAddSection('header')).toStrictEqual(true)
+      })
+    })
+  })
 })

@@ -522,7 +522,8 @@ export const theme = {
       groups: [
         {
           id: 'header',
-          label: 'Header'
+          label: 'Header',
+          recoverable: ['navbar_01']
         },
         {
           id: 'main',

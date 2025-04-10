@@ -3,7 +3,7 @@
 # rubocop:disable Style/ClassAndModuleChildren
 class Maglev::Theme::LayoutGroup < Maglev::Theme::BaseProperty
   ## attributes ##
-  attr_accessor :store, :accept
+  attr_accessor :store, :accept, :recoverable
 
   validates :id, :label, 'maglev/presence': true
 
@@ -25,9 +25,10 @@ class Maglev::Theme::LayoutGroup < Maglev::Theme::BaseProperty
   ## class methods ##
 
   def self.build(hash)
-    attributes = prepare_attributes(hash).slice('id', 'label', 'store', 'accept')
+    attributes = prepare_attributes(hash).slice('id', 'label', 'store', 'accept', 'recoverable')
 
-    attributes['accept'] ||= []
+    attributes['accept'] ||= ['*']
+    attributes['recoverable'] ||= []
     attributes['store'] = attributes['id'] if attributes['store'] != false && attributes['store'].blank?
 
     new(attributes)

@@ -13,22 +13,31 @@ export default (services) => ({
     commit('SET_HOVERED_SECTION', null)
   },
   addSection(
-    { commit, getters, state: { site } },
+    { commit, getters, state: { site, layoutGroups, sections } },
     { layoutGroupId, sectionDefinition, insertAt },
   ) {
-    if (sectionDefinition.insertAt) insertAt = sectionDefinition.insertAt
-    const section = services.section.build(sectionDefinition, site)
+    let section = undefined
+    const deletedSection = getters.deletedSection(layoutGroupId, sectionDefinition.id)
     
-    commit('ADD_SECTION', { layoutGroupId, section, insertAt })
+    if (deletedSection) {
+      commit('RESTORE_SECTION', deletedSection.id)
+      section = getters.denormalizeSection(deletedSection.id)
+    } else {
+      if (sectionDefinition.insertAt) insertAt = sectionDefinition.insertAt
+      section = services.section.build(sectionDefinition, site)
+      commit('ADD_SECTION', { layoutGroupId, section, insertAt })
+    }
+
     commit('TOUCH_SECTION', section.id)
 
     services.livePreview.addSection(layoutGroupId, getters.content, section, insertAt)
 
     return section
   },
-  removeSection({ commit, getters }, sectionId) {
+  removeSection({ commit, getters, state }, sectionId) {
     const layoutGroupId = getters.sectionLayoutGroupIdMap[sectionId]
-    commit('REMOVE_SECTION', { layoutGroupId, sectionId })
+    const recoverable = getters.layoutGroupDefinition(layoutGroupId).recoverable ?? []
+    commit('REMOVE_SECTION', { layoutGroupId, sectionId, recoverable })
     services.livePreview.removeSection(layoutGroupId, sectionId)
   },
   updateSectionContent({ commit, getters, state: { section } }, change) {
