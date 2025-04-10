@@ -14,13 +14,14 @@ module Maglev
     argument :page
     argument :sections_content, default: nil
     argument :locale, default: nil
+    argument :include_deleted, default: false
 
     def call
       layout.groups.map do |group|
         sections, lock_version = fetch_sections(group)
         {
           id: group.id,
-          sections: sections,
+          sections: filter_sections(sections),
           lock_version: lock_version
         }
       end
@@ -35,6 +36,12 @@ module Maglev
     def layout
       theme.find_layout(page.layout_id).tap do |layout|
         raise Maglev::Errors::MissingLayout, "The page #{page.id} misses the layout_id property" if layout.nil?
+      end
+    end
+
+    def filter_sections(sections)
+      sections.select do |section| 
+        include_deleted || section['deleted'].nil? || !section['deleted']
       end
     end
 

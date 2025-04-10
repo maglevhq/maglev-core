@@ -1,5 +1,5 @@
 import { isBlank, uuid8, camelize } from '@/misc/utils'
-import { normalize as coreNormalize } from 'normalizr'
+import { normalize as coreNormalize, denormalize as coreDenormalize, } from 'normalizr'
 import { SECTION_SCHEMA } from './sections-content'
 
 const NUMBER_OF_DEFAULT_BLOCKS = 3
@@ -32,6 +32,10 @@ export const canAddMirroredSection = ({ numberOfPages, page, sections, mirrorOf 
 
 export const normalize = (section) => {
   return coreNormalize(section, SECTION_SCHEMA)
+}
+
+export const denormalize = (section, entities) => {
+  return coreDenormalize(content, SECTION_SCHEMA, entities)
 }
 
 export const build = (definition, site) => {

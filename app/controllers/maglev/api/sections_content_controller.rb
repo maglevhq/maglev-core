@@ -8,7 +8,8 @@ module Maglev
       def show
         @sections_content = maglev_services.get_page_sections.call(
           page: @page,
-          locale: content_locale
+          locale: content_locale,
+          include_deleted: true
         )
       end
 

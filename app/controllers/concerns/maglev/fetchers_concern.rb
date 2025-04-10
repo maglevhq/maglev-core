@@ -39,7 +39,8 @@ module Maglev
       @fetch_maglev_page_sections ||= maglev_services.get_page_sections.call(
         page: fetch_maglev_page,
         sections_content: sections_content,
-        locale: content_locale
+        locale: content_locale,
+        include_deleted: maglev_include_deleted_sections?
       )
     end
 
@@ -119,6 +120,10 @@ module Maglev
         site: maglev_site,
         theme: maglev_theme
       )
+    end
+
+    def maglev_include_deleted_sections?
+      false
     end
   end
 end

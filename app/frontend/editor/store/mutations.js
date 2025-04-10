@@ -41,7 +41,7 @@ export default (services) => ({
   // === SECTIONS CONTENT ===
   SET_SECTIONS_CONTENT(state, content) {
     const { entities, result } = services.sectionsContent.normalize(content)
-
+    
     state.sectionsContent = [...result]
     state.layoutGroups = { ...state.layoutGroups, ...entities.layoutGroups }
     state.sections = { ...state.sections, ...entities.sections }
@@ -114,6 +114,9 @@ export default (services) => ({
     state.sections = { ...state.sections, [section.id]: sections[section.id] }
     state.sectionBlocks = { ...state.sectionBlocks, ...blocks } // hmmm???
     const layoutGroup = { ...state.layoutGroups[layoutGroupId] }
+
+    // use a new mem reference for the list of sections
+    layoutGroup.sections = [...layoutGroup.sections]
     
     switch (insertAt) {
       case 'top':
@@ -135,9 +138,20 @@ export default (services) => ({
 
     state.layoutGroups[layoutGroupId] = layoutGroup
   },
-  REMOVE_SECTION(state, { layoutGroupId, sectionId }) {
-    const sections = state.layoutGroups[layoutGroupId].sections
-    sections.splice(sections.indexOf(sectionId), 1)
+  RESTORE_SECTION(state, sectionId) {
+    const section = state.sections[sectionId]
+    state.sections[sectionId] = { ...section, deleted: false }
+  },
+  REMOVE_SECTION(state, { layoutGroupId, sectionId, recoverable }) {
+    const section = state.sections[sectionId]
+    
+    if (recoverable.indexOf(section.type) !== -1) {
+      // soft delete the section
+      state.sections[sectionId] = { ...section, deleted: true }
+    } else {
+      const sections = state.layoutGroups[layoutGroupId].sections
+      sections.splice(sections.indexOf(sectionId), 1)
+    }
   },
   MOVE_HOVERED_SECTION(state, { layoutGroupId, fromIndex, toIndex }) {
     const layoutGroup = state.layoutGroups[layoutGroupId]

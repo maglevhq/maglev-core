@@ -2,6 +2,8 @@ export const headerSections = [
   {
     id: 'GrYZW-VP',
     type: 'navbar_01',
+    deleted: false,
+    foobar: '42',
     blocks: [
       {
         id: 'RiEo8C3f',
@@ -74,7 +76,7 @@ export const headerSections = [
           byteSize: 35070,
         },
       },
-    ],
+    ]
   }
 ]
 
