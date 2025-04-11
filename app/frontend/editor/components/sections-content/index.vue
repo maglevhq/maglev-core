@@ -4,7 +4,7 @@
       v-for="layoutGroup in sectionsContent"
       :key="['layout-group', layoutGroup.id].join('-')"
       :layout-group="layoutGroup"
-      class="py-2"
+      class="pt-2 pb-3.5 first:pt-0"
     />
   </div>
 </template>

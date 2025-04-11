@@ -100,7 +100,10 @@
     },
     "listPane": {
       "title": "Organiser les sections",
-      "empty": "Vous n'avez aucune section."
+      "empty": {
+        "title": "Aucune section ici pour l’instant.",
+        "button": "Ajoutez-en une pour commencer."
+      }
     }
   },
   "sectionPane": {
@@ -120,6 +123,10 @@
     }
   },
   "themeSectionList": {
+    "empty": {
+      "title": "Aucune section disponible pour cette zone.",
+      "message": "Cela peut être dû aux restrictions du groupe de mise en page ou à une section déjà présente et marquée comme récupérable."
+    },
     "emptyCategory": "Aucune section"
   },
   "style": {

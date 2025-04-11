@@ -99,7 +99,10 @@
     },
     "listPane": {
       "title": "Organizar seções",
-      "empty": "Não há seções."
+      "empty": {
+        "title": "Ainda não há seções aqui.",
+        "button": "Adicione uma para começar."
+      }
     }
   },
   "sectionPane": {
@@ -120,6 +123,10 @@
     }
   },
   "themeSectionList": {
+    "empty": {
+      "title": "Nenhuma seção disponível para esta área.",
+      "message": "Isso pode ocorrer devido às restrições do layout ou porque a seção já existe e é recuperável."
+    },
     "emptyCategory": "Nenhuma seção"
   },
   "style": {

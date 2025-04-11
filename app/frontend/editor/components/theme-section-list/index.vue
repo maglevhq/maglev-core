@@ -29,6 +29,11 @@
       </div>
     </uikit-accordion>
 
+    <div v-if="noCategories" class="text-center mt-8 space-y-1">
+      <h3 class="text-gray-800 font-semibold">{{ $t('themeSectionList.empty.title') }}</h3>
+      <p class="text-gray-600 text-sm">{{ $t('themeSectionList.empty.message') }}</p>
+    </div>
+
     <mirror-section-button 
       :layoutGroupId="layoutGroupId" 
       :insertAfter="insertAfter"
@@ -56,6 +61,9 @@ export default {
     ...mapGetters(['categoriesByLayoutGroupId']),
     categories() {
       return this.categoriesByLayoutGroupId(this.layoutGroupId)
+    },
+    noCategories() {
+      return this.categories.length === 0
     },
     canAddMirroredSection() {
       return this.services.section.canAddMirroredSection({ 
