@@ -35,8 +35,8 @@ RSpec.describe 'Maglev::Api::SectionsContentController', type: :request do
       expect(json_response).to match([
                                        { 'id' => 'header', 'sections' => [], 'lockVersion' => 0 },
                                        { 'id' => 'main', 'sections' => [
-                                        a_hash_including({ 'type' => 'jumbotron' }),
-                                        a_hash_including({ 'type' => 'showcase' }),
+                                         a_hash_including({ 'type' => 'jumbotron' }),
+                                         a_hash_including({ 'type' => 'showcase' })
                                        ], 'lockVersion' => 0 },
                                        { 'id' => 'footer', 'sections' => [], 'lockVersion' => 0 }
                                      ])

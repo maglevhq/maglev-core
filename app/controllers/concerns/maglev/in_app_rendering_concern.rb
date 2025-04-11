@@ -31,7 +31,7 @@ module Maglev
 
     def fetch_maglev_dummy_page(layout_id = nil)
       @fetch_maglev_page = ::Maglev::Page.new(
-        title: 'DummyPage', 
+        title: 'DummyPage',
         layout_id: layout_id || maglev_layout_id
       )
     end
