@@ -58,7 +58,7 @@ export default {
     return { activeCategory: null }
   },
   computed: {
-    ...mapGetters(['categoriesByLayoutGroupId']),
+    ...mapGetters(['categoriesByLayoutGroupId', 'layoutGroupDefinition']),
     categories() {
       return this.categoriesByLayoutGroupId(this.layoutGroupId)
     },
@@ -70,8 +70,11 @@ export default {
         numberOfPages: this.currentSite.numberOfPages 
       })
     },
+    layoutGroup() {
+      return this.layoutGroupDefinition(this.layoutGroupId)
+    },
     allowSectionMirroring() {
-      return this.currentTheme.mirrorSection && this.canAddMirroredSection
+      return this.currentTheme.mirrorSection && this.layoutGroup.mirrorSection !== false && this.canAddMirroredSection
     }
   },
 }

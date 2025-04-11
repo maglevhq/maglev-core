@@ -1,6 +1,8 @@
 id: "simple"
 name: "My simple theme"
 
+mirror_section: true
+
 section_categories:
 - name: Headers
   id: headers
@@ -26,6 +28,7 @@ layouts:
     store: "header" # the sections will be persisted in a SectionsContentStore model (handle: header)
     accept: ["navbar"]
     recoverable: ["navbar"]
+    mirror_section: false
   - label: "Main"
     id: "main" # in DB, store handle -> "main-<page_id>"
     store: "page" # by default, the Page model will be used as the storage unit
@@ -37,6 +40,7 @@ layouts:
     id: "header"
     store: "header" # the sections will be persisted in a SectionsContentStore model (handle: header)
     accept: ["navbar"]
+
   - label: "Main"
     id: "main"
     store: "page" # by default, the Page model will be used as the storage unit
