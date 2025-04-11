@@ -40,7 +40,7 @@ module Maglev
     end
 
     def filter_sections(sections)
-      sections.select do |section| 
+      sections.select do |section|
         include_deleted || section['deleted'].nil? || !section['deleted']
       end
     end
