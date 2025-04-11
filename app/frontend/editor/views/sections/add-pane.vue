@@ -5,7 +5,7 @@
     with-pre-title
   >
     <template v-slot:pre-title>
-      <p class="text-xs uppercase text-gray-900">
+      <p class="text-gray-400 text-sm">
         {{ groupLabel }}
       </p>
     </template>

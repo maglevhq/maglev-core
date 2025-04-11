@@ -98,7 +98,10 @@
     },
     "listPane": {
       "title": "Organize sections",
-      "empty": "There are no sections."
+      "empty": {
+        "title": "No sections here yet.",
+        "button": "Add one to get started."
+      }
     }
   },
   "sectionPane": {
@@ -119,6 +122,10 @@
     }
   },
   "themeSectionList": {
+    "empty": {
+      "title": "No sections available for this area.",
+      "message": "This could be due to layout restrictions or because the section already exists and is recoverable."
+    },
     "emptyCategory": "No sections"
   },
   "style": {

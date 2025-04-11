@@ -1,10 +1,26 @@
 <template>
-  <div class="space-y-4">
-    <h3 class="uppercase text-gray-800 antialiased text-xs font-semibold sticky top-0 bg-white pt-2">
-      {{ layoutGroup.label }}
-    </h3>
-    <div v-if="isListEmpty" class="text-center">
-      <span class="text-gray-800">{{ $t('sections.listPane.empty') }}</span>
+  <div class="space-y-2">
+    <div class="flex items-center justify-between min-h-8">
+      <h3 class=" text-gray-800 font-semibold sticky top-0 bg-white">
+        {{ layoutGroup.label }}
+      </h3>
+      <router-link
+        :to="{ name: 'addSection', params: { layoutGroupId } }"
+        class="flex items-center justify-center w-8 h-8 rounded-md hover:bg-gray-100"
+        v-if="displayQuickAddButton">
+        <uikit-icon name="ri-add-line" size="1.4rem" />
+      </router-link>
+    </div>
+    <div v-if="isListEmpty" class="text-center text-sm space-y-1">
+      <p class="text-gray-600 text-sm">{{ $t('sections.listPane.empty.title') }}</p>
+      <p class="flex justify-center" v-if="canAdd">
+        <router-link
+          :to="{ name: 'addSection', params: { layoutGroupId } }"
+          class="flex items-center space-x-1 text-gray-800 hover:bg-gray-100 px-3 py-2 rounded-sm">
+          <uikit-icon name="add-box-line" size="1rem" />
+          <span class="text-sm">{{ $t('sections.listPane.empty.button') }}</span>
+        </router-link>
+      </p>
     </div>
     <draggable :list="list" @end="onSortEnd" v-bind="dragOptions" v-else>
       <transition-group type="transition" name="flip-list">
@@ -18,15 +34,6 @@
         />
       </transition-group>
     </draggable>
-
-    <p class="flex justify-center" v-if="canAdd">
-      <router-link
-        :to="{ name: 'addSection', params: { layoutGroupId } }"
-        class="flex items-center space-x-1 transition-colors duration-200 text-gray-500 hover:text-editor-primary">
-        <uikit-icon name="add-box-line" size="1rem" />
-        <span>Add section</span>
-      </router-link>
-    </p>
   </div>
 </template>
 
@@ -65,6 +72,9 @@ export default {
     canAdd()  {
       return this.canAddSection(this.layoutGroupId)
       // return false
+    },
+    displayQuickAddButton() {
+      return this.canAdd && !this.isListEmpty
     }
   },
   methods: {
@@ -75,7 +85,7 @@ export default {
         from: event.oldIndex,
         to: event.newIndex,
       })
-    },
+    }
   },
 }
 </script>
