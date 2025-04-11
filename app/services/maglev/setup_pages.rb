@@ -48,7 +48,7 @@ module Maglev
       {
         title_translations: value_in_all_locales(attributes[:title]),
         path: value_in_all_locales(attributes[:path]),
-        layout_id: attributes[:layout_id]
+        layout_id: attributes[:layout_id] || theme.layouts.first&.id
       }
     end
 

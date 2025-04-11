@@ -23,7 +23,7 @@
   },
   "sidebarNav": {
     "addNewSectionTooltip": "Add a new section at the bottom of the page",
-    "managePageSectionsTooltip": "Re-order / delete the sections of the page",
+    "managePageSectionsTooltip": "Manange the sections composing the page",
     "editStyleTooltip": "Change the style of your site",
     "openImageLibraryTooltip": "Open the gallery of images",
     "leaveEditorTooltip": "Back to the main app"

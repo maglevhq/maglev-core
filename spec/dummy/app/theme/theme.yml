@@ -25,6 +25,7 @@ layouts:
     id: "header"
     store: "header" # the sections will be persisted in a SectionsContentStore model (handle: header)
     accept: ["navbar"]
+    recoverable: ["navbar"]
   - label: "Main"
     id: "main" # in DB, store handle -> "main-<page_id>"
     store: false # by default, the Page model will be used as the storage unit

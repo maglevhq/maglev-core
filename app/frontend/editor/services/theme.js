@@ -20,7 +20,7 @@ const findLayoutGroup = ({ theme, layoutId, layoutGroupId }) => {
 }
 
 const buildCategory = ({ category, sections, layoutGroup, insertedSectionTypes }) => {
-  const filterSections = sections.filter(section => filterSection({ section, categoryId: category.Id, layoutGroup, insertedSectionTypes }))
+  const filterSections = sections.filter(section => filterSection({ section, categoryId: category.id, layoutGroup, insertedSectionTypes }))
 
   if (filterSections.length === 0) return null
 
@@ -31,6 +31,8 @@ const buildCategory = ({ category, sections, layoutGroup, insertedSectionTypes }
 }
 
 const filterSection = ({ section, categoryId, layoutGroup, insertedSectionTypes }) => {
+  if (section.category !== categoryId) return false
+
   const recoverable = isBlank(layoutGroup.recoverable) ? [] : layoutGroup.recoverable
   const accepts = isBlank(layoutGroup.accept) ? ['*'] : layoutGroup.accept
   
