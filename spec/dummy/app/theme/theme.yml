@@ -28,7 +28,7 @@ layouts:
     recoverable: ["navbar"]
   - label: "Main"
     id: "main" # in DB, store handle -> "main-<page_id>"
-    store: false # by default, the Page model will be used as the storage unit
+    store: "page" # by default, the Page model will be used as the storage unit
   - "Footer"
 
 - label: "Sidebar"
@@ -39,7 +39,7 @@ layouts:
     accept: ["navbar"]
   - label: "Main"
     id: "main"
-    store: false # by default, the Page model will be used as the storage unit
+    store: "page" # by default, the Page model will be used as the storage unit
   - "Sidebar"
   - "Footer"
 
