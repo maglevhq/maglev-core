@@ -11,13 +11,13 @@ FactoryBot.define do
       Maglev::Theme::Layout.build_many(JSON.parse([
         {
           label: 'Default',
-          groups: ['header', { id: 'main', store: false }, 'footer']
+          groups: ['header', { id: 'main', store: 'page' }, 'footer']
         },
         {
           label: 'Sidebar',
           groups: [
             'header',
-            { id: 'main', store: false },
+            { id: 'main', store: 'page' },
             { label: 'Sidebar 😎', store: 'sidebar', accept: %w[sidebar_menu sidebar_ad] },
             'footer'
           ]
