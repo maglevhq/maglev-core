@@ -43,7 +43,7 @@ module Maglev
     end
 
     def persist_group_content(group, attributes)
-      store = find_store(group.guess_store_handle(page))
+      store = find_store(group, page)
       store.attributes = attributes
 
       if attributes.key?('sections_translations')
@@ -62,8 +62,9 @@ module Maglev
       end || {}).slice('sections', 'sections_translations', 'lock_version')
     end
 
-    def find_store(handle)
-      scoped_stores.find_or_create_by(handle: handle) do |store|
+    def find_store(group, page)
+      scoped_stores.find_or_create_by(handle: group.guess_store_handle(page)) do |store|
+        store.page = page if group.page_store?
         store.sections_translations = site.locale_prefixes.index_with { |_locale| [] }
       end
     end

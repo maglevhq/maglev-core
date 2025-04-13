@@ -24,6 +24,11 @@ module Maglev
     include Maglev::Page::PathConcern
     include Maglev::Page::SearchConcern
 
+    ## associations ##
+    has_many :stores, class_name: 'Maglev::SectionsContentStore',
+                      dependent: :destroy,
+                      inverse_of: :page
+
     ## translations ##
     translates :title, presence: true
     translates :seo_title, :meta_description
