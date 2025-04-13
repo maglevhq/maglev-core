@@ -68,8 +68,8 @@ module Maglev
       end
     end
 
-    def find_store(handle)
-      scoped_stores.find_by(handle: handle)
+    def find_store(group, page)
+      scoped_stores.find_by(handle: group.guess_store_handle(page))
     end
 
     def scoped_stores

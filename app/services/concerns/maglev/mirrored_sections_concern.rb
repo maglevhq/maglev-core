@@ -36,7 +36,7 @@ module Maglev
       layout_group = layout.groups.find { |group| group.id == mirror_of['layout_group_id'] }
       return unless layout_group
 
-      find_store(layout_group.guess_store_handle(other_page))
+      find_store(layout_group, other_page)
     end
 
     def find_section_from_mirrored_section(mirror_of)

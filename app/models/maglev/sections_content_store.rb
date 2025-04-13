@@ -6,6 +6,9 @@ module Maglev
     include Maglev::Translatable
     include Maglev::SectionsConcern
 
+    ## associations ##
+    belongs_to :page, class_name: 'Maglev::Page', foreign_key: 'maglev_page_id', optional: true, inverse_of: :stores
+
     ## scopes ##
     scope :by_handles, ->(handles) { where(Maglev::SectionsContentStore.arel_table[:handle].in(handles)) }
 

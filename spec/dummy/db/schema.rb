@@ -85,37 +85,25 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_07_104536) do
     t.index ["layout_id"], name: "index_maglev_pages_on_layout_id"
   end
 
-  create_table "maglev_section_repositories", force: :cascade do |t|
-    t.string "name"
-    t.jsonb "sections_translations", default: {}
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "maglev_sections_content_stores", force: :cascade do |t|
+    t.bigint "maglev_page_id"
     t.string "handle", null: false
     t.jsonb "sections_translations", default: {}
     t.integer "lock_version"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["handle"], name: "index_maglev_sections_content_stores_on_handle"
+    t.index ["maglev_page_id"], name: "index_maglev_sections_content_stores_on_maglev_page_id"
   end
 
   create_table "maglev_sites", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.jsonb "navigation", default: []
     t.jsonb "locales", default: []
     t.jsonb "sections_translations", default: {}
     t.integer "lock_version"
-    t.string "siteable_type"
-    t.bigint "siteable_id"
-    t.string "handle"
-    t.string "theme_id"
-    t.string "domain"
     t.jsonb "style", default: []
-    t.index ["siteable_type", "siteable_id"], name: "index_maglev_sites_on_siteable"
   end
 
   create_table "products", force: :cascade do |t|
@@ -129,4 +117,5 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_07_104536) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "maglev_sections_content_stores", "maglev_pages"
 end
