@@ -28,5 +28,9 @@ class Maglev::Theme::LayoutGroup < Maglev::Theme::BaseProperty
 
     new(attributes)
   end
+
+  def self.default_group
+    { id: 'main', label: 'Main' }.with_indifferent_access
+  end
 end
 # rubocop:enable Style/ClassAndModuleChildren

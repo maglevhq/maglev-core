@@ -167,6 +167,12 @@ FactoryBot.define do
         ]
       end
     end
+
+    trait :v1 do
+      layouts do
+        Maglev::Theme::Layout.build_many(nil)
+      end
+    end
   end
 end
 # rubocop:enable Layout/LineLength

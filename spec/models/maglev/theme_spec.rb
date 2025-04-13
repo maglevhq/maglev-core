@@ -45,5 +45,15 @@ describe Maglev::Theme do
     it 'returns the groups of a layout' do
       expect(subject.first.groups.map(&:id)).to eq(%w[header main footer])
     end
+
+    describe 'the theme comes from a v1 site' do
+      let(:theme) { build(:theme, :v1) }
+
+      it 'returns the groups of a layout' do
+        expect(subject.size).to eq(1)
+        expect(subject.first.groups.map(&:id)).to eq(%w[main])
+        expect(subject.first.groups.map(&:id)).to eq(%w[main])
+      end
+    end
   end
 end
