@@ -5,8 +5,8 @@
 
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
-  
-  <script>
+
+  <%= javascript_tag nonce: true do %>
     window.locale = <%= h content_locale.to_json.html_safe %>;
     window.baseUrl = <%= h site_base_editor_path.to_json.html_safe %>;
     window.leaveUrl = <%= site_leave_editor_path.to_json.html_safe %>;
@@ -18,8 +18,8 @@
     window.primaryColor = <%= editor_primary_hex_color.to_json.html_safe %>;
     window.sitePublishable = <%= editor_site_publishable.to_json %>;
     window.customTranslations = <%= h editor_custom_translations.to_json.html_safe %>
-  </script>
-  
+  <% end %>
+
   <%= vite_client_tag %>
   <%= vite_javascript_tag 'editor' %>
 
@@ -32,7 +32,7 @@
     }
   </style>
 
-  <%= render 'header' %>  
+  <%= render 'header' %>
 </head>
 <body class="h-full overflow-y-hidden font-nunito">
   <div id="maglev-app"></div>

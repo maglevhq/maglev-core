@@ -13,7 +13,13 @@
 
   <%%= maglev_live_preview_client_javascript_tag %>
 
-  <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio"></script>
+  <%%=
+    javascript_include_tag(
+      "https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio",
+      nonce: true,
+      id: "tailwind-cdn"
+    )
+  %>
 </head>
 <body class="bg-white">
   <main data-maglev-dropzone>
