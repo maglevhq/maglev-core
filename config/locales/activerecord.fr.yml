@@ -4,7 +4,7 @@ fr:
       'maglev/page': Page
 
     attributes:
-      'maglev/page': 
+      'maglev/page':
         title: Titre
         cloned_title: "%{title} COPIE"
         seo_title: Titre SEO
