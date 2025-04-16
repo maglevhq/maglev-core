@@ -23,6 +23,7 @@ store.dispatch('setTheme', window.theme)
 store.dispatch('setPage', window.page)
 store.dispatch('setLocale', window.locale)
 store.dispatch('setSectionsContent', window.sectionsContent)
+store.dispatch('setSiteScopedSections', window.siteScopedSections)
 
 if (store.state.editorSettings.sitePublishable)
   store.dispatch('pollLastPublication')

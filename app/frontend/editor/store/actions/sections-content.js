@@ -8,6 +8,9 @@ export default (services) => ({
   setSectionsContent({ commit }, content) {
     commit('SET_SECTIONS_CONTENT', content)
   },
+  setSiteScopedSections({ commit }, sections) {
+    commit('SET_SITE_SCOPED_SECTIONS', sections)
+  },
   // Persist the "content" of a page
   async persistSectionsContent({
     commit,
@@ -31,5 +34,4 @@ export default (services) => ({
         if (status === 409) commit('OPEN_ERROR_MODAL', 'staleRecord')
       })
   },
-
 })

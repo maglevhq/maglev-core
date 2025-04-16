@@ -48,6 +48,9 @@ export default (services) => ({
     state.sectionBlocks = { ...state.sectionBlocks, ...entities.blocks }
     state.hoveredSection = null
   },
+  SET_SITE_SCOPED_SECTIONS(state, sections) {
+    state.siteScopedSections = { ...sections }
+  },
   SET_SECTION_CONTENT(state, content) {
     const { entities, result } = services.section.normalize(content)
 
