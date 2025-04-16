@@ -8,6 +8,7 @@ module Maglev
     include Injectable
     include Maglev::FetchSectionsContent::TransformSectionConcern
     include Maglev::MirroredSectionsConcern
+    include Maglev::SiteScopedSectionsConcern
 
     dependency :fetch_site
     dependency :fetch_theme
@@ -40,23 +41,13 @@ module Maglev
     end
 
     def transform_sections(store)
-      # look for mirrored sections and get the fresh content
+      # look for mirrored sections / global site scoped sections and get the fresh content
       replace_content_from_mirror_sections(store)
+      replace_content_from_site_scoped_sections(store)
 
       store.sections.map do |section|
         transform_section(section.dup)
       end.compact
-    end
-
-    def replace_content_from_mirror_sections(store)
-      store.sections.each do |section|
-        next unless section.dig('mirror_of', 'enabled')
-
-        mirror_section = find_section_from_mirrored_section(section['mirror_of'])
-        next unless mirror_section
-
-        store.replace_section_content(section, mirror_section)
-      end
     end
 
     def fetch_layout(layout_id = nil)

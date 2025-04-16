@@ -4,6 +4,7 @@ module Maglev
   class PersistSectionsContent
     include Injectable
     include Maglev::MirroredSectionsConcern
+    include Maglev::SiteScopedSectionsConcern
 
     dependency :fetch_theme
 
@@ -24,6 +25,8 @@ module Maglev
       end.to_h
 
       persist_mirrored_sections(sections_content)
+
+      persist_site_scoped_sections(sections_content)
 
       content
     end

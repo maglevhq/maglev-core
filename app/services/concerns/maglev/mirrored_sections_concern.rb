@@ -28,6 +28,17 @@ module Maglev
       persist_mirror_section(mirror_section.except('mirror_of'), mirror_section['mirror_of'])
     end
 
+    def replace_content_from_mirror_sections(store)
+      store.sections.each do |section|
+        next unless section.dig('mirror_of', 'enabled')
+
+        mirror_section = find_section_from_mirrored_section(section['mirror_of'])
+        next unless mirror_section
+
+        store.replace_section_content(section, mirror_section)
+      end
+    end
+
     def find_store_from_mirrored_section(mirror_of)
       other_page = scoped_pages.find_by(id: mirror_of['page_id'])
       return unless other_page

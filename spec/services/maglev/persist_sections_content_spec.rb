@@ -174,4 +174,24 @@ describe Maglev::PersistSectionsContent, type: :service do
       end.not_to(change { logo_url })
     end
   end
+
+  context 'Given the site is a v1 site with site_scoped sections' do
+    let(:sections_content) do
+      JSON.parse([
+        { id: 'main', sections: [
+          {
+            type: 'navbar',
+            settings: [{ id: 'logo', value: 'awesome-logo.png' }],
+            blocks: [],
+            singleton: true
+          }
+        ] }
+      ].to_json)
+    end
+
+    it 'creates a new store with the site_scoped sections' do
+      subject
+      expect(section_types('_site')).to eq(%w[navbar])
+    end
+  end
 end

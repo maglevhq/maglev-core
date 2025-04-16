@@ -44,6 +44,7 @@ module Maglev
                                             depends_on: %i[fetch_theme
                                                            fetch_sections_content]
 
+    dependency :get_site_scoped_sections,   class: Maglev::GetSiteScopedSections, depends_on: :fetch_theme
     dependency :get_page_section_names,     class: Maglev::GetPageSectionNames, depends_on: :fetch_theme
     dependency :clone_page,                 class: Maglev::ClonePage, depends_on: %i[fetch_site fetch_theme]
     dependency :persist_sections_content,   class: Maglev::PersistSectionsContent, depends_on: %i[fetch_theme]
