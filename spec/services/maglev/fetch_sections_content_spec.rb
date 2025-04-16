@@ -180,7 +180,26 @@ describe Maglev::FetchSectionsContent do
                               ], 0])
       end
     end
-  end
 
+    context 'the sections include a site scoped section' do
+      let(:page) { create(:page, sections: [{ type: 'navbar', settings: [], blocks: [] }]) }
+      let!(:store) { create(:sections_content_store, :header, handle: '_site') }
+
+      it 'returns the sections' do
+        expect(subject).to match([[
+                                   {
+                                     'type' => 'navbar',
+                                     'settings' => [{ 'id' => 'logo', 'value' => 'logo.png' }],
+                                     'blocks' => [
+                                       a_hash_including('id' => 'menu-item-0'),
+                                       a_hash_including('id' => 'menu-item-1'),
+                                       a_hash_including('id' => 'menu-item-1-1'),
+                                       a_hash_including('id' => 'menu-item-1-2')
+                                     ]
+                                   }
+                                 ], 0])
+      end
+    end
+  end
   # rubocop:enable Style/StringHashKeys
 end

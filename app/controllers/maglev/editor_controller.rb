@@ -12,7 +12,7 @@ module Maglev
     before_action :ensure_path_and_content_locale, only: :show
     before_action :set_content_locale, only: :show
 
-    helper_method :maglev_home_page_id, :maglev_pages_count
+    helper_method :maglev_home_page_id, :maglev_pages_count, :maglev_site_scoped_sections
 
     def show
       fetch_maglev_page_content

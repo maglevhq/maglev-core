@@ -93,6 +93,10 @@ module Maglev
       fetch_maglev_page_sections
     end
 
+    def maglev_site_scoped_sections
+      maglev_services.get_site_scoped_sections.call
+    end
+
     def maglev_sections_path
       fetch_maglev_sections_path
     end

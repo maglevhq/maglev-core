@@ -6,6 +6,9 @@ module Maglev
     include Maglev::Translatable
     include Maglev::SectionsConcern
 
+    ## constants
+    SITE_HANDLE = '_site' # handle for the global site scoped sections
+
     ## associations ##
     belongs_to :page, class_name: 'Maglev::Page', foreign_key: 'maglev_page_id', optional: true, inverse_of: :stores
 
