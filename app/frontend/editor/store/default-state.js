@@ -15,6 +15,7 @@ export default {
   layoutGroups: {}, // each layoutGroup has a list of sections
   sections: {},
   sectionBlocks: {},
+  siteScopedSections: {}, // site-wide sections like headers/footers
   editorSettings: {},
   touchedSections: [],
   ui: {

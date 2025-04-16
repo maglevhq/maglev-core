@@ -35,13 +35,21 @@ export const normalize = (section) => {
 }
 
 export const denormalize = (section, entities) => {
-  return coreDenormalize(content, SECTION_SCHEMA, entities)
+  return coreDenormalize(section, SECTION_SCHEMA, entities)
 }
 
-export const build = (definition, site) => {
+export const build = (definition, siteScopedSections) => {
   const type = definition.id
-  const settings = buildSettings(definition, definition.sample?.settings)
-  const blocks = buildBlocks(definition)
+  const siteScopedSection = siteScopedSections[type]
+  let settings, blocks
+
+  if (definition.siteScoped && !isBlank(siteScopedSection)) {
+    settings = [].concat(siteScopedSection.settings || [])
+    blocks = [].concat(siteScopedSection.blocks || [])
+  } else {
+    settings = buildSettings(definition, definition.sample?.settings)
+    blocks = buildBlocks(definition)
+  }
   
   return { id: uuid8(), type, settings, blocks }
 }

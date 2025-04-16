@@ -74,7 +74,7 @@ module Maglev
     end
 
     def persist_layout_template(template, filename)
-      File.write(Rails.root.join("app/views/theme/layouts/#{filename}.html.erb").to_s, template)
+      File.write(Rails.root.join("app/views/theme/layouts/#{filename}").to_s, template)
     end
   end
 end

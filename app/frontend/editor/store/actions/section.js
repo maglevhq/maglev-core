@@ -13,7 +13,7 @@ export default (services) => ({
     commit('SET_HOVERED_SECTION', null)
   },
   addSection(
-    { commit, getters, state: { site, layoutGroups, sections } },
+    { commit, getters, state: { siteScopedSections } },
     { layoutGroupId, sectionDefinition, insertAt },
   ) {
     let section = undefined
@@ -24,7 +24,7 @@ export default (services) => ({
       section = getters.denormalizeSection(deletedSection.id)
     } else {
       if (sectionDefinition.insertAt) insertAt = sectionDefinition.insertAt
-      section = services.section.build(sectionDefinition, site)
+      section = services.section.build(sectionDefinition, siteScopedSections)
       commit('ADD_SECTION', { layoutGroupId, section, insertAt })
     }
 
