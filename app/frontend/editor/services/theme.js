@@ -40,6 +40,9 @@ const filterSection = ({ section, categoryId, layoutGroup, insertedSectionTypes 
   // if there is another same section type in the group.
   if (recoverable.includes(section.id) && insertedSectionTypes.includes(section.id)) return false
 
+  // reject if the section is siteScoped or is a singleton and there is already a siteScoped section of the same type
+  if ((section.siteScoped || section.singleton) && insertedSectionTypes.includes(section.id)) return false
+
   // Wildcard: accept all sections
   if (accepts.includes("*")) return true
 

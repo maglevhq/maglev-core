@@ -109,7 +109,7 @@ export default (services) => ({
     ({ layoutGroups, sections }) => 
     (layoutGroupId) => {
       for (const groupId in layoutGroups) {
-        if (layoutGroupId !== groupId) break
+        if (layoutGroupId !== groupId) continue
         const layoutGroup = layoutGroups[groupId]
         return layoutGroup.sections.map(sectionId => sections[sectionId])
       }
