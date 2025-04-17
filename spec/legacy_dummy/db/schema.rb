@@ -10,15 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[6.0].define(version: 20_250_307_104_536) do
+ActiveRecord::Schema.define(version: 20_250_307_104_536) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'plpgsql'
 
   create_table 'accounts', force: :cascade do |t|
     t.string 'email'
     t.string 'password_digest'
-    t.datetime 'created_at', null: false
-    t.datetime 'updated_at', null: false
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
   end
 
   create_table 'active_storage_attachments', force: :cascade do |t|
@@ -26,7 +26,7 @@ ActiveRecord::Schema[6.0].define(version: 20_250_307_104_536) do
     t.string 'record_type', null: false
     t.bigint 'record_id', null: false
     t.bigint 'blob_id', null: false
-    t.datetime 'created_at', precision: nil, null: false
+    t.datetime 'created_at', null: false
     t.index ['blob_id'], name: 'index_active_storage_attachments_on_blob_id'
     t.index %w[record_type record_id name blob_id], name: 'index_active_storage_attachments_uniqueness',
                                                     unique: true
@@ -39,7 +39,7 @@ ActiveRecord::Schema[6.0].define(version: 20_250_307_104_536) do
     t.text 'metadata'
     t.bigint 'byte_size', null: false
     t.string 'checksum', null: false
-    t.datetime 'created_at', precision: nil, null: false
+    t.datetime 'created_at', null: false
     t.string 'service_name', null: false
     t.index ['key'], name: 'index_active_storage_blobs_on_key', unique: true
   end
@@ -56,8 +56,8 @@ ActiveRecord::Schema[6.0].define(version: 20_250_307_104_536) do
     t.integer 'width'
     t.integer 'height'
     t.integer 'byte_size'
-    t.datetime 'created_at', null: false
-    t.datetime 'updated_at', null: false
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
   end
 
   create_table 'maglev_page_paths', force: :cascade do |t|
@@ -72,8 +72,8 @@ ActiveRecord::Schema[6.0].define(version: 20_250_307_104_536) do
 
   create_table 'maglev_pages', force: :cascade do |t|
     t.boolean 'visible', default: true
-    t.datetime 'created_at', null: false
-    t.datetime 'updated_at', null: false
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
     t.jsonb 'title_translations', default: {}
     t.jsonb 'seo_title_translations', default: {}
     t.jsonb 'meta_description_translations', default: {}
@@ -91,8 +91,8 @@ ActiveRecord::Schema[6.0].define(version: 20_250_307_104_536) do
     t.string 'handle', null: false
     t.jsonb 'sections_translations', default: {}
     t.integer 'lock_version'
-    t.datetime 'created_at', null: false
-    t.datetime 'updated_at', null: false
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
     t.index ['handle'], name: 'index_maglev_sections_content_stores_on_handle'
     t.index ['maglev_page_id'], name: 'index_maglev_sections_content_stores_on_maglev_page_id'
   end
@@ -104,13 +104,7 @@ ActiveRecord::Schema[6.0].define(version: 20_250_307_104_536) do
     t.jsonb 'locales', default: []
     t.jsonb 'sections_translations', default: {}
     t.integer 'lock_version'
-    t.string 'siteable_type'
-    t.bigint 'siteable_id'
-    t.string 'handle'
-    t.string 'theme_id'
-    t.string 'domain'
     t.jsonb 'style', default: []
-    t.index %w[siteable_type siteable_id], name: 'index_maglev_sites_on_siteable'
   end
 
   create_table 'products', force: :cascade do |t|
@@ -118,8 +112,8 @@ ActiveRecord::Schema[6.0].define(version: 20_250_307_104_536) do
     t.string 'sku'
     t.float 'price'
     t.boolean 'sold_out', default: false
-    t.datetime 'created_at', null: false
-    t.datetime 'updated_at', null: false
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
   end
 
   add_foreign_key 'active_storage_attachments', 'active_storage_blobs', column: 'blob_id'
