@@ -36,8 +36,14 @@ end
 #  sections_translations :jsonb
 #  created_at            :datetime         not null
 #  updated_at            :datetime         not null
+#  maglev_page_id        :bigint
 #
 # Indexes
 #
-#  index_maglev_sections_content_stores_on_handle  (handle)
+#  index_maglev_sections_content_stores_on_handle          (handle)
+#  index_maglev_sections_content_stores_on_maglev_page_id  (maglev_page_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (maglev_page_id => maglev_pages.id)
 #
