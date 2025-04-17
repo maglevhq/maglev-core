@@ -100,10 +100,17 @@ ActiveRecord::Schema[8.0].define(version: 2025_03_07_104536) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.jsonb "navigation", default: []
     t.jsonb "locales", default: []
     t.jsonb "sections_translations", default: {}
     t.integer "lock_version"
+    t.string "siteable_type"
+    t.bigint "siteable_id"
+    t.string "handle"
+    t.string "theme_id"
+    t.string "domain"
     t.jsonb "style", default: []
+    t.index ["siteable_type", "siteable_id"], name: "index_maglev_sites_on_siteable"
   end
 
   create_table "products", force: :cascade do |t|
