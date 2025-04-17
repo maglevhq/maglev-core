@@ -9,6 +9,7 @@ module Maglev
 
     ## associations ##
     has_many :stores, class_name: 'Maglev::SectionsContentStore',
+                      foreign_key: 'maglev_page_id', # required by Rails 7.0
                       dependent: :destroy,
                       inverse_of: :page
 
