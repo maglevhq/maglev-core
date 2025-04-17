@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -12,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_250_307_104_536) do
+ActiveRecord::Schema[6.0].define(version: 20_250_307_104_536) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'plpgsql'
 
@@ -89,12 +87,14 @@ ActiveRecord::Schema.define(version: 20_250_307_104_536) do
   end
 
   create_table 'maglev_sections_content_stores', force: :cascade do |t|
+    t.bigint 'maglev_page_id'
     t.string 'handle', null: false
     t.jsonb 'sections_translations', default: {}
     t.integer 'lock_version'
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
     t.index ['handle'], name: 'index_maglev_sections_content_stores_on_handle'
+    t.index ['maglev_page_id'], name: 'index_maglev_sections_content_stores_on_maglev_page_id'
   end
 
   create_table 'maglev_sites', force: :cascade do |t|
@@ -104,7 +104,13 @@ ActiveRecord::Schema.define(version: 20_250_307_104_536) do
     t.jsonb 'locales', default: []
     t.jsonb 'sections_translations', default: {}
     t.integer 'lock_version'
+    t.string 'siteable_type'
+    t.bigint 'siteable_id'
+    t.string 'handle'
+    t.string 'theme_id'
+    t.string 'domain'
     t.jsonb 'style', default: []
+    t.index %w[siteable_type siteable_id], name: 'index_maglev_sites_on_siteable'
   end
 
   create_table 'products', force: :cascade do |t|
@@ -118,4 +124,5 @@ ActiveRecord::Schema.define(version: 20_250_307_104_536) do
 
   add_foreign_key 'active_storage_attachments', 'active_storage_blobs', column: 'blob_id'
   add_foreign_key 'active_storage_variant_records', 'active_storage_blobs', column: 'blob_id'
+  add_foreign_key 'maglev_sections_content_stores', 'maglev_pages'
 end
