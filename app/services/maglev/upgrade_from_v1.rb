@@ -52,7 +52,7 @@ module Maglev
       template = load_old_layout_template
                  .gsub('data-maglev-dropzone',
                        "data-maglev-#{default_layout_group.id}-dropzone")
-                 .gsub('render_maglev_sections', "render_maglev_group :#{default_layout_group.id} %>")
+                 .gsub('render_maglev_sections', "render_maglev_group :#{default_layout_group.id}")
 
       persist_layout_template(template, "#{default_layout.id}.html.erb")
     end
