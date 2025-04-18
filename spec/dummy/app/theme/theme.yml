@@ -47,6 +47,8 @@ layouts:
   - "Sidebar"
   - "Footer"
 
+# [LAYOUTS] DO NOT REMOVE THIS LINE
+
 pages:
 - title: "Home page"
   path:  "index"

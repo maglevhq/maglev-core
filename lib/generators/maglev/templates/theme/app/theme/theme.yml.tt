@@ -33,6 +33,8 @@ layouts:
     id: "footer"
     accept: ["footers/*"]  # Only allow sections from the footers group
 
+# [LAYOUTS] DO NOT REMOVE THIS LINE
+
 pages:
 - title: "Home page"
   path: "/index"
