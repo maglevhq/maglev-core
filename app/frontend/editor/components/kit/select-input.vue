@@ -57,6 +57,7 @@
             v-model="q"
             :placeholder="searchPlaceholder"
             ref="input"
+            autocomplete="off"
           />
         </div>
 

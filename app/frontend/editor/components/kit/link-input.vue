@@ -110,7 +110,7 @@ export default {
       this.openModal({
         title: this.$t('linkPicker.title'),
         component: LinkPicker,
-        props: { currentLink: this.value },
+        props: { currentLink: this.value, modalClass: 'h-144 w-120' },
         listeners: {
           select: (link) => this.setLink(link),
         },

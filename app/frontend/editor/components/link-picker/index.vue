@@ -1,5 +1,5 @@
 <template>
-  <div class="mt-4">
+  <div class="flex flex-col h-full">
     <uikit-tabs
       :tabs="tabs"
       :firstIndex="firstTabIndex"

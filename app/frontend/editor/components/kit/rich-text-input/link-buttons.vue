@@ -77,7 +77,7 @@ export default {
       this.openModal({
         title: this.$t('linkPicker.insertTitle'),
         component: LinkPicker,
-        props: { currentLink: this.sanitizeLink(), mode: 'insert' },
+        props: { currentLink: this.sanitizeLink(), mode: 'insert', modalClass: 'h-144 w-120' },
         listeners: {
           select: (link) => this.setLink(link),
         },
