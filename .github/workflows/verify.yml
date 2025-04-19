@@ -59,14 +59,39 @@ jobs:
           MAGLEV_APP_DATABASE_PASSWORD: "password"
         run: |
           bin/rails db:setup
-        
+
       - name: Run Rails tests
         env:
           BUNDLE_GEMFILE: ${{ matrix.gemfile }}
           MAGLEV_APP_DATABASE_USERNAME: "maglev"
           MAGLEV_APP_DATABASE_PASSWORD: "password"
         run: bundle exec rspec
-        
+
+      - name: Setup test database (SQLite)
+        env:
+          BUNDLE_GEMFILE: ${{ matrix.gemfile }}
+          RAILS_ENV: test
+          USE_SQLITE: 1
+        run: |
+          cp spec/dummy/db/schema.rb spec/dummy/db/schema.pg.rb
+          cp spec/dummy/db/schema.sqlite.rb spec/dummy/db/schema.rb
+          cp spec/legacy_dummy/db/schema.rb spec/legacy_dummy/db/schema.pg.rb
+          cp spec/legacy_dummy/db/schema.sqlite.rb spec/legacy_dummy/db/schema.rb
+          bin/rails db:setup
+
+      - name: Run Rails tests (SQLite)
+        env:
+          BUNDLE_GEMFILE: ${{ matrix.gemfile }}
+          USE_SQLITE: true
+        run: bundle exec rspec
+
+      - name: Cleanup DB schema files
+        run: |
+          cp spec/dummy/db/schema.pg.rb spec/dummy/db/schema.rb
+          cp spec/legacy_dummy/db/schema.pg.rb spec/legacy_dummy/db/schema.rb
+          rm -f spec/dummy/db/maglev_engine_test.sqlite3
+          rm -f spec/legacy_dummy/db/maglev_engine_test.sqlite3
+
       - name: Run Javascript tests
         run: yarn test
 
