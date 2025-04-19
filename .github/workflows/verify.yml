@@ -89,6 +89,10 @@ jobs:
         run: |
           cp spec/dummy/db/schema.pg.rb spec/dummy/db/schema.rb
           cp spec/legacy_dummy/db/schema.pg.rb spec/legacy_dummy/db/schema.rb
+          rm spec/dummy/db/maglev_engine_development.sqlite3
+          rm spec/dummy/db/maglev_engine_test.sqlite3
+          rm spec/legacy_dummy/db/maglev_engine_development.sqlite3
+          rm spec/legacy_dummy/db/maglev_engine_test.sqlite3
 
       - name: Run Javascript tests
         run: yarn test
