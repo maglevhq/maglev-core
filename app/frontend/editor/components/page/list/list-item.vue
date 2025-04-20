@@ -16,7 +16,7 @@
       />
     </router-link>
     <div class="ml-auto pr-2 relative">
-      <uikit-dropdown v-on="$listeners">
+      <uikit-dropdown v-on="$listeners" popoverClass="tooltip-menu">
         <template v-slot:button>
           <button
             class="px-1 py-1 rounded-full bg-editor-primary bg-opacity-0 hover:text-gray-900 text-gray-600 focus:outline-none hover:bg-opacity-10 transition-colors duration-200"

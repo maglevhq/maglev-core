@@ -8,6 +8,7 @@
       :emptyLabel="$t(`linkPicker.page.input.emptyLabel`)"
       :fetchList="(q) => services.page.findAll({ q })"
       v-model="page"
+      listClass="overflow-y-scroll h-48"
     >
       <template v-slot:value>
         {{ page.title }}
@@ -33,7 +34,7 @@
         :fetchList="() => fetchPageSectionNames()"
         :clearEnabled="true"
         v-model="pageSection"
-        listClass="overflow-y-scroll h-56"
+        listClass="overflow-y-scroll h-48"
       >
         <template v-slot:value>
           {{ pageSection.name }}

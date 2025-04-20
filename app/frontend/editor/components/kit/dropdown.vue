@@ -6,6 +6,7 @@
     :placement="placement"
     class="flex"
     v-on:auto-hide="close"
+    :popoverClass="popoverClass"
   >
     <div
       class="z-10 relative flex items-center focus:outline-none select-none cursor-pointer w-full"
@@ -32,6 +33,10 @@ export default {
       validator: (value) =>
         ['top', 'bottom', 'right', 'left'].indexOf(value) !== -1,
     },
+    popoverClass: {
+      type: String,
+      default: ''
+    }
   },
   data() {
     return {

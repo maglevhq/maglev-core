@@ -28,9 +28,8 @@ export default {
   },
   computed: {
     icon() {
-      return defineAsyncComponent(() =>
-        this.icons[`../../assets/${this.library}/${this.name}.svg`](),
-      )
+      const path = `../../assets/${this.library}/${this.name}.svg`
+      return defineAsyncComponent(() => this.icons[path]())      
     },
   },
 }

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <uikit-dropdown placement="bottom" ref="dropdown" class="h-full flex">
+    <uikit-dropdown placement="bottom" ref="dropdown" class="h-full flex" popoverClass="tooltip-menu">
       <template v-slot:button>
         <button
           class="h-full w-full px-6 hover:bg-editor-primary hover:bg-opacity-5 transition-colors duration-200 flex items-center focus:outline-none focus:none"

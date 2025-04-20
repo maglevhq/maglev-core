@@ -1,5 +1,6 @@
 .v-popover {
   & > .trigger {
+    @apply w-full;
     display: flex !important;
   }
 }
@@ -24,6 +25,11 @@
     .tooltip-inner {
       @apply shadow-lg rounded py-2 px-3 text-sm bg-white;
     }
+
+    &.tooltip-menu .tooltip-inner {
+      @apply p-1;
+    }
+
     .tooltip-arrow {
       display: none;
       width: 0;
