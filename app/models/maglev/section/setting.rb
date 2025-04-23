@@ -12,7 +12,7 @@ class Maglev::Section::Setting
   attr_accessor :id, :label, :type, :default, :options
 
   ## validations ##
-  validates :id, :label, :type, :default, 'maglev/presence': true
+  validates :id, :label, :type, 'maglev/presence': true
   validates :type, inclusion: { in: REGISTERED_TYPES }
 
   ## methods ##
