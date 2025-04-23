@@ -23,6 +23,10 @@ module Maglev
         open_new_window? ? '_blank' : nil
       end
 
+      def active?
+        link[:link_type] == 'page' && link[:link_id] == page.id
+      end
+
       def to_s
         href
       end

@@ -5,6 +5,11 @@ require 'rails_helper'
 describe Maglev::Content::Link do
   let(:section_component) { double('Maglev::SectionComponent') }
   let(:link) { described_class.new(section_component, content, setting) }
+  let(:scope) { double('Scope', page: double('Page', id: 1)) }
+
+  before do
+    allow(link).to receive(:scope).and_return(scope)
+  end
 
   context 'content is a string' do
     let(:content) { '/contact_us' }
@@ -31,6 +36,10 @@ describe Maglev::Content::Link do
 
     describe 'open_new_window? method' do
       it { expect(link.open_new_window?).to eq(false) }
+    end
+
+    describe 'active? method' do
+      it { expect(link.active?).to eq(false) }
     end
   end
 
@@ -59,6 +68,10 @@ describe Maglev::Content::Link do
 
     describe 'open_new_window? method' do
       it { expect(link.open_new_window?).to eq(false) }
+    end
+
+    describe 'active? method' do
+      it { expect(link.active?).to eq(false) }
     end
   end
 
@@ -90,6 +103,26 @@ describe Maglev::Content::Link do
 
     describe 'open_new_window? method' do
       it { expect(link.open_new_window?).to eq(true) }
+    end
+
+    describe 'active? method' do
+      it { expect(link.active?).to eq(false) }
+
+      context 'when link type is page and matches current path' do
+        let(:content) do
+          { link_type: 'page', link_id: 1, text: 'Call Tomorrow :D',
+            open_new_window: true }
+        end
+        it { expect(link.active?).to eq(true) }
+      end
+
+      context 'when link type is page but does not match current path' do
+        let(:content) do
+          { link_type: 'page', link_id: 2, text: 'Call Tomorrow :D',
+            open_new_window: true }
+        end
+        it { expect(link.active?).to eq(false) }
+      end
     end
   end
 end
