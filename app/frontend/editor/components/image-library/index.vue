@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div class="flex items-center" v-if="!hasNoImagesYet">
+  <div class="h-156 flex flex-col space-y-5">
+    <div class="flex items-center h-10" v-if="!hasNoImagesYet">
       <image-uploader
         :multiple="true"
         @uploaded="refresh"
@@ -12,34 +12,31 @@
         @search="search"
       />
     </div>
-    <div class="mt-5">
-      <div
-        class="overflow-y-auto h-128"
-        :class="{ invisible: images === null }"
-      >
-        <div class="mt-10 flex flex-col items-center" v-if="hasNoImagesYet">
-          <p class="text-center">{{ $t('imageLibrary.none') }}</p>
-          <image-uploader @uploaded="refresh" :multiple="true" class="mt-4" />
-        </div>
-        <transition :name="slideDirection" mode="out-in" v-else>
-          <image-list
-            :images="images"
-            :key="activePage"
-            :pickerMode="pickerMode"
-            v-on="$listeners"
-            @destroy="destroyImage"
-          />
-        </transition>
+    <div class="grow overflow-y-auto">
+      <div class="mt-10 flex flex-col items-center" v-if="hasNoImagesYet">
+        <p class="text-center">{{ $t('imageLibrary.none') }}</p>
+        <image-uploader @uploaded="refresh" :multiple="true" class="mt-4" />
       </div>
-      <uikit-pagination
-        labelI18nKey="imageLibrary.pagination.label"
-        noItemsI18nKey="imageLibrary.pagination.noItems"
-        :activePage="activePage"
-        :totalItems="totalItems"
-        :perPage="perPage"
-        @change="(page) => (this.activePage = page)"
-      />
+      <transition :name="slideDirection" mode="out-in" v-else>
+        <image-list
+          :images="images"
+          :key="activePage"
+          :pickerMode="pickerMode"
+          v-on="$listeners"
+          @destroy="destroyImage"
+        />
+      </transition>
     </div>
+    <uikit-pagination
+      class="shrink-0"
+      labelI18nKey="imageLibrary.pagination.label"
+      noItemsI18nKey=""
+      :activePage="activePage"
+      :totalItems="totalItems"
+      :perPage="perPage"
+      @change="(page) => (this.activePage = page)"
+      v-if="!hasNoImagesYet"
+    />
   </div>
 </template>
 
@@ -70,7 +67,7 @@ export default {
   },
   computed: {
     hasNoImagesYet() {
-      return this.isBlank(this.images) && this.query === null && !this.loading
+      return this.isBlank(this.images) && this.query === null
     },
   },
   methods: {
