@@ -45,7 +45,7 @@
         </div>
       </button>
       <div
-        class="absolute w-full z-10 -mt-1 rounded-b shadow-sm bg-gray-100"
+        class="absolute w-full z-20 -mt-1 rounded-b shadow-sm bg-gray-100"
         @keydown="naviguate"
         v-if="isOpen"
       >

@@ -11,5 +11,13 @@ settings:
   id: product
   type: collection_item
   collection_id: products
-  
+
+- label: "Description"
+  id: description
+  type: text
+  html: true
+  nb_rows: 6
+  # line_break: true
+  default: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eros nisi, feugiat non molestie ac, pretium sodales eros. Nullam faucibus malesuada orci non dignissim. "
+
 blocks: []
