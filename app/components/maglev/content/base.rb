@@ -6,7 +6,7 @@ module Maglev
       include ::Maglev::Inspector
 
       extend Forwardable
-      def_delegators :scope, :site, :config
+      def_delegators :scope, :site, :config, :page
 
       attr_accessor :scope, :content, :setting
 

@@ -5,7 +5,7 @@ module Maglev
     include TagHelper
 
     extend Forwardable
-    def_delegators :parent, :site, :config
+    def_delegators :parent, :site, :page, :config
 
     attr_reader :parent, :id, :type, :settings, :attributes, :definition, :templates_root_path, :rendering_mode
 
