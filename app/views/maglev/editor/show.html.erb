@@ -20,7 +20,7 @@
     window.customTranslations = <%= h editor_custom_translations.to_json.html_safe %>
     window.sectionsContent = <%= h render(partial: 'maglev/api/sections_content/show', formats: :json, locals: { sections_content: maglev_page_sections }).html_safe %>
     window.siteScopedSections = <%= h render(partial: 'maglev/api/sections_content/site_scoped_sections', formats: :json, locals: { site_scoped_sections: maglev_site_scoped_sections }).html_safe %>
-  </script>
+  <% end %>
   
   <%= vite_client_tag %>
   <%= vite_javascript_tag 'editor' %>
