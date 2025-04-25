@@ -115,7 +115,7 @@ Vue.mixin({
     deviceWidthMap() {
       return {
         mobile: 375,
-        tablet: 1024,
+        tablet: 768,
       }
     },
   },
