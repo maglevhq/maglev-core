@@ -5,7 +5,7 @@ PATH
       jbuilder (>= 2, < 3)
       kaminari (~> 1.2.1)
       maglev-injectable (~> 2.1.1)
-      rails (>= 6, < 9)
+      rails (>= 7, < 9)
       vite_rails (>= 3, < 4)
       vite_ruby (>= 3.5)
 

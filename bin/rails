@@ -4,11 +4,14 @@
 
 ENGINE_ROOT = File.expand_path('..', __dir__)
 ENGINE_PATH = File.expand_path('../lib/maglev/engine', __dir__)
-APP_PATH = File.expand_path('../spec/dummy/config/application', __dir__)
 
 # Set up gems listed in the Gemfile.
 ENV['BUNDLE_GEMFILE'] ||= File.expand_path('../Gemfile', __dir__)
 require "bundler/setup" if File.exist?(ENV["BUNDLE_GEMFILE"])
+
+require 'rails/version'
+DUMMY_NAME = Rails::VERSION::MAJOR >= 8 ? 'dummy' : 'legacy_dummy'
+APP_PATH = File.expand_path("../spec/#{DUMMY_NAME}/config/application", __dir__)
 
 require "rails/all"
 require "rails/engine/commands"
