@@ -148,7 +148,7 @@ export default {
 }
 
 .tablet {
-  width: 1024px;
+  width: 768px;
   height: 100%;
   /* max-height: 1366px;   */
 }
