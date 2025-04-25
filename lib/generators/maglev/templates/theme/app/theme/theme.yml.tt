@@ -39,6 +39,10 @@ pages:
 - title: "Home page"
   path: "/index"
   layout_id: "default"  # Use the default layout
+  sections_content:
+    header: []
+    main: []
+    footer: []
 
 # List of CSS class names used by your library of icons (font awesome, remixicons, ...etc)
 icons: []

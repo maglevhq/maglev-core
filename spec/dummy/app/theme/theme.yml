@@ -52,13 +52,14 @@ layouts:
 pages:
 - title: "Home page"
   path:  "index"
-  sections:
-  - type: "jumbotron"
-    settings:
-      title: "Let's create the product<br/>your clients<br/>will love."
-      body: "<p>NoCoffee, passionated developers,<br/>creators of web applications, mobiles apps and<br/>fancy R&D projects.</p>"
-    blocks: []
-  - type: "showcase"
-    settings: 
-      title: "Our projects"
-    blocks: []  
+  sections_content:
+    main:
+    - type: "jumbotron"
+      settings:
+        title: "Let's create the product<br/>your clients<br/>will love."
+        body: "<p>NoCoffee, passionated developers,<br/>creators of web applications, mobiles apps and<br/>fancy R&D projects.</p>"
+      blocks: []
+    - type: "showcase"
+      settings: 
+        title: "Our projects"
+      blocks: []  
