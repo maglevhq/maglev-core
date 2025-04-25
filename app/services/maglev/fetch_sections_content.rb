@@ -10,6 +10,7 @@ module Maglev
     include Maglev::MirroredSectionsConcern
     include Maglev::SiteScopedSectionsConcern
 
+    dependency :context
     dependency :fetch_site
     dependency :fetch_theme
     dependency :fetch_collection_items
