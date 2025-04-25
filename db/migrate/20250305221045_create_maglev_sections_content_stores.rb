@@ -5,7 +5,11 @@ class CreateMaglevSectionsContentStores < ActiveRecord::Migration[6.0]
 
       t.string :handle, null: false, index: true
 
-      t.jsonb :sections_translations, default: {}
+      if t.respond_to? :jsonb
+        t.jsonb :sections_translations, default: {}
+      else
+        t.json :sections_translations, default: {}
+      end
 
       t.integer :lock_version
 
