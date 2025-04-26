@@ -7,7 +7,8 @@ describe Maglev::PersistSectionsContent, type: :service do
 
   let(:site) { create(:site) }
   let!(:page) { create(:page, sections: []) }
-  let(:fetch_theme) { double('FetchTheme', call: build(:theme)) }
+  let(:theme) { build(:theme) }
+  let(:fetch_theme) { double('FetchTheme', call: theme) }
   let(:service) { described_class.new(fetch_theme: fetch_theme) }
 
   let(:sections_content) do
@@ -40,6 +41,7 @@ describe Maglev::PersistSectionsContent, type: :service do
   end
 
   context 'Given a section is a mirror of another page/section' do
+    let(:theme) { build(:theme, mirror_section: true) }
     let(:another_page) { create(:page, title: 'another page', path: 'another-page') }
 
     let(:sections_content) do
@@ -74,6 +76,22 @@ describe Maglev::PersistSectionsContent, type: :service do
                    hash_including({ 'value' => '<p>Lorem ipsum!</p>' })
                    # rubocop:enable Style/StringHashKeys
                  ])
+    end
+
+    context 'the mirrored section is protected' do
+      let(:theme) { build(:theme, mirror_section: 'protected') }
+
+      it 'does not persist the mirrored section' do
+        subject
+        expect(
+          fetch_sections_content("main-#{another_page.id}")[0]['settings']
+        ).to match([
+                     # rubocop:disable Style/StringHashKeys
+                     hash_including({ 'value' => 'Hello world' }),
+                     hash_including({ 'value' => '<p>Lorem ipsum</p>' })
+                     # rubocop:enable Style/StringHashKeys
+                   ])
+      end
     end
 
     context 'the mirrored section points to another mirrored section' do

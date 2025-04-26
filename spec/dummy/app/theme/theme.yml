@@ -1,7 +1,7 @@
 id: "simple"
 name: "My simple theme"
 
-mirror_section: true
+mirror_section: protected
 
 section_categories:
 - name: Headers

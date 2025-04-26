@@ -9,13 +9,13 @@ module Maglev
 
     def persist_mirrored_sections(sections_content)
       sections_content.map { |group| group['sections'] }.flatten.compact.find do |section|
-        next unless section.dig('mirror_of', 'enabled')
+        next unless can_persist_mirrored_section?(section)
 
-        persist_mirror_section(section.except('mirror_of'), section['mirror_of'])
+        persist_mirrored_section(section.except('mirror_of'), section['mirror_of'])
       end
     end
 
-    def persist_mirror_section(section, mirror_of)
+    def persist_mirrored_section(section, mirror_of)
       store = find_store_from_mirrored_section(mirror_of)
       mirror_section = store.update_section_content(mirror_of['section_id'], section)
       store.save
@@ -25,7 +25,7 @@ module Maglev
 
       # No need to detect a circular dependency because this is impossible
       # to change the mirror_of attributes of an existing section in the editor
-      persist_mirror_section(mirror_section.except('mirror_of'), mirror_section['mirror_of'])
+      persist_mirrored_section(mirror_section.except('mirror_of'), mirror_section['mirror_of'])
     end
 
     def replace_content_from_mirror_sections(store)
@@ -55,6 +55,13 @@ module Maglev
       return unless store
 
       store.find_section(mirror_of['section_id'])
+    end
+
+    def can_persist_mirrored_section?(section)
+      section.dig('mirror_of', 'enabled') && (
+        theme.mirror_section == true ||
+        (theme.mirror_section == 'protected' && section.dig('mirror_of', 'page_id') == page.id)
+      )
     end
   end
 end

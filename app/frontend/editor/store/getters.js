@@ -183,11 +183,17 @@ export default (services) => ({
       const categories = categoriesByLayoutGroupId(layoutGroupId)
       return categories.some(({ children }) => children.length > 0)
     },
-    canAddMirroredSection: ({ theme, oneSinglePage }, { layoutGroupDefinition }) => 
+  canAddMirroredSection: ({ theme, oneSinglePage }, { layoutGroupDefinition }) => 
     (layoutGroupId) => {
       const layoutGroup = layoutGroupDefinition(layoutGroupId)
       return theme.mirrorSection && layoutGroup.mirrorSection !== false && services.section.canAddMirroredSection({ 
         hasOneSinglePage: oneSinglePage
       })
     },
+  isMirroredSection: ({ section }) => {
+    return !isBlank(section.mirrorOf)
+  },
+  isMirroredSectionEditable: ({ theme, section, page }, {}) => {
+    return theme.mirrorSection === true || (theme.mirrorSection === 'protected' && section.mirrorOf?.pageId === page.id)
+  }
 })
