@@ -135,5 +135,5 @@ export default (services) => ({
       direction,
     )    
     dispatch('moveSection', { layoutGroupId, from: indices.fromIndex, to: indices.toIndex })
-  },
+  }
 })

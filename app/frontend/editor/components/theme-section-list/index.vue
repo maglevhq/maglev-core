@@ -58,24 +58,16 @@ export default {
     return { activeCategory: null }
   },
   computed: {
-    ...mapGetters(['categoriesByLayoutGroupId', 'layoutGroupDefinition']),
+    ...mapGetters(['categoriesByLayoutGroupId', 'layoutGroupDefinition', 'canAddMirroredSection']),
     categories() {
       return this.categoriesByLayoutGroupId(this.layoutGroupId)
     },
     noCategories() {
       return this.categories.length === 0
     },
-    canAddMirroredSection() {
-      return this.services.section.canAddMirroredSection({ 
-        numberOfPages: this.currentSite.numberOfPages 
-      })
-    },
-    layoutGroup() {
-      return this.layoutGroupDefinition(this.layoutGroupId)
-    },
     allowSectionMirroring() {
-      return this.currentTheme.mirrorSection && this.layoutGroup.mirrorSection !== false && this.canAddMirroredSection
-    }
+      return this.canAddMirroredSection(this.layoutGroupId)
+    },   
   },
 }
 </script>

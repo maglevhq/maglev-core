@@ -38,6 +38,9 @@ export default (services) => ({
     omitEmpty(attributes)
     state.page = { ...state.page, ...attributes }
   },
+  SET_ONE_SINGLE_PAGE(state, oneSinglePage) {
+    state.oneSinglePage = oneSinglePage
+  },
   // === SECTIONS CONTENT ===
   SET_SECTIONS_CONTENT(state, content) {
     const { entities, result } = services.sectionsContent.normalize(content)
