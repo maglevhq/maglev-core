@@ -177,6 +177,33 @@
     "title": "Ícones",
     "pickerTitle": "Escolher um ícone"
   },
+  "mirrorSectionSetup": {
+    "inputLabel": "Ativar espelhamento de seção",
+    "addButton": "...ou adicionar uma seção espelhada",
+    "tooltip": "Esta seção é espelhada da \"%{pageTitle}\".<br/>As alterações feitas aqui serão refletidas em todas as páginas que usam esta seção.",
+    "title": "Configurar espelhamento de seção",
+    "errorMessage": "Ops! Você não pode espelhar esta seção. Ela já está espelhada nesta página ou pertence à mesma página que você está editando.",
+    "protectedMessage": {
+      "title": "Esta seção está protegida",
+      "message": "Para editar seu conteúdo, vá para a página original onde ela foi criada."
+    },
+    "confirmButton": "Configurar",
+    "cancelButton": "Cancelar",
+    "page": {
+      "name": "Página",
+      "input": {
+        "label": "Página",
+        "placeholder": "Selecione uma página",
+        "searchPlaceholder": "Pesquisar...",
+        "emptyLabel": "Nenhuma página encontrada"
+      },
+      "sectionInput": {
+        "label": "Seção",
+        "placeholder": "Selecione uma seção",
+        "emptyLabel": "Nenhuma seção selecionada"
+      }
+    }
+  },
   "linkInput": {
     "placeholder": "Clique aqui para selecionar um link",
     "withNestedTextLabel": "Ativar texto",

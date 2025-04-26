@@ -48,4 +48,5 @@ pages:
 icons: []
 
 # Enable the section mirroring feature (default: false)
-# mirror_section: true
+# mirror_section: true # # make mirrored sections editable from any page
+# mirror_section: protected # only allow editing the mirrored section from its original page.

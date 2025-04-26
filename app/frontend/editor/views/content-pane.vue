@@ -49,6 +49,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import Layout from '@/layouts/slide-pane.vue'
 import SectionPane from '@/components/section-pane/index.vue'
 import SectionBlockPane from '@/components/section-block-pane/index.vue'
@@ -62,6 +63,7 @@ export default {
     settingId: { type: String, default: undefined },
   },
   computed: {
+    ...mapGetters(['isMirroredSection', 'isMirroredSectionEditable']),
     title() {
       if (this.isSectionReady) return this.sectionTitle
       else if (this.isSectionBlockReady) return this.sectionBlockTitle
@@ -116,6 +118,11 @@ export default {
     async fetch() {
       if (this.sectionBlockId) await this.fetchSectionBlock(this.sectionBlockId)
       else if (this.sectionId) await this.fetchSection(this.sectionId)
+
+      if (this.isMirroredSection && !this.isMirroredSectionEditable && this.sectionBlockId) {
+        this.$router.push({ name: 'editSection', params: { sectionId: this.currentSection.id } })
+        return
+      }
 
       if (!this.currentSection && !this.currentSectionBlock)
         this.$router.push({ name: 'editPage' })

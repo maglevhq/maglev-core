@@ -184,6 +184,10 @@
     "tooltip": "Esta sección está reflejada desde \"%{pageTitle}\".<br/>Los cambios realizados aquí se aplicarán en todas las páginas que usen esta sección",
     "title": "Configurar sección reflejada",
     "errorMessage": "¡Ups! No puedes reflejar esta sección. Ya está reflejada en esta página o proviene de la misma página que estás editando.",
+    "protectedMessage": {
+      "title": "Esta sección está protegida",
+      "message": "Para editar su contenido, ve a la página original donde fue creada."
+    },
     "confirmButton": "Configurar",
     "cancelButton": "Cancelar",
     "page": {

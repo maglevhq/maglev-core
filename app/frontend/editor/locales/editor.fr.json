@@ -183,6 +183,10 @@
     "tooltip": "Cette section est en miroir depuis \"%{pageTitle}\".<br/>Les modifications apportées ici seront répercutées sur toutes les pages utilisant cette section",
     "title": "Configurer la section en miroir",
     "errorMessage": "Oups ! Vous ne pouvez pas mettre cette section en miroir. Elle est déjà présente sur cette page ou provient de la page que vous êtes en train de modifier.",
+    "protectedMessage": {
+    "title": "Cette section est protégée",
+    "message": "Pour modifier son contenu, allez sur la page d'origine où elle a été créée."
+  },
     "confirmButton": "Configurer",
     "cancelButton": "Annuler",
     "page": {
