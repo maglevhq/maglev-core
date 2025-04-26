@@ -5,6 +5,7 @@ export default (services) => ({
       services.api.setSiteHandle(site.handle)
       commit('SET_SITE', rawSite)
       commit('SET_STYLE', style)
+      commit('SET_ONE_SINGLE_PAGE', site.numberOfPages === 1)
     })
   },
   loadPublishButtonState({ state, commit }) {

@@ -18,6 +18,7 @@ export default {
   siteScopedSections: {}, // site-wide sections like headers/footers
   editorSettings: {},
   touchedSections: [],
+  oneSinglePage: true,
   ui: {
     saveButtonState: 'default',
     publishButtonState: {

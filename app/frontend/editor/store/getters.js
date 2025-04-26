@@ -178,9 +178,16 @@ export default (services) => ({
       return services.section.getSettings(sectionBlockDefinition, advanced)
     },
   canAddSection: 
-    ({ theme, page: { layoutId } }, { categoriesByLayoutGroupId }) => 
+    ({}, { categoriesByLayoutGroupId }) => 
     (layoutGroupId) => {
       const categories = categoriesByLayoutGroupId(layoutGroupId)
       return categories.some(({ children }) => children.length > 0)
-    }
+    },
+    canAddMirroredSection: ({ theme, oneSinglePage }, { layoutGroupDefinition }) => 
+    (layoutGroupId) => {
+      const layoutGroup = layoutGroupDefinition(layoutGroupId)
+      return theme.mirrorSection && layoutGroup.mirrorSection !== false && services.section.canAddMirroredSection({ 
+        hasOneSinglePage: oneSinglePage
+      })
+    },
 })

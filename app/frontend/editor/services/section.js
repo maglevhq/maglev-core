@@ -15,8 +15,8 @@ export const calculateMovingIndices = (sectionIds, sectionId, direction) => {
   return { fromIndex, toIndex }
 }
 
-export const canAddMirroredSection = ({ numberOfPages, page, sections, mirrorOf }) => {
-  if (numberOfPages === 1) return false
+export const canAddMirroredSection = ({ hasOneSinglePage, page, sections, mirrorOf }) => {
+  if (hasOneSinglePage) return false
 
   // when canAddMirroredSection is called from the list of sections, let's assume everything is good
   if (mirrorOf === undefined) return true 
