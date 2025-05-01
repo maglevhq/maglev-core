@@ -13,7 +13,6 @@
 
   <%%= maglev_live_preview_client_javascript_tag %>
 
-<<<<<<< HEAD
   <%%=
     javascript_include_tag(
       "https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio",
@@ -21,9 +20,6 @@
       id: "tailwind-cdn"
     )
   %>
-=======
-  <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio"></script>
->>>>>>> 32b69c1 (remove `line-clamp` plugin from TW)
 </head>
 <body class="bg-white">
   <main data-maglev-dropzone>
