@@ -2,7 +2,7 @@ import { Controller } from 'stimulus'
 import axios from '../utils/axios'
 
 export default class extends Controller {
-  static targets = ['source', 'output']
+  static targets = ['source', 'output', 'fileInput']
   static values = { url: String }
 
   connect() {
@@ -37,5 +37,33 @@ export default class extends Controller {
           })
           .catch((error) => console.log('ERROR!', error))
       })
+  }
+
+  triggerFileInput() {
+    this.fileInputTarget.click()
+  }
+
+  handleFileUpload(event) {
+    const file = event.target.files[0]
+    if (!file) return
+
+    const reader = new FileReader()
+    reader.onload = () => {
+      const base64Image = reader.result
+      this.outputTarget.src = base64Image
+      
+      axios
+        .post(this.urlValue, {
+          screenshot: { base64_image: base64Image },
+        })
+        .then(() => {
+          alert('Screenshot uploaded!')
+        })
+        .catch((error) => console.log('ERROR!', error))
+    }
+    reader.readAsDataURL(file)
+
+    // Clear the input so the same file can be selected again
+    event.target.value = ''
   }
 }
