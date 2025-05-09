@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # rubocop:disable Style/ClassAndModuleChildren
-module Maglev::GetPageSections::TransformCollectionItemConcern
+module Maglev::FetchSectionsContent::TransformCollectionItemConcern
   def transform_collection_item_content_setting(content, setting)
     # the content might come from the default value of the collection_item setting
     # rubocop:disable Style/StringHashKeys

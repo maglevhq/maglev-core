@@ -37,17 +37,26 @@ Vue.mixin({
     currentTheme() {
       return this.$store.state.theme
     },
+    currentSections() {
+      return this.$store.state.sections
+    },
     currentSection() {
       return this.$store.state.section
     },
     currentSectionI18nScope() {
       return `${this.currentI18nScope}.sections.${this.currentSection.type}`
     },
-    currentSectionList() {
-      return this.$store.getters.sectionList
+    currentSectionsContent() {
+      return this.$store.getters.sectionsContent
+    },
+    currentSectionTypes() {
+      return this.$store.getters.sectionTypes
     },
     currentSectionContent() {
       return this.$store.getters.sectionContent
+    },
+    currentSectionLayoutGroupIdMap() {
+      return this.$store.getters.sectionLayoutGroupIdMap
     },
     currentSectionDefinition() {
       return this.$store.state.sectionDefinition
@@ -88,6 +97,9 @@ Vue.mixin({
     hasMultipleLocales() {
       return this.$store.state.site.locales.length > 1
     },
+    hasSections() {
+      return Object.keys(this.$store.state.sections).length > 0
+    },
     currentContent() {
       return this.$store.getters.content
     },
@@ -103,7 +115,7 @@ Vue.mixin({
     deviceWidthMap() {
       return {
         mobile: 375,
-        tablet: 1024,
+        tablet: 768,
       }
     },
   },

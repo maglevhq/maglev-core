@@ -23,8 +23,12 @@ module Maglev
           Maglev::Page.new(
             title: 'Preview section',
             path: 'preview',
-            sections: [fetch_section!.build_default_content]
+            layout_id: 'preview'
           )
+        end
+
+        def fetch_maglev_page_sections
+          [fetch_section!.build_default_content.with_indifferent_access]
         end
 
         def fetch_section!

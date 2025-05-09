@@ -27,14 +27,19 @@ const pageService = {
   updateSettings: vi.fn(),
   setVisible: vi.fn(),
   clone: vi.fn(),
-  destroy: vi.fn(),
+  destroy: vi.fn()
+}
+
+const sectionsContentService = {
   normalize: vi.fn(),
   denormalize: vi.fn(),
+  find: vi.fn(),
+  update: vi.fn(),
+  findSingleSection: vi.fn()
 }
 
 const sectionService = {
   calculateMovingIndices: vi.fn(),
-  canBeAddedToPage: vi.fn(),
   normalize: vi.fn(),
   build: vi.fn(),
   getSettings: vi.fn(),
@@ -75,6 +80,7 @@ export default {
   site: siteService,
   theme: themeService,
   page: pageService,
+  sectionsContent: sectionsContentService,
   section: sectionService,
   block: blockService,
   image: imageService,

@@ -21,7 +21,9 @@ export default (services) => ({
     if (parentId) sectionBlock.parentId = parentId
     commit('ADD_SECTION_BLOCK', sectionBlock)
     commit('TOUCH_SECTION', section.id)
+
     services.livePreview.addBlock(
+      getters.sectionLayoutGroupIdMap[section.id],
       getters.content,
       getters.denormalizedSection,
       sectionBlock,
@@ -30,7 +32,9 @@ export default (services) => ({
   removeSectionBlock({ commit, getters, state: { section } }, id) {
     commit('REMOVE_SECTION_BLOCK', id)
     commit('TOUCH_SECTION', section.id)
+
     services.livePreview.removeBlock(
+      getters.sectionLayoutGroupIdMap[section.id],
       getters.content,
       getters.denormalizedSection,
       id,
@@ -39,7 +43,12 @@ export default (services) => ({
   sortSectionBlocks({ commit, getters, state: { section } }, change) {
     commit('SORT_SECTION_BLOCKS', change)
     commit('TOUCH_SECTION', section.id)
-    services.livePreview.moveBlock(getters.content, getters.denormalizedSection)
+    
+    services.livePreview.moveBlock(
+      getters.sectionLayoutGroupIdMap[section.id],
+      getters.content, 
+      getters.denormalizedSection
+    )
   },
   updateSectionBlockContent(
     { commit, getters, state: { section, sectionBlock } },
@@ -47,7 +56,9 @@ export default (services) => ({
   ) {
     commit('UPDATE_SECTION_BLOCK_CONTENT', change)
     commit('TOUCH_SECTION', section.id)
+
     services.livePreview.updateBlock(
+      getters.sectionLayoutGroupIdMap[section.id],
       getters.content,
       getters.denormalizedSection,
       sectionBlock,

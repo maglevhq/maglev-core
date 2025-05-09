@@ -1,6 +1,6 @@
 import { isBlank, uuid8, camelize } from '@/misc/utils'
-import { normalize as coreNormalize } from 'normalizr'
-import { SECTION_SCHEMA } from './page'
+import { normalize as coreNormalize, denormalize as coreDenormalize, } from 'normalizr'
+import { SECTION_SCHEMA } from './sections-content'
 
 const NUMBER_OF_DEFAULT_BLOCKS = 3
 
@@ -15,30 +15,42 @@ export const calculateMovingIndices = (sectionIds, sectionId, direction) => {
   return { fromIndex, toIndex }
 }
 
-export const canBeAddedToPage = (newSectionDefinition, sections) => {
-  if (!newSectionDefinition.singleton) return true
-  return !sections.some((section) => newSectionDefinition.id === section.type)
+export const canAddMirroredSection = ({ hasOneSinglePage, page, sections, mirrorOf }) => {
+  if (hasOneSinglePage) return false
+
+  // when canAddMirroredSection is called from the list of sections, let's assume everything is good
+  if (mirrorOf === undefined) return true 
+
+  // mirroring a section from the current page
+  if (page.id === mirrorOf.pageId) return false
+
+  // mirroring a section already mirrored in the current page
+  if (Object.keys(sections).some((sectionId) => sectionId === mirrorOf.sectionId)) return false
+
+  return true
 }
 
 export const normalize = (section) => {
   return coreNormalize(section, SECTION_SCHEMA)
 }
 
-export const build = (definition, site) => {
+export const denormalize = (section, entities) => {
+  return coreDenormalize(section, SECTION_SCHEMA, entities)
+}
+
+export const build = (definition, siteScopedSections) => {
   const type = definition.id
-  const siteSection = site.sections.find(
-    (siteSection) => siteSection.type === type,
-  )
+  const siteScopedSection = siteScopedSections[type]
   let settings, blocks
 
-  if (definition.siteScoped && !isBlank(siteSection)) {
-    settings = [].concat(siteSection.settings || [])
-    blocks = [].concat(siteSection.blocks || [])
+  if (definition.siteScoped && !isBlank(siteScopedSection)) {
+    settings = [].concat(siteScopedSection.settings || [])
+    blocks = [].concat(siteScopedSection.blocks || [])
   } else {
     settings = buildSettings(definition, definition.sample?.settings)
     blocks = buildBlocks(definition)
   }
-
+  
   return { id: uuid8(), type, settings, blocks }
 }
 

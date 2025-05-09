@@ -8,16 +8,9 @@
       <slot name="header">HINT</slot>
       <button class="ml-auto">
         <uikit-icon
-          name="arrow-up-s-line"
+          :name="iconName"
           size="1.5rem"
           class="ml-auto"
-          v-if="show"
-        />
-        <uikit-icon
-          name="arrow-down-s-line"
-          size="1.5rem"
-          class="ml-auto"
-          v-else
         />
       </button>
     </div>
@@ -64,5 +57,10 @@ export default {
       el.style.height = '0'
     },
   },
+  computed: {
+    iconName() {
+      return this.show ? 'arrow-up-s-line' : 'arrow-down-s-line'
+    },
+  }
 }
 </script>

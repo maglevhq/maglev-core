@@ -6,7 +6,7 @@
     <router-link
       :to="{
         name: 'addSectionAfter',
-        params: { sectionId: hoveredSection.sectionId },
+        params: { layoutGroupId, sectionId }
       }"
       custom
       v-slot="{ navigate }"
@@ -34,6 +34,12 @@ export default {
       if (!this.hoveredSection) return false
       const { definition } = this.hoveredSection
       return definition.insertButton
+    },
+    sectionId() {
+      return this.hoveredSection.sectionId
+    },
+    layoutGroupId() {
+      return this.currentSectionLayoutGroupIdMap[this.sectionId]
     },
   },
 }

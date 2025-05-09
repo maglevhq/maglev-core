@@ -26,7 +26,7 @@ export default {
   },
   methods: {
     async save() {
-      await this.$store.dispatch('persistPage')
+      await this.$store.dispatch('persistSectionsContent')
     },
   },
 }

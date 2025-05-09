@@ -38,6 +38,10 @@ module Maglev
       @maglev_theme ||= maglev_services.fetch_theme.call
     end
 
+    def maglev_rendering_mode
+      params[:rendering_mode] || :editor
+    end
+
     def record_errors(exception)
       render(json: { errors: exception.record.errors }, status: :bad_request)
     end

@@ -1,6 +1,8 @@
 id: "simple"
 name: "My simple theme"
 
+mirror_section: protected
+
 section_categories:
 - name: Headers
   id: headers
@@ -17,16 +19,47 @@ style_settings:
   id: font_name
   type: text
 
+layouts:
+- label: "Default"
+  id: "default"
+  groups:
+  - label: "Header"
+    id: "header"
+    store: "header" # the sections will be persisted in a SectionsContentStore model (handle: header)
+    accept: ["navbar"]
+    recoverable: ["navbar"]
+    mirror_section: false
+  - label: "Main"
+    id: "main" # in DB, store handle -> "main-<page_id>"
+    store: "page" # by default, the Page model will be used as the storage unit
+  - "Footer"
+
+- label: "Sidebar"
+  groups:
+  - label: "Header"
+    id: "header"
+    store: "header" # the sections will be persisted in a SectionsContentStore model (handle: header)
+    accept: ["navbar"]
+
+  - label: "Main"
+    id: "main"
+    store: "page" # by default, the Page model will be used as the storage unit
+  - "Sidebar"
+  - "Footer"
+
+# [LAYOUTS] DO NOT REMOVE THIS LINE
+
 pages:
 - title: "Home page"
   path:  "index"
-  sections:
-  - type: "jumbotron"
-    settings:
-      title: "Let's create the product<br/>your clients<br/>will love."
-      body: "<p>NoCoffee, passionated developers,<br/>creators of web applications, mobiles apps and<br/>fancy R&D projects.</p>"
-    blocks: []
-  - type: "showcase"
-    settings: 
-      title: "Our projects"
-    blocks: []  
+  sections_content:
+    main:
+    - type: "jumbotron"
+      settings:
+        title: "Let's create the product<br/>your clients<br/>will love."
+        body: "<p>NoCoffee, passionated developers,<br/>creators of web applications, mobiles apps and<br/>fancy R&D projects.</p>"
+      blocks: []
+    - type: "showcase"
+      settings: 
+        title: "Our projects"
+      blocks: []  

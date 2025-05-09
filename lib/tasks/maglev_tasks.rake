@@ -55,6 +55,15 @@ namespace :maglev do
     end
   end
 
+  desc 'Upgrade Maglev from V1 to V2'
+  task upgrade_from_v1: :environment do
+    Maglev::UpgradeFromV1.call(
+      site: Maglev::Site.first,
+      theme: Maglev.local_themes.first
+    )
+    puts '🛠️ Your site has been upgraded to V2 with success!'
+  end
+
   namespace :vite do
     desc 'Bundle frontend entrypoints using ViteRuby'
     task build: :'vite:verify_install' do

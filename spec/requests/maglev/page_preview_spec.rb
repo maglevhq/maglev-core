@@ -77,20 +77,11 @@ RSpec.describe 'Maglev::PagePreviewController', type: :request do
       end
     end
 
-    context 'with scoped site sections' do
-      before do
-        home_page.update!(
-          sections: attributes_for(:page, :with_navbar)[:sections]
-        )
-        site.update!(
-          sections: attributes_for(:site, :with_navbar)[:sections]
-        )
-      end
-
+    context 'the header group contains a section' do
       it 'renders the index page with the navbar' do
         get '/maglev/preview'
         expect(response.body).to include('<title>Default - Home</title>')
-        expect(response.body).to include('<a data-maglev-id="zzz.link" target="_blank" href="https://www.nocoffee.fr">')
+        expect(response.body).to include('<div class="navbar"')
       end
     end
   end
@@ -107,7 +98,7 @@ RSpec.describe 'Maglev::PagePreviewController', type: :request do
 
   context 'rendering a page from its old path' do
     before do
-      page = Maglev::Page.create(title: 'Contact us', path: 'contact')
+      page = Maglev::Page.create(title: 'Contact us', path: 'contact', layout_id: 'default')
       page.update!(path: 'contact-us')
     end
 
@@ -143,29 +134,32 @@ RSpec.describe 'Maglev::PagePreviewController', type: :request do
   end
 
   context 'rendering from POST params' do
-    let(:sections) do
-      Maglev::Page.all.order_by_translated(:title, :desc)[2].sections.tap do |sections|
-        sections.first['settings'].first['value'] = 'UPDATED TITLE'
-      end
+    let(:sections_content) do
+      [{
+        id: 'main',
+        sections: attributes_for(:sections_content_store)[:sections].tap do |sections|
+          sections.first[:settings].first[:value] = 'UPDATED TITLE'
+        end
+      }]
     end
 
     it 'renders the index page with the content from the params' do
-      post '/maglev/preview', params: { page_sections: sections.to_json }
+      post '/maglev/preview', params: { sections_content: sections_content.to_json }
       expect(response.body).to match(%r{<h1 data-maglev-id="\S+\.title" class="display-3">UPDATED TITLE</h1>})
     end
   end
 
   context 'rendering a section with blocks' do
     let(:page) { Maglev::Page.first }
-    let(:showcase) { page.sections.find { |section| section['type'] == 'showcase' } }
+    let(:main_store) { Maglev::SectionsContentStore.find_by(handle: "main-#{page.id}") }
     let(:block) do
       { id: 'block-0', type: 'item',
         settings: [{ id: 'title', value: 'My work' }, { id: 'image', value: '/samples/images/default.svg' }] }
     end
 
     before do
-      showcase['blocks'] << block
-      page.save
+      main_store.sections.last['blocks'] << block
+      main_store.save
     end
 
     # rubocop:disable Layout/LineLength
@@ -197,7 +191,7 @@ RSpec.describe 'Maglev::PagePreviewController', type: :request do
   end
 
   context 'rendering a section with nested blocks (tree)' do
-    let(:navbar) { site.sections.find { |section| section['type'] == 'navbar' } }
+    let(:header_store) { Maglev::SectionsContentStore.find_by(handle: 'header') }
     let(:blocks) do
       [
         { id: 'block-0', type: 'menu_item', settings: [{ id: 'label', value: 'Item #0' }] },
@@ -208,8 +202,8 @@ RSpec.describe 'Maglev::PagePreviewController', type: :request do
     end
 
     before do
-      navbar['blocks'] = blocks
-      site.save
+      header_store.sections.first['blocks'] = blocks
+      header_store.save
     end
 
     it 'displays the expected content' do
