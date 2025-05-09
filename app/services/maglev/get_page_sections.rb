@@ -61,6 +61,7 @@ module Maglev
     end
 
     def fetch_local_sections(layout_group)
+      # TODO: potential bug here, why not relying on group['store'] instead of group['id']? what about page related store?
       content_group = sections_content.find { |group| group['id'] == layout_group.id }
 
       return [[], 0] if content_group.blank?
