@@ -97,6 +97,10 @@ export default {
         this.$refs.tabs.selectTab(this.findTabIndexFromRoute())
       },
     },
+    isMirroredSectionEditable(newValue, oldValue) {
+      if (newValue === false && oldValue === true)
+        this.$refs.tabs.selectTab(0)
+    }
   },
 }
 </script>
