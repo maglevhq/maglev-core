@@ -6,6 +6,7 @@ module Maglev
       def show
         @asset = Maglev::Asset.find(resource_id)
         send_data @asset.download, filename: @asset.filename, type: @asset.content_type
+        response.headers['Cache-Control'] = Rails.configuration.public_file_server.headers[:'cache-control']
       end
     end
   end

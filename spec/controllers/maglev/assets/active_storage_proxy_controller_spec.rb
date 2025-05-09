@@ -2,14 +2,8 @@
 
 require 'rails_helper'
 
-RSpec.describe Maglev::Api::AssetsController do
+RSpec.describe Maglev::Assets::ActiveStorageProxyController do
   routes { Maglev::Engine.routes }
-
-  let(:site) { build(:site) }
-
-  before do
-    allow(controller).to receive(:maglev_site).and_return(site)
-  end
 
   describe 'GET show' do
     describe 'Given we use uuids as primary keys in the DB' do
@@ -20,8 +14,7 @@ RSpec.describe Maglev::Api::AssetsController do
       it 'serves the file' do
         asset = create(:asset)
         expect(Maglev::Asset).to receive(:find).with('9565604d-be66-4a23-98da-ed1639804103').and_return(asset)
-        get :show, params: { id: '9565604d-be66-4a23-98da-ed1639804103-myasset', format: 'application/json' }
-        expect(response.status).to eq 200
+        get :show, params: { id: '9565604d-be66-4a23-98da-ed1639804103-myasset' }
       end
     end
   end

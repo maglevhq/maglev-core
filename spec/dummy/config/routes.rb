@@ -3,6 +3,9 @@
 Rails.application.routes.draw do
   mount Maglev::Engine, as: :maglev, at: '/maglev'
 
+  # for testing purpose
+  get '/simple-assets/:id', to: 'maglev/assets/proxy#show'
+
   direct :cdn_image do |model, options|
     if model.respond_to?(:signed_id)
       route_for(
