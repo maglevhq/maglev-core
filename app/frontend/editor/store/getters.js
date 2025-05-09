@@ -186,6 +186,7 @@ export default (services) => ({
     return !isBlank(section.mirrorOf)
   },
   isMirroredSectionEditable: ({ theme, section, page }, {}) => {
+    if (section.mirrorOf.enabled === false) return true
     return theme.mirrorSection === true || (theme.mirrorSection === 'protected' && section.mirrorOf?.pageId === page.id)
   }
 })
