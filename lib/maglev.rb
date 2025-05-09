@@ -51,8 +51,12 @@ module Maglev
     end
 
     def uploader
-      require_relative "maglev/#{config.uploader}"
+      require_relative "maglev/#{config.uploader}" if config.uploader == :active_storage
       const_get("::Maglev::#{config.uploader.to_s.classify}")
+    end
+
+    def uploader_proxy_controller_name
+      config.uploader == :active_storage ? 'assets/active_storage_proxy' : 'assets/proxy'
     end
 
     def services(overrides = {})

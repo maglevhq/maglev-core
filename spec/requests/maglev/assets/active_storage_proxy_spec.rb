@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Maglev::AssetsController' do
+RSpec.describe 'Maglev::Assets::ActiveStorageProxyController' do
   let(:asset) { create(:asset) }
 
   it 'allows retrieval by id' do

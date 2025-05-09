@@ -52,6 +52,7 @@ Maglev::Engine.routes.draw do
   post 'preview/(*path)', to: 'page_preview#create', defaults: { path: 'index', rendering_mode: :editor }
 
   # Public Assets
-  get 'assets/:id(/:filename)', to: 'assets#show', as: :public_asset
+  get 'assets/:id(/:filename)', to: "#{Maglev.uploader_proxy_controller_name}#show",
+                                as: :public_asset
 end
 # rubocop:enable Metrics/BlockLength
