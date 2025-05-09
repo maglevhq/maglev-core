@@ -24,6 +24,9 @@ Rails.application.configure do
   # Apache or NGINX already handles this.
   config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present?
 
+  # Set cache headers for public files
+  config.public_file_server.headers = { "cache-control": "public, max-age=#{1.year.to_i}" }
+
   # Compress CSS using a preprocessor.
   # config.assets.css_compressor = :sass
 

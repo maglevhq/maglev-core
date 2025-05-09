@@ -22,5 +22,9 @@ module Dummy
     # the framework and any gems in your application.
 
     config.i18n.available_locales = %i[en fr]
+
+    config.public_file_server.headers = {
+      "cache-control": "max-age=#{1.year.to_i}, public"
+    }.with_indifferent_access
   end
 end

@@ -36,4 +36,27 @@ describe Maglev do
       expect(described_class.config.favicon).to eq('someicon.ico')
     end
   end
+
+  describe '#uploader' do
+    it 'returns the ActiveStorage uploader by default' do
+      expect(described_class.uploader).to eq(::Maglev::ActiveStorage)
+    end
+
+    it 'returns the uploader if it is a string' do
+      described_class.configure do |config|
+        config.uploader = 'TestAssetUploader'
+      end
+
+      expect(described_class.uploader).to eq(TestAssetUploader)
+    end
+
+    it 'returns the uploader if it is a class' do
+      described_class.configure do |config|
+        config.uploader = TestAssetUploader
+      end
+      expect(described_class.uploader).to eq(TestAssetUploader)
+    end
+  end
 end
+
+class TestAssetUploader; end
