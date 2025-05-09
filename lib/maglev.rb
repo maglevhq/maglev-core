@@ -47,12 +47,18 @@ module Maglev
       config.tap do
         yield(config)
         config.reserved_paths = Maglev::ReservedPaths.new(config.reserved_paths)
+        require_relative 'maglev/active_storage' if config.uploader == :active_storage
       end
     end
 
     def uploader
-      require_relative "maglev/#{config.uploader}" if config.uploader == :active_storage
-      const_get("::Maglev::#{config.uploader.to_s.classify}")
+      case config.uploader
+      when Symbol then const_get("::Maglev::#{config.uploader.to_s.classify}")
+      when String then const_get(config.uploader)
+      when Class then config.uploader
+      else
+        raise "Invalid or not set uploader: #{config.uploader}"
+      end
     end
 
     def uploader_proxy_controller_name
