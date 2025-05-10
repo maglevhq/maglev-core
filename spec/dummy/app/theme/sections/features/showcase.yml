@@ -14,6 +14,10 @@ settings:
   # html: true
   # line_break: true
   default: "My work"
+
+- label: "Icon"
+  id: icon
+  type: icon
   
 # Definition of the blocks.
 # You can define as many types of blocks as you want.
