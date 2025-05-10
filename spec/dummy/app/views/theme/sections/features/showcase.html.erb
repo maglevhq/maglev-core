@@ -1,8 +1,11 @@
 <%= tag.section class: 'showcase', data: section.tag_data do %>
   <div class="container">
+    <p><%= section.setting_tag :icon, html_tag: 'i' %></p>
+
     <%= tag.h2 class: 'display-4', data: section.settings.title.tag_data do %>
       <%= raw section.settings.title %>
     <% end %>
+    
     <ul>
       <% section.blocks.each do |block| %>
         <%= tag.li data: block.tag_data do %>
