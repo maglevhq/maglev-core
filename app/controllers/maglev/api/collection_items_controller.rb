@@ -9,6 +9,13 @@ module Maglev
           keyword: params[:q]
         )
       end
+
+      def show
+        @item = services.fetch_collection_items.call(
+          collection_id: params[:collection_id],
+          id: params[:id]
+        )
+      end
     end
   end
 end

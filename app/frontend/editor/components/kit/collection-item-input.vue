@@ -66,5 +66,14 @@ export default {
       },
     },
   },
+  watch: {
+    value: {
+      async handler(value) {
+        if (value === 'any')
+          this.selectedCollectionItem = await this.services.collectionItem.findOne(this.collectionId, 'any')
+      },
+      immediate: true,
+    },
+  }
 }
 </script>

@@ -11,6 +11,7 @@ settings:
   id: product
   type: collection_item
   collection_id: products
+  default: any
 
 - label: "Description"
   id: description

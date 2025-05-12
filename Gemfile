@@ -8,7 +8,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 # development dependencies will be added by default to the :development group.
 gemspec
 
-gem 'rails', '~> 8.0.0'
+gem 'rails', '~> 8.0.2'
 
 # Use Active Storage variant
 gem 'image_processing', '~> 1.12.2'

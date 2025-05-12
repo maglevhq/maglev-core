@@ -12,9 +12,7 @@ Maglev::Engine.routes.draw do
       end
       resources :assets
       resource :publication, only: %i[show create]
-      scope 'collections/:collection_id' do
-        get '/', to: 'collection_items#index', as: :collection_items
-      end
+      resources :collection_items, path: 'collections/:collection_id', only: %i[index show]
     end
   end
 
