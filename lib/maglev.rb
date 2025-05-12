@@ -26,7 +26,7 @@ module Maglev
         c.favicon = nil
         c.logo = nil
         c.primary_color = '#040712'
-        c.uploader = 'active_storage'
+        c.uploader = :active_storage
         c.site_publishable = false
         c.preview_host = nil
         c.asset_host = Rails.application.config.action_controller.asset_host
