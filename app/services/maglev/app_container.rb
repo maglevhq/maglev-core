@@ -42,7 +42,7 @@ module Maglev
                                                            fetch_collection_items get_page_fullpath]
     dependency :get_page_sections,          class: Maglev::GetPageSections,
                                             depends_on: %i[fetch_theme
-                                                           fetch_sections_content]
+                                                           fetch_sections_content fetch_collection_items]
 
     dependency :get_site_scoped_sections,   class: Maglev::GetSiteScopedSections, depends_on: :fetch_theme
     dependency :get_page_section_names,     class: Maglev::GetPageSectionNames, depends_on: :fetch_theme

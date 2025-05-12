@@ -10,6 +10,7 @@ module Maglev
 
     dependency :fetch_theme
     dependency :fetch_sections_content
+    dependency :fetch_collection_items
 
     argument :page
     argument :sections_content, default: nil
