@@ -35,5 +35,23 @@ RSpec.describe 'Maglev::Api::CollectionItemsController', type: :request do
         end
       end
     end
+
+    describe 'find the any item' do
+      it 'returns a null object if there are no items in the collection' do
+        get '/maglev/api/collections/products/any', as: :json
+        expect(json_response).to eq(nil)
+      end
+
+      it 'returns the first item of the collection if the id is "any"' do
+        FactoryBot.rewind_sequences
+        products = create_list(:product, 2)
+        get '/maglev/api/collections/products/any', as: :json
+        expect(json_response.deep_symbolize_keys).to include(
+          id: products[0].id,
+          label: 'Product #01'
+        )
+        expect(json_response['image_url']).to match(%r{^http://example\.local/.*/asset.jpg$})
+      end
+    end
   end
 end
