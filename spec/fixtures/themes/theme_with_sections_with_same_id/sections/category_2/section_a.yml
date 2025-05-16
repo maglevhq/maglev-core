@@ -1,0 +1,23 @@
+# Name of the section displayed in the editor UI
+name: Section A
+
+category: category_2
+
+# Definition of the settings:
+# A setting type can be one of the following values: text, image, checkbox, link and color.
+# Please visit: https://docs.maglev.dev/concepts/setting for more explanation.
+settings:
+- label: "Title"
+  id: title
+  type: text
+  default: "Title"
+  # html: true
+  # line_break: true
+    
+# Definition of the blocks.
+# You can define as many types of blocks as you want.
+blocks: []
+
+# By default, in the editor UI, blocks will be listed below the "Content" title.
+# The title can be changed with the following property:
+# blocks_label: "My list of items"

@@ -1,0 +1,10 @@
+id: default
+name: Default
+
+section_categories:
+- id: category_1
+  name: "Category #1"
+- id: category_2
+  name: "Category #2"
+
+style_settings: []

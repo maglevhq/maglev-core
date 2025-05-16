@@ -4,6 +4,7 @@ module Maglev
   module Errors
     class NotAuthorized < StandardError; end
     class UnknownSection < StandardError; end
+    class DuplicateSectionDefinition < StandardError; end
 
     class UnknownSetting < StandardError
       def initialize(section_id, block_id, setting_id)
