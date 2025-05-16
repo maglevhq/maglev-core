@@ -13,7 +13,7 @@ module Maglev
     end
 
     def matches?(request)
-      (accepted_format?(request) || crawler?(request)) && match_host?(request)
+      !websocket?(request) && (accepted_format?(request) || crawler?(request)) && match_host?(request)
     end
 
     protected
@@ -30,6 +30,10 @@ module Maglev
 
     def crawler?(request)
       request.format.symbol.nil? && CRAWLER_USER_AGENTS.match?(request.user_agent)
+    end
+
+    def websocket?(request)
+      request.headers['Upgrade'] == 'websocket'
     end
 
     def match_host?(request)
