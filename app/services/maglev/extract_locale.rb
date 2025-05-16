@@ -22,9 +22,10 @@ module Maglev
     protected
 
     def extract_locale
-      segments = params[:path].split('/')
+      path = params[:path] || 'index'
+      segments = path.split('/')
 
-      return [default_locale, params[:path]] unless locales.include?(segments[0]&.to_sym)
+      return [default_locale, path] unless locales.include?(segments[0]&.to_sym)
 
       [segments.shift, segments.empty? ? 'index' : segments.join('/')]
     end
