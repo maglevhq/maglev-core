@@ -25,10 +25,6 @@ module Maglev::SectionsConcern
     sections.select { |section| section['type'] == type }
   end
 
-  def any_section_of_type?(type)
-    find_sections_by_type(type).any?
-  end
-
   private
 
   def prepare_section(theme, section)

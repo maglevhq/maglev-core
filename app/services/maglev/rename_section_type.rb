@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 module Maglev
-  # Rename a section type across a site and its pages
-  class RenameSection
+  # Rename all sections of a specific type to a new type across a site and its pages
+  class RenameSectionType
     include Injectable
 
     argument :site
@@ -33,8 +33,6 @@ module Maglev
     end
 
     def rename_resource_sections(resource)
-      return unless resource.any_section_of_type?(old_type)
-
       site.each_locale do |locale|
         Maglev::I18n.with_locale(locale) do
           change_section_type(resource.sections, old_type, new_type)

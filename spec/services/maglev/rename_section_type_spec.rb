@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe Maglev::RenameSection do
+describe Maglev::RenameSectionType do
   subject { described_class.call(site: site, theme: theme, old_type: old_type, new_type: new_type) }
 
   let(:site) { create(:site, locales: [{ label: 'English', prefix: 'en' }, { label: 'French', prefix: 'fr' }]) }
@@ -16,7 +16,7 @@ describe Maglev::RenameSection do
     )
   end
 
-  describe 'when the site has sections of the old type' do
+  describe 'when the site has sections of the specified type' do
     before do
       site.update!(sections_translations: {
                      en: [{ type: 'hero', settings: [{ value: 'Hello' }] }],
@@ -41,7 +41,7 @@ describe Maglev::RenameSection do
     end
   end
 
-  describe 'when the site has no sections of the old type' do
+  describe 'when the site has no sections of the specified type' do
     before do
       site.update!(sections_translations: {
                      en: [{ type: 'footer' }],
@@ -76,6 +76,37 @@ describe Maglev::RenameSection do
         Maglev::Errors::UnknownSection,
         "New section type 'banner' doesn't exist in the theme"
       )
+    end
+  end
+
+  describe 'when renaming sections across site and pages' do
+    let!(:page) { create(:page) }
+
+    before do
+      # Set up sections for both site and page
+      site.update!(sections_translations: {
+                     en: [{ type: 'hero' }, { type: 'footer' }],
+                     fr: [{ type: 'hero' }, { type: 'footer' }]
+                   })
+
+      page.update!(sections_translations: {
+                     en: [{ type: 'hero' }, { type: 'navigation' }],
+                     fr: [{ type: 'hero' }, { type: 'navigation' }]
+                   })
+    end
+
+    it 'renames the sections in both site and pages' do
+      expect(subject).to be true
+
+      # Check site sections
+      Maglev::I18n.with_locale(:en) do
+        expect(site.reload.sections.map { |s| s['type'] }).to eq(%w[banner footer])
+      end
+
+      # Check page sections
+      Maglev::I18n.with_locale(:en) do
+        expect(page.reload.sections.map { |s| s['type'] }).to eq(%w[banner navigation])
+      end
     end
   end
 end
