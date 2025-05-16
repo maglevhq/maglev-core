@@ -33,7 +33,7 @@ module Maglev
     end
 
     def websocket?(request)
-      request.headers['Upgrade'] == 'websocket'
+      request.headers['HTTP_UPGRADE'] == 'websocket'
     end
 
     def match_host?(request)
