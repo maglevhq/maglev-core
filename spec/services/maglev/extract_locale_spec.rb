@@ -9,6 +9,20 @@ describe Maglev::ExtractLocale do
   let(:params) { { path: 'index' } }
   let(:locales) { %i[en fr] }
 
+  context 'the path is nil' do
+    let(:params) { { path: nil } }
+
+    it 'uses the default locale' do
+      expect(Maglev::I18n).to receive(:'current_locale=').with(:en)
+      subject
+    end
+
+    it "sets the path to 'index'" do
+      subject
+      expect(params[:path]).to eq 'index'
+    end
+  end
+
   context "the path doesn't contain a locale" do
     it 'uses the default locale' do
       expect(Maglev::I18n).to receive(:'current_locale=').with(:en)
