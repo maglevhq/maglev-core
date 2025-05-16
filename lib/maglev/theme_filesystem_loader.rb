@@ -11,6 +11,7 @@ module Maglev
     def call(path)
       theme = add(YAML.safe_load(File.read(path.join('theme.yml')), aliases: true))
       sections = load_sections(theme, Pathname.new(path).join('sections/**/*.yml'))
+      detect_duplicate_sections(sections)
       theme.sections = Maglev::Section::Store.new(sections)
       theme
     rescue Errno::ENOENT
@@ -50,6 +51,12 @@ module Maglev
     def find_section_screenshot_timestamp(theme, section)
       path = fetch_section_screenshot_path.call(theme: theme, section: section, absolute: true)
       File.exist?(path) ? File.mtime(path).to_i : nil
+    end
+
+    def detect_duplicate_sections(sections)
+      sections.group_by(&:id).each do |id, list|
+        raise Maglev::Errors::DuplicateSectionDefinition, "Duplicate section definition: #{id}" if list.size > 1
+      end
     end
 
     def log_missing_theme_file(path)
