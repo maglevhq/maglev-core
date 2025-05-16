@@ -36,6 +36,8 @@ module Maglev
     end
 
     def remove_sections_of_type(sections, type)
+      return 0 if sections.blank?
+
       original_size = sections.size
       sections.reject! { |section| section['type'] == type }
       original_size - sections.size

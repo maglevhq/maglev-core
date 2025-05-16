@@ -43,6 +43,8 @@ module Maglev
     end
 
     def change_section_type(sections, old_type, new_type)
+      return if sections.blank?
+
       sections.each do |section|
         section['type'] = new_type if section['type'] == old_type
       end

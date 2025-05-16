@@ -39,6 +39,15 @@ module Maglev
       Rails.application.config.i18n.load_path += Dir["#{config.root}/config/locales/**/*.yml"]
     end
 
+    # initializer 'maglev.load_commands' do
+    #   if defined?(Rails::Command)
+    #     Dir.glob(File.join(__dir__, '../commands/**/*.rb')).each do |file|
+    #       puts "require #{file}"
+    #       require file
+    #     end
+    #   end
+    # end
+
     delegate :vite_ruby, to: :class
 
     def self.vite_ruby
