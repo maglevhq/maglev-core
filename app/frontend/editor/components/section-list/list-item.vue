@@ -12,7 +12,7 @@
       @confirm="removeSection(section.id)"
       v-on="$listeners"
     >
-      <uikit-list-item-button iconName="delete-bin-line" />      
+      <uikit-icon-button iconName="delete-bin-line" />      
     </uikit-confirmation-button>
   </div>
 </template>

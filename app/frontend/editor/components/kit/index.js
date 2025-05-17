@@ -22,9 +22,9 @@ import PageIcon from './page-icon.vue'
 import ColorInput from './color-input.vue'
 import SimpleSelect from './simple-select.vue'
 import CollectionItemInput from './collection-item-input.vue'
-import ListItemButton from './list-item-button.vue'
 import Divider from './divider.vue'
 import Hint from './hint.vue'
+import IconButton from './icon-button.vue'
 
 Vue.component('v-popoper', VPopover)
 Vue.component('uikit-icon', Icon)
@@ -49,6 +49,6 @@ Vue.component('uikit-page-icon', PageIcon)
 Vue.component('uikit-color-input', ColorInput)
 Vue.component('uikit-simple-select', SimpleSelect)
 Vue.component('uikit-collection-item-input', CollectionItemInput)
-Vue.component('uikit-list-item-button', ListItemButton)
 Vue.component('uikit-divider', Divider)
 Vue.component('uikit-hint', Hint)
+Vue.component('uikit-icon-button', IconButton)
