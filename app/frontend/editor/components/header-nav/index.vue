@@ -7,54 +7,28 @@
       <div class="h-6 bg-gray-200 rounded w-1/4 mx-6"></div>
       <div class="h-6 bg-gray-200 rounded w-1/4 mx-6"></div>
     </div>
-    <div class="flex justify-between h-full w-full" v-else>
-      <div class="flex">
-        <router-link
-          :to="{ name: 'listPages' }"
-          class="flex items-center py-4 px-6 flex-row hover:bg-editor-primary hover:bg-opacity-5 transition-colors duration-200"
-          :class="{
-            'bg-white': !isListPagesActive,
-            'bg-editor-primary bg-opacity-5': isListPagesActive,
-          }"
-        >
-          <span>{{ $t('headerNav.pages') }}</span>
-          <uikit-page-icon class="ml-4" :page="currentPage" />
-          <span class="ml-2">{{ currentPage.title }}</span>
-          <uikit-icon name="arrow-down-s-line" class="ml-3" />
-        </router-link>
-
-        <separator />
-
-        <router-link
-          :to="{ name: 'editPageSettings' }"
-          class="flex items-center py-4 px-6 flex-row hover:bg-editor-primary hover:bg-opacity-5 transition-colors duration-200"
-          :class="{
-            'bg-white': !isEditPageActive,
-            'bg-editor-primary bg-opacity-5': isEditPageActive,
-          }"
-        >
-          <uikit-icon name="settings-4-line" size="1.25rem" />
-          <span class="ml-2">{{ $t('headerNav.pageSettings') }}</span>
-        </router-link>
-
-        <separator />
+    <div class="grid grid-cols-5 h-full w-full" v-else>
+      <div class="col-span-3 lg:col-span-2">
+        <div class="flex h-full">
+          <page-info />
+        </div>
       </div>
 
-      <div class="flex">
-        <div class="flex items-center px-6">
-          <device-toggler />
-        </div>
-        <separator />
+      <div class="col-span-1 hidden lg:flex justify-center">
+        <device-toggler />
+      </div>
 
+      <div class="col-span-2 flex justify-end h-full">
         <div class="flex h-full relative" v-if="hasMultipleLocales">
           <locale-toggler />
         </div>
         <separator v-if="hasMultipleLocales" />
 
         <preview-toggler v-if="isSitePublishable" />
-        <preview-button v-else />
+        <preview-button v-else class="hidden lg:flex" />
 
         <separator v-if="isSitePublishable" />
+        
         <div
           class="flex items-center h-full relative space-x-1 pr-4"
           v-if="isSitePublishable"
@@ -64,7 +38,7 @@
         </div>
 
         <div v-else>
-          <save-button :big="true" />
+          <save-button big />
         </div>
       </div>
     </div>
@@ -79,6 +53,7 @@ import PreviewToggler from './preview-toggler.vue'
 import PublishButton from './publish-button.vue'
 import SaveButton from './save-button.vue'
 import Separator from './separator.vue'
+import PageInfo from './page-info.vue'
 
 export default {
   name: 'HeaderNav',
@@ -90,6 +65,7 @@ export default {
     SaveButton,
     Separator,
     PreviewToggler,
+    PageInfo,
   },
   computed: {
     isLoading() {
@@ -97,10 +73,7 @@ export default {
     },
     isListPagesActive() {
       return this.$route.name === 'listPages'
-    },
-    isEditPageActive() {
-      return this.$route.name === 'editPageSettings'
-    },
+    },    
   },
 }
 </script>

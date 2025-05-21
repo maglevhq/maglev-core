@@ -1,4 +1,9 @@
+import { isBlank } from '@/misc/utils'
+
 export default (services) => ({
+  pageUrl: ({ page, site }) => {
+    return isBlank(baseUrl) ? page.previewUrl : new URL(page.liveUrl, site.baseUrl).toString()
+  },
   sectionList: (
     { page, sections, sectionBlocks },
     { sectionDefinition: getSectiondefinition },

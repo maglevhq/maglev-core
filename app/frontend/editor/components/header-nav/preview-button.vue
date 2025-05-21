@@ -1,6 +1,6 @@
 <template>
   <a
-    :href="currentPage.previewUrl"
+    :href="pageUrl"
     target="_blank"
     class="px-6 flex items-center hover:bg-editor-primary/5 transition-colors duration-200"
   >
@@ -9,7 +9,12 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   name: 'PreviewButton',
+  computed: {
+    ...mapGetters(['pageUrl']),
+  },
 }
 </script>

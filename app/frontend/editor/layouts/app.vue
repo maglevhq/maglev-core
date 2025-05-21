@@ -21,7 +21,7 @@
 <script>
 import Layout from '@/layouts/default.vue'
 import HeaderNav from '@/components/header-nav/index.vue'
-import SidebarNav from '@/components/sidebar-nav.vue'
+import SidebarNav from '@/components/sidebar-nav/index.vue'
 
 export default {
   name: 'AppLayout',
