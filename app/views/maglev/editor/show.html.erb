@@ -8,6 +8,7 @@
 
   <%= javascript_tag nonce: true do %>
     window.locale = <%= h content_locale.to_json.html_safe %>;
+    window.uiLocale = <%= h editor_ui_locale.to_json.html_safe %>;
     window.baseUrl = <%= h site_base_editor_path.to_json.html_safe %>;
     window.leaveUrl = <%= site_leave_editor_path.to_json.html_safe %>;
     window.apiBaseUrl = <%= h api_base_path.to_json.html_safe %>;
