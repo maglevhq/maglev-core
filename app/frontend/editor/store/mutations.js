@@ -61,10 +61,10 @@ export default (services) => ({
     state.sectionBlocks = { ...state.sectionBlocks, ...entities.blocks }
   },
   SET_SECTIONS_CONTENT_LOCK_VERSIONS(state, lockVersions) {
-    for (const layoutGroupId in lockVersions) {
+    for (const { layoutGroupId, lockVersion } of lockVersions) {
       state.layoutGroups[layoutGroupId] = { 
         ...state.layoutGroups[layoutGroupId], 
-        lockVersion: lockVersions[layoutGroupId]
+        lockVersion
       }
     }
   },

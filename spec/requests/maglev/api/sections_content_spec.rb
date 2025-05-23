@@ -67,7 +67,11 @@ RSpec.describe 'Maglev::Api::SectionsContentController', type: :request do
           expect(response).to have_http_status(:ok)
           # rubocop:disable Style/StringHashKeys
           expect(json_response).to match({
-                                           'lockVersions' => { 'footer' => 0, 'header' => 1, 'main' => 1 }
+                                           'lockVersions' => [
+                                             { 'layoutGroupId' => 'header', 'lockVersion' => 1 },
+                                             { 'layoutGroupId' => 'main', 'lockVersion' => 1 },
+                                             { 'layoutGroupId' => 'footer', 'lockVersion' => 0 }
+                                           ]
                                          })
           # rubocop:enable Style/StringHashKeys
         end
