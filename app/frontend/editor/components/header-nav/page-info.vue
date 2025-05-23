@@ -10,16 +10,19 @@
     <uikit-page-icon :page="currentPage" size="1.5rem" />
     <div class="ml-4 flex flex-col leading-none">
       <span class="text-base">{{ currentPage.title }}</span>
-      <span class="text-xs text-gray-500 -mt-1 truncate">/{{ currentPage.path }}</span>
+      <span class="text-xs text-gray-500 -mt-1 truncate">{{ currentPagePath }}</span>
     </div>
     <uikit-icon name="arrow-down-s-line" class="ml-3" />
   </router-link>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   name: 'PageInfo',
   computed: {
+    ...mapGetters(['currentPagePath']),
     isListPagesActive() {
       return this.$route.name === 'listPages'
     },
