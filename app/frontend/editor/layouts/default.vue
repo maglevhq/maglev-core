@@ -7,12 +7,12 @@
           name: 'editPage',
           params: { locale: currentLocale, pageId: pageId },
         }"
-        class="w-16 h-full flex justify-center items-center border-r border-gray-200"
+        class="w-16 h-full flex justify-center items-center border-r border-gray-200 shrink-0"
       >
         <img v-bind:src="logoUrl" class="w-2/4" />
       </router-link>
       <div
-        class="w-16 h-full flex justify-center items-center border-r border-gray-200"
+        class="w-16 h-full flex justify-center items-center border-r border-gray-200 shrink-0"
         v-else
       >
         <img v-bind:src="logoUrl" class="w-2/4" />

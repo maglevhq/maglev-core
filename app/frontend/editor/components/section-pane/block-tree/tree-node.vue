@@ -14,13 +14,13 @@
             v-on="$listeners"
           />
 
-          <uikit-list-item-button
+          <uikit-icon-button
             iconName="arrow-up-s-line"
             @click.native="moveSectionBlockUp"
             v-if="index > 0"
           />
 
-          <uikit-list-item-button
+          <uikit-icon-button
             iconName="arrow-down-s-line"
             @click.native="moveSectionBlockDown"
             v-if="!last"

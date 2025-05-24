@@ -24,6 +24,7 @@
   "sidebarNav": {
     "addNewSectionTooltip": "Adicionar uma nova seção na parte inferior da página",
     "managePageSectionsTooltip": "Reordenar / excluir as seções da página",
+    "editPageSettingsTooltip": "Editar as configurações da página",
     "editStyleTooltip": "Alterar o estilo do seu site",
     "openImageLibraryTooltip": "Abrir a galeria de imagens",
     "leaveEditorTooltip": "Voltar para o aplicativo principal"

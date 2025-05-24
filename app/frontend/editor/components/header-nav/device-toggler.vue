@@ -7,7 +7,7 @@
       :color="icon.color"
       class="cursor-pointer hover:bg-editor-primary hover:bg-opacity-5 px-2"
       :class="{ 
-        'mx-2': index === 1,
+        'mx-1': index === 1,
         'bg-editor-primary bg-opacity-5': device === icon.device
       }"
       size="2.5rem"

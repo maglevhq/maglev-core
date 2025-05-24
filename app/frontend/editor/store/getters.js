@@ -1,4 +1,16 @@
+import { isBlank } from '@/misc/utils'
+
 export default (services) => ({
+  currentPageUrl: ({ page, site }) => {
+    return isBlank(baseUrl) ? page.previewUrl : new URL(page.liveUrl, site.baseUrl).toString()
+  },
+  currentPagePath: ({ page }) => {
+    // / -> /index
+    // /fr -> /fr/index
+    // /hello-world -> /hello-world
+    // fr/bonjour -> /fr/bonjour
+    return page.path === 'index' ? `${page.liveUrl}/index`.replace('//', '/') : page.liveUrl
+  },
   sectionList: (
     { page, sections, sectionBlocks },
     { sectionDefinition: getSectiondefinition },

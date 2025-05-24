@@ -7,32 +7,31 @@
     <div
       class="w-full h-full relative mx-auto border-solid border-0 border-t-4 border-b-4"
       :class="{
-        'border-transparent': !hoveredSection,
-        'border-editor-primary': hoveredSection,
+        'border-transparent': !mustBeDisplayed,
+        'border-editor-primary': mustBeDisplayed,
       }"
     >
       <transition
         name="slide-fade"
         mode="out-in"
-        v-on:after-leave="afterAnimationDone"
       >
         <top-left-actions
           :hovered-section="hoveredSection"
-          v-if="hoveredSection"
+          v-if="mustBeDisplayed"
         />
       </transition>
 
       <transition name="reverse-slide-fade" mode="out-in">
         <top-right-actions
           :hoveredSection="hoveredSection"
-          v-if="hoveredSection"
+          v-if="mustBeDisplayed"
         />
       </transition>
 
       <transition name="slide-up-fade" mode="out-in">
         <bottom-actions
           :hovered-section="hoveredSection"
-          v-if="hoveredSection"
+          v-if="mustBeDisplayed"
         />
       </transition>
     </div>
@@ -44,6 +43,7 @@ import TransformationMixin from '@/mixins/preview-transformation'
 import TopLeftActions from './top-left-actions.vue'
 import TopRightActions from './top-right-actions.vue'
 import BottomActions from './bottom-actions.vue'
+import { debounce } from '@/misc/utils'
 
 export default {
   name: 'SectionHighlighter',
@@ -53,11 +53,11 @@ export default {
     hoveredSection: { type: Object },
   },
   data() {
-    return { shadow: null, style: {} }
+    return { style: {}, isScrolling: false, boundingRect: null }
   },
   mounted() {
-    // NOTE: optimized version to update the highlighter when scrolling the iframe
     window.addEventListener('maglev:preview:scroll', this.onPreviewScroll)
+    this.waitUntilScrollingDone = debounce(this.onEndPreviewScrolling.bind(this), 800)
   },
   beforeDestroy() {
     window.removeEventListener('maglev:preview:scroll', this.onPreviewScroll)
@@ -66,21 +66,28 @@ export default {
     minTop() {
       return this.hoveredSection?.sectionOffsetTop || 0
     },
+    mustBeDisplayed() {
+      return !!this.hoveredSection && !this.isScrolling
+    }
   },
   methods: {
-    afterAnimationDone() {
-      this.shadow = null
+    onPreviewScroll(event) {      
+      this.isScrolling = true
+      this.boundingRect = event.detail.boundingRect      
+      this.waitUntilScrollingDone()
     },
-    onPreviewScroll(event) {
-      let self = this
-      window.requestAnimationFrame(() => {
-        const newStyle = this.performStyle(event.detail.boundingRect)
-        Object.entries(newStyle).forEach(
-          ([key, value]) => (self.$el.style[key] = value),
-        )
-      })
+    onEndPreviewScrolling() {
+      this.isScrolling = false 
+      this.applyStyle(this.boundingRect)
     },
-    performStyle(boundingRect) {
+    applyStyle(boundingRect) {
+      const self = this
+      const newStyle = this.calculateStyle(boundingRect)
+      Object.entries(newStyle).forEach(
+        ([key, value]) => (self.$el.style[key] = value),
+      )
+    },
+    calculateStyle(boundingRect) {
       const isSticky = boundingRect.top < this.minTop
       const top = isSticky ? this.minTop : boundingRect.top
       const height = isSticky
@@ -102,17 +109,16 @@ export default {
     }, 
   },
   watch: {
-    hoveredSection(value, oldValue) {
-      if (!value) this.shadow = { ...oldValue }
-      
-      if (!this.hoveredSection && !this.shadow) {
-        this.style = {}
-        return
-      }
+    hoveredSection: {
+      handler(value) {
+        if (!value) return
 
-      const { sectionRect } = value || this.shadow
-      this.style = this.performStyle(sectionRect)
-    },
+        this.isScrolling = false
+        this.boundingRect = value.sectionRect
+        this.applyStyle(value.sectionRect)
+      }, 
+      immediate: true
+    }
   },
 }
 </script>
