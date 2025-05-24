@@ -1,5 +1,5 @@
 import Vuex from 'vuex'
-import { vi } from 'vitest'
+import { describe, vi } from 'vitest'
 import { createLocalVue } from '@vue/test-utils'
 import defaultState from '@/store/default-state'
 import buildGetters from '@/store/getters'
@@ -27,6 +27,36 @@ describe('Getters', () => {
       mutations: buildMutations(mockedServices),
     })
     store.commit('SET_SITE', site)
+  })
+
+  describe('#currentPagePath', () => {
+    let freshNormalizedPage = null
+    beforeEach(() => {
+      freshNormalizedPage = structuredClone(normalizedPage)
+      mockedServices.page.normalize = vi.fn(() => freshNormalizedPage)
+    })
+    describe('Given this is the home page', () => {
+      it('returns the path of the page', () => {
+        store.commit('SET_PAGE', page)
+        expect(store.getters.currentPagePath).toStrictEqual('/index')
+      })
+    })
+    describe('Given this is a random page', () => {
+      it('returns the path of the page', () => {
+        freshNormalizedPage.entities.page['1'].path = '/bonjour'
+        freshNormalizedPage.entities.page['1'].liveUrl = '/fr/bonjour'
+        store.commit('SET_PAGE', page)
+        expect(store.getters.currentPagePath).toStrictEqual('/fr/bonjour')
+      })
+    })
+    describe('Given the liveUrl contains the domain name', () => {
+      it('returns the path of the page', () => {
+        freshNormalizedPage.entities.page['1'].liveUrl = 'https://example.com:8080/fr'
+        freshNormalizedPage.entities.page['1'].path = 'index'
+        store.commit('SET_PAGE', page)
+        expect(store.getters.currentPagePath).toStrictEqual('/fr/index')
+      })
+    })
   })
 
   describe('#content', () => {

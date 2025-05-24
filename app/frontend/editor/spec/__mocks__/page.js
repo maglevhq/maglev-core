@@ -204,6 +204,7 @@ export const page = {
   ogDescription: null,
   ogImageUrl: null,
   previewUrl: '/maglev/preview',
+  liveUrl: '/',
   sectionNames: [
     { id: 'GrYZW-VP', name: 'Navbar 01' },
     { id: '8hKSujtd', name: 'Content #1' },
@@ -418,13 +419,14 @@ export const normalizedPage = {
         ogDescription: null,
         ogImageUrl: null,
         previewUrl: '/maglev/preview',
+        liveUrl: '/',
         sectionNames: [
           { id: 'GrYZW-VP', name: 'Navbar 01' },
           { id: '8hKSujtd', name: 'Content #1' },
           { id: 'xM6f-kyh', name: 'List #1' },
         ],
         lockVersion: 1,
-        translated: true,
+        translated: true,        
       },
     },
   },

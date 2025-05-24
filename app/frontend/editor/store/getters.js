@@ -1,15 +1,9 @@
 import { isBlank } from '@/misc/utils'
 
 export default (services) => ({
-  currentPageUrl: ({ page, site }) => {
-    return isBlank(baseUrl) ? page.previewUrl : new URL(page.liveUrl, site.baseUrl).toString()
-  },
   currentPagePath: ({ page }) => {
-    // / -> /index
-    // /fr -> /fr/index
-    // /hello-world -> /hello-world
-    // fr/bonjour -> /fr/bonjour
-    return page.path === 'index' ? `${page.liveUrl}/index`.replace('//', '/') : page.liveUrl
+    const nakedPath = page.liveUrl.startsWith('http') ? new URL(page.liveUrl).pathname : page.liveUrl
+    return page.path === 'index' ? `${nakedPath}/index`.replace('//', '/') : nakedPath
   },
   sectionList: (
     { page, sections, sectionBlocks },

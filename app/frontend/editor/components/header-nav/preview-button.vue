@@ -9,12 +9,12 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-
 export default {
   name: 'PreviewButton',
   computed: {
-    ...mapGetters(['currentPageUrl']),
+    currentPageUrl() {
+      return this.currentPage.liveUrl
+    },
   },
 }
 </script>

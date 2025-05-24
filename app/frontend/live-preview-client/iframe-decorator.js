@@ -110,12 +110,6 @@ const listen = (previewDocument, eventType, handler) => {
 }
 
 const listenScrolling = (previewDocument) => {
-  // NOTE: to be used if too slow on old computers
-  // const debouncedScrollNotifier = debounce(() => {
-  //   const el = previewDocument.querySelector('[data-maglev-section-id]:hover')
-  //   if (el) postMessage('scroll', { boundingRect: el.getBoundingClientRect() })
-  // }, 10)
-
   const scrollNotifier = () => {
     const el = previewDocument.querySelector('[data-maglev-section-id]:hover')
     if (el) postMessage('scroll', { boundingRect: el.getBoundingClientRect() })
