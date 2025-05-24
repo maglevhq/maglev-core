@@ -5,6 +5,10 @@ export default (services) => ({
     const nakedPath = page.liveUrl.startsWith('http') ? new URL(page.liveUrl).pathname : page.liveUrl
     return page.path === 'index' ? `${nakedPath}/index`.replace('//', '/') : nakedPath
   },
+  currentPageUrl: ({ page, site }) => {
+    if (page.liveUrl.startsWith('http')) return page.liveUrl
+    return new URL(page.liveUrl, location.origin).toString()
+  },
   sectionList: (
     { page, sections, sectionBlocks },
     { sectionDefinition: getSectiondefinition },

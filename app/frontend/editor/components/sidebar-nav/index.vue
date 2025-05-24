@@ -9,6 +9,14 @@
     <ol class="divide-y divide-gray-300 px-4" v-else>
       <li>
         <sidebar-nav-link
+          routerLinkName="listPages"
+          :active="isListPagesActive"
+          iconName="ri-folders-line"
+          :tooltipMessage="$t('sidebarNav.listPagesTooltip')"
+        />
+      </li>  
+      <li>
+        <sidebar-nav-link
           :routerLinkName="'addSection'"
           :active="isAddSectionPaneActive"
           iconName="add-box-line"
@@ -77,6 +85,9 @@ export default {
   computed: {
     hasStyle() {
       return !this.isBlank(this.currentStyle)
+    },
+    isListPagesActive() {
+      return this.$route.name === 'listPages'
     },
     isAddSectionPaneActive() {
       return this.$route.name === 'addSection'

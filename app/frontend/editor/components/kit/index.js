@@ -8,6 +8,7 @@ import Accordion from './accordion.vue'
 import Dropdown from './dropdown.vue'
 import ConfirmationButton from './confirmation-button.vue'
 import SubmitButton from './submit-button.vue'
+import CopyPasteButton from './copy-paste-button.vue'
 import ImageInput from './image-input.vue'
 import IconInput from './icon-input.vue'
 import LinkInput from './link-input.vue'
@@ -52,3 +53,4 @@ Vue.component('uikit-collection-item-input', CollectionItemInput)
 Vue.component('uikit-divider', Divider)
 Vue.component('uikit-hint', Hint)
 Vue.component('uikit-icon-button', IconButton)
+Vue.component('uikit-copy-paste-button', CopyPasteButton)

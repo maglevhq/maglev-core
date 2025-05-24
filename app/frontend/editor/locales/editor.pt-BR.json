@@ -22,6 +22,7 @@
     }
   },
   "sidebarNav": {
+    "listPagesTooltip": "Gerenciar as páginas do seu site",
     "addNewSectionTooltip": "Adicionar uma nova seção na parte inferior da página",
     "managePageSectionsTooltip": "Reordenar / excluir as seções da página",
     "editPageSettingsTooltip": "Editar as configurações da página",

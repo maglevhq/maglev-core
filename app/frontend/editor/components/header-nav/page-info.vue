@@ -1,19 +1,14 @@
 <template>
-  <router-link
-    :to="{ name: 'listPages' }"
-    class="flex items-center h-full px-6 flex-row hover:bg-editor-primary hover:bg-opacity-5 transition-colors duration-200"
-    :class="{
-      'bg-white': !isListPagesActive,
-      'bg-editor-primary bg-opacity-5': isListPagesActive,
-    }"
-  >
-    <uikit-page-icon :page="currentPage" size="1.5rem" />
+  <div class="flex items-center h-full px-4 flex-row">
+    <uikit-page-icon :page="currentPage" size="1.75rem" />
     <div class="ml-4 flex flex-col leading-none">
-      <span class="text-base">{{ currentPage.title }}</span>
-      <span class="text-xs text-gray-500 -mt-1 truncate">{{ currentPagePath }}</span>
+      <div class="text-base font-semibold">{{ currentPage.title }}</div>
+      <div class="text-xs text-gray-500 -mt-0.5 flex items-center space-x-1">
+        <span class="truncate">{{ currentPagePath }}</span>
+        <uikit-copy-paste-button :text-to-copy="currentPageUrl" />
+      </div>
     </div>
-    <uikit-icon name="arrow-down-s-line" class="ml-3" />
-  </router-link>
+  </div>
 </template>
 
 <script>
@@ -22,12 +17,7 @@ import { mapGetters } from 'vuex'
 export default {
   name: 'PageInfo',
   computed: {
-    ...mapGetters(['currentPagePath']),
-    isListPagesActive() {
-      return this.$route.name === 'listPages'
-    },
+    ...mapGetters(['currentPagePath', 'currentPageUrl']),    
   }
 }
 </script>
-
-

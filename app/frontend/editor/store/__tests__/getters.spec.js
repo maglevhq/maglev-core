@@ -59,6 +59,28 @@ describe('Getters', () => {
     })
   })
 
+  describe('#currentPageUrl', () => {
+    let freshNormalizedPage = null
+    beforeEach(() => {
+      freshNormalizedPage = structuredClone(normalizedPage)
+      mockedServices.page.normalize = vi.fn(() => freshNormalizedPage)
+    })
+    describe('Given the page live URL is not prefixed with the base URL', () => {
+      it('returns the url of the page', () => {
+        freshNormalizedPage.entities.page['1'].liveUrl = '/hello-world'
+        store.commit('SET_PAGE', page)
+        expect(store.getters.currentPageUrl).toStrictEqual('http://localhost:3000/hello-world')
+      })
+    })
+    describe('Given the page live URL is prefixed with the base URL', () => {
+      it('returns the url of the page', () => {
+        freshNormalizedPage.entities.page['1'].liveUrl = 'https://example.com:8080/fr'
+        store.commit('SET_PAGE', page)
+        expect(store.getters.currentPageUrl).toStrictEqual('https://example.com:8080/fr')
+      })
+    })
+  })
+
   describe('#content', () => {
     it('returns the content of the sections for the page', () => {
       mockedServices.page.denormalize = vi.fn(() => page)
