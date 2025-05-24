@@ -53,6 +53,20 @@ export const start = (config) => {
 
   // click on links
   disableLinks(previewDocument)
+
+  // Only works on Google Chrome
+  selectHoveredSectionAtStartup(previewDocument, config.stickySectionIds)
+}
+
+const selectHoveredSectionAtStartup = (previewDocument, stickySectionIds) => {
+  setTimeout(() => {
+    const section = previewDocument.querySelector('[data-maglev-section-id]:hover')
+
+    console.log('selectHoveredSectionAtStartup', section)
+
+    if (section)
+      onSectionHovered(previewDocument, section, stickySectionIds)    
+  }, 200)
 }
 
 const listen = (previewDocument, eventType, handler) => {
@@ -96,27 +110,23 @@ const listen = (previewDocument, eventType, handler) => {
 }
 
 const listenScrolling = (previewDocument) => {
-  let mouseX = 0
-  let mouseY = 0
+  // NOTE: to be used if too slow on old computers
+  // const debouncedScrollNotifier = debounce(() => {
+  //   const el = previewDocument.querySelector('[data-maglev-section-id]:hover')
+  //   if (el) postMessage('scroll', { boundingRect: el.getBoundingClientRect() })
+  // }, 10)
 
-  addEventListener(previewDocument, 'mousemove', (e) => {
-    mouseX = e.clientX
-    mouseY = e.clientY
-  })
-
-  const debouncedScrollNotifier = debounce(() => {
-    const el = previewDocument
-      .elementFromPoint(mouseX, mouseY)
-      ?.closest('[data-maglev-section-id]')
-
+  const scrollNotifier = () => {
+    const el = previewDocument.querySelector('[data-maglev-section-id]:hover')
     if (el) postMessage('scroll', { boundingRect: el.getBoundingClientRect() })
-  }, 10)
+  }
 
-  addEventListener(previewDocument, 'scroll', debouncedScrollNotifier)
+  addEventListener(previewDocument, 'scroll', scrollNotifier)
 }
 
 const onSectionHovered = (previewDocument, el, stickySectionIds) => {
   const sectionId = el.dataset.maglevSectionId
+
   if (hoveredSectionId !== sectionId) {
     postMessage('section:hover', {
       sectionId,
