@@ -12,10 +12,4 @@ json.locales site.locales
 json.call(site, *site.api_attributes)
 json.home_page_id home_page_id
 
-json.base_url site.domain ? URI::Generic.build(
-  scheme: request.protocol.delete('://'),
-  host: site.domain,
-  port: request.optional_port
-) : nil
-
 json.lock_version site.lock_version

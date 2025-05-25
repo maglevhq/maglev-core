@@ -52,7 +52,7 @@ group :development, :test do
 
   gem 'nokogiri', '>= 1.15.6'
 
-  gem 'annotate'
+  gem 'annotaterb'
 
   gem 'rdoc', '>= 6.6.3.1'
 end

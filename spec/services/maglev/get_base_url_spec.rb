@@ -39,16 +39,6 @@ describe Maglev::GetBaseUrl do
         expect(subject).to eq nil
       end
     end
-
-    context 'the site has a domain' do
-      let(:request) { double('Request', scheme: 'http', port: 80, standard_port: 80) }
-      let(:controller) { double('Controller', request: request) }
-      let(:site) { build(:site, domain: 'example.com') }
-
-      it "doesn't care about the domain (single-site mode)" do
-        is_expected.to eq nil
-      end
-    end
   end
 
   context 'preview mode is true' do
