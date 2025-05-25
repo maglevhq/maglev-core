@@ -81,6 +81,7 @@ export default {
       this.applyStyle(this.boundingRect)
     },
     applyStyle(boundingRect) {
+      if (!boundingRect || !this.$el?.style) return // when we switch pages, the element is not mounted yet
       const self = this
       const newStyle = this.calculateStyle(boundingRect)
       Object.entries(newStyle).forEach(

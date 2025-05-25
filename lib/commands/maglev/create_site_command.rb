@@ -11,7 +11,7 @@ module Maglev
     end
 
     def perform
-      require File.expand_path('config/environment', Rails.root)
+      require File.expand_path('config/environment', Rails.root || 'spec/dummy')
 
       if Maglev::Site.exists?
         say '🤔 You already have a site. 🤔', :yellow
