@@ -5,6 +5,8 @@ module Maglev
     railtie_name :maglev_commands
 
     initializer 'maglev.commands' do
+      require 'rails/command'
+
       # Require all command files
       Dir[File.expand_path('../commands/**/*_command.rb', __dir__)].sort.each do |file|
         require file
