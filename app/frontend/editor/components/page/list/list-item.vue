@@ -4,10 +4,11 @@
   >
     <router-link
       :to="{ name: 'editPage', params: { pageId: page.path } }"
-      class="flex flex-grow items-center text-gray-800"
+      class="flex items-center text-gray-800 overflow-hidden"
+      :title="page.title"
     >
-      <uikit-page-icon :page="page" />
-      <span class="ml-4">{{ page.title }}</span>
+      <uikit-page-icon :page="page" class="shrink-0" />
+      <span class="ml-4 truncate">{{ page.title }}</span>
       <uikit-icon
         class="ml-4 text-gray-400"
         name="ri-eye-off-line"

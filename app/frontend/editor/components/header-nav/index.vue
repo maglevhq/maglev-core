@@ -9,9 +9,7 @@
     </div>
     <div class="grid grid-cols-5 h-full w-full" v-else>
       <div class="col-span-3 lg:col-span-2">
-        <div class="flex h-full">
-          <page-info />
-        </div>
+        <page-info />
       </div>
 
       <div class="col-span-1 hidden lg:flex justify-center">
