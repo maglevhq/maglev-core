@@ -11,7 +11,7 @@
         <sidebar-nav-link
           routerLinkName="listPages"
           :active="isListPagesActive"
-          iconName="ri-folders-line"
+          iconName="ri-file-copy-line"
           :tooltipMessage="$t('sidebarNav.listPagesTooltip')"
         />
       </li>  

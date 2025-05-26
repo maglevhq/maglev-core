@@ -40,7 +40,7 @@
               class="flex items-center px-4 py-4 hover:bg-gray-100 transition-colors duration-200 focus:outline-none"
               @click.stop="clonePage"
             >
-              <uikit-icon name="ri-file-copy-line" />
+              <uikit-icon name="ri-shadow-line" />
               <span class="ml-2">{{ $t('page.list.item.clone') }}</span>
             </button>
             <button
