@@ -8,7 +8,7 @@
       v-if="hasMultipleTypes"
     >
       <template v-slot:button>
-        <uikit-list-item-button iconName="ri-add-line" />
+        <uikit-icon-button iconName="ri-add-line" />
       </template>
       <template v-slot:content>
         <div class="w-full flex flex-col">
@@ -23,7 +23,7 @@
         </div>
       </template>
     </uikit-dropdown>
-    <uikit-list-item-button
+    <uikit-icon-button
       iconName="ri-add-line"
       @click.native="addNestedSectionBlock"
       v-else

@@ -26,7 +26,7 @@
         @confirm="removeSectionBlock(sectionBlock.id)"
         v-on="$listeners"
       >
-        <uikit-list-item-button iconName="ri-close-line" />
+        <uikit-icon-button iconName="delete-bin-line" />
       </uikit-confirmation-button>
     </div>
   </div>

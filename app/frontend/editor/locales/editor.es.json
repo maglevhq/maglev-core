@@ -22,8 +22,10 @@
     }
   },
   "sidebarNav": {
+    "listPagesTooltip": "Gestionar las páginas de tu sitio",
     "addNewSectionTooltip": "Añadir una nueva sección al final de la página",
     "managePageSectionsTooltip": "Reordenar / eliminar las secciones de la página",
+    "editPageSettingsTooltip": "Editar la configuración de la página",
     "editStyleTooltip": "Cambiar el diseño de tu sitio",
     "openImageLibraryTooltip": "Abrir la galería de imágenes",
     "leaveEditorTooltip": "Volver a la aplicación principal"

@@ -2,7 +2,7 @@
   "headerNav": {
     "pages": "Pages :",
     "pageSettings": "Paramètres page",
-    "previewSite": "Prévisualiser site",
+    "previewSite": "Prévisualiser",
     "previewToggler": {
       "button": "Voir site",
       "draftLink": "Version brouillon",
@@ -22,8 +22,10 @@
     }
   },
   "sidebarNav": {
+    "listPagesTooltip": "Gérer les pages de votre site",
     "addNewSectionTooltip": "Ajouter une nouvelle section au bas de la page",
     "managePageSectionsTooltip": "Gérer les sections de la page",
+    "editPageSettingsTooltip": "Modifier les paramètres de la page",
     "editStyleTooltip": "Modifier le style du site",
     "openImageLibraryTooltip": "Ouvrir la galerie d'images",
     "leaveEditorTooltip": "Retour vers l'application principale"

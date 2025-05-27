@@ -1,5 +1,18 @@
 # frozen_string_literal: true
 
+# == Schema Information
+#
+# Table name: maglev_sites
+#
+#  id                    :bigint           not null, primary key
+#  locales               :jsonb
+#  lock_version          :integer
+#  name                  :string
+#  sections_translations :jsonb
+#  style                 :jsonb
+#  created_at            :datetime         not null
+#  updated_at            :datetime         not null
+#
 module Maglev
   class Site < ApplicationRecord
     ## concerns ##
@@ -27,27 +40,3 @@ module Maglev
     end
   end
 end
-
-# == Schema Information
-#
-# Table name: maglev_sites
-#
-#  id                    :bigint           not null, primary key
-#  domain                :string
-#  handle                :string
-#  locales               :jsonb
-#  lock_version          :integer
-#  name                  :string
-#  navigation            :jsonb
-#  sections_translations :jsonb
-#  siteable_type         :string
-#  style                 :jsonb
-#  created_at            :datetime         not null
-#  updated_at            :datetime         not null
-#  siteable_id           :bigint
-#  theme_id              :string
-#
-# Indexes
-#
-#  index_maglev_sites_on_siteable  (siteable_type,siteable_id)
-#

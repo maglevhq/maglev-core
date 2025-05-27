@@ -22,8 +22,10 @@
     }
   },
   "sidebarNav": {
+    "listPagesTooltip": "إدارة صفحات موقعك",
     "addNewSectionTooltip": "إضافة قسم جديد في أسفل الصفحة",
     "managePageSectionsTooltip": "إعادة ترتيب / حذف أقسام الصفحة",
+    "editPageSettingsTooltip": "تعديل إعدادات الصفحة",
     "editStyleTooltip": "تغيير نمط موقعك",
     "openImageLibraryTooltip": "فتح معرض الصور",
     "leaveEditorTooltip": "العودة إلى التطبيق الرئيسي"

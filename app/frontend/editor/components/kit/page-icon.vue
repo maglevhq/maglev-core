@@ -1,5 +1,5 @@
 <template>
-  <uikit-icon :name="iconName" />
+  <uikit-icon :name="iconName" :size="size" />
 </template>
 
 <script>

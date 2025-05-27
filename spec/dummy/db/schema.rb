@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_01_31_163058) do
+ActiveRecord::Schema[8.0].define(version: 2022_06_12_092235) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -83,28 +83,14 @@ ActiveRecord::Schema[8.0].define(version: 2025_01_31_163058) do
     t.jsonb "og_image_url_translations", default: {}
   end
 
-  create_table "maglev_section_repositories", force: :cascade do |t|
-    t.string "name"
-    t.jsonb "sections_translations", default: {}
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "maglev_sites", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.jsonb "navigation", default: []
     t.jsonb "locales", default: []
     t.jsonb "sections_translations", default: {}
     t.integer "lock_version"
-    t.string "siteable_type"
-    t.bigint "siteable_id"
-    t.string "handle"
-    t.string "theme_id"
-    t.string "domain"
     t.jsonb "style", default: []
-    t.index ["siteable_type", "siteable_id"], name: "index_maglev_sites_on_siteable"
   end
 
   create_table "products", force: :cascade do |t|

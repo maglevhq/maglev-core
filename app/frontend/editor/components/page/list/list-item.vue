@@ -4,10 +4,11 @@
   >
     <router-link
       :to="{ name: 'editPage', params: { pageId: page.path } }"
-      class="flex flex-grow items-center text-gray-800"
+      class="flex items-center text-gray-800 overflow-hidden"
+      :title="page.title"
     >
-      <uikit-page-icon :page="page" />
-      <span class="ml-4">{{ page.title }}</span>
+      <uikit-page-icon :page="page" class="shrink-0" />
+      <span class="ml-4 truncate">{{ page.title }}</span>
       <uikit-icon
         class="ml-4 text-gray-400"
         name="ri-eye-off-line"
@@ -39,7 +40,7 @@
               class="flex items-center px-4 py-4 hover:bg-gray-100 transition-colors duration-200 focus:outline-none"
               @click.stop="clonePage"
             >
-              <uikit-icon name="ri-file-copy-line" />
+              <uikit-icon name="ri-shadow-line" />
               <span class="ml-2">{{ $t('page.list.item.clone') }}</span>
             </button>
             <button

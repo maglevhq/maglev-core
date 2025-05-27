@@ -14,7 +14,7 @@
               type="button"
               @click="$emit('on-close', true)"
             >
-              <uikit-icon name="ri-close-circle-line" />
+              <uikit-icon-button iconName="ri-close-line" class="relative -right-2" />
             </button>
           </div>
 
