@@ -4,14 +4,22 @@
 module Maglev::Page::PathConcern
   extend ActiveSupport::Concern
 
+  COMMON_ASSOCIATION_PATH_OPTIONS = {
+    class_name: '::Maglev::PagePath',
+    foreign_key: 'maglev_page_id',
+    inverse_of: :page    
+  }.freeze
+
   included do
     ## associations ##
     has_many :paths,
-             class_name: '::Maglev::PagePath',
+             **COMMON_ASSOCIATION_PATH_OPTIONS,
              dependent: :delete_all,
-             foreign_key: 'maglev_page_id',
-             inverse_of: :page,
              autosave: true
+
+    has_many :canonical_paths, 
+      -> { where(canonical: true) }, 
+      **COMMON_ASSOCIATION_PATH_OPTIONS
 
     ## callbacks ##
     before_validation { path } # force the initialization of a new path if it doesn't exist
@@ -19,7 +27,7 @@ module Maglev::Page::PathConcern
   end
 
   def default_path
-    @default_path ||= paths.find_by(locale: Maglev::I18n.default_locale)&.value
+    @default_path ||= path_hash[Maglev::I18n.default_locale]
   end
 
   def path
@@ -38,13 +46,19 @@ module Maglev::Page::PathConcern
   end
 
   def current_path
-    locale = Maglev::I18n.current_locale.to_sym
-    @memoized_paths ||= {}
-    @memoized_paths[locale] ||= paths.canonical.find_or_initialize_by(locale: locale, canonical: true)
+    locale = Maglev::I18n.current_locale
+    canonical_path_hash[locale] ||= paths.build(locale: locale, canonical: true)    
+  end
+
+  def canonical_path_hash
+    @canonical_path_hash ||= canonical_paths.to_a.inject({}.with_indifferent_access) do |memo, path|
+      memo[path.locale] ||= path
+      memo
+    end
   end
 
   def path_hash
-    paths.build_hash
+    canonical_path_hash.transform_values(&:value)
   end
 
   def disable_spawn_redirection
