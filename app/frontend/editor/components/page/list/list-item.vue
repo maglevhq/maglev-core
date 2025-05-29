@@ -1,10 +1,10 @@
 <template>
   <div
-    class="flex items-center py-3 pl-6 pr-2 hover:bg-editor-primary hover:bg-opacity-5 transition-colors duration-200"
+    class="flex items-center pl-6 pr-2 hover:bg-editor-primary hover:bg-opacity-5 transition-colors duration-200"
   >
     <router-link
       :to="{ name: 'editPage', params: { pageId: page.path } }"
-      class="flex items-center text-gray-800 overflow-hidden"
+      class="flex items-center text-gray-800 overflow-hidden w-full py-3.5"
       :title="page.title"
     >
       <uikit-page-icon :page="page" class="shrink-0" />

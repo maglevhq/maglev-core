@@ -55,7 +55,7 @@ module Maglev
     end
 
     def resources
-      ::Maglev::Page
+      ::Maglev::Page.includes(:canonical_paths)
     end
   end
 end

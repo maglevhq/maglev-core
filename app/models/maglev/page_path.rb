@@ -39,7 +39,7 @@ module Maglev
 
     ## class methods ##
 
-    def self.build_hash(page_id = nil)
+    def self.canonical_value_hash(page_id = nil)
       query = page_id ? where(maglev_page_id: page_id) : all
       query.canonical.pluck(:locale, :value).to_h
     end
