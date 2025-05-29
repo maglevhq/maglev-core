@@ -11,7 +11,7 @@
       :label="$t(`page.form.path`)"
       name="path"
       v-model="pathInput"
-      :error="errors.path || errors.pathsValue"
+      :error="errors.path || errors['paths.value'] || errors['pathsValue']"
       v-if="!isPageIndex || !page.id"
     />
 

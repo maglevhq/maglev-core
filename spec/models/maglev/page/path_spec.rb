@@ -24,6 +24,13 @@ RSpec.describe Maglev::Page, type: :model do
       expect(page).to be_invalid
       expect(page.errors.full_messages).to eq(['Path has already been taken'])
     end
+
+    it "doesn't allow creating a page with a path which is not a valid path" do
+      page = described_class.new(title: 'Hello world', path: 'foo bar')
+      expect(page).to be_invalid
+      pp page.errors
+      expect(page.errors.full_messages).to eq(['Path is not a valid path'])
+    end
   end
 
   describe 'cleaning path' do
@@ -88,7 +95,7 @@ RSpec.describe Maglev::Page, type: :model do
       it 'doesn\'t create multiple identical non canonical paths' do
         page.update!(path: 'original')
         page.update!(path: 'newer')
-        page.update!(path: 'brand new')
+        page.update!(path: 'brand/new')
         expect(page.paths.count).to eq 3
       end
     end

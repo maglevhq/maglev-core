@@ -29,6 +29,7 @@ module Maglev
     ## validations ##
     validates :value, presence: true, exclusion: { in: Maglev.config.reserved_paths }
     validates :value, uniqueness: { scope: %i[locale canonical] }, if: :canonical?
+    validates :value, format: { without: /\s/, message: :invalid_path }
     validates :canonical, uniqueness: { scope: %i[locale maglev_page_id] }, if: :canonical?
 
     ## callbacks ##

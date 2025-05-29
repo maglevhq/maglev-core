@@ -5,3 +5,9 @@ en:
         cloned_title: "%{title} COPY"
       'maglev/page/paths':
         value: Path
+    errors:
+      models:
+        maglev/page_path:
+          attributes:
+            value:
+              invalid_path: "is not a valid path"

@@ -24,3 +24,7 @@ fr:
             path:
               taken: est déjà utilisé par une autre page
               exclusion: est déjà utilisé par une autre page
+        maglev/page_path:
+          attributes:
+            value:
+              invalid_path: "n'est pas un chemin valide"
