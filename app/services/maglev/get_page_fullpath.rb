@@ -38,7 +38,7 @@ module Maglev
     end
 
     def fetch_paths
-      page.respond_to?(:path_hash) ? page.path_hash : Maglev::PagePath.canonical_value_hash(page)      
+      page.respond_to?(:path_hash) ? page.path_hash : Maglev::PagePath.canonical_value_hash(page)
     end
 
     def build_fullpath(base_url, path)

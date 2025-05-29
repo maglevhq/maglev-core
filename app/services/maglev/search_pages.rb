@@ -15,7 +15,7 @@ module Maglev
     argument :q, default: nil
     argument :content_locale
     argument :default_locale
-    
+
     def call
       id.nil? ? all_pages : single_page
     end
