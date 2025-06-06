@@ -11,6 +11,7 @@ export const page = {
   ogDescription: null,
   ogImageUrl: null,
   previewUrl: '/maglev/preview',
+  liveUrl: '/',
   lockVersion: 1,
   translated: true,
 }

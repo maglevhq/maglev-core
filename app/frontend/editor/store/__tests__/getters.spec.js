@@ -5,7 +5,7 @@ import defaultState from '@/store/default-state'
 import buildGetters from '@/store/getters'
 import buildMutations from '@/store/mutations'
 import MockedServices from '@/spec/__mocks__/services'
-import { page, normalizedPage } from '@/spec/__mocks__/page'
+import { page } from '@/spec/__mocks__/page'
 import { sectionsContent, normalizedSectionsContent } from '@/spec/__mocks__/sections-content'
 import { site } from '@/spec/__mocks__/site'
 import { theme } from '@/spec/__mocks__/theme'
@@ -31,11 +31,11 @@ describe('Getters', () => {
   })
 
   describe('#currentPagePath', () => {
-    let freshNormalizedPage = null
-    beforeEach(() => {
-      freshNormalizedPage = structuredClone(normalizedPage)
-      mockedServices.page.normalize = vi.fn(() => freshNormalizedPage)
-    })
+    // let freshNormalizedPage = null
+    // beforeEach(() => {
+    //   freshNormalizedPage = structuredClone(normalizedPage)
+    //   mockedServices.page.normalize = vi.fn(() => freshNormalizedPage)
+    // })
     describe('Given this is the home page', () => {
       it('returns the path of the page', () => {
         store.commit('SET_PAGE', page)
@@ -44,39 +44,38 @@ describe('Getters', () => {
     })
     describe('Given this is a random page', () => {
       it('returns the path of the page', () => {
-        freshNormalizedPage.entities.page['1'].path = '/bonjour'
-        freshNormalizedPage.entities.page['1'].liveUrl = '/fr/bonjour'
-        store.commit('SET_PAGE', page)
+        const freshPage = structuredClone(page)
+        freshPage.path = '/bonjour'
+        freshPage.liveUrl = '/fr/bonjour'
+        store.commit('SET_PAGE', freshPage)
         expect(store.getters.currentPagePath).toStrictEqual('/fr/bonjour')
       })
     })
     describe('Given the liveUrl contains the domain name', () => {
       it('returns the path of the page', () => {
-        freshNormalizedPage.entities.page['1'].liveUrl = 'https://example.com:8080/fr'
-        freshNormalizedPage.entities.page['1'].path = 'index'
-        store.commit('SET_PAGE', page)
+        const freshPage = structuredClone(page)
+        freshPage.liveUrl = 'https://example.com:8080/fr'
+        freshPage.path = 'index'
+        store.commit('SET_PAGE', freshPage)
         expect(store.getters.currentPagePath).toStrictEqual('/fr/index')
       })
     })
   })
 
   describe('#currentPageUrl', () => {
-    let freshNormalizedPage = null
-    beforeEach(() => {
-      freshNormalizedPage = structuredClone(normalizedPage)
-      mockedServices.page.normalize = vi.fn(() => freshNormalizedPage)
-    })
     describe('Given the page live URL is not prefixed with the base URL', () => {
       it('returns the url of the page', () => {
-        freshNormalizedPage.entities.page['1'].liveUrl = '/hello-world'
-        store.commit('SET_PAGE', page)
+        const freshPage = structuredClone(page)
+        freshPage.liveUrl = '/hello-world'
+        store.commit('SET_PAGE', freshPage)
         expect(store.getters.currentPageUrl).toStrictEqual('http://localhost:3000/hello-world')
       })
     })
     describe('Given the page live URL is prefixed with the base URL', () => {
       it('returns the url of the page', () => {
-        freshNormalizedPage.entities.page['1'].liveUrl = 'https://example.com:8080/fr'
-        store.commit('SET_PAGE', page)
+        const freshPage = structuredClone(page)
+        freshPage.liveUrl = 'https://example.com:8080/fr'
+        store.commit('SET_PAGE', freshPage)
         expect(store.getters.currentPageUrl).toStrictEqual('https://example.com:8080/fr')
       })
     })
