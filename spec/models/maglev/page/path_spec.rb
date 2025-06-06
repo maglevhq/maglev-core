@@ -26,9 +26,8 @@ RSpec.describe Maglev::Page, type: :model do
     end
 
     it "doesn't allow creating a page with a path which is not a valid path" do
-      page = described_class.new(title: 'Hello world', path: 'foo bar')
+      page = described_class.new(title: 'Hello world', path: 'foo bar', layout_id: 'default')
       expect(page).to be_invalid
-      pp page.errors
       expect(page.errors.full_messages).to eq(['Path is not a valid path'])
     end
   end

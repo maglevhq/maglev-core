@@ -2,9 +2,7 @@
 
 FactoryBot.define do
   factory :sections_content_store, class: 'Maglev::SectionsContentStore' do
-    transient do
-      page { nil }
-    end
+    page { nil }
 
     handle { "main#{page ? "-#{page.id}" : ''}" }
 

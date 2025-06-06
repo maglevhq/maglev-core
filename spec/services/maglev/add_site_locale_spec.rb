@@ -27,7 +27,8 @@ describe Maglev::AddSiteLocale do
     it 'sets a default content to all the pages in the new locale' do
       subject
       Maglev::I18n.with_locale(:fr) do
-        expect(page.reload.title).to eq 'Home'
+        page = Maglev::Page.first
+        expect(page.title).to eq 'Home'
         expect(page.path).to eq 'index'
         expect(Maglev::SectionsContentStore.first.sections).not_to be_empty
       end

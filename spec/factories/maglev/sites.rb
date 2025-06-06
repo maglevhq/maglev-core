@@ -5,54 +5,6 @@ FactoryBot.define do
     name { 'My awesome site' }
     locales { [{ label: 'English', prefix: 'en' }, { label: 'French', prefix: 'fr' }] }
 
-    # trait :empty do
-    #   sections { [] }
-    # end
-
-    # trait :with_navbar do
-    #   sections do
-    #     [
-    #       {
-    #         type: 'navbar',
-    #         id: 'yyy',
-    #         settings: [
-    #           { id: :logo, value: 'mynewlogo.png' }
-    #         ],
-    #         blocks: [
-    #           {
-    #             type: 'menu_item',
-    #             id: 'zzz',
-    #             settings: [
-    #               { id: 'label', value: 'Home' },
-    #               {
-    #                 id: 'link',
-    #                 value: {
-    #                   link_type: 'url', open_new_window: true, href: 'https://www.nocoffee.fr'
-    #                 }
-    #               }
-    #             ]
-    #           }
-    #         ]
-    #       }
-    #     ]
-    #   end
-    # end
-
-    # trait :with_footer do
-    #   sections do
-    #     [
-    #       {
-    #         type: 'footer',
-    #         id: 'footer',
-    #         settings: [
-    #           { id: :copyright, value: '(c) 2022 NoCoffee SARL' }
-    #         ],
-    #         blocks: []
-    #       }
-    #     ]
-    #   end
-    # end
-
     trait :with_style do
       style do
         [
@@ -61,50 +13,6 @@ FactoryBot.define do
         ]
       end
     end
-
-    # trait :page_links do
-    #   after :build do |record|
-    #     record.find_section('navbar')['blocks'][0]['settings'][1]['value'] = {
-    #       link_type: 'page',
-    #       link_id: '42',
-    #       open_new_window: true,
-    #       href: '/path-to-something'
-    #     }
-    #   end
-    # end
-
-    # trait :with_preset_navbar do
-    #   sections do
-    #     [
-    #       {
-    #         type: 'navbar',
-    #         settings: [
-    #           { id: :logo, value: 'mynewlogo.png' }
-    #         ],
-    #         blocks: [
-    #           {
-    #             type: 'menu_group',
-    #             settings: [],
-    #             children: [
-    #               {
-    #                 type: 'menu_item',
-    #                 settings: [
-    #                   { id: 'label', value: 'Home' },
-    #                   {
-    #                     id: 'link',
-    #                     value: {
-    #                       link_type: 'url', open_new_window: true, href: 'https://www.nocoffee.fr'
-    #                     }
-    #                   }
-    #                 ]
-    #               }
-    #             ]
-    #           }
-    #         ]
-    #       }
-    #     ]
-    #   end
-    # end
   end
 end
 
