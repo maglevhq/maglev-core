@@ -1,6 +1,7 @@
 <template>
   <div
     class="flex items-center py-3 pl-6 pr-2 hover:bg-editor-primary hover:bg-opacity-5 transition-colors duration-200"
+    @mouseenter="hovered = true"
   >
     <router-link
       :to="{ name: 'editPage', params: { pageId: page.path } }"
@@ -16,7 +17,13 @@
       />
     </router-link>
     <div class="ml-auto pr-2 relative">
-      <uikit-dropdown v-on="$listeners" popoverClass="tooltip-menu">
+      <button
+        class="px-1 py-1 rounded-full bg-editor-primary bg-opacity-0 hover:text-gray-900 text-gray-600 focus:outline-none hover:bg-opacity-10 transition-colors duration-200"
+        v-if="!hovered"
+      >
+        <uikit-icon name="ri-more-2-fill" size="1.25rem" />
+      </button>
+      <uikit-dropdown v-on="$listeners" popoverClass="tooltip-menu" v-else>
         <template v-slot:button>
           <button
             class="px-1 py-1 rounded-full bg-editor-primary bg-opacity-0 hover:text-gray-900 text-gray-600 focus:outline-none hover:bg-opacity-10 transition-colors duration-200"
@@ -84,6 +91,11 @@ export default {
   name: 'PageListItem',
   props: {
     page: { type: Object, required: true },
+  },
+  data() {
+    return {
+      hovered: false,
+    }
   },
   computed: {
     isIndexPage() {
