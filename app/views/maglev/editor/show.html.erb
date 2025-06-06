@@ -12,15 +12,17 @@
     window.baseUrl = <%= h site_base_editor_path.to_json.html_safe %>;
     window.leaveUrl = <%= site_leave_editor_path.to_json.html_safe %>;
     window.apiBaseUrl = <%= h api_base_path.to_json.html_safe %>;
-    window.site = <%= h render(partial: 'maglev/api/sites/show', formats: :json, locals: { site: maglev_site, home_page_id: maglev_home_page_id }).html_safe %>;
+    window.site = <%= h render(partial: 'maglev/api/sites/show', formats: :json, locals: { site: maglev_site, home_page_id: maglev_home_page_id, number_of_pages: maglev_pages_count }).html_safe %>;
     window.page = <%= h render(partial: 'maglev/api/pages/show', formats: :json, locals: { page: maglev_page }).html_safe %>;
     window.theme = <%= h render(partial: 'maglev/api/themes/show', formats: :json, locals: { theme: maglev_theme }).html_safe %>;
     window.logoUrl = <%= editor_logo_url.to_json.html_safe %>;
     window.primaryColor = <%= editor_primary_hex_color.to_json.html_safe %>;
     window.sitePublishable = <%= editor_site_publishable.to_json %>;
     window.customTranslations = <%= h editor_custom_translations.to_json.html_safe %>
+    window.sectionsContent = <%= h render(partial: 'maglev/api/sections_content/show', formats: :json, locals: { sections_content: maglev_page_sections }).html_safe %>
+    window.siteScopedSections = <%= h render(partial: 'maglev/api/sections_content/site_scoped_sections', formats: :json, locals: { site_scoped_sections: maglev_site_scoped_sections }).html_safe %>
   <% end %>
-
+  
   <%= vite_client_tag %>
   <%= vite_javascript_tag 'editor' %>
 

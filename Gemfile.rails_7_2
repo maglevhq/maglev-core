@@ -33,16 +33,16 @@ gem 'puma'
 # Git. Remember to move these dependencies to your gemspec before releasing
 # your gem to rubygems.org.
 
+# Gems not part of the standard library anymore
+gem 'observer'
+gem 'ostruct'
+
 # To use a debugger
 # gem 'byebug', group: [:development, :test]
 
 # Use SQLite/PostgreSQL for development and test
 gem 'pg', '~> 1.5.9'
 gem 'sqlite3'
-
-# Gems no longer be part of the default gems from Ruby 3.5.0
-gem 'observer'
-gem 'ostruct'
 
 group :development, :test do
   # Use SCSS for stylesheets

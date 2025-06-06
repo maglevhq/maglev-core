@@ -21,13 +21,17 @@ module Maglev
   class Page < ApplicationRecord
     ## concerns ##
     include Maglev::Translatable
-    include Maglev::SectionsConcern
     include Maglev::Page::PathConcern
     include Maglev::Page::SearchConcern
 
+    ## associations ##
+    has_many :stores, class_name: 'Maglev::SectionsContentStore',
+                      foreign_key: 'maglev_page_id', # required by Rails 7.0
+                      dependent: :destroy,
+                      inverse_of: :page
+
     ## translations ##
     translates :title, presence: true
-    translates :sections
     translates :seo_title, :meta_description
     translates :og_title, :og_description, :og_image_url
 
@@ -42,6 +46,9 @@ module Maglev
                            where(paths: { locale: locale || Maglev::I18n.current_locale, value: path })
                          }
 
+    ## validation ##
+    validates :layout_id, presence: true
+
     ## methods ##
 
     def index?
@@ -53,7 +60,7 @@ module Maglev
     end
 
     def translate_in(locale, source_locale)
-      %i[title sections seo_title meta_description og_title og_description og_image_url].each do |attr|
+      %i[title seo_title meta_description og_title og_description og_image_url].each do |attr|
         translate_attr_in(attr, locale, source_locale)
       end
     end

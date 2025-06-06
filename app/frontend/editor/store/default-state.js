@@ -11,10 +11,14 @@ export default {
   hoveredSection: null,
   sectionBlock: null,
   sectionBlockDefinition: null,
+  sectionsContent: [], // array of layoutGroups
+  layoutGroups: {}, // each layoutGroup has a list of sections
   sections: {},
   sectionBlocks: {},
+  siteScopedSections: {}, // site-wide sections like headers/footers
   editorSettings: {},
   touchedSections: [],
+  oneSinglePage: true,
   ui: {
     saveButtonState: 'default',
     publishButtonState: {

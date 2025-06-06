@@ -4,12 +4,13 @@ import store from '@/store'
 let iframe = null
 
 // === Section related actions ===
-export const addSection = (content, section, insertAt) => {
-  postMessage('section:add', { content, section, insertAt })
+export const addSection = (layoutGroupId, content, section, insertAt) => {
+  postMessage('section:add', { layoutGroupId, content, section, insertAt })
 }
 
-export const moveSection = (content, sectionId, targetSectionId, direction) => {
+export const moveSection = (layoutGroupId, content, sectionId, targetSectionId, direction) => {
   postMessage('section:move', {
+    layoutGroupId,
     content,
     sectionId,
     targetSectionId,
@@ -18,29 +19,29 @@ export const moveSection = (content, sectionId, targetSectionId, direction) => {
 }
 
 // the editor modifies the content of a section setting
-export const updateSection = (content, section, change) => {
-  postMessage('section:update', { content, section, change })
+export const updateSection = (layoutGroupId, content, section, change) => {
+  postMessage('section:update', { layoutGroupId, content, section, change })
 }
 
-export const removeSection = (sectionId) => {
-  postMessage('section:remove', { sectionId })
+export const removeSection = (layoutGroupId, sectionId) => {
+  postMessage('section:remove', { layoutGroupId, sectionId })
 }
 
 // === Block related actions ===
-export const addBlock = (content, section, sectionBlock) => {
-  postMessage('block:add', { content, section, sectionBlock })
+export const addBlock = (layoutGroupId, content, section, sectionBlock) => {
+  postMessage('block:add', { layoutGroupId, content, section, sectionBlock })
 }
 
-export const moveBlock = (content, section) => {
-  postMessage('block:move', { content, section })
+export const moveBlock = (layoutGroupId, content, section) => {
+  postMessage('block:move', { layoutGroupId, content, section })
 }
 
-export const updateBlock = (content, section, sectionBlock, change) => {
-  postMessage('block:update', { content, section, sectionBlock, change })
+export const updateBlock = (layoutGroupId, content, section, sectionBlock, change) => {
+  postMessage('block:update', { layoutGroupId, content, section, sectionBlock, change })
 }
 
-export const removeBlock = (content, section, sectionBlockId) => {
-  postMessage('block:remove', { content, section, sectionBlockId })
+export const removeBlock = (layoutGroupId, content, section, sectionBlockId) => {
+  postMessage('block:remove', { layoutGroupId, content, section, sectionBlockId })
 }
 
 // === Other actions ===
@@ -64,6 +65,11 @@ export const start = (newIframe) => {
 
   // treat all the message coming from the iFrame
   listenMessages()
+}
+
+export const reload = () => {
+  if (!iframe) return
+  iframe.contentWindow.location.reload()
 }
 
 const listenMessages = () => {

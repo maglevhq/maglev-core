@@ -15,6 +15,15 @@
       v-if="!isPageIndex || !page.id"
     />
 
+    <uikit-simple-select
+      :label="$t(`page.form.layoutId`)"
+      name="layoutId"
+      v-model="layoutIdInput"
+      :error="errors.layoutId"
+      :selectOptions="pageLayouts"
+      v-if="hasMultiplePageLayouts"
+    />
+
     <uikit-checkbox-input
       :label="$t(`page.form.visible`)"
       :placeholder="$t(`page.form.visiblePlaceholder`)"
@@ -51,6 +60,14 @@ export default {
         this.$emit('on-change', { path })
       },
     },
+    layoutIdInput: {
+      get() {
+        return this.page.layoutId
+      },
+      set(layoutId) {
+        this.$emit('on-change', { layoutId })
+      },
+    },
     visibleInput: {
       get() {
         return this.page.visible
@@ -59,6 +76,12 @@ export default {
         this.$emit('on-change', { visible })
       },
     },
+    pageLayouts() {
+      return this.services.theme.buildLayoutOptions(this.currentTheme)
+    },
+    hasMultiplePageLayouts() {
+      return this.pageLayouts.length > 1
+    }
   },
 }
 </script>
