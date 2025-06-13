@@ -30,4 +30,10 @@ describe('SectionService', () => {
       ])
     })
   })
+  describe('#getSectionLabel', () => {
+    it('returns the label of the section', () => {
+      const label = service.getSectionLabel(simpleContentSection, theme.sections[0])
+      expect(label).toEqual('preTitle')
+    })
+  })
 })

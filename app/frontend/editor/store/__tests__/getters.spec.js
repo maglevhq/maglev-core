@@ -135,18 +135,21 @@ describe('Getters', () => {
           id: 'GrYZW-VP',
           type: 'navbar_01',
           name: 'Navbar 01',
+          label: undefined,
           viewportFixedPosition: false,
         },
         {
           id: '8hKSujtd',
           type: 'content_01',
           name: 'Content #1',
+          label: undefined,
           viewportFixedPosition: false,
         },
         {
           id: 'xM6f-kyh',
           type: 'list_01',
           name: 'List #1',
+          label: undefined,
           viewportFixedPosition: false,
         },
       ])

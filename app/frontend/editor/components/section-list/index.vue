@@ -41,6 +41,7 @@ export default {
         group: 'description',
         disabled: false,
         ghostClass: 'ghost',
+        handle: '.cursor-move',
       }
     },
   },
