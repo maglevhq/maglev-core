@@ -158,6 +158,34 @@ const buildDefaultBlocks = (definition) => {
   return blocks
 }
 
+export const getSectionLabel = (section, definition) => {
+  let label = null
+
+  definition.settings.some((setting) => {
+    const value = section.settings.find(
+      (contentSetting) => contentSetting.id === setting.id,
+    )?.value
+
+    switch (setting.type) {
+      case 'text':
+        const doc = new DOMParser().parseFromString(value.replace(/<br\/?>/g, ' '), 'text/html')
+        label = doc.body.textContent
+        break
+      case 'link':
+        if (!isBlank(value?.text)) label = value.text
+        break
+      case 'collection_item':
+        if (!isBlank(value?.label)) label = value.label
+        break
+      default:
+        break
+    }
+
+    return !!label
+  })
+  return label
+}
+
 export const getBlockLabel = (block, definition, index) => {
   let label, image
   definition.settings.forEach((setting) => {

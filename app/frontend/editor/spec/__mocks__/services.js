@@ -44,6 +44,7 @@ const sectionService = {
   build: vi.fn(),
   getSettings: vi.fn(),
   buildDefaultBlock: vi.fn(),
+  getSectionLabel: vi.fn(),
 }
 
 const blockService = {

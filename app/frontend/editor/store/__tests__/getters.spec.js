@@ -124,8 +124,9 @@ describe('Getters', () => {
               id: 'GrYZW-VP',
               isMirrored: false,
               mirroredPageTitle: undefined,
-              name: 'Navbar 01',
+              name: 'Navbar 01',              
               type: 'navbar_01',
+              label: undefined,
               viewportFixedPosition: false,
             }
           ],
@@ -141,6 +142,7 @@ describe('Getters', () => {
               mirroredPageTitle: undefined,
               name: 'Content #1',
               type: 'content_01',
+              label: undefined,
               viewportFixedPosition: false,
             },
             {
@@ -149,6 +151,7 @@ describe('Getters', () => {
               mirroredPageTitle: undefined,
               name: 'List #1',
               type: 'list_01',
+              label: undefined,
               viewportFixedPosition: false
             }
           ],

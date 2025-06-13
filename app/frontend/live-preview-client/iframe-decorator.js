@@ -62,8 +62,6 @@ const selectHoveredSectionAtStartup = (previewDocument, stickySectionIds) => {
   setTimeout(() => {
     const section = previewDocument.querySelector('[data-maglev-section-id]:hover')
 
-    console.log('selectHoveredSectionAtStartup', section)
-
     if (section)
       onSectionHovered(previewDocument, section, stickySectionIds)    
   }, 200)
