@@ -4,6 +4,7 @@ json.array! @pages do |page|
   json.id    page.id
   json.title page.title || page.default_title
   json.path  page.path || page.default_path
+  json.layout_id page.layout_id
   json.visible page.visible
   json.static page.static?
 

@@ -42,6 +42,12 @@
         <template v-slot:item="{ item }">
           <div class="flex items-center">
             <span class="font-bold">{{ item.name }}</span>
+            <span
+            class="ml-auto"
+            :class="{ 'text-gray-500': !hovered, 'text-white': hovered }"
+          >
+            {{ item.layoutGroupLabel }}
+          </span>
           </div>
         </template>
       </uikit-select-input>
@@ -76,7 +82,7 @@ export default {
     },
     hasPageSections() {
       return !this.isBlank(this.page?.sectionNames)
-    },
+    }
   },
   methods: {
     async fetchPageSectionNames() {

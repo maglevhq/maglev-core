@@ -17,6 +17,31 @@ style_settings:
   id: font_name
   type: text
 
+layouts:
+- label: "Default"
+  id: "default"
+  groups:
+  - label: "Header"
+    id: "header"
+    store: "header" # the sections will be persisted in a SectionsContentStore model (handle: header)
+    accept: ["navbar"]
+  - label: "Main"
+    id: "main" # in DB, store handle -> "main-<page_id>"
+    store: "page" # by default, the Page model will be used as the storage unit
+  - "Footer"
+
+- label: "Sidebar"
+  groups:
+  - label: "Header"
+    id: "header"
+    store: "header" # the sections will be persisted in a SectionsContentStore model (handle: header)
+    accept: ["navbar"]
+  - label: "Main"
+    id: "main"
+    store: "page" # by default, the Page model will be used as the storage unit
+  - "Sidebar"
+  - "Footer"
+
 pages:
 - title: "Home page"
   path:  "index"

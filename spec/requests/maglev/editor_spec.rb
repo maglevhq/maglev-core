@@ -64,6 +64,18 @@ RSpec.describe 'Maglev::EditorController', type: :request do
         end
       end
 
+      describe 'Given the site has site scoped sections' do
+        before do
+          Maglev::SectionsContentStore.find_by(handle: '_site').update!(
+            sections: attributes_for(:sections_content_store, :header)[:sections]
+          )
+        end
+        it 'renders the site scoped sections' do
+          get '/maglev/editor/en/index'
+          expect(response.body).to include('window.siteScopedSections = {"navbar":')
+        end
+      end
+
       describe 'Given the developer defined another UI locale' do
         before do
           Maglev.configure do |config|

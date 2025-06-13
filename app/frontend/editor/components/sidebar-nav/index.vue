@@ -14,14 +14,6 @@
           iconName="ri-file-copy-line"
           :tooltipMessage="$t('sidebarNav.listPagesTooltip')"
         />
-      </li>  
-      <li>
-        <sidebar-nav-link
-          :routerLinkName="'addSection'"
-          :active="isAddSectionPaneActive"
-          iconName="add-box-line"
-          :tooltipMessage="$t('sidebarNav.addNewSectionTooltip')"
-        />
       </li>      
       <li>
         <sidebar-nav-link

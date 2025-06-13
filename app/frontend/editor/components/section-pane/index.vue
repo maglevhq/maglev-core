@@ -11,6 +11,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import SettingList from './setting-list.vue'
 import BlockList from './block-list/index.vue'
 import BlockTree from './block-tree/index.vue'
@@ -21,26 +22,27 @@ export default {
     settingId: { type: String, default: undefined },
   },
   computed: {
+    ...mapGetters(['isMirroredSection', 'isMirroredSectionEditable']),
     unfilteredTabs() {
       return [
         {
           name: this.$t('sectionPane.tabs.settings'),
           tab: SettingList,
           type: 'content',
-          condition: () => this.hasSettings,
+          condition: () => this.displaySettings
         },
         {
           name: this.blocksLabel,
           tab: this.blocksComponent,
           type: 'blocks',
-          condition: () => this.hasBlocks,
+          condition: () => this.displayBlocks
         },
         {
           name: this.$t('sectionPane.tabs.advanced'),
           tab: SettingList,
           type: 'advanced',
-          condition: () => this.hasAdvancedSettings,
-          props: () => ({ advanced: true }),
+          condition: () => this.hasAdvancedSettings || this.isMirroredSection,
+          props: () => ({ advanced: true, mirrorFeature: this.isMirroredSection }),
         },
       ]
     },
@@ -51,6 +53,12 @@ export default {
     },
     tabIndexFromRoute() {
       return this.findTabIndexFromRoute()
+    },
+    displaySettings() {
+      return this.hasSettings && (!this.isMirroredSection || this.isMirroredSectionEditable)
+    },
+    displayBlocks() {
+      return this.hasBlocks && (!this.isMirroredSection || this.isMirroredSectionEditable)
     },
     hasSettings() {
       return !this.isBlank(this.currentSectionSettings)
@@ -89,6 +97,10 @@ export default {
         this.$refs.tabs.selectTab(this.findTabIndexFromRoute())
       },
     },
+    isMirroredSectionEditable(newValue, oldValue) {
+      if (newValue === false && oldValue === true)
+        this.$refs.tabs.selectTab(0)
+    }
   },
 }
 </script>

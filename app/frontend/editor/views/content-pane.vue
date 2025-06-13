@@ -4,6 +4,7 @@
     :overflowY="false"
     :max-width-pane="isMaxWidthPane"
     :with-pre-title="isSectionBlockVersion"
+    :with-custom-title="isMirroredSection"
   >
     <template v-slot:pre-title v-if="isSectionBlockReady">
       <p class="text-gray-600 hover:text-gray-900">
@@ -21,6 +22,20 @@
       </p>
     </template>
 
+    <template v-slot:title v-if="isMirroredSection">
+      <div class="flex items-center space-x-2">
+        <span class="text-gray-800 font-semibold antialiased text-lg capitalize-first">
+          {{ title }}
+        </span>
+        <uikit-icon
+          name="ri-links-line" 
+          size="0.9rem" 
+          class="text-black"
+          v-tooltip="mirroredTooltip"
+        />
+      </div>
+    </template>
+
     <section-pane :settingId="settingId" v-if="isSectionReady" />
     <section-block-pane :settingId="settingId" v-if="isSectionBlockReady" />
 
@@ -34,6 +49,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import Layout from '@/layouts/slide-pane.vue'
 import SectionPane from '@/components/section-pane/index.vue'
 import SectionBlockPane from '@/components/section-block-pane/index.vue'
@@ -47,6 +63,7 @@ export default {
     settingId: { type: String, default: undefined },
   },
   computed: {
+    ...mapGetters(['isMirroredSection', 'isMirroredSectionEditable']),
     title() {
       if (this.isSectionReady) return this.sectionTitle
       else if (this.isSectionBlockReady) return this.sectionBlockTitle
@@ -75,6 +92,9 @@ export default {
     isSectionBlockReady() {
       return this.isSectionBlockVersion && this.currentSectionBlock
     },
+    isMirroredSection() {
+      return this.currentSection?.mirrorOf?.enabled
+    },
     isMaxWidthPane() {
       return !!this.currentSectionDefinition?.maxWidthPane
     },
@@ -83,6 +103,13 @@ export default {
         '-',
       )
     },
+    mirroredTooltip() {
+      return {
+        placement: 'right-end',
+        autoHide: false,
+        content: this.$t('mirrorSectionSetup.tooltip', { pageTitle: this.currentSection.mirrorOf.pageTitle })
+      }
+    }
   },
   destroyed() {
     this.fetchSection(null)
@@ -91,6 +118,11 @@ export default {
     async fetch() {
       if (this.sectionBlockId) await this.fetchSectionBlock(this.sectionBlockId)
       else if (this.sectionId) await this.fetchSection(this.sectionId)
+
+      if (this.isMirroredSection && !this.isMirroredSectionEditable && this.sectionBlockId) {
+        this.$router.push({ name: 'editSection', params: { sectionId: this.currentSection.id } })
+        return
+      }
 
       if (!this.currentSection && !this.currentSectionBlock)
         this.$router.push({ name: 'editPage' })

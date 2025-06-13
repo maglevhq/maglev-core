@@ -35,11 +35,12 @@ module Maglev
       )
     end
 
-    def fetch_maglev_page_sections(page_sections = nil)
+    def fetch_maglev_page_sections(sections_content = nil)
       @fetch_maglev_page_sections ||= maglev_services.get_page_sections.call(
         page: fetch_maglev_page,
-        page_sections: page_sections,
-        locale: content_locale
+        sections_content: sections_content,
+        locale: content_locale,
+        include_deleted: maglev_include_deleted_sections?
       )
     end
 
@@ -92,6 +93,10 @@ module Maglev
       fetch_maglev_page_sections
     end
 
+    def maglev_site_scoped_sections
+      maglev_services.get_site_scoped_sections.call
+    end
+
     def maglev_sections_path
       fetch_maglev_sections_path
     end
@@ -119,6 +124,10 @@ module Maglev
         site: maglev_site,
         theme: maglev_theme
       )
+    end
+
+    def maglev_include_deleted_sections?
+      false
     end
   end
 end

@@ -36,5 +36,9 @@ module Maglev
     def lock_version
       0
     end
+
+    def layout_id
+      'default'
+    end
   end
 end

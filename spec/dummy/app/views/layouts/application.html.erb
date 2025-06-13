@@ -22,6 +22,12 @@
   </head>
 
   <body>
-    <%= yield %>
+    <%= render_maglev_group :header %>
+    
+    <main>
+      <%= yield %>
+    </main>
+
+    <%= render_maglev_group :footer %>
   </body>
 </html>

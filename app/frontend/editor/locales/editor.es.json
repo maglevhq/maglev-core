@@ -84,6 +84,7 @@
       },
       "title": "Título",
       "path": "Ruta",
+      "layoutId": "Disposición",
       "visible": "Visible",
       "visiblePlaceholder": "Mostrar/Ocultar la página",
       "seoTitle": "Meta title",
@@ -99,7 +100,10 @@
     },
     "listPane": {
       "title": "Organizar secciones",
-      "empty": "No hay secciones."
+      "empty": {
+        "title": "Aún no hay secciones aquí.",
+        "button": "Agrega una para comenzar."
+      }
     }
   },
   "sectionPane": {
@@ -120,6 +124,10 @@
     }
   },
   "themeSectionList": {
+    "empty": {
+      "title": "No hay secciones disponibles para esta área.",
+      "message": "Esto puede deberse a las restricciones del grupo de diseño o a que la sección ya existe y es recuperable."
+    },
     "emptyCategory": "No hay secciones"
   },
   "style": {
@@ -171,6 +179,33 @@
   "iconLibrary": {
     "title": "Iconos",
     "pickerTitle": "Elige un icono"
+  },
+  "mirrorSectionSetup": {
+    "inputLabel": "Activar reflejo de sección",
+    "addButton": "...o añadir una sección reflejada",
+    "tooltip": "Esta sección está reflejada desde \"%{pageTitle}\".<br/>Los cambios realizados aquí se aplicarán en todas las páginas que usen esta sección",
+    "title": "Configurar sección reflejada",
+    "errorMessage": "¡Ups! No puedes reflejar esta sección. Ya está reflejada en esta página o proviene de la misma página que estás editando.",
+    "protectedMessage": {
+      "title": "Esta sección está protegida",
+      "message": "Para editar su contenido, ve a la página original donde fue creada."
+    },
+    "confirmButton": "Configurar",
+    "cancelButton": "Cancelar",
+    "page": {
+      "name": "Página",
+      "input": {
+        "label": "Página",
+        "placeholder": "Selecciona una página",
+        "searchPlaceholder": "Buscar...",
+        "emptyLabel": "No se encontraron páginas"
+      },
+      "sectionInput": {
+        "label": "Sección",
+        "placeholder": "Selecciona una sección",
+        "emptyLabel": "Ninguna sección seleccionada"
+      }
+    }
   },
   "linkInput": {
     "placeholder": "Pulsa aquí para seleccionar un enlace",

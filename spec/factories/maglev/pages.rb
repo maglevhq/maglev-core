@@ -21,34 +21,48 @@ FactoryBot.define do
   factory :page, class: 'Maglev::Page' do
     title { 'Home' }
     path { 'index' }
-    sections do
-      [
-        {
-          type: 'jumbotron',
-          settings: [
-            { id: :title, value: 'Hello world' },
-            { id: :body, value: '<p>Lorem ipsum</p>' }
-          ],
-          blocks: []
-        },
-        {
-          type: 'showcase',
-          settings: [{ id: :title, value: 'Our projects' }],
-          blocks: [
-            {
-              type: 'showcase_item',
-              settings: [
-                { id: :name, value: 'My first project' },
-                { id: :screenshot, value: '/assets/screenshot-01.png' }
-              ]
-            }
-          ]
-        }
-      ]
+    layout_id { 'default' }
+
+    transient do
+      sections do
+        [
+          {
+            id: 'def',
+            type: 'jumbotron',
+            settings: [
+              { id: :title, value: 'Hello world' },
+              { id: :body, value: '<p>Lorem ipsum</p>' }
+            ],
+            blocks: []
+          },
+          {
+            id: 'ghi',
+            type: 'showcase',
+            settings: [
+              { id: :title, value: 'Our projects' }
+            ],
+            blocks: [
+              {
+                type: 'showcase_item',
+                settings: [
+                  { id: :name, value: 'My first project' },
+                  { id: :screenshot, value: '/assets/screenshot-01.png' }
+                ]
+              }
+            ]
+          }
+        ]
+      end
+      header_sections {}
+    end
+
+    after(:create) do |page, evaluator|
+      create(:sections_content_store, sections: evaluator.sections, page: page) if evaluator.sections
+      create(:sections_content_store, sections: evaluator.header_sections) if evaluator.header_sections
     end
 
     trait :with_navbar do
-      sections do
+      header_sections do
         [
           {
             id: 'abc',
@@ -118,7 +132,7 @@ FactoryBot.define do
     end
 
     trait :with_blank_navbar do
-      sections do
+      header_sections do
         [
           {
             id: 'abc',
@@ -149,13 +163,6 @@ FactoryBot.define do
             ]
           }
         ]
-      end
-    end
-
-    trait :page_links do
-      after :build do |record|
-        record.sections[1]['settings'][1]['value'] =
-          '<p><a href="/bar">Bar</a> - <a href="/foo" maglev-link-type="page" maglev-link-id="42">TEST</a>'
       end
     end
 

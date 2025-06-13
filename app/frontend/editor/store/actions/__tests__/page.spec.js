@@ -31,57 +31,6 @@ describe('Page Actions', () => {
     })
   })
 
-  describe('#persistPage', () => {
-    it('calls the API with both site and page attributes', async () => {
-      mockedServices.site.find = vi.fn(async () => site)
-      mockedServices.page.normalize = vi.fn(() => normalizedPage)
-      mockedServices.page.denormalize = vi.fn(() => page)
-      mockedServices.page.findById = vi.fn(async () => page)
-      mockedServices.page.update = vi.fn(async () => ({
-        response: { status: 200 },
-      }))
-      store.commit('SET_PAGE', page)
-      await store.dispatch('persistPage')
-      expect(mockedServices.page.update).toHaveBeenCalledWith(
-        1,
-        {
-          sections: expect.any(Array),
-          lockVersion: 1,
-        },
-        {
-          style: null,
-        },
-      )
-      expect(store.state.ui.saveButtonState).toEqual('success')
-    })
-    it('calls the API without the site attributes because no site scoped section has been modified', async () => {
-      mockedServices.site.find = vi.fn(async () => site)
-      mockedServices.page.normalize = vi.fn(() => normalizedPage)
-      mockedServices.page.denormalize = vi.fn(() => page)
-      mockedServices.page.findById = vi.fn(async () => page)
-      mockedServices.page.update = vi.fn(async () => ({
-        response: { status: 200 },
-      }))
-      store.commit('SET_PAGE', page)
-      store.commit('TOUCH_SECTION', 'GrYZW-VP')
-      await store.dispatch('persistPage')
-      expect(mockedServices.page.update).toHaveBeenCalledWith(
-        1,
-        {
-          sections: expect.any(Array),
-          lockVersion: 1,
-        },
-        {
-          sections: expect.any(Array),
-          lockVersion: 1,
-          style: null,
-        },
-      )
-      expect(store.state.touchedSections).toEqual([])
-      expect(store.state.ui.saveButtonState).toEqual('success')
-    })
-  })
-
   describe('#setCurrentPageSettings', () => {
     it('does stuff', async () => {
       mockedServices.page.normalize = vi.fn(() => normalizedPage)

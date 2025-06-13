@@ -100,7 +100,7 @@ export default {
   computed: {
     ...mapState(['hoveredSection']),
     isPageEmpty() {
-      return this.currentSectionList.length === 0
+      return !this.hasSections
     },
     numberOfLocales() {
       return this.currentSite.locales.length
@@ -148,7 +148,7 @@ export default {
 }
 
 .tablet {
-  width: 1024px;
+  width: 768px;
   height: 100%;
   /* max-height: 1366px;   */
 }

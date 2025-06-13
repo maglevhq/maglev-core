@@ -6,17 +6,47 @@ name: "theme"
 description: "A brief description of the theme"
 
 section_categories:
-- name: content
+- name: Headers
+  id: headers
+- name: Content
+  id: content
+- name: Footers
+  id: footers
 
 # Properties of your theme such as the primary color, font name, ...etc.
 style_settings: []
 
+# Define layouts with organized groups
+layouts:
+- label: "Default"
+  id: "default"
+  groups:
+  - label: "Header"
+    id: "header"
+    accept: ["headers/*"]  # Only allow sections from the headers group
+    recoverable: ["navbar"]  # Make navbar recoverable
+    # mirror_section: false  # Disable mirroring feature for consistency
+  - label: "Main"
+    id: "main"
+    store: "page"  # Store content per-page
+  - label: "Footer"
+    id: "footer"
+    accept: ["footers/*"]  # Only allow sections from the footers group
+
+# [LAYOUTS] DO NOT REMOVE THIS LINE
+
 pages:
 - title: "Home page"
-  path:  "/index"
+  path: "/index"
+  layout_id: "default"  # Use the default layout
+  sections_content:
+    header: []
+    main: []
+    footer: []
 
 # List of CSS class names used by your library of icons (font awesome, remixicons, ...etc)
 icons: []
 
-
-
+# Enable the section mirroring feature (default: false)
+# mirror_section: true # # make mirrored sections editable from any page
+# mirror_section: protected # only allow editing the mirrored section from its original page.

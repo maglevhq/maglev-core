@@ -14,9 +14,8 @@ module Maglev
       validate_section_types!
 
       ActiveRecord::Base.transaction do
-        rename_resource_sections(site)
-        site_pages.find_each do |page|
-          rename_resource_sections(page)
+        resources.find_each do |resource|
+          rename_resource_sections(resource)
         end
       end
 
@@ -50,8 +49,8 @@ module Maglev
       end
     end
 
-    def site_pages
-      Maglev::Page
+    def resources
+      Maglev::SectionsContentStore.all
     end
   end
 end

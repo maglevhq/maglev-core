@@ -20,9 +20,8 @@ module Maglev
 
     def remove_sections
       ActiveRecord::Base.transaction do
-        remove_resource_sections(site)
-        site_pages.find_each do |page|
-          remove_resource_sections(page)
+        resources.find_each do |resource|
+          remove_resource_sections(resource)
         end
       end
     end
@@ -43,8 +42,8 @@ module Maglev
       original_size - sections.size
     end
 
-    def site_pages
-      Maglev::Page
+    def resources
+      Maglev::SectionsContentStore.all
     end
   end
 end

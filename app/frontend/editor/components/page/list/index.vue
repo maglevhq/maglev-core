@@ -18,6 +18,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 import GroupedDropdownsMixin from '@/mixins/grouped-dropdowns'
 import ListItem from './list-item.vue'
 
@@ -40,9 +41,11 @@ export default {
     },
   },
   methods: {
+    ...mapActions(['setOneSinglePage']),
     async fetch() {
       this.isLoading = true
       this.pages = await this.services.page.findAll({ q: this.q })
+      this.setOneSinglePage(this.previewablePages.length === 1)
       this.isLoading = false
     },
   },

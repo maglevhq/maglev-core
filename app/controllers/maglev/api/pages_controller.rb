@@ -15,8 +15,14 @@ module Maglev
       end
 
       def create
-        page = persist!(resources.new)
+        page = resources.create!(page_params)
         head :created, location: api_page_path(page)
+      end
+
+      def update
+        page = resources.find(params[:id])
+        page.update!(page_params)
+        head :ok, page_lock_version: page.lock_version
       end
 
       def destroy
@@ -24,37 +30,13 @@ module Maglev
         head :no_content
       end
 
-      def update
-        page = resources.find(params[:id])
-        persist!(page)
-        head :ok, page_lock_version: page.lock_version
-      end
-
       private
 
       def page_params
-        params.require(:page).permit(:title, :path,
+        params.require(:page).permit(:title, :path, :layout_id,
                                      :seo_title, :meta_description,
                                      :og_title, :og_description, :og_image_url,
-                                     :visible, :lock_version).tap do |whitelisted|
-          whitelisted[:sections] = params[:page].to_unsafe_hash[:sections] unless params.dig(:page, :sections).nil?
-        end
-      end
-
-      def site_params
-        lock_version = params.dig(:site, :lock_version)
-        sections = params[:site].to_unsafe_hash[:sections] unless params.dig(:site, :sections).nil?
-        style = params.dig(:site, :style)
-        (lock_version && sections ? { lock_version: lock_version, sections: sections } : {}).merge(style: style)
-      end
-
-      def persist!(page)
-        services.persist_page.call(
-          page: page,
-          page_attributes: page_params,
-          site: maglev_site,
-          site_attributes: site_params
-        )
+                                     :visible, :lock_version)
       end
 
       def resources

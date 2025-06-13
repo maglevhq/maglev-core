@@ -17,6 +17,12 @@
             </h2>
           </slot>
 
+          <slot name="title" v-else-if="withCustomTitle">
+            <h2 class="text-lg rounded w-3/4 bg-gray-200 animate-pulse">
+              &nbsp;
+            </h2>
+          </slot>
+
           <div class="w-full" v-else>
             <h2
               class="text-gray-800 font-semibold antialiased text-lg capitalize-first"
@@ -30,7 +36,7 @@
           </div>
 
           <div class="ml-auto">
-            <router-link :to="{ name: 'editPage' }">
+            <router-link :to="closeRouteTo">
               <uikit-icon-button iconName="ri-close-line" class="relative -right-2" />
             </router-link>
           </div>
@@ -75,7 +81,9 @@ export default {
     overflowY: { type: Boolean, default: true },
     maxWidthPane: { type: Boolean, default: false },
     withPreTitle: { type: Boolean, default: false },
-  },
+    withCustomTitle: { type: Boolean, default: false },
+    closeRouteTo: { type: Object, default: () => ({ name: 'editPage' }) }
+  }
 }
 </script>
 

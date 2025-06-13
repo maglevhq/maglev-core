@@ -21,23 +21,6 @@ RSpec.describe Maglev::Page, type: :model do
     end
   end
 
-  describe '#prepare_sections' do
-    let(:page) { build(:page) }
-    let(:theme) { build(:theme) }
-
-    before { page.prepare_sections(theme) }
-
-    it 'assign an id to each section and block' do
-      expect(page.sections.first['id']).not_to eq nil
-      expect(page.sections.last['id']).not_to eq nil
-      expect(page.sections.last['blocks'].first['id']).not_to eq nil
-    end
-
-    it 'casts the value of an image setting type' do
-      expect(page.sections.last['blocks'].last['settings'].last.dig('value', 'url')).to eq '/assets/screenshot-01.png'
-    end
-  end
-
   describe 'scopes' do
     describe '.by_id_or_path' do
       let!(:page) { create(:page) }

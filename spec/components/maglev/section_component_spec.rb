@@ -4,10 +4,12 @@ require 'rails_helper'
 
 describe Maglev::SectionComponent do
   let(:theme) { build(:theme) }
-  let(:page) { build(:page, :with_navbar).tap { |page| page.prepare_sections(theme) } }
+  let(:page) { build(:page) }
+  let(:content_store) { build(:sections_content_store) }
+  let(:page_sections) { content_store.tap { |store| store.prepare_sections(theme) }.sections }
   let(:config) { instance_double('MaglevConfig', asset_host: 'https://assets.maglev.local') }
   let(:page_component) { instance_double('PageCommponent', page: page, config: config) }
-  let(:attributes) { page.sections[1].deep_symbolize_keys }
+  let(:attributes) { page_sections[0].deep_symbolize_keys }
   let(:definition) { build(:section, category: 'headers') }
   let(:view_context) { FooController.new.view_context }
   let(:templates_root_path) { 'theme' }
@@ -49,7 +51,7 @@ describe Maglev::SectionComponent do
     end
 
     context 'using the fancy Maglev tags (ex: navbar)' do
-      let(:attributes) { page.sections[0].deep_symbolize_keys }
+      let(:content_store) { build(:sections_content_store, :header) }
       let(:definition) { build(:section, :navbar) }
 
       before { create(:site) }
@@ -103,7 +105,7 @@ describe Maglev::SectionComponent do
 end
 
 class FooController < ::ApplicationController
-  include Maglev::StandaloneSectionsConcern
+  include Maglev::InAppRenderingConcern
 
   helper_method :request
 

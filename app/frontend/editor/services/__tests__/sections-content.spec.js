@@ -1,8 +1,8 @@
-import buildService from '../page'
+import buildService from '../sections-content'
 import MockedServices from '@/spec/__mocks__/services'
-import { page } from '@/spec/__mocks__/page'
+import { sectionsContent } from '@/spec/__mocks__/sections-content'
 
-describe('PageService', () => {
+describe('SectionsContentService', () => {
   let service = null
 
   beforeEach(() => {
@@ -10,9 +10,9 @@ describe('PageService', () => {
   })
 
   describe('#normalize', () => {
-    it('takes a Page object and normalize it into entities', () => {
-      const output = service.normalize(page)
-      expect(output.result).toEqual(1)
+    it('takes a SectionsContent object and normalize it into entities', () => {
+      const output = service.normalize(sectionsContent)
+      expect(output.result).toEqual(['header', 'main', 'footer'])
       expect(Object.keys(output.entities.sections)).toStrictEqual([
         'GrYZW-VP',
         '8hKSujtd',
@@ -28,11 +28,7 @@ describe('PageService', () => {
         'K3Xotn7f',
         'Pst6WyU0',
       ])
-      expect(output.entities.page['1'].sections).toStrictEqual([
-        'GrYZW-VP',
-        '8hKSujtd',
-        'xM6f-kyh',
-      ])
+      expect(output.entities.layoutGroups.header.sections).toStrictEqual(['GrYZW-VP'])
     })
   })
 })

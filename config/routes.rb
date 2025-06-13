@@ -9,9 +9,11 @@ Maglev::Engine.routes.draw do
       resource :site, only: :show
       resources :pages do
         resources :clones, controller: :page_clones, only: :create
+        resource :sections_content, controller: :sections_content, only: %i[show update]
       end
       resources :assets
       resource :publication, only: %i[show create]
+      resource :style, only: :update
       resources :collection_items, path: 'collections/:collection_id', only: %i[index show]
     end
   end

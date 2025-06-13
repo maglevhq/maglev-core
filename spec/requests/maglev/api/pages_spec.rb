@@ -37,14 +37,14 @@ RSpec.describe 'Maglev::Api::PagesController', type: :request do
           id: page.id,
           title: page.title,
           path: page.path,
+          layout_id: 'default',
           visible: true,
           seo_title: nil,
           meta_description: nil,
           og_title: nil,
           og_description: nil,
           og_image_url: nil,
-          preview_url: '/maglev/preview',
-          section_names: [a_hash_including(name: 'Jumbotron'), a_hash_including(name: 'Showcase')]
+          preview_url: '/maglev/preview'
         }
       )
     end
@@ -63,14 +63,14 @@ RSpec.describe 'Maglev::Api::PagesController', type: :request do
             id: page.id,
             title: page.title,
             path: page.path,
+            layout_id: 'default',
             visible: true,
             seo_title: nil,
             meta_description: nil,
             og_title: nil,
             og_description: nil,
             og_image_url: nil,
-            preview_url: '/maglev/preview',
-            section_names: [a_hash_including(name: 'Jumbotron'), a_hash_including(name: 'Showcase')]
+            preview_url: '/maglev/preview'
           }
         )
       end
@@ -126,10 +126,14 @@ RSpec.describe 'Maglev::Api::PagesController', type: :request do
     end
 
     it 'returns well-formed error response on wrong creation request' do
-      post '/maglev/api/pages', params: { page: { title: '', path: 'new' } }, as: :json
+      post '/maglev/api/pages', params: { page: { title: '', path: '' } }, as: :json
       expect(json_response).to eq(
         {
-          errors: { title: ["can't be blank"] }
+          errors: {
+            title: ["can't be blank"],
+            path: ["can't be blank"],
+            layout_id: ["can't be blank"]
+          }
         }.as_json
       )
       expect(response).to have_http_status(:bad_request)
@@ -152,21 +156,6 @@ RSpec.describe 'Maglev::Api::PagesController', type: :request do
             page.update(title: 'I changed it first')
             put maglev.api_page_path(page), params: { page: { title: 'New title', lock_version: 0 } }, as: :json
           end.to change { page.reload.title }.to('I changed it first')
-          expect(response).to have_http_status(:conflict)
-        end
-      end
-
-      context 'Given the site has been updated in the meantime' do
-        let(:sections) { [attributes_for(:page, :with_navbar)[:sections][0]] }
-        let(:site_attributes) { { sections: sections, lock_version: 0 } }
-        let(:page_attributes) { { title: 'New title', lock_version: 0 } }
-
-        it "doesn't update the page in DB" do
-          expect do
-            site.update(name: 'New name')
-            put maglev.api_page_path(page),
-                params: { page: page_attributes, site: site_attributes }, as: :json
-          end.to change { site.reload.name }.to('New name')
           expect(response).to have_http_status(:conflict)
         end
       end

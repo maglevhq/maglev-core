@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_220_612_092_235) do
+ActiveRecord::Schema.define(version: 20_250_307_104_536) do
   create_table 'accounts', force: :cascade do |t|
     t.string 'email'
     t.string 'password_digest'
@@ -81,6 +81,19 @@ ActiveRecord::Schema.define(version: 20_220_612_092_235) do
     t.json 'og_title_translations', default: {}
     t.json 'og_description_translations', default: {}
     t.json 'og_image_url_translations', default: {}
+    t.string 'layout_id'
+    t.index ['layout_id'], name: 'index_maglev_pages_on_layout_id'
+  end
+
+  create_table 'maglev_sections_content_stores', force: :cascade do |t|
+    t.integer 'maglev_page_id'
+    t.string 'handle', null: false
+    t.json 'sections_translations', default: {}
+    t.integer 'lock_version'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.index ['handle'], name: 'index_maglev_sections_content_stores_on_handle'
+    t.index ['maglev_page_id'], name: 'index_maglev_sections_content_stores_on_maglev_page_id'
   end
 
   create_table 'maglev_sites', force: :cascade do |t|
@@ -104,4 +117,5 @@ ActiveRecord::Schema.define(version: 20_220_612_092_235) do
 
   add_foreign_key 'active_storage_attachments', 'active_storage_blobs', column: 'blob_id'
   add_foreign_key 'active_storage_variant_records', 'active_storage_blobs', column: 'blob_id'
+  add_foreign_key 'maglev_sections_content_stores', 'maglev_pages'
 end
