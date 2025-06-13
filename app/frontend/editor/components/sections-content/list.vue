@@ -67,6 +67,7 @@ export default {
         group: `sections-${this.layoutGroupId}`,
         disabled: false,
         ghostClass: 'ghost',
+        handle: '.cursor-move',
       }
     },
     canAdd()  {
