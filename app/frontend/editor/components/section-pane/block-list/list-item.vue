@@ -1,14 +1,17 @@
 <template>
   <div
-    class="bg-gray-100 rounded-md px-4 py-3 flex items-center justify-between text-gray-800"
-    :class="{ 'cursor-move': isList }"
+    class="bg-gray-100 rounded-md pr-2 flex items-center text-gray-800"
+    :class="{ 'pl-4': !isList }"
   >
+    <div class="flex flex-col cursor-move px-2 py-3" v-if="isList">
+      <uikit-icon name="ri-draggable" />
+    </div>
     <router-link
       :to="{
         name: 'editSectionBlock',
         params: { sectionBlockId: sectionBlock.id },
       }"
-      class="flex items-center"
+      class="flex items-center py-3 overflow-hidden"
     >
       <div class="h-8 w-8 bg-gray-400 mr-3" v-if="image">
         <img
@@ -18,9 +21,9 @@
           @load="() => (imageLoaded = true)"
         />
       </div>
-      <span>{{ label | truncate(40) }}</span>
+      <span class="truncate">{{ label | truncate(40) }}</span>
     </router-link>
-    <div class="flex items-center">
+    <div class="flex items-center ml-auto pl-2">
       <slot name="actions"></slot>
       <uikit-confirmation-button
         @confirm="removeSectionBlock(sectionBlock.id)"
