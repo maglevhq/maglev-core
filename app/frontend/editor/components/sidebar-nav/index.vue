@@ -31,14 +31,6 @@
           :tooltipMessage="$t('sidebarNav.managePageSectionsTooltip')"        
         />
       </li>
-      <li>
-        <sidebar-nav-link
-          routerLinkName="editPageSettings"
-          :active="isEditPageActive"
-          iconName="settings-4-line"
-          :tooltipMessage="$t('sidebarNav.editPageSettingsTooltip')"        
-        />        
-      </li>
       <li v-if="hasStyle">
         <sidebar-nav-link
           :routerLinkName="'editStyle'"
