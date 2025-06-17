@@ -45,14 +45,16 @@
       "title": "قائمة الصفحات",
       "subTitle": "إدارة صفحات موقعك",
       "newButton": "صفحة جديدة",
-      "searchPlaceholder": "اكتب استعلامك هنا...",
-      "item": {
-        "edit": "تعديل إعدادات الصفحة",
-        "clone": "نسخ الصفحة",
-        "hide": "إخفاء الصفحة",
-        "show": "إظهار الصفحة",
-        "delete": "حذف الصفحة"
-      }
+      "searchPlaceholder": "اكتب استعلامك هنا..."
+    },
+    "actions": {
+      "edit": "تعديل الإعدادات",
+      "clone": "نسخ الصفحة",
+      "hide": "إخفاء الصفحة",
+      "show": "إظهار الصفحة",
+      "delete": "حذف الصفحة",
+      "copyUrlToClipboard": "نسخ الرابط",
+      "copyUrlToClipboardSuccess": "تم النسخ إلى الحافظة!"
     },
     "new": {
       "title": "إنشاء صفحة جديدة",

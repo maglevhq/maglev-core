@@ -4,8 +4,7 @@ module Maglev
   module Api
     class PageClonesController < ::Maglev::ApiController
       def create
-        page = clone_page(resources.find(params[:page_id]))
-        head :created, location: api_page_path(page)
+        @page = clone_page(resources.find(params[:page_id]))
       end
 
       private

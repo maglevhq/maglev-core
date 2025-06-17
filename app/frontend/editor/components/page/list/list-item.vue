@@ -17,72 +17,20 @@
       />
     </router-link>
     <div class="ml-auto pr-2 relative">
-      <uikit-dropdown v-on="$listeners" popoverClass="tooltip-menu">
-        <template v-slot:button>
-          <button
-            class="px-1 py-1 rounded-full bg-editor-primary bg-opacity-0 hover:text-gray-900 text-gray-600 focus:outline-none hover:bg-opacity-10 transition-colors duration-200"
-          >
-            <uikit-icon name="ri-more-2-fill" size="1.25rem" />
-          </button>
-        </template>
-        <template v-slot:content>
-          <div class="flex flex-col w-48 text-gray-800">
-            <button
-              class="flex items-center px-4 py-4 hover:bg-gray-100 transition-colors duration-200 focus:outline-none"
-              @click.stop="openEditPageModal"
-            >
-              <uikit-icon name="ri-settings-5-line" />
-              <span class="ml-2 whitespace-nowrap">{{
-                $t('page.list.item.edit')
-              }}</span>
-            </button>
-            <button
-              class="flex items-center px-4 py-4 hover:bg-gray-100 transition-colors duration-200 focus:outline-none"
-              @click.stop="clonePage"
-            >
-              <uikit-icon name="ri-shadow-line" />
-              <span class="ml-2">{{ $t('page.list.item.clone') }}</span>
-            </button>
-            <button
-              class="flex items-center px-4 py-4 hover:bg-gray-100 transition-colors duration-200 focus:outline-none"
-              @click.stop="hidePage"
-              v-if="isVisible"
-            >
-              <uikit-icon name="ri-eye-off-line" />
-              <span class="ml-2">{{ $t('page.list.item.hide') }}</span>
-            </button>
-            <button
-              class="flex items-center px-4 py-4 hover:bg-gray-100 transition-colors duration-200 focus:outline-none"
-              @click.stop="showPage"
-              v-if="!isVisible"
-            >
-              <uikit-icon name="ri-eye-line" />
-              <span class="ml-2">{{ $t('page.list.item.show') }}</span>
-            </button>
-            <uikit-confirmation-button
-              @confirm="deletePage"
-              ref="deleteDropdown"
-              v-if="!isIndexPage"
-            >
-              <button
-                class="flex items-center w-full px-4 py-4 hover:bg-gray-100 transition-colors duration-200 focus:outline-none"
-              >
-                <uikit-icon name="delete-bin-line" />
-                <span class="ml-2">{{ $t('page.list.item.delete') }}</span>
-              </button>
-            </uikit-confirmation-button>
-          </div>
-        </template>
-      </uikit-dropdown>
+      <page-actions-button :page="page" v-on="$listeners" />
     </div>
   </div>
 </template>
 
 <script>
 import EditPageModal from '@/components/page/edit.vue'
+import PageActionsButton from './actions-button.vue'
 
 export default {
   name: 'PageListItem',
+  components: {
+    PageActionsButton,
+  },
   props: {
     page: { type: Object, required: true },
   },

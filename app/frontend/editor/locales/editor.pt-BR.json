@@ -45,14 +45,16 @@
       "title": "Lista de páginas",
       "subTitle": "Gerenciar as páginas do seu site",
       "newButton": "Nova página",
-      "searchPlaceholder": "Digite sua pesquisa aqui...",
-      "item": {
-        "edit": "Editar configurações da página",
-        "clone": "Clonar página",
-        "hide": "Ocultar página",
-        "show": "Mostrar página",
-        "delete": "Excluir página"
-      }
+      "searchPlaceholder": "Digite sua pesquisa aqui..."
+    },
+    "actions": {
+      "edit": "Editar configurações",
+      "clone": "Clonar",
+      "hide": "Ocultar",
+      "show": "Mostrar",
+      "delete": "Excluir",
+      "copyUrlToClipboard": "Copiar URL",
+      "copyUrlToClipboardSuccess": "Copiado!"
     },
     "new": {
       "title": "Criar uma nova página",
@@ -238,6 +240,11 @@
       "title": "Pedimos desculpas 🙇",
       "message": "Não conseguimos salvar suas alterações porque outra pessoa atualizou o conteúdo no intervalo de tempo.",
       "button": "Por favor, recarregue a página"
+    },
+    "forbidden": {
+      "title": "Pedimos desculpas 🙇",
+      "message": "Você não tem permissão para realizar esta ação. Consulte seu administrador.",
+      "button": "Fechar"
     }
   },
   "support": {
