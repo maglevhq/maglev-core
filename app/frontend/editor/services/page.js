@@ -89,7 +89,7 @@ export default (api) => ({
 
   clone: (id) => {
     console.log('[PageService] Cloning page #', id)
-    return api.post(`/pages/${id}/clones`, {})
+    return api.post(`/pages/${id}/clones`, {}).then(({ data }) => data)
   },
 
   destroy: (id) => {

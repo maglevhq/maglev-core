@@ -7,7 +7,7 @@
     </div>
     <router-link
       :to="{ name: 'editSection', params: { sectionId: section.id } }"
-      class="flex flex-col overflow-hidden py-3 pr-2 leading-none"
+      class="flex flex-col overflow-hidden py-3 pr-2 leading-0.5"
     >
       <span :class="{ 'text-gray-500 text-xs': label }">{{ name | truncate(40) }}</span>
       <span class="text-gray-800 truncate" v-if="label">{{ label | truncate(100) }}</span>

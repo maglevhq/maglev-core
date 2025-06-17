@@ -45,14 +45,16 @@
       "title": "Lista de páginas",
       "subTitle": "Gestiona las páginas de tu sitio",
       "newButton": "Nueva página",
-      "searchPlaceholder": "Escribe tu consulta aquí...",
-      "item": {
-        "edit": "Configuración página",
-        "clone": "Clonar página",
-        "hide": "Esconder",
-        "show": "Mostrar",
-        "delete": "Eliminar"
-      }
+      "searchPlaceholder": "Escribe tu consulta aquí..."
+    },
+    "actions": {
+      "edit": "Editar configuración",
+      "clone": "Clonar",
+      "hide": "Ocultar",
+      "show": "Mostrar",
+      "delete": "Eliminar",
+      "copyUrlToClipboard": "Copiar URL",
+      "copyUrlToClipboardSuccess": "¡Copiado!"
     },
     "new": {
       "title": "Crear una nueva página",
@@ -238,6 +240,11 @@
       "title": "Lo sentimos 🙇",
       "message": "No hemos podido guardar tus cambios porque alguien más actualizó el contenido mientras se editaba.",
       "button": "Por favor, recarga la página"
+    },
+    "forbidden": {
+      "title": "Lo sentimos 🙇",
+      "message": "No tienes permiso para realizar esta acción. Consulta con tu administrador.",
+      "button": "Cerrar"
     }
   },
   "support": {

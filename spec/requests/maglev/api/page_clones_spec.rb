@@ -11,7 +11,7 @@ RSpec.describe 'Maglev::Api::PageClonesController', type: :request do
       config.services = {
         context: double('Context', controller: double('Controller')),
         fetch_site: double('FetchSite', call: site),
-        clone_page: double('ClonePage', call: build(:page, id: 42, path: 'cloned-page'))
+        clone_page: double('ClonePage', call: build(:page, id: 42, title: 'Home CLONED', path: 'cloned-page'))
       }
     end
   end
@@ -28,8 +28,8 @@ RSpec.describe 'Maglev::Api::PageClonesController', type: :request do
 
     it 'creates a clone of the page' do
       post "/maglev/api/pages/#{page.id}/clones", as: :json
-      expect(response).to have_http_status(:created)
-      expect(response.headers['Location']).to eq '/maglev/api/pages/42'
+      expect(response).to have_http_status(:ok)
+      expect(json_response['title']).to eq 'Home CLONED'
     end
   end
 end
