@@ -59,7 +59,7 @@
             class="flex items-center w-full px-4 py-4 hover:bg-gray-100 transition-colors duration-200 focus:outline-none"
           >
             <uikit-icon name="delete-bin-line" />
-            <span class="ml-2">{{ $t('page.list.item.delete') }}</span>
+            <span class="ml-2">{{ $t('page.actions.delete') }}</span>
           </button>
         </uikit-confirmation-button>
       </div>

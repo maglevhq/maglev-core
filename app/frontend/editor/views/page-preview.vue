@@ -65,7 +65,7 @@
           >
             <template v-slot:icon>
               <uikit-icon
-                name="add-box-line"
+                name="ri-stack-line"
                 size="1.5rem"
                 class="mx-1 text-black"
               />
