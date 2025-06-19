@@ -23,9 +23,7 @@
   },
   "sidebarNav": {
     "listPagesTooltip": "Gérer les pages de votre site",
-    "addNewSectionTooltip": "Ajouter une nouvelle section au bas de la page",
     "managePageSectionsTooltip": "Gérer les sections de la page",
-    "editPageSettingsTooltip": "Modifier les paramètres de la page",
     "editStyleTooltip": "Modifier le style du site",
     "openImageLibraryTooltip": "Ouvrir la galerie d'images",
     "leaveEditorTooltip": "Retour vers l'application principale"
@@ -101,7 +99,8 @@
     },
     "listPane": {
       "title": "Organiser les sections",
-      "empty": "Vous n'avez aucune section."
+      "empty": "Vous n'avez aucune section.",
+      "addButton": "Ajouter une nouvelle section"
     }
   },
   "sectionPane": {
