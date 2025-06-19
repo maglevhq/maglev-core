@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="pt-6">
     <div v-if="isListEmpty" class="text-center mt-8">
       <span class="text-gray-800">{{ $t('sections.listPane.empty') }}</span>
     </div>
