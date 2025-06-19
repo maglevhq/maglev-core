@@ -154,6 +154,8 @@ export const getSectionLabel = (section, definition) => {
       (contentSetting) => contentSetting.id === setting.id,
     )?.value
 
+    if (value === undefined) return false
+
     switch (setting.type) {
       case 'text':
         const doc = new DOMParser().parseFromString(value.replace(/<br\/?>/g, ' '), 'text/html')
