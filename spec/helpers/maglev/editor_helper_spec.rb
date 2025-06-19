@@ -79,7 +79,7 @@ describe Maglev::EditorHelper do
     subject { helper.editor_logo_url }
 
     it 'returns the default logo url' do
-      expect(helper).to receive(:vite_asset_path).with('images/logo.png')
+      expect(helper).to receive(:vite_asset_path).with('images/logo.svg')
       subject
     end
 
