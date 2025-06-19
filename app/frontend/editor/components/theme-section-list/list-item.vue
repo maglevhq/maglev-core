@@ -65,8 +65,8 @@ export default {
       this.addSection({
         sectionDefinition: this.section,
         insertAt: this.insertAfter,
-      }).then(() => {
-        this.$router.push({ name: 'editPage' })
+      }).then(section => {
+        this.$router.push({ name: 'editSection', params: { sectionId: section.id } })
       })
     },
     imageLoaded() {
