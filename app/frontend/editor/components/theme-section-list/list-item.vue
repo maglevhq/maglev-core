@@ -30,7 +30,7 @@
     <div
       class="flex items-center px-2 bg-editor-primary bg-opacity-5 py-4 w-full font-bold text-sm"
     >
-      <p class="capitalize-first">{{ section.name }}</p>
+      <p class="capitalize-first">{{ name }}</p>
     </div>
   </div>
 </template>
@@ -48,6 +48,13 @@ export default {
     return { hovered: false, isImageLoaded: false, isImageNotFound: false }
   },
   computed: {
+    name() {
+      return (
+        this.$st(
+          `${this.currentI18nScope}.sections.${this.section.id}.name`,
+        ) || this.section.name
+      )
+    },
     hasScreenshot() {
       return this.section.screenshotPath
     },
