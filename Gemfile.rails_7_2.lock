@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    maglevcms (2.0.0.beta1)
+    maglevcms (2.0.0)
       jbuilder (>= 2, < 3)
       kaminari (~> 1.2.1)
       maglev-injectable (~> 2.1.1)
