@@ -6,6 +6,7 @@ import buildSectionBlockActions from './section-block'
 export default (services) => ({
   setDevice({ commit }, value) {
     commit('SET_DEVICE', value)
+    commit('SET_HOVERED_SECTION', null)
   },
   setTheme({ commit }, theme) {
     commit('SET_THEME', theme)
