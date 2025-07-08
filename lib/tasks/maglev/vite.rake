@@ -58,5 +58,13 @@ namespace :maglev do
         Maglev::Engine.vite_ruby.commands.print_info
       end
     end
+
+    desc "Copy the ViteRuby's public directory to the app's public directory"
+    task copy_public_dir: :environment do
+      output_dir_name = Maglev::Engine.vite_ruby.config.public_output_dir
+      source_path = Maglev::Engine.root.join('public', output_dir_name)
+      target_path = Rails.root.join('public')
+      FileUtils.cp_r(source_path, target_path)
+    end
   end
 end
