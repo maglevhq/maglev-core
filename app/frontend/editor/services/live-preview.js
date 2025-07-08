@@ -26,6 +26,12 @@ export const removeSection = (sectionId) => {
   postMessage('section:remove', { sectionId })
 }
 
+export const pingSection = (sectionId) => {
+  if (!sectionId) return
+  postMessage('section:ping', { sectionId })
+}
+
+
 // === Block related actions ===
 export const addBlock = (content, section, sectionBlock) => {
   postMessage('block:add', { content, section, sectionBlock })
@@ -41,6 +47,10 @@ export const updateBlock = (content, section, sectionBlock, change) => {
 
 export const removeBlock = (content, section, sectionBlockId) => {
   postMessage('block:remove', { content, section, sectionBlockId })
+}
+
+export const simulateFakeScroll = () => {
+  notifyScrolling(null)
 }
 
 // === Other actions ===
@@ -113,7 +123,7 @@ const openSettingPane = (name, params) => {
   })
 }
 
-const notifyScrolling = (boundingRect) => {
+export const notifyScrolling = (boundingRect) => {
   const event = new CustomEvent('maglev:preview:scroll', {
     detail: { boundingRect },
   })

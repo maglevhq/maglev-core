@@ -21,6 +21,7 @@ export const listenMessages = () => {
       case 'section:move':
       case 'section:update':
       case 'section:remove':
+      case 'section:ping':
       case 'block:add':
       case 'block:move':
       case 'block:update':

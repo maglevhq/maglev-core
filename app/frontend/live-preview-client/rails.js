@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { debounce } from './utils'
 import runScripts from './run-scripts'
+import { postMessage } from './message'
 
 const parentDocument = window.parent.document
 const previewDocument = window.document
@@ -21,6 +22,7 @@ const start = () => {
   window.addEventListener('maglev:section:move', moveSections)
   window.addEventListener('maglev:section:update', updateSection)
   window.addEventListener('maglev:section:remove', removeSection)
+  window.addEventListener('maglev:section:ping', pingSection)
   window.addEventListener('maglev:block:add', replaceSection)
   window.addEventListener('maglev:block:move', replaceSection)
   window.addEventListener('maglev:block:update', updateBlock)
@@ -71,8 +73,16 @@ const updateSection = (event) => {
 const removeSection = (event) => {
   const { sectionId } = event.detail
   const selector = `[data-maglev-section-id='${sectionId}']`
-  let element = previewDocument.querySelector(selector)
+  const element = previewDocument.querySelector(selector)
   element.remove()
+}
+
+const pingSection = (event) => {
+  const { sectionId } = event.detail
+  const selector = `[data-maglev-section-id='${sectionId}']`
+  const element = previewDocument.querySelector(selector)
+  // hack to force the highlighter bar to be updated with the correct dimensions
+  postMessage('scroll', { boundingRect: element.getBoundingClientRect() })
 }
 
 // === Block related actions ===

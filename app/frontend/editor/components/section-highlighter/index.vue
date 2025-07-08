@@ -73,11 +73,11 @@ export default {
   methods: {
     onPreviewScroll(event) {      
       this.isScrolling = true
-      this.boundingRect = event.detail.boundingRect      
+      this.boundingRect = event.detail.boundingRect
       this.waitUntilScrollingDone()
     },
     onEndPreviewScrolling() {
-      this.isScrolling = false 
+      this.isScrolling = false
       this.applyStyle(this.boundingRect)
     },
     applyStyle(boundingRect) {

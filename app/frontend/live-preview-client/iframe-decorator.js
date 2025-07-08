@@ -62,8 +62,9 @@ const selectHoveredSectionAtStartup = (previewDocument, stickySectionIds) => {
   setTimeout(() => {
     const section = previewDocument.querySelector('[data-maglev-section-id]:hover')
 
-    if (section)
-      onSectionHovered(previewDocument, section, stickySectionIds)    
+    if (section) {
+      onSectionHovered(previewDocument, section, stickySectionIds, true)
+    }
   }, 200)
 }
 
@@ -116,10 +117,10 @@ const listenScrolling = (previewDocument) => {
   addEventListener(previewDocument, 'scroll', scrollNotifier)
 }
 
-const onSectionHovered = (previewDocument, el, stickySectionIds) => {
+const onSectionHovered = (previewDocument, el, stickySectionIds, force = false) => {
   const sectionId = el.dataset.maglevSectionId
 
-  if (hoveredSectionId !== sectionId) {
+  if (hoveredSectionId !== sectionId || force) {
     postMessage('section:hover', {
       sectionId,
       sectionRect: el.getBoundingClientRect(),
