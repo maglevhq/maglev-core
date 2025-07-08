@@ -2,12 +2,12 @@
 
 [![Build Status](https://github.com/maglevhq/maglev-core/actions/workflows/verify.yml/badge.svg)](https://github.com/maglevhq/maglev-core/actions/workflows/verify.yml)
 
-MaglevCMS is a website builder/CMS that you can integrate into any Ruby on Rails application from version 6 up to version 8.
+MaglevCMS is a website builder/CMS that you can integrate into any Ruby on Rails application from version 7 up to version 8.
 
 ## Demo
 
-Check out our [MaglevCMS PRO demo](https://demo-pro.maglev.dev) to see MaglevCMS in action.\
-This demo showcases the full capabilities of MaglevCMS, including advanced features available in the PRO version.
+Check out our [MaglevCMS Saas Edition demo](https://demo-pro.maglev.dev) to see MaglevCMS in action.\
+This demo showcases the full capabilities of MaglevCMS, including advanced features available in the SaaS version.
 
 
 ## Getting started / Documentation
@@ -17,7 +17,7 @@ This demo showcases the full capabilities of MaglevCMS, including advanced featu
 
 ## Interested in more power for your Rails SaaS?
 
-If you're a Rails SaaS owner looking to offer advanced page-building and customization features to your clients, check out [MaglevCMS PRO](https://pro.maglev.dev). With MaglevCMS PRO, you get premium tools, enhanced customization options, and dedicated support to take your platform to the next level.\
+If you're a Rails SaaS owner looking to offer advanced page-building and customization features to your clients, check out [MaglevCMS Saas Edition](https://www.maglev.dev/saas-edition). With MaglevCMS SaaS Edition, you get premium tools, enhanced customization options, and dedicated support to take your platform to the next level.\
 Explore the full potential of MaglevCMS and see how it can transform your SaaS business.
 
 ## Testing
