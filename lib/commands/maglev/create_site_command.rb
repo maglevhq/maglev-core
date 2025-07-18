@@ -6,7 +6,7 @@ module Maglev
   class CreateSiteCommand < Rails::Command::Base
     desc 'create_site', 'Create your site'
 
-    def self.banner
+    def self.banner(command = nil, *)
       'bin/rails maglev:create_site'
     end
 

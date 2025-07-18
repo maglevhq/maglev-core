@@ -1,16 +1,20 @@
 # frozen_string_literal: true
 
+require 'rails'
+
 module Maglev
   module Sections
     class RenameCommand < Rails::Command::Base
       desc 'rename OLD_TYPE NEW_TYPE', 'Rename a section type across the site and its pages'
 
-      def self.banner
+      def self.banner(command = nil, *)
         'bin/rails maglev:sections:rename OLD_TYPE NEW_TYPE'
       end
 
-      def perform(old_type, new_type)
+      def perform(*args)
         require File.expand_path('config/environment', Rails.root)
+
+        old_type, new_type = args
 
         site = fetch_site
         theme = fetch_theme
