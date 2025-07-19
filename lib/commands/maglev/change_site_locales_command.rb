@@ -6,7 +6,7 @@ module Maglev
   class ChangeSiteLocalesCommand < Rails::Command::Base
     desc 'change_site_locales [LOCALES]', 'Change site locales (format: label:prefix)'
 
-    def self.banner
+    def self.banner(_command = nil, *)
       'bin/rails maglev:change_site_locales [label:prefix label2:prefix2 ...]'
     end
 

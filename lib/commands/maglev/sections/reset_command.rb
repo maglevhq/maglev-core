@@ -4,26 +4,28 @@ require 'rails'
 
 module Maglev
   module Sections
-    class RenameCommand < Rails::Command::Base
-      desc 'rename OLD_TYPE NEW_TYPE', 'Rename a section type across the site and its pages'
+    class ResetCommand < Rails::Command::Base
+      desc 'reset TYPE', 'Reset the content of a section type across the site and its pages'
 
       def self.banner(_command = nil, *)
-        'bin/rails maglev:sections:rename OLD_TYPE NEW_TYPE'
+        'bin/rails maglev:sections:reset TYPE'
       end
 
-      def perform(*args)
+      def perform(type)
         require File.expand_path('config/environment', Rails.root)
-
-        old_type, new_type = args
 
         site = fetch_site
         theme = fetch_theme
 
         return if site.blank? || theme.blank?
 
-        rename_sections(site, theme, old_type, new_type)
+        count = Maglev::ResetSectionContent.call(
+          site: site,
+          theme: theme,
+          type: type
+        )
 
-        say "Successfully renamed all '#{old_type}' sections to '#{new_type}' 🎉", :green
+        display_final_message(count, type)
       end
 
       private
@@ -40,13 +42,14 @@ module Maglev
         end
       end
 
-      def rename_sections(site, theme, old_type, new_type)
-        Maglev::RenameSectionType.call(
-          site: site,
-          theme: theme,
-          old_type: old_type,
-          new_type: new_type
-        )
+      def display_final_message(count, type)
+        if count.zero?
+          say "No section of type '#{type}' found 🤔", :yellow
+          return
+        end
+
+        say "Successfully reset content of #{count} #{'section'.pluralize(count)} of type '#{type}' 🎉",
+            :green
       end
     end
   end
