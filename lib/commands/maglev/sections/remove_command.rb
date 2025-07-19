@@ -7,7 +7,7 @@ module Maglev
     class RemoveCommand < Rails::Command::Base
       desc 'remove TYPE', 'Remove a section type across the site and its pages'
 
-      def self.banner(command = nil, *)
+      def self.banner(_command = nil, *)
         'bin/rails maglev:sections:remove TYPE'
       end
 
