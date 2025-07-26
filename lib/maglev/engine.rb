@@ -45,6 +45,10 @@ module Maglev
       @vite_ruby ||= ::ViteRuby.new(root: root, mode: Rails.env)
     end
 
+    def self.importmap
+      @importmap ||= Importmap::Map.new
+    end
+
     # Serves the engine's vite-ruby when requested
     initializer 'maglev.vite_rails.static' do |app|
       if Rails.application.config.public_file_server.enabled

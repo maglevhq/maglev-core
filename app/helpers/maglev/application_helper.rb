@@ -5,6 +5,15 @@ require 'vite_rails/tag_helpers'
 
 module Maglev
   module ApplicationHelper
+    def maglev_importmap_tags(entry_point = "editor")
+      safe_join [
+        javascript_inline_importmap_tag(Maglev::Engine.importmap.to_json(resolver: self)),
+        javascript_importmap_module_preload_tags(Maglev::Engine.importmap),
+        javascript_import_module_tag(entry_point)
+      ], "\n"
+    end
+
+    # [DEPRECATED]Vite Rails helpers
     include ::ViteRails::TagHelpers
 
     def vite_manifest

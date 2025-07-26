@@ -50,7 +50,9 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'maglev-injectable', '~> 2.1.1'
   spec.add_dependency 'rails', '< 9', '>= 7'
   
+  # Gems required by the new editor
   spec.add_dependency 'view_component', '~> 4.0.0.rc5'
+  spec.add_dependency "importmap-rails", '< 3', '>= 2'
   
   # TO BE REMOVED AT THE VERY END OF THE MIGRATION
   spec.add_dependency 'vite_rails', '< 4', '>= 3'

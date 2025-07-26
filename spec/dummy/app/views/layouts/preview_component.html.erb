@@ -7,13 +7,8 @@
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
 
-  <%#= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
-  <%#= stylesheet_link_tag "application" %>
-
-  <%#= javascript_importmap_tags %>
-  <%#= javascript_import_module_tag "ncuikit/application" %>
-
   <%= stylesheet_link_tag "maglev/tailwind" %>
+  <%= maglev_importmap_tags "editor" %>
 
   <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
 </head>

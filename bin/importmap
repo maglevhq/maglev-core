@@ -1,0 +1,15 @@
+#!/usr/bin/env ruby
+
+# make sure we are loading the correct versions of things
+ENV["BUNDLE_GEMFILE"] ||= File.expand_path("../Gemfile", __dir__)
+require "bundler/setup" if File.exist?(ENV["BUNDLE_GEMFILE"])
+
+# NOTE: importmap requires some rails goodness that we don't have in the engine,
+#       because we don't have `config/application.rb` that loads the environment.
+require "rails"
+
+# importmap-rails is not loaded automatically
+require "importmap-rails"
+
+# the actual command runner
+require "importmap/commands"

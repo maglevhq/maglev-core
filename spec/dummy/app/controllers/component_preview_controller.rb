@@ -1,6 +1,8 @@
 class ComponentPreviewController < ApplicationController
   include ViewComponent::PreviewActions
 
+  helper Maglev::ApplicationHelper
+
   before_action :set_locale
 
   private

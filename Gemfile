@@ -38,8 +38,14 @@ gem 'sqlite3'
 gem 'observer'
 gem 'ostruct'
 
+# ViewComponent is a library for building reusable, testable & encapsulated view components in Ruby on Rails.
+gem 'view_component'
+
 # Lookbook is a UI development environment for Ruby on Rails applications
 gem 'lookbook'
+
+# Use ESM with importmap to manage modern JavaScript in Rails without transpiling or bundling.
+gem "importmap-rails", "~> 2.2"
 
 group :development, :test do
   gem 'bcrypt'
