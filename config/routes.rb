@@ -40,15 +40,17 @@ Maglev::Engine.routes.draw do
   end
 
   # New Editor
-  namespace :new_editor do
+  namespace :editor do
     root to: 'home#index'
     resources :pages, only: :index
   end
 
-  # Editor + Preview
-  get 'editor', to: 'editor#show', as: :base_editor
-  get 'editor/:locale/(*path)', to: 'editor#show', as: :editor
-  get 'leave_editor', to: 'editor#destroy', as: :leave_editor
+  # Legacy Editor
+  get 'legacy-editor', to: 'legacy_editor#show', as: :base_editor
+  get 'legacy-editor/:locale/(*path)', to: 'legacy_editor#show', as: :editor
+  get 'legacy-leave_editor', to: 'legacy_editor#destroy', as: :leave_editor
+
+  # Preview
   get 'preview/(*path)', to: 'page_preview#index',
                          defaults: { path: 'index', rendering_mode: :editor },
                          constraints: Maglev::PreviewConstraint.new,

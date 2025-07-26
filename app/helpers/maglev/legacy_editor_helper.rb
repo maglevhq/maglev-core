@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Maglev
-  module EditorHelper
+  module LegacyEditorHelper
     # Path to the editor but without the locale
     def site_base_editor_path
       base_editor_path

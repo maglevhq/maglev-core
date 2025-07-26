@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Maglev
-  class EditorController < ApplicationController
+  class LegacyEditorController < ApplicationController
     include Maglev::AuthenticationConcern
     include Maglev::FetchersConcern
     include Maglev::BackActionConcern

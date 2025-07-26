@@ -1,4 +1,4 @@
-class Maglev::NewEditor::BaseController < ApplicationController
+class Maglev::Editor::BaseController < ApplicationController
   before_action :set_locale
 
   private
