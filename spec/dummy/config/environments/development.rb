@@ -68,4 +68,27 @@ Rails.application.configure do
 
   # Raise error when a before_action's only/except options reference missing actions.
   config.action_controller.raise_on_missing_callback_actions = true
+
+  # ViewComponent configuration
+  config.view_component.controller = 'ComponentPreviewController'
+  config.view_component.default_layout = 'preview_component'
+  config.view_component.preview_path = File.expand_path("#{Rails.root}/../../spec/components/previews/")
+
+  pp File.expand_path("#{Rails.root}/../../spec/components/previews")
+
+  # Lookbook configuration
+  config.lookbook.project_name = "Maglev UIKit"
+  config.lookbook.listen_paths << File.expand_path("#{Maglev::Engine.root}/app/components/maglev/uikit")
+  config.lookbook.listen_extensions = ["js", "css"]
+  config.lookbook.preview_layout = 'preview_component'
+  config.lookbook.preview_paths = [File.expand_path("#{Rails.root}/../../spec/components/previews")]
+  config.lookbook.preview_display_options = {
+    theme: [
+      ["Default", "default"]
+    ],
+    lang: [
+      ["English", "en"],
+      ["French", "fr"]
+    ]
+  }
 end

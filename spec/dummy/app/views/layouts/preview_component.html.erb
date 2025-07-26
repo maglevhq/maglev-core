@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+  <title>Maglev preview component</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+
+  <%#= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
+  <%#= stylesheet_link_tag "application" %>
+
+  <%#= javascript_importmap_tags %>
+  <%#= javascript_import_module_tag "ncuikit/application" %>
+
+  <%= stylesheet_link_tag "maglev/tailwind" %>
+
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
+</head>
+
+<body style="padding: 20px" class="h-full">
+  <div style="
+      margin-left: auto;
+      margin-right: auto;
+      max-width: <%= params.dig(:lookbook, :display, :max_width) || '100%' %>
+    " class="h-full">
+    <%= yield %>
+    <!-- rendered preview will be injected here -->
+  </div>
+</body>
+
+</html>

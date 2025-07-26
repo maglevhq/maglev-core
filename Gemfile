@@ -38,6 +38,9 @@ gem 'sqlite3'
 gem 'observer'
 gem 'ostruct'
 
+# Lookbook is a UI development environment for Ruby on Rails applications
+gem 'lookbook'
+
 group :development, :test do
   gem 'bcrypt'
 

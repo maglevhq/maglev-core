@@ -39,6 +39,12 @@ Maglev::Engine.routes.draw do
     end
   end
 
+  # New Editor
+  namespace :new_editor do
+    root to: 'home#index'
+    resources :pages, only: :index
+  end
+
   # Editor + Preview
   get 'editor', to: 'editor#show', as: :base_editor
   get 'editor/:locale/(*path)', to: 'editor#show', as: :editor

@@ -33,7 +33,7 @@ Gem::Specification.new do |spec|
     '.babelrc',
     '.eslintrc.js',
     '.yarnrc.yml',
-    '{.yarn,app,config,db,lib}/**/*',
+    '{.yarn,app,config,db,exe,lib}/**/*',
     'bin/vite',
     'package.json',
     'yarn.lock',
@@ -49,6 +49,10 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'kaminari', '~> 1.2.1'
   spec.add_dependency 'maglev-injectable', '~> 2.1.1'
   spec.add_dependency 'rails', '< 9', '>= 7'
+  
+  spec.add_dependency 'view_component', '~> 4.0.0.rc5'
+  
+  # TO BE REMOVED AT THE VERY END OF THE MIGRATION
   spec.add_dependency 'vite_rails', '< 4', '>= 3'
   spec.add_dependency 'vite_ruby', '>= 3.5'
 end
