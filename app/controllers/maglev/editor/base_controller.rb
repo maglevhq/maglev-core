@@ -1,6 +1,8 @@
 class Maglev::Editor::BaseController < ApplicationController
   layout 'maglev/editor/application'
 
+  include Maglev::ServicesConcern
+
   helper Maglev::ApplicationHelper
 
   before_action :set_locale

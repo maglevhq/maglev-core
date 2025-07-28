@@ -43,6 +43,8 @@ Maglev::Engine.routes.draw do
   namespace :editor do
     root to: 'home#index'
 
+    get 'leave', to: 'home#destroy', as: :leave
+
     # always keep the scope of the current page and locale in the url
     scope ':locale/:page_id' do
       root to: 'home#index', as: :real_root

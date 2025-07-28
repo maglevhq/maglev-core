@@ -1,0 +1,17 @@
+<div class="h-full font-nunito overflow-hidden">
+  <header class="flex h-16 border-b border-gray-200" id="app-layout-header" data-turbo-permanent> 
+    <%= link_to editor_root_path, class: "w-16 h-full flex justify-center items-center border-r border-gray-200 shrink-0 router-link-exact-active router-link-active" do %>
+      <%= image_tag "maglev/logo.svg", class: "w-2/4" %>        
+    <% end %>
+  </header>
+
+  <div class="flex h-[calc(100vh-4rem)]">
+    <%= sidebar %>
+        
+    <div class="bg-gray-100 w-full h-full">
+      <%= content %>
+    </div>
+  </div>
+</div>
+
+

@@ -1,14 +1,21 @@
-<html lang="<%= I18n.locale %>">
+<html lang="<%= I18n.locale %>" class="antialiased">
   <head>
     <title>Maglev</title>
     <%= stylesheet_link_tag "maglev/application", "maglev/tailwind", "data-turbo-track": "reload" %>
     <%= maglev_importmap_tags "editor" %>
     <meta name="view-transition" content="same-origin" />
+
+    <style>
+      :root {
+        --editor-color-primary: <%= editor_primary_hex_color %>;
+        --editor-color-primary-rgb: <%= editor_primary_rgb_color.join(' ') %>;
+      }
+    </style>
   </head>
   <body class="h-full overflow-y-hidden font-nunito">
-    <%= render Maglev::Uikit::AppLayoutComponent.new(page: @page) do %>
-      <%= yield %>
-    <% end %>
+    <%= render 'layouts/maglev/editor/app_layout', 
+      content: yield
+    %>
 
     <%= turbo_frame_tag "drawer" do %>
       <%= yield :drawer %> 

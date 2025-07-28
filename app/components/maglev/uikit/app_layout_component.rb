@@ -2,6 +2,10 @@
 
 class Maglev::Uikit::AppLayoutComponent < ViewComponent::Base
 
+  renders_one :logo
+  renders_one :sidebar
+  renders_many :sidebar_links
+
   attr_reader :page
 
   def initialize(page:)

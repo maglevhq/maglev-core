@@ -1,0 +1,5 @@
+<li>
+  <%= link_to path, class: link_classes(active: active?) do %>
+    <%= render Maglev::Uikit::IconComponent.new(name: icon) %>
+  <% end %>
+</li>

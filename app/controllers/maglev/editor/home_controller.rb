@@ -1,8 +1,14 @@
 class Maglev::Editor::HomeController < Maglev::Editor::BaseController  
-  before_action :redirect_to_home_page
+  include Maglev::BackActionConcern
+
+  before_action :redirect_to_home_page, only: :index
 
   def index
     logger.info "turbo_frame_request? #{turbo_frame_request?} 🤔🤔🤔"
+  end
+
+  def destroy
+    call_back_action
   end
 
   private 

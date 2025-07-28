@@ -1,13 +1,5 @@
-<% if turbo_frame_request? %>
-  <%= turbo_frame_tag :drawer do %>
-    <%= render Maglev::Uikit::DrawerComponent.new(title: "Pages") do %>
-      <p>TODO: Pages</p>
-    <% end %>
-  <% end %>
-<% else %>
-  <% content_for :drawer do %>
-    <%= render Maglev::Uikit::DrawerComponent.new(title: "Pages") do %>
-      <p>TODO: Pages</p>
-    <% end %>
+<% content_for :drawer do %>
+  <%= render Maglev::Uikit::DrawerComponent.new(title: "Pages") do %>
+    <p>TODO: Pages</p>
   <% end %>
 <% end %>

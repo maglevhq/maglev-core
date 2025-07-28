@@ -1,5 +1,6 @@
 class ComponentPreviewController < ApplicationController
   include ViewComponent::PreviewActions
+  include Maglev::ServicesConcern
 
   helper Maglev::ApplicationHelper
 

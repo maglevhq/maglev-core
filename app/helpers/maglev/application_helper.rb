@@ -13,6 +13,25 @@ module Maglev
       ], "\n"
     end
 
+    def editor_primary_hex_color
+      color = maglev_config.primary_color
+      if color =~ /^\#(\d)(\d)(\d)$/
+        r_value = ''.rjust(2, Regexp.last_match(1))
+        g_value = ''.rjust(2, Regexp.last_match(2))
+        b_value = ''.rjust(2, Regexp.last_match(3))
+        "##{r_value}#{g_value}#{b_value}"
+      else
+        color
+      end
+    end
+
+    def editor_primary_rgb_color
+      editor_primary_hex_color
+        .gsub('#', '')
+        .scan(/.{2}/)
+        .map { |value| value.to_i(16) }
+    end
+
     # [DEPRECATED]Vite Rails helpers
     include ::ViteRails::TagHelpers
 
