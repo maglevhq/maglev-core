@@ -1,0 +1,27 @@
+<div 
+  id="drawer-component"
+  class="
+  slide-pane absolute inset-y-0 h-[100dvh-(--spacing(16))] bg-white border-r border-gray-200 origin-top-left flex flex-col top-16 left-16 z-10 w-104">
+  <div class="py-6 mx-4">
+    <div class="h-6 flex items-center">
+      <div class="w-full">
+        <h2 class="text-gray-800 font-semibold antialiased text-lg capitalize-first">List of pages</h2>
+      </div>
+      <div class="ml-auto">
+        <a href="/maglev/polished-voice-8594/editor/en/success/">
+          <button class="h-7 w-7 flex items-center justify-center rounded-full focus:outline-none transition-colors duration-200 relative -right-2 bg-gray-600 bg-opacity-0 hover:text-gray-900 text-gray-800 hover:bg-opacity-10">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="fill-current" style="width: 1.15rem; height: 1.15rem;">
+              <path fill="none" d="M0 0h24v24H0z"></path>
+              <path d="m12 10.586 4.95-4.95 1.414 1.414-4.95 4.95 4.95 4.95-1.414 1.414-4.95-4.95-4.95 4.95-1.414-1.414 4.95-4.95-4.95-4.95L7.05 5.636z"></path>
+            </svg>
+          </button>
+        </a>
+      </div>
+    </div>
+    <p class="text-gray-400 text-sm">Manage the pages of your site</p>
+  </div>
+
+  <div class="flex-1 flex flex-col overflow-y-hidden">
+    <%= content %>
+  </div>
+</div>

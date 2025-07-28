@@ -1,10 +1,17 @@
 <html lang="<%= I18n.locale %>">
   <head>
     <title>Maglev</title>
-    <%= stylesheet_link_tag "maglev/tailwind" %>
+    <%= stylesheet_link_tag "maglev/application", "maglev/tailwind", "data-turbo-track": "reload" %>
     <%= maglev_importmap_tags "editor" %>
+    <meta name="view-transition" content="same-origin" />
   </head>
-  <body>
-    <%= yield %>
+  <body class="h-full overflow-y-hidden font-nunito">
+    <%= render Maglev::Uikit::AppLayoutComponent.new(page: @page) do %>
+      <%= yield %>
+    <% end %>
+
+    <%= turbo_frame_tag "drawer" do %>
+      <%= yield :drawer %> 
+    <% end %>
   </body>
 </html>

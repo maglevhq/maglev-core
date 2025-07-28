@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'vite_ruby'
+require 'turbo-rails'
 require 'maglev/migration'
 
 module Maglev

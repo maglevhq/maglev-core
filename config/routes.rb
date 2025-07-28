@@ -39,10 +39,16 @@ Maglev::Engine.routes.draw do
     end
   end
 
-  # New Editor
+  # Editor
   namespace :editor do
     root to: 'home#index'
-    resources :pages, only: :index
+
+    # always keep the scope of the current page and locale in the url
+    scope ':locale/:page_id' do
+      root to: 'home#index', as: :real_root
+      resources :pages
+      resources :sections
+    end    
   end
 
   # Legacy Editor

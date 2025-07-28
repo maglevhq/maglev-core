@@ -53,6 +53,7 @@ Gem::Specification.new do |spec|
   # Gems required by the new editor
   spec.add_dependency 'view_component', '~> 4.0.0.rc5'
   spec.add_dependency "importmap-rails", '< 3', '>= 2'
+  spec.add_dependency 'turbo-rails', '~> 2.0'
   
   # TO BE REMOVED AT THE VERY END OF THE MIGRATION
   spec.add_dependency 'vite_rails', '< 4', '>= 3'

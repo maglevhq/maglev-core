@@ -1,7 +1,18 @@
-class Maglev::Editor::HomeController < Maglev::Editor::BaseController
-  layout 'maglev/editor/application'
+class Maglev::Editor::HomeController < Maglev::Editor::BaseController  
+  before_action :redirect_to_home_page
 
   def index
-    # TODO: fetch the first page
+    logger.info "turbo_frame_request? #{turbo_frame_request?} 🤔🤔🤔"
+  end
+
+  private 
+
+  def redirect_to_home_page
+    return if params[:page_id].present?
+    redirect_to editor_real_root_path(locale: I18n.locale, page_id: home_page.id)
+  end
+
+  def home_page
+    @home_page ||= Maglev::Page.home.first
   end
 end
