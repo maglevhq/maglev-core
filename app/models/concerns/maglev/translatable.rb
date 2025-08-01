@@ -37,7 +37,8 @@ module Maglev
 
       def setup_accessors(attr)
         define_method("#{attr}=") do |value|
-          public_send("#{attr}_translations=", translations_for(attr).merge(Maglev::I18n.current_locale => value))
+          public_send("#{attr}_translations=",
+                      translations_for(attr).merge(Maglev::I18n.current_locale.to_s => value))
         end
 
         define_method(attr) { translations_for(attr)[Maglev::I18n.current_locale.to_s] }
