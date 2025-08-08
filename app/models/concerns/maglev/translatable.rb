@@ -8,7 +8,8 @@ module Maglev
     extend ActiveSupport::Concern
 
     def translations_for(attr)
-      public_send("#{attr}_translations")
+      # With MySQL, the Jsonb field becomes nil when the field is not set, causing the default value to be discarded
+      public_send("#{attr}_translations").presence || {}
     end
 
     def translate_attr_in(attr, locale, source_locale)
