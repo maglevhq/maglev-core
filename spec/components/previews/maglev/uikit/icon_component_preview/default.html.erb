@@ -1,0 +1,8 @@
+<div class="flex flex-row gap-4">
+  <% list.each do |name| %>
+    <div class="flex flex-col items-center justify-center">
+      <%= render Maglev::Uikit::IconComponent.new(name: name) %>
+      <p class="text-xs text-gray-500"><%= name %></p>
+    </div>
+  <% end %>
+</div>
