@@ -8,7 +8,7 @@ PATH
       kaminari (~> 1.2.1)
       maglev-injectable (~> 2.1.1)
       rails (>= 7, < 9)
-      turbo-rails (~> 2.0)
+      turbo-rails (>= 2, < 3)
       view_component (~> 4.0.0.rc5)
       vite_rails (>= 3, < 4)
       vite_ruby (>= 3.5)

@@ -50,6 +50,26 @@ module Maglev
       @importmap ||= Importmap::Map.new
     end
 
+    initializer "maglev.importmap" do |app|
+      Engine.importmap.draw(Engine.root.join('config/importmap.rb'))
+
+      app.config.assets.paths << Engine.root.join('app/components')
+      app.config.assets.paths << Engine.root.join('app/assets/javascripts')
+      app.config.assets.paths << Engine.root.join('vendor/javascript')
+      app.config.assets.precompile += %w[maglev_manifest]
+
+      if (Rails.env.development? || Rails.env.test?) && !app.config.cache_classes
+        Engine.importmap.cache_sweeper(watches: [
+          Engine.root.join("app/assets/javascripts"),
+          Engine.root.join("app/components")
+        ])
+
+        ActiveSupport.on_load(:action_controller_base) do
+          before_action { Engine.importmap.cache_sweeper.execute_if_updated }
+        end
+      end
+    end
+
     # Serves the engine's vite-ruby when requested
     initializer 'maglev.vite_rails.static' do |app|
       if Rails.application.config.public_file_server.enabled

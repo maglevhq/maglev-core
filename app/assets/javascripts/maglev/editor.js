@@ -1,3 +1,4 @@
-console.log('Maglev Editor v2 ⚡️')
-
 import "@hotwired/turbo-rails"
+import "maglev-controllers"
+
+console.log('Maglev Editor v2 ⚡️')
