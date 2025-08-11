@@ -14,6 +14,8 @@ class Maglev::Uikit::IconComponentPreview < ViewComponent::Preview
       'logout_box_r_line',
       'home_4_line',
       'ri_file_line',
+      'ri_more_fill',
+      'ri_more_2_fill',
     ]
   end
 end

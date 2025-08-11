@@ -13,4 +13,18 @@ class Maglev::Uikit::DropdownComponentPreview < ViewComponent::Preview
       .html_safe
     end
   end
+
+  def with_icon_button
+    render(Maglev::Uikit::DropdownComponent.new) do |component|
+      component.with_trigger do
+        component.render(Maglev::Uikit::IconButtonComponent.new(
+          icon_name: "ri_more_2_fill", data: { action: "click->uikit-dropdown#toggle", 'uikit-dropdown-target': 'button' }
+        ))
+      end
+      <<-HTML
+        <p>Hello world</p>
+      HTML
+      .html_safe
+    end
+  end
 end
