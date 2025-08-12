@@ -1,0 +1,204 @@
+"pt-BR":
+  maglev:
+    editor:
+      headerNav:
+        pages: "Páginas:"
+        pageSettings: "Configurações da página"
+        previewSite: "Visualizar"
+        previewToggler:
+          button: "Visualizar site"
+          draftLink: "Versão rascunho"
+          liveLink: "Versão ao vivo"
+        publishButton:
+          default: "Publicar site"
+          inProgress: "Publicando..."
+          success: "Publicado!"
+          fail: "Falhou!"
+        saveButton:
+          default: "Salvar"
+          inProgress: "Salvando..."
+          success: "Salvo!"
+          fail: "Falhou!"
+      sidebarNav:
+        listPagesTooltip: "Gerenciar as páginas do seu site"
+        managePageSectionsTooltip: "Reordenar / excluir as seções da página"
+        editStyleTooltip: "Alterar o estilo do seu site"
+        openImageLibraryTooltip: "Abrir a galeria de imagens"
+        leaveEditorTooltip: "Voltar para o aplicativo principal"
+      pagePreview:
+        loading: "Carregando..."
+        empty:
+          title:
+            withoutLocale: "Sua página está em branco"
+            withLocale: "Sua página em %{localeName} está em branco"
+          message: "Por favor, adicione a primeira seção clicando no botão {icon} na barra lateral esquerda."
+      page:
+        list:
+          title: "Lista de páginas"
+          subTitle: "Gerenciar as páginas do seu site"
+          newButton: "Nova página"
+          searchPlaceholder: "Digite sua consulta aqui..."
+        actions:
+          edit: "Editar configurações"
+          clone: "Clonar página"
+          hide: "Ocultar página"
+          show: "Mostrar página"
+          delete: "Excluir página"
+          copyUrlToClipboard: "Copiar URL"
+          copyUrlToClipboardSuccess: "Copiado para a área de transferência!"
+        new:
+          title: "Criar uma nova página"
+          submitButton:
+            default: "Criar página"
+            inProgress: "Criando..."
+            success: "Criada!"
+            fail: "Falhou!"
+          cancelButton: "Cancelar"
+        edit:
+          title: "Editando uma página"
+          currentPage:
+            title: "Editando a página atual"
+          submitButton:
+            default: "Atualizar página"
+            inProgress: "Atualizando..."
+            success: "Atualizada!"
+            fail: "Falhou!"
+          cancelButton: "Cancelar"
+        form:
+          tabs:
+            main: "Principal"
+            seo: "SEO"
+          title: "Título"
+          path: "Caminho"
+          visible: "Visível"
+          visiblePlaceholder: "Mostrar/Ocultar a página"
+          seoTitle: "Meta título"
+          metaDescription: "Meta descrição"
+          ogTitle: "og:title"
+          ogDescription: "og:description"
+          ogImageUrl: "og:image"
+      sections:
+        addPane:
+          title: "Adicionar uma seção"
+        listPane:
+          title: "Organizar seções"
+          empty: "Não há seções."
+          addButton: "Adicionar uma nova seção"
+      sectionPane:
+        tabs:
+          settings: "Conteúdo"
+          blocks: "Blocos"
+          advanced: "Avançado"
+        blockList:
+          add: "Adicionar novo item"
+      sectionBlockPane:
+        tabs:
+          settings: "Conteúdo"
+          blocks: "Blocos"
+          advanced: "Avançado"
+      themeSectionList:
+        emptyCategory: "Sem seções"
+      style:
+        edit:
+          title: "Estilizar seu site"
+          submitButton:
+            default: "Atualizar estilo"
+            inProgress: "Atualizando..."
+            success: "Estilo atualizado!"
+            fail: "Falhou!"
+      imageInput:
+        addButton: "Adicionar imagem"
+        replaceButton: "Substituir imagem"
+        clearButton: "Limpar"
+        altTextPlaceholder: "Texto alternativo para ajudar os motores de busca"
+      imageLibrary:
+        title: "Lista de imagens"
+        pickerTitle: "Selecionar uma imagem"
+        none: "Nenhuma imagem foi enviada ainda"
+        searchPlaceholder: "Pesquisar por nome de arquivo"
+        pagination:
+          label: "%{start} - %{end} de %{totalItems} imagens"
+          noItems: "Nenhuma imagem"
+        destroy:
+          text: "Tem certeza?"
+          ok: "Sim, excluir"
+          cancel: "Cancelar"
+        uploader:
+          wrongFiles: "Certifique-se de que o tamanho de cada imagem não seja maior que %{limit}."
+          uploadButton:
+            default: "Enviar imagens"
+            inProgress: "Enviando..."
+            success: "Enviadas!"
+            fail: "Falhou!"
+      iconInput:
+        addButton: "Adicionar ícone"
+        replaceButton: "Substituir ícone"
+        clearButton: "Limpar"
+      iconLibrary:
+        title: "Ícones"
+        pickerTitle: "Escolher um ícone"
+      linkInput:
+        placeholder: "Clique aqui para selecionar um link"
+        withNestedTextLabel: "Habilitar texto"
+        nestedTextPlaceholder: "Texto"
+      linkPicker:
+        title: "Selecionar um link"
+        insertTitle: "Inserir um link"
+        page:
+          name: "Página"
+          input:
+            label: "Página"
+            placeholder: "Selecionar uma página"
+            searchPlaceholder: "Pesquisar..."
+            emptyLabel: "Nenhuma página encontrada"
+          sectionInput:
+            label: "Seção"
+            placeholder: "Selecionar uma seção"
+            emptyLabel: "Nenhuma seção selecionada"
+        url:
+          name: "Url"
+          input:
+            label: "Url"
+        email:
+          name: "Email"
+          input:
+            label: "Email"
+        shared:
+          mainButton:
+            select: "Selecionar"
+            insert: "Adicionar"
+          cancelButton: "Cancelar"
+          newWindowInput:
+            label: "Abrir em nova janela"
+      collectionItemInput:
+        select:
+          placeholder: "Selecionar um item"
+          searchPlaceholder: "Pesquisar..."
+          emptyLabel: "Nenhum item encontrado"
+      pagination:
+        defaultLabel: "%{start} - %{end} de %{totalItems} itens"
+        defaultNoItems: "Nenhum"
+      confirmationButton:
+        text: "Tem certeza de que deseja executar esta ação?"
+        confirmButtonLabel: "Sim"
+        cancelButtonLabel: "Não"
+      errorModals:
+        staleRecord:
+          title: "Sentimos muito 🙇"
+          message: "Não conseguimos persistir suas alterações porque alguém mais atualizou o conteúdo no meio tempo."
+          button: "Por favor, recarregue sua página"
+        forbidden:
+          title: "Sentimos muito 🙇"
+          message: "Você não tem permissão para fazer isso. Verifique com seu administrador."
+          button: "Fechar"
+      support:
+        human:
+          storageUnits:
+            format: "%{number} %{unit}"
+            units:
+              byte:
+                one: "Byte"
+                other: "Bytes"
+              kb: "KB"
+              mb: "MB"
+              gb: "GB"
