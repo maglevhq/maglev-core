@@ -13,6 +13,17 @@ module Maglev
       ], "\n"
     end
 
+    def editor_favicon_url
+      case maglev_config.favicon
+      when nil
+        asset_path('maglev/favicon.svg')
+      when String
+        asset_path(maglev_config.favicon)
+      when Proc
+        instance_exec(maglev_site, &maglev_config.favicon)
+      end
+    end
+
     def editor_primary_hex_color
       color = maglev_config.primary_color
       if color =~ /^\#(\d)(\d)(\d)$/

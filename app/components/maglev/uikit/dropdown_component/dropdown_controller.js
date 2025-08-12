@@ -10,6 +10,7 @@ export default class extends Controller {
     const content = this.contentTarget
 
     this.cleanup = autoUpdate(button, content, () => computePosition(button, content, { 
+      strategy: 'fixed',
       placement: 'bottom-start',
       middleware: [flip(), shift()],
     }).then(({x, y}) => {
