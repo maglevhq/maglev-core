@@ -1,5 +1,5 @@
 <% content_for :drawer do %>
-  <%= render Maglev::Uikit::PageLayoutComponent.new(back_path: editor_real_root_path(locale: I18n.locale, page_id: @page.id)) do |component| %>
+  <%= render Maglev::Uikit::PageLayoutComponent.new(back_path: editor_real_root_path(locale: I18n.locale, page_id: current_maglev_page.id)) do |component| %>
     <% component.with_title do %>
       <%= t('maglev.editor.pages.list.title') %>
     <% end %>

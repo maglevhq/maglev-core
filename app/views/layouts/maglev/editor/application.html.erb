@@ -6,12 +6,12 @@
     <%= stylesheet_link_tag "maglev/application", "maglev/tailwind", "data-turbo-track": "reload" %>
     <%= maglev_importmap_tags "editor" %>
 
-    <%= favicon_link_tag editor_favicon_url %>
+    <%= favicon_link_tag maglev_favicon_url %>
 
     <style>
       :root {
-        --editor-color-primary: <%= editor_primary_hex_color %>;
-        --editor-color-primary-rgb: <%= editor_primary_rgb_color.join(' ') %>;
+        --editor-color-primary: <%= maglev_primary_hex_color %>;
+        --editor-color-primary-rgb: <%= maglev_primary_rgb_color.join(' ') %>;
       }
     </style>
   </head>

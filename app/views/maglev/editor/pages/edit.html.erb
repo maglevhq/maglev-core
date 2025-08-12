@@ -1,9 +1,28 @@
 <% content_for :drawer do %>
-  <%= render Maglev::Uikit::PageLayoutComponent.new(back_path: editor_real_root_path(locale: I18n.locale, page_id: @page.id)) do |component| %>
+  <%= render Maglev::Uikit::PageLayoutComponent.new(back_path: editor_real_root_path(locale: I18n.locale, page_id: current_maglev_page)) do |component| %>
     <% component.with_title do %>
-      <%= t('maglev.editor.pages.edit.title') %>
+      <%= t('maglev.editor.pages.edit.current_page.title') %>
     <% end %>
 
-    <p>TODO</p>
+    <%= form_for @page, url: editor_page_path(@page, locale: I18n.locale, page_id: current_maglev_page), method: :put, html: { class: 'flex flex-col flex-1 overflow-y-hidden overflow-y-hidden' } do |f| %>
+      <%= f.hidden_field :lock_version %>
+
+      <%= render Maglev::Uikit::TabsComponent.new(container_classes: 'w-full h-full flex flex-col') do |tabs| %>
+        <% tabs.with_tab(label: t('maglev.editor.pages.form.tabs.main')) do %>
+          <p>Tab 1 content</p>
+          <p><%= Time.now %></p>
+        <% end %>
+        <% tabs.with_tab(label: t('maglev.editor.pages.form.tabs.seo')) do %>
+          <p>Tab 2 content</p>
+        <% end %>
+      <% end %>
+
+      <div class="flex-1">
+        <%= f.submit t('maglev.editor.pages.edit.submit_button.default'), 
+          class: maglev_button_classes(color: :primary, size: :big),
+          data: { turbo_submits_with: 'Submitting...' }
+        %>
+      </div>
+    <% end %>
   <% end %>
 <% end %>

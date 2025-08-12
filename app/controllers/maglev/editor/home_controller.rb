@@ -19,6 +19,7 @@ class Maglev::Editor::HomeController < Maglev::Editor::BaseController
   end
 
   def home_page
+    # TODO: use services.search_pages.call OR a scope
     @home_page ||= Maglev::Page.home.first
   end
 end

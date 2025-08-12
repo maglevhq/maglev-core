@@ -954,6 +954,24 @@
       background-color: color-mix(in oklab, var(--color-editor-primary) 5%, transparent);
     }
   }
+  .bg-editor-primary\/90 {
+    background-color: var(--color-editor-primary);
+    @supports (color: color-mix(in lab, red, red)) {
+      background-color: color-mix(in oklab, var(--color-editor-primary) 90%, transparent);
+    }
+  }
+  .bg-editor-primary\/95 {
+    background-color: var(--color-editor-primary);
+    @supports (color: color-mix(in lab, red, red)) {
+      background-color: color-mix(in oklab, var(--color-editor-primary) 95%, transparent);
+    }
+  }
+  .bg-editor-primary\/96 {
+    background-color: var(--color-editor-primary);
+    @supports (color: color-mix(in lab, red, red)) {
+      background-color: color-mix(in oklab, var(--color-editor-primary) 96%, transparent);
+    }
+  }
   .bg-gray-50 {
     background-color: var(--color-gray-50);
   }
@@ -1440,6 +1458,23 @@
       }
     }
   }
+  .hover\:bg-editor-primary\/90 {
+    &:hover {
+      @media (hover: hover) {
+        background-color: var(--color-editor-primary);
+        @supports (color: color-mix(in lab, red, red)) {
+          background-color: color-mix(in oklab, var(--color-editor-primary) 90%, transparent);
+        }
+      }
+    }
+  }
+  .hover\:bg-editor-primary\/100 {
+    &:hover {
+      @media (hover: hover) {
+        background-color: var(--color-editor-primary);
+      }
+    }
+  }
   .hover\:bg-gray-100 {
     &:hover {
       @media (hover: hover) {
@@ -1563,6 +1598,22 @@
     &:focus {
       --tw-outline-style: none;
       outline-style: none;
+    }
+  }
+  .disabled\:bg-editor-primary\/75 {
+    &:disabled {
+      background-color: var(--color-editor-primary);
+      @supports (color: color-mix(in lab, red, red)) {
+        background-color: color-mix(in oklab, var(--color-editor-primary) 75%, transparent);
+      }
+    }
+  }
+  .disabled\:bg-editor-primary\/95 {
+    &:disabled {
+      background-color: var(--color-editor-primary);
+      @supports (color: color-mix(in lab, red, red)) {
+        background-color: color-mix(in oklab, var(--color-editor-primary) 95%, transparent);
+      }
     }
   }
   .sm\:flex-row {

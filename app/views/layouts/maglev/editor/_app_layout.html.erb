@@ -1,6 +1,6 @@
 <% # Please override this file to customize the top bar or the sidebar %>
 
-<%= render Maglev::Uikit::AppLayout::LayoutComponent.new(page: @page) do |layout| %>
+<%= render Maglev::Uikit::AppLayout::LayoutComponent.new(page: current_maglev_page) do |layout| %>
   <% layout.with_topbar do |topbar| %>
     <% topbar.with_logo %>
     <% topbar.with_page_info %>
@@ -8,12 +8,12 @@
 
   <% layout.with_sidebar do |sidebar| %>
     <% sidebar.with_link(
-      path: editor_pages_path(locale: I18n.locale, page_id: @page.id), 
+      path: editor_pages_path(locale: I18n.locale, page_id: current_maglev_page.id), 
       icon: 'ri_file_copy_line', 
       active: controller_name == 'pages'
     ) %>
     <% sidebar.with_link(
-      path: editor_sections_path(locale: I18n.locale, page_id: @page.id), 
+      path: editor_sections_path(locale: I18n.locale, page_id: current_maglev_page.id), 
       icon: 'ri_stack_line',
       active: controller_name == 'sections'
     ) %>

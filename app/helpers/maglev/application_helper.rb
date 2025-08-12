@@ -13,7 +13,7 @@ module Maglev
       ], "\n"
     end
 
-    def editor_favicon_url
+    def maglev_favicon_url
       case maglev_config.favicon
       when nil
         asset_path('maglev/favicon.svg')
@@ -24,7 +24,7 @@ module Maglev
       end
     end
 
-    def editor_primary_hex_color
+    def maglev_primary_hex_color
       color = maglev_config.primary_color
       if color =~ /^\#(\d)(\d)(\d)$/
         r_value = ''.rjust(2, Regexp.last_match(1))
@@ -36,11 +36,27 @@ module Maglev
       end
     end
 
-    def editor_primary_rgb_color
-      editor_primary_hex_color
+    def maglev_primary_rgb_color
+      maglev_primary_hex_color
         .gsub('#', '')
         .scan(/.{2}/)
         .map { |value| value.to_i(16) }
+    end
+
+    # UI helpers
+
+    def maglev_button_classes(...)
+      ClassVariants.build(
+        base: 'rounded-sm px-6 py-4 transition-colors duration-200 text-white text-center cursor-pointer',
+        variants: {
+          color: {
+            primary: 'bg-editor-primary/95 hover:bg-editor-primary/100 disabled:bg-editor-primary/75',
+          },
+          size: {
+            big: 'flex items-center justify-center w-full'
+          }
+        }
+      ).render(...)
     end
 
     # [DEPRECATED]Vite Rails helpers

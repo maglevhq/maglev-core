@@ -4,7 +4,7 @@
   data-uikit-tabs-active-class-value="<%= label_classes(active: true) %>"
   data-uikit-tabs-inactive-class-value="<%= label_classes(active: false) %>"
 >
-  <nav class="mx-4">
+  <nav>
     <ul class="flex flex-col sm:flex-row">
       <% tabs.each_with_index do |tab, index| %>
         <li>
@@ -14,10 +14,10 @@
     </ul>
   </nav>
 
-  <div class="relative -mt-0.5 mx-4"><div class="w-full border-gray-200 border-t-2 h-0"></div></div>
+  <div class="relative -mt-0.5"><div class="w-full border-gray-200 border-t-2 h-0"></div></div>
 
   <% tabs.each_with_index do |tab, index| %>
-    <div data-uikit-tabs-target="tabContent" class="flex-1 mt-4 pb-4 mx-3 overflow-y-auto <%= 'hidden' unless tab.active? %>">
+    <div data-uikit-tabs-target="tabContent" class="flex-1 mt-4 pb-4 overflow-y-auto <%= 'hidden' unless tab.active? %>">
       <%= capture(&tab.block) %>
     </div>
   <% end %>
