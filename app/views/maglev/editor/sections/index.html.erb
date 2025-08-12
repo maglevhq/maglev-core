@@ -1,6 +1,9 @@
 <% content_for :drawer do %>
-    <%= render Maglev::Uikit::DrawerComponent.new(title: "Pages") do %>
-      <p>TODO: list all the sections of the current page</p>
+  <%= render Maglev::Uikit::PageLayoutComponent.new(back_path: editor_real_root_path(locale: I18n.locale, page_id: @page.id)) do |component| %>
+    <% component.with_title do %>
+      <%= t('maglev.editor.sections.list_pane.title') %>
     <% end %>
-  <% end %>
 
+    <p>TODO</p>
+  <% end %>
+<% end %>

@@ -1,69 +1,69 @@
 ar:
   maglev:
     editor:
-      headerNav:
+      header_nav:
         pages: "الصفحات:"
-        pageSettings: "إعدادات الصفحة"
-        previewSite: "معاينة"
-        previewToggler:
+        page_settings: "إعدادات الصفحة"
+        preview_site: "معاينة"
+        preview_toggler:
           button: "معاينة الموقع"
-          draftLink: "نسخة مسودة"
-          liveLink: "نسخة مباشرة"
-        publishButton:
+          draft_link: "نسخة مسودة"
+          live_link: "نسخة مباشرة"
+        publish_button:
           default: "نشر الموقع"
-          inProgress: "جاري النشر..."
+          in_progress: "جاري النشر..."
           success: "تم النشر!"
           fail: "فشل!"
-        saveButton:
+        save_button:
           default: "حفظ"
-          inProgress: "جاري الحفظ..."
+          in_progress: "جاري الحفظ..."
           success: "تم الحفظ!"
           fail: "فشل!"
-      sidebarNav:
-        listPagesTooltip: "إدارة صفحات موقعك"
-        managePageSectionsTooltip: "إعادة ترتيب / حذف أقسام الصفحة"
-        editStyleTooltip: "تغيير نمط موقعك"
-        openImageLibraryTooltip: "فتح معرض الصور"
-        leaveEditorTooltip: "العودة إلى التطبيق الرئيسي"
-      pagePreview:
+      sidebar_nav:
+        list_pages_tooltip: "إدارة صفحات موقعك"
+        manage_page_sections_tooltip: "إعادة ترتيب / حذف أقسام الصفحة"
+        edit_style_tooltip: "تغيير نمط موقعك"
+        open_image_library_tooltip: "فتح معرض الصور"
+        leave_editor_tooltip: "العودة إلى التطبيق الرئيسي"
+      page_preview:
         loading: "جاري التحميل..."
         empty:
           title:
-            withoutLocale: "صفحتك فارغة"
-            withLocale: "صفحتك في %{localeName} فارغة"
+            without_locale: "صفحتك فارغة"
+            with_locale: "صفحتك في %{localeName} فارغة"
           message: "يرجى إضافة القسم الأول بالنقر على الزر {icon} في الشريط الجانبي الأيسر."
       page:
         list:
           title: "قائمة الصفحات"
-          subTitle: "إدارة صفحات موقعك"
-          newButton: "صفحة جديدة"
-          searchPlaceholder: "اكتب استعلامك هنا..."
+          sub_title: "إدارة صفحات موقعك"
+          new_button: "صفحة جديدة"
+          search_placeholder: "اكتب استعلامك هنا..."
         actions:
           edit: "تعديل الإعدادات"
           clone: "استنساخ الصفحة"
           hide: "إخفاء الصفحة"
           show: "إظهار الصفحة"
           delete: "حذف الصفحة"
-          copyUrlToClipboard: "نسخ الرابط"
-          copyUrlToClipboardSuccess: "تم النسخ إلى الحافظة!"
+          copy_url_to_clipboard: "نسخ الرابط"
+          copy_url_to_clipboard_success: "تم النسخ إلى الحافظة!"
         new:
           title: "إنشاء صفحة جديدة"
-          submitButton:
+          submit_button:
             default: "إنشاء صفحة"
-            inProgress: "جاري الإنشاء..."
+            in_progress: "جاري الإنشاء..."
             success: "تم الإنشاء!"
             fail: "فشل!"
-          cancelButton: "إلغاء"
+          cancel_button: "إلغاء"
         edit:
           title: "تعديل صفحة"
-          currentPage:
+          current_page:
             title: "تعديل الصفحة الحالية"
-          submitButton:
+          submit_button:
             default: "تحديث الصفحة"
-            inProgress: "جاري التحديث..."
+            in_progress: "جاري التحديث..."
             success: "تم التحديث!"
             fail: "فشل!"
-          cancelButton: "إلغاء"
+          cancel_button: "إلغاء"
         form:
           tabs:
             main: "الرئيسية"
@@ -71,90 +71,90 @@ ar:
           title: "العنوان"
           path: "المسار"
           visible: "مرئية"
-          visiblePlaceholder: "إظهار/إخفاء الصفحة"
-          seoTitle: "عنوان ميتا"
-          metaDescription: "وصف ميتا"
-          ogTitle: "og:title"
-          ogDescription: "og:description"
-          ogImageUrl: "og:image"
+          visible_placeholder: "إظهار/إخفاء الصفحة"
+          seo_title: "عنوان ميتا"
+          meta_description: "وصف ميتا"
+          og_title: "og:title"
+          og_description: "og:description"
+          og_image_url: "og:image"
       sections:
-        addPane:
+        add_pane:
           title: "إضافة قسم"
-        listPane:
+        list_pane:
           title: "تنظيم الأقسام"
           empty: "لا توجد أقسام."
-          addButton: "إضافة قسم جديد"
-      sectionPane:
+          add_button: "إضافة قسم جديد"
+      section_pane:
         tabs:
           settings: "المحتوى"
           blocks: "الكتل"
           advanced: "متقدم"
-        blockList:
+        block_list:
           add: "إضافة عنصر جديد"
-      sectionBlockPane:
+      section_block_pane:
         tabs:
           settings: "المحتوى"
           blocks: "الكتل"
           advanced: "متقدم"
-      themeSectionList:
-        emptyCategory: "لا توجد أقسام"
+      theme_section_list:
+        empty_category: "لا توجد أقسام"
       style:
         edit:
           title: "تنسيق موقعك"
-          submitButton:
+          submit_button:
             default: "تحديث النمط"
-            inProgress: "جاري التحديث..."
+            in_progress: "جاري التحديث..."
             success: "تم تحديث النمط!"
             fail: "فشل!"
-      imageInput:
-        addButton: "إضافة صورة"
-        replaceButton: "استبدال الصورة"
-        clearButton: "مسح"
-        altTextPlaceholder: "نص بديل لمساعدة محركات البحث"
-      imageLibrary:
+      image_input:
+        add_button: "إضافة صورة"
+        replace_button: "استبدال الصورة"
+        clear_button: "مسح"
+        alt_text_placeholder: "نص بديل لمساعدة محركات البحث"
+      image_library:
         title: "قائمة الصور"
-        pickerTitle: "اختيار صورة"
+        picker_title: "اختيار صورة"
         none: "لم يتم رفع أي صور بعد"
-        searchPlaceholder: "البحث عن اسم الملف"
+        search_placeholder: "البحث عن اسم الملف"
         pagination:
           label: "%{start} - %{end} من %{totalItems} صورة"
-          noItems: "لا توجد صور"
+          no_items: "لا توجد صور"
         destroy:
           text: "هل أنت متأكد؟"
           ok: "نعم، احذفها"
           cancel: "إلغاء"
         uploader:
-          wrongFiles: "تأكد من أن حجم كل صورة لا يتجاوز %{limit}."
-          uploadButton:
+          wrong_files: "تأكد من أن حجم كل صورة لا يتجاوز %{limit}."
+          upload_button:
             default: "رفع الصور"
-            inProgress: "جاري الرفع..."
+            in_progress: "جاري الرفع..."
             success: "تم الرفع!"
             fail: "فشل!"
-      iconInput:
-        addButton: "إضافة أيقونة"
-        replaceButton: "استبدال الأيقونة"
-        clearButton: "مسح"
-      iconLibrary:
+      icon_input:
+        add_button: "إضافة أيقونة"
+        replace_button: "استبدال الأيقونة"
+        clear_button: "مسح"
+      icon_library:
         title: "الأيقونات"
-        pickerTitle: "اختيار أيقونة"
-      linkInput:
+        picker_title: "اختيار أيقونة"
+      link_input:
         placeholder: "انقر هنا لاختيار رابط"
-        withNestedTextLabel: "تمكين النص"
-        nestedTextPlaceholder: "النص"
-      linkPicker:
+        with_nested_text_label: "تمكين النص"
+        nested_text_placeholder: "النص"
+      link_picker:
         title: "اختيار رابط"
-        insertTitle: "إدراج رابط"
+        insert_title: "إدراج رابط"
         page:
           name: "الصفحة"
           input:
             label: "الصفحة"
             placeholder: "اختيار صفحة"
-            searchPlaceholder: "البحث..."
-            emptyLabel: "لم يتم العثور على صفحات"
-          sectionInput:
+            search_placeholder: "البحث..."
+            empty_label: "لم يتم العثور على صفحات"
+          section_input:
             label: "القسم"
             placeholder: "اختيار قسم"
-            emptyLabel: "لم يتم اختيار قسم"
+            empty_label: "لم يتم اختيار قسم"
         url:
           name: "الرابط"
           input:
@@ -164,26 +164,26 @@ ar:
           input:
             label: "البريد الإلكتروني"
         shared:
-          mainButton:
+          main_button:
             select: "اختيار"
             insert: "إضافة"
-          cancelButton: "إلغاء"
-          newWindowInput:
+          cancel_button: "إلغاء"
+          new_window_input:
             label: "فتح في نافذة جديدة"
-      collectionItemInput:
+      collection_item_input:
         select:
           placeholder: "اختيار عنصر"
-          searchPlaceholder: "البحث..."
-          emptyLabel: "لم يتم العثور على عناصر"
+          search_placeholder: "البحث..."
+          empty_label: "لم يتم العثور على عناصر"
       pagination:
-        defaultLabel: "%{start} - %{end} من %{totalItems} عنصر"
-        defaultNoItems: "لا يوجد شيء"
-      confirmationButton:
+        default_label: "%{start} - %{end} من %{totalItems} عنصر"
+        default_no_items: "لا يوجد شيء"
+      confirmation_button:
         text: "هل أنت متأكد من تنفيذ هذا الإجراء؟"
-        confirmButtonLabel: "نعم"
-        cancelButtonLabel: "لا"
-      errorModals:
-        staleRecord:
+        confirm_button_label: "نعم"
+        cancel_button_label: "لا"
+      error_modals:
+        stale_record:
           title: "نعتذر 🙇"
           message: "لم نتمكن من حفظ تغييراتك لأن شخصًا آخر قام بتحديث المحتوى في الوقت نفسه."
           button: "يرجى إعادة تحميل صفحتك"
@@ -193,7 +193,7 @@ ar:
           button: "إغلاق"
       support:
         human:
-          storageUnits:
+          storage_units:
             format: "%{number} %{unit}"
             units:
               byte:

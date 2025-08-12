@@ -16,6 +16,7 @@ class Maglev::Uikit::IconComponentPreview < ViewComponent::Preview
       'ri_file_line',
       'ri_more_fill',
       'ri_more_2_fill',
+      'ri_clone_line',
     ]
   end
 end

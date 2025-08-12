@@ -1,69 +1,69 @@
 es:
   maglev:
     editor:
-      headerNav:
+      header_nav:
         pages: "Páginas:"
-        pageSettings: "Configuración de página"
-        previewSite: "Vista previa"
-        previewToggler:
+        page_settings: "Configuración de página"
+        preview_site: "Vista previa"
+        preview_toggler:
           button: "Vista previa del sitio"
-          draftLink: "Versión borrador"
-          liveLink: "Versión en vivo"
-        publishButton:
+          draft_link: "Versión borrador"
+          live_link: "Versión en vivo"
+        publish_button:
           default: "Publicar sitio"
-          inProgress: "Publicando..."
+          in_progress: "Publicando..."
           success: "¡Publicado!"
           fail: "¡Falló!"
-        saveButton:
+        save_button:
           default: "Guardar"
-          inProgress: "Guardando..."
+          in_progress: "Guardando..."
           success: "¡Guardado!"
           fail: "¡Falló!"
-      sidebarNav:
-        listPagesTooltip: "Gestionar las páginas de tu sitio"
-        managePageSectionsTooltip: "Reordenar / eliminar las secciones de la página"
-        editStyleTooltip: "Cambiar el estilo de tu sitio"
-        openImageLibraryTooltip: "Abrir la galería de imágenes"
-        leaveEditorTooltip: "Volver a la aplicación principal"
-      pagePreview:
+      sidebar_nav:
+        list_pages_tooltip: "Gestionar las páginas de tu sitio"
+        manage_page_sections_tooltip: "Reordenar / eliminar las secciones de la página"
+        edit_style_tooltip: "Cambiar el estilo de tu sitio"
+        open_image_library_tooltip: "Abrir la galería de imágenes"
+        leave_editor_tooltip: "Volver a la aplicación principal"
+      page_preview:
         loading: "Cargando..."
         empty:
           title:
-            withoutLocale: "Tu página está en blanco"
-            withLocale: "Tu página en %{localeName} está en blanco"
+            without_locale: "Tu página está en blanco"
+            with_locale: "Tu página en %{localeName} está en blanco"
           message: "Por favor agrega la primera sección haciendo clic en el botón {icon} en la barra lateral izquierda."
       page:
         list:
           title: "Lista de páginas"
-          subTitle: "Gestionar las páginas de tu sitio"
-          newButton: "Nueva página"
-          searchPlaceholder: "Escribe tu consulta aquí..."
+          sub_title: "Gestionar las páginas de tu sitio"
+          new_button: "Nueva página"
+          search_placeholder: "Escribe tu consulta aquí..."
         actions:
           edit: "Editar configuración"
           clone: "Clonar página"
           hide: "Ocultar página"
           show: "Mostrar página"
           delete: "Eliminar página"
-          copyUrlToClipboard: "Copiar URL"
-          copyUrlToClipboardSuccess: "¡Copiado al portapapeles!"
+          copy_url_to_clipboard: "Copiar URL"
+          copy_url_to_clipboard_success: "¡Copiado al portapapeles!"
         new:
           title: "Crear una nueva página"
-          submitButton:
+          submit_button:
             default: "Crear página"
-            inProgress: "Creando..."
+            in_progress: "Creando..."
             success: "¡Creada!"
             fail: "¡Falló!"
-          cancelButton: "Cancelar"
+          cancel_button: "Cancelar"
         edit:
           title: "Editando una página"
-          currentPage:
+          current_page:
             title: "Editando la página actual"
-          submitButton:
+          submit_button:
             default: "Actualizar página"
-            inProgress: "Actualizando..."
+            in_progress: "Actualizando..."
             success: "¡Actualizada!"
             fail: "¡Falló!"
-          cancelButton: "Cancelar"
+          cancel_button: "Cancelar"
         form:
           tabs:
             main: "Principal"
@@ -71,90 +71,90 @@ es:
           title: "Título"
           path: "Ruta"
           visible: "Visible"
-          visiblePlaceholder: "Mostrar/Ocultar la página"
-          seoTitle: "Meta título"
-          metaDescription: "Meta descripción"
-          ogTitle: "og:title"
-          ogDescription: "og:description"
-          ogImageUrl: "og:image"
+          visible_placeholder: "Mostrar/Ocultar la página"
+          seo_title: "Meta título"
+          meta_description: "Meta descripción"
+          og_title: "og:title"
+          og_description: "og:description"
+          og_image_url: "og:image"
       sections:
-        addPane:
+        add_pane:
           title: "Agregar una sección"
-        listPane:
+        list_pane:
           title: "Organizar secciones"
           empty: "No hay secciones."
-          addButton: "Agregar una nueva sección"
-      sectionPane:
+          add_button: "Agregar una nueva sección"
+      section_pane:
         tabs:
           settings: "Contenido"
           blocks: "Bloques"
           advanced: "Avanzado"
-        blockList:
+        block_list:
           add: "Agregar nuevo elemento"
-      sectionBlockPane:
+      section_block_pane:
         tabs:
           settings: "Contenido"
           blocks: "Bloques"
           advanced: "Avanzado"
-      themeSectionList:
-        emptyCategory: "Sin secciones"
+      theme_section_list:
+        empty_category: "Sin secciones"
       style:
         edit:
           title: "Estilizar tu sitio"
-          submitButton:
+          submit_button:
             default: "Actualizar estilo"
-            inProgress: "Actualizando..."
+            in_progress: "Actualizando..."
             success: "¡Estilo actualizado!"
             fail: "¡Falló!"
-      imageInput:
-        addButton: "Agregar imagen"
-        replaceButton: "Reemplazar imagen"
-        clearButton: "Limpiar"
-        altTextPlaceholder: "Texto alternativo para ayudar a los motores de búsqueda"
-      imageLibrary:
+      image_input:
+        add_button: "Agregar imagen"
+        replace_button: "Reemplazar imagen"
+        clear_button: "Limpiar"
+        alt_text_placeholder: "Texto alternativo para ayudar a los motores de búsqueda"
+      image_library:
         title: "Lista de imágenes"
-        pickerTitle: "Seleccionar una imagen"
+        picker_title: "Seleccionar una imagen"
         none: "Aún no se han subido imágenes"
-        searchPlaceholder: "Buscar por nombre de archivo"
+        search_placeholder: "Buscar por nombre de archivo"
         pagination:
           label: "%{start} - %{end} de %{totalItems} imágenes"
-          noItems: "Sin imágenes"
+          no_items: "Sin imágenes"
         destroy:
           text: "¿Estás seguro?"
           ok: "Sí, eliminarlo"
           cancel: "Cancelar"
         uploader:
-          wrongFiles: "Asegúrate de que el tamaño de cada imagen no sea mayor que %{limit}."
-          uploadButton:
+          wrong_files: "Asegúrate de que el tamaño de cada imagen no sea mayor que %{limit}."
+          upload_button:
             default: "Subir imágenes"
-            inProgress: "Subiendo..."
+            in_progress: "Subiendo..."
             success: "¡Subidas!"
             fail: "¡Falló!"
-      iconInput:
-        addButton: "Agregar icono"
-        replaceButton: "Reemplazar icono"
-        clearButton: "Limpiar"
-      iconLibrary:
+      icon_input:
+        add_button: "Agregar icono"
+        replace_button: "Reemplazar icono"
+        clear_button: "Limpiar"
+      icon_library:
         title: "Iconos"
-        pickerTitle: "Elegir un icono"
-      linkInput:
+        picker_title: "Elegir un icono"
+      link_input:
         placeholder: "Haz clic aquí para seleccionar un enlace"
-        withNestedTextLabel: "Habilitar texto"
-        nestedTextPlaceholder: "Texto"
-      linkPicker:
+        with_nested_text_label: "Habilitar texto"
+        nested_text_placeholder: "Texto"
+      link_picker:
         title: "Seleccionar un enlace"
-        insertTitle: "Insertar un enlace"
+        insert_title: "Insertar un enlace"
         page:
           name: "Página"
           input:
             label: "Página"
             placeholder: "Seleccionar una página"
-            searchPlaceholder: "Buscar..."
-            emptyLabel: "No se encontraron páginas"
-          sectionInput:
+            search_placeholder: "Buscar..."
+            empty_label: "No se encontraron páginas"
+          section_input:
             label: "Sección"
             placeholder: "Seleccionar una sección"
-            emptyLabel: "Ninguna sección seleccionada"
+            empty_label: "Ninguna sección seleccionada"
         url:
           name: "Url"
           input:
@@ -164,26 +164,26 @@ es:
           input:
             label: "Email"
         shared:
-          mainButton:
+          main_button:
             select: "Seleccionar"
             insert: "Agregar"
-          cancelButton: "Cancelar"
-          newWindowInput:
+          cancel_button: "Cancelar"
+          new_window_input:
             label: "Abrir en nueva ventana"
-      collectionItemInput:
+      collection_item_input:
         select:
           placeholder: "Seleccionar un elemento"
-          searchPlaceholder: "Buscar..."
-          emptyLabel: "No se encontraron elementos"
+          search_placeholder: "Buscar..."
+          empty_label: "No se encontraron elementos"
       pagination:
-        defaultLabel: "%{start} - %{end} de %{totalItems} elementos"
-        defaultNoItems: "Ninguno"
-      confirmationButton:
+        default_label: "%{start} - %{end} de %{totalItems} elementos"
+        default_no_items: "Ninguno"
+      confirmation_button:
         text: "¿Estás seguro de que quieres realizar esta acción?"
-        confirmButtonLabel: "Sí"
-        cancelButtonLabel: "No"
-      errorModals:
-        staleRecord:
+        confirm_button_label: "Sí"
+        cancel_button_label: "No"
+      error_modals:
+        stale_record:
           title: "Lo sentimos 🙇"
           message: "No pudimos persistir tus cambios porque alguien más ha actualizado el contenido en el ínterin."
           button: "Por favor recarga tu página"
@@ -193,7 +193,7 @@ es:
           button: "Cerrar"
       support:
         human:
-          storageUnits:
+          storage_units:
             format: "%{number} %{unit}"
             units:
               byte:

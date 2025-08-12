@@ -1,69 +1,69 @@
 en:
   maglev:
     editor:
-      headerNav:
+      header_nav:
         pages: "Pages:"
-        pageSettings: "Page settings"
-        previewSite: "Preview"
-        previewToggler:
+        page_settings: "Page settings"
+        preview_site: "Preview"
+        preview_toggler:
           button: "Preview site"
-          draftLink: "Draft version"
-          liveLink: "Live version"
-        publishButton:
+          draft_link: "Draft version"
+          live_link: "Live version"
+        publish_button:
           default: "Publish site"
-          inProgress: "Publishing..."
+          in_progress: "Publishing..."
           success: "Published!"
           fail: "Fail!"
-        saveButton:
+        save_button:
           default: "Save"
-          inProgress: "Saving..."
+          in_progress: "Saving..."
           success: "Saved!"
           fail: "Fail!"
-      sidebarNav:
-        listPagesTooltip: "Manage the pages of your site"
-        managePageSectionsTooltip: "Re-order / delete the sections of the page"
-        editStyleTooltip: "Change the style of your site"
-        openImageLibraryTooltip: "Open the gallery of images"
-        leaveEditorTooltip: "Back to the main app"
-      pagePreview:
+      sidebar_nav:
+        list_pages_tooltip: "Manage the pages of your site"
+        manage_page_sections_tooltip: "Re-order / delete the sections of the page"
+        edit_style_tooltip: "Change the style of your site"
+        open_image_library_tooltip: "Open the gallery of images"
+        leave_editor_tooltip: "Back to the main app"
+      page_preview:
         loading: "Loading..."
         empty:
           title:
-            withoutLocale: "Your page is blank"
-            withLocale: "Your page in %{localeName} is blank"
+            without_locale: "Your page is blank"
+            with_locale: "Your page in %{localeName} is blank"
           message: "Please add the first section by clicking on the {icon} button in the left sidebar."
-      page:
+      pages:
         list:
           title: "List of pages"
-          subTitle: "Manage the pages of your site"
-          newButton: "New page"
-          searchPlaceholder: "Type your query here..."
+          sub_title: "Manage the pages of your site"
+          new_button: "New page"
+          search_placeholder: "Type your query here..."
         actions:
           edit: "Edit settings"
           clone: "Clone page"
           hide: "Hide page"
           show: "Show page"
           delete: "Delete page"
-          copyUrlToClipboard: "Copy URL"
-          copyUrlToClipboardSuccess: "Copied to clipboard!"
+          copy_url_to_clipboard: "Copy URL"
+          copy_url_to_clipboard_success: "Copied to clipboard!"
         new:
           title: "Create a new page"
-          submitButton:
+          submit_button:
             default: "Create page"
-            inProgress: "Creating..."
+            in_progress: "Creating..."
             success: "Created!"
             fail: "Fail!"
-          cancelButton: "Cancel"
+          cancel_button: "Cancel"
         edit:
           title: "Editing a page"
-          currentPage:
+          current_page:
             title: "Editing the current page"
-          submitButton:
+          submit_button:
             default: "Update page"
-            inProgress: "Updating..."
+            in_progress: "Updating..."
             success: "Updated!"
             fail: "Fail!"
-          cancelButton: "Cancel"
+          cancel_button: "Cancel"
         form:
           tabs:
             main: "Main"
@@ -71,90 +71,90 @@ en:
           title: "Title"
           path: "Path"
           visible: "Visible"
-          visiblePlaceholder: "Show/Hide the page"
-          seoTitle: "Meta title"
-          metaDescription: "Meta description"
-          ogTitle: "og:title"
-          ogDescription: "og:description"
-          ogImageUrl: "og:image"
+          visible_placeholder: "Show/Hide the page"
+          seo_title: "Meta title"
+          meta_description: "Meta description"
+          og_title: "og:title"
+          og_description: "og:description"
+          og_image_url: "og:image"
       sections:
-        addPane:
+        add_pane:
           title: "Add a section"
-        listPane:
+        list_pane:
           title: "Organize sections"
           empty: "There are no sections."
-          addButton: "Add a new section"
-      sectionPane:
+          add_button: "Add a new section"
+      section_pane:
         tabs:
           settings: "Content"
           blocks: "Blocks"
           advanced: "Advanced"
-        blockList:
+        block_list:
           add: "Add new item"
-      sectionBlockPane:
+      section_block_pane:
         tabs:
           settings: "Content"
           blocks: "Blocks"
           advanced: "Advanced"
-      themeSectionList:
-        emptyCategory: "No sections"
+      theme_section_list:
+        empty_category: "No sections"
       style:
         edit:
           title: "Style your site"
-          submitButton:
+          submit_button:
             default: "Update style"
-            inProgress: "Updating..."
+            in_progress: "Updating..."
             success: "Updated!"
             fail: "Fail!"
-      imageInput:
-        addButton: "Add image"
-        replaceButton: "Replace image"
-        clearButton: "Clear"
-        altTextPlaceholder: "Alt text to help search engines"
-      imageLibrary:
+      image_input:
+        add_button: "Add image"
+        replace_button: "Replace image"
+        clear_button: "Clear"
+        alt_text_placeholder: "Alt text to help search engines"
+      image_library:
         title: "List of images"
-        pickerTitle: "Select an image"
+        picker_title: "Select an image"
         none: "No images uploaded yet"
-        searchPlaceholder: "Search for a filename"
+        search_placeholder: "Search for a filename"
         pagination:
           label: "%{start} - %{end} of %{totalItems} images"
-          noItems: "No images"
+          no_items: "No images"
         destroy:
           text: "Are you sure?"
           ok: "Yes, delete it"
           cancel: "Cancel"
         uploader:
-          wrongFiles: "Make sure the size of each image is not greater than %{limit}."
-          uploadButton:
+          wrong_files: "Make sure the size of each image is not greater than %{limit}."
+          upload_button:
             default: "Upload images"
-            inProgress: "Uploading..."
+            in_progress: "Uploading..."
             success: "Uploaded!"
             fail: "Fail!"
-      iconInput:
-        addButton: "Add icon"
-        replaceButton: "Replace icon"
-        clearButton: "Clear"
-      iconLibrary:
+      icon_input:
+        add_button: "Add icon"
+        replace_button: "Replace icon"
+        clear_button: "Clear"
+      icon_library:
         title: "Icons"
-        pickerTitle: "Pick an icon"
-      linkInput:
+        picker_title: "Pick an icon"
+      link_input:
         placeholder: "Click here to select a link"
-        withNestedTextLabel: "Enable text"
-        nestedTextPlaceholder: "Text"
-      linkPicker:
+        with_nested_text_label: "Enable text"
+        nested_text_placeholder: "Text"
+      link_picker:
         title: "Select a link"
-        insertTitle: "Insert a link"
+        insert_title: "Insert a link"
         page:
           name: "Page"
           input:
             label: "Page"
             placeholder: "Select a page"
-            searchPlaceholder: "Search..."
-            emptyLabel: "No pages found"
-          sectionInput:
+            search_placeholder: "Search..."
+            empty_label: "No pages found"
+          section_input:
             label: "Section"
             placeholder: "Select a section"
-            emptyLabel: "No section selected"
+            empty_label: "No section selected"
         url:
           name: "Url"
           input:
@@ -164,26 +164,26 @@ en:
           input:
             label: "Email"
         shared:
-          mainButton:
+          main_button:
             select: "Select"
             insert: "Add"
-          cancelButton: "Cancel"
-          newWindowInput:
+          cancel_button: "Cancel"
+          new_window_input:
             label: "Open in new window"
-      collectionItemInput:
+      collection_item_input:
         select:
           placeholder: "Select an item"
-          searchPlaceholder: "Search..."
-          emptyLabel: "No items found"
+          search_placeholder: "Search..."
+          empty_label: "No items found"
       pagination:
-        defaultLabel: "%{start} - %{end} of %{totalItems} items"
-        defaultNoItems: "None"
-      confirmationButton:
+        default_label: "%{start} - %{end} of %{totalItems} items"
+        default_no_items: "None"
+      confirmation_button:
         text: "Are you sure to perform this action?"
-        confirmButtonLabel: "Yes"
-        cancelButtonLabel: "No"
-      errorModals:
-        staleRecord:
+        confirm_button_label: "Yes"
+        cancel_button_label: "No"
+      error_modals:
+        stale_record:
           title: "We are sorry 🙇"
           message: "We couldn't persist your changes because someone else has updated the content in the meantime."
           button: "Please reload your page"
@@ -193,7 +193,7 @@ en:
           button: "Close"
       support:
         human:
-          storageUnits:
+          storage_units:
             format: "%{number} %{unit}"
             units:
               byte:
