@@ -363,8 +363,14 @@
   .my-6 {
     margin-block: calc(var(--spacing) * 6);
   }
+  .-mt-0\.5 {
+    margin-top: calc(var(--spacing) * -0.5);
+  }
   .-mt-1 {
     margin-top: calc(var(--spacing) * -1);
+  }
+  .-mt-1\.5 {
+    margin-top: calc(var(--spacing) * -1.5);
   }
   .mt-1 {
     margin-top: calc(var(--spacing) * 1);
