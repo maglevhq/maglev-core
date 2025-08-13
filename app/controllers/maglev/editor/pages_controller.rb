@@ -1,5 +1,6 @@
 class Maglev::Editor::PagesController < Maglev::Editor::BaseController
   before_action :set_page, only: %i[ edit update destroy ]
+  before_action :maglev_disable_turbo_cache, only: %i[ edit update ]
 
   def index
     @pages = services.search_pages.call(q: params[:q], content_locale: content_locale,
@@ -21,8 +22,9 @@ class Maglev::Editor::PagesController < Maglev::Editor::BaseController
   def update
     if @page.update(page_params)
       flash[:active_tab] = params[:active_tab]
-      redirect_to edit_editor_page_path(@page, maglev_editing_route_context), notice: "Saved!", status: :see_other
+      redirect_to edit_editor_page_path(@page, maglev_editing_route_context), notice: flash_t(:success), status: :see_other
     else
+      flash.now[:error] = flash_t(:error)
       render :edit, status: :unprocessable_entity
     end
   end

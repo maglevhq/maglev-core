@@ -6,13 +6,14 @@ class Maglev::Editor::BaseController < ::Maglev::ApplicationController
   include Maglev::UserInterfaceLocaleConcern
   include Maglev::ContentLocaleConcern
   include Maglev::ServicesConcern
+  include Maglev::FlashI18nConcern
 
   before_action :fetch_maglev_site
   before_action :fetch_maglev_page
   before_action :set_content_locale
 
   helper Maglev::ApplicationHelper
-  helper_method :maglev_site, :current_maglev_page, :maglev_theme, :maglev_editing_route_context
+  helper_method :maglev_site, :current_maglev_page, :maglev_theme, :maglev_editing_route_context, :maglev_disable_turbo_cache?
   
   private
 
@@ -42,5 +43,13 @@ class Maglev::Editor::BaseController < ::Maglev::ApplicationController
       locale: ::Maglev::I18n.current_locale,
       page_id: current_maglev_page
     }
+  end
+
+  def maglev_disable_turbo_cache
+    @maglev_disable_turbo_cache = true
+  end
+
+  def maglev_disable_turbo_cache?
+    !!@maglev_disable_turbo_cache
   end
 end

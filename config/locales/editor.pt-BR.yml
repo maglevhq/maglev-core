@@ -61,8 +61,6 @@
           submit_button:
             default: "Atualizar página"
             in_progress: "Atualizando..."
-            success: "Atualizada!"
-            fail: "Falhou!"
           cancel_button: "Cancelar"
         form:
           tabs:
@@ -202,3 +200,8 @@
               kb: "KB"
               mb: "MB"
               gb: "GB"
+      flash:
+        pages:
+          update:
+            success: "Salvo!"
+            error: "Falhou!"

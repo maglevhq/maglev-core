@@ -61,8 +61,6 @@ fr:
           submit_button:
             default: "Mettre à jour"
             in_progress: "En cours de mise à jour..."
-            success: "Mise à jour !"
-            fail: "Échec !"
           cancel_button: "Annuler"
         form:
           tabs:
@@ -202,3 +200,8 @@ fr:
               kb: "Ko"
               mb: "Mo"
               gb: "Go"
+      flash:
+        pages:
+          update:
+            success: "Sauvegardé !"
+            error: "Échec !"

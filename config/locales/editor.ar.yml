@@ -61,8 +61,6 @@ ar:
           submit_button:
             default: "تحديث الصفحة"
             in_progress: "جاري التحديث..."
-            success: "تم التحديث!"
-            fail: "فشل!"
           cancel_button: "إلغاء"
         form:
           tabs:
@@ -202,3 +200,8 @@ ar:
               kb: "كيلوبايت"
               mb: "ميجابايت"
               gb: "جيجابايت"
+      flash:
+        pages:
+          update:
+            success: "تم الحفظ!"
+            error: "فشل!"

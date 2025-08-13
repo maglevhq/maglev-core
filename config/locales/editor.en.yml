@@ -60,9 +60,7 @@ en:
             title: "Editing the current page"
           submit_button:
             default: "Update page"
-            in_progress: "Updating..."
-            success: "Updated!"
-            fail: "Fail!"
+            in_progress: "Updating..."            
           cancel_button: "Cancel"
         form:
           tabs:
@@ -202,3 +200,8 @@ en:
               kb: "KB"
               mb: "MB"
               gb: "GB"
+      flash:
+        pages:
+          update:
+            success: "Saved!"
+            error: "Failed!"

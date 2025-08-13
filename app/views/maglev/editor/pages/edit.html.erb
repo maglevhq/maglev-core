@@ -6,7 +6,10 @@
     <%= form_for @page, 
       url: editor_page_path(@page, maglev_editing_route_context), 
       method: :put,
-      html: { class: 'flex flex-col flex-1 overflow-y-hidden', data: { turbo_frame: '_top' } } do |f| 
+      html: { 
+        class: 'flex flex-col flex-1 overflow-y-hidden', 
+        data: { turbo_frame: '_top' } 
+      } do |f| 
     %>
       <%= f.hidden_field :lock_version %>
 
@@ -16,7 +19,7 @@
         <%= f.submit t('maglev.editor.pages.edit.submit_button.default'), 
           form: f.id,
           class: maglev_button_classes(color: :primary, size: :big),
-          data: { turbo_submits_with: 'Submitting...' }
+          data: { turbo_submits_with:  t('maglev.editor.pages.edit.submit_button.in_progress') }
         %>
       <% end %>
     <% end %>
