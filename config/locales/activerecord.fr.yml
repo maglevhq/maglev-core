@@ -7,13 +7,14 @@ fr:
       'maglev/page':
         title: Titre
         cloned_title: "%{title} COPIE"
-        seo_title: Titre SEO
+        paths:
+          value: Chemin
+        visible: Visible
+        seo_title: Meta title
         meta_description: Meta description
         og_title: "og:title"
         og_description: "og:description"
         og_image_url: "og:image"
-      'maglev/page/paths':
-        value: Chemin
 
     errors:
       models:

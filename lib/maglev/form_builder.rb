@@ -22,6 +22,18 @@ class Maglev::FormBuilder < ActionView::Helpers::FormBuilder
     ))
   end
 
+  def textarea(method, options = {})
+    attributes = field_attributes(method)
+
+    @template.render(Maglev::Uikit::Form::TextareaComponent.new(
+      label: options[:label].presence || attributes[:content],
+      name: attributes[:name],
+      value: object.public_send(method),
+      rows: options[:rows],
+      max_length: options[:max_length]
+    ))
+  end
+
   private
 
   def field_attributes(method)

@@ -66,15 +66,6 @@ ar:
           tabs:
             main: "الرئيسية"
             seo: "تحسين محركات البحث"
-          title: "العنوان"
-          path: "المسار"
-          visible: "مرئية"
-          visible_placeholder: "إظهار/إخفاء الصفحة"
-          seo_title: "عنوان ميتا"
-          meta_description: "وصف ميتا"
-          og_title: "og:title"
-          og_description: "og:description"
-          og_image_url: "og:image"
       sections:
         add_pane:
           title: "إضافة قسم"

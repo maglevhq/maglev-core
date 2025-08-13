@@ -65,16 +65,7 @@ en:
         form:
           tabs:
             main: "Main"
-            seo: "SEO"
-          title: "Title"
-          path: "Path"
-          visible: "Visible"
-          visible_placeholder: "Show/Hide the page"
-          seo_title: "Meta title"
-          meta_description: "Meta description"
-          og_title: "og:title"
-          og_description: "og:description"
-          og_image_url: "og:image"
+            seo: "SEO"          
       sections:
         add_pane:
           title: "Add a section"

@@ -66,15 +66,6 @@ fr:
           tabs:
             main: "Principal"
             seo: "SEO"
-          title: "Titre"
-          path: "Chemin"
-          visible: "Visible"
-          visible_placeholder: "Afficher/Cacher la page"
-          seo_title: "Meta title"
-          meta_description: "Meta description"
-          og_title: "og:title"
-          og_description: "og:description"
-          og_image_url: "og:image"
       sections:
         add_pane:
           title: "Ajouter une section"

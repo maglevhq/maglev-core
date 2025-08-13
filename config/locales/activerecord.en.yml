@@ -7,6 +7,11 @@ en:
         paths:
           value: Path
         visible: Visible
+        seo_title: Meta title
+        meta_description: Meta description
+        og_title: "og:title"
+        og_description: "og:description"
+        og_image_url: "og:image"
 
     errors:
       models:

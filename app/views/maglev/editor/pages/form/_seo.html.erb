@@ -1,1 +1,9 @@
-<p>TODO: SEO form</p>
+<div class="mt-2 grid grid-cols-1 gap-4">
+  <%= f.textarea :seo_title, max_length: 60, rows: 2 %>
+
+  <%= f.textarea :meta_description, max_length: 155, rows: 5 %>
+
+  <%= f.textarea :og_title, max_length: 60, rows: 2 %>
+
+  <%= f.textarea :og_description, max_length: 155, rows: 5 %>
+</div>
