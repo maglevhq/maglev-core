@@ -13,6 +13,20 @@
               <span class="ml-2 whitespace-nowrap"><%= t('maglev.editor.pages.actions.edit') %></span>
             <% end %>
           <% end %>
+
+          <% dropdown.with_item do %>
+            <%= link_to helpers.edit_editor_page_path(page, locale: I18n.locale, page_id: page.id), class: dropdown.item_classes do %>
+              <%= render Maglev::Uikit::IconComponent.new(name: 'ri_settings_5_line') %>
+              <span class="ml-2 whitespace-nowrap"><%= t('maglev.editor.pages.actions.clone') %></span>
+            <% end %>
+          <% end %>
+
+          <% dropdown.with_item do %>
+            <%= link_to helpers.edit_editor_page_path(page, locale: I18n.locale, page_id: page.id), class: dropdown.item_classes do %>
+              <%= render Maglev::Uikit::IconComponent.new(name: 'ri_settings_5_line') %>
+              <span class="ml-2 whitespace-nowrap"><%= t('maglev.editor.pages.actions.copy_url_to_clipboard') %></span>
+            <% end %>
+          <% end %>
         <% end %>
       </div>
       <div class="text-xs text-gray-500 flex items-center space-x-1">

@@ -17,6 +17,8 @@ class Maglev::Uikit::IconComponentPreview < ViewComponent::Preview
       'ri_more_fill',
       'ri_more_2_fill',
       'ri_settings_5_line',
+      'ri_checkbox_circle_fill',
+      'ri_error_warning_fill'
     ]
   end
 end

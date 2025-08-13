@@ -3,10 +3,11 @@ class Maglev::Uikit::TabsComponent < Maglev::Uikit::BaseComponent
     Tab.new(self, label:, active:, block:)
   end
 
-  attr_reader :active_tab, :container_classes
+  attr_reader :container_classes, :active_tab, :active_tab_index
 
-  def initialize(container_classes: nil)
+  def initialize(container_classes: nil, active_tab_index: nil)
     @container_classes = container_classes
+    @active_tab_index = active_tab_index
   end
 
   def label_classes(...)
@@ -20,8 +21,8 @@ class Maglev::Uikit::TabsComponent < Maglev::Uikit::BaseComponent
   end
 
   def before_render
-    return if tabs.find(&:active?)
-    tabs.first.active = true
+    @active_tab = tabs.find(&:active?) || tabs[active_tab_index.to_i]
+    @active_tab.active = true
   end
 
   class Tab < Maglev::Uikit::BaseComponent

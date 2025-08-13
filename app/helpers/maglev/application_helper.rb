@@ -47,7 +47,7 @@ module Maglev
 
     def maglev_button_classes(...)
       ClassVariants.build(
-        base: 'rounded-sm px-6 py-4 transition-colors duration-200 text-white text-center cursor-pointer',
+        base: 'rounded-xs px-6 py-4 transition-colors duration-200 text-white text-center cursor-pointer',
         variants: {
           color: {
             primary: 'bg-editor-primary/95 hover:bg-editor-primary/100 disabled:bg-editor-primary/75',
@@ -57,6 +57,14 @@ module Maglev
           }
         }
       ).render(...)
+    end
+
+    def maglev_flash_message
+      if flash[:notice].present?
+        render Maglev::Uikit::BadgeComponent.new(color: :green, icon_name: 'ri_checkbox_circle_fill', disappear_after: 3.seconds).with_content(flash[:notice])
+      elsif flash[:error].present?
+        render Maglev::Uikit::BadgeComponent.new(color: :red, icon_name: 'ri_error_warning_fill', disappear_after: 3.seconds).with_content(flash[:error])
+      end
     end
 
     # [DEPRECATED]Vite Rails helpers

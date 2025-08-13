@@ -1,6 +1,7 @@
 <div 
   id="drawer-component"
-  class="slide-pane absolute inset-y-0 h-[100dvh-(--spacing(16))] bg-white border-r border-gray-200 origin-top-left flex flex-col top-16 left-16 z-10 w-104">
+  class="slide-pane absolute inset-y-0 h-[100dvh-(--spacing(16))] bg-white border-r border-gray-200 origin-top-left flex flex-col top-16 left-16 z-10 w-104"
+>
   <div class="py-6 mx-4">
     <div class="h-6 flex items-center">
       <div class="w-full">
@@ -8,7 +9,11 @@
           <%= title %>
         </h2>
       </div>
-      <div class="ml-auto">
+      <div class="ml-auto pl-2 gap-0.5 flex items-center">
+        <% if notification? %>
+          <%= notification %>          
+        <% end %>
+
         <%= link_to back_path, class: 'h-7 w-7 flex items-center justify-center rounded-full focus:outline-none transition-colors duration-200 relative -right-2 bg-gray-600/0 hover:text-gray-900 text-gray-800 hover:bg-gray-600/10', data: { turbo_frame: '_top' } do %>
           <%= render Maglev::Uikit::IconComponent.new(name: 'ri_clone_line', size: '1.15rem') %>
         <% end %>
@@ -21,9 +26,13 @@
     <% end %>
   </div>
 
-  <div class="flex-1 flex flex-col overflow-y-auto">
-    <div class="flex-1 flex flex-col pb-4 mx-3 px-1">
-      <%= content %>
-    </div>
+  <div class="flex-1 flex flex-col overflow-y-auto mx-4">
+    <%= content %>
   </div>
+
+  <% if footer? %>
+    <div class="mt-2 mx-4 pb-4">
+      <%= footer  %>
+    </div>
+  <% end %>
 </div>

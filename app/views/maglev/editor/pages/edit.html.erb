@@ -1,28 +1,28 @@
 <% content_for :drawer do %>
-  <%= render Maglev::Uikit::PageLayoutComponent.new(back_path: editor_real_root_path(locale: I18n.locale, page_id: current_maglev_page)) do |component| %>
-    <% component.with_title do %>
-      <%= t('maglev.editor.pages.edit.current_page.title') %>
-    <% end %>
+  <%= render Maglev::Uikit::PageLayoutComponent.new(back_path: editor_real_root_path(maglev_editing_route_context)) do |page_layout| %>
+    <% page_layout.with_title_content t('maglev.editor.pages.edit.current_page.title') %>
+    <% page_layout.with_notification_content maglev_flash_message %>
 
-    <%= form_for @page, url: editor_page_path(@page, locale: I18n.locale, page_id: current_maglev_page), method: :put, html: { class: 'flex flex-col flex-1 overflow-y-hidden overflow-y-hidden' } do |f| %>
+    <%= form_for @page, 
+      url: editor_page_path(@page, maglev_editing_route_context), 
+      method: :put,
+      html: { class: 'flex flex-col flex-1 overflow-y-hidden', data: { turbo_frame: '_top' } } do |f| 
+    %>
       <%= f.hidden_field :lock_version %>
 
-      <%= render Maglev::Uikit::TabsComponent.new(container_classes: 'w-full h-full flex flex-col') do |tabs| %>
-        <% tabs.with_tab(label: t('maglev.editor.pages.form.tabs.main')) do %>
-          <p>Tab 1 content</p>
-          <p><%= Time.now %></p>
-        <% end %>
-        <% tabs.with_tab(label: t('maglev.editor.pages.form.tabs.seo')) do %>
-          <p>Tab 2 content</p>
-        <% end %>
-      <% end %>
-
-      <div class="flex-1">
+      <%= render 'maglev/editor/pages/form/tabs', f: f %>
+    
+      <% content_for :submit_button do %>
         <%= f.submit t('maglev.editor.pages.edit.submit_button.default'), 
+          form: f.id,
           class: maglev_button_classes(color: :primary, size: :big),
           data: { turbo_submits_with: 'Submitting...' }
         %>
-      </div>
+      <% end %>
+    <% end %>
+
+    <% page_layout.with_footer do %>
+      <%= yield :submit_button %>
     <% end %>
   <% end %>
 <% end %>

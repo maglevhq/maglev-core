@@ -14,7 +14,6 @@
  *= require_self
  */
 
- 
 @keyframes slide-out {
   from {
     transform: translateX(0%);
@@ -35,19 +34,23 @@
   }
 }
 
-::view-transition-old(drawer) {
+html[data-turbo-visit-direction="forward"]::view-transition-old(drawer),
+html[data-turbo-visit-direction="back"]::view-transition-old(drawer) {
   animation: 0.40s cubic-bezier(0.55, 0, 0.1, 1) both slide-out;
 }
 
-::view-transition-new(drawer) {
+html[data-turbo-visit-direction="forward"]::view-transition-new(drawer),
+html[data-turbo-visit-direction="back"]::view-transition-new(drawer) {
   animation: 0.40s cubic-bezier(0.55, 0, 0.1, 1) both slide-in;
 }
 
-::view-transition-old(drawer):only-child {
+html[data-turbo-visit-direction="forward"]::view-transition-old(drawer):only-child,
+html[data-turbo-visit-direction="back"]::view-transition-old(drawer):only-child {
   animation: 0.20s cubic-bezier(0.55, 0, 0.1, 1) both slide-out;
 }
 
-::view-transition-new(drawer):only-child {
+html[data-turbo-visit-direction="forward"]::view-transition-new(drawer):only-child,
+html[data-turbo-visit-direction="back"]::view-transition-new(drawer):only-child {
   animation: 0.20s cubic-bezier(0.55, 0, 0.1, 1) both slide-in;
 }
 

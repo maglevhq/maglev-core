@@ -4,11 +4,13 @@
   data-uikit-tabs-active-class-value="<%= label_classes(active: true) %>"
   data-uikit-tabs-inactive-class-value="<%= label_classes(active: false) %>"
 >
+  <input type="hidden" name="active_tab" value="<%= active_tab_index %>" data-uikit-tabs-target="hiddenInput">
+
   <nav>
     <ul class="flex flex-col sm:flex-row">
       <% tabs.each_with_index do |tab, index| %>
         <li>
-          <%= link_to tab.label, '#', class: label_classes(active: tab.active?), data: { uikit_tabs_target: 'tab', action: 'click->uikit-tabs#activateTab', index: index } %>
+          <%= link_to tab.label, '#', class: label_classes(active: tab.active?), data: { uikit_tabs_target: 'tab', action: 'click->uikit-tabs#activateTab:prevent', tab_index: index } %>
         </li>
       <% end %>
     </ul>
@@ -17,7 +19,7 @@
   <div class="relative -mt-0.5"><div class="w-full border-gray-200 border-t-2 h-0"></div></div>
 
   <% tabs.each_with_index do |tab, index| %>
-    <div data-uikit-tabs-target="tabContent" class="flex-1 mt-4 pb-4 overflow-y-auto <%= 'hidden' unless tab.active? %>">
+    <div data-uikit-tabs-target="tabContent" class="flex-1 mt-4 pb-4 overflow-y-auto overflow-x-visible <%= 'hidden' unless tab.active? %>">
       <%= capture(&tab.block) %>
     </div>
   <% end %>

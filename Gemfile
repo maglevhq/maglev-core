@@ -64,8 +64,16 @@ group :development, :test do
   gem 'annotaterb'
 
   gem 'rdoc', '>= 6.6.3.1'
+
+  # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
+  gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
 end
 
 group :test do
   gem 'simplecov', require: false
+end
+
+group :development do
+  # Use console on exceptions pages [https://github.com/rails/web-console]
+  gem "web-console"
 end

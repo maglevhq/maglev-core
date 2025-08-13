@@ -6,12 +6,22 @@ class Maglev::Editor::PagesController < Maglev::Editor::BaseController
                                             default_locale: default_content_locale)
   end
 
+  def new
+    raise 'TODO'
+  end
+
   def edit
+    @active_tab = flash[:active_tab] # we need to store the active tab in the flash because we can't pass the anchor to the redirect
+  end
+
+  def create
+    raise 'TODO'
   end
 
   def update
-    if @page.update(page_params)      
-      render :edit, status: :ok
+    if @page.update(page_params)
+      flash[:active_tab] = params[:active_tab]
+      redirect_to edit_editor_page_path(@page, maglev_editing_route_context), notice: "Saved!", status: :see_other
     else
       render :edit, status: :unprocessable_entity
     end

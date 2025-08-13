@@ -1,8 +1,6 @@
 <% content_for :drawer do %>
-  <%= render Maglev::Uikit::PageLayoutComponent.new(back_path: editor_real_root_path(locale: I18n.locale, page_id: @page.id)) do |component| %>
-    <% component.with_title do %>
-      <%= t('maglev.editor.sections.list_pane.title') %>
-    <% end %>
+  <%= render Maglev::Uikit::PageLayoutComponent.new(back_path: editor_real_root_path(maglev_editing_route_context)) do |page_layout| %>
+    <% page_layout.with_title_content t('maglev.editor.sections.list_pane.title') %>
 
     <p>TODO</p>
   <% end %>

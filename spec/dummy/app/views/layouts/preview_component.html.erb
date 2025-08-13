@@ -15,19 +15,14 @@
 
   <style>
     :root {
-      --editor-color-primary: <%= editor_primary_hex_color %>;
+      --editor-color-primary: <%= maglev_primary_hex_color %>;
     }
   </style>
 </head>
 
-<body style="padding: 20px" class="h-full font-nunito">
-  <div style="
-      margin-left: auto;
-      margin-right: auto;
-      max-width: <%= params.dig(:lookbook, :display, :max_width) || '100%' %>
-    " class="h-full">
+<body class="font-nunito p-4">
+  <div style="max-width: <%= params.dig(:lookbook, :display, :max_width) || '100%' %>" class="h-full mx-auto">
     <%= yield %>
-    <!-- rendered preview will be injected here -->
   </div>
 </body>
 

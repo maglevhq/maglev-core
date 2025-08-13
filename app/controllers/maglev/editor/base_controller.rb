@@ -1,6 +1,8 @@
 class Maglev::Editor::BaseController < ::Maglev::ApplicationController
   layout 'maglev/editor/application'
 
+  default_form_builder Maglev::FormBuilder
+
   include Maglev::UserInterfaceLocaleConcern
   include Maglev::ContentLocaleConcern
   include Maglev::ServicesConcern
@@ -10,7 +12,7 @@ class Maglev::Editor::BaseController < ::Maglev::ApplicationController
   before_action :set_content_locale
 
   helper Maglev::ApplicationHelper
-  helper_method :maglev_site, :current_maglev_page, :maglev_theme
+  helper_method :maglev_site, :current_maglev_page, :maglev_theme, :maglev_editing_route_context
   
   private
 
@@ -33,5 +35,12 @@ class Maglev::Editor::BaseController < ::Maglev::ApplicationController
 
   def maglev_theme
     @maglev_theme ||= maglev_services.fetch_theme.call
+  end
+
+  def maglev_editing_route_context
+    {
+      locale: ::Maglev::I18n.current_locale,
+      page_id: current_maglev_page
+    }
   end
 end

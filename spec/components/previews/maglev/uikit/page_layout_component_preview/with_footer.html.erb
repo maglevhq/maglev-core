@@ -1,0 +1,20 @@
+<%= render Maglev::Uikit::PageLayoutComponent.new do |component| %>
+  <% component.with_title_content 'Page title' %>
+  <% component.with_description_content 'Page description' %>
+
+  <% 10.times.map do |i| %>
+    <p class="mb-4">
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.
+    </p>
+  <% end %>
+
+  <% content_for :sticky_footer do %>
+    <p class="bg-gray-100 p-4">
+      Sticky Footer
+    </p>
+  <% end %>
+
+  <% component.with_footer do %>
+    <%= yield :sticky_footer %>
+  <% end %>
+<% end %>

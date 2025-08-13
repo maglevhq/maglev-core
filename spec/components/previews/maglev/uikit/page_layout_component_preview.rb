@@ -1,20 +1,13 @@
 class Maglev::Uikit::PageLayoutComponentPreview < ViewComponent::Preview
   def default
-    render(Maglev::Uikit::PageLayoutComponent.new) do |component|
-      component.with_title do
-        "Page Title"
-      end
-      component.with_description do
-        "Page Description"
-      end
+    render_with_template
+  end
 
-      10.times.map do |i|
-        <<~HTML
-          <p class="mb-4">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.
-          </p>
-        HTML
-      end.join.html_safe
-    end
+  def with_footer
+    render_with_template
+  end
+
+  def with_notification
+    render_with_template
   end
 end
