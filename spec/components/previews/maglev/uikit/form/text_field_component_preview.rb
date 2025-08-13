@@ -37,5 +37,4 @@ class Maglev::Uikit::Form::TextFieldComponentPreview < ViewComponent::Preview
   end
 
   # @!endgroup
-  
 end

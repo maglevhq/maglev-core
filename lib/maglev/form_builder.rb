@@ -1,4 +1,39 @@
 class Maglev::FormBuilder < ActionView::Helpers::FormBuilder
+  def text_field(method, options = {})
+    attributes = field_attributes(method)
+
+    @template.render(Maglev::Uikit::Form::TextFieldComponent.new(
+      label: options[:label].presence || attributes[:content],
+      name: attributes[:name],
+      value: object.public_send(method),
+      placeholder: options[:placeholder],
+      error: error_messages(method)
+    ))
+  end
+
+  def check_box(method, options = {})
+    attributes = field_attributes(method)
+
+    @template.render(Maglev::Uikit::Form::CheckboxComponent.new(
+      label: options[:label].presence || attributes[:content],
+      name: attributes[:name],
+      checked: object.public_send(method),
+      placeholder: options[:placeholder]
+    ))
+  end
+
+  private
+
+  def field_attributes(method)
+    ActionView::Helpers::Tags::Label.new(@object_name, method, @template, nil, objectify_options({})).complete_attributes
+  end
+
+  def error_messages(method)
+    if object.errors.any?
+      object.errors.messages_for(method).join(', ')
+    end
+  end
+
   class ActionView::Helpers::Tags::Label
     def complete_attributes
       options = @options.stringify_keys
@@ -21,31 +56,6 @@ class Maglev::FormBuilder < ActionView::Helpers::FormBuilder
       content = render_component(builder)
 
       { content: content }.merge(name_and_id.symbolize_keys)
-    end
-  end
-
-
-  def text_field(method, options = {})
-    attributes = field_attributes(method)
-
-    @template.render(Maglev::Uikit::Form::TextFieldComponent.new(
-      label: attributes[:content],
-      name: attributes[:name],
-      value: object.public_send(method),
-      placeholder: options[:placeholder],
-      error: error_messages(method)
-    ))
-  end
-
-  private
-
-  def field_attributes(method)
-    ActionView::Helpers::Tags::Label.new(@object_name, method, @template, nil, objectify_options({})).complete_attributes
-  end
-
-  def error_messages(method)
-    if object.errors.any?
-      object.errors.messages_for(method).join(', ')
     end
   end
 end

@@ -2,9 +2,12 @@ en:
   activerecord:
     attributes:
       'maglev/page':
+        title: Title
         cloned_title: "%{title} COPY"
-      'maglev/page/paths':
-        value: Path
+        paths:
+          value: Path
+        visible: Visible
+
     errors:
       models:
         maglev/page_path:
