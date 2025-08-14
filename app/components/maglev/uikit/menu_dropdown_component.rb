@@ -1,4 +1,5 @@
 class Maglev::Uikit::MenuDropdownComponent < Maglev::Uikit::BaseComponent
+  renders_one :trigger
   renders_many :items
 
   attr_reader :icon_name

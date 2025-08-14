@@ -5,11 +5,11 @@
     <%= page_info %>
   </div>
 
-  <div class="col-span-1 hidden lg:flex justify-center">
+  <div class="col-span-1 hidden lg:flex justify-center" data-turbo-permanent id="device-toggler">
     <%= render Maglev::Uikit::DeviceTogglerComponent.new %>
   </div>
 
   <div class="col-span-2 flex justify-end h-full">
-    TODO: ACTIONS
+    <%= actions %>
   </div>
 </div>

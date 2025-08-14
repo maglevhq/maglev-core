@@ -1,0 +1,22 @@
+<%= render(Maglev::Uikit::MenuDropdownComponent.new) do |dropdown| %>
+  <% dropdown.with_trigger do %>
+    <button 
+      class="flex-1 h-full w-full px-6 hover:bg-editor-primary/5 transition-colors duration-200 flex items-center focus:outline-none focus:none cursor-pointer space-x-2"
+      data-action="click->uikit-dropdown#toggle" 
+      data-uikit-dropdown-target="button">
+      <%= render Maglev::Uikit::IconComponent.new(name: 'global') %>
+      <span class="whitespace-nowrap">
+        <%= current_locale_label %>
+      </span>
+      <%= render Maglev::Uikit::IconComponent.new(name: 'arrow_down') %>
+    </button>
+  <% end %>
+  
+  <% locales.each do |locale| %>
+    <% dropdown.with_item do %>
+      <%= link_to locale[:path], class: dropdown.item_classes do %>
+        <span class="<%= 'font-bold' if locale[:value] == current_locale %>"><%= locale[:label] %></span>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>

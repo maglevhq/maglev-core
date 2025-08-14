@@ -1,6 +1,10 @@
 <%= render Maglev::Uikit::DropdownComponent.new do |component| %>
   <% component.with_trigger do %>
-    <%= render Maglev::Uikit::IconButtonComponent.new(icon_name: icon_name, data: { action: "click->uikit-dropdown#toggle", 'uikit-dropdown-target': 'button' }) %>
+    <% if trigger.present? %>
+      <%= trigger %>
+    <% else %>
+      <%= render Maglev::Uikit::IconButtonComponent.new(icon_name: icon_name, data: { action: "click->uikit-dropdown#toggle", 'uikit-dropdown-target': 'button' }) %>
+    <% end %>
   <% end %>
 
   <div class="flex flex-col w-48 text-gray-800">

@@ -46,9 +46,9 @@ class Maglev::Editor::BaseController < ::Maglev::ApplicationController
     @maglev_theme ||= maglev_services.fetch_theme.call
   end
 
-  def maglev_editing_route_context(page: nil)
+  def maglev_editing_route_context(page: nil, locale: nil)
     {
-      locale: ::Maglev::I18n.current_locale,
+      locale: locale || ::Maglev::I18n.current_locale,
       page_id: page || current_maglev_page
     }
   end
