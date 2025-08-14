@@ -1,4 +1,4 @@
-<html lang="<%= I18n.locale %>" class="antialiased">
+<html lang="<%= I18n.locale %>">
   <head>
     <title>Maglev</title>
     <meta name="view-transition" content="same-origin" />
@@ -19,9 +19,17 @@
     </style>
   </head>
   <body class="h-full overflow-y-hidden font-nunito">
-    <%= render 'layouts/maglev/editor/app_layout', 
-      content: yield
-    %>
+    <%= render Maglev::Uikit::AppLayout::LayoutComponent.new(page: current_maglev_page) do |layout| %>
+      <% layout.with_topbar do |topbar| %>
+        <%= render 'layouts/maglev/editor/topbar', topbar: topbar %>
+      <% end %>
+
+      <% layout.with_sidebar do |sidebar| %>
+        <%= render 'layouts/maglev/editor/sidebar', sidebar: sidebar %>
+      <% end %>
+
+      <%= yield %>
+    <% end %>
 
     <%= turbo_frame_tag "drawer" do %>
       <%= yield :drawer %> 

@@ -26,7 +26,8 @@ module Maglev
     end
 
     def live_url
-      nil
+      return nil if context.controller.request.nil?
+      context.controller.request.base_url
     end
   end
 end

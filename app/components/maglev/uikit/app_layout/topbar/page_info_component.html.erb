@@ -21,11 +21,21 @@
             <% end %>
           <% end %>
 
-          <% dropdown.with_item do %>
-            <%= link_to helpers.edit_editor_page_path(page, locale: I18n.locale, page_id: page.id), class: dropdown.item_classes do %>
-              <%= render Maglev::Uikit::IconComponent.new(name: 'settings') %>
-              <span class="ml-2 whitespace-nowrap"><%= t('maglev.editor.pages.actions.copy_url_to_clipboard') %></span>
-            <% end %>
+          <% dropdown.with_item do %> 
+            <div data-controller="copy-to-clipboard" data-copy-to-clipboard-source-value="<%= live_page_url %>">
+              <%= link_to '#', class: dropdown.item_classes, data: { copy_to_clipboard_target: 'text', action: 'click->copy-to-clipboard#copy:prevent' } do %>
+                <%= render Maglev::Uikit::IconComponent.new(name: 'clipboard') %>
+                <span class="ml-2 whitespace-nowrap">
+                  <%= t('maglev.editor.pages.actions.copy_url_to_clipboard') %>
+                </span>                                    
+              <% end %>
+              <div class="<%= dropdown.item_classes %> hidden" data-copy-to-clipboard-target="success">
+                <%= render Maglev::Uikit::IconComponent.new(name: 'checkbox_circle', class_names: 'text-green-500') %>
+                <span class="ml-2 whitespace-nowrap text-green-500">
+                  <%= t('maglev.editor.pages.actions.copy_url_to_clipboard_success') %>
+                </span>
+              </div>
+            </div>
           <% end %>
         <% end %>
       </div>

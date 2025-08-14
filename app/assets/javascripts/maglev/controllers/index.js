@@ -4,9 +4,11 @@ import TabsController from "uikit-controllers/maglev/uikit/tabs_component/tabs_c
 
 import DisappearanceController from "maglev-controllers/disappearance_controller"
 import MaxLengthController from "maglev-controllers/max_length_controller"
+import CopyToClipboardController from "maglev-controllers/copy_to_clipboard_controller"
 
 application.register("uikit-dropdown", DropdownController)
 application.register("uikit-tabs", TabsController)
 
 application.register("disappearance", DisappearanceController)
 application.register("max-length", MaxLengthController)
+application.register("copy-to-clipboard", CopyToClipboardController)

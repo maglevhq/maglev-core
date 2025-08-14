@@ -1,0 +1,7 @@
+<% topbar.with_logo %>
+<% topbar.with_page_info do %>
+  <%= render Maglev::Uikit::AppLayout::Topbar::PageInfoComponent.new(
+    page: current_maglev_page, 
+    live_page_url: current_maglev_page_urls[:live]
+  ) %>
+<% end %>
