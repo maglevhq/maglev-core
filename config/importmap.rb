@@ -3,6 +3,7 @@ pin "@floating-ui/core", to: "@floating-ui--core.js"
 pin "@floating-ui/utils", to: "@floating-ui--utils.js"
 pin "@floating-ui/utils/dom", to: "@floating-ui--utils--dom.js"
 
+pin "el-transition"
 pin "stimulus-use"
 
 pin "@hotwired/turbo-rails", to: "@hotwired--turbo-rails.js" 

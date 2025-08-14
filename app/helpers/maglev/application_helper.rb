@@ -47,14 +47,20 @@ module Maglev
 
     def maglev_button_classes(...)
       ClassVariants.build(
-        base: 'rounded-xs px-6 py-4 transition-colors duration-200 text-white text-center cursor-pointer',
+        base: 'rounded-xs transition-colors duration-200 text-center cursor-pointer',
         variants: {
           color: {
-            primary: 'bg-editor-primary/95 hover:bg-editor-primary/100 disabled:bg-editor-primary/75',
+            primary: 'text-white bg-editor-primary/95 hover:bg-editor-primary/100 disabled:bg-editor-primary/75',
+            secondary: 'text-gray-800 hover:bg-gray-100'
           },
           size: {
-            big: 'flex items-center justify-center w-full'
+            big: 'flex items-center justify-center w-full px-6 py-4',
+            medium: 'inline-flex items-center justify-center px-4 py-2'
           }
+        },
+        defaults: {
+          color: :primary,
+          size: :medium
         }
       ).render(...)
     end

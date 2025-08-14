@@ -1,0 +1,27 @@
+<h1 class="text-2xl">My page</h1>
+
+<p class="my-10">
+  <%= link_to '#example', class: 'bg-editor-primary text-white px-4 py-2 rounded-md', data: { turbo: 'false' } do %>
+    Open form modal
+  <% end %>
+</p>
+
+<%= render Maglev::Uikit::ModalComponent.new(id: 'example', open: false) do |modal| %>
+  <% modal.with_title_content 'Editing user' %>
+
+  <%= form_with model: user, url: '#', builder: Maglev::FormBuilder do |form| %>    
+    <%= form.text_field :name %>
+
+    <% content_for :form_actions do %>
+      <button class='<%= maglev_button_classes(color: :secondary) %>' data-action="click->uikit-modal#close">
+        Cancel
+      </button>
+
+      <%= form.submit 'Save', form: form.id, class: maglev_button_classes %>
+    <% end %>
+  <% end %>
+
+  <% modal.with_footer do %>
+    <%= yield :form_actions %>
+  <% end %>
+<% end %>
