@@ -6,24 +6,24 @@
       <div class="flex items-center">
         <%= render Maglev::Uikit::IconComponent.new(name: icon_name, size: '1.1rem', class_names: 'shrink-0 text-gray-900') %>
         <div class="text-base font-semibold truncate ml-1 mr-3"><%= page.title %></div>
-        <%= render Maglev::Uikit::MenuDropdownComponent.new(icon_name: 'ri_more_fill') do |dropdown| %>
+        <%= render Maglev::Uikit::MenuDropdownComponent.new(icon_name: 'more') do |dropdown| %>
           <% dropdown.with_item do %>
             <%= link_to helpers.edit_editor_page_path(page, locale: I18n.locale, page_id: page.id), class: dropdown.item_classes do %>
-              <%= render Maglev::Uikit::IconComponent.new(name: 'ri_settings_5_line') %>
+              <%= render Maglev::Uikit::IconComponent.new(name: 'settings') %>
               <span class="ml-2 whitespace-nowrap"><%= t('maglev.editor.pages.actions.edit') %></span>
             <% end %>
           <% end %>
 
           <% dropdown.with_item do %>
             <%= link_to helpers.edit_editor_page_path(page, locale: I18n.locale, page_id: page.id), class: dropdown.item_classes do %>
-              <%= render Maglev::Uikit::IconComponent.new(name: 'ri_settings_5_line') %>
+              <%= render Maglev::Uikit::IconComponent.new(name: 'settings') %>
               <span class="ml-2 whitespace-nowrap"><%= t('maglev.editor.pages.actions.clone') %></span>
             <% end %>
           <% end %>
 
           <% dropdown.with_item do %>
             <%= link_to helpers.edit_editor_page_path(page, locale: I18n.locale, page_id: page.id), class: dropdown.item_classes do %>
-              <%= render Maglev::Uikit::IconComponent.new(name: 'ri_settings_5_line') %>
+              <%= render Maglev::Uikit::IconComponent.new(name: 'settings') %>
               <span class="ml-2 whitespace-nowrap"><%= t('maglev.editor.pages.actions.copy_url_to_clipboard') %></span>
             <% end %>
           <% end %>

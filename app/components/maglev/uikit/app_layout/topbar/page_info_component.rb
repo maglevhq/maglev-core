@@ -6,6 +6,6 @@ class Maglev::Uikit::AppLayout::Topbar::PageInfoComponent < ViewComponent::Base
   end
 
   def icon_name
-    page.index? ? 'home_4_line' : 'ri_file_line'
+    page.index? ? 'home' : 'file'
   end
 end

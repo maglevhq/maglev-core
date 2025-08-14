@@ -61,9 +61,9 @@ module Maglev
 
     def maglev_flash_message
       if flash[:notice].present?
-        render Maglev::Uikit::BadgeComponent.new(color: :green, icon_name: 'ri_checkbox_circle_fill', disappear_after: 3.seconds).with_content(flash[:notice])
+        render Maglev::Uikit::BadgeComponent.new(color: :green, icon_name: 'checkbox_circle', disappear_after: 3.seconds).with_content(flash[:notice])
       elsif flash[:error].present?
-        render Maglev::Uikit::BadgeComponent.new(color: :red, icon_name: 'ri_error_warning_fill', disappear_after: 3.seconds).with_content(flash[:error])
+        render Maglev::Uikit::BadgeComponent.new(color: :red, icon_name: 'error_warning', disappear_after: 3.seconds).with_content(flash[:error])
       end
     end
 

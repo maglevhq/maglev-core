@@ -9,7 +9,7 @@ class Maglev::Uikit::BadgeComponentPreview < ViewComponent::Preview
   end
 
   def with_icon
-    render Maglev::Uikit::BadgeComponent.new(color: :green, icon_name: 'ri_checkbox_circle_fill').with_content('Success')
+    render Maglev::Uikit::BadgeComponent.new(color: :green, icon_name: 'checkbox_circle').with_content('Success')
   end
 
   def with_disappearance

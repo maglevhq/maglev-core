@@ -9,18 +9,18 @@
   <% layout.with_sidebar do |sidebar| %>
     <% sidebar.with_link(
       path: editor_pages_path(maglev_editing_route_context), 
-      icon: 'ri_file_copy_line', 
+      icon: 'file_copy', 
       active: controller_name == 'pages'
     ) %>
     <% sidebar.with_link(
       path: editor_sections_path(maglev_editing_route_context), 
-      icon: 'ri_stack_line',
+      icon: 'stack',
       active: controller_name == 'sections'
     ) %>
 
     <% sidebar.with_link(
       path: editor_leave_path, 
-      icon: 'logout_box_r_line',
+      icon: 'logout',
       position: :bottom
     ) %>
   <% end %>
