@@ -1,0 +1,16 @@
+<div 
+  class="flex items-center gap-1" 
+  data-controller="uikit-device-toggler"
+  data-uikit-device-toggler-active-classes-value="<%= active_classes %>"
+>
+  <% devices.each_with_index do |device, index| %>
+    <button 
+      class="<%= toggler_classes(active: index == 0) %>"
+      data-action="click->uikit-device-toggler#toggle:prevent" 
+      data-uikit-device-toggler-target="device"
+      data-device="<%= device[:device] %>"
+    >
+      <%= render Maglev::Uikit::IconComponent.new(name: device[:icon]) %>
+    </button>
+  <% end %>
+</div>
