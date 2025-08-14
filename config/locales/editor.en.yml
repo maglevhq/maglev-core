@@ -196,3 +196,6 @@ en:
           update:
             success: "Saved!"
             error: "Failed!"
+        page_clone:
+          create:
+            success: "Cloned!"

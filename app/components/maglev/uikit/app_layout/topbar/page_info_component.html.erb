@@ -15,8 +15,8 @@
           <% end %>
 
           <% dropdown.with_item do %>
-            <%= link_to helpers.edit_editor_page_path(page, locale: I18n.locale, page_id: page.id), class: dropdown.item_classes do %>
-              <%= render Maglev::Uikit::IconComponent.new(name: 'settings') %>
+            <%= button_to helpers.editor_page_clone_path(page, locale: I18n.locale, page_id: page.id), class: dropdown.form_item_classes, form_class: dropdown.item_classes do %>
+              <%= render Maglev::Uikit::IconComponent.new(name: 'clone') %>
               <span class="ml-2 whitespace-nowrap"><%= t('maglev.editor.pages.actions.clone') %></span>
             <% end %>
           <% end %>
