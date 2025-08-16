@@ -1,0 +1,7 @@
+<%= turbo_frame_tag 'modal' do %>
+  <%= render Maglev::Uikit::ModalComponent.new(id: 'assets-modal', open: true) do |modal| %>
+    <% modal.with_title_content t('maglev.editor.image_library.title') %>
+
+    <p>TODO</p>
+  <% end %>
+<% end %>

@@ -3,10 +3,17 @@
   icon: 'file_copy', 
   active: controller_name == 'pages'
 ) %>
+
 <% sidebar.with_link(
   path: editor_sections_path(maglev_editing_route_context), 
   icon: 'stack',
   active: controller_name == 'sections'
+) %>
+
+<% sidebar.with_link(
+  path: editor_assets_path(maglev_editing_route_context), 
+  icon: 'image',
+  data: { turbo_frame: 'modal' }
 ) %>
 
 <% sidebar.with_link(

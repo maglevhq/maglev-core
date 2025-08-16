@@ -1,13 +1,14 @@
 class Maglev::Uikit::AppLayout::Sidebar::LinkComponent < Maglev::Uikit::BaseComponent
 
-  attr_reader :path, :icon, :icon_size, :active
+  attr_reader :path, :icon, :icon_size, :active, :data
 
-  def initialize(path:, icon:, icon_size: '1.5rem', active: false, position: :top)
+  def initialize(path:, icon:, icon_size: '1.5rem', active: false, position: :top, data: {})
     @path = path
     @icon = icon
     @icon_size = icon_size
     @active = active
     @position = position
+    @data = data
   end
 
   def active?

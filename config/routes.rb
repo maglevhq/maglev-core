@@ -52,6 +52,7 @@ Maglev::Engine.routes.draw do
         resource :clone, controller: :page_clone, only: :create
       end
       resources :sections
+      resources :assets
     end    
   end
 

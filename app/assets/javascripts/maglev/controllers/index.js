@@ -7,6 +7,7 @@ import ModalController from "uikit-controllers/maglev/uikit/modal_component/moda
 import DisappearanceController from "maglev-controllers/disappearance_controller"
 import MaxLengthController from "maglev-controllers/max_length_controller"
 import CopyToClipboardController from "maglev-controllers/copy_to_clipboard_controller"
+import TransitionController from "maglev-controllers/transition_controller"
 
 application.register("uikit-dropdown", DropdownController)
 application.register("uikit-tabs", TabsController)
@@ -16,3 +17,4 @@ application.register("uikit-modal", ModalController)
 application.register("disappearance", DisappearanceController)
 application.register("max-length", MaxLengthController)
 application.register("copy-to-clipboard", CopyToClipboardController)
+application.register("transition", TransitionController)
