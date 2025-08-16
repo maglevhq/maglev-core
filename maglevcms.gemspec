@@ -45,10 +45,10 @@ Gem::Specification.new do |spec|
     'README.md'
   ]
 
-  spec.add_dependency 'jbuilder', '< 3', '>= 2'
-  spec.add_dependency 'kaminari', '~> 1.2.1'
+  spec.add_dependency 'jbuilder', '< 3', '>= 2'  
   spec.add_dependency 'maglev-injectable', '~> 2.1.1'
   spec.add_dependency 'rails', '< 9', '>= 7'
+  spec.add_dependency 'pagy', '>= 6'
   
   # Gems required by the new editor
   spec.add_dependency 'view_component', '~> 4.0.0.rc5'
@@ -57,6 +57,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'class_variants', '~> 1.1'
   
   # TO BE REMOVED AT THE VERY END OF THE MIGRATION
+  spec.add_dependency 'kaminari', '~> 1.2.1'
   spec.add_dependency 'vite_rails', '< 4', '>= 3'
   spec.add_dependency 'vite_ruby', '>= 3.5'
 end

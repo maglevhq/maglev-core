@@ -11,6 +11,7 @@ require_relative 'maglev/reserved_paths'
 
 require 'injectable'
 require 'jbuilder'
+require 'pagy'
 
 module Maglev
   ROOT_PATH = Pathname.new(File.join(__dir__, '..'))

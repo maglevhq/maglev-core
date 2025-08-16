@@ -1,0 +1,70 @@
+<% a = pagy_anchor(pagy) %>
+
+<% left_arrow = capture do %>
+  <%= render Maglev::Uikit::IconComponent.new(name: 'arrow_left', size: '1.25rem') %>  
+<% end %>
+
+<% right_arrow = capture do %>
+  <%= render Maglev::Uikit::IconComponent.new(name: 'arrow_right', size: '1.25rem') %>
+<% end %>
+
+<div class="flex items-center justify-between bg-white py-3">
+  <div class="flex flex-1 justify-between sm:hidden">
+    <% if pagy.prev %>
+      <%== a.(pagy.prev, pagy_t('pagy.aria_label.prev'), aria_label: 'Previous', classes: 'relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100') %>
+    <% else %>
+      <a role="link" aria-disabled="true" aria-label="Previous" class="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100">
+        <%= pagy_t('pagy.aria_label.prev') %>
+      </a>
+    <% end %>
+
+     <% if pagy.next %>
+      <%== a.(pagy.next, pagy_t('pagy.aria_label.next'), aria_label: 'Next', classes: 'relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100') %>
+    <% else %>
+      <a role="link" aria-disabled="true" aria-label="Next" class="relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100">
+        <%= pagy_t('pagy.aria_label.next') %>
+      </a>
+    <% end %>
+  </div>
+
+  <div class="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
+    <div>
+      <p class="text-sm">
+        <%== pagy_info(pagy, item_name: item_name) %>
+      </p>
+    </div>
+
+    <div>      
+      <nav class="isolate inline-flex gap-1" aria-label="Pages">
+        <%# Previous page link %>
+        <% if pagy.prev %>
+          <%== a.(pagy.prev, left_arrow, aria_label: 'Previous', classes: 'relative inline-flex items-center rounded-sm px-1 py-1 text-gray-400 hover:bg-gray-100 focus:z-20 focus:outline-offset-0') %>
+        <% else %>
+          <a role="link" aria-disabled="true" aria-label="Previous" class="relative inline-flex items-center rounded-sm px-1 py-1 text-gray-400 hover:bg-gray-100 focus:z-20 focus:outline-offset-0">
+            <%= left_arrow %>
+          </a>
+        <% end %>
+        
+        <%# Page links (series example: [1, :gap, 7, 8, "9", 10, 11, :gap, 36]) %>
+        <% pagy.series.each do |item| %>
+          <% if item.is_a?(Integer) %>
+            <%== a.(item, classes: 'relative inline-flex items-center px-2.5 py-1 text-sm font-semibold text-gray-900 hover:bg-gray-100 focus:z-20 focus:outline-offset-0') %>
+          <% elsif item.is_a?(String) %>
+            <a role="link" aria-disabled="true" aria-current="page" class="relative z-10 inline-flex items-center bg-editor-primary px-2.5 py-1 text-sm font-semibold text-white focus:z-20"><%= item %></a>
+          <% elsif item == :gap %>
+            <a role="link" aria-disabled="true" class="relative inline-flex items-center px-2.5 py-1 text-sm font-semibold text-gray-700 focus:outline-offset-0">&hellip;</a>
+          <% end %>
+        <% end %>
+
+        <%# Next page link %>
+        <% if pagy.next %>
+          <%== a.(pagy.next, right_arrow, aria_label: 'Next', classes: 'relative inline-flex items-center rounded-sm px-1 py-1 text-gray-400 hover:bg-gray-100 focus:z-20 focus:outline-offset-0') %>
+        <% else %>
+          <a role="link" aria-disabled="true" aria-label="Next" class="relative inline-flex items-center rounded-sm px-1 py-1 text-gray-400 hover:bg-gray-100 focus:z-20 focus:outline-offset-0">
+            <%= right_arrow %>
+          </a>
+        <% end %>
+      </nav>
+    </div>
+  </div>
+</div>
