@@ -10,7 +10,7 @@
       data-uikit-device-toggler-target="device"
       data-device="<%= device[:device] %>"
     >
-      <%= render Maglev::Uikit::IconComponent.new(name: device[:icon]) %>
+      <%= render Maglev::Uikit::IconComponent.new(name: device[:icon], size: '1.5rem') %>
     </button>
   <% end %>
 </div>

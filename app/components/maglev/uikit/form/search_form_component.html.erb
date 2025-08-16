@@ -1,0 +1,21 @@
+<form 
+  class="<%= class_names %>"
+  data-controller="uikit-search-form"
+>
+  <%= content if content? %>
+  <button type="submit" class="mr-2">
+    <%= render Maglev::Uikit::IconComponent.new(name: 'search', size: '1.25rem', class_names: 'text-gray-500') %>
+  </button>
+  <input 
+    type="text" 
+    name="<%= name %>"
+    value="<%= value %>"    
+    placeholder="<%= placeholder %>" 
+    aria-label="<%= placeholder %>" 
+    class="block w-full border-0 bg-transparent focus:outline-none placeholder-gray-500"
+    data-uikit-search-form-target="input"
+  >
+  <button type="button" class="<%= clear_button_class_names %>" data-action="click->uikit-search-form#clear" data-uikit-search-form-target="clearButton">
+    <%= render Maglev::Uikit::IconComponent.new(name: 'close', size: '1.25rem', class_names: 'text-gray-500') %>    
+  </button>
+</form>

@@ -1745,6 +1745,14 @@
       }
     }
   }
+  .hover\:ring-1 {
+    &:hover {
+      @media (hover: hover) {
+        --tw-ring-shadow: var(--tw-ring-inset,) 0 0 0 calc(1px + var(--tw-ring-offset-width)) var(--tw-ring-color, currentcolor);
+        box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+      }
+    }
+  }
   .focus\:z-20 {
     &:focus {
       z-index: 20;
@@ -1836,10 +1844,46 @@
       background-color: var(--color-editor-primary);
     }
   }
+  .has-focus\:border-editor-primary {
+    &:has(*:focus) {
+      border-color: var(--color-editor-primary);
+    }
+  }
   .has-focus-visible\:outline-2 {
     &:has(*:focus-visible) {
       outline-style: var(--tw-outline-style);
       outline-width: 2px;
+    }
+  }
+  .has-\[\:focus\]\:ring {
+    &:has(*:is(:focus)) {
+      --tw-ring-shadow: var(--tw-ring-inset,) 0 0 0 calc(1px + var(--tw-ring-offset-width)) var(--tw-ring-color, currentcolor);
+      box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+    }
+  }
+  .has-\[\:focus\]\:ring-2 {
+    &:has(*:is(:focus)) {
+      --tw-ring-shadow: var(--tw-ring-inset,) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color, currentcolor);
+      box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+    }
+  }
+  .has-\[\:focus\]\:ring-editor-primary\/50 {
+    &:has(*:is(:focus)) {
+      --tw-ring-color: var(--color-editor-primary);
+      @supports (color: color-mix(in lab, red, red)) {
+        --tw-ring-color: color-mix(in oklab, var(--color-editor-primary) 50%, transparent);
+      }
+    }
+  }
+  .has-\[\:focus\]\:outline {
+    &:has(*:is(:focus)) {
+      outline-style: var(--tw-outline-style);
+      outline-width: 1px;
+    }
+  }
+  .has-\[\:focus\]\:ring-inset {
+    &:has(*:is(:focus)) {
+      --tw-ring-inset: inset;
     }
   }
   .sm\:my-8 {
