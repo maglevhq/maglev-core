@@ -14,24 +14,18 @@
         data-transition-leave-end="translate-y-4 opacity-0"
       >
         <%= button_to delete_url, 
+          method: :delete,
           form_class: 'ml-auto flex items-center', 
           class: 'px-1 py-1 bg-white rounded-full flex items-center justify-center text-gray-900 cursor-pointer',
-          data: { turbo_confirm: t('maglev.editor.image_library.destroy.text'), method: 'delete' } do 
+          data: { turbo_confirm: t('maglev.editor.image_library.destroy.text') } do 
         %>
           <%= render Maglev::Uikit::IconComponent.new(name: 'delete_bin', size: '1rem') %>
         <% end %>
-
-        <button
-          type="button"
-          class=""
-        >
-          
-        </button>
       </div>
     </div>
   </div>
-  <div class="mt-1 px-2 text-xs font-bold text-gray-900"><%= filename %></div>
-  <div class="px-2 mb-1 flex items-center text-xs justify-between text-gray-700">
+  <div class="mt-1 text-xs font-bold text-gray-900"><%= filename %></div>
+  <div class="mb-1 flex items-center text-xs justify-between text-gray-700">
     <span class=""><%= width %>x<%= height %></span>
     <span class=""><%= number_to_human_size(byte_size) %></span>
   </div>

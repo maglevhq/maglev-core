@@ -25,7 +25,7 @@ export default class extends Controller {
 
   clear() {
     this.inputTarget.value = ''
-    this.inputTarget.classList.add('invisible')
+    this.clearButtonTarget.classList.add('invisible')
     this.element.requestSubmit()
   }
 }

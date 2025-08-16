@@ -1,12 +1,13 @@
 class Maglev::Uikit::Form::SearchFormComponent < Maglev::Uikit::BaseComponent
-  attr_reader :name, :value, :search_path, :placeholder
+  attr_reader :name, :value, :search_path, :placeholder, :data
 
-  def initialize(name:, value:, search_path:, placeholder: nil, class_names: nil)
+  def initialize(name:, value:, search_path:, placeholder: nil, class_names: nil, data: nil)
     @name = name
     @value = value
     @search_path = search_path
     @placeholder = placeholder
     @class_names = class_names
+    @data = data
   end
 
   def class_names
@@ -21,6 +22,10 @@ class Maglev::Uikit::Form::SearchFormComponent < Maglev::Uikit::BaseComponent
       variants: {
         invisible: 'invisible',
       }
-    ).render(invisible: value.size > 0)
+    ).render(invisible: value_size == 0)
+  end
+  
+  def value_size
+    value&.size || 0
   end
 end

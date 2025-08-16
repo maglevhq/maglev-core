@@ -1,6 +1,8 @@
 <form 
+  action="<%= search_path %>"
   class="<%= class_names %>"
   data-controller="uikit-search-form"
+  <%= tag.attributes(data: data) %>
 >
   <%= content if content? %>
   <button type="submit" class="mr-2">

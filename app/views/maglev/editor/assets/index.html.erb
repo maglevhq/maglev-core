@@ -2,6 +2,39 @@
   <%= render Maglev::Uikit::ModalComponent.new(id: 'assets-modal', open: true) do |modal| %>
     <% modal.with_title_content t('maglev.editor.image_library.title') %>
 
-    <p>TODO</p>
+    <div class="space-y-5">
+      <div class="flex items-center">
+        <div>
+          TODO: Uploader button
+        </div>
+        <div class="ml-auto">
+          <%= render Maglev::Uikit::Form::SearchFormComponent.new(
+            name: 'query', 
+            value: params[:q], 
+            search_path: editor_assets_path, 
+            placeholder: t('maglev.editor.image_library.search_placeholder'),
+            data: { turbo_frame: 'asset-search-results' })
+          %>
+        </div>
+      </div>
+
+      <%= turbo_frame_tag 'asset-search-results' do %>
+        <div class="w-[51rem] h-128 overflow-y-auto">
+          <% if @assets.any? %>
+            <div class="grid grid-cols-4 gap-4">
+              <%= render partial: 'asset', collection: @assets %>
+            </div>
+          <% else %>
+            <div class="flex items-center justify-center h-full">
+              <p class="text-gray-500"><%= t('maglev.editor.image_library.pagination.no_items') %></p>
+            </div>
+          <% end %>
+        </div>
+
+        <div class="flex items-center pt-3">
+          <%= render Maglev::Uikit::PaginationComponent.new(pagy: @pagy, hidden_if_single_page: false) %>
+        </div>
+      </div>
+    <% end %>
   <% end %>
 <% end %>

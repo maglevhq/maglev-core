@@ -8,7 +8,7 @@
   <%= render Maglev::Uikit::IconComponent.new(name: 'arrow_right', size: '1.25rem') %>
 <% end %>
 
-<div class="flex items-center justify-between bg-white py-3">
+<div class="flex items-center justify-between bg-white w-full h-10">
   <div class="flex flex-1 justify-between sm:hidden">
     <% if pagy.prev %>
       <%== a.(pagy.prev, pagy_t('pagy.aria_label.prev'), aria_label: 'Previous', classes: 'relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100') %>
@@ -34,7 +34,7 @@
       </p>
     </div>
 
-    <div>      
+    <div class="<%= 'hidden' if pagy.series.size == 1 %>">  
       <nav class="isolate inline-flex gap-1" aria-label="Pages">
         <%# Previous page link %>
         <% if pagy.prev %>

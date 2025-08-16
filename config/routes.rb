@@ -51,9 +51,10 @@ Maglev::Engine.routes.draw do
       resources :pages do
         resource :clone, controller: :page_clone, only: :create
       end
-      resources :sections
-      resources :assets
+      resources :sections      
     end    
+
+    resources :assets
   end
 
   # Legacy Editor
