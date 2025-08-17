@@ -54,7 +54,7 @@ Maglev::Engine.routes.draw do
       resources :sections      
     end    
 
-    resources :assets
+    resources :assets, only: %i[index create destroy]
   end
 
   # Legacy Editor

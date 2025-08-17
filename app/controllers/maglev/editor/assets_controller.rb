@@ -2,29 +2,24 @@ class Maglev::Editor::AssetsController < Maglev::Editor::BaseController
   include ::ActiveStorage::SetCurrent
   include ::Pagy::Backend
 
+  before_action :ensure_turbo_frame_request, only: [:index]
+
   layout false
 
   def index
     @pagy, @assets = pagy(resources.search(params[:query], params[:asset_type]), limit: per_page)
   end
 
-  # def show
-  #   @asset = resources.find(resource_id)
-  # end
-
   def create
     asset = resources.create!(asset_params)
-    head :created, location: api_asset_path(asset), maglev_asset_id: asset.id
+    flash[:notice] = flash_t(:success, count: params[:number_of_assets].presence || 1)
+    head :created, location: editor_assets_path
   end
 
-  # def update
-  #   resources.find(resource_id).update!(asset_params)
-  #   head :ok
-  # end
-
   def destroy
-    resources.find(resource_id).destroy!
-    redirect_to editor_assets_path(query: params[:query], page: params[:page]), status: :see_other
+    asset = resources.find(resource_id)
+    asset.destroy!
+    redirect_to editor_assets_path(query: params[:query], page: params[:page]), notice: flash_t(:success, name: asset.file.filename), status: :see_other
   end
 
   private

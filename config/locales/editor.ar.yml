@@ -31,8 +31,8 @@ ar:
           title:
             without_locale: "صفحتك فارغة"
             with_locale: "صفحتك في %{localeName} فارغة"
-          message: "يرجى إضافة القسم الأول بالنقر على الزر {icon} في الشريط الجانبي الأيسر."
-      page:
+          message: "يرجى إضافة القسم الأول بالنقر على زر {icon} في الشريط الجانبي الأيسر."
+      pages:
         list:
           title: "قائمة الصفحات"
           sub_title: "إدارة صفحات موقعك"
@@ -60,12 +60,12 @@ ar:
             title: "تعديل الصفحة الحالية"
           submit_button:
             default: "تحديث الصفحة"
-            in_progress: "جاري التحديث..."
+            in_progress: "جاري التحديث..."            
           cancel_button: "إلغاء"
         form:
           tabs:
             main: "الرئيسية"
-            seo: "تحسين محركات البحث"
+            seo: "تحسين محركات البحث"          
       sections:
         add_pane:
           title: "إضافة قسم"
@@ -93,7 +93,7 @@ ar:
           submit_button:
             default: "تحديث النمط"
             in_progress: "جاري التحديث..."
-            success: "تم تحديث النمط!"
+            success: "تم التحديث!"
             fail: "فشل!"
       image_input:
         add_button: "إضافة صورة"
@@ -102,47 +102,41 @@ ar:
         alt_text_placeholder: "نص بديل لمساعدة محركات البحث"
       image_library:
         title: "قائمة الصور"
-        picker_title: "اختيار صورة"
-        none: "لم يتم رفع أي صور بعد"
+        picker_title: "اختر صورة"
         search_placeholder: "البحث عن اسم الملف"
         pagination:
           label: "%{start} - %{end} من %{totalItems} صورة"
           no_items: "لا توجد صور"
-        destroy:
-          text: "هل أنت متأكد؟"
-          ok: "نعم، احذفها"
-          cancel: "إلغاء"
+        confirm_destroy: "هل أنت متأكد؟"
         uploader:
           wrong_files: "تأكد من أن حجم كل صورة لا يتجاوز %{limit}."
           upload_button:
             default: "رفع الصور"
-            in_progress: "جاري الرفع..."
-            success: "تم الرفع!"
-            fail: "فشل!"
+            in_progress: "جاري الرفع..."            
       icon_input:
         add_button: "إضافة أيقونة"
         replace_button: "استبدال الأيقونة"
         clear_button: "مسح"
       icon_library:
         title: "الأيقونات"
-        picker_title: "اختيار أيقونة"
+        picker_title: "اختر أيقونة"
       link_input:
         placeholder: "انقر هنا لاختيار رابط"
         with_nested_text_label: "تمكين النص"
         nested_text_placeholder: "النص"
       link_picker:
-        title: "اختيار رابط"
+        title: "اختر رابط"
         insert_title: "إدراج رابط"
         page:
           name: "الصفحة"
           input:
             label: "الصفحة"
-            placeholder: "اختيار صفحة"
+            placeholder: "اختر صفحة"
             search_placeholder: "البحث..."
             empty_label: "لم يتم العثور على صفحات"
           section_input:
             label: "القسم"
-            placeholder: "اختيار قسم"
+            placeholder: "اختر قسم"
             empty_label: "لم يتم اختيار قسم"
         url:
           name: "الرابط"
@@ -154,19 +148,19 @@ ar:
             label: "البريد الإلكتروني"
         shared:
           main_button:
-            select: "اختيار"
-            insert: "إضافة"
+            select: "اختر"
+            insert: "أضف"
           cancel_button: "إلغاء"
           new_window_input:
             label: "فتح في نافذة جديدة"
       collection_item_input:
         select:
-          placeholder: "اختيار عنصر"
+          placeholder: "اختر عنصر"
           search_placeholder: "البحث..."
           empty_label: "لم يتم العثور على عناصر"
       pagination:
         default_label: "%{start} - %{end} من %{totalItems} عنصر"
-        default_no_items: "لا يوجد شيء"
+        default_no_items: "لا شيء"
       confirmation_button:
         text: "هل أنت متأكد من تنفيذ هذا الإجراء؟"
         confirm_button_label: "نعم"
@@ -196,3 +190,13 @@ ar:
           update:
             success: "تم الحفظ!"
             error: "فشل!"
+        page_clone:
+          create:
+            success: "تم الاستنساخ!"
+        assets:
+          create:
+            success:
+              one: "تم الرفع!"
+              other: "تم رفع %{count} ملف!"
+          destroy:
+            success: "تم حذف %{name}!"

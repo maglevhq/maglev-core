@@ -1,0 +1,21 @@
+<h1 class="text-2xl">My page</h1>
+
+<p class="my-10">
+  <%= link_to '#example', class: 'bg-editor-primary text-white px-4 py-2 rounded-md', data: { turbo: 'false' } do %>
+    Open modal
+  <% end %>
+</p>
+
+<%= render Maglev::Uikit::ModalComponent.new(id: 'example', open: false) do |modal| %>
+  <% modal.with_title_content 'Modal title' %>
+
+  <% modal.with_notification do %>
+    <%= render Maglev::Uikit::BadgeComponent.new(color: :green, icon_name: 'checkbox_circle').with_content('success!') %>
+  <% end %>
+
+  <p>
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.
+  </p>
+<% end %>

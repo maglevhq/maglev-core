@@ -2,6 +2,10 @@
   <head>
     <title>Maglev</title>
     <meta name="view-transition" content="same-origin" />
+    
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    
     <% if maglev_disable_turbo_cache? %>
       <meta name="turbo-cache-control" content="no-cache">
     <% end %>

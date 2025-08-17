@@ -60,4 +60,9 @@ class Maglev::Editor::BaseController < ::Maglev::ApplicationController
   def maglev_disable_turbo_cache?
     !!@maglev_disable_turbo_cache
   end
+
+  def ensure_turbo_frame_request
+    return if turbo_frame_request?
+    redirect_to editor_root_path
+  end
 end

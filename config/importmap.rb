@@ -15,3 +15,4 @@ pin_all_from File.expand_path("../app/components", __dir__), under: "uikit-contr
 pin_all_from File.expand_path("../app/assets/javascripts/maglev/controllers", __dir__), under: "maglev-controllers", to: "maglev/controllers"
 
 pin "editor", to: "maglev/editor.js"
+pin "@rails/request.js", to: "@rails--request.js.js"

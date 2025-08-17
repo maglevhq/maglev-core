@@ -13,11 +13,11 @@
         data-transition-leave-start="translate-y-0 opacity-100"
         data-transition-leave-end="translate-y-4 opacity-0"
       >
-        <%= button_to delete_url, 
+        <%= button_to delete_path, 
           method: :delete,
           form_class: 'ml-auto flex items-center', 
           class: 'px-1 py-1 bg-white rounded-full flex items-center justify-center text-gray-900 cursor-pointer',
-          data: { turbo_confirm: t('maglev.editor.image_library.destroy.text') } do 
+          data: { turbo_confirm: t('maglev.editor.image_library.confirm_destroy'), turbo_frame: 'modal-dialog' } do 
         %>
           <%= render Maglev::Uikit::IconComponent.new(name: 'delete_bin', size: '1rem') %>
         <% end %>

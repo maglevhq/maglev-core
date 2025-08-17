@@ -60,12 +60,12 @@
             title: "Editando a página atual"
           submit_button:
             default: "Atualizar página"
-            in_progress: "Atualizando..."
+            in_progress: "Atualizando..."            
           cancel_button: "Cancelar"
         form:
           tabs:
             main: "Principal"
-            seo: "SEO"
+            seo: "SEO"          
       sections:
         add_pane:
           title: "Adicionar uma seção"
@@ -93,7 +93,7 @@
           submit_button:
             default: "Atualizar estilo"
             in_progress: "Atualizando..."
-            success: "Estilo atualizado!"
+            success: "Atualizado!"
             fail: "Falhou!"
       image_input:
         add_button: "Adicionar imagem"
@@ -103,22 +103,16 @@
       image_library:
         title: "Lista de imagens"
         picker_title: "Selecionar uma imagem"
-        none: "Nenhuma imagem foi enviada ainda"
         search_placeholder: "Pesquisar por nome de arquivo"
         pagination:
           label: "%{start} - %{end} de %{totalItems} imagens"
-          no_items: "Nenhuma imagem"
-        destroy:
-          text: "Tem certeza?"
-          ok: "Sim, excluir"
-          cancel: "Cancelar"
+          no_items: "Sem imagens"
+        confirm_destroy: "Tem certeza?"
         uploader:
           wrong_files: "Certifique-se de que o tamanho de cada imagem não seja maior que %{limit}."
           upload_button:
             default: "Enviar imagens"
-            in_progress: "Enviando..."
-            success: "Enviadas!"
-            fail: "Falhou!"
+            in_progress: "Enviando..."            
       icon_input:
         add_button: "Adicionar ícone"
         replace_button: "Substituir ícone"
@@ -196,3 +190,13 @@
           update:
             success: "Salvo!"
             error: "Falhou!"
+        page_clone:
+          create:
+            success: "Clonada!"
+        assets:
+          create:
+            success:
+              one: "Enviada!"
+              other: "%{count} arquivos enviados!"
+          destroy:
+            success: "%{name} excluído!"

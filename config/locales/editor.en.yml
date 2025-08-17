@@ -103,22 +103,16 @@ en:
       image_library:
         title: "List of images"
         picker_title: "Select an image"
-        none: "No images uploaded yet"
         search_placeholder: "Search for a filename"
         pagination:
           label: "%{start} - %{end} of %{totalItems} images"
           no_items: "No images"
-        destroy:
-          text: "Are you sure?"
-          ok: "Yes, delete it"
-          cancel: "Cancel"
+        confirm_destroy: "Are you sure?"
         uploader:
           wrong_files: "Make sure the size of each image is not greater than %{limit}."
           upload_button:
             default: "Upload images"
-            in_progress: "Uploading..."
-            success: "Uploaded!"
-            fail: "Fail!"
+            in_progress: "Uploading..."            
       icon_input:
         add_button: "Add icon"
         replace_button: "Replace icon"
@@ -199,3 +193,10 @@ en:
         page_clone:
           create:
             success: "Cloned!"
+        assets:
+          create:
+            success:
+              one: "Uploaded!"
+              other: "%{count} files uploaded!"
+          destroy:
+            success: "%{name} deleted!"

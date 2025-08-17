@@ -3,69 +3,69 @@ fr:
     editor:
       header_nav:
         pages: "Pages :"
-        page_settings: "Paramètres page"
-        preview_site: "Prévisualiser"
+        page_settings: "Paramètres de page"
+        preview_site: "Aperçu"
         preview_toggler:
-          button: "Voir site"
+          button: "Aperçu du site"
           draft_link: "Version brouillon"
-          live_link: "Version publiée"
+          live_link: "Version en direct"
         publish_button:
-          default: "Publier site"
-          in_progress: "En cours..."
+          default: "Publier le site"
+          in_progress: "Publication..."
           success: "Publié !"
           fail: "Échec !"
         save_button:
-          default: "Sauvegarder"
-          in_progress: "En cours..."
-          success: "Sauvegardée !"
+          default: "Enregistrer"
+          in_progress: "Enregistrement..."
+          success: "Enregistré !"
           fail: "Échec !"
       sidebar_nav:
         list_pages_tooltip: "Gérer les pages de votre site"
-        manage_page_sections_tooltip: "Gérer les sections de la page"
-        edit_style_tooltip: "Modifier le style du site"
+        manage_page_sections_tooltip: "Réorganiser / supprimer les sections de la page"
+        edit_style_tooltip: "Modifier le style de votre site"
         open_image_library_tooltip: "Ouvrir la galerie d'images"
-        leave_editor_tooltip: "Retour vers l'application principale"
+        leave_editor_tooltip: "Retour à l'application principale"
       page_preview:
         loading: "Chargement..."
         empty:
           title:
             without_locale: "Votre page est vide"
-            with_locale: "Votre page en {localeName} est vide"
-          message: "Veuillez ajouter une nouvelle section en cliquant sur le bouton {icon} dans la barre de navigation sur la gauche."
+            with_locale: "Votre page en %{localeName} est vide"
+          message: "Veuillez ajouter la première section en cliquant sur le bouton {icon} dans la barre latérale gauche."
       pages:
         list:
           title: "Liste des pages"
           sub_title: "Gérer les pages de votre site"
           new_button: "Nouvelle page"
-          search_placeholder: "Tapez votre recherche ici..."
+          search_placeholder: "Tapez votre requête ici..."
         actions:
           edit: "Modifier les paramètres"
-          clone: "Dupliquer"
-          hide: "Masquer"
-          show: "Afficher"
-          delete: "Supprimer"
+          clone: "Cloner la page"
+          hide: "Masquer la page"
+          show: "Afficher la page"
+          delete: "Supprimer la page"
           copy_url_to_clipboard: "Copier l'URL"
-          copy_url_to_clipboard_success: "Copié !"
+          copy_url_to_clipboard_success: "Copié dans le presse-papiers !"
         new:
           title: "Créer une nouvelle page"
           submit_button:
-            default: "Créer page"
-            in_progress: "En cours de création..."
+            default: "Créer la page"
+            in_progress: "Création..."
             success: "Créée !"
             fail: "Échec !"
           cancel_button: "Annuler"
         edit:
-          title: "Édition page"
+          title: "Modification d'une page"
           current_page:
-            title: "Édition de la page courante"
+            title: "Modification de la page actuelle"
           submit_button:
-            default: "Mettre à jour"
-            in_progress: "En cours de mise à jour..."
+            default: "Mettre à jour la page"
+            in_progress: "Mise à jour..."            
           cancel_button: "Annuler"
         form:
           tabs:
             main: "Principal"
-            seo: "SEO"
+            seo: "SEO"          
       sections:
         add_pane:
           title: "Ajouter une section"
@@ -93,7 +93,7 @@ fr:
           submit_button:
             default: "Mettre à jour le style"
             in_progress: "Mise à jour..."
-            success: "Style mis à jour !"
+            success: "Mis à jour !"
             fail: "Échec !"
       image_input:
         add_button: "Ajouter une image"
@@ -103,22 +103,16 @@ fr:
       image_library:
         title: "Liste des images"
         picker_title: "Sélectionner une image"
-        none: "Aucune image téléchargée pour le moment"
         search_placeholder: "Rechercher par nom de fichier"
         pagination:
           label: "%{start} - %{end} sur %{totalItems} images"
           no_items: "Aucune image"
-        destroy:
-          text: "Êtes-vous sûr ?"
-          ok: "Oui, supprimer"
-          cancel: "Annuler"
+        confirm_destroy: "Êtes-vous sûr ?"
         uploader:
-          wrong_files: "Assurez-vous que la taille de chaque image ne dépasse pas %{limit}."
+          wrong_files: "Assurez-vous que la taille de chaque image ne soit pas supérieure à %{limit}."
           upload_button:
             default: "Télécharger des images"
-            in_progress: "Téléchargement..."
-            success: "Téléchargées !"
-            fail: "Échec !"
+            in_progress: "Téléchargement..."            
       icon_input:
         add_button: "Ajouter une icône"
         replace_button: "Remplacer l'icône"
@@ -174,11 +168,11 @@ fr:
       error_modals:
         stale_record:
           title: "Nous sommes désolés 🙇"
-          message: "Nous n'avons pas pu sauvegarder vos modifications car quelqu'un d'autre a mis à jour le contenu entre-temps."
+          message: "Nous n'avons pas pu persister vos modifications car quelqu'un d'autre a mis à jour le contenu entre-temps."
           button: "Veuillez recharger votre page"
         forbidden:
           title: "Nous sommes désolés 🙇"
-          message: "Vous n'êtes pas autorisé à faire cela. Contactez votre administrateur."
+          message: "Vous n'êtes pas autorisé à faire cela. Vérifiez avec votre administrateur."
           button: "Fermer"
       support:
         human:
@@ -188,11 +182,21 @@ fr:
               byte:
                 one: "Octet"
                 other: "Octets"
-              kb: "Ko"
-              mb: "Mo"
-              gb: "Go"
+              kb: "KB"
+              mb: "MB"
+              gb: "GB"
       flash:
         pages:
           update:
-            success: "Sauvegardé !"
+            success: "Enregistré !"
             error: "Échec !"
+        page_clone:
+          create:
+            success: "Clonée !"
+        assets:
+          create:
+            success:
+              one: "Téléchargée !"
+              other: "%{count} fichiers téléchargés !"
+          destroy:
+            success: "%{name} supprimé !"

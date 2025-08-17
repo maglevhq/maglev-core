@@ -32,7 +32,7 @@ es:
             without_locale: "Tu página está en blanco"
             with_locale: "Tu página en %{localeName} está en blanco"
           message: "Por favor agrega la primera sección haciendo clic en el botón {icon} en la barra lateral izquierda."
-      page:
+      pages:
         list:
           title: "Lista de páginas"
           sub_title: "Gestionar las páginas de tu sitio"
@@ -60,12 +60,12 @@ es:
             title: "Editando la página actual"
           submit_button:
             default: "Actualizar página"
-            in_progress: "Actualizando..."
+            in_progress: "Actualizando..."            
           cancel_button: "Cancelar"
         form:
           tabs:
             main: "Principal"
-            seo: "SEO"
+            seo: "SEO"          
       sections:
         add_pane:
           title: "Agregar una sección"
@@ -103,22 +103,16 @@ es:
       image_library:
         title: "Lista de imágenes"
         picker_title: "Seleccionar una imagen"
-        none: "Aún no se han subido imágenes"
         search_placeholder: "Buscar por nombre de archivo"
         pagination:
           label: "%{start} - %{end} de %{totalItems} imágenes"
           no_items: "Sin imágenes"
-        destroy:
-          text: "¿Estás seguro?"
-          ok: "Sí, eliminarlo"
-          cancel: "Cancelar"
+        confirm_destroy: "¿Estás seguro?"
         uploader:
           wrong_files: "Asegúrate de que el tamaño de cada imagen no sea mayor que %{limit}."
           upload_button:
             default: "Subir imágenes"
-            in_progress: "Subiendo..."
-            success: "¡Subidas!"
-            fail: "¡Falló!"
+            in_progress: "Subiendo..."            
       icon_input:
         add_button: "Agregar icono"
         replace_button: "Reemplazar icono"
@@ -196,3 +190,13 @@ es:
           update:
             success: "¡Guardado!"
             error: "¡Falló!"
+        page_clone:
+          create:
+            success: "¡Clonada!"
+        assets:
+          create:
+            success:
+              one: "¡Subida!"
+              other: "¡%{count} archivos subidos!"
+          destroy:
+            success: "¡%{name} eliminado!"

@@ -1,6 +1,7 @@
 class Maglev::Uikit::ModalComponent < Maglev::Uikit::BaseComponent
   renders_one :title
   renders_one :footer
+  renders_one :notification
 
   attr_reader :id, :open, :focus
   

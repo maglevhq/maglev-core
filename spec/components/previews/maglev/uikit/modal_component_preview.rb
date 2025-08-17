@@ -7,6 +7,10 @@ class Maglev::Uikit::ModalComponentPreview < ViewComponent::Preview
     render_with_template(locals: { user: MockedUser.new(name: 'John Doe') })
   end
 
+  def with_notification
+    render_with_template
+  end
+
   class MockedUser
     include ActiveModel::API
     attr_accessor :name

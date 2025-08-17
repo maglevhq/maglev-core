@@ -1,16 +1,17 @@
 <%= turbo_frame_tag 'modal' do %>
   <%= render Maglev::Uikit::ModalComponent.new(id: 'assets-modal', open: true) do |modal| %>
     <% modal.with_title_content t('maglev.editor.image_library.title') %>
+    <% modal.with_notification_content maglev_flash_message %>
 
     <div class="space-y-5">
       <div class="flex items-center">
         <div>
-          TODO: Uploader button
+          <%= render Maglev::Uikit::ImageLibrary::UploaderComponent.new(create_path: editor_assets_path) %>
         </div>
         <div class="ml-auto">
           <%= render Maglev::Uikit::Form::SearchFormComponent.new(
             name: 'query', 
-            value: params[:q], 
+            value: params[:query], 
             search_path: editor_assets_path, 
             placeholder: t('maglev.editor.image_library.search_placeholder'),
             data: { turbo_frame: 'asset-search-results' })

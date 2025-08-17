@@ -1,0 +1,29 @@
+<div 
+  class="flex items-center gap-4"
+  data-controller="uikit-image-library-uploader"
+  data-uikit-image-library-uploader-maxsize-value="<%= maxsize %>"
+  data-uikit-image-library-uploader-create-path-value="<%= create_path %>"
+  data-uikit-image-library-uploader-too-big-error-message-value="<%= too_big_error_message %>"
+>
+  <button 
+    class="<%= button_class_names(color: :primary, size: :medium, class: 'group/button') %>"
+    data-action="click->uikit-image-library-uploader#openFileDialog"  
+    data-uikit-image-library-uploader-target="button"
+  >
+    <span class="group-disabled/button:hidden">
+      <%= t('maglev.editor.image_library.uploader.upload_button.default') %>
+    </span>
+    <span class="group-disabled/button:block hidden">
+      <%= t('maglev.editor.image_library.uploader.upload_button.in_progress') %>
+    </span>
+  </button>
+
+  <input
+    type="file"
+    accept="image/*"
+    multiple
+    class="hidden"
+    data-uikit-image-library-uploader-target="fileInput"
+    data-action="change->uikit-image-library-uploader#onFilesSelected"
+  />
+</div>

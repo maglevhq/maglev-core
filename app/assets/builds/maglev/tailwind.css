@@ -1604,6 +1604,26 @@
       }
     }
   }
+  .group-disabled\:block {
+    &:is(:where(.group):disabled *) {
+      display: block;
+    }
+  }
+  .group-disabled\:hidden {
+    &:is(:where(.group):disabled *) {
+      display: none;
+    }
+  }
+  .group-disabled\/button\:block {
+    &:is(:where(.group\/button):disabled *) {
+      display: block;
+    }
+  }
+  .group-disabled\/button\:hidden {
+    &:is(:where(.group\/button):disabled *) {
+      display: none;
+    }
+  }
   .group-has-checked\:translate-x-4 {
     &:is(:where(.group):has(*:checked) *) {
       --tw-translate-x: calc(var(--spacing) * 4);
