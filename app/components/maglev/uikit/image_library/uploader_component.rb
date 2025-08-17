@@ -1,8 +1,9 @@
 class Maglev::Uikit::ImageLibrary::UploaderComponent < Maglev::Uikit::BaseComponent
-  attr_reader :create_path, :maxsize
+  attr_reader :create_path, :refresh_path, :maxsize
 
-  def initialize(create_path:, maxsize: 2048144)
+  def initialize(create_path:, refresh_path:, maxsize: 2048144)
     @create_path = create_path
+    @refresh_path = refresh_path
     @maxsize = maxsize
   end
   

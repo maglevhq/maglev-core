@@ -1,7 +1,16 @@
 <div class="flex h-full flex-col" data-controller="transition">
   <div class="bg-checkerboard pb-full relative overflow-hidden rounded flex-1" data-action="mouseenter->transition#enter mouseleave->transition#leave">
     <div class="absolute inset-0 h-full w-full rounded">
-      <img src="<%= image_url %>" class="h-full w-full object-contain">
+      <img
+        src="<%= image_url %>" 
+        class="h-full w-full object-contain <%= 'cursor-pointer' if picker_attributes %>"
+        <% if picker_attributes %>
+        data-controller="dispatcher"
+        data-action="click->dispatcher#trigger click->uikit-modal#close:self"
+        data-dispatcher-event-name-value="<%= picker_event_name %>"
+        data-dispatcher-payload-value="<%= picker_event_payload %>"
+        <% end %>
+      />
 
       <div
         class="flex items-center px-2 absolute bg-black/75 bottom-0 h-12 w-full text-white text-xs cursor-default rounded-b hidden"
@@ -26,7 +35,7 @@
   </div>
   <div class="mt-1 text-xs font-bold text-gray-900"><%= filename %></div>
   <div class="mb-1 flex items-center text-xs justify-between text-gray-700">
-    <span class=""><%= width %>x<%= height %></span>
-    <span class=""><%= number_to_human_size(byte_size) %></span>
+    <span><%= width %>x<%= height %></span>
+    <span><%= number_to_human_size(byte_size) %></span>
   </div>
 </div>

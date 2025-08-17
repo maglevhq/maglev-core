@@ -1630,6 +1630,16 @@
       translate: var(--tw-translate-x) var(--tw-translate-y);
     }
   }
+  .group-\[\.none\]\/image\:block {
+    &:is(:where(.group\/image):is(.none) *) {
+      display: block;
+    }
+  }
+  .group-\[\.none\]\/image\:hidden {
+    &:is(:where(.group\/image):is(.none) *) {
+      display: none;
+    }
+  }
   .hover\:-translate-y-1 {
     &:hover {
       @media (hover: hover) {

@@ -2,6 +2,7 @@ class Maglev::Uikit::ImageLibrary::CardComponentPreview < ViewComponent::Preview
   # @!group Variants
   def default
     render_with_template(locals: { 
+      id: 1,
       image_url: '/images/img-1.jpg',
       filename: 'Image 1',
       width: 1920,
@@ -14,6 +15,7 @@ class Maglev::Uikit::ImageLibrary::CardComponentPreview < ViewComponent::Preview
     render_with_template(
       template: 'maglev/uikit/image_library/card_component_preview/default', 
       locals: { 
+        id: 1,
         image_url: '/images/img-2.jpg',
         filename: 'Image 2',
         width: 500,
@@ -27,6 +29,7 @@ class Maglev::Uikit::ImageLibrary::CardComponentPreview < ViewComponent::Preview
     render_with_template(
       template: 'maglev/uikit/image_library/card_component_preview/default', 
       locals: { 
+        id: 1,
         image_url: '/images/img-3.jpg',
         filename: 'Image 3',
         width: 1920,
@@ -37,10 +40,4 @@ class Maglev::Uikit::ImageLibrary::CardComponentPreview < ViewComponent::Preview
   end
   
   # @!endgroup
-
-  private
-
-  def asset
-    Maglev::Asset.new(filename: 'test.jpg', content_type: 'image/jpeg', width: 100, height: 100, byte_size: 100)
-  end
 end

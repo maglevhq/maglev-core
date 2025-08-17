@@ -5,6 +5,7 @@ export default class extends Controller {
   static targets = ['button', 'fileInput']
   static values = {
     createPath: String,
+    refreshPath: String,
     maxsize: Number,
     tooBigErrorMessage: String,
   }
@@ -21,8 +22,8 @@ export default class extends Controller {
     const allowedFiles = this.allowedFiles()
     if (allowedFiles) {
       this.buttonTarget.disabled = true
-      this.uploadFiles(allowedFiles).then(refreshPath => {
-         this.reloadFrameTag(refreshPath)
+      this.uploadFiles(allowedFiles).then(() => {
+         this.reloadFrameTag()
       })
       .catch((error) => {        
         console.error(error)
@@ -35,12 +36,11 @@ export default class extends Controller {
     }
   }
 
-  async uploadFiles(allowedFiles) {
-    const locations = await Promise.all(allowedFiles.map((file) => this.uploadSingleFile({ file }, allowedFiles.length)))
-    return locations.length > 0 ? locations[0] : null
+  uploadFiles(allowedFiles) {
+    return Promise.all(allowedFiles.map((file) => this.uploadSingleFile({ file }, allowedFiles.length)))
   }
 
-  async uploadSingleFile(attributes, numberOfAssets) {
+  uploadSingleFile(attributes, numberOfAssets) {
     const formData = new FormData()
     formData.append('number_of_assets', numberOfAssets)
     Object.entries(attributes).forEach(([key, value]) =>
@@ -48,14 +48,7 @@ export default class extends Controller {
     )
 
     const request = new FetchRequest('post', this.createPathValue, { body: formData })
-    const response = await request.perform()
-
-    if (response.ok) {
-      return response.headers.get('Location')
-    } else {
-      console.log('Maglev upload error', response)
-      throw new Error('Network/Server connection error')
-    }
+    return request.perform()
   }
 
   allowedFiles() {
@@ -70,10 +63,11 @@ export default class extends Controller {
     return allowedFiles
   }
 
-  reloadFrameTag(refreshPath) {
+  reloadFrameTag() {
+    console.log('reloadFrameTag', this.refreshPathValue)
     const frame = document.querySelector(`turbo-frame#modal-dialog`)
     if (frame) {
-      frame.src = refreshPath
+      frame.src = this.refreshPathValue
       frame.reload()
     }
   }

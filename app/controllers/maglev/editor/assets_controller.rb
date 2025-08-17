@@ -4,6 +4,8 @@ class Maglev::Editor::AssetsController < Maglev::Editor::BaseController
 
   before_action :ensure_turbo_frame_request, only: [:index]
 
+  helper_method :query_params
+
   layout false
 
   def index
@@ -19,7 +21,7 @@ class Maglev::Editor::AssetsController < Maglev::Editor::BaseController
   def destroy
     asset = resources.find(resource_id)
     asset.destroy!
-    redirect_to editor_assets_path(query: params[:query], page: params[:page]), notice: flash_t(:success, name: asset.file.filename), status: :see_other
+    redirect_to editor_assets_path(query_params(pagination: true)), notice: flash_t(:success, name: asset.file.filename), status: :see_other
   end
 
   private
@@ -34,5 +36,17 @@ class Maglev::Editor::AssetsController < Maglev::Editor::BaseController
 
   def resources
     ::Maglev::Asset
+  end
+
+  def assets_path_with_context
+    editor_assets_path({
+      picker: params[:picker],
+      source: params[:source]      
+    }.compact_blank)
+  end
+  
+  def query_params(pagination: false)
+    base = { picker: params[:picker], source: params[:source] }
+    (pagination ? base.merge(query: params[:query], page: params[:page]) : base).compact_blank
   end
 end

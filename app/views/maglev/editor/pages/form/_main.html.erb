@@ -1,4 +1,6 @@
 <div class="mt-2 grid grid-cols-1 gap-4">
+  <%= f.image_field :og_image_url, search_path: ->(context) { editor_assets_path(context) } %>
+
   <%= f.text_field :title %>
 
   <%= f.check_box :visible, placeholder: t('maglev.editor.pages.form.visible_placeholder') %>

@@ -34,6 +34,23 @@ class Maglev::FormBuilder < ActionView::Helpers::FormBuilder
     ))
   end
 
+  def image_field(method, options = {})
+    attributes = field_attributes(method)
+
+    search_path = options[:search_path].is_a?(Proc) ? options[:search_path].call({
+      picker: true,
+      source: attributes[:name].to_s.parameterize.underscore # same as the dom id of the field
+    }) : options[:search_path]
+
+    @template.render(Maglev::Uikit::Form::ImageFieldComponent.new(
+      label: options[:label].presence || attributes[:content],
+      name: attributes[:name],
+      value: object.public_send(method),
+      alt_text: options[:alt_text],
+      search_path: search_path
+    ))
+  end
+
   private
 
   def field_attributes(method)

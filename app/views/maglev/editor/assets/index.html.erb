@@ -1,41 +1,26 @@
 <%= turbo_frame_tag 'modal' do %>
-  <%= render Maglev::Uikit::ModalComponent.new(id: 'assets-modal', open: true) do |modal| %>
-    <% modal.with_title_content t('maglev.editor.image_library.title') %>
+  <%= render Maglev::Uikit::ModalComponent.new(id: 'assets-modal', open: true) do |modal| %>    
+    <% modal.with_title_content t("maglev.editor.image_library.#{'picker_' if params[:picker]}title") %>
     <% modal.with_notification_content maglev_flash_message %>
 
     <div class="space-y-5">
       <div class="flex items-center">
         <div>
-          <%= render Maglev::Uikit::ImageLibrary::UploaderComponent.new(create_path: editor_assets_path) %>
+          <%= render Maglev::Uikit::ImageLibrary::UploaderComponent.new(
+            create_path: editor_assets_path,
+            refresh_path: editor_assets_path(query_params)
+          ) %>
         </div>
         <div class="ml-auto">
           <%= render Maglev::Uikit::Form::SearchFormComponent.new(
             name: 'query', 
             value: params[:query], 
-            search_path: editor_assets_path, 
+            search_path: editor_assets_path(query_params), 
             placeholder: t('maglev.editor.image_library.search_placeholder'),
-            data: { turbo_frame: 'asset-search-results' })
-          %>
+            data: { turbo_frame: 'asset-search-results' }) %>
         </div>
       </div>
 
-      <%= turbo_frame_tag 'asset-search-results' do %>
-        <div class="w-[51rem] h-128 overflow-y-auto">
-          <% if @assets.any? %>
-            <div class="grid grid-cols-4 gap-4">
-              <%= render partial: 'asset', collection: @assets %>
-            </div>
-          <% else %>
-            <div class="flex items-center justify-center h-full">
-              <p class="text-gray-500"><%= t('maglev.editor.image_library.pagination.no_items') %></p>
-            </div>
-          <% end %>
-        </div>
-
-        <div class="flex items-center pt-3">
-          <%= render Maglev::Uikit::PaginationComponent.new(pagy: @pagy, hidden_if_single_page: false) %>
-        </div>
-      </div>
-    <% end %>
+      <%= render 'list', assets: @assets, pagy: @pagy %>
   <% end %>
 <% end %>
