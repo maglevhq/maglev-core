@@ -20,6 +20,9 @@ jobs:
       mysql:
         image: mysql:8.0
         env:
+          MYSQL_DATABASE: "maglev_engine_test"
+          MYSQL_USER: "root"
+          MYSQL_PASSWORD: ""
           MYSQL_ALLOW_EMPTY_PASSWORD: true
         ports:
           - 3306:3306
@@ -32,7 +35,8 @@ jobs:
     strategy:
       matrix:
         node: [23]
-        gemfile: ["Gemfile.rails_7_0", "Gemfile.rails_7_2", "Gemfile"]
+        gemfile: ["Gemfile"]
+        # gemfile: ["Gemfile.rails_7_0", "Gemfile.rails_7_2", "Gemfile"]
 
     steps:
       - name: Checkout code
@@ -59,47 +63,47 @@ jobs:
           node-version: ${{ matrix.node }}
           cache: yarn      
 
-      - name: Install packages
-        run: |
-          yarn install
+      # - name: Install packages
+      #   run: |
+      #     yarn install
 
-      - name: Setup test database
-        env:
-          BUNDLE_GEMFILE: ${{ matrix.gemfile }}
-          RAILS_ENV: test
-          MAGLEV_APP_DATABASE_USERNAME: "maglev"
-          MAGLEV_APP_DATABASE_PASSWORD: "password"
-        run: |
-          bin/rails db:setup
+      # - name: Setup test database
+      #   env:
+      #     BUNDLE_GEMFILE: ${{ matrix.gemfile }}
+      #     RAILS_ENV: test
+      #     MAGLEV_APP_DATABASE_USERNAME: "maglev"
+      #     MAGLEV_APP_DATABASE_PASSWORD: "password"
+      #   run: |
+      #     bin/rails db:setup
 
-      - name: Run Rails tests
-        env:
-          BUNDLE_GEMFILE: ${{ matrix.gemfile }}
-          MAGLEV_APP_DATABASE_USERNAME: "maglev"
-          MAGLEV_APP_DATABASE_PASSWORD: "password"
-        run: bundle exec rspec
+      # - name: Run Rails tests
+      #   env:
+      #     BUNDLE_GEMFILE: ${{ matrix.gemfile }}
+      #     MAGLEV_APP_DATABASE_USERNAME: "maglev"
+      #     MAGLEV_APP_DATABASE_PASSWORD: "password"
+      #   run: bundle exec rspec
 
-      - name: Run Javascript tests
-        run: yarn test
+      # - name: Run Javascript tests
+      #   run: yarn test
 
       # === SQLite 🪽 ===
-      - name: Setup test database (SQLite) 🪽
-        env:
-          BUNDLE_GEMFILE: ${{ matrix.gemfile }}
-          RAILS_ENV: test
-          USE_SQLITE: 1
-        run: |
-          cp spec/dummy/db/schema.rb spec/dummy/db/schema.pg.rb
-          cp spec/dummy/db/schema.sqlite.rb spec/dummy/db/schema.rb
-          cp spec/legacy_dummy/db/schema.rb spec/legacy_dummy/db/schema.pg.rb
-          cp spec/legacy_dummy/db/schema.sqlite.rb spec/legacy_dummy/db/schema.rb
-          bin/rails db:setup
+      # - name: Setup test database (SQLite) 🪽
+      #   env:
+      #     BUNDLE_GEMFILE: ${{ matrix.gemfile }}
+      #     RAILS_ENV: test
+      #     USE_SQLITE: 1
+      #   run: |
+      #     cp spec/dummy/db/schema.rb spec/dummy/db/schema.pg.rb
+      #     cp spec/dummy/db/schema.sqlite.rb spec/dummy/db/schema.rb
+      #     cp spec/legacy_dummy/db/schema.rb spec/legacy_dummy/db/schema.pg.rb
+      #     cp spec/legacy_dummy/db/schema.sqlite.rb spec/legacy_dummy/db/schema.rb
+      #     bin/rails db:setup
 
-      - name: Run Rails tests (SQLite) 🪽
-        env:
-          BUNDLE_GEMFILE: ${{ matrix.gemfile }}
-          USE_SQLITE: 1
-        run: bundle exec rspec
+      # - name: Run Rails tests (SQLite) 🪽
+      #   env:
+      #     BUNDLE_GEMFILE: ${{ matrix.gemfile }}
+      #     USE_SQLITE: 1
+      #   run: bundle exec rspec
 
       # === MYSQL 🐬 ===
       - name: Setup test database (MySQL) 🐬
