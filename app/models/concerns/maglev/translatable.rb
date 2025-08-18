@@ -34,10 +34,11 @@ module Maglev
       end
 
       def translates(*attributes, presence: false)
-        # MariaDB doesn't support native JSON columns (longtext instead), we need to force it.
-        attribute("#{attr}_translations", :json) if respond_to?(:attribute)
-
-        attributes.each { |attr| setup_accessors(attr) }
+        attributes.each do |attr|
+          # MariaDB doesn't support native JSON columns (longtext instead), we need to force it.
+          attribute("#{attr}_translations", :json) if respond_to?(:attribute)
+          setup_accessors(attr)
+        end
         add_presence_validator(attributes) if presence
       end
 

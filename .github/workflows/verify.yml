@@ -152,7 +152,7 @@ jobs:
           cp spec/dummy/db/schema.mariadb.rb spec/dummy/db/schema.rb
           bin/rails db:setup
 
-      - name: Run Rails tests (MySQL) 🦭
+      - name: Run Rails tests (MariaDB) 🦭
         if: ${{ matrix.gemfile == 'Gemfile' }}
         env:
           BUNDLE_GEMFILE: ${{ matrix.gemfile }}
