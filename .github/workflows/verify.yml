@@ -42,8 +42,8 @@ jobs:
     strategy:
       matrix:
         node: [23]
-        gemfile: ["Gemfile"]
-        # gemfile: ["Gemfile.rails_7_0", "Gemfile.rails_7_2", "Gemfile"]
+        database: [postgres, sqlite, mysql, mariadb]
+        gemfile: ["Gemfile", "Gemfile.rails_7_0", "Gemfile.rails_7_2"]
 
     steps:
       - name: Checkout code
@@ -79,6 +79,7 @@ jobs:
 
       # === Postgresql 🐘 ===
       - name: Setup test database (Postgresql) 🐘
+        if: ${{ matrix.database == 'postgres' }}
         env:
           BUNDLE_GEMFILE: ${{ matrix.gemfile }}
           RAILS_ENV: test
@@ -88,6 +89,7 @@ jobs:
           bin/rails db:setup
 
       - name: Run Rails tests (Postgresql) 🐘
+        if: ${{ matrix.database == 'postgres' }}
         env:
           BUNDLE_GEMFILE: ${{ matrix.gemfile }}
           MAGLEV_APP_DATABASE_USERNAME: "maglev"
@@ -96,6 +98,7 @@ jobs:
 
       # === SQLite 🪽 ===
       - name: Setup test database (SQLite) 🪽
+        if: ${{ matrix.database == 'sqlite' }}
         env:
           BUNDLE_GEMFILE: ${{ matrix.gemfile }}
           RAILS_ENV: test
@@ -108,6 +111,7 @@ jobs:
           bin/rails db:setup
 
       - name: Run Rails tests (SQLite) 🪽
+        if: ${{ matrix.database == 'sqlite' }}
         env:
           BUNDLE_GEMFILE: ${{ matrix.gemfile }}
           USE_SQLITE: 1
@@ -115,7 +119,7 @@ jobs:
 
       # === MYSQL 🐬 ===
       - name: Setup test database (MySQL) 🐬
-        if: ${{ matrix.gemfile == 'Gemfile' }}
+        if: ${{ matrix.database == 'mysql' }}
         env:
           BUNDLE_GEMFILE: ${{ matrix.gemfile }}
           RAILS_ENV: test
@@ -128,7 +132,7 @@ jobs:
           bin/rails db:setup
 
       - name: Run Rails tests (MySQL) 🐬
-        if: ${{ matrix.gemfile == 'Gemfile' }}
+        if: ${{ matrix.database == 'mysql' }}
         env:
           BUNDLE_GEMFILE: ${{ matrix.gemfile }}
           USE_MYSQL: 1
@@ -139,7 +143,7 @@ jobs:
 
       # === MariaDB 🦭===
       - name: Setup test database (MariaDB) 🦭
-        if: ${{ matrix.gemfile == 'Gemfile' }}
+        if: ${{ matrix.database == 'mariadb' }}
         env:
           BUNDLE_GEMFILE: ${{ matrix.gemfile }}
           RAILS_ENV: test
@@ -153,7 +157,7 @@ jobs:
           bin/rails db:setup
 
       - name: Run Rails tests (MariaDB) 🦭
-        if: ${{ matrix.gemfile == 'Gemfile' }}
+        if: ${{ matrix.database == 'mariadb' }}
         env:
           BUNDLE_GEMFILE: ${{ matrix.gemfile }}
           USE_MYSQL: 1
@@ -162,14 +166,6 @@ jobs:
           MAGLEV_APP_DATABASE_USERNAME: "root"       
           MAGLEV_APP_DATABASE_PASSWORD: "password"
         run: bundle exec rspec
-
-      # === CLEAN UP ===
-      # - name: Cleanup DB schema files
-      #   run: |
-      #     cp spec/dummy/db/schema.pg.rb spec/dummy/db/schema.rb
-      #     cp spec/legacy_dummy/db/schema.pg.rb spec/legacy_dummy/db/schema.rb
-      #     rm -f spec/dummy/db/maglev_engine_test.sqlite3
-      #     rm -f spec/legacy_dummy/db/maglev_engine_test.sqlite3
 
       # NOTE: disabled because an error of eslint in the GH env
       # - name: Run Javascript linter
