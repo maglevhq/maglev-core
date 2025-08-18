@@ -25,7 +25,8 @@ module Maglev
       def translated_arel_attribute(attr, locale)
         return Arel.sql("#{attr}_translations->>'#{locale}'") unless mysql?
 
-        # Mysql and MariaDB JSON support 🤬🤬🤬
+        # MySQL and MariaDB JSON support 🤬🤬🤬 
+        # Note: doesn't work with Rails 7.0.x
         json_extract = Arel::Nodes::NamedFunction.new(
           'json_extract',
           [Arel::Nodes::SqlLiteral.new("#{attr}_translations"), Arel::Nodes.build_quoted("$.#{locale}")]

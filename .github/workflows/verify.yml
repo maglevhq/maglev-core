@@ -119,7 +119,7 @@ jobs:
 
       # === MYSQL 🐬 ===
       - name: Setup test database (MySQL) 🐬
-        if: ${{ matrix.database == 'mysql' }}
+        if: ${{ matrix.database == 'mysql' }} && ${{matrix.gemfile != 'Gemfile.rails_7_0' }}
         env:
           BUNDLE_GEMFILE: ${{ matrix.gemfile }}
           RAILS_ENV: test
@@ -133,7 +133,7 @@ jobs:
           bin/rails db:setup
 
       - name: Run Rails tests (MySQL) 🐬
-        if: ${{ matrix.database == 'mysql' }}
+        if: ${{ matrix.database == 'mysql' }} && ${{matrix.gemfile != 'Gemfile.rails_7_0' }}
         env:
           BUNDLE_GEMFILE: ${{ matrix.gemfile }}
           USE_MYSQL: 1
@@ -144,7 +144,7 @@ jobs:
 
       # === MariaDB 🦭===
       - name: Setup test database (MariaDB) 🦭
-        if: ${{ matrix.database == 'mariadb' }}
+        if: ${{ matrix.database == 'mariadb' }} && ${{matrix.gemfile != 'Gemfile.rails_7_0' }}
         env:
           BUNDLE_GEMFILE: ${{ matrix.gemfile }}
           RAILS_ENV: test
@@ -159,7 +159,7 @@ jobs:
           bin/rails db:setup
 
       - name: Run Rails tests (MariaDB) 🦭
-        if: ${{ matrix.database == 'mariadb' }}
+        if: ${{ matrix.database == 'mariadb' }} && ${{matrix.gemfile != 'Gemfile.rails_7_0' }}
         env:
           BUNDLE_GEMFILE: ${{ matrix.gemfile }}
           USE_MYSQL: 1

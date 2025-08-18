@@ -64,6 +64,8 @@ group :development, :test do
   gem 'nokogiri', '>= 1.13.10'
 
   gem 'dotenv'
+
+  gem 'database_cleaner-active_record'
 end
 
 group :test do

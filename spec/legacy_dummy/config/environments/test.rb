@@ -51,14 +51,4 @@ Rails.application.configure do
 
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
-
-  # Raises error for missing translations.
-  # config.action_view.raise_on_missing_translations = true
-
-  # Database connection settings for tests
-  if ENV['USE_MYSQL']
-    config.active_record.database_pool_size = 5
-    config.active_record.database_pool_timeout = 5
-    config.active_record.database_pool_reaping_frequency = 10
-  end
 end
