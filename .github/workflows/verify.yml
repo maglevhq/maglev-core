@@ -41,9 +41,13 @@ jobs:
 
     strategy:
       matrix:
-        node: [23]
-        database: [postgres, sqlite, mysql, mariadb]
         gemfile: ["Gemfile", "Gemfile.rails_7_0", "Gemfile.rails_7_2"]
+        database: [postgres, sqlite, mysql, mariadb]
+        exclude:
+        - gemfile: Gemfile.rails_7_0
+          database: mysql
+        - gemfile: Gemfile.rails_7_0
+          database: mariadb
 
     steps:
       - name: Checkout code
@@ -64,10 +68,10 @@ jobs:
         run: |
           corepack enable
 
-      - name: Use Node.js ${{ matrix.node }}
+      - name: Use Node.js v23
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node }}
+          node-version: 23
           cache: yarn      
 
       - name: Install packages
@@ -119,7 +123,7 @@ jobs:
 
       # === MYSQL 🐬 ===
       - name: Setup test database (MySQL) 🐬
-        if: ${{ matrix.database == 'mysql' }} && ${{matrix.gemfile != 'Gemfile.rails_7_0' }}
+        if: ${{ matrix.database == 'mysql' }}
         env:
           BUNDLE_GEMFILE: ${{ matrix.gemfile }}
           RAILS_ENV: test
@@ -133,7 +137,7 @@ jobs:
           bin/rails db:setup
 
       - name: Run Rails tests (MySQL) 🐬
-        if: ${{ matrix.database == 'mysql' }} && ${{matrix.gemfile != 'Gemfile.rails_7_0' }}
+        if: ${{ matrix.database == 'mysql' }}
         env:
           BUNDLE_GEMFILE: ${{ matrix.gemfile }}
           USE_MYSQL: 1
@@ -144,7 +148,7 @@ jobs:
 
       # === MariaDB 🦭===
       - name: Setup test database (MariaDB) 🦭
-        if: ${{ matrix.database == 'mariadb' }} && ${{matrix.gemfile != 'Gemfile.rails_7_0' }}
+        if: ${{ matrix.database == 'mariadb' }}
         env:
           BUNDLE_GEMFILE: ${{ matrix.gemfile }}
           RAILS_ENV: test
@@ -159,7 +163,7 @@ jobs:
           bin/rails db:setup
 
       - name: Run Rails tests (MariaDB) 🦭
-        if: ${{ matrix.database == 'mariadb' }} && ${{matrix.gemfile != 'Gemfile.rails_7_0' }}
+        if: ${{ matrix.database == 'mariadb' }}
         env:
           BUNDLE_GEMFILE: ${{ matrix.gemfile }}
           USE_MYSQL: 1
