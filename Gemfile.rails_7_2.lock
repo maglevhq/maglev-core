@@ -152,6 +152,7 @@ GEM
     mini_portile2 (2.8.9)
     minitest (5.25.2)
     mutex_m (0.3.0)
+    mysql2 (0.5.6)
     net-imap (0.5.1)
       date
       net-protocol
@@ -349,6 +350,7 @@ DEPENDENCIES
   generator_spec
   image_processing (~> 1.12.2)
   maglevcms!
+  mysql2 (~> 0.5.6)
   nokogiri (>= 1.15.6)
   observer
   ostruct
