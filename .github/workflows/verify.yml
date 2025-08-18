@@ -108,7 +108,8 @@ jobs:
           BUNDLE_GEMFILE: ${{ matrix.gemfile }}
           RAILS_ENV: test
           USE_MYSQL: 1
-          MAGLEV_APP_DATABASE_HOST: "127.0.0.1"       
+          MAGLEV_APP_DATABASE_HOST: "127.0.0.1"    
+          MAGLEV_APP_DATABASE_USERNAME: "root"
         run: |
           cp spec/dummy/db/schema.mysql.rb spec/dummy/db/schema.rb
           bin/rails db:setup
@@ -118,7 +119,8 @@ jobs:
         env:
           BUNDLE_GEMFILE: ${{ matrix.gemfile }}
           USE_MYSQL: 1
-          MAGLEV_APP_DATABASE_HOST: "127.0.0.1"          
+          MAGLEV_APP_DATABASE_HOST: "127.0.0.1"   
+          MAGLEV_APP_DATABASE_USERNAME: "root"       
         run: bundle exec rspec
 
       # === MariaDB 🦭===
