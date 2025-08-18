@@ -30,6 +30,19 @@ jobs:
           --health-timeout 5s
           --health-retries 5
 
+      mariadb:
+        image: mariadb:11.8
+        env:
+          MYSQL_DATABASE: "maglev_engine_test"
+          MYSQL_ROOT_PASSWORD: "password"
+        ports:
+          - 3307:3306
+        options: >-
+          --health-cmd "mysqladmin ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
     strategy:
       matrix:
         node: [23]
@@ -65,7 +78,11 @@ jobs:
         run: |
           yarn install
 
-      - name: Setup test database
+      - name: Run Javascript tests
+        run: yarn test
+
+      # === Postgresql 🐘 ===
+      - name: Setup test database (Postgresql) 🐘
         env:
           BUNDLE_GEMFILE: ${{ matrix.gemfile }}
           RAILS_ENV: test
@@ -74,15 +91,12 @@ jobs:
         run: |
           bin/rails db:setup
 
-      - name: Run Rails tests
+      - name: Run Rails tests (Postgresql) 🐘
         env:
           BUNDLE_GEMFILE: ${{ matrix.gemfile }}
           MAGLEV_APP_DATABASE_USERNAME: "maglev"
           MAGLEV_APP_DATABASE_PASSWORD: "password"
-        run: bundle exec rspec
-
-      - name: Run Javascript tests
-        run: yarn test
+        run: bundle exec rspec      
 
       # === SQLite 🪽 ===
       - name: Setup test database (SQLite) 🪽
@@ -128,28 +142,30 @@ jobs:
         run: bundle exec rspec
 
       # === MariaDB 🦭===
-      # - name: Setup test database (MariaDB) 🦭
-      #   if: ${{ matrix.gemfile == 'Gemfile' }}
-      #   env:
-      #     BUNDLE_GEMFILE: ${{ matrix.gemfile }}
-      #     RAILS_ENV: test
-      #     USE_MYSQL: 1
-      #     MAGLEV_APP_DATABASE_PORT: 3307
-      #     MAGLEV_APP_DATABASE_USERNAME: "maglev"
-      #     MAGLEV_APP_DATABASE_PASSWORD: "password"
-      #   run: |
-      #     cp spec/dummy/db/schema.mariadb.rb spec/dummy/db/schema.rb
-      #     bin/rails db:setup
+      - name: Setup test database (MariaDB) 🦭
+        if: ${{ matrix.gemfile == 'Gemfile' }}
+        env:
+          BUNDLE_GEMFILE: ${{ matrix.gemfile }}
+          RAILS_ENV: test
+          USE_MYSQL: 1
+          MAGLEV_APP_DATABASE_HOST: "127.0.0.1"   
+          MAGLEV_APP_DATABASE_PORT: 3307
+          MAGLEV_APP_DATABASE_USERNAME: "root"       
+          MAGLEV_APP_DATABASE_PASSWORD: "password"        
+        run: |
+          cp spec/dummy/db/schema.mariadb.rb spec/dummy/db/schema.rb
+          bin/rails db:setup
 
-      # - name: Run Rails tests (MySQL) 🦭
-      #   if: ${{ matrix.gemfile == 'Gemfile' }}
-      #   env:
-      #     BUNDLE_GEMFILE: ${{ matrix.gemfile }}
-      #     USE_MYSQL: 1
-      #     MAGLEV_APP_DATABASE_PORT: 3307
-      #     MAGLEV_APP_DATABASE_USERNAME: "maglev"
-      #     MAGLEV_APP_DATABASE_PASSWORD: "password"
-      #   run: bundle exec rspec
+      - name: Run Rails tests (MySQL) 🦭
+        if: ${{ matrix.gemfile == 'Gemfile' }}
+        env:
+          BUNDLE_GEMFILE: ${{ matrix.gemfile }}
+          USE_MYSQL: 1
+          MAGLEV_APP_DATABASE_HOST: "127.0.0.1"   
+          MAGLEV_APP_DATABASE_PORT: 3307
+          MAGLEV_APP_DATABASE_USERNAME: "root"       
+          MAGLEV_APP_DATABASE_PASSWORD: "password"
+        run: bundle exec rspec
 
       # === CLEAN UP ===
       # - name: Cleanup DB schema files
