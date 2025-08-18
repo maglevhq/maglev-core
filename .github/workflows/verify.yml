@@ -21,7 +21,8 @@ jobs:
         image: mysql:8.0
         env:
           MYSQL_USER: "maglev"
-          MYSQL_PASSWORD: "password"
+          MYSQL_PASSWORD: ""
+          MYSQL_ALLOW_EMPTY_PASSWORD: true
         ports:
           - 3306:3306
         options: >-
@@ -111,7 +112,7 @@ jobs:
           USE_MYSQL: 1
           MAGLEV_APP_DATABASE_PORT: 3306
           MAGLEV_APP_DATABASE_USERNAME: "maglev"
-          MAGLEV_APP_DATABASE_PASSWORD: "password"
+          MAGLEV_APP_DATABASE_PASSWORD: ""
         run: |
           cp spec/dummy/db/schema.mysql.rb spec/dummy/db/schema.rb
           bin/rails db:setup
@@ -123,7 +124,7 @@ jobs:
           USE_MYSQL: 1
           MAGLEV_APP_DATABASE_PORT: 3306
           MAGLEV_APP_DATABASE_USERNAME: "maglev"
-          MAGLEV_APP_DATABASE_PASSWORD: "password"
+          MAGLEV_APP_DATABASE_PASSWORD: ""
         run: bundle exec rspec
 
       # === MariaDB 🦭===
