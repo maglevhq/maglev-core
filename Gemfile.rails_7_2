@@ -60,6 +60,8 @@ group :development, :test do
   gem 'nokogiri', '>= 1.15.6'
 
   gem 'rdoc', '>= 6.6.3.1'
+
+  gem 'dotenv'
 end
 
 group :test do

@@ -95,6 +95,7 @@ GEM
     date (3.4.0)
     diff-lcs (1.5.1)
     docile (1.4.1)
+    dotenv (3.1.8)
     drb (2.2.1)
     dry-cli (1.2.0)
     erubi (1.13.0)
@@ -343,6 +344,7 @@ PLATFORMS
 
 DEPENDENCIES
   bcrypt
+  dotenv
   factory_bot_rails (~> 6.2.0)
   generator_spec
   image_processing (~> 1.12.2)

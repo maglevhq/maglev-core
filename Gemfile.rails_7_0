@@ -60,6 +60,8 @@ group :development, :test do
   gem 'generator_spec'
 
   gem 'nokogiri', '>= 1.13.10'
+
+  gem 'dotenv'
 end
 
 group :test do
