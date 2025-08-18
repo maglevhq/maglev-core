@@ -13,7 +13,7 @@ module Maglev::Site::LocalesConcern
     # end
 
     ## custom column type ##
-    attribute :locales, :maglev_locales, adapter_name: ActiveRecord::Base.connection.adapter_name
+    attribute :locales, :maglev_locales
 
     ## validation ##
     validates :locales, 'maglev/collection': true, length: { minimum: 1 }

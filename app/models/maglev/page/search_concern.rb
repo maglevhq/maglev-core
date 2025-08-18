@@ -34,12 +34,6 @@ module Maglev::Page::SearchConcern
     def search_title_node(locale)
       translated_arel_attribute(:title, locale)      
     end
-
-    private
-
-    def mysql?
-      connection.adapter_name.downcase == 'mysql2'    
-    end
   end
 end
 # rubocop:enable Style/ClassAndModuleChildren

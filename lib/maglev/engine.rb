@@ -14,6 +14,7 @@ module Maglev
     end
 
     config.after_initialize do
+      pp "registering maglev_locales type"
       ActiveRecord::Type.register(:maglev_locales, Maglev::LocalesType)
     end
 
