@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Maglev
   class LocalesType < ActiveRecord::Type::Json
     def deserialize(value)

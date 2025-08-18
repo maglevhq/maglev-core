@@ -31,9 +31,9 @@ gem 'puma'
 # gem 'byebug', group: [:development, :test]
 
 # Use SQLite/PostgreSQL/MariaDB for development and test
+gem 'mysql2'
 gem 'pg', '~> 1.5.9'
 gem 'sqlite3'
-gem 'mysql2'
 
 # Gems no longer be part of the default gems from Ruby 3.5.0
 gem 'observer'

@@ -16,16 +16,19 @@ module Maglev
       translations_for(attr)[locale.to_s] ||= translations_for(attr)[source_locale.to_s]
     end
 
+    # rubocop:disable Metrics/BlockLength
     class_methods do
       def order_by_translated(attr, direction)
         order(translated_arel_attribute(attr, Maglev::I18n.current_locale) => direction)
       end
 
       def translated_arel_attribute(attr, locale)
-        return Arel::Nodes::InfixOperation.new('->>',
-                                        arel_table[:"#{attr}_translations"],
-                                        Arel::Nodes.build_quoted(locale)) unless mysql?
-    
+        unless mysql?
+          return Arel::Nodes::InfixOperation.new('->>',
+                                                 arel_table[:"#{attr}_translations"],
+                                                 Arel::Nodes.build_quoted(locale))
+        end
+
         # Mysql and MariaDB JSON support 🤬🤬🤬
         json_extract = Arel::Nodes::NamedFunction.new(
           'json_extract',
@@ -35,6 +38,9 @@ module Maglev
       end
 
       def translates(*attributes, presence: false)
+        # MariaDB doesn't support native JSON columns (longtext instead), we need to force it.
+        attribute("#{attr}_translations", :json) if respond_to?(:attribute)
+
         attributes.each { |attr| setup_accessors(attr) }
         add_presence_validator(attributes) if presence
       end
@@ -50,9 +56,6 @@ module Maglev
       end
 
       def setup_accessors(attr)
-        # MariaDB doesn't support native JSON columns (longtext instead), we need to force it.
-        attribute("#{attr}_translations", :json) if respond_to?(:attribute)
-
         define_method("#{attr}=") do |value|
           public_send("#{attr}_translations=",
                       translations_for(attr).merge(Maglev::I18n.current_locale.to_s => value))
@@ -60,7 +63,8 @@ module Maglev
 
         define_method(attr) { translations_for(attr)[Maglev::I18n.current_locale.to_s] }
         define_method("default_#{attr}") { translations_for(attr)[Maglev::I18n.default_locale.to_s] }
-      end      
+      end
     end
+    # rubocop:enable Metrics/BlockLength
   end
 end

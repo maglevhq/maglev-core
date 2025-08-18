@@ -2,9 +2,9 @@
 
 # rubocop:disable Style/ClassAndModuleChildren
 module Maglev::Site::LocalesConcern
-  extend ActiveSupport::Concern  
+  extend ActiveSupport::Concern
 
-  included do 
+  included do
     ## serializers ##
     # if Rails::VERSION::MAJOR >= 8 || (Rails::VERSION::MAJOR >= 7 && Rails::VERSION::MINOR.positive?)
     #   serialize :locales, coder: LocalesSerializer
@@ -45,7 +45,7 @@ module Maglev::Site::LocalesConcern
       end
     end
   end
-  
+
   # class LocalesType < ActiveRecord::Type::Json
   #   attr_reader :adapter_name
 

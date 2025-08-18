@@ -32,7 +32,7 @@ module Maglev::Page::SearchConcern
     end
 
     def search_title_node(locale)
-      translated_arel_attribute(:title, locale)      
+      translated_arel_attribute(:title, locale)
     end
   end
 end
