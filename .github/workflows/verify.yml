@@ -129,6 +129,7 @@ jobs:
           MAGLEV_APP_DATABASE_PASSWORD: "password"
         run: |
           cp spec/dummy/db/schema.mysql.rb spec/dummy/db/schema.rb
+          cp spec/legacy_dummy/db/schema.mysql.rb spec/legacy_dummy/db/schema.rb
           bin/rails db:setup
 
       - name: Run Rails tests (MySQL) 🐬
@@ -154,6 +155,7 @@ jobs:
           MAGLEV_APP_DATABASE_PASSWORD: "password"        
         run: |
           cp spec/dummy/db/schema.mariadb.rb spec/dummy/db/schema.rb
+          cp spec/legacy_dummy/db/schema.mariadb.rb spec/legacy_dummy/db/schema.rb
           bin/rails db:setup
 
       - name: Run Rails tests (MariaDB) 🦭
