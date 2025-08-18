@@ -20,13 +20,11 @@ jobs:
       mysql:
         image: mysql:8.0
         env:
-          MYSQL_USER: "maglev"
-          MYSQL_PASSWORD: ""
           MYSQL_ALLOW_EMPTY_PASSWORD: true
         ports:
           - 3306:3306
         options: >-
-          --health-cmd "mysqladmin ping -u maglev -ppassword"
+          --health-cmd "mysqladmin ping"
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
@@ -110,10 +108,7 @@ jobs:
           BUNDLE_GEMFILE: ${{ matrix.gemfile }}
           RAILS_ENV: test
           USE_MYSQL: 1
-          MAGLEV_APP_DATABASE_HOST: "127.0.0.1"
-          MAGLEV_APP_DATABASE_PORT: 3306
-          MAGLEV_APP_DATABASE_USERNAME: "maglev"
-          MAGLEV_APP_DATABASE_PASSWORD: ""
+          MAGLEV_APP_DATABASE_HOST: "127.0.0.1"       
         run: |
           cp spec/dummy/db/schema.mysql.rb spec/dummy/db/schema.rb
           bin/rails db:setup
@@ -123,10 +118,7 @@ jobs:
         env:
           BUNDLE_GEMFILE: ${{ matrix.gemfile }}
           USE_MYSQL: 1
-          MAGLEV_APP_DATABASE_HOST: "127.0.0.1"
-          MAGLEV_APP_DATABASE_PORT: 3306
-          MAGLEV_APP_DATABASE_USERNAME: "maglev"
-          MAGLEV_APP_DATABASE_PASSWORD: ""
+          MAGLEV_APP_DATABASE_HOST: "127.0.0.1"          
         run: bundle exec rspec
 
       # === MariaDB 🦭===
