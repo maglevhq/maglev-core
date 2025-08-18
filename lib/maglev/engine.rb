@@ -13,11 +13,6 @@ module Maglev
       g.factory_bot dir: 'spec/factories'
     end
 
-    config.after_initialize do
-      $stderr.puts 'registering maglev_locales type'
-      ActiveRecord::Type.register(:maglev_locales, Maglev::LocalesType)
-    end
-
     initializer 'maglev.theme_reloader' do |app|
       require_relative './theme_filesystem_loader'
       theme_path = Rails.root.join('app/theme')
