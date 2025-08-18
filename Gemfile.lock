@@ -96,6 +96,7 @@ GEM
     date (3.4.1)
     diff-lcs (1.5.1)
     docile (1.4.1)
+    dotenv (3.1.8)
     drb (2.2.3)
     dry-cli (1.2.0)
     erubi (1.13.0)
@@ -161,6 +162,7 @@ GEM
     mini_portile2 (2.8.9)
     minitest (5.25.5)
     mutex_m (0.3.0)
+    mysql2 (0.5.6)
     net-imap (0.5.8)
       date
       net-protocol
@@ -369,10 +371,12 @@ PLATFORMS
 DEPENDENCIES
   annotaterb
   bcrypt
+  dotenv
   factory_bot_rails (~> 6.2.0)
   generator_spec
   image_processing (~> 1.12.2)
   maglevcms!
+  mysql2
   nokogiri (>= 1.15.6)
   observer
   ostruct

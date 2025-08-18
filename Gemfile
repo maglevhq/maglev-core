@@ -30,9 +30,10 @@ gem 'puma'
 # To use a debugger
 # gem 'byebug', group: [:development, :test]
 
-# Use SQLite/PostgreSQL for development and test
+# Use SQLite/PostgreSQL/MariaDB for development and test
 gem 'pg', '~> 1.5.9'
 gem 'sqlite3'
+gem 'mysql2'
 
 # Gems no longer be part of the default gems from Ruby 3.5.0
 gem 'observer'
@@ -55,6 +56,8 @@ group :development, :test do
   gem 'annotaterb'
 
   gem 'rdoc', '>= 6.6.3.1'
+
+  gem 'dotenv'
 end
 
 group :test do

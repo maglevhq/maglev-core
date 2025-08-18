@@ -8,7 +8,7 @@ module Maglev
     extend ActiveSupport::Concern
 
     def translations_for(attr)
-      # With MySQL, the Jsonb field becomes nil when the field is not set, causing the default value to be discarded
+      # With MySQL, there is no default value for JSON columns, so we need to check for nil
       public_send("#{attr}_translations").presence || {}
     end
 
@@ -18,7 +18,20 @@ module Maglev
 
     class_methods do
       def order_by_translated(attr, direction)
-        order(Arel.sql("#{attr}_translations->>'#{Maglev::I18n.current_locale}'") => direction)
+        order(translated_arel_attribute(attr, Maglev::I18n.current_locale) => direction)
+      end
+
+      def translated_arel_attribute(attr, locale)
+        return Arel::Nodes::InfixOperation.new('->>',
+                                        arel_table[:"#{attr}_translations"],
+                                        Arel::Nodes.build_quoted(locale)) unless mysql?
+    
+        # Mysql and MariaDB JSON support 🤬🤬🤬
+        json_extract = Arel::Nodes::NamedFunction.new(
+          'json_extract',
+          [Arel::Nodes::SqlLiteral.new("#{attr}_translations"), Arel::Nodes.build_quoted("$.#{locale}")]
+        )
+        Arel::Nodes::NamedFunction.new('json_unquote', [json_extract])
       end
 
       def translates(*attributes, presence: false)
@@ -37,6 +50,9 @@ module Maglev
       end
 
       def setup_accessors(attr)
+        # MariaDB doesn't support native JSON columns (longtext instead), we need to force it.
+        attribute("#{attr}_translations", :json) if respond_to?(:attribute)
+
         define_method("#{attr}=") do |value|
           public_send("#{attr}_translations=",
                       translations_for(attr).merge(Maglev::I18n.current_locale.to_s => value))
@@ -44,7 +60,7 @@ module Maglev
 
         define_method(attr) { translations_for(attr)[Maglev::I18n.current_locale.to_s] }
         define_method("default_#{attr}") { translations_for(attr)[Maglev::I18n.default_locale.to_s] }
-      end
+      end      
     end
   end
 end

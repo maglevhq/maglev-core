@@ -31,7 +31,7 @@ module Maglev
     end
 
     def custom_value(setting)
-      value = site.style.find { |local_value| local_value['id'] == setting.id }
+      value = (site.style || []).find { |local_value| local_value['id'] == setting.id }
       value && value['type'] == setting.type ? value['value'] : setting.default
     end
   end
