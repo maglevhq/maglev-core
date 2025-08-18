@@ -1,8 +1,9 @@
+# frozen_string_literal: true
+
 begin
   require 'database_cleaner/active_record'
 
   RSpec.configure do |config|
-
     config.before(:suite) do
       DatabaseCleaner.strategy = :transaction
     end
@@ -12,7 +13,6 @@ begin
         example.run
       end
     end
-
   end
 rescue LoadError
   # DatabaseCleaner is not available
