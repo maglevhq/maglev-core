@@ -23,11 +23,7 @@ module Maglev
       end
 
       def translated_arel_attribute(attr, locale)
-        unless mysql?
-          return Arel::Nodes::InfixOperation.new('->>',
-                                                 arel_table[:"#{attr}_translations"],
-                                                 Arel::Nodes.build_quoted(locale))
-        end
+        return Arel.sql("#{attr}_translations->>'#{locale}'") unless mysql?
 
         # Mysql and MariaDB JSON support 🤬🤬🤬
         json_extract = Arel::Nodes::NamedFunction.new(
