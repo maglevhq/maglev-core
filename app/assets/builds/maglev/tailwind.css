@@ -441,9 +441,6 @@
   .mb-4 {
     margin-bottom: calc(var(--spacing) * 4);
   }
-  .mb-5 {
-    margin-bottom: calc(var(--spacing) * 5);
-  }
   .mb-6 {
     margin-bottom: calc(var(--spacing) * 6);
   }
@@ -538,29 +535,11 @@
   .h-48 {
     height: calc(var(--spacing) * 48);
   }
-  .h-52 {
-    height: calc(var(--spacing) * 52);
-  }
-  .h-54 {
-    height: calc(var(--spacing) * 54);
-  }
-  .h-56 {
-    height: calc(var(--spacing) * 56);
-  }
   .h-58 {
     height: calc(var(--spacing) * 58);
   }
-  .h-59 {
-    height: calc(var(--spacing) * 59);
-  }
-  .h-60 {
-    height: calc(var(--spacing) * 60);
-  }
   .h-64 {
     height: calc(var(--spacing) * 64);
-  }
-  .h-96 {
-    height: calc(var(--spacing) * 96);
   }
   .h-128 {
     height: calc(var(--spacing) * 128);
@@ -570,15 +549,6 @@
   }
   .h-156 {
     height: calc(var(--spacing) * 156);
-  }
-  .h-\[31rem\] {
-    height: 31rem;
-  }
-  .h-\[32rem\] {
-    height: 32rem;
-  }
-  .h-\[34rem\] {
-    height: 34rem;
   }
   .h-\[100dvh-\(--spacing\(16\)\)\] {
     height: 100dvh-(calc(var(--spacing) * 16));
@@ -660,12 +630,6 @@
   }
   .w-144 {
     width: calc(var(--spacing) * 144);
-  }
-  .w-200 {
-    width: calc(var(--spacing) * 200);
-  }
-  .w-204 {
-    width: calc(var(--spacing) * 204);
   }
   .w-216 {
     width: calc(var(--spacing) * 216);
@@ -799,9 +763,6 @@
   .items-center {
     align-items: center;
   }
-  .justify-around {
-    justify-content: space-around;
-  }
   .justify-between {
     justify-content: space-between;
   }
@@ -862,13 +823,6 @@
   }
   .gap-x-8 {
     column-gap: calc(var(--spacing) * 8);
-  }
-  .-space-x-px {
-    :where(& > :not(:last-child)) {
-      --tw-space-x-reverse: 0;
-      margin-inline-start: calc(-1px * var(--tw-space-x-reverse));
-      margin-inline-end: calc(-1px * calc(1 - var(--tw-space-x-reverse)));
-    }
   }
   .space-x-1 {
     :where(& > :not(:last-child)) {
@@ -958,10 +912,6 @@
     border-top-left-radius: var(--radius-2xl);
     border-bottom-left-radius: var(--radius-2xl);
   }
-  .rounded-l-md {
-    border-top-left-radius: var(--radius-md);
-    border-bottom-left-radius: var(--radius-md);
-  }
   .rounded-l-sm {
     border-top-left-radius: var(--radius-sm);
     border-bottom-left-radius: var(--radius-sm);
@@ -969,10 +919,6 @@
   .rounded-r-2xl {
     border-top-right-radius: var(--radius-2xl);
     border-bottom-right-radius: var(--radius-2xl);
-  }
-  .rounded-r-md {
-    border-top-right-radius: var(--radius-md);
-    border-bottom-right-radius: var(--radius-md);
   }
   .rounded-r-sm {
     border-top-right-radius: var(--radius-sm);
@@ -1178,6 +1124,9 @@
   .p-1 {
     padding: calc(var(--spacing) * 1);
   }
+  .p-2 {
+    padding: calc(var(--spacing) * 2);
+  }
   .p-3 {
     padding: calc(var(--spacing) * 3);
   }
@@ -1216,9 +1165,6 @@
   }
   .px-14 {
     padding-inline: calc(var(--spacing) * 14);
-  }
-  .py-0 {
-    padding-block: calc(var(--spacing) * 0);
   }
   .py-0\.5 {
     padding-block: calc(var(--spacing) * 0.5);
@@ -1377,6 +1323,9 @@
     --tw-tracking: var(--tracking-wide);
     letter-spacing: var(--tracking-wide);
   }
+  .text-nowrap {
+    text-wrap: nowrap;
+  }
   .break-all {
     word-break: break-all;
   }
@@ -1495,9 +1444,6 @@
     --tw-inset-ring-shadow: inset 0 0 0 1px var(--tw-inset-ring-color, currentcolor);
     box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
   }
-  .ring-gray-300 {
-    --tw-ring-color: var(--color-gray-300);
-  }
   .ring-gray-900\/5 {
     --tw-ring-color: color-mix(in srgb, oklch(21% 0.034 264.665) 5%, transparent);
     @supports (color: color-mix(in lab, red, red)) {
@@ -1587,9 +1533,6 @@
     -webkit-user-select: none;
     user-select: none;
   }
-  .ring-inset {
-    --tw-ring-inset: inset;
-  }
   .group-hover\:block {
     &:is(:where(.group):hover *) {
       @media (hover: hover) {
@@ -1602,16 +1545,6 @@
       @media (hover: hover) {
         opacity: 100%;
       }
-    }
-  }
-  .group-disabled\:block {
-    &:is(:where(.group):disabled *) {
-      display: block;
-    }
-  }
-  .group-disabled\:hidden {
-    &:is(:where(.group):disabled *) {
-      display: none;
     }
   }
   .group-disabled\/button\:block {
@@ -1689,13 +1622,6 @@
     &:hover {
       @media (hover: hover) {
         background-color: var(--color-editor-primary);
-      }
-    }
-  }
-  .hover\:bg-gray-50 {
-    &:hover {
-      @media (hover: hover) {
-        background-color: var(--color-gray-50);
       }
     }
   }
@@ -1808,14 +1734,6 @@
       }
     }
   }
-  .hover\:ring-1 {
-    &:hover {
-      @media (hover: hover) {
-        --tw-ring-shadow: var(--tw-ring-inset,) 0 0 0 calc(1px + var(--tw-ring-offset-width)) var(--tw-ring-color, currentcolor);
-        box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
-      }
-    }
-  }
   .focus\:z-20 {
     &:focus {
       z-index: 20;
@@ -1872,28 +1790,6 @@
       --tw-ring-inset: inset;
     }
   }
-  .focus-visible\:outline {
-    &:focus-visible {
-      outline-style: var(--tw-outline-style);
-      outline-width: 1px;
-    }
-  }
-  .focus-visible\:outline-2 {
-    &:focus-visible {
-      outline-style: var(--tw-outline-style);
-      outline-width: 2px;
-    }
-  }
-  .focus-visible\:outline-offset-2 {
-    &:focus-visible {
-      outline-offset: 2px;
-    }
-  }
-  .focus-visible\:outline-editor-primary {
-    &:focus-visible {
-      outline-color: var(--color-editor-primary);
-    }
-  }
   .disabled\:bg-editor-primary\/75 {
     &:disabled {
       background-color: var(--color-editor-primary);
@@ -1905,11 +1801,6 @@
   .has-checked\:bg-editor-primary {
     &:has(*:checked) {
       background-color: var(--color-editor-primary);
-    }
-  }
-  .has-focus\:border-editor-primary {
-    &:has(*:focus) {
-      border-color: var(--color-editor-primary);
     }
   }
   .has-focus-visible\:outline-2 {
@@ -1936,12 +1827,6 @@
       @supports (color: color-mix(in lab, red, red)) {
         --tw-ring-color: color-mix(in oklab, var(--color-editor-primary) 50%, transparent);
       }
-    }
-  }
-  .has-\[\:focus\]\:outline {
-    &:has(*:is(:focus)) {
-      outline-style: var(--tw-outline-style);
-      outline-width: 1px;
     }
   }
   .has-\[\:focus\]\:ring-inset {

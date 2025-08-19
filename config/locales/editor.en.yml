@@ -37,13 +37,15 @@ en:
           title: "List of pages"
           sub_title: "Manage the pages of your site"
           new_button: "New page"
-          search_placeholder: "Type your query here..."
+          search_placeholder: "Type the title or the path here..."
+          empty: "No pages found"
         actions:
           edit: "Edit settings"
           clone: "Clone page"
           hide: "Hide page"
           show: "Show page"
           delete: "Delete page"
+          delete_confirm: "Are you sure you want to delete this page?"
           copy_url_to_clipboard: "Copy URL"
           copy_url_to_clipboard_success: "Copied to clipboard!"
         new:
@@ -187,9 +189,13 @@ en:
               gb: "GB"
       flash:
         pages:
+          create:
+            error: "Failed!"
           update:
             success: "Saved!"
             error: "Failed!"
+          destroy:
+            success: "Deleted!"     
         page_clone:
           create:
             success: "Cloned!"
@@ -200,3 +206,6 @@ en:
               other: "%{count} files uploaded!"
           destroy:
             success: "%{name} deleted!"
+      placeholders:
+        pages:
+          visible_placeholder: "Show/Hide the live version of the page"

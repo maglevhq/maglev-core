@@ -13,7 +13,8 @@ class Maglev::Editor::BaseController < ::Maglev::ApplicationController
   before_action :set_content_locale
 
   helper Maglev::ApplicationHelper
-  helper_method :maglev_site, :current_maglev_page, :current_maglev_page_urls, :maglev_theme, :maglev_editing_route_context, :maglev_disable_turbo_cache?
+  helper_method :maglev_site, :current_maglev_page, :current_maglev_page_urls, :maglev_theme, 
+              :maglev_editing_route_context, :maglev_disable_turbo_cache?, :maglev_page_live_url
   
   private
 
@@ -38,8 +39,12 @@ class Maglev::Editor::BaseController < ::Maglev::ApplicationController
     {
       path: maglev_services.get_page_fullpath.call(page: current_maglev_page, preview_mode: false, locale: content_locale),
       preview: maglev_services.get_page_fullpath.call(page: current_maglev_page, preview_mode: true, locale: content_locale),
-      live: maglev_services.get_page_fullpath.call(page: current_maglev_page, preview_mode: false, locale: content_locale)
+      live: maglev_page_live_url(current_maglev_page)
     }
+  end
+
+  def maglev_page_live_url(page)
+    maglev_services.get_page_fullpath.call(page: page, preview_mode: false, locale: content_locale)
   end
 
   def maglev_theme

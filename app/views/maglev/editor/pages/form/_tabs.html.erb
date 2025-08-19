@@ -1,4 +1,4 @@
-<%= render Maglev::Uikit::TabsComponent.new(container_classes: 'w-full h-full flex flex-col', active_tab_index: @active_tab) do |tabs| %>
+<%= render Maglev::Uikit::TabsComponent.new(container_classes: 'w-full h-full flex flex-col', active_tab_index: params[:active_tab]) do |tabs| %>
   <% tabs.with_tab(label: t('maglev.editor.pages.form.tabs.main')) do %>
     <%= render 'maglev/editor/pages/form/main', f: f %>
   <% end %>

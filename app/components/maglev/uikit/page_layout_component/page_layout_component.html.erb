@@ -4,14 +4,14 @@
 >
   <div class="py-6 mx-4">
     <div class="h-6 flex items-center">
-      <div class="w-full">
+      <div class="shrink-0">
         <h2 class="text-gray-800 font-semibold text-lg capitalize-first antialiased">
           <%= title %>
         </h2>
       </div>
       <div class="ml-auto pl-2 gap-0.5 flex items-center">
         <% if notification? %>
-          <%= notification %>          
+          <%= notification %>
         <% end %>
 
         <%= link_to back_path, class: 'h-7 w-7 flex items-center justify-center rounded-full focus:outline-none transition-colors duration-200 relative -right-2 bg-gray-600/0 hover:text-gray-900 text-gray-800 hover:bg-gray-600/10', data: { turbo_frame: '_top' } do %>
@@ -31,7 +31,7 @@
   </div>
 
   <% if footer? %>
-    <div class="mt-2 mx-4 pb-4">
+    <div class="mt-4 mx-4 pb-4">
       <%= footer  %>
     </div>
   <% end %>

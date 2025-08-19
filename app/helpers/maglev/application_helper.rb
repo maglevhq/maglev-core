@@ -73,6 +73,11 @@ module Maglev
       end
     end
 
+    def maglev_page_icon(page, size: '1.15rem')
+      icon_name = page.index? ? 'home' : 'file'
+      render Maglev::Uikit::IconComponent.new(name: icon_name, size: size, class_names: 'shrink-0')
+    end
+
     # [DEPRECATED]Vite Rails helpers
     include ::ViteRails::TagHelpers
 

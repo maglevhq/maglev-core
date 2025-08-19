@@ -6,4 +6,6 @@
   <%= f.textarea :og_title, max_length: 60, rows: 2 %>
 
   <%= f.textarea :og_description, max_length: 155, rows: 5 %>
+
+  <%= f.image_field :og_image_url, search_path: ->(context) { editor_assets_path(context) } %>
 </div>

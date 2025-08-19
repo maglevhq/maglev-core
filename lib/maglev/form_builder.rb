@@ -58,7 +58,7 @@ class Maglev::FormBuilder < ActionView::Helpers::FormBuilder
   end
 
   def error_messages(method)
-    if object.errors.any?
+    if object.errors.any? && object.errors.messages_for(method).present?
       object.errors.messages_for(method).join(', ')
     end
   end

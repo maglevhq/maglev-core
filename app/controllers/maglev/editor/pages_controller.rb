@@ -1,14 +1,18 @@
 class Maglev::Editor::PagesController < Maglev::Editor::BaseController
   before_action :set_page, only: %i[ edit update destroy ]
-  before_action :maglev_disable_turbo_cache, only: %i[ edit update ]
+  before_action :maglev_disable_turbo_cache, only: %i[ edit update new create ]
+
+  helper_method :query_params
 
   def index
     @pages = services.search_pages.call(q: params[:q], content_locale: content_locale,
-                                            default_locale: default_content_locale)
+                                            default_locale: default_content_locale,
+                                            with_static_pages: false,
+                                            index_first: true)
   end
 
   def new
-    raise 'TODO'
+    @page = resources.build
   end
 
   def edit
@@ -16,13 +20,19 @@ class Maglev::Editor::PagesController < Maglev::Editor::BaseController
   end
 
   def create
-    raise 'TODO'
+    @page = resources.build(page_params)
+    if @page.save
+      redirect_to editor_real_root_path(maglev_editing_route_context(page: @page)), status: :see_other
+    else
+      flash.now[:error] = flash_t(:error)
+      render :new, status: :unprocessable_entity
+    end
   end
 
   def update
     if @page.update(page_params)
       flash[:active_tab] = params[:active_tab]
-      redirect_to edit_editor_page_path(@page, maglev_editing_route_context), notice: flash_t(:success), status: :see_other
+      redirect_to edit_editor_page_path(@page, **query_params, **maglev_editing_route_context), notice: flash_t(:success), status: :see_other
     else
       flash.now[:error] = flash_t(:error)
       render :edit, status: :unprocessable_entity
@@ -30,7 +40,8 @@ class Maglev::Editor::PagesController < Maglev::Editor::BaseController
   end
 
   def destroy
-    raise 'tODO'
+    @page.destroy!
+    redirect_to editor_pages_path(query_params), notice: flash_t(:success), status: :see_other
   end
 
   private
@@ -44,6 +55,10 @@ class Maglev::Editor::PagesController < Maglev::Editor::BaseController
                                  :seo_title, :meta_description,
                                  :og_title, :og_description, :og_image_url,
                                  :visible, :lock_version)
+  end
+
+  def query_params(from_list: false)
+    { q: params[:q], from_list: params[:from_list] || from_list }.compact_blank
   end
 
   def resources

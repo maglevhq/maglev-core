@@ -2,7 +2,22 @@
   <%= render Maglev::Uikit::PageLayoutComponent.new(back_path: editor_real_root_path(maglev_editing_route_context)) do |page_layout| %>
     <% page_layout.with_title_content t('maglev.editor.pages.list.title') %>
     <% page_layout.with_description_content t('maglev.editor.pages.list.sub_title') %>
+    <% page_layout.with_notification_content maglev_flash_message %>
 
-    <p>TODO</p>
+    <div class="space-y-5 flex flex-col h-full">
+      <%= render(Maglev::Uikit::Form::SearchFormComponent.new(
+        name: 'q', 
+        value: params[:q], 
+        search_path: editor_pages_path, 
+        placeholder: t('maglev.editor.pages.list.search_placeholder'),
+        data: { turbo_action: 'replace' }
+      )) %>
+
+      <%= render 'list' %>
+    </div>
+
+    <% page_layout.with_footer do %>
+      <%= link_to t('maglev.editor.pages.list.new_button'), new_editor_page_path(**maglev_editing_route_context, **query_params), class: maglev_button_classes(size: :big), data: { turbo_frame: '_top' } %>
+    <% end %>
   <% end %>
 <% end %>

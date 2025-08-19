@@ -1,7 +1,8 @@
 <% sidebar.with_link(
   path: editor_pages_path(maglev_editing_route_context), 
   icon: 'file_copy', 
-  active: controller_name == 'pages'
+  active: controller_name == 'pages',
+  data: { controller: 'prevent-same-path' }
 ) %>
 
 <% sidebar.with_link(
