@@ -37,13 +37,15 @@ ar:
           title: "قائمة الصفحات"
           sub_title: "إدارة صفحات موقعك"
           new_button: "صفحة جديدة"
-          search_placeholder: "اكتب استعلامك هنا..."
+          search_placeholder: "اكتب العنوان أو المسار هنا..."
+          empty: "لم يتم العثور على صفحات"
         actions:
           edit: "تعديل الإعدادات"
           clone: "استنساخ الصفحة"
           hide: "إخفاء الصفحة"
           show: "إظهار الصفحة"
           delete: "حذف الصفحة"
+          delete_confirm: "هل أنت متأكد من أنك تريد حذف هذه الصفحة؟"
           copy_url_to_clipboard: "نسخ الرابط"
           copy_url_to_clipboard_success: "تم النسخ إلى الحافظة!"
         new:
@@ -187,9 +189,13 @@ ar:
               gb: "جيجابايت"
       flash:
         pages:
+          create:
+            error: "فشل!"
           update:
             success: "تم الحفظ!"
             error: "فشل!"
+          destroy:
+            success: "تم الحذف!"     
         page_clone:
           create:
             success: "تم الاستنساخ!"
@@ -200,3 +206,6 @@ ar:
               other: "تم رفع %{count} ملف!"
           destroy:
             success: "تم حذف %{name}!"
+      placeholders:
+        pages:
+          visible_placeholder: "إظهار/إخفاء النسخة المباشرة من الصفحة"

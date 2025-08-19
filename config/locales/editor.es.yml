@@ -37,13 +37,15 @@ es:
           title: "Lista de páginas"
           sub_title: "Gestionar las páginas de tu sitio"
           new_button: "Nueva página"
-          search_placeholder: "Escribe tu consulta aquí..."
+          search_placeholder: "Escribe el título o la ruta aquí..."
+          empty: "No se encontraron páginas"
         actions:
           edit: "Editar configuración"
           clone: "Clonar página"
           hide: "Ocultar página"
           show: "Mostrar página"
           delete: "Eliminar página"
+          delete_confirm: "¿Estás seguro de que quieres eliminar esta página?"
           copy_url_to_clipboard: "Copiar URL"
           copy_url_to_clipboard_success: "¡Copiado al portapapeles!"
         new:
@@ -187,9 +189,13 @@ es:
               gb: "GB"
       flash:
         pages:
+          create:
+            error: "¡Falló!"
           update:
             success: "¡Guardado!"
             error: "¡Falló!"
+          destroy:
+            success: "¡Eliminada!"     
         page_clone:
           create:
             success: "¡Clonada!"
@@ -200,3 +206,6 @@ es:
               other: "¡%{count} archivos subidos!"
           destroy:
             success: "¡%{name} eliminado!"
+      placeholders:
+        pages:
+          visible_placeholder: "Mostrar/Ocultar la versión en vivo de la página"

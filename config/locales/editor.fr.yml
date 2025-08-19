@@ -37,13 +37,15 @@ fr:
           title: "Liste des pages"
           sub_title: "Gérer les pages de votre site"
           new_button: "Nouvelle page"
-          search_placeholder: "Tapez votre requête ici..."
+          search_placeholder: "Tapez le titre ou le chemin ici..."
+          empty: "Aucune page trouvée"
         actions:
           edit: "Modifier les paramètres"
           clone: "Cloner la page"
           hide: "Masquer la page"
           show: "Afficher la page"
           delete: "Supprimer la page"
+          delete_confirm: "Êtes-vous sûr de vouloir supprimer cette page ?"
           copy_url_to_clipboard: "Copier l'URL"
           copy_url_to_clipboard_success: "Copié dans le presse-papiers !"
         new:
@@ -187,9 +189,13 @@ fr:
               gb: "GB"
       flash:
         pages:
+          create:
+            error: "Échec !"
           update:
             success: "Enregistré !"
             error: "Échec !"
+          destroy:
+            success: "Supprimée !"     
         page_clone:
           create:
             success: "Clonée !"
@@ -200,3 +206,6 @@ fr:
               other: "%{count} fichiers téléchargés !"
           destroy:
             success: "%{name} supprimé !"
+      placeholders:
+        pages:
+          visible_placeholder: "Afficher/Masquer la version en direct de la page"

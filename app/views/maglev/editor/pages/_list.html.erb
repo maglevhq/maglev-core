@@ -3,7 +3,7 @@
     <p class="text-center mt-8"><%= t('maglev.editor.pages.list.empty') %></p>
   <% else %>
     <% @pages.each do |page| %>
-      <div class="flex items-center pl-6 pr-2 hover:bg-editor-primary/5 transition-colors duration-200">
+      <div class="flex items-center pl-4 pr-2 hover:bg-editor-primary/5 transition-colors duration-200">
         <%= link_to editor_real_root_path(maglev_editing_route_context(page: page)), class: 'flex items-center text-gray-800 overflow-hidden w-full py-3.5 gap-2', data: { turbo_frame: '_top' } do %>
           <%= maglev_page_icon(page) %>
           <span class="truncate"><%= page.title %></span>
