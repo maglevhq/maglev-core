@@ -6,6 +6,8 @@ class CreateMaglevSectionsContentStores < ActiveRecord::Migration[6.0]
       t.string :container_type
       if t.respond_to? :jsonb
         t.jsonb :sections_translations, default: {}
+      elsif mysql?
+        t.json :sections_translations # MySQL doesn't support default values for json columns
       else
         t.json :sections_translations, default: {}
       end

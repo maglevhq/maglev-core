@@ -36,7 +36,7 @@ Gem::Specification.new do |spec|
     'MIT-LICENSE',
     'Rakefile',
     'README.md'
-  ]
+  ].reject { |f| f.start_with?('db/mysql') }
 
   spec.add_dependency 'maglev-injectable', '~> 2.1.1'
   spec.add_dependency 'pagy', '>= 6'

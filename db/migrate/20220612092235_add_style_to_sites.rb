@@ -3,6 +3,8 @@ class AddStyleToSites < ActiveRecord::Migration[6.0]
     change_table :maglev_sites do |t|
       if t.respond_to? :jsonb
         t.jsonb :style, default: []
+      elsif mysql?
+        t.json :style # MySQL doesn't support default values for json columns
       else
         t.json :style, default: []
       end

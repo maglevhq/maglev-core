@@ -19,6 +19,15 @@ default: &default
   adapter: sqlite3
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
+  <% elsif ENV['USE_MYSQL'] %>
+  adapter: mysql2
+  encoding: utf8mb4
+  collation: utf8mb4_unicode_ci
+  host: <%= ENV.fetch('MAGLEV_APP_DATABASE_HOST') { 'localhost' } %>
+  username: <%= ENV.fetch('MAGLEV_APP_DATABASE_USERNAME') { 'start' } %>
+  password: <%= ENV.fetch('MAGLEV_APP_DATABASE_PASSWORD') { 'start' } %>
+  port: <%= ENV.fetch('MAGLEV_APP_DATABASE_PORT') { '3306' } %>
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   <% else %>
   adapter: postgresql
   encoding: unicode

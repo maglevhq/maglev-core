@@ -30,7 +30,8 @@ gem 'puma'
 # To use a debugger
 # gem 'byebug', group: [:development, :test]
 
-# Use SQLite/PostgreSQL for development and test
+# Use SQLite/PostgreSQL/MariaDB for development and test
+gem 'mysql2'
 gem 'pg', '~> 1.5.9'
 gem 'sqlite3'
 
@@ -69,6 +70,9 @@ group :development, :test do
 
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem 'debug', platforms: %i[mri windows], require: 'debug/prelude'
+
+  # Load environment variables from .env file
+  gem 'dotenv'
 end
 
 group :test do

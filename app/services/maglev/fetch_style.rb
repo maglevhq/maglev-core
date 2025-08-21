@@ -39,7 +39,7 @@ module Maglev
     end
 
     def custom_value(definition)
-      value = site.style.find do |local_value|
+      value = (site.style || []).find do |local_value|
         local_value['id'] == definition.id && local_value['type'] == definition.type
       end
       value ? value['value'] : definition.default
