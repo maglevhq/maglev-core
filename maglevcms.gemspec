@@ -43,7 +43,7 @@ Gem::Specification.new do |spec|
     'MIT-LICENSE',
     'Rakefile',
     'README.md'
-  ]
+  ].reject { |f| f.start_with?('db/mysql') }
 
   spec.add_dependency 'jbuilder', '< 3', '>= 2'
   spec.add_dependency 'kaminari', '~> 1.2.1'

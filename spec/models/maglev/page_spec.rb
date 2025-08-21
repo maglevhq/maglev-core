@@ -7,6 +7,21 @@ RSpec.describe Maglev::Page, type: :model do
     expect(build(:page)).to be_valid
   end
 
+  describe 'JSON translation fields initialization' do
+    it 'initializes translation fields with empty hashes when nil' do
+      # Create a page without setting translation fields (simulating MySQL behavior)
+      page = described_class.new(title_translations: nil)
+      expect(page.title).to eq nil
+    end
+
+    it 'preserves existing translation values when not nil' do
+      existing_translations = { en: 'Test Title' }
+      page = described_class.new(title_translations: existing_translations)
+
+      expect(page.title_translations).to eq(existing_translations.stringify_keys)
+    end
+  end
+
   describe '#index?' do
     subject { page.index? }
 

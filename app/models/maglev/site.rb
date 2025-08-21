@@ -20,6 +20,10 @@ module Maglev
     include Maglev::SectionsConcern
     include Maglev::Translatable
 
+    ## force JSON columns for MariaDB ##
+    attribute :style, :json
+    attribute :sections_translations, :json
+
     ## translations ##
     translates :sections
 

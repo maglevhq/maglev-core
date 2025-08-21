@@ -32,9 +32,7 @@ module Maglev::Page::SearchConcern
     end
 
     def search_title_node(locale)
-      Arel::Nodes::InfixOperation.new('->>',
-                                      arel_table[:title_translations],
-                                      Arel::Nodes.build_quoted(locale))
+      translated_arel_attribute(:title, locale)
     end
   end
 end
