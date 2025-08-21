@@ -28,8 +28,8 @@ RSpec.describe 'Maglev::PagePreviewController', type: :request do
         get '/'
         expect(response.body).to include('<title>Default - Home</title>')
         expect(response.body).to include('<meta name="hello" content="Hello world" />')
-        expect(response.body).to include('<link rel="alternate" hreflang="x-default" href="http://www.example.com/">')
-        expect(response.body).to include('<link rel="alternate" hreflang="en" href="http://www.example.com/">')
+        expect(response.body).to include('<link rel="alternate" hreflang="x-default" href="http://www.example.com">')
+        expect(response.body).to include('<link rel="alternate" hreflang="en" href="http://www.example.com">')
         expect(response.body).to include('<link rel="alternate" hreflang="fr" href="http://www.example.com/fr">')
       end
 

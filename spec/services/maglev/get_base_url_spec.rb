@@ -6,7 +6,8 @@ describe Maglev::GetBaseUrl do
   subject { service.call(preview_mode: preview_mode) }
 
   let(:site) { build(:site) }
-  let(:controller) { double('Controller', site_preview_path: '/maglev/preview') }
+  let(:request) { double('Request', base_url: 'http://www.example.com') }
+  let(:controller) { double('Controller', site_preview_path: '/maglev/preview', request: request) }
   let(:service) do
     described_class.new(
       fetch_site: double('FetchSite', call: site),
@@ -26,7 +27,7 @@ describe Maglev::GetBaseUrl do
     context 'the rendering mode is live' do
       let(:rendering_mode) { :live }
 
-      it { is_expected.to eq nil }
+      it { is_expected.to eq 'http://www.example.com' }
     end
   end
 
@@ -36,7 +37,7 @@ describe Maglev::GetBaseUrl do
 
     context 'the site has no domain' do
       it "doesn't need the rendering_mode variable" do
-        expect(subject).to eq nil
+        expect(subject).to eq 'http://www.example.com'
       end
     end
   end

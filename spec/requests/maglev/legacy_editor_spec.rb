@@ -13,9 +13,9 @@ RSpec.describe 'Maglev::EditorController', type: :request do
       end
     end
 
-    describe 'GET /maglev/editor' do
+    describe 'GET /maglev/legacy-editor' do
       it 'redirects to a path defined by the ApplicationController of the main app' do
-        get '/maglev/editor'
+        get '/maglev/legacy-editor'
         expect(flash[:error]).to eq('You\'re not authorized to access the Maglev editor!')
         expect(response).to redirect_to('http://www.example.com/nocoffee_site')
       end
@@ -30,23 +30,23 @@ RSpec.describe 'Maglev::EditorController', type: :request do
       end
     end
 
-    describe 'GET /maglev/editor' do
+    describe 'GET /maglev/legacy_editor' do
       it 'redirects to the index page in the default site locale' do
-        get '/maglev/editor'
-        expect(response).to redirect_to('/maglev/editor/en/index')
+        get '/maglev/legacy-editor'
+        expect(response).to redirect_to('/maglev/legacy-editor/en/index')
       end
 
       it 'redirects to the index page in the specified locale' do
-        get '/maglev/editor/fr'
-        expect(response).to redirect_to('/maglev/editor/fr/index')
+        get '/maglev/legacy-editor/fr'
+        expect(response).to redirect_to('/maglev/legacy-editor/fr/index')
       end
     end
 
-    describe 'GET /maglev/editor/:locale/(*path)' do
+    describe 'GET /maglev/legacy-editor/:locale/(*path)' do
       it 'renders the editor UI' do
-        get '/maglev/editor/en/index'
+        get '/maglev/legacy-editor/en/index'
         expect(response.body).to include('My simple theme')
-        expect(response.body).to include('window.baseUrl = "/maglev/editor"')
+        expect(response.body).to include('window.baseUrl = "/maglev/legacy-editor"')
         expect(response.body).to include('window.apiBaseUrl = "/maglev/api"')
         expect(response.body).to include('window.site = {')
         expect(response.body).to include('window.page = {')
@@ -56,7 +56,7 @@ RSpec.describe 'Maglev::EditorController', type: :request do
 
       describe 'Given the content editor had the sections tab opened in the UI' do
         it 'renders the editor UI' do
-          get '/maglev/editor/en/about-us/_/editSettings'
+          get '/maglev/legacy-editor/en/about-us/_/editSettings'
           expect(response.body).to include('My simple theme')
           expect(response.body).to include('About us')
           expect(response.body).to include('window.site = {')
@@ -77,7 +77,7 @@ RSpec.describe 'Maglev::EditorController', type: :request do
           let(:ui_locale) { 'fr' }
 
           it 'renders the editor in the defined locale' do
-            get '/maglev/editor/en/index'
+            get '/maglev/legacy-editor/en/index'
             expect(response.body).to include('<html class="h-full" lang="fr">')
           end
         end
@@ -86,7 +86,7 @@ RSpec.describe 'Maglev::EditorController', type: :request do
           let(:ui_locale) { :exotic_locale }
 
           it 'renders the editor in the defined locale' do
-            get '/maglev/editor/en/index'
+            get '/maglev/legacy-editor/en/index'
             expect(response.body).to include('<html class="h-full" lang="fr">')
           end
         end
@@ -95,7 +95,7 @@ RSpec.describe 'Maglev::EditorController', type: :request do
           let(:ui_locale) { ->(_current_site) { 'fr' } }
 
           it 'renders the editor in the defined locale' do
-            get '/maglev/editor/en/index'
+            get '/maglev/legacy-editor/en/index'
             expect(response.body).to include(%(<html class="h-full" lang="fr">))
           end
         end
@@ -114,12 +114,12 @@ RSpec.describe 'Maglev::EditorController', type: :request do
         let(:back_action) { nil }
 
         it 'redirects to the root path of the application' do
-          get '/maglev/leave_editor'
+          get '/maglev/legacy-leave_editor'
           expect(response).to redirect_to('/')
         end
 
         it 'clears the maglev_site_id from the session' do
-          get '/maglev/leave_editor'
+          get '/maglev/legacy-leave_editor'
           expect(session[:maglev_site_id]).not_to eq nil
         end
       end
@@ -128,7 +128,7 @@ RSpec.describe 'Maglev::EditorController', type: :request do
         let(:back_action) { '/foo/bar' }
 
         it 'redirects to the static url' do
-          get '/maglev/leave_editor'
+          get '/maglev/legacy-leave_editor'
           expect(response).to redirect_to('/foo/bar')
         end
       end
@@ -137,7 +137,7 @@ RSpec.describe 'Maglev::EditorController', type: :request do
         let(:back_action) { :nocoffee_path }
 
         it 'redirects to the route path' do
-          get '/maglev/leave_editor'
+          get '/maglev/legacy-leave_editor'
           expect(response).to redirect_to('/nocoffee_site')
         end
       end
@@ -151,7 +151,7 @@ RSpec.describe 'Maglev::EditorController', type: :request do
         end
 
         it 'redirects to the url returned by the Proc' do
-          get '/maglev/leave_editor'
+          get '/maglev/legacy-leave_editor'
           expect(response).to redirect_to("/somewhere-#{site.id}")
           expect(session[:maglev_site_id]).to eq nil
         end

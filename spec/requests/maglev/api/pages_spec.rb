@@ -50,9 +50,10 @@ RSpec.describe 'Maglev::Api::PagesController', type: :request do
     end
 
     describe 'allows retrieval of pages based on keyword' do
-      it 'returns an empty array if the keyword is empty' do
+
+      it 'returns all the pages if the keyword is empty' do
         get '/maglev/api/pages', params: { q: '' }, as: :json
-        expect(json_response).to eq([].as_json)
+        expect(json_response.size).to eq 1
       end
 
       it 'returns the pages whose title matches the keyword' do

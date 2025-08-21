@@ -3,7 +3,7 @@
 require 'rails_helper'
 require 'vite_rails'
 
-describe Maglev::EditorHelper do
+describe Maglev::LegacyEditorHelper do
   let(:title) { nil }
   let(:primary_color) { '#040712' }
   let(:logo) { nil }
