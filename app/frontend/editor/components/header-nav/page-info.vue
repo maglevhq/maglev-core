@@ -6,7 +6,7 @@
         <div class="text-base font-semibold truncate ml-1 mr-3">{{ currentPage.title }}</div>
 
         <page-actions-button 
-          :page="currentPage" 
+          :page="currentPage"
           compact
           @on-clone="goToClonedPage"
         />

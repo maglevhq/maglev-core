@@ -9,6 +9,7 @@ RSpec.describe Maglev::Page, type: :model do
       page = described_class.new(title: 'Hello world')
       expect(page).to be_invalid
       expect(page.errors.full_messages).to eq(['Path can\'t be blank'])
+      expect(page.errors[:path]).to eq(['can\'t be blank'])
     end
 
     it "doesn't allow creating a page with a blank path" do

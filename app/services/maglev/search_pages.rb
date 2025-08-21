@@ -15,9 +15,13 @@ module Maglev
     argument :q, default: nil
     argument :content_locale
     argument :default_locale
+    argument :with_static_pages, default: true
+    argument :index_first, default: false
 
     def call
-      id.nil? ? all_pages : single_page
+      return single_page if id.present?
+
+      with_static_pages ? all_pages : find_persisted_pages
     end
 
     protected
@@ -33,7 +37,7 @@ module Maglev
     end
 
     def find_persisted_pages
-      q ? resources.search(q, content_locale) : resources.all
+      resources.search(q, content_locale, index_first: index_first)
     end
 
     def find_static_pages

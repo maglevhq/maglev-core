@@ -1,0 +1,80 @@
+<div 
+  class="group/image <%= 'none' if blank? %>"
+  data-controller="uikit-form-image-field" 
+  data-uikit-form-image-field-search-path-value="<%= search_path %>"
+  data-action="dispatcher:image-selected-<%= dom_id %>@window->uikit-form-image-field#onImageSelected"
+>
+  <label for="<%= dom_id %>" class="block font-semibold text-gray-800" data-action="click->uikit-form-image-field#focus">
+    <%= label %>
+  </label>
+  <div class="mt-1">
+    <%= hidden_field_tag name, value, data: { uikit_form_image_field_target: 'hiddenInput' } %>
+
+    <div class="hidden group-[.none]/image:block">
+      <div
+        class="flex items-center justify-center bg-gray-100 h-48 rounded"
+        v-if="isBlank(value)"
+      >
+        <button type="button"class="flex items-center justify-center flex-col cursor-pointer" data-action="click->uikit-form-image-field#openPicker">
+          <%= render Maglev::Uikit::IconComponent.new(name: 'camera') %>
+
+          <p class="uppercase text-xs mt-1">
+            <%= t('maglev.editor.image_input.add_button') %>
+          </p>
+        </button>
+      </div>
+    </div>
+
+    <div class="block group-[.none]/image:hidden" data-controller="transition">
+      <div class="relative bg-checkerboard h-48 rounded overflow-hidden" data-action="mouseenter->transition#enter mouseleave->transition#leave">
+        <img src="<%= value %>" class="h-full w-full object-contain rounded" data-uikit-form-image-field-target="image">
+        <div
+          class="flex items-center justify-center py-3 px-2 absolute bg-black/75 bottom-0 w-full text-white text-xs cursor-default rounded-b hidden"
+          data-transition-target="revealable"
+          data-transition-enter="ease-out duration-100"
+          data-transition-enter-start="translate-y-4 opacity-0"
+          data-transition-enter-end="translate-y-0 opacity-100"
+          data-transition-leave="ease-in duration-100"
+          data-transition-leave-start="translate-y-0 opacity-100"
+          data-transition-leave-end="translate-y-4 opacity-0"
+        >
+          <div class="flex items-center gap-6">
+            <button 
+              type="button" 
+              class="flex items-center justify-center flex-col cursor-pointer" 
+              data-action="click->uikit-form-image-field#openPicker"
+            >
+              <%= render Maglev::Uikit::IconComponent.new(name: 'camera') %>
+              <span class="uppercase text-xs mt-1">
+                <%= t('maglev.editor.image_input.replace_button') %>
+              </span>
+            </button>
+
+            <button
+              type="button"
+              class="flex items-center justify-center flex-col cursor-pointer"
+              data-action="click->uikit-form-image-field#clear"
+            >
+              <%= render Maglev::Uikit::IconComponent.new(name: 'delete_bin') %>
+              <span class="uppercase text-xs mt-1">
+                <%= t('maglev.editor.image_input.clear_button') %>
+              </span>
+            </button>            
+          </div>
+        </div>
+      </div>
+
+      <% if alt_text? %>
+        <div class="space-y-1 flex flex-col mt-2">
+          <input 
+            name="<%= alt_text[:name] %>"
+            value="<%= alt_text[:value] %>"
+            type="text" 
+            placeholder="<%= alt_text[:placeholder] %>"
+            autocomplete="off" 
+            class="block py-2 px-3 rounded bg-gray-100 text-gray-800 focus:outline-none focus:ring focus:ring-inset focus:ring-2 focus:ring-editor-primary/50 placeholder-gray-500">
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

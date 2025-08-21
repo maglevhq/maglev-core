@@ -1,0 +1,22 @@
+<% topbar.with_logo %>
+
+<% topbar.with_page_info do %>
+  <%= render Maglev::Uikit::AppLayout::Topbar::PageInfoComponent.new(
+    page: current_maglev_page,
+    paths: {
+      edit: edit_editor_page_path(current_maglev_page, maglev_editing_route_context),
+      clone: editor_page_clone_path(current_maglev_page, maglev_editing_route_context),
+      delete: editor_page_path(current_maglev_page, maglev_editing_route_context)
+    },
+    live_page_url: current_maglev_page_urls[:live]
+  ) %>
+<% end %>
+
+<% topbar.with_actions do %>
+  <%= render Maglev::Uikit::LocaleSwitcherComponent.new(
+    locales: maglev_site.locales.map do |locale|
+      { label: locale.label, value: locale.prefix, path: editor_real_root_path(maglev_editing_route_context(locale: locale.prefix)) }
+    end,
+    current_locale: Maglev::I18n.current_locale
+  ) %>
+<% end %>

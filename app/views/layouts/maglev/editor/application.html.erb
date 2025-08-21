@@ -1,0 +1,46 @@
+<html lang="<%= I18n.locale %>">
+  <head>
+    <title>Maglev</title>
+    <meta name="view-transition" content="same-origin" />
+    
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    
+    <% if maglev_disable_turbo_cache? %>
+      <meta name="turbo-cache-control" content="no-cache">
+    <% end %>
+
+    <%= stylesheet_link_tag "maglev/application", "maglev/tailwind", "data-turbo-track": "reload" %>
+    <%= maglev_importmap_tags "editor" %>
+
+    <%= favicon_link_tag maglev_favicon_url %>
+
+    <style>
+      :root {
+        --editor-color-primary: <%= maglev_primary_hex_color %>;
+        --editor-color-primary-rgb: <%= maglev_primary_rgb_color.join(' ') %>;
+      }
+    </style>
+  </head>
+  <body class="h-full overflow-y-hidden font-nunito">
+    <%= render Maglev::Uikit::AppLayout::LayoutComponent.new(page: current_maglev_page) do |layout| %>
+      <% layout.with_topbar do |topbar| %>
+        <%= render 'layouts/maglev/editor/topbar', topbar: topbar %>
+      <% end %>
+
+      <% layout.with_sidebar do |sidebar| %>
+        <%= render 'layouts/maglev/editor/sidebar', sidebar: sidebar %>
+      <% end %>
+
+      <%= yield %>
+    <% end %>
+
+    <%= turbo_frame_tag "drawer" do %>
+      <%= yield :drawer %> 
+    <% end %>
+
+    <%= turbo_frame_tag "modal" do %>
+      <%= yield :modal %> 
+    <% end %>
+  </body>
+</html>

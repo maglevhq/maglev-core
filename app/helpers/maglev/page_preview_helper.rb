@@ -46,7 +46,7 @@ module Maglev
       link = links[locale.to_sym]
       return nil if link.nil?
 
-      "#{request.base_url}#{link}"
+      link.start_with?('http') ? link : "#{request.base_url}#{link}"
     end
 
     def maglev_site_link

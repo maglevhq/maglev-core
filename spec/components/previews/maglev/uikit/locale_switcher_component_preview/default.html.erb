@@ -1,0 +1,7 @@
+<div class="h-12 w-64 flex">
+  <%= render Maglev::Uikit::LocaleSwitcherComponent.new(locales: [
+    { label: 'English', value: 'en', path: '#' },
+    { label: 'French', value: 'fr', path: '#' },
+    { label: 'German', value: 'de', path: '#' },
+  ], current_locale: 'en') %>
+</div>

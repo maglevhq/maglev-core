@@ -5,11 +5,13 @@ require_relative 'maglev/engine'
 require_relative 'maglev/config'
 require_relative 'maglev/errors'
 require_relative 'maglev/i18n'
+require_relative 'maglev/form_builder'
 require_relative 'maglev/preview_constraint'
 require_relative 'maglev/reserved_paths'
 
 require 'injectable'
 require 'jbuilder'
+require 'pagy'
 
 module Maglev
   ROOT_PATH = Pathname.new(File.join(__dir__, '..'))

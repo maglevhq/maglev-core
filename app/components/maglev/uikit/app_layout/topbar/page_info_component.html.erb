@@ -1,0 +1,23 @@
+<% if content.present? %>
+  <%= content %>
+<% else %>
+  <div class="flex flex-row items-center h-full w-full px-4 overflow-hidden">
+    <div class="flex flex-col leading-none overflow-hidden">
+      <div class="flex items-center">
+        <%= render Maglev::Uikit::IconComponent.new(name: icon_name, size: '1.1rem', class_names: 'shrink-0 text-gray-900') %>
+        <div class="text-base font-semibold truncate ml-1 mr-3"><%= page.title %></div>
+
+        <%= render(Maglev::Uikit::PageActionsDropdownComponent.new(
+          paths: paths, 
+          live_url: live_page_url, 
+          without_actions: [:delete], icon_direction: :horizontal)) 
+        %>
+      </div>
+      <div class="text-xs text-gray-500 flex items-center space-x-1">
+        <p class="truncate text-gray-700">
+          <span class="text-gray-900 font-semibold">/</span><%= page.path %>
+        </p>
+      </div>
+    </div>
+  </div>
+<% end %>

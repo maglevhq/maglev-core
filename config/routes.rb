@@ -39,10 +39,30 @@ Maglev::Engine.routes.draw do
     end
   end
 
-  # Editor + Preview
-  get 'editor', to: 'editor#show', as: :base_editor
-  get 'editor/:locale/(*path)', to: 'editor#show', as: :editor
-  get 'leave_editor', to: 'editor#destroy', as: :leave_editor
+  # Editor
+  namespace :editor do
+    root to: 'home#index'
+
+    get 'leave', to: 'home#destroy', as: :leave
+
+    # always keep the scope of the current page and locale in the url
+    scope ':locale/:page_id' do
+      root to: 'home#index', as: :real_root
+      resources :pages do
+        resource :clone, controller: :page_clone, only: :create
+      end
+      resources :sections      
+    end    
+
+    resources :assets, only: %i[index create destroy]
+  end
+
+  # Legacy Editor
+  get 'legacy-editor', to: 'legacy_editor#show', as: :base_editor
+  get 'legacy-editor/:locale/(*path)', to: 'legacy_editor#show', as: :editor
+  get 'legacy-leave_editor', to: 'legacy_editor#destroy', as: :leave_editor
+
+  # Preview
   get 'preview/(*path)', to: 'page_preview#index',
                          defaults: { path: 'index', rendering_mode: :editor },
                          constraints: Maglev::PreviewConstraint.new,

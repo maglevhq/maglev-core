@@ -1,0 +1,32 @@
+<%= render Maglev::Uikit::MenuDropdownComponent.new(icon_name: "more_2") do |menu_dropdown| %>
+  <% menu_dropdown.with_trigger do %>
+    <button 
+      class="inline-flex items-center justify-center px-4 py-2 text-sm font-medium tracking-wide transition-colors duration-100 bg-white border-2 rounded-md text-neutral-900 hover:text-white border-neutral-900 hover:bg-neutral-900"
+      data-action="click->uikit-dropdown#toggle"
+      data-uikit-dropdown-target="button"
+    >
+      Dropdown menu
+    </button>
+  <% end %>
+
+  <% menu_dropdown.with_item do %>
+    <%= link_to '#', class: menu_dropdown.item_classes do %>
+      <%= render Maglev::Uikit::IconComponent.new(name: 'home') %>
+      <span class="ml-2 whitespace-nowrap">Action #1</span>
+    <% end %>
+  <% end %>
+
+  <% menu_dropdown.with_item do %>
+    <%= link_to '#', class: menu_dropdown.item_classes do %>
+      <%= render Maglev::Uikit::IconComponent.new(name: 'home') %>
+      <span class="ml-2 whitespace-nowrap">Action #2</span>
+    <% end %>
+  <% end %>
+
+  <% menu_dropdown.with_item do %>
+    <%= link_to '#', class: menu_dropdown.item_classes do %>
+      <%= render Maglev::Uikit::IconComponent.new(name: 'home') %>
+      <span class="ml-2 whitespace-nowrap">Action #3</span>
+    <% end %>
+  <% end %>
+<% end %>

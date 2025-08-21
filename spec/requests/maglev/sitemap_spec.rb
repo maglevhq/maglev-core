@@ -19,9 +19,9 @@ RSpec.describe 'Maglev::SitemapController', type: :request do
         <?xml version="1.0" encoding="UTF-8"?>
         <urlset xmlns="http://www.google.com/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
           <url>
-            <loc>http://www.example.com/</loc>
+            <loc>http://www.example.com</loc>
             <lastmod>#{Time.zone.now.strftime('%Y-%m-%d')}</lastmod>
-            <xhtml:link rel="alternate" hreflang="en" href="http://www.example.com/"/>
+            <xhtml:link rel="alternate" hreflang="en" href="http://www.example.com"/>
             <xhtml:link rel="alternate" hreflang="fr" href="http://www.example.com/fr"/>
           </url>
           <url>

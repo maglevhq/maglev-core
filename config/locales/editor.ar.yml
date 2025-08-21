@@ -1,0 +1,211 @@
+ar:
+  maglev:
+    editor:
+      header_nav:
+        pages: "الصفحات:"
+        page_settings: "إعدادات الصفحة"
+        preview_site: "معاينة"
+        preview_toggler:
+          button: "معاينة الموقع"
+          draft_link: "نسخة مسودة"
+          live_link: "نسخة مباشرة"
+        publish_button:
+          default: "نشر الموقع"
+          in_progress: "جاري النشر..."
+          success: "تم النشر!"
+          fail: "فشل!"
+        save_button:
+          default: "حفظ"
+          in_progress: "جاري الحفظ..."
+          success: "تم الحفظ!"
+          fail: "فشل!"
+      sidebar_nav:
+        list_pages_tooltip: "إدارة صفحات موقعك"
+        manage_page_sections_tooltip: "إعادة ترتيب / حذف أقسام الصفحة"
+        edit_style_tooltip: "تغيير نمط موقعك"
+        open_image_library_tooltip: "فتح معرض الصور"
+        leave_editor_tooltip: "العودة إلى التطبيق الرئيسي"
+      page_preview:
+        loading: "جاري التحميل..."
+        empty:
+          title:
+            without_locale: "صفحتك فارغة"
+            with_locale: "صفحتك في %{localeName} فارغة"
+          message: "يرجى إضافة القسم الأول بالنقر على زر {icon} في الشريط الجانبي الأيسر."
+      pages:
+        list:
+          title: "قائمة الصفحات"
+          sub_title: "إدارة صفحات موقعك"
+          new_button: "صفحة جديدة"
+          search_placeholder: "اكتب العنوان أو المسار هنا..."
+          empty: "لم يتم العثور على صفحات"
+        actions:
+          edit: "تعديل الإعدادات"
+          clone: "استنساخ الصفحة"
+          hide: "إخفاء الصفحة"
+          show: "إظهار الصفحة"
+          delete: "حذف الصفحة"
+          delete_confirm: "هل أنت متأكد من أنك تريد حذف هذه الصفحة؟"
+          copy_url_to_clipboard: "نسخ الرابط"
+          copy_url_to_clipboard_success: "تم النسخ إلى الحافظة!"
+        new:
+          title: "إنشاء صفحة جديدة"
+          submit_button:
+            default: "إنشاء صفحة"
+            in_progress: "جاري الإنشاء..."
+            success: "تم الإنشاء!"
+            fail: "فشل!"
+          cancel_button: "إلغاء"
+        edit:
+          title: "تعديل صفحة"
+          current_page:
+            title: "تعديل الصفحة الحالية"
+          submit_button:
+            default: "تحديث الصفحة"
+            in_progress: "جاري التحديث..."            
+          cancel_button: "إلغاء"
+        form:
+          tabs:
+            main: "الرئيسية"
+            seo: "تحسين محركات البحث"          
+      sections:
+        add_pane:
+          title: "إضافة قسم"
+        list_pane:
+          title: "تنظيم الأقسام"
+          empty: "لا توجد أقسام."
+          add_button: "إضافة قسم جديد"
+      section_pane:
+        tabs:
+          settings: "المحتوى"
+          blocks: "الكتل"
+          advanced: "متقدم"
+        block_list:
+          add: "إضافة عنصر جديد"
+      section_block_pane:
+        tabs:
+          settings: "المحتوى"
+          blocks: "الكتل"
+          advanced: "متقدم"
+      theme_section_list:
+        empty_category: "لا توجد أقسام"
+      style:
+        edit:
+          title: "تنسيق موقعك"
+          submit_button:
+            default: "تحديث النمط"
+            in_progress: "جاري التحديث..."
+            success: "تم التحديث!"
+            fail: "فشل!"
+      image_input:
+        add_button: "إضافة صورة"
+        replace_button: "استبدال الصورة"
+        clear_button: "مسح"
+        alt_text_placeholder: "نص بديل لمساعدة محركات البحث"
+      image_library:
+        title: "قائمة الصور"
+        picker_title: "اختر صورة"
+        search_placeholder: "البحث عن اسم الملف"
+        pagination:
+          label: "%{start} - %{end} من %{totalItems} صورة"
+          no_items: "لا توجد صور"
+        confirm_destroy: "هل أنت متأكد؟"
+        uploader:
+          wrong_files: "تأكد من أن حجم كل صورة لا يتجاوز %{limit}."
+          upload_button:
+            default: "رفع الصور"
+            in_progress: "جاري الرفع..."            
+      icon_input:
+        add_button: "إضافة أيقونة"
+        replace_button: "استبدال الأيقونة"
+        clear_button: "مسح"
+      icon_library:
+        title: "الأيقونات"
+        picker_title: "اختر أيقونة"
+      link_input:
+        placeholder: "انقر هنا لاختيار رابط"
+        with_nested_text_label: "تمكين النص"
+        nested_text_placeholder: "النص"
+      link_picker:
+        title: "اختر رابط"
+        insert_title: "إدراج رابط"
+        page:
+          name: "الصفحة"
+          input:
+            label: "الصفحة"
+            placeholder: "اختر صفحة"
+            search_placeholder: "البحث..."
+            empty_label: "لم يتم العثور على صفحات"
+          section_input:
+            label: "القسم"
+            placeholder: "اختر قسم"
+            empty_label: "لم يتم اختيار قسم"
+        url:
+          name: "الرابط"
+          input:
+            label: "الرابط"
+        email:
+          name: "البريد الإلكتروني"
+          input:
+            label: "البريد الإلكتروني"
+        shared:
+          main_button:
+            select: "اختر"
+            insert: "أضف"
+          cancel_button: "إلغاء"
+          new_window_input:
+            label: "فتح في نافذة جديدة"
+      collection_item_input:
+        select:
+          placeholder: "اختر عنصر"
+          search_placeholder: "البحث..."
+          empty_label: "لم يتم العثور على عناصر"
+      pagination:
+        default_label: "%{start} - %{end} من %{totalItems} عنصر"
+        default_no_items: "لا شيء"
+      confirmation_button:
+        text: "هل أنت متأكد من تنفيذ هذا الإجراء؟"
+        confirm_button_label: "نعم"
+        cancel_button_label: "لا"
+      error_modals:
+        stale_record:
+          title: "نعتذر 🙇"
+          message: "لم نتمكن من حفظ تغييراتك لأن شخصًا آخر قام بتحديث المحتوى في الوقت نفسه."
+          button: "يرجى إعادة تحميل صفحتك"
+        forbidden:
+          title: "نعتذر 🙇"
+          message: "غير مسموح لك بفعل هذا. تحقق من مديرك."
+          button: "إغلاق"
+      support:
+        human:
+          storage_units:
+            format: "%{number} %{unit}"
+            units:
+              byte:
+                one: "بايت"
+                other: "بايت"
+              kb: "كيلوبايت"
+              mb: "ميجابايت"
+              gb: "جيجابايت"
+      flash:
+        pages:
+          create:
+            error: "فشل!"
+          update:
+            success: "تم الحفظ!"
+            error: "فشل!"
+          destroy:
+            success: "تم الحذف!"     
+        page_clone:
+          create:
+            success: "تم الاستنساخ!"
+        assets:
+          create:
+            success:
+              one: "تم الرفع!"
+              other: "تم رفع %{count} ملف!"
+          destroy:
+            success: "تم حذف %{name}!"
+      placeholders:
+        pages:
+          visible_placeholder: "إظهار/إخفاء النسخة المباشرة من الصفحة"

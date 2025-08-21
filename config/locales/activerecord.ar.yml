@@ -2,9 +2,16 @@ ar:
   activerecord:
     attributes:
       'maglev/page':
+        title: العنوان
         cloned_title: "%{title} نسخة"
-      'maglev/page/paths':
-        value: المسار
+        paths:
+          value: المسار
+        visible: مرئية
+        seo_title: "عنوان ميتا"
+        meta_description: "وصف ميتا"
+        og_title: "og:title"
+        og_description: "og:description"
+        og_image_url: "og:image"
     errors:
       models:
         maglev/page_path:

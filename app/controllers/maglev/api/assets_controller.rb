@@ -6,7 +6,7 @@ module Maglev
       include ::ActiveStorage::SetCurrent
 
       def index
-        @assets = resources.search(
+        @assets = resources.legacy_search(
           params[:query], params[:asset_type], params[:page], params[:per_page]
         )
       end

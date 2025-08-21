@@ -25,6 +25,7 @@ module Maglev::Page::PathConcern
 
     ## callbacks ##
     before_validation { path } # force the initialization of a new path if it doesn't exist
+    after_validation :set_path_errors
     before_save :spawn_redirection, if: :spawn_redirection?
   end
 
@@ -87,6 +88,13 @@ module Maglev::Page::PathConcern
     return if spawn_redirection_disabled?
 
     current_path.persisted? && current_path.will_save_change_to_value?
+  end
+
+  def set_path_errors
+    errors.delete('paths.value')&.each do |message|
+      errors.add(:path, message)
+    end
+    
   end
 end
 # rubocop:enable Style/ClassAndModuleChildren

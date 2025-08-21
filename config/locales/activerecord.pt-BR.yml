@@ -2,9 +2,17 @@
   activerecord:
     attributes:
       'maglev/page':
+        title: Título
         cloned_title: "%{title} CÓPIA"
-      'maglev/page/paths':
-        value: Caminho
+        paths:
+          value: Caminho
+        visible: "Visível"
+        visible_placeholder: "Mostrar/Ocultar a página"
+        seo_title: "Meta título"
+        meta_description: "Meta descrição"
+        og_title: "og:title"
+        og_description: "og:description"
+        og_image_url: "og:image"
     errors:
       models:
         maglev/page_path:

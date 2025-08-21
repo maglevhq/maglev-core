@@ -21,7 +21,7 @@ describe Maglev::GenerateSite do
     it 'sets the same page title for all the locales' do
       subject
       # rubocop:disable Style/StringHashKeys
-      expect(Maglev::Page.pluck(:title_translations)).to eq(
+      expect(Maglev::Page.order(:id).pluck(:title_translations)).to eq(
         [
           { 'en' => 'Home', 'fr' => 'Home' },
           { 'en' => 'About us', 'fr' => 'About us' },

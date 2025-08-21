@@ -28,7 +28,15 @@ module Maglev
 
     ## class methods ##
 
-    def self.search(keyword, type, page = nil, per_page = nil)
+    def self.search(keyword, type)
+      all
+        .optimized
+        .where(keyword.present? ? arel_table[:filename].matches("%#{keyword}%") : nil)
+        .where(arel_table[:content_type].matches("%#{type}%"))
+        .order(created_at: :desc)        
+    end
+
+    def self.legacy_search(keyword, type, page = nil, per_page = nil)
       all
         .optimized
         .where(keyword.present? ? arel_table[:filename].matches("%#{keyword}%") : nil)

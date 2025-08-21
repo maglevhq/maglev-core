@@ -3,6 +3,8 @@
 Rails.application.routes.draw do
   mount Maglev::Engine, as: :maglev, at: '/maglev'
 
+  mount Lookbook::Engine, at: '/lookbook'
+
   # for testing purpose
   get '/simple-assets/:id', to: 'maglev/assets/proxy#show'
 
