@@ -17,10 +17,10 @@
           <button
             v-for="blockType in blockTypes"
             :key="blockType.type"
-            class="mb-2 text-base text-gray-900 py-2 px-14 hover:bg-gray-100 transition-colors"
+            class="mb-2 text-base text-gray-900 py-2 px-14 hover:bg-gray-100 transition-colors text-left"
             @click="addSectionBlockAndClose(blockType.type)"
           >
-            {{ blockType.name }}
+            {{ blockTypeLabel(blockType) }}
           </button>
         </div>
       </template>
@@ -56,6 +56,9 @@ export default {
         )
       else return this.currentSectionDefinition.blocks
     },
+    currentBlockTypesI18nScope() {
+      return `${this.currentSectionI18nScope}.blocks.types`
+    }
   },
   methods: {
     ...mapActions(['addSectionBlock']),
@@ -63,6 +66,9 @@ export default {
       this.addSectionBlock({ blockType })
       this.$refs.dropdown.close()
     },
+    blockTypeLabel(blockType) {
+      return this.$st(`${this.currentBlockTypesI18nScope}.${blockType.type}`) ?? blockType.name
+    }
   },
 }
 </script>

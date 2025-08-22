@@ -34,3 +34,14 @@ en:
   lang:
     en: "English"
     fr: "Français"
+
+  # maglev:
+  #   themes:
+  #     simple:
+  #       sections:
+  #         navbar:
+  #           blocks:
+  #             label: "Menu 🍔"
+  #             types:
+  #               menu_item: "Menu item 🤬"
+  #               alt_menu_item: "Alt Menu item 🍪"

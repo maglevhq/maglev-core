@@ -15,10 +15,10 @@
           <button
             v-for="blockType in blockTypes"
             :key="blockType.type"
-            class="mb-2 text-base text-gray-900 py-2 px-4 hover:bg-gray-100 transition-colors"
+            class="mb-2 text-base text-gray-900 py-2 px-4 hover:bg-gray-100 transition-colors text-left"
             @click="addNestedSectionBlockAndClose(blockType.type)"
           >
-            {{ blockType.name }}
+            {{ blockTypeLabel(blockType) }}
           </button>
         </div>
       </template>
@@ -49,6 +49,9 @@ export default {
         (block) => this.accept.indexOf(block.type) !== -1,
       )
     },
+    currentBlockTypesI18nScope() {
+      return `${this.currentSectionI18nScope}.blocks.types`
+    }
   },
   methods: {
     ...mapActions(['addSectionBlock']),
@@ -61,6 +64,9 @@ export default {
     addNestedSectionBlockAndClose(blockType) {
       this.addSectionBlock({ blockType, parentId: this.parentId })
       this.$refs.dropdown.close()
+    },
+    blockTypeLabel(blockType) {
+      return this.$st(`${this.currentBlockTypesI18nScope}.${blockType.type}`) ?? blockType.name
     },
   },
 }
