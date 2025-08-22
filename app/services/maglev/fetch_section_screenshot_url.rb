@@ -8,7 +8,18 @@ module Maglev
     argument :section
 
     def call
-      fetch_section_screenshot_path.call(section: section) + "?#{section.screenshot_timestamp}"
+      screenshot_path = fetch_section_screenshot_path.call(section: section) + query_string
+      asset_host ? URI.join(asset_host, screenshot_path).to_s : screenshot_path
+    end
+
+    private
+
+    def asset_host
+      Rails.application.config.asset_host
+    end
+
+    def query_string
+      "?#{section.screenshot_timestamp}"
     end
   end
 end

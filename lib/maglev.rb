@@ -29,7 +29,7 @@ module Maglev
         c.uploader = :active_storage
         c.site_publishable = false
         c.preview_host = nil
-        c.asset_host = Rails.application.config.action_controller.asset_host
+        c.asset_host = Rails.application.config.asset_host
         c.ui_locale = nil
         c.back_action = nil
         c.services = {}
