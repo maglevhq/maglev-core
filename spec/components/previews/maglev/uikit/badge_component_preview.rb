@@ -19,6 +19,5 @@ class Maglev::Uikit::BadgeComponentPreview < ViewComponent::Preview
   def with_long_text
     render Maglev::Uikit::BadgeComponent.new(color: :green, icon_name: 'checkbox_circle', class_names: 'w-32').with_content('A very long text, super long')
   end
-
   # @!endgroup
 end

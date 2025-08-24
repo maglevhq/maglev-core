@@ -1,0 +1,9 @@
+<div class="w-96 py-5">
+  <%= render Maglev::Uikit::ListComponent::ListItemComponent.new(link: { url: '#' }) do |item| %>
+    <% item.with_insert_top_button(link: { url: '#' }) %>
+    <% item.with_insert_bottom_button(link: { url: '#' }) %>
+
+    <% item.with_pre_title_content("Jumbotron") %>
+    <% item.with_title_content("Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.") %>
+  <% end %>
+</div>

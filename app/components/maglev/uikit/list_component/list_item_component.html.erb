@@ -1,0 +1,33 @@
+<div class="bg-gray-100 rounded-md px-2 flex text-gray-800 relative">
+  <%= insert_top_button if insert_top_button? %>
+  <%= insert_bottom_button if insert_bottom_button? %>
+
+  <% if handle? %>
+    <div class="flex items-center cursor-move">
+      <%= render Maglev::Uikit::IconComponent.new(name: "draggable") %>
+    </div>
+  <% end %>
+
+  <%= link_to link_url, data: link_data, class: 'flex flex-1 items-center py-3 gap-3 overflow-hidden px-2' do %>
+    <% if image? %>
+      <div class="h-8 w-8 bg-gray-400">
+        <%= image %>
+      </div>
+    <% end %>
+
+    <div class="flex flex-col overflow-hidden">
+      <% if pre_title? %>
+        <div class="text-gray-500 text-xs"><%= pre_title %></div>
+        <div class="text-gray-800 truncate"><%= title %></div>
+      <% else %>
+        <div class="truncate"><%= title %></div>
+      <% end %>
+    </div>
+  <% end %>
+
+  <% if action? %>
+    <div class="relative ml-auto flex items-center shrink-0 min-h-full">
+      <%= action %>
+    </div>
+  <% end %>
+</div>

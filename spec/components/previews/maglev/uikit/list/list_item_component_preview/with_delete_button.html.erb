@@ -1,0 +1,11 @@
+<div class="w-96">
+  <%= render Maglev::Uikit::ListComponent::ListItemComponent.new(link: { url: '#' }) do |item| %>
+    <% item.with_title_content("Item title") %>
+
+    <% item.with_action do %>
+      <%= button_to "#", class: maglev_icon_button_classes, data: { turbo_method: :delete, turbo_confirm: "Are you sure you want to delete this item?" } do %>
+        <%= render Maglev::Uikit::IconComponent.new(name: "delete_bin", size: "1.15rem") %>
+      <% end %>          
+    <% end %>
+  <% end %>
+</div>

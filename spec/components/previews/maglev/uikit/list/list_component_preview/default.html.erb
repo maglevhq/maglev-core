@@ -1,0 +1,7 @@
+<%= render Maglev::Uikit::ListComponent.new do |component| %>
+  <% 10.times do |i| %>
+    <% component.with_item(link: { url: '#' }) do |item| %>
+      <% item.with_title_content("Item #{i}") %>
+    <% end %>
+  <% end %>
+<% end %>

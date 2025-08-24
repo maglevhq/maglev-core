@@ -65,6 +65,19 @@ module Maglev
       ).render(...)
     end
 
+    def maglev_icon_button_classes(...)
+      ClassVariants.build(
+        base: 'h-7 w-7 flex items-center justify-center rounded-full focus:outline-none transition-colors duration-200 cursor-pointer',
+        variants: {
+          dark: 'bg-gray-600 text-gray-200 hover:bg-gray-900 hover:text-gray-100',
+          '!dark': 'bg-gray-600/0 text-gray-800 hover:bg-gray-600/10 hover:text-gray-900'
+        },
+        defaults: {
+          dark: false
+        }
+      ).render(...)
+    end
+
     def maglev_flash_message
       if flash[:notice].present?
         render Maglev::Uikit::BadgeComponent.new(color: :green, icon_name: 'checkbox_circle', disappear_after: 3.seconds).with_content(flash[:notice])
