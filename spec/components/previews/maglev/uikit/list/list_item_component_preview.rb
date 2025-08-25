@@ -20,9 +20,5 @@ class Maglev::Uikit::List::ListItemComponentPreview < ViewComponent::Preview
     render_with_template
   end
 
-  def with_inserting_buttons
-    render_with_template
-  end
-
   # @!endgroup
 end

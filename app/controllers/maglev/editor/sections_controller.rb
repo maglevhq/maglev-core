@@ -1,5 +1,5 @@
 class Maglev::Editor::SectionsController < Maglev::Editor::BaseController
   def index
-    # TODO: list all the sections of the current page
+    @sections = services.get_page_sections.call(page: current_maglev_page)
   end
 end

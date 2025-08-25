@@ -13,6 +13,7 @@ import CopyToClipboardController from "maglev-controllers/copy_to_clipboard_cont
 import TransitionController from "maglev-controllers/transition_controller"
 import DispatcherController from "maglev-controllers/dispatcher_controller"
 import PreventSamePathController from "maglev-controllers/prevent_same_path"
+import SortableController from "maglev-controllers/sortable_controller"
 
 application.register("uikit-dropdown", DropdownController)
 application.register("uikit-tabs", TabsController)
@@ -28,3 +29,4 @@ application.register("copy-to-clipboard", CopyToClipboardController)
 application.register("transition", TransitionController)
 application.register("dispatcher", DispatcherController)
 application.register("prevent-same-path", PreventSamePathController)
+application.register("sortable", SortableController)

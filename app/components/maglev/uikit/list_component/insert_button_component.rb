@@ -1,9 +1,9 @@
 class Maglev::Uikit::ListComponent::InsertButtonComponent < Maglev::Uikit::BaseComponent
-  attr_reader :link, :insert_at
+  attr_reader :link, :index
 
-  def initialize(link:, insert_at:)
+  def initialize(link:, index: nil)
     @link = link
-    @insert_at = insert_at
+    @index = index
   end
 
   def link_url
@@ -14,25 +14,19 @@ class Maglev::Uikit::ListComponent::InsertButtonComponent < Maglev::Uikit::BaseC
     link[:data] || {}
   end
 
-  def top?
-    @insert_at == "top"
-  end
-
-  def bottom?
-    @insert_at == "bottom"
+  def color_class
+    [
+      "bg-gray-500/20",
+      "bg-red-500/20",
+      "bg-blue-500/20",
+      "bg-green-500/20",
+      "bg-yellow-500/20",
+    ][index]
   end
 
   def wrapper_classes(...)
     class_variants(
-      base: "absolute left-0 w-full h-7 group bg-red-500/0 z-10",
-      variants: {
-        top: "-top-5",
-        bottom: "-bottom-5"
-      },
-      defaults: {
-        top: top?,
-        bottom: bottom?
-      }
+      base: "relative w-full h-7 group/button z-10 -mb-4.5 -mt-4.5 group-[.is-dragging]:hidden",
     ).render(...)
   end
 end

@@ -1,0 +1,14 @@
+<div class="py-5 w-96">
+  <%= render Maglev::Uikit::ListComponent.new(sort_path: '#') do |component| %>
+    <% component.with_item_insert_button(link: { url: '#' }, index: 0) %>
+
+    <% 5.times do |i| %>
+      <% component.with_item_content(link: { url: '#' }) do |item| %>
+        <% item.with_handle %>
+        <% item.with_title_content("Item #{i}") %>
+      <% end %>
+
+      <% component.with_item_insert_button(link: { url: '#' }, index: i + 1) %> 
+    <% end %>
+  <% end %>
+</div>

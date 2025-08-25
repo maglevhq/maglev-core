@@ -1,6 +1,7 @@
-<%= render Maglev::Uikit::ListComponent.new do |component| %>
+<%= render Maglev::Uikit::ListComponent.new(sort_path: '#') do |component| %>
   <% 5.times do |i| %>
     <% component.with_item_content(link: { url: '#' }) do |item| %>
+      <% item.with_handle %>
       <% item.with_title_content("Item #{i}") %>
     <% end %>
   <% end %>

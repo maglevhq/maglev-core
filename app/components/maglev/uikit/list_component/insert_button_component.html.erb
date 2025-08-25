@@ -1,8 +1,6 @@
 <div <%= tag.attributes(class: wrapper_classes) %>">
-  <!-- <div class="relative hidden group-hover:block h-0.5 w-full bg-gray-600 top-[calc(theme('spacing[7]')/2+theme('spacing[0.5]')/-2)]"></div> -->
-
-  <div class="absolute top-0 left-0 w-full justify-center flex opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-    <%= link_to link_url, data: link_data, class: "h-7 w-7 flex items-center justify-center rounded-full focus:outline-none transition-colors duration-200 border-4 border-white bg-gray-600 text-gray-200 hover:bg-gray-900 hover:text-gray-100" do %>
+  <div class="absolute top-0 left-0 w-full justify-center flex opacity-0 group-hover/button:opacity-100 transition-opacity duration-200">
+    <%= link_to link_url, data: link_data, class: "h-7 w-7 flex items-center justify-center rounded-full focus:outline-none transition-colors duration-200 border-4 border-white bg-gray-500 text-gray-200 hover:bg-gray-900 hover:text-gray-100" do %>
       <%= render Maglev::Uikit::IconComponent.new(name: "add", size: "1.15rem") %>    
     <% end %>
   </div>

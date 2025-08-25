@@ -1,3 +1,3 @@
-<%= button_tag class: button_classes(dark: dark?, class: options[:class]), data: options[:data], type: 'button' do %>
+<%= button_tag class: button_classes(class: options[:class]), data: options[:data], type: 'button' do %>
   <%= render Maglev::Uikit::IconComponent.new(name: icon_name, size: "1.15rem") %>
 <% end %>

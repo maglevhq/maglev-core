@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# Definition of a section in the theme
+# Don't misunstand it with the content of a section within a page or a site
 module Maglev
   class Section
     include ActiveModel::Model
@@ -80,6 +82,10 @@ module Maglev
 
       def find(id)
         @array.find { |section| section.id == id }
+      end
+
+      def find_all_by_type(type)
+        @array.select { |section| section.id == type }
       end
 
       def grouped_by_category

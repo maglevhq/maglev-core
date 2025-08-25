@@ -1,9 +1,9 @@
-<div class="bg-gray-100 rounded-md px-2 flex text-gray-800 relative">
+<div <%= tag.attributes(class: 'bg-gray-100 rounded-md px-2 flex text-gray-800 relative', data: { sortable_target: 'item', item_id: id }) %>>
   <%= insert_top_button if insert_top_button? %>
   <%= insert_bottom_button if insert_bottom_button? %>
 
   <% if handle? %>
-    <div class="flex items-center cursor-move">
+    <div class="flex items-center cursor-move" data-sortable-target="handle">
       <%= render Maglev::Uikit::IconComponent.new(name: "draggable") %>
     </div>
   <% end %>

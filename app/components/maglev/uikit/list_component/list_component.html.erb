@@ -1,4 +1,4 @@
-<div class="flex flex-col gap-2">
+<div <%= tag.attributes(class: "flex flex-col gap-2 group", data: { controller: "sortable", sortable_path_value: sort_path }) %>>
   <% items.each do |item| %>
     <%= item %>
   <% end %>

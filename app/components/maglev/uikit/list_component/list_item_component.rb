@@ -10,8 +10,13 @@ class Maglev::Uikit::ListComponent::ListItemComponent < Maglev::Uikit::BaseCompo
 
   attr_reader :link
 
-  def initialize(link:)
-    @link = link
+  def initialize(id: nil, link:)
+    @id = id
+    @link = link    
+  end
+
+  def id
+    @id || SecureRandom.uuid
   end
 
   def link_url
