@@ -20,6 +20,10 @@ Metrics/BlockLength:
 Documentation:
   Enabled: false
 
+Lint/MissingSuper:
+  Exclude:
+    - 'app/components/maglev/uikit/**/*.rb'
+
 AllCops:
   TargetRubyVersion: 3.0
   Exclude:

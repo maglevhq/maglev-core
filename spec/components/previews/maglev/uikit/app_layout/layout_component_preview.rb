@@ -1,13 +1,21 @@
-class Maglev::Uikit::AppLayout::LayoutComponentPreview < ViewComponent::Preview
-  layout 'preview_component_full_screen'
+# frozen_string_literal: true
 
-  def default
-    page = Maglev::Page.new(id: 1,title: 'Welcome!', path: 'index')
-    render_with_template(locals: { page: })
-  end
+module Maglev
+  module Uikit
+    module AppLayout
+      class LayoutComponentPreview < ViewComponent::Preview
+        layout 'preview_component_full_screen'
 
-  def without_bottom_actions
-    page = Maglev::Page.new(id: 1,title: 'Welcome!', path: 'index')
-    render_with_template(locals: { page: })
+        def default
+          page = Maglev::Page.new(id: 1, title: 'Welcome!', path: 'index')
+          render_with_template(locals: { page: page })
+        end
+
+        def without_bottom_actions
+          page = Maglev::Page.new(id: 1, title: 'Welcome!', path: 'index')
+          render_with_template(locals: { page: page })
+        end
+      end
+    end
   end
 end

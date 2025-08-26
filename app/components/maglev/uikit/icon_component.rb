@@ -20,7 +20,9 @@ module Maglev
           "<svg xmlns=\"http://www.w3.org/2000/svg\" style=\"#{style}\" class=\"#{final_class_names}\""
         )
 
+        # rubocop:disable Rails/OutputSafety
         styled_svg.html_safe
+        # rubocop:enable Rails/OutputSafety
       end
 
       private
@@ -34,6 +36,7 @@ module Maglev
       end
 
       # Centralized icon definitions
+      # rubocop:disable Layout/LineLength, Naming/VariableNumber
       ICONS = {
         # Remix Icons
         error_warning: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm-1-7v2h2v-2h-2zm0-8v6h2V7h-2z"/></svg>',
@@ -87,6 +90,7 @@ module Maglev
 
         logout: ' <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M5 22a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v3h-2V4H6v16h12v-2h2v3a1 1 0 0 1-1 1H5zm13-6v-3h-7v-2h7V8l5 4-5 4z"/></svg>'
       }.freeze
+      # rubocop:enable Layout/LineLength, Naming/VariableNumber
     end
   end
 end
