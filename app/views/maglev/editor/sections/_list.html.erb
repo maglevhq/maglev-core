@@ -1,6 +1,6 @@
 <div class="py-6">
   <% if @sections.any? %>
-    <%= render Maglev::Uikit::ListComponent.new(sort_form: { path: sort_editor_sections_path(maglev_editing_route_context), data: { turbo_frame: '_top' } }) do |component| %>
+    <%= render Maglev::Uikit::List::ListComponent.new(sort_form: { path: sort_editor_sections_path(maglev_editing_route_context), data: { turbo_frame: '_top' } }) do |component| %>
       <% component.with_item_insert_button(link: { url: new_editor_section_path(maglev_editing_route_context), data: { turbo_frame: '_top' } })%>
       
       <% @sections.each do |section| %>

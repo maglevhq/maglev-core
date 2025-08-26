@@ -5,14 +5,10 @@ module Maglev
     module AppLayout
       module Topbar
         class LogoComponent < ViewComponent::Base
-          attr_reader :page
+          attr_reader :root_path
 
-          def initialize(page:)
-            @page = page
-          end
-
-          def editor_root_path
-            helpers.maglev.editor_real_root_path(locale: I18n.locale, page_id: page.id)
+          def initialize(root_path:)
+            @root_path = root_path
           end
         end
       end

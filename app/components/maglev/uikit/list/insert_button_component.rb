@@ -2,7 +2,7 @@
 
 module Maglev
   module Uikit
-    module ListComponent
+    module List
       class InsertButtonComponent < Maglev::Uikit::BaseComponent
         attr_reader :link, :index
 

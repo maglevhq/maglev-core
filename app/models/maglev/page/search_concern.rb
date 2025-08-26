@@ -4,6 +4,7 @@
 module Maglev::Page::SearchConcern
   extend ActiveSupport::Concern
 
+  # rubocop:disable Metrics/BlockLength
   class_methods do
     def search(keyword, locale, index_first: true)
       title = search_title_node(locale)
@@ -54,5 +55,6 @@ module Maglev::Page::SearchConcern
                                       Arel::Nodes.build_quoted(locale))
     end
   end
+  # rubocop:enable Metrics/BlockLength
 end
 # rubocop:enable Style/ClassAndModuleChildren

@@ -72,35 +72,31 @@ module Maglev
       object.errors.messages_for(method).join(', ')
     end
 
-    module ActionView
-      module Helpers
-        module Tags
-          class Label
-            def complete_attributes
-              options = @options.stringify_keys
-              tag_value = options.delete('value')
-              name_and_id = options.dup
+    # rubocop:disable Style/ClassAndModuleChildren
+    class ActionView::Helpers::Tags::Label
+      def complete_attributes
+        options = @options.stringify_keys
+        tag_value = options.delete('value')
+        name_and_id = options.dup
 
-              if name_and_id['for']
-                name_and_id['id'] = name_and_id['for']
-              else
-                name_and_id.delete('id')
-              end
-
-              add_default_name_and_id_for_value(tag_value, name_and_id)
-              options.delete('index')
-              options.delete('namespace')
-              options['for'] = name_and_id['id'] unless options.key?('for')
-
-              builder = LabelBuilder.new(@template_object, @object_name, @method_name, @object, tag_value)
-
-              content = render_component(builder)
-
-              { content: content }.merge(name_and_id.symbolize_keys)
-            end
-          end
+        if name_and_id['for']
+          name_and_id['id'] = name_and_id['for']
+        else
+          name_and_id.delete('id')
         end
+
+        add_default_name_and_id_for_value(tag_value, name_and_id)
+        options.delete('index')
+        options.delete('namespace')
+        options['for'] = name_and_id['id'] unless options.key?('for')
+
+        builder = LabelBuilder.new(@template_object, @object_name, @method_name, @object, tag_value)
+
+        content = render_component(builder)
+
+        { content: content }.merge(name_and_id.symbolize_keys)
       end
     end
+    # rubocop:enable Style/ClassAndModuleChildren
   end
 end

@@ -1,5 +1,5 @@
 <div class="py-5 w-96">
-  <%= render Maglev::Uikit::ListComponent.new(sort_form: { path: '#' }) do |component| %>
+  <%= render Maglev::Uikit::List::ListComponent.new(sort_form: { path: '#' }) do |component| %>
     <% component.with_item_insert_button(link: { url: '#' }, index: 0) %>
 
     <% 5.times do |i| %>

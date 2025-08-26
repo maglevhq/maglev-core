@@ -1,4 +1,4 @@
-<%= render Maglev::Uikit::ListComponent.new do |component| %>
+<%= render Maglev::Uikit::List::ListComponent.new do |component| %>
   <% 5.times do |i| %>
     <% component.with_item_content(link: { url: '#' }) do |item| %>
       <% item.with_title_content("Item #{i}") %>

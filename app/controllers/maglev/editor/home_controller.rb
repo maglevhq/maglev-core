@@ -20,7 +20,7 @@ module Maglev
       def redirect_to_home_page
         return if params[:page_id].present?
 
-        redirect_to editor_real_root_path(locale: I18n.locale, page_id: home_page.id)
+        redirect_to editor_real_root_path(maglev_editing_route_context(page: home_page))
       end
 
       def home_page

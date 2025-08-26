@@ -23,7 +23,7 @@
     </style>
   </head>
   <body class="h-full overflow-y-hidden font-nunito">
-    <%= render Maglev::Uikit::AppLayout::LayoutComponent.new(page: current_maglev_page) do |layout| %>
+    <%= render Maglev::Uikit::AppLayout::LayoutComponent.new(page: current_maglev_page, root_path: editor_real_root_path(maglev_editing_route_context)) do |layout| %>
       <% layout.with_topbar do |topbar| %>
         <%= render 'layouts/maglev/editor/topbar', topbar: topbar %>
       <% end %>

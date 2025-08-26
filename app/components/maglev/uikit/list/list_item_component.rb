@@ -2,7 +2,7 @@
 
 module Maglev
   module Uikit
-    module ListComponent
+    module List
       class ListItemComponent < Maglev::Uikit::BaseComponent
         renders_one :handle
         renders_one :image
