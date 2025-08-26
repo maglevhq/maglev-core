@@ -1,0 +1,9 @@
+<div class="w-96">
+  <%= render Maglev::Uikit::List::ListItemComponent.new(link: { url: '#' }) do |item| %>
+    <% item.with_big_image do %>
+      <%= image_tag "/images/img-1.jpg", class: item.big_image_classes %>
+    <% end %>
+      
+    <% item.with_title_content('Item label with a long text') %>      
+  <% end %>
+</div>

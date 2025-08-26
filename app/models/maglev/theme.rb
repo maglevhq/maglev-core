@@ -4,7 +4,7 @@ module Maglev
   class Theme
     ## concerns ##
     include ActiveModel::Model
-
+    
     ## attributes ##
     attr_accessor :id, :name, :description, :section_categories, :sections, :style_settings, :pages, :icons
 
@@ -12,6 +12,11 @@ module Maglev
     validates :id, :name, presence: true
 
     ## methods ##
+
+    def initialize(...)
+      super
+      attach_theme_to_associations
+    end
 
     def find_setting!(section_id, block_id, setting_id)
       setting = find_setting(section_id, block_id, setting_id)
@@ -46,6 +51,10 @@ module Maglev
       settings.each do |setting|
         hash["#{parent_key}.#{setting.id}"] = setting
       end
+    end
+
+    def attach_theme_to_associations
+      section_categories&.each { |category| category.theme = self }
     end
   end
 end

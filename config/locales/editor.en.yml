@@ -205,6 +205,9 @@ en:
           sort:
             success: 'Sorted!'
             error: 'Failed!'
+          create:
+            success: "Added!"
+            error: "Failed!"
           destroy:
             success: "Deleted!"
             error: "Failed!"

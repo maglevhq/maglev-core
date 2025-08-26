@@ -1,18 +1,19 @@
-<div <%= tag.attributes(class: 'bg-gray-100 rounded-md px-2 flex text-gray-800 relative', data: { sortable_target: 'item', item_id: id }) %>>
-  <%= insert_top_button if insert_top_button? %>
-  <%= insert_bottom_button if insert_bottom_button? %>
-
+<div <%= tag.attributes(class: wrapper_classes, data: { sortable_target: 'item', item_id: id }) %>>
   <% if handle? %>
     <div class="flex items-center cursor-move" data-sortable-target="handle">
       <%= render Maglev::Uikit::IconComponent.new(name: "draggable") %>
     </div>
   <% end %>
 
-  <%= link_to link_url, data: link_data, class: 'flex flex-1 items-center py-3 gap-3 overflow-hidden px-2' do %>
+  <%= link_to link_url, data: link_data, class: link_classes do %>
     <% if image? %>
       <div class="h-8 w-8 bg-gray-400">
         <%= image %>
       </div>
+    <% end %>
+
+    <% if big_image? %>
+      <%= big_image %>      
     <% end %>
 
     <div class="flex flex-col overflow-hidden">

@@ -6,7 +6,12 @@ class Maglev::Theme::SectionCategory
   include ActiveModel::Model
 
   ## attributes ##
-  attr_accessor :name, :id
+  attr_accessor :name, :id, :theme
+
+  ## methods ##
+  def human_name
+    I18n.t("maglev.themes.#{theme.id}.categories.#{id}.name", default: name.humanize)
+  end
 
   ## class methods ##
 

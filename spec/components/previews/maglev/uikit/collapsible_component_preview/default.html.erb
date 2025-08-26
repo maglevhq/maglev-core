@@ -1,0 +1,11 @@
+<%= render Maglev::Uikit::Collapsible::CollapsibleComponent.new do |collapsible| %>
+  <% 10.times.each do |i| %>
+    <% collapsible.with_item do |item| %>
+      <% item.with_title_content "Title #{i}" %>
+      
+      <% (i + 1).times do %>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>

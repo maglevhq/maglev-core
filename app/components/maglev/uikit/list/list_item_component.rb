@@ -6,22 +6,17 @@ module Maglev
       class ListItemComponent < Maglev::Uikit::BaseComponent
         renders_one :handle
         renders_one :image
+        renders_one :big_image
         renders_one :pre_title
         renders_one :title
         renders_one :action
 
-        renders_one :insert_top_button, lambda { |link:|
-          Maglev::Uikit::ListComponent::InsertButtonComponent.new(link: link, insert_at: 'top')
-        }
-        renders_one :insert_bottom_button, lambda { |link:|
-          Maglev::Uikit::ListComponent::InsertButtonComponent.new(link: link, insert_at: 'bottom')
-        }
-
         attr_reader :link
 
-        def initialize(link:, id: nil)
+        def initialize(id: nil, link:, wrapper_classes: nil)
           @id = id
           @link = link
+          @custom_wrapper_classes = wrapper_classes
         end
 
         def id
@@ -36,9 +31,36 @@ module Maglev
           link[:data] || {}
         end
 
+        def wrapper_classes
+          class_variants(
+            base: 'bg-gray-100 rounded-md px-2 flex text-gray-800'
+          ).render(class: @custom_wrapper_classes)
+        end
+
+        def link_classes
+          class_variants(
+            base: 'flex flex-1 py-3 gap-3 overflow-hidden px-2',
+            variants: {
+              disposition: {
+                row: 'flex-row items-center',
+                col: 'flex-col'
+              }
+            },
+            default: {
+              disposition: :col
+            }
+          ).render(disposition: big_image? ? :col : :row)
+        end
+
         def image_classes(...)
           class_variants(
             base: 'object-cover w-full h-full'
+          ).render(...)
+        end
+
+        def big_image_classes(...)
+          class_variants(
+            base: 'w-full'
           ).render(...)
         end
       end

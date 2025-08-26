@@ -29,7 +29,8 @@ module Maglev
           variants: {
             color: {
               green: 'bg-green-100 text-green-700',
-              red: 'bg-red-100 text-red-700'
+              red: 'bg-red-100 text-red-700',
+              gray: 'bg-gray-100 text-gray-700'
             }
           }
         ).render(**args, class: class_names)

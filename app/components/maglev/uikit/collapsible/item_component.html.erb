@@ -1,0 +1,17 @@
+<div class="space-y-3 group is-collapsed" data-uikit-collapsible-target="item">
+  <div class="flex items-center cursor-pointer select-none px-3 py-3 bg-editor-primary text-white rounded-xs" data-action="click->uikit-collapsible#toggle">
+    <div class="flex items-center"><%= title %></div>
+
+    <div class="ml-auto">
+      <%= render Maglev::Uikit::IconComponent.new(name: :arrow_down, size: '1.15rem', class_names: 'transition-transform duration-200 rotate-180 group-[.is-collapsed]:rotate-0') %>
+    </div>
+  </div>
+
+  <div
+    class="grid grid-rows-[1fr] pb-3 opacity-100 overflow-hidden transition-all duration-100 ease-in-out group-[.is-collapsed]:grid-rows-[0fr] group-[.is-collapsed]:opacity-0 group-[.is-collapsed]:pb-0"
+  >
+    <div class="overflow-hidden">
+      <%= content %>
+    </div>
+  </div>
+</div>
