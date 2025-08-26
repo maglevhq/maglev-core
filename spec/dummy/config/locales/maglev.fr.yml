@@ -1,0 +1,7 @@
+fr:
+  maglev:
+    themes:
+      simple:
+        sections:
+          jumbotron: 
+            type: "Jumbotron [FR]"

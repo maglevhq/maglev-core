@@ -5,12 +5,13 @@ module Maglev::Page::SearchConcern
   extend ActiveSupport::Concern
 
   class_methods do
-    def search(keyword, locale, index_first: true)      
+    def search(keyword, locale, index_first: true)
       title = search_title_node(locale)
-      query = all.select(select_clause(title, index_first)).distinct.joins(:paths).order(order_clause(title, index_first))
-      
+      query = all.select(select_clause(title,
+                                       index_first)).distinct.joins(:paths).order(order_clause(title, index_first))
+
       return query if keyword.blank?
-      
+
       matching = "%#{keyword}%"
 
       query.where(
@@ -24,15 +25,15 @@ module Maglev::Page::SearchConcern
 
     def select_clause(title, index_first)
       [
-        Maglev::Page.arel_table[Arel.star],        
+        Maglev::Page.arel_table[Arel.star],
         title,
-        index_first ? Maglev::PagePath.arel_table[:value].eq('index').as('is_index') : nil,
+        index_first ? Maglev::PagePath.arel_table[:value].eq('index').as('is_index') : nil
       ].compact
     end
 
     def order_clause(title, index_first)
       [
-        index_first ? 'is_index DESC' : nil, 
+        index_first ? 'is_index DESC' : nil,
         title.asc
       ].compact
     end

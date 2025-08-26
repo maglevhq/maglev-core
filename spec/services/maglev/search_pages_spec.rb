@@ -3,7 +3,9 @@
 require 'rails_helper'
 
 describe Maglev::SearchPages do
-  subject { service.call(id: page_id, q: q, content_locale: content_locale, default_locale: default_locale, index_first: true) }
+  subject do
+    service.call(id: page_id, q: q, content_locale: content_locale, default_locale: default_locale, index_first: true)
+  end
 
   let(:site) { create(:site) }
   let(:fetch_site) { double('FetchSite', call: site) }

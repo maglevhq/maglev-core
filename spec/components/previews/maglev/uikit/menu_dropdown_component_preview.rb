@@ -1,9 +1,15 @@
-class Maglev::Uikit::MenuDropdownComponentPreview < ViewComponent::Preview
-  def default
-    render_with_template
-  end
+# frozen_string_literal: true
 
-  def custom_button
-    render_with_template
+module Maglev
+  module Uikit
+    class MenuDropdownComponentPreview < ViewComponent::Preview
+      def default
+        render_with_template
+      end
+
+      def custom_button
+        render_with_template
+      end
+    end
   end
 end

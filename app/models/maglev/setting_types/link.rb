@@ -9,5 +9,9 @@ class Maglev::SettingTypes::Link < Maglev::SettingTypes::Base
       { text: 'Link', link_type: 'url', href: '#' }.merge(value.symbolize_keys)
     end
   end
+
+  def content_label(value)
+    value&.fetch(:text, nil)
+  end
 end
 # rubocop:enable Style/ClassAndModuleChildren

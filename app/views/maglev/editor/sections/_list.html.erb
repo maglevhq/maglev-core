@@ -1,0 +1,32 @@
+<div class="py-6">
+  <% if @sections.any? %>
+    <%= render Maglev::Uikit::ListComponent.new(sort_form: { path: sort_editor_sections_path(maglev_editing_route_context), data: { turbo_frame: '_top' } }) do |component| %>
+      <% component.with_item_insert_button(link: { url: new_editor_section_path(maglev_editing_route_context), data: { turbo_frame: '_top' } })%>
+      
+      <% @sections.each do |section| %>
+        <% component.with_item_content(id: section.id,link: { url: edit_editor_section_path(section.id, maglev_editing_route_context), data: { turbo_frame: '_top' } }) do |item| %>
+          <% item.with_handle %>
+
+          <% if section.label? %>
+            <% item.with_pre_title_content(section.type_name) %>
+            <% item.with_title_content(section.label) %>
+          <% else %>
+            <% item.with_title_content(section.type_name) %>
+          <% end %>
+
+          <% item.with_action do %>
+            <%= button_to editor_section_path(section.id, maglev_editing_route_context), method: :delete, class: maglev_icon_button_classes, data: { turbo_confirm: t('maglev.editor.sections.list_pane.confirm_delete') } do %>
+              <%= render Maglev::Uikit::IconComponent.new(name: "delete_bin", size: "1.15rem") %>
+            <% end %>
+          <% end %>
+        <% end %>
+        
+        <% component.with_item_insert_button(link: { url: new_editor_section_path(maglev_editing_route_context), data: { turbo_frame: '_top' } }) %> 
+      <% end %>
+    <% end %>
+  <% else %>
+    <p class="text-center mt-8 text-gray-800">
+      <%= t('maglev.editor.sections.list_pane.empty') %>
+    </p>
+  <% end %>
+</div>

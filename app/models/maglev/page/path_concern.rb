@@ -94,7 +94,6 @@ module Maglev::Page::PathConcern
     errors.delete('paths.value')&.each do |message|
       errors.add(:path, message)
     end
-    
   end
 end
 # rubocop:enable Style/ClassAndModuleChildren

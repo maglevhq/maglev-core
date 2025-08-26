@@ -1,11 +1,19 @@
-class Maglev::Uikit::AppLayout::TopbarComponent < ViewComponent::Base
-  renders_one :logo, ->() { Maglev::Uikit::AppLayout::Topbar::LogoComponent.new(page: page) }
-  renders_one :page_info
-  renders_one :actions
+# frozen_string_literal: true
 
-  attr_reader :page
+module Maglev
+  module Uikit
+    module AppLayout
+      class TopbarComponent < ViewComponent::Base
+        renders_one :logo, -> { Maglev::Uikit::AppLayout::Topbar::LogoComponent.new(page: page) }
+        renders_one :page_info
+        renders_one :actions
 
-  def initialize(page:)
-    @page = page
+        attr_reader :page
+
+        def initialize(page:)
+          @page = page
+        end
+      end
+    end
   end
 end

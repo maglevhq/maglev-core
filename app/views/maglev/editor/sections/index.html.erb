@@ -1,19 +1,9 @@
 <% content_for :drawer do %>
   <%= render Maglev::Uikit::PageLayoutComponent.new(back_path: editor_real_root_path(maglev_editing_route_context)) do |page_layout| %>
     <% page_layout.with_title_content t('maglev.editor.sections.list_pane.title') %>
+    <% page_layout.with_description_content t('maglev.editor.sections.list_pane.sub_title') %>
+    <% page_layout.with_notification_content maglev_flash_message %>
 
-    <pre><%= @sections %></pre>
-    <pre><%= maglev_theme %></pre>
-
-    <%= render Maglev::Uikit::ListComponent.new(sort_path: '#') do |component| %>
-      <% component.with_item_insert_button(link: { url: '#' }) %>
-      <% @sections.each do |section| %>
-        <% component.with_item_content(link: { url: '#' }) do |item| %>
-          <% item.with_handle %>
-          <% item.with_title_content(maglev_theme.find_section_displayed_label(section)) %>
-        <% end %>
-        <% component.with_item_insert_button(link: { url: '#' }) %> 
-      <% end %>
-    <% end %>
+    <%= render 'list' %>
   <% end %>
 <% end %>

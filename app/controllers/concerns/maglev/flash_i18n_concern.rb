@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Maglev
   module FlashI18nConcern
     private

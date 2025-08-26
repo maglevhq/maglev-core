@@ -1,23 +1,31 @@
-class Maglev::Uikit::Form::TextareaComponent < ViewComponent::Base
-  attr_reader :label, :name, :value, :rows, :max_length
+# frozen_string_literal: true
 
-  def initialize(label:, name:, value:, rows: 2, max_length: nil)
-    @label = label
-    @name = name
-    @value = value
-    @rows = rows
-    @max_length = max_length
-  end
+module Maglev
+  module Uikit
+    module Form
+      class TextareaComponent < ViewComponent::Base
+        attr_reader :label, :name, :value, :rows, :max_length
 
-  def dom_id
-    name.to_s.parameterize.underscore
-  end
+        def initialize(label:, name:, value:, rows: 2, max_length: nil)
+          @label = label
+          @name = name
+          @value = value
+          @rows = rows
+          @max_length = max_length
+        end
 
-  def num_characters
-    value.to_s.length
-  end
+        def dom_id
+          name.to_s.parameterize.underscore
+        end
 
-  def max_length?
-    max_length.present?
+        def num_characters
+          value.to_s.length
+        end
+
+        def max_length?
+          max_length.present?
+        end
+      end
+    end
   end
 end

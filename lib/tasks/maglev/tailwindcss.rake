@@ -2,7 +2,7 @@
 
 namespace :maglev do
   namespace :tailwindcss do
-    desc "Generate Tailwind CSS classes from component files"
+    desc 'Generate Tailwind CSS classes from component files'
     task build: :environment do
       command_path = Maglev::Engine.root.join('exe', 'tailwind-cli')
       input_path = Maglev::Engine.root.join('app/assets/stylesheets/maglev/tailwind.css')
@@ -11,7 +11,7 @@ namespace :maglev do
       system "#{command_path} -i #{input_path} -o #{output_path}"
     end
 
-    desc "Watch for changes in component files and rebuild Tailwind CSS"
+    desc 'Watch for changes in component files and rebuild Tailwind CSS'
     task watch: :environment do
       command_path = Maglev::Engine.root.join('exe', 'tailwind-cli')
       input_path = Maglev::Engine.root.join('app/assets/stylesheets/maglev/tailwind.css')

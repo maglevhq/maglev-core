@@ -1,4 +1,6 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
+
 # This is a wrapper for the tailwindcss-ruby gem to make it easier to use in the Maglev CMS.
 # Source: https://github.com/flavorjones/tailwindcss-ruby
 
@@ -9,7 +11,7 @@ gemfile do
   gem 'tailwindcss-ruby', '~> 4.1', '>= 4.1.11'
 end
 
-require "tailwindcss/ruby"
+require 'tailwindcss/ruby'
 
 begin
   command = [Tailwindcss::Ruby.executable, *ARGV]
@@ -22,6 +24,6 @@ begin
     exec(*command)
   end
 rescue Tailwindcss::Ruby::UnsupportedPlatformException, Tailwindcss::Ruby::ExecutableNotFoundException => e
-  STDERR.puts("ERROR: " + e.message)
+  warn("ERROR: #{e.message}")
   exit 1
 end

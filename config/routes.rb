@@ -51,8 +51,10 @@ Maglev::Engine.routes.draw do
       resources :pages do
         resource :clone, controller: :page_clone, only: :create
       end
-      resources :sections      
-    end    
+      resources :sections do
+        put :sort, on: :collection
+      end
+    end
 
     resources :assets, only: %i[index create destroy]
   end

@@ -1,18 +1,26 @@
-class Maglev::Uikit::Form::CheckboxComponent < ViewComponent::Base
-  attr_reader :label, :name, :placeholder
+# frozen_string_literal: true
 
-  def initialize(label:, name:, checked: false, placeholder: nil)
-    @label = label
-    @name = name
-    @checked = checked    
-    @placeholder = placeholder
-  end
+module Maglev
+  module Uikit
+    module Form
+      class CheckboxComponent < ViewComponent::Base
+        attr_reader :label, :name, :placeholder
 
-  def checked?
-    @checked
-  end
+        def initialize(label:, name:, checked: false, placeholder: nil)
+          @label = label
+          @name = name
+          @checked = checked
+          @placeholder = placeholder
+        end
 
-  def dom_id
-    name.to_s.parameterize.underscore
+        def checked?
+          @checked
+        end
+
+        def dom_id
+          name.to_s.parameterize.underscore
+        end
+      end
+    end
   end
 end

@@ -1,12 +1,18 @@
-class Maglev::Uikit::PageLayoutComponent < Maglev::Uikit::BaseComponent
-  renders_one :title
-  renders_one :description
-  renders_one :notification
-  renders_one :footer
-  
-  attr_reader :back_path
+# frozen_string_literal: true
 
-  def initialize(back_path: nil)
-    @back_path = back_path
+module Maglev
+  module Uikit
+    class PageLayoutComponent < Maglev::Uikit::BaseComponent
+      renders_one :title
+      renders_one :description
+      renders_one :notification
+      renders_one :footer
+
+      attr_reader :back_path
+
+      def initialize(back_path: nil)
+        @back_path = back_path
+      end
+    end
   end
 end

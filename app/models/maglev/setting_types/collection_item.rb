@@ -6,8 +6,12 @@ class Maglev::SettingTypes::CollectionItem < Maglev::SettingTypes::Base
     if value.is_a?(String)
       { id: value }
     else
-      value
+      value.symbolize_keys
     end
+  end
+
+  def content_label(value)
+    value&.fetch(:label, nil)
   end
 end
 # rubocop:enable Style/ClassAndModuleChildren

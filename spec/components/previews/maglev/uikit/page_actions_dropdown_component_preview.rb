@@ -1,27 +1,33 @@
-class Maglev::Uikit::PageActionsDropdownComponentPreview < ViewComponent::Preview
-  def default
-    render(Maglev::Uikit::PageActionsDropdownComponent.new(
-      paths: paths,
-      live_url: 'https://www.google.com'
-    ))
-  end
+# frozen_string_literal: true
 
-  def without_some_actions
-    render(Maglev::Uikit::PageActionsDropdownComponent.new(
-      paths: paths,
-      live_url: 'https://www.google.com',
-      without_actions: [:delete]
-    ))
-  end
+module Maglev
+  module Uikit
+    class PageActionsDropdownComponentPreview < ViewComponent::Preview
+      def default
+        render(Maglev::Uikit::PageActionsDropdownComponent.new(
+                 paths: paths,
+                 live_url: 'https://www.google.com'
+               ))
+      end
 
-  private
+      def without_some_actions
+        render(Maglev::Uikit::PageActionsDropdownComponent.new(
+                 paths: paths,
+                 live_url: 'https://www.google.com',
+                 without_actions: [:delete]
+               ))
+      end
 
-  def paths
-    {
-      edit: '#',
-      clone: '#',
-      delete: '#',
-      update: '#'
-    }
+      private
+
+      def paths
+        {
+          edit: '#',
+          clone: '#',
+          delete: '#',
+          update: '#'
+        }
+      end
+    end
   end
 end

@@ -25,6 +25,16 @@ module Maglev::SectionsConcern
     sections.select { |section| section['type'] == type }
   end
 
+  def reorder_sections(section_ids)
+    sections_translations_will_change!
+    sections.sort! { |a, b| section_ids.index(a['id']) <=> section_ids.index(b['id']) }
+  end
+
+  def delete_section(section_id)
+    sections_translations_will_change!
+    sections.delete_if { |section| section['id'] == section_id }
+  end
+
   private
 
   def prepare_section(theme, section)

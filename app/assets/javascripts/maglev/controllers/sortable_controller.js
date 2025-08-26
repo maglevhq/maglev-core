@@ -1,9 +1,8 @@
 import { Controller } from "@hotwired/stimulus"
-import { FetchRequest } from '@rails/request.js'
 import { Sortable, Plugins } from "@shopify/draggable"
 
 export default class extends Controller {
-  static targets = ["item"]
+  static targets = ["item", "sortableForm"]
   static values = { path: String }
 
   connect() {
@@ -30,13 +29,15 @@ export default class extends Controller {
   }
 
   onSorted() {
-    const formData = new FormData()
     this.itemTargets.forEach(item => {  
-      formData.append('item_ids[]', item.dataset.itemId)
+      const hiddenField = document.createElement('input')
+      hiddenField.type = 'hidden'
+      hiddenField.name = 'item_ids[]'
+      hiddenField.value = item.dataset.itemId
+      this.sortableFormTarget.appendChild(hiddenField)
     })
     
-    const request = new FetchRequest('put', this.pathValue, { body: formData })
-    return request.perform()
+    this.sortableFormTarget.requestSubmit()
   }
 
   disconnect() {

@@ -26,4 +26,18 @@ describe Maglev::SettingTypes::Link do
       it { is_expected.to eq(nil) }
     end
   end
+
+  describe '#content_label' do
+    subject { instance.content_label(value) }
+
+    describe 'value is nil' do
+      let(:value) { nil }
+      it { is_expected.to eq nil }
+    end
+
+    describe 'value is a hash' do
+      let(:value) { { text: 'Hello' } }
+      it { is_expected.to eq 'Hello' }
+    end
+  end
 end

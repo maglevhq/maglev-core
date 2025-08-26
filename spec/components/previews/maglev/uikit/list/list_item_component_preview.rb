@@ -1,24 +1,32 @@
-class Maglev::Uikit::List::ListItemComponentPreview < ViewComponent::Preview
-  # @!group Variants
-  def default
-    render_with_template
-  end
+# frozen_string_literal: true
 
-  def with_pre_title
-    render_with_template
-  end
+module Maglev
+  module Uikit
+    module List
+      class ListItemComponentPreview < ViewComponent::Preview
+        # @!group Variants
+        def default
+          render_with_template
+        end
 
-  def with_image
-    render_with_template
-  end
+        def with_pre_title
+          render_with_template
+        end
 
-  def with_delete_button
-    render_with_template
-  end
+        def with_image
+          render_with_template
+        end
 
-  def with_handle
-    render_with_template
-  end
+        def with_delete_button
+          render_with_template
+        end
 
-  # @!endgroup
+        def with_handle
+          render_with_template
+        end
+
+        # @!endgroup
+      end
+    end
+  end
 end

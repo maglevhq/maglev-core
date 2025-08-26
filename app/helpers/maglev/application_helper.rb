@@ -5,7 +5,7 @@ require 'vite_rails/tag_helpers'
 
 module Maglev
   module ApplicationHelper
-    def maglev_importmap_tags(entry_point = "editor")
+    def maglev_importmap_tags(entry_point = 'editor')
       safe_join [
         javascript_inline_importmap_tag(Maglev::Engine.importmap.to_json(resolver: self)),
         javascript_importmap_module_preload_tags(Maglev::Engine.importmap),
@@ -67,15 +67,17 @@ module Maglev
 
     def maglev_icon_button_classes(...)
       ClassVariants.build(
-        base: 'h-7 w-7 flex items-center justify-center rounded-full focus:outline-none transition-colors duration-200 cursor-pointer bg-gray-600/0 text-gray-800 hover:bg-gray-600/10 hover:text-gray-900',
+        base: 'h-7 w-7 flex items-center justify-center rounded-full focus:outline-none transition-colors duration-200 cursor-pointer bg-gray-600/0 text-gray-800 hover:bg-gray-600/10 hover:text-gray-900'
       ).render(...)
     end
 
     def maglev_flash_message
       if flash[:notice].present?
-        render Maglev::Uikit::BadgeComponent.new(color: :green, icon_name: 'checkbox_circle', disappear_after: 3.seconds).with_content(flash[:notice])
+        render Maglev::Uikit::BadgeComponent.new(color: :green, icon_name: 'checkbox_circle',
+                                                 disappear_after: 3.seconds).with_content(flash[:notice])
       elsif flash[:error].present?
-        render Maglev::Uikit::BadgeComponent.new(color: :red, icon_name: 'error_warning', disappear_after: 3.seconds).with_content(flash[:error])
+        render Maglev::Uikit::BadgeComponent.new(color: :red, icon_name: 'error_warning',
+                                                 disappear_after: 3.seconds).with_content(flash[:error])
       end
     end
 

@@ -72,20 +72,20 @@ Rails.application.configure do
   # ViewComponent configuration
   config.view_component.previews.controller = 'ComponentPreviewController'
   config.view_component.previews.default_layout = 'preview_component'
-  config.view_component.previews.paths = [File.expand_path("#{Rails.root}/../../spec/components/previews/")]
+  config.view_component.previews.paths = [File.expand_path(Rails.root.join('../../spec/components/previews/').to_s)]
 
   # Lookbook configuration
-  config.lookbook.project_name = "Maglev UIKit"
+  config.lookbook.project_name = 'Maglev UIKit'
   config.lookbook.listen_paths << File.expand_path("#{Maglev::Engine.root}/app/components/maglev/uikit")
-  config.lookbook.listen_extensions = ["js", "css"]
-  config.lookbook.preview_paths = [File.expand_path("#{Rails.root}/../../spec/components/previews")]
+  config.lookbook.listen_extensions = %w[js css]
+  config.lookbook.preview_paths = [File.expand_path(Rails.root.join('../../spec/components/previews').to_s)]
   config.lookbook.preview_display_options = {
     theme: [
-      ["Default", "default"]
+      %w[Default default]
     ],
     lang: [
-      ["English", "en"],
-      ["French", "fr"]
+      %w[English en],
+      %w[French fr]
     ]
   }
 end

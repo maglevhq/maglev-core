@@ -45,7 +45,7 @@ gem 'view_component'
 gem 'lookbook'
 
 # Use ESM with importmap to manage modern JavaScript in Rails without transpiling or bundling.
-gem "importmap-rails", "~> 2.2"
+gem 'importmap-rails', '~> 2.2'
 
 group :development, :test do
   gem 'bcrypt'
@@ -66,7 +66,7 @@ group :development, :test do
   gem 'rdoc', '>= 6.6.3.1'
 
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
-  gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
+  gem 'debug', platforms: %i[mri windows], require: 'debug/prelude'
 end
 
 group :test do
@@ -75,5 +75,5 @@ end
 
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
-  gem "web-console"
+  gem 'web-console'
 end

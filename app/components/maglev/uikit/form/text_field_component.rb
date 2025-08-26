@@ -1,16 +1,24 @@
-class Maglev::Uikit::Form::TextFieldComponent < ViewComponent::Base
-  attr_reader :label, :name, :value, :hint, :placeholder, :error
+# frozen_string_literal: true
 
-  def initialize(label:, name:, value: nil, placeholder: nil, error: nil)
-    @label = label
-    @name = name
-    @value = value
-    @hint = hint
-    @placeholder = placeholder
-    @error = error
-  end
+module Maglev
+  module Uikit
+    module Form
+      class TextFieldComponent < ViewComponent::Base
+        attr_reader :label, :name, :value, :hint, :placeholder, :error
 
-  def dom_id
-    name.to_s.parameterize.underscore
+        def initialize(label:, name:, value: nil, placeholder: nil, error: nil)
+          @label = label
+          @name = name
+          @value = value
+          @hint = hint
+          @placeholder = placeholder
+          @error = error
+        end
+
+        def dom_id
+          name.to_s.parameterize.underscore
+        end
+      end
+    end
   end
 end

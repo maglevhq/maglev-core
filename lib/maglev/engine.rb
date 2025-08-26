@@ -50,7 +50,7 @@ module Maglev
       @importmap ||= Importmap::Map.new
     end
 
-    initializer "maglev.importmap" do |app|
+    initializer 'maglev.importmap' do |app|
       Engine.importmap.draw(Engine.root.join('config/importmap.rb'))
 
       app.config.assets.paths << Engine.root.join('app/components')
@@ -60,9 +60,9 @@ module Maglev
 
       if (Rails.env.development? || Rails.env.test?) && !app.config.cache_classes
         Engine.importmap.cache_sweeper(watches: [
-          Engine.root.join("app/assets/javascripts"),
-          Engine.root.join("app/components")
-        ])
+                                         Engine.root.join('app/assets/javascripts'),
+                                         Engine.root.join('app/components')
+                                       ])
 
         ActiveSupport.on_load(:action_controller_base) do
           before_action { Engine.importmap.cache_sweeper.execute_if_updated }

@@ -825,6 +825,9 @@
   .gap-2 {
     gap: calc(var(--spacing) * 2);
   }
+  .gap-2\.5 {
+    gap: calc(var(--spacing) * 2.5);
+  }
   .gap-3 {
     gap: calc(var(--spacing) * 3);
   }

@@ -1,16 +1,30 @@
-class Maglev::Uikit::ListComponent < Maglev::Uikit::BaseComponent 
-  renders_many :items, types: {
-    content: Maglev::Uikit::ListComponent::ListItemComponent,
-    insert_button: Maglev::Uikit::ListComponent::InsertButtonComponent
-  }
+# frozen_string_literal: true
 
-  attr_reader :sort_path
-  
-  def initialize(sort_path: nil)
-    @sort_path = sort_path
-  end
+module Maglev
+  module Uikit
+    class ListComponent < Maglev::Uikit::BaseComponent
+      renders_many :items, types: {
+        content: Maglev::Uikit::ListComponent::ListItemComponent,
+        insert_button: Maglev::Uikit::ListComponent::InsertButtonComponent
+      }
 
-  def sortable?
-    sort_path.present?
+      attr_reader :sort_form
+
+      def initialize(sort_form: nil)
+        @sort_form = sort_form
+      end
+
+      def sort_form_path
+        sort_form&.fetch(:path)
+      end
+
+      def sort_form_data
+        { sortable_target: 'sortableForm' }.merge(sort_form[:data] || {})
+      end
+
+      def sortable?
+        sort_form_path.present?
+      end
+    end
   end
 end

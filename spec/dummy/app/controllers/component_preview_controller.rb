@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ComponentPreviewController < ApplicationController
   include ViewComponent::PreviewActions
   include Maglev::ServicesConcern

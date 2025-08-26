@@ -73,8 +73,10 @@ en:
           title: "Add a section"
         list_pane:
           title: "Organize sections"
+          sub_title: "Re-order / delete the sections of the page"
           empty: "There are no sections."
           add_button: "Add a new section"
+          confirm_delete: "Are you sure you want to delete it?"
       section_pane:
         tabs:
           settings: "Content"
@@ -199,6 +201,13 @@ en:
         page_clone:
           create:
             success: "Cloned!"
+        sections:
+          sort:
+            success: 'Sorted!'
+            error: 'Failed!'
+          destroy:
+            success: "Deleted!"
+            error: "Failed!"
         assets:
           create:
             success:
