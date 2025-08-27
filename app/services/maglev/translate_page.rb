@@ -79,6 +79,8 @@ module Maglev
         translate_text(value)
       when 'link'
         value.merge(text: translate_text(value['text'])) if value.is_a?(Hash)
+      when 'image'
+        value.merge(alt: translate_text(value['alt'])) if value.is_a?(Hash)
       else
         value
       end
