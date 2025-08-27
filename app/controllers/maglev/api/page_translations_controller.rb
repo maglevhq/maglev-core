@@ -11,8 +11,8 @@ module Maglev
 
       def translate_page(page)
         services.translate_page.call(
-          page: page, 
-          locale: params[:locale], 
+          page: page,
+          locale: params[:locale],
           source_locale: maglev_site.default_locale_prefix.to_s
         )
       end
