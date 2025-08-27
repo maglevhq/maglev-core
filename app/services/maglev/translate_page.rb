@@ -1,0 +1,93 @@
+# frozen_string_literal: true
+
+module Maglev
+  # Translate a page into a given locale from a source locale.
+  # This is a fake service that only copies the page attributes.
+  class TranslatePage
+    include Injectable
+
+    dependency :fetch_theme
+
+    argument :page
+    argument :locale
+    argument :source_locale
+
+    def call
+      return nil unless page.persisted?
+
+      translate_page!
+    end
+
+    protected
+
+    def theme
+      fetch_theme.call
+    end
+
+    def translate_page!
+      translate_page_attributes
+      translate_sections
+
+      page.save!
+
+      page
+    end
+
+    def translate_page_attributes
+      page.title_translations[locale] = translate_text(page.title_translations[source_locale])
+      page.seo_title_translations[locale] = translate_text(page.seo_title_translations[source_locale])
+      page.meta_description_translations[locale] = translate_text(page.meta_description_translations[source_locale])
+      page.og_title_translations[locale] = translate_text(page.og_title_translations[source_locale])
+      page.og_description_translations[locale] = translate_text(page.og_description_translations[source_locale])
+      page.og_image_url_translations[locale] = page.og_image_url_translations[source_locale]
+    end
+    
+    def translate_sections
+      page.sections_translations[locale] = clone_array(page.sections_translations[source_locale]).tap do |sections|
+        sections.each { |section| translate_section(section) }          
+      end
+    end
+
+    def translate_section(section)
+      definition = theme.sections.find(section['type'])
+      translate_settings(section, definition)
+      translate_section_blocks(section, definition)
+    end
+
+    def translate_settings(section_or_block, definition)
+      section_or_block['settings'].each do |setting|
+        type = definition.settings.find { |s| s.id == setting['id'] }&.type
+        next if type.blank?
+        setting['value'] = translate_setting_value(setting['value'], type)
+      end
+    end
+
+    def translate_section_blocks(section, definition)
+      section['blocks'].each do |block|
+        block_definition = definition.blocks.find { |b| b.type == block['type'] }
+        translate_settings(block, block_definition)
+      end
+    end
+
+    def translate_setting_value(value, type) 
+      case type
+      when 'text'
+        translate_text(value)
+      when 'link'        
+        value.merge('text' => translate_text(value['text'])) if value.is_a?(Hash)
+      else
+        value
+      end
+    end
+
+    # NOTE: this method is a placeholder for the actual translation logic.
+    def translate_text(text)
+      return nil if text.blank?
+      text + " [#{locale.upcase}]"
+    end
+
+    def clone_array(array)
+      Marshal.load(Marshal.dump(array))
+    end
+  end
+end

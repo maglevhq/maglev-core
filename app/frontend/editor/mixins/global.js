@@ -28,6 +28,9 @@ Vue.mixin({
     currentLocale() {
       return this.$store.state.locale
     },
+    currentDefaultLocale() {
+      return this.currentSite.locales[0].prefix
+    },
     currentPage() {
       return this.$store.state.page
     },
