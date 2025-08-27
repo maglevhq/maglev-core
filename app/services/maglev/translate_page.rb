@@ -34,17 +34,19 @@ module Maglev
     end
 
     def translate_page_attributes
-      page.title_translations[locale] = translate_text(page.title_translations[source_locale])
-      page.seo_title_translations[locale] = translate_text(page.seo_title_translations[source_locale])
-      page.meta_description_translations[locale] = translate_text(page.meta_description_translations[source_locale])
-      page.og_title_translations[locale] = translate_text(page.og_title_translations[source_locale])
-      page.og_description_translations[locale] = translate_text(page.og_description_translations[source_locale])
+      %w[title seo_title meta_description og_title og_description].each do |attr|
+        translate_page_attribute(attr)
+      end
       page.og_image_url_translations[locale] = page.og_image_url_translations[source_locale]
     end
-    
+
+    def translate_page_attribute(attr)
+      page.translations_for(attr)[locale] = translate_text(page.translations_for(attr)[source_locale])
+    end
+
     def translate_sections
       page.sections_translations[locale] = clone_array(page.sections_translations[source_locale]).tap do |sections|
-        sections.each { |section| translate_section(section) }          
+        sections.each { |section| translate_section(section) }
       end
     end
 
@@ -58,6 +60,7 @@ module Maglev
       section_or_block['settings'].each do |setting|
         type = definition.settings.find { |s| s.id == setting['id'] }&.type
         next if type.blank?
+
         setting['value'] = translate_setting_value(setting['value'], type)
       end
     end
@@ -69,12 +72,12 @@ module Maglev
       end
     end
 
-    def translate_setting_value(value, type) 
+    def translate_setting_value(value, type)
       case type
       when 'text'
         translate_text(value)
-      when 'link'        
-        value.merge('text' => translate_text(value['text'])) if value.is_a?(Hash)
+      when 'link'
+        value.merge(text: translate_text(value['text'])) if value.is_a?(Hash)
       else
         value
       end
@@ -83,6 +86,7 @@ module Maglev
     # NOTE: this method is a placeholder for the actual translation logic.
     def translate_text(text)
       return nil if text.blank?
+
       text + " [#{locale.upcase}]"
     end
 
