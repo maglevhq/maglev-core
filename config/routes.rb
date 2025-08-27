@@ -9,6 +9,7 @@ Maglev::Engine.routes.draw do
       resource :site, only: :show
       resources :pages do
         resources :clones, controller: :page_clones, only: :create
+        resources :translations, controller: :page_translations, only: %i[create]
       end
       resources :assets
       resource :publication, only: %i[show create]
