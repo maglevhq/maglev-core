@@ -9,15 +9,17 @@ module Maglev
 
       def new
         @grouped_sections = maglev_theme.sections.grouped_by_category
+        @position = (params[:position] || -1).to_i
       end
 
       def create
-        @section = current_maglev_page.add_section(maglev_theme, params[:section_type])
-        if @current_maglev_page.save
-          redirect_to edit_editor_section_path(@section[:id], maglev_editing_route_context), notice: flash_t(:success), status: :see_other
-        else
-          render_index_with_error
-        end
+        @section = services.add_section.call(
+          page: current_maglev_page,
+          section_type: params[:section_type],
+          position: params[:position].to_i
+        )
+        redirect_to edit_editor_section_path(@section[:id], maglev_editing_route_context), notice: flash_t(:success),
+                                                                                           status: :see_other
       end
 
       def edit

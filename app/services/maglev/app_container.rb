@@ -44,6 +44,8 @@ module Maglev
     dependency :clone_page,                 class: Maglev::ClonePage, depends_on: :fetch_site
     dependency :persist_page,               class: Maglev::PersistPage, depends_on: %i[fetch_theme]
 
+    dependency :add_section,                class: Maglev::Content::AddSectionService, depends_on: %i[fetch_theme]
+
     def call
       self
     end

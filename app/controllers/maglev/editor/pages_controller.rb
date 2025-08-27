@@ -20,7 +20,9 @@ module Maglev
       end
 
       def edit
-        @active_tab = flash[:active_tab] # we need to store the active tab in the flash because we can't pass the anchor to the redirect
+        # we need to store the active tab in the flash
+        # because we can't pass the anchor to the redirect
+        @active_tab = flash[:active_tab]
       end
 
       def create

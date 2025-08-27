@@ -13,7 +13,7 @@ module Maglev
 
         attr_reader :link
 
-        def initialize(id: nil, link:, wrapper_classes: nil)
+        def initialize(link:, id: nil, wrapper_classes: nil)
           @id = id
           @link = link
           @custom_wrapper_classes = wrapper_classes

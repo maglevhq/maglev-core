@@ -67,7 +67,7 @@ module Maglev
 
     def maglev_icon_button_classes(...)
       ClassVariants.build(
-        base: 'h-7 w-7 flex items-center justify-center rounded-full focus:outline-none transition-colors duration-200 cursor-pointer bg-gray-600/0 text-gray-800 hover:bg-gray-600/10 hover:text-gray-900',            
+        base: 'h-7 w-7 flex items-center justify-center rounded-full focus:outline-none transition-colors duration-200 cursor-pointer bg-gray-600/0 text-gray-800 hover:bg-gray-600/10 hover:text-gray-900'
       ).render(...)
     end
 

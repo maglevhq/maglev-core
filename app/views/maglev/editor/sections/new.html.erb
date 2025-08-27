@@ -3,34 +3,6 @@
     <% page_layout.with_title_content t('maglev.editor.sections.add_pane.title') %>
     <% page_layout.with_notification_content maglev_flash_message %>
 
-    <%= render Maglev::Uikit::Collapsible::CollapsibleComponent.new do |collapsible| %>
-      <% maglev_theme.section_categories.each do |category| %>
-        <% sections = @grouped_sections[category.id] || [] %>
-
-        <% collapsible.with_item do |item| %>
-          <% item.with_title do %>
-            <span class="capitalize-first"><%= category.human_name %></span>
-            <span class="ml-2 px-3 bg-white/25 text-xs rounded-full"><%= sections.count %></span>
-          <% end %>
-          
-          <% if sections.any? %>
-            <div class="space-y-4 py-2">
-              <% sections.each do |section| %>
-                <%= render Maglev::Uikit::List::ListItemComponent.new(link: { url: editor_sections_path(section_type: section.id, **maglev_editing_route_context), data: { turbo_method: :post, turbo_frame: '_top' } }, wrapper_classes: 'transition duration-150 ease-in-out transform hover:-translate-y-1') do |item| %>
-                  <% item.with_big_image do %>
-                    <%= image_tag services.fetch_section_screenshot_url.call(section: section), class: item.big_image_classes, data: { controller: 'failed-image' } %>
-                  <% end %>
-                  <% item.with_title_content(section.name) %>
-                <% end %>
-              <% end %>
-            </div>
-          <% else %>
-            <p class="text-center pt-2 pb-6">
-              <%= t('maglev.editor.theme_section_list.empty_category') %>
-            </p>
-          <% end %>
-        <% end %>
-      <% end %>
-    <% end %>
+    <%= render 'theme_list' %>
   <% end %>
 <% end %>
