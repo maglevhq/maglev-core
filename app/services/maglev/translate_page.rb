@@ -37,7 +37,8 @@ module Maglev
       %w[title seo_title meta_description og_title og_description].each do |attr|
         translate_page_attribute(attr)
       end
-      page.og_image_url_translations[locale] = page.og_image_url_translations[source_locale]
+      # og_image_url is a special case because it's a URL, not content
+      page.translations_for(:og_image_url)[locale] = page.translations_for(:og_image_url)[source_locale]
     end
 
     def translate_page_attribute(attr)
