@@ -3,8 +3,6 @@
 module Maglev
   module Editor
     class SectionsController < Maglev::Editor::BaseController
-      before_action :set_expanded, only: [:edit]
-
       def index
         fetch_sections
       end
@@ -65,11 +63,7 @@ module Maglev
         fetch_sections
         flash.now[:error] = flash_t(:error)
         render 'index', status: :unprocessable_entity
-      end
-
-      def set_expanded
-        @expanded = true
-      end
+      end      
     end
   end
 end

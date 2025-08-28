@@ -1,6 +1,5 @@
 <html 
   lang="<%= I18n.locale %>" 
-  <%= @expanded ? 'data-expanded' : 'data-not-expanded' %>
   data-controller="uikit-page-layout"
   data-action="turbo:before-render@window->uikit-page-layout#vtPair"
 >
@@ -27,7 +26,7 @@
       }
     </style>
   </head>
-  <body class="h-full overflow-y-hidden font-nunito" <%= @expanded ? 'data-expanded' : 'data-not-expanded' %>>
+  <body class="h-full overflow-y-hidden font-nunito">
     <%= render Maglev::Uikit::AppLayout::LayoutComponent.new(page: current_maglev_page, root_path: editor_real_root_path(maglev_editing_route_context)) do |layout| %>
       <% layout.with_topbar do |topbar| %>
         <%= render 'layouts/maglev/editor/topbar', topbar: topbar %>
