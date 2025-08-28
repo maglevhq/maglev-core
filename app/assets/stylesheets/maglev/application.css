@@ -34,24 +34,24 @@
   }
 }
 
-html[data-turbo-visit-direction="forward"]::view-transition-old(drawer),
-html[data-turbo-visit-direction="back"]::view-transition-old(drawer),
-html[data-turbo-visit-direction="forward"]::view-transition-old(expanded-drawer),
-html[data-turbo-visit-direction="back"]::view-transition-old(expanded-drawer) {
+html[data-turbo-visit-direction="forward"]::view-transition-old(page-layout),
+html[data-turbo-visit-direction="back"]::view-transition-old(page-layout),
+html[data-turbo-visit-direction="forward"]::view-transition-old(expanded-page-layout),
+html[data-turbo-visit-direction="back"]::view-transition-old(expanded-page-layout) {
   animation: 0.2s cubic-bezier(0.55, 0, 0.1, 1) both slide-out;
 }
 
-html[data-turbo-visit-direction="forward"]::view-transition-new(drawer),
-html[data-turbo-visit-direction="back"]::view-transition-new(drawer),
-html[data-turbo-visit-direction="forward"]::view-transition-new(expanded-drawer),
-html[data-turbo-visit-direction="back"]::view-transition-new(expanded-drawer) {
+html[data-turbo-visit-direction="forward"]::view-transition-new(page-layout),
+html[data-turbo-visit-direction="back"]::view-transition-new(page-layout),
+html[data-turbo-visit-direction="forward"]::view-transition-new(expanded-page-layout),
+html[data-turbo-visit-direction="back"]::view-transition-new(expanded-page-layout) {
   animation: 0.2s cubic-bezier(0.55, 0, 0.1, 1) both slide-in;
 }
 
-html[data-app-layout-vt-pair="already-present"]::view-transition-old(drawer),
-html[data-app-layout-vt-pair="already-present"]::view-transition-old(expanded-drawer),
-html[data-app-layout-vt-pair="already-present"]::view-transition-new(drawer),
-html[data-app-layout-vt-pair="already-present"]::view-transition-new(expanded-drawer) {
+html[data-page-layout-vt-pair="already-present"]::view-transition-old(page-layout),
+html[data-page-layout-vt-pair="already-present"]::view-transition-old(expanded-page-layout),
+html[data-page-layout-vt-pair="already-present"]::view-transition-new(page-layout),
+html[data-page-layout-vt-pair="already-present"]::view-transition-new(expanded-page-layout) {
   animation-duration: 0.3s !important;
 }
 
@@ -59,21 +59,26 @@ html[data-app-layout-vt-pair="already-present"]::view-transition-new(expanded-dr
   z-index: 20;
 }
 
-::view-transition-group(expanded-drawer) {
+::view-transition-group(expanded-page-layout) {
   z-index: 30;
 }
 
-#drawer-component[data-not-expanded] {
-  view-transition-name: drawer;
+::view-transition-group(page-preview) { 
+  transform-origin: right center; 
 }
 
-#drawer-component[data-expanded] {
-  view-transition-name: expanded-drawer;
+#page-layout[data-not-expanded] {
+  view-transition-name: page-layout;
+}
+
+#page-layout[data-expanded] {
+  view-transition-name: expanded-page-layout;
 }
 
 #app-layout-sidebar {
   view-transition-name: sidebar;
 }
+
 
 /* Disable animations when user has reduced motion preference */
 @media (prefers-reduced-motion: reduce) {
@@ -86,4 +91,13 @@ html[data-app-layout-vt-pair="already-present"]::view-transition-new(expanded-dr
 ::view-transition-old(root),
 ::view-transition-new(root) {
   animation: none !important;
+}
+
+/* Page Preview animation */
+
+/* couldn't get this done in Tailwind custom classes */
+#page-preview {
+  transform: translateX(var(--page-preview-transform-x, 0px)) scale(var(--page-preview-scale-ratio, 1)); 
+  height: calc(100% * 1 / 1 / var(--page-preview-scale-ratio, 1));
+  width: var(--page-preview-width, 100%);
 }

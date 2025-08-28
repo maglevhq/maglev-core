@@ -1,4 +1,4 @@
-<% content_for :drawer do %>
+<% content_for :page_layout do %>
   <%= render Maglev::Uikit::PageLayoutComponent.new(back_path: maglev_page_back_path) do |page_layout| %>
     <% page_layout.with_title_content t('maglev.editor.pages.new.title') %>
     <% page_layout.with_notification_content maglev_flash_message %>

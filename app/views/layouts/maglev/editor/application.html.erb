@@ -2,6 +2,7 @@
   lang="<%= I18n.locale %>" 
   data-controller="uikit-page-layout"
   data-action="turbo:before-render@window->uikit-page-layout#vtPair"
+  class="group/html"
 >
   <head>
     <title>Maglev</title>
@@ -42,8 +43,8 @@
         <% end %>      
       <% end %>
       
-      <%= turbo_frame_tag "drawer" do %>
-        <%= yield :drawer %> 
+      <%= turbo_frame_tag "page-layout" do %>
+        <%= yield :page_layout %> 
       <% end %>
 
       <%= turbo_frame_tag "modal" do %>

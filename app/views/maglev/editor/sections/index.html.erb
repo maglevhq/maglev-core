@@ -1,4 +1,4 @@
-<% content_for :drawer do %>
+<% content_for :page_layout do %>
   <%= render Maglev::Uikit::PageLayoutComponent.new(back_path: editor_real_root_path(maglev_editing_route_context)) do |page_layout| %>
     <% page_layout.with_title_content t('maglev.editor.sections.list_pane.title') %>
     <% page_layout.with_description_content t('maglev.editor.sections.list_pane.sub_title') %>
