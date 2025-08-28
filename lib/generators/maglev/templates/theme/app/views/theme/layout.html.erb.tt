@@ -11,8 +11,8 @@
 
   <%%= render_maglev_alternate_links %>
 
-  <%%= maglev_live_preview_client_javascript_tag %>
-
+  <%%= maglev_client_javascript_tags %>
+  
   <%%=
     javascript_include_tag(
       "https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio",

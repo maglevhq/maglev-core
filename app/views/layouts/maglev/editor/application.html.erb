@@ -18,7 +18,8 @@
     <% end %>
 
     <%= stylesheet_link_tag "maglev/application", "maglev/tailwind", "data-turbo-track": "reload" %>
-    <%= maglev_importmap_tags "editor" %>
+
+    <%= maglev_editor_javascript_tags %>
 
     <%= favicon_link_tag maglev_favicon_url %>
 

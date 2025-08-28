@@ -46,12 +46,16 @@ module Maglev
       @vite_ruby ||= ::ViteRuby.new(root: root, mode: Rails.env)
     end
 
-    def self.importmap
-      @importmap ||= Importmap::Map.new
+    def self.importmaps
+      @importmaps ||= {
+        editor: Importmap::Map.new,
+        client: Importmap::Map.new
+      }
     end
 
     initializer 'maglev.importmap' do |app|
-      Engine.importmap.draw(Engine.root.join('config/importmap.rb'))
+      Engine.importmaps[:editor].draw(Engine.root.join('config/editor_importmap.rb'))
+      Engine.importmaps[:client].draw(Engine.root.join('config/client_importmap.rb'))
 
       app.config.assets.paths << Engine.root.join('app/components')
       app.config.assets.paths << Engine.root.join('app/assets/javascripts')
@@ -59,13 +63,20 @@ module Maglev
       app.config.assets.precompile += %w[maglev_manifest]
 
       if (Rails.env.development? || Rails.env.test?) && !app.config.cache_classes
-        Engine.importmap.cache_sweeper(watches: [
+        # Editor
+        Engine.importmaps[:editor].cache_sweeper(watches: [
                                          Engine.root.join('app/assets/javascripts'),
                                          Engine.root.join('app/components')
                                        ])
 
+        # Client
+        Engine.importmaps[:client].cache_sweeper(watches: [
+                                                  Engine.root.join('app/assets/javascripts/maglev/client')
+                                                ])
+
         ActiveSupport.on_load(:action_controller_base) do
-          before_action { Engine.importmap.cache_sweeper.execute_if_updated }
+          before_action { Engine.importmaps[:editor].cache_sweeper.execute_if_updated }
+          before_action { Engine.importmaps[:client].cache_sweeper.execute_if_updated }
         end
       end
     end

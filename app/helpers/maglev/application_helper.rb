@@ -5,10 +5,19 @@ require 'vite_rails/tag_helpers'
 
 module Maglev
   module ApplicationHelper
-    def maglev_importmap_tags(entry_point = 'editor')
+    def maglev_editor_javascript_tags
+      maglev_importmap_tags(:editor, 'editor')
+    end
+
+    def maglev_client_javascript_tags
+      return '' unless maglev_rendering_mode == :editor
+      maglev_importmap_tags(:client, 'client')
+    end
+
+    def maglev_importmap_tags(namespace, entry_point)
       safe_join [
-        javascript_inline_importmap_tag(Maglev::Engine.importmap.to_json(resolver: self)),
-        javascript_importmap_module_preload_tags(Maglev::Engine.importmap),
+        javascript_inline_importmap_tag(Maglev::Engine.importmaps[namespace].to_json(resolver: self)),
+        javascript_importmap_module_preload_tags(Maglev::Engine.importmaps[namespace]),
         javascript_import_module_tag(entry_point)
       ], "\n"
     end
@@ -94,18 +103,22 @@ module Maglev
     end
 
     def maglev_live_preview_client_javascript_tag
-      # no need to render the tag when the site is being visited outside the editor
-      return '' unless maglev_rendering_mode == :editor
+      Rails.logger.warn '🚨 maglev_live_preview_client_javascript_tag is deprecated, use maglev_client_javascript_tags instead'
+      maglev_client_javascript_tags
+      
 
-      entries = maglev_asset_manifest.resolve_entries(*%w[live-preview-rails-client], type: :javascript)
+      # # no need to render the tag when the site is being visited outside the editor
+      # return '' unless maglev_rendering_mode == :editor
 
-      javascript_include_tag(
-        *entries.fetch(:scripts).flatten.uniq,
-        crossorigin: 'anonymous',
-        type: 'module',
-        defer: true,
-        nonce: true
-      )
+      # entries = maglev_asset_manifest.resolve_entries(*%w[live-preview-rails-client], type: :javascript)
+
+      # javascript_include_tag(
+      #   *entries.fetch(:scripts).flatten.uniq,
+      #   crossorigin: 'anonymous',
+      #   type: 'module',
+      #   defer: true,
+      #   nonce: true
+      # )
     end
 
     def maglev_asset_manifest
