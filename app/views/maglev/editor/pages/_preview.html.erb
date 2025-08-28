@@ -1,5 +1,5 @@
 <div 
-  class="bg-gray-100 w-full h-full absolute top-16 left-16 right-0 bottom-0 group" 
+  class="bg-gray-100 absolute top-16 left-16 right-0 bottom-0 group" 
   data-controller="page-preview"
   data-page-preview-primary-color-value="<%= maglev_primary_hex_color %>"
   data-action="
@@ -11,7 +11,7 @@
 >
   <iframe 
     src="<%= current_maglev_page_urls[:preview] %>" 
-    class="w-full h-full transition-discrete transition-all duration-100 ease-in-out opacity-0 hidden group-[.is-loaded]:opacity-100 group-[.is-loaded]:block" 
+    class="bg-white w-full h-full mx-auto transition-discrete transition-all duration-100 ease-in-out opacity-0 hidden group-[.is-loaded]:opacity-100 group-[.is-loaded]:block group-data-[device=mobile]:w-[375px] group-data-[device=tablet]:w-[1024px]" 
     data-page-preview-target="iframe"></iframe>
 
   <div class="flex h-full w-full justify-center items-center transition-discrete transition-all duration-100 ease-in-out opacity-100 group-[.is-loaded]:opacity-0 group-[.is-loaded]:hidden" data-page-preview-target="loading">

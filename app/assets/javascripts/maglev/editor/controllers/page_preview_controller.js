@@ -14,8 +14,7 @@ export default class extends Controller {
   }
 
   changeDevice(event) {
-    console.log('changeDevice', event.detail.device)
-    // TODO: modify the preview iframe viewport
+    this.element.dataset.device = event.detail.device
   }
 
   startLoading() {

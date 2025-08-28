@@ -113,20 +113,22 @@ module Maglev
     def maglev_live_preview_client_javascript_tag
       Rails.logger.warn '🚨 maglev_live_preview_client_javascript_tag is deprecated, use maglev_client_javascript_tags instead'
       maglev_client_javascript_tags
-      
+    end
 
-      # # no need to render the tag when the site is being visited outside the editor
-      # return '' unless maglev_rendering_mode == :editor
 
-      # entries = maglev_asset_manifest.resolve_entries(*%w[live-preview-rails-client], type: :javascript)
+    def legacy_live_preview_client_javascript_tag
+      # no need to render the tag when the site is being visited outside the editor
+      return '' unless maglev_rendering_mode == :editor
 
-      # javascript_include_tag(
-      #   *entries.fetch(:scripts).flatten.uniq,
-      #   crossorigin: 'anonymous',
-      #   type: 'module',
-      #   defer: true,
-      #   nonce: true
-      # )
+      entries = maglev_asset_manifest.resolve_entries(*%w[live-preview-rails-client], type: :javascript)
+
+      javascript_include_tag(
+        *entries.fetch(:scripts).flatten.uniq,
+        crossorigin: 'anonymous',
+        type: 'module',
+        defer: true,
+        nonce: true
+      )
     end
 
     def maglev_asset_manifest
