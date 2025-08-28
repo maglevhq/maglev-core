@@ -37,8 +37,6 @@ export const start = () => {
 }
 
 export const postMessage = (type, data) => {
-  console.log('postMessage', type, data)
-  // mainWindow.postMessage({ type, ...(data || {}) }, '*')
   mainWindow.dispatchEvent(new CustomEvent(`maglev:${type}`, { detail: data || {} }))
 }
 

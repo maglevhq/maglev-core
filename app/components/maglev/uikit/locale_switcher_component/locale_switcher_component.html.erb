@@ -14,7 +14,7 @@
   
   <% locales.each do |locale| %>
     <% dropdown.with_item do %>
-      <%= link_to locale[:path], class: dropdown.item_classes do %>
+      <%= link_to locale[:path], class: dropdown.item_classes, data: locale[:data_attributes] do %>
         <span class="<%= 'font-bold' if locale[:value] == current_locale %>"><%= locale[:label] %></span>
       <% end %>
     <% end %>

@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static values = { url: String, primaryColor: String }
+  static values = { primaryColor: String }
   static targets = ["loading", "iframe"]
 
   connect() {
@@ -15,19 +15,29 @@ export default class extends Controller {
 
   changeDevice(event) {
     console.log('changeDevice', event.detail.device)
+    // TODO: modify the preview iframe viewport
+  }
+
+  startLoading() {
+    this.element.classList.remove('is-loaded')
+  }
+
+  detectUrlChange() {
+    const currentPath = new URL(this.iframeTarget.src).pathname
+    const newPath = document.querySelector('meta[name=page-preview-url]').content
+
+    if (currentPath !== newPath) this.iframeTarget.src = newPath
   }
 
   iframeLoaded() {
     this.postMessage('config', {
       primaryColor: this.primaryColorValue,
-      stickySectionIds: [],
+      stickySectionIds: [], // TODO: get the sticky section ids from the page
     })
   }
 
-  clientReady(event) {
-    console.log('clientReady 🍔')
-    this.loadingTarget.classList.add('hidden')
-    this.iframeTarget.classList.remove('hidden')
+  clientReady() {
+    this.element.classList.add('is-loaded')
   }
 
   postMessage(type, data) {

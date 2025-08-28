@@ -95,6 +95,14 @@ module Maglev
       render Maglev::Uikit::IconComponent.new(name: icon_name, size: size, class_names: 'shrink-0')
     end
 
+    def maglev_page_preview_reload_data
+      { 
+        controller: "dispatcher", 
+        action: "click->dispatcher#trigger", 
+        dispatcher_event_name_value: 'page-preview:reload' 
+      }
+    end
+
     # [DEPRECATED]Vite Rails helpers
     include ::ViteRails::TagHelpers
 

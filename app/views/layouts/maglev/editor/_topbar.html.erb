@@ -15,8 +15,13 @@
 <% topbar.with_actions do %>
   <%= render Maglev::Uikit::LocaleSwitcherComponent.new(
     locales: maglev_site.locales.map do |locale|
-      { label: locale.label, value: locale.prefix, path: editor_real_root_path(maglev_editing_route_context(locale: locale.prefix)) }
+      { 
+        label: locale.label, 
+        value: locale.prefix, 
+        path: editor_real_root_path(maglev_editing_route_context(locale: locale.prefix)),
+        data_attributes: maglev_page_preview_reload_data
+      }
     end,
-    current_locale: Maglev::I18n.current_locale
+    current_locale: Maglev::I18n.current_locale,
   ) %>
 <% end %>
