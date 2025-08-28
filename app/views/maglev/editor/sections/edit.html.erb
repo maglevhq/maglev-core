@@ -1,6 +1,6 @@
 <% content_for :drawer do %>
-  <%= render Maglev::Uikit::PageLayoutComponent.new(back_path: editor_sections_path(maglev_editing_route_context)) do |page_layout| %>
-    <% page_layout.with_title_content 'TODO: edit section title' %>
+  <%= render Maglev::Uikit::PageLayoutComponent.new(expanded: true, back_path: editor_sections_path(maglev_editing_route_context)) do |page_layout| %>
+    <% page_layout.with_title_content @section.type_name %>
     <% page_layout.with_notification_content maglev_flash_message %>
 
     <p>TODO</p>

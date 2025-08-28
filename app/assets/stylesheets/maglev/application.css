@@ -35,12 +35,16 @@
 }
 
 html[data-turbo-visit-direction="forward"]::view-transition-old(drawer),
-html[data-turbo-visit-direction="back"]::view-transition-old(drawer) {
+html[data-turbo-visit-direction="back"]::view-transition-old(drawer),
+html[data-turbo-visit-direction="forward"]::view-transition-old(expanded-drawer),
+html[data-turbo-visit-direction="back"]::view-transition-old(expanded-drawer) {
   animation: 0.40s cubic-bezier(0.55, 0, 0.1, 1) both slide-out;
 }
 
 html[data-turbo-visit-direction="forward"]::view-transition-new(drawer),
-html[data-turbo-visit-direction="back"]::view-transition-new(drawer) {
+html[data-turbo-visit-direction="back"]::view-transition-new(drawer),
+html[data-turbo-visit-direction="forward"]::view-transition-new(expanded-drawer),
+html[data-turbo-visit-direction="back"]::view-transition-new(expanded-drawer) {
   animation: 0.40s cubic-bezier(0.55, 0, 0.1, 1) both slide-in;
 }
 
@@ -49,8 +53,18 @@ html[data-turbo-visit-direction="back"]::view-transition-old(drawer):only-child 
   animation: 0.20s cubic-bezier(0.55, 0, 0.1, 1) both slide-out;
 }
 
+html[data-turbo-visit-direction="forward"]::view-transition-old(expanded-drawer):only-child,
+html[data-turbo-visit-direction="back"]::view-transition-old(expanded-drawer):only-child {
+  animation: 0.20s cubic-bezier(0.55, 0, 0.1, 1) both slide-out;
+}
+
 html[data-turbo-visit-direction="forward"]::view-transition-new(drawer):only-child,
 html[data-turbo-visit-direction="back"]::view-transition-new(drawer):only-child {
+  animation: 0.20s cubic-bezier(0.55, 0, 0.1, 1) both slide-in;
+}
+
+html[data-turbo-visit-direction="forward"]::view-transition-new(expanded-drawer):only-child,
+html[data-turbo-visit-direction="back"]::view-transition-new(expanded-drawer):only-child {
   animation: 0.20s cubic-bezier(0.55, 0, 0.1, 1) both slide-in;
 }
 
@@ -58,10 +72,26 @@ html[data-turbo-visit-direction="back"]::view-transition-new(drawer):only-child 
   z-index: 20;
 }
 
-#drawer-component {
+::view-transition-group(expanded-drawer) {
+  z-index: 30;
+}
+
+#drawer-component[data-not-expanded] {
   view-transition-name: drawer;
+}
+
+#drawer-component[data-expanded] {
+  view-transition-name: expanded-drawer;
 }
 
 #app-layout-sidebar {
   view-transition-name: sidebar;
+}
+
+/* Disable animations when user has reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
 }

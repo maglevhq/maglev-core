@@ -1,6 +1,7 @@
 <div 
-  id="drawer-component"
-  class="slide-pane absolute inset-y-0 h-[100dvh-(--spacing(16))] bg-white border-r border-gray-200 origin-top-left flex flex-col top-16 left-16 z-10 w-104"
+  id="drawer-component"   
+  class="<%= wrapper_classes %>"
+  <%= expanded ? 'data-expanded' : 'data-not-expanded' %>  
 >
   <div class="py-6 mx-4">
     <div class="h-6 flex items-center">

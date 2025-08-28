@@ -7,6 +7,7 @@ import SearchFormController from "uikit-controllers/maglev/uikit/form/search_for
 import ImageFieldController from "uikit-controllers/maglev/uikit/form/image_field_controller"
 import ImageLibraryUploaderController from "uikit-controllers/maglev/uikit/image_library/uploader_controller"
 import CollapsibleController from "uikit-controllers/maglev/uikit/collapsible/collapsible_controller"
+import PageLayoutController from "uikit-controllers/maglev/uikit/page_layout_component/page_layout_controller"
 
 import DisappearanceController from "maglev-controllers/disappearance_controller"
 import MaxLengthController from "maglev-controllers/max_length_controller"
@@ -25,6 +26,7 @@ application.register("uikit-search-form", SearchFormController)
 application.register("uikit-image-library-uploader", ImageLibraryUploaderController)
 application.register("uikit-form-image-field", ImageFieldController)
 application.register("uikit-collapsible", CollapsibleController)
+application.register("uikit-page-layout", PageLayoutController)
 
 application.register("disappearance", DisappearanceController)
 application.register("max-length", MaxLengthController)
