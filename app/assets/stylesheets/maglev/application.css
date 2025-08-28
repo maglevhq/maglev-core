@@ -82,3 +82,8 @@ html[data-app-layout-vt-pair="already-present"]::view-transition-new(expanded-dr
     animation: none !important;
   }
 }
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none !important;
+}

@@ -3,8 +3,6 @@ import { Controller } from '@hotwired/stimulus';
 export default class extends Controller {
   
   vtPair(event) {
-    console.log('PageLayoutComponentController vtPair', event)
-
     const oldDoc = document
     const newBody = event.detail.newBody
 

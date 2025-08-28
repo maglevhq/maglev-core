@@ -19,7 +19,9 @@
   
   <meta name="hello" content="<%= I18n.t('hello') %>" />
   <%= render_maglev_alternate_links %>
-  <%= maglev_live_preview_client_javascript_tag %>
+  <%#= maglev_live_preview_client_javascript_tag %>
+
+  <%= maglev_importmap_tags "live-preview-client" %>
 </head>
 <body>
   <main data-maglev-dropzone>

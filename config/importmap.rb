@@ -19,4 +19,8 @@ pin_all_from File.expand_path('../app/components', __dir__), under: 'uikit-contr
 pin_all_from File.expand_path('../app/assets/javascripts/maglev/controllers', __dir__), under: 'maglev-controllers',
                                                                                         to: 'maglev/controllers'
 
+pin_all_from File.expand_path('../app/frontend', __dir__), under: 'live-preview-client', to: 'live-preview-client'
+
 pin 'editor', to: 'maglev/editor.js'
+
+pin 'live-preview-client', to: 'live-preview-client/index.js'

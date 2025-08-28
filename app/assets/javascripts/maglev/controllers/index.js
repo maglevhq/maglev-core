@@ -17,6 +17,7 @@ import DispatcherController from "maglev-controllers/dispatcher_controller"
 import PreventSamePathController from "maglev-controllers/prevent_same_path"
 import SortableController from "maglev-controllers/sortable_controller"
 import FailedImageController from "maglev-controllers/failed_image_controller"
+import PagePreviewController from "maglev-controllers/page_preview_controller"
 
 application.register("uikit-dropdown", DropdownController)
 application.register("uikit-tabs", TabsController)
@@ -36,3 +37,4 @@ application.register("dispatcher", DispatcherController)
 application.register("prevent-same-path", PreventSamePathController)
 application.register("sortable", SortableController)
 application.register("failed-image", FailedImageController)
+application.register("page-preview", PagePreviewController)

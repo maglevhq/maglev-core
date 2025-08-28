@@ -6,6 +6,9 @@
   <head>
     <title>Maglev</title>
     <meta name="view-transition" content="same-origin" />
+    <meta name="turbo-refresh-method" content="morph">
+
+    <meta name="page-preview-url" content="<%= current_maglev_page_urls[:preview] %>">
     
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -27,24 +30,26 @@
     </style>
   </head>
   <body class="h-full overflow-y-hidden font-nunito">
-    <%= render Maglev::Uikit::AppLayout::LayoutComponent.new(page: current_maglev_page, root_path: editor_real_root_path(maglev_editing_route_context)) do |layout| %>
-      <% layout.with_topbar do |topbar| %>
-        <%= render 'layouts/maglev/editor/topbar', topbar: topbar %>
+    <div id="root">
+      <%= render Maglev::Uikit::AppLayout::LayoutComponent.new(page: current_maglev_page, root_path: editor_real_root_path(maglev_editing_route_context)) do |layout| %>
+        <% layout.with_topbar do |topbar| %>
+          <%= render 'layouts/maglev/editor/topbar', topbar: topbar %>
+        <% end %>
+
+        <% layout.with_sidebar do |sidebar| %>
+          <%= render 'layouts/maglev/editor/sidebar', sidebar: sidebar %>
+        <% end %>      
+      <% end %>
+      
+      <%= turbo_frame_tag "drawer" do %>
+        <%= yield :drawer %> 
       <% end %>
 
-      <% layout.with_sidebar do |sidebar| %>
-        <%= render 'layouts/maglev/editor/sidebar', sidebar: sidebar %>
+      <%= turbo_frame_tag "modal" do %>
+        <%= yield :modal %> 
       <% end %>
+    </div>
 
-      <%= yield %>
-    <% end %>
-
-    <%= turbo_frame_tag "drawer" do %>
-      <%= yield :drawer %> 
-    <% end %>
-
-    <%= turbo_frame_tag "modal" do %>
-      <%= yield :modal %> 
-    <% end %>
+    <%= render 'maglev/editor/pages/preview' %>
   </body>
 </html>
