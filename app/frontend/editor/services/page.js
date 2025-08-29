@@ -92,6 +92,11 @@ export default (api) => ({
     return api.post(`/pages/${id}/clones`, {}).then(({ data }) => data)
   },
 
+  translate: (id, locale) => {
+    console.log('[PageService] Translating page #', id)
+    return api.post(`/pages/${id}/translations`, { locale }).then(({ data }) => data)
+  },
+
   destroy: (id) => {
     console.log('[PageService] Destroying page #', id)
     return api.destroy(`/pages/${id}`)
