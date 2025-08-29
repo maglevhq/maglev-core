@@ -6,6 +6,7 @@ module Maglev
   class TranslatePage
     include Injectable
 
+    dependency :fetch_site
     dependency :fetch_theme
 
     argument :page
@@ -18,17 +19,26 @@ module Maglev
       translate_page!
     end
 
-    protected
+    private
+
+    def site
+      @site ||= fetch_site.call
+    end
 
     def theme
-      fetch_theme.call
+      @theme ||= fetch_theme.call
     end
+
+    protected
 
     def translate_page!
       translate_page_attributes
       translate_sections
 
-      page.save!
+      ActiveRecord::Base.transaction do
+        site.save!
+        page.save!
+      end
 
       page
     end
@@ -46,6 +56,12 @@ module Maglev
     end
 
     def translate_sections
+      if site.sections_translations[locale].blank?
+        site.sections_translations[locale] = clone_array(site.sections_translations[source_locale]).tap do |sections|
+          sections.each { |section| translate_section(section) }
+        end
+      end
+
       page.sections_translations[locale] = clone_array(page.sections_translations[source_locale]).tap do |sections|
         sections.each { |section| translate_section(section) }
       end
@@ -94,7 +110,15 @@ module Maglev
     end
 
     def clone_array(array)
-      Marshal.load(Marshal.dump(array))
+      Marshal.load(Marshal.dump(array || []))
     end
   end
+
+  # def theme
+  #   @theme ||= fetch_theme.call
+  # end
+
+  # def site
+  #   @site ||= fetch_site.call
+  # end
 end
