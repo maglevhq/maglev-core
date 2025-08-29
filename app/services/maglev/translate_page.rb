@@ -16,10 +16,10 @@ module Maglev
     def call
       return nil unless page.persisted?
 
-      translate_page!
+      translate_all!
     end
 
-    private
+    protected
 
     def site
       @site ||= fetch_site.call
@@ -29,18 +29,20 @@ module Maglev
       @theme ||= fetch_theme.call
     end
 
-    protected
-
-    def translate_page!
+    def translate_all!
       translate_page_attributes
       translate_all_sections
 
+      persist_changes!
+
+      page
+    end
+
+    def persist_changes!
       ActiveRecord::Base.transaction do
         site.save!
         page.save!
       end
-
-      page
     end
 
     def translate_page_attributes
@@ -119,12 +121,4 @@ module Maglev
       Marshal.load(Marshal.dump(array || []))
     end
   end
-
-  # def theme
-  #   @theme ||= fetch_theme.call
-  # end
-
-  # def site
-  #   @site ||= fetch_site.call
-  # end
 end
