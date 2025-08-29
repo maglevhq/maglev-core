@@ -46,10 +46,14 @@ export default {
   },
   methods: {
     getOptionLabel(option) {
-      return typeof option === 'object' ? option.label : option
+      if (typeof option === 'string') return option
+      if (typeof option === 'object' && typeof option.label === 'string') return option.label
+      return option.label[this.currentLocale]
     },
     getOptionValue(option) {
-      return typeof option === 'object' ? option.value : option
+      if (typeof option === 'string') return option
+      if (typeof option === 'object' && typeof option.value === 'string') return option.value
+      return option.value[this.currentLocale]
     },
   },
 }
