@@ -23,7 +23,10 @@ describe Maglev::TranslatePage do
   context 'When the site has translated sections' do
     let(:site) do
       create(:site, :with_navbar,
-             sections_translations: { fr: [{ type: 'navbar', blocks: [{ type: 'menu_item', settings: [{ id: 'label', value: 'Accueil' }] }] }] })
+             sections_translations: { fr: [
+               { type: 'navbar',
+                 blocks: [{ type: 'menu_item', settings: [{ id: 'label', value: 'Accueil' }] }] }
+             ] })
     end
 
     it 'doesn\'t touch the existing translations' do

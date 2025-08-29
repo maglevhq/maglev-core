@@ -33,7 +33,7 @@ module Maglev
 
     def translate_page!
       translate_page_attributes
-      translate_sections
+      translate_all_sections
 
       ActiveRecord::Base.transaction do
         site.save!
@@ -55,14 +55,20 @@ module Maglev
       page.translations_for(attr)[locale] = translate_text(page.translations_for(attr)[source_locale])
     end
 
-    def translate_sections
-      if site.sections_translations[locale].blank?
-        site.sections_translations[locale] = clone_array(site.sections_translations[source_locale]).tap do |sections|
-          sections.each { |section| translate_section(section) }
-        end
+    def translate_all_sections
+      [page, site].each do |source|
+        translate_sections(source)
       end
+    end
 
-      page.sections_translations[locale] = clone_array(page.sections_translations[source_locale]).tap do |sections|
+    def translate_sections(source)
+      # @note no need to translate if there are no sections in the source locale
+      return if source.translations_for(:sections, source_locale).blank?
+
+      # @note we don't want to overwrite existing translations
+      return if source.translations_for(:sections, locale).present?
+
+      source.sections_translations[locale] = clone_array(source.sections_translations[source_locale]).tap do |sections|
         sections.each { |section| translate_section(section) }
       end
     end
