@@ -1,8 +1,6 @@
-<% content_for :page_layout do %>
-  <%= render Maglev::Uikit::PageLayoutComponent.new(back_path: editor_sections_path(maglev_editing_route_context)) do |page_layout| %>
-    <% page_layout.with_title_content t('maglev.editor.sections.add_pane.title') %>
-    <% page_layout.with_notification_content maglev_flash_message %>
+<%= render Maglev::Uikit::PageLayoutComponent.new(back_path: editor_sections_path(maglev_editing_route_context)) do |page_layout| %>
+  <% page_layout.with_title_content t('maglev.editor.sections.add_pane.title') %>
+  <% page_layout.with_notification_content maglev_flash_message %>
 
-    <%= render 'theme_list' %>
-  <% end %>
+  <%= render 'theme_list' %>
 <% end %>

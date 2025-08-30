@@ -1,0 +1,15 @@
+<div 
+  data-controller="uikit-section-toolbar"
+  class="h-48 absolute pointer-events-none transition duration-200 ease-in-out hidden group/section-toolbar"
+  data-action="
+    maglev:section:hover@window->uikit-section-toolbar#onHover
+    maglev:section:leave@window->uikit-section-toolbar#onLeave
+    maglev:scroll@window->uikit-section-toolbar#onWindowScroll
+  "
+  data-uikit-section-toolbar-id-value="<%= id %>"
+>
+  <div class="w-full h-full relative mx-auto border-solid border-0 border-t-4 border-b-4 border-editor-primary group-[.is-leaving]/section-toolbar:border-transparent transition-border duration-200 ease-in-out">
+    <%= render Maglev::Uikit::SectionToolbarComponent::TopLeftCornerComponent.new(label: label) %>
+    <%= render Maglev::Uikit::SectionToolbarComponent::TopRightCornerComponent.new(paths: paths, options: options) %>
+  </div>
+</div>

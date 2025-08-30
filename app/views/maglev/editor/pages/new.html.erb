@@ -1,30 +1,28 @@
-<% content_for :page_layout do %>
-  <%= render Maglev::Uikit::PageLayoutComponent.new(back_path: maglev_page_back_path) do |page_layout| %>
-    <% page_layout.with_title_content t('maglev.editor.pages.new.title') %>
-    <% page_layout.with_notification_content maglev_flash_message %>
+<%= render Maglev::Uikit::PageLayoutComponent.new(back_path: maglev_page_back_path) do |page_layout| %>
+  <% page_layout.with_title_content t('maglev.editor.pages.new.title') %>
+  <% page_layout.with_notification_content maglev_flash_message %>
 
-    <%= form_for @page, 
-      url: editor_pages_path(maglev_editing_route_context),
-      html: { 
-        class: 'flex flex-col flex-1 overflow-y-hidden', 
-        data: { turbo_frame: '_top' } 
-      } do |f| 
-    %>
-      <%= f.hidden_field :lock_version %>
+  <%= form_for @page, 
+    url: editor_pages_path(maglev_editing_route_context),
+    html: { 
+      class: 'flex flex-col flex-1 overflow-y-hidden', 
+      data: { turbo_frame: '_top' } 
+    } do |f| 
+  %>
+    <%= f.hidden_field :lock_version %>
 
-      <%= render 'maglev/editor/pages/form/tabs', f: f %>
-    
-      <% content_for :submit_button do %>
-        <%= f.submit t('maglev.editor.pages.new.submit_button.default'), 
-          form: f.id,
-          class: maglev_button_classes(color: :primary, size: :big),
-          data: { turbo_submits_with:  t('maglev.editor.pages.new.submit_button.in_progress') }
-        %>
-      <% end %>
+    <%= render 'maglev/editor/pages/form/tabs', f: f %>
+  
+    <% content_for :submit_button do %>
+      <%= f.submit t('maglev.editor.pages.new.submit_button.default'), 
+        form: f.id,
+        class: maglev_button_classes(color: :primary, size: :big),
+        data: { turbo_submits_with:  t('maglev.editor.pages.new.submit_button.in_progress') }
+      %>
     <% end %>
+  <% end %>
 
-    <% page_layout.with_footer do %>
-      <%= yield :submit_button %>
-    <% end %>
+  <% page_layout.with_footer do %>
+    <%= yield :submit_button %>
   <% end %>
 <% end %>

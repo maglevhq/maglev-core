@@ -1,0 +1,40 @@
+<div class="w-112 mx-auto relative" data-section-container>
+  <div class="w-full">
+    <div class="h-28 bg-green-200 flex items-center justify-center" data-section-id="section-1">
+      <p>Navbar</p>
+    </div>
+    <div class="h-28 bg-green-300 flex items-center justify-center" data-section-id="section-2">
+      <p>Hero</p>
+    </div>
+    <div class="h-28 bg-green-400 flex items-center justify-center" data-section-id="section-3">
+      <p>Features</p>
+    </div>
+  </div>
+</div>
+
+<%= render Maglev::Uikit::SectionToolbarComponent.new(id: "section-1", label: 'Navbar', paths: { show: '#' }) %>
+<%= render Maglev::Uikit::SectionToolbarComponent.new(id: "section-2", label: 'Hero', paths: { show: '#' }) %>
+<%= render Maglev::Uikit::SectionToolbarComponent.new(id: "section-3", label: 'Features', paths: { show: '#' }) %>
+
+<script>
+  document.querySelectorAll('[data-section-id]').forEach(section => {
+    section.addEventListener('mouseenter', triggerHover)
+    section.addEventListener('mouseleave', triggerLeave)
+  })
+
+  function triggerHover(event) {
+    const maglevEvent = new CustomEvent('maglev:section:hover', {
+      detail: {
+        sectionId: event.target.dataset.sectionId,
+        sectionRect: event.currentTarget.getBoundingClientRect(),
+        sectionOffsetTop: 0,
+      },
+    })
+    window.dispatchEvent(maglevEvent)
+  }
+
+  function triggerLeave(event) {
+    const maglevEvent = new CustomEvent('maglev:section:leave')
+    window.dispatchEvent(maglevEvent)
+  }
+</script>
