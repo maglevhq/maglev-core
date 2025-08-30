@@ -1,0 +1,13 @@
+<div class="absolute bottom-0 flex justify-center w-full hidden transition ease-[cubic-bezier(0.55,0,0.1,1)]"
+  data-uikit-section-toolbar-target="bottom"
+  data-transition-enter="duration-200"
+  data-transition-enter-start="translate-y-[50%] opacity-0"
+  data-transition-enter-end="translate-y-0 opacity-100"
+  data-transition-leave="duration-200"
+  data-transition-leave-start="translate-y-0 opacity-100"
+  data-transition-leave-end="translate-y-[50%] opacity-0"
+>
+  <%= link_to paths[:add], class: button_classes, data: { turbo_frame: '_top' } do %>
+    <%= render Maglev::Uikit::IconComponent.new(name: 'add') %>
+  <% end if insert_button? %>
+</div>

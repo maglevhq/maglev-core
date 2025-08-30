@@ -3,7 +3,7 @@ import { enter, leave } from "el-transition"
 
 export default class extends Controller {
   static values = { id: String }
-  static targets = ['topLeftCorner', 'topRightCorner']
+  static targets = ['topLeftCorner', 'topRightCorner', 'bottom']
   
   connect() {
     console.log('SectionToolbarController connected')
@@ -61,6 +61,7 @@ export default class extends Controller {
     Promise.all([
       enter(this.topLeftCornerTarget),
       enter(this.topRightCornerTarget),
+      enter(this.bottomTarget),
     ])
   }
 
@@ -73,6 +74,7 @@ export default class extends Controller {
     Promise.all([
       leave(this.topLeftCornerTarget),
       leave(this.topRightCornerTarget),
+      leave(this.bottomTarget),
     ]).then(() => {
       this.element.classList.add('hidden')
       this.element.classList.remove('is-leaving')

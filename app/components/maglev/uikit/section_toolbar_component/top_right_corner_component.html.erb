@@ -1,4 +1,4 @@
-<div class="absolute top-0 right-0 mt-2 mr-2 flexhidden transition ease-[cubic-bezier(0.55,0,0.1,1)]"
+<div class="absolute top-0 right-0 mt-2 mr-2 flex justify-center gap-x-2 hidden transition ease-[cubic-bezier(0.55,0,0.1,1)]"
   data-uikit-section-toolbar-target="topRightCorner"
   data-transition-enter="duration-200"
   data-transition-enter-start="translate-x-[50%] opacity-0"
@@ -7,5 +7,15 @@
   data-transition-leave-start="translate-x-0 opacity-100"
   data-transition-leave-end="translate-x-[50%] opacity-0"
 >
-  <p>TODO</p>
+  <%= link_to paths[:edit], class: button_classes, data: { turbo_frame: '_top' } do %>
+    <%= render Maglev::Uikit::IconComponent.new(name: 'pencil') %>
+  <% end %>
+
+  <%= link_to paths[:blocks], class: button_classes, data: { turbo_frame: '_top' } do %>
+    <%= render Maglev::Uikit::IconComponent.new(name: 'settings') %>
+  <% end if has_blocks? %>
+
+  <%= button_to paths[:delete], method: :delete, class: button_classes, data: { turbo_method: :delete, turbo_confirm: t('maglev.editor.sections.actions.delete_confirm') } do %>
+    <%= render Maglev::Uikit::IconComponent.new(name: 'delete_bin') %>
+  <% end %>
 </div>
