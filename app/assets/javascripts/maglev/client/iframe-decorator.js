@@ -1,10 +1,10 @@
-import { postMessage } from 'maglev-client/local-message'
-import { debounce, isBlank } from 'maglev-client/utils'
+import { isBlank, postMessageToEditor } from 'maglev-client/utils'
 
 // keep track of the current hovered section
 let listeners = []
 let hoveredSectionId = null
 let lastCursorPosition = { x: 0, y: 0 }
+
 
 export const start = (config) => {
   const previewDocument = window.document
@@ -120,7 +120,7 @@ const listenScrolling = (previewDocument, stickySectionIds) => {
 
   const scrollNotifier = () => {
     const el = previewDocument.querySelector('[data-maglev-section-id]:hover')
-    if (el) postMessage('scroll')
+    if (el) postMessageToEditor('scroll')
 
     if (endOfScrollingTimeout) clearTimeout(endOfScrollingTimeout)
       
@@ -139,7 +139,7 @@ const onSectionHovered = (previewDocument, el, stickySectionIds, force = false) 
   const sectionId = el.dataset.maglevSectionId
 
   if (hoveredSectionId !== sectionId || force) {
-    postMessage('section:hover', {
+    postMessageToEditor('section:hover', {
       sectionId,
       sectionRect: el.getBoundingClientRect(),
       sectionOffsetTop: getMinTop(previewDocument, sectionId, stickySectionIds),
@@ -162,7 +162,7 @@ const getMinTop = (previewDocument, currentSectionId, stickySectionIds) => {
 }
 
 const onSectionLeft = () => {
-  postMessage('section:leave')
+  postMessageToEditor('section:leave')
   hoveredSectionId = null
 }
 
@@ -191,7 +191,7 @@ const onSettingClicked = (el, event) => {
   const isSectionBlock = !!el.closest('[data-maglev-block-id]')
   const prefix = isSectionBlock ? 'sectionBlock' : 'section'
 
-  postMessage(`${prefix}:setting:clicked`, {
+  postMessageToEditor(`${prefix}:setting:clicked`, {
     [`${prefix}Id`]: fragments[0],
     settingId: fragments[1],
   })

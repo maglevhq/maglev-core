@@ -1,7 +1,8 @@
 class Maglev::Uikit::SectionToolbarComponent::TopRightCornerComponent < Maglev::Uikit::BaseComponent
-  attr_reader :paths, :options
+  attr_reader :id, :paths, :options
   
-  def initialize(paths:, options:)
+  def initialize(id:, paths:, options:)
+    @id = id
     @paths = paths
     @options = options
   end

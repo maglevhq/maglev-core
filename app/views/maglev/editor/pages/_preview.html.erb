@@ -1,26 +1,32 @@
-<div class="absolute top-16 left-16 right-0 bottom-0 overflow-hidden">
+<div 
+  class="absolute top-16 left-16 right-0 bottom-0 overflow-hidden group"
+  data-controller="page-preview"
+  data-page-preview-primary-color-value="<%= maglev_primary_hex_color %>"
+  data-action="
+    uikit-device-toggler:change@window->page-preview#changeDevice 
+    maglev:client-ready@window->page-preview#clientReady
+    turbo:load@window->page-preview#detectUrlChange
+    dispatcher:page-preview:reload@window->page-preview#startLoading
+  "
+>
   <div 
     id="page-preview"
-    class="bg-gray-100 group origin-top-left transition-transform duration-150 ease-out will-change-transform transform-gpu" 
-    data-controller="page-preview"
-    data-page-preview-primary-color-value="<%= maglev_primary_hex_color %>"
-    data-action="
-      uikit-device-toggler:change@window->page-preview#changeDevice 
-      maglev:client-ready@window->page-preview#clientReady
-      turbo:load@window->page-preview#detectUrlChange
-      dispatcher:page-preview:reload@window->page-preview#startLoading
-    "
+    class="bg-gray-100 origin-top-left transition-transform duration-150 ease-out will-change-transform transform-gpu hidden opacity-0 group-[.is-loaded]:opacity-100 group-[.is-loaded]:block"  
+    data-page-preview-target="iframe-wrapper"
   >
     <iframe 
       src="<%= current_maglev_page_urls[:preview] %>" 
-      class="bg-white w-full h-full mx-auto transition-discrete transition-all duration-100 ease-in-out opacity-0 hidden group-[.is-loaded]:opacity-100 group-[.is-loaded]:block group-data-[device=mobile]/device:w-[375px] group-data-[device=tablet]/device:w-[1024px]" 
+      class="bg-white w-full h-full mx-auto transition-discrete transition-all duration-100 ease-in-out group-data-[device=mobile]/device:w-[375px] group-data-[device=tablet]/device:w-[1024px]" 
       data-page-preview-target="iframe"
-      data-action="load->page-preview#iframeLoaded"></iframe>
+      data-preview-notification-center-target="iframe"
+      data-preview-notification-center-primary-color-param="<%= maglev_primary_hex_color %>"
+      data-preview-notification-center-sticky-section-ids-param="[]"
+      data-action="load->preview-notification-center#sendConfig"></iframe>
+  </div>
 
-    <div class="flex h-full w-full justify-center items-center transition-discrete transition-all duration-100 ease-in-out opacity-100 group-[.is-loaded]:opacity-0 group-[.is-loaded]:hidden" data-page-preview-target="loading">
-      <p class="animate-bounce duration-200">
-        <%= t('maglev.editor.page_preview.loading') %>
-      </p>
-    </div>
+  <div class="flex h-full w-full justify-center items-center transition-discrete transition-all duration-100 ease-in-out opacity-100 group-[.is-loaded]:opacity-0 group-[.is-loaded]:hidden" data-page-preview-target="loading">
+    <p class="animate-bounce duration-200 group-data-[expanded-page-layout]/page-layout:pl-88">
+      <%= t('maglev.editor.page_preview.loading') %>
+    </p>
   </div>
 </div>

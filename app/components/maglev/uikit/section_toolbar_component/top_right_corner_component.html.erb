@@ -15,7 +15,14 @@
     <%= render Maglev::Uikit::IconComponent.new(name: 'settings') %>
   <% end if has_blocks? %>
 
-  <%= button_to paths[:delete], method: :delete, class: button_classes, data: { turbo_method: :delete, turbo_confirm: t('maglev.editor.sections.actions.delete_confirm') } do %>
+  <%= button_to paths[:delete], method: :delete, class: button_classes, 
+    data: { turbo_method: :delete, turbo_confirm: t('maglev.editor.sections.actions.delete_confirm') }, 
+    form: { 
+      data: { 
+        action: 'turbo:submit-end->preview-notification-center#deleteSection',
+        'preview-notification-center-section-id-param': id
+      } 
+    } do %>
     <%= render Maglev::Uikit::IconComponent.new(name: 'delete_bin') %>
   <% end %>
 </div>

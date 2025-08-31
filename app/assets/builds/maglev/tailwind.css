@@ -485,6 +485,9 @@
   .ml-4 {
     margin-left: calc(var(--spacing) * 4);
   }
+  .ml-104 {
+    margin-left: calc(var(--spacing) * 104);
+  }
   .ml-auto {
     margin-left: auto;
   }
@@ -1403,6 +1406,12 @@
   .pl-14 {
     padding-left: calc(var(--spacing) * 14);
   }
+  .pl-88 {
+    padding-left: calc(var(--spacing) * 88);
+  }
+  .pl-104 {
+    padding-left: calc(var(--spacing) * 104);
+  }
   .text-center {
     text-align: center;
   }
@@ -1796,6 +1805,17 @@
   .group-data-\[expanded-page-layout\]\/page-layout\:left-104 {
     &:is(:where(.group\/page-layout)[data-expanded-page-layout] *) {
       left: calc(var(--spacing) * 104);
+    }
+  }
+  .group-data-\[expanded-page-layout\]\/page-layout\:translate-x-88 {
+    &:is(:where(.group\/page-layout)[data-expanded-page-layout] *) {
+      --tw-translate-x: calc(var(--spacing) * 88);
+      translate: var(--tw-translate-x) var(--tw-translate-y);
+    }
+  }
+  .group-data-\[expanded-page-layout\]\/page-layout\:pl-88 {
+    &:is(:where(.group\/page-layout)[data-expanded-page-layout] *) {
+      padding-left: calc(var(--spacing) * 88);
     }
   }
   .group-data-\[expanded-page-layout\=\]\/page-layout\:left-104 {

@@ -26,7 +26,7 @@
       }
     </style>
   </head>
-  <body class="h-full overflow-y-hidden font-nunito group/device group/page-layout">
+  <body class="h-full overflow-y-hidden font-nunito group/device group/page-layout" data-controller="preview-notification-center">
     <div id="root">
       <%= render Maglev::Uikit::AppLayout::LayoutComponent.new(page: current_maglev_page, root_path: editor_real_root_path(maglev_editing_route_context)) do |layout| %>
         <% layout.with_topbar do |topbar| %>
@@ -46,7 +46,7 @@
         <%= yield :modal %> 
       <% end %>
 
-      <%= render 'maglev/editor/sections/section_toolbar_list' %>
+      <%= render 'maglev/editor/sections/toolbar_list' %>
     </div>
 
     <%= render 'maglev/editor/pages/preview' %>

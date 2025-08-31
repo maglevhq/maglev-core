@@ -18,6 +18,15 @@ settings:
 - label: "Icon"
   id: icon
   type: icon
+
+- label: "[TEST] select"
+  id: select
+  type: select
+  select_options:
+  - label: Option 1
+    value: option_1
+  - label: Option 2
+    value: option_2
   
 # Definition of the blocks.
 # You can define as many types of blocks as you want.

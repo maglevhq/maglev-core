@@ -30,11 +30,10 @@ export default class extends Controller {
   }
 
   onScaleRatioUpdated(event) {
-    console.log('onScaleRatioUpdated', event.detail.value)
     this.previewScaleRatioValue = event.detail.value
   }
 
-  onWindowScroll(event) {
+  onWindowScroll() {
     this.hideEverything()
   }
 
@@ -53,22 +52,13 @@ export default class extends Controller {
     
     return {
       top: `${top * this.previewScaleRatioValue}px`,
-      left: `calc(${this.calculateLeftOffset()}px + (${sectionRect.left}px * ${this.previewScaleRatioValue}))`,
+      left: `calc((${sectionRect.left}px * ${this.previewScaleRatioValue}))`,
       height: `${height * this.previewScaleRatioValue}px`,
       width: `calc(${sectionRect.width}px * ${this.previewScaleRatioValue})`,
     }
   }
 
-  calculateLeftOffset() {
-    // const sidebarWidth =
-    //   document.querySelector('.content-area > aside')?.offsetWidth || 0
-    // const iframePadding = document.getElementById('iframe-wrapper').getBoundingClientRect().left
-    // return iframePadding - sidebarWidth
-    return 0
-  }
-
   revealEverything() {
-    // console.log(`...reveal ${this.idValue}`)
     this.element.classList.remove('hidden')
     Promise.all([
       enter(this.topLeftCornerTarget),
@@ -78,7 +68,6 @@ export default class extends Controller {
   }
 
   hideEverything() {
-    // console.log(`...hide ${this.idValue}`)
     // do nothing if the section toolbar is already hidden
     if (this.element.classList.contains('hidden') || this.element.classList.contains('is-leaving')) return
 

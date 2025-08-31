@@ -1,13 +1,14 @@
 import { start as decorateIframe } from 'maglev-client/iframe-decorator'
-
-const mainWindow = window.parent
+import { postMessageToEditor } from 'maglev-client/utils'
 
 export const start = () => {
   window.addEventListener('message', ({ data: { type, ...data } }) => {
     // a message MUST have a type
     if (!type) return
 
-    switch (type) {
+    const internalType = type.replace('maglev:', '')
+
+    switch (internalType) {
       case 'config':
         decorateIframe({
           primaryColor: data.primaryColor,
@@ -15,7 +16,7 @@ export const start = () => {
         })
 
         // we answer back we're ready!
-        postMessage('client-ready', { message: "👋, I'm a Maglev site and I'm ready" })
+        postMessageToEditor('client-ready', { message: "👋, I'm a Maglev site and I'm ready" })
         break
       case 'section:add':
       case 'section:move':
@@ -36,12 +37,8 @@ export const start = () => {
   })
 }
 
-export const postMessage = (type, data) => {
-  mainWindow.dispatchEvent(new CustomEvent(`maglev:${type}`, { detail: data || {} }))
-}
-
 // local event
 const triggerEvent = (type, data) => {
-  const event = new CustomEvent(`maglev:${type}`, { detail: data })
+  const event = new CustomEvent(type, { detail: data })
   window.dispatchEvent(event)
 }

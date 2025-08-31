@@ -1,0 +1,17 @@
+<div class="
+  absolute inset-0 top-16 left-16 group-data-[expanded-page-layout]/page-layout:left-104 bg-transparent z-5 pointer-events-none mx-auto 
+  group-data-[device=mobile]/device:w-[calc(375px*var(--page-preview-scale-ratio))] group-data-[device=tablet]/device:w-[calc(1024px*var(--page-preview-scale-ratio))]
+  ">
+  <% current_maglev_sections.each_with_index do |section, index| %>
+    <%= render Maglev::Uikit::SectionToolbarComponent.new(
+      id: section.id, 
+      label: section.type_name, 
+      paths: { 
+        edit: edit_editor_section_path(section.id, **maglev_editing_route_context), 
+        delete: editor_section_path(section.id, **maglev_editing_route_context), 
+        add: new_editor_section_path(position: index + 1, **maglev_editing_route_context)
+      }, 
+      options: {}) 
+    %>
+  <% end %>
+</div>

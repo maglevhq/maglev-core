@@ -2,7 +2,7 @@ import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
   static values = { primaryColor: String }
-  static targets = ["loading", "iframe"]
+  static targets = ["loading", "iframeWrapper", "iframe"]
 
   connect() {
     this.setupTransformations()
@@ -32,14 +32,6 @@ export default class extends Controller {
     this.element.classList.remove('is-loaded')
   }
 
-  // called when the iframe DOM is loaded
-  iframeLoaded() {
-    this.postMessage('config', {
-      primaryColor: this.primaryColorValue,
-      stickySectionIds: [], // TODO: get the sticky section ids from the page, use a JSON value
-    })
-  }
-
   // called when the Maglev client JS lib has been fully loaded on the iframe
   clientReady() {
     this.element.classList.add('is-loaded')
@@ -51,11 +43,6 @@ export default class extends Controller {
     const newPath = document.querySelector('meta[name=page-preview-url]').content
 
     if (currentPath !== newPath) this.iframeTarget.src = newPath
-  }
-
-  // Used to communicate with the iframe
-  postMessage(type, data) {
-    this.iframeTarget.contentWindow.postMessage({ type, ...(data || {}) }, '*')
   }
 
   // --- Transformation utilities ---
@@ -124,6 +111,7 @@ export default class extends Controller {
       document.body.style.setProperty('--page-preview-width', '100%')
     }
 
+    // mainly used for the section toolbars
     this.dispatch('scale-ratio-updated', { detail: {  value: scaleRatio } })
   }
 

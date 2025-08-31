@@ -20,3 +20,7 @@ export const debounce = (fn, time) => {
   }
   return wrapper
 }
+
+export const postMessageToEditor = (type, data) => {
+  window.parent.dispatchEvent(new CustomEvent(`maglev:${type}`, { detail: data || {} }))
+}
