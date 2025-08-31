@@ -1,7 +1,8 @@
 <div 
   data-controller="uikit-section-toolbar"
-  class="h-48 absolute pointer-events-none transition duration-200 ease-in-out hidden group/section-toolbar"
+  class="h-48 absolute pointer-events-none transition duration-200 ease-in-out hidden group/section-toolbar mx-auto w-full"
   data-action="
+    page-preview:scale-ratio-updated@window->uikit-section-toolbar#onScaleRatioUpdated
     maglev:section:hover@window->uikit-section-toolbar#onHover
     maglev:section:leave@window->uikit-section-toolbar#onLeave
     maglev:scroll@window->uikit-section-toolbar#onWindowScroll

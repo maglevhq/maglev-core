@@ -1,19 +1,14 @@
 import { Controller } from "@hotwired/stimulus"
-import { useDebounce } from 'stimulus-use'
 
 export default class extends Controller {
   static values = { primaryColor: String }
   static targets = ["loading", "iframe"]
 
-  // static debounces = ['calculateTransformations']
-
   connect() {
-    // useDebounce(this)
     this.setupTransformations()
   }
 
   disconnect() {
-    console.log('PagePreviewController disconnect')
     this.teardownTransformations()
   }
 
@@ -117,15 +112,19 @@ export default class extends Controller {
   }
 
   calculateTransformations() {
-    // console.log('calculateTransformations 🍔', this.calculateTransformX(), this.calculateScaleRatio())
-    this.element.style.setProperty('--page-preview-transform-x', `${this.calculateTransformX()}px`)
-    this.element.style.setProperty('--page-preview-scale-ratio', `${this.calculateScaleRatio()}`)
+    const scaleRatio = this.calculateScaleRatio()
 
-    if (this.expandedPageLayout() && this.calculateScaleRatio() === 1) {
-      this.element.style.setProperty('--page-preview-width', `${this.previewMaxWidth()}px`)
+    // console.log('calculateTransformations 🍔', this.calculateTransformX(), this.calculateScaleRatio())
+    document.body.style.setProperty('--page-preview-transform-x', `${this.calculateTransformX()}px`)
+    document.body.style.setProperty('--page-preview-scale-ratio', `${scaleRatio}`)
+
+    if (this.expandedPageLayout() && scaleRatio === 1) {
+      document.body.style.setProperty('--page-preview-width', `${this.previewMaxWidth()}px`)
     } else {
-      this.element.style.setProperty('--page-preview-width', '100%')
+      document.body.style.setProperty('--page-preview-width', '100%')
     }
+
+    this.dispatch('scale-ratio-updated', { detail: {  value: scaleRatio } })
   }
 
   calculateTransformX() {

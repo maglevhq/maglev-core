@@ -1,6 +1,10 @@
 import { Controller } from '@hotwired/stimulus';
 
 export default class extends Controller {
+
+  connect() {
+    this.updateBodyDataset(this.element.dataset.expanded)
+  }
   
   vtPair(event) {
     const oldDoc = document
@@ -10,16 +14,21 @@ export default class extends Controller {
     const hasPageLayout = !!newBody.querySelector('#page-layout')
     const hasExpandedPageLayout = !!newBody.querySelector('#page-layout[data-expanded]')
 
-    if (hasExpandedPageLayout) {
-      document.documentElement.dataset.expandedPageLayout = true
-    } else {
-      delete document.documentElement.dataset.expandedPageLayout
-    }
+    this.updateBodyDataset(hasExpandedPageLayout)
 
+    // required for a smoother transition (application.css) between the page layout and the expanded page layout
     if (hadPageLayout && hasPageLayout) {
       document.documentElement.dataset.pageLayoutVtPair = "already-present"
     } else {
       delete document.documentElement.dataset.pageLayoutVtPair
+    }
+  }
+
+  updateBodyDataset(expanded) {
+    if (expanded === undefined || expanded === false) {
+      delete document.body.dataset.expandedPageLayout      
+    } else {
+      document.body.dataset.expandedPageLayout = true
     }
   }
 }

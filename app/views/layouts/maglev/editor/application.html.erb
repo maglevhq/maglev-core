@@ -1,9 +1,4 @@
-<html 
-  lang="<%= I18n.locale %>" 
-  data-controller="uikit-page-layout"
-  data-action="turbo:before-render@window->uikit-page-layout#vtPair"
-  class="group/html"
->
+<html lang="<%= I18n.locale %>">
   <head>
     <title>Maglev</title>
     <meta name="view-transition" content="same-origin" />
@@ -31,7 +26,7 @@
       }
     </style>
   </head>
-  <body class="h-full overflow-y-hidden font-nunito">
+  <body class="h-full overflow-y-hidden font-nunito group/device group/page-layout">
     <div id="root">
       <%= render Maglev::Uikit::AppLayout::LayoutComponent.new(page: current_maglev_page, root_path: editor_real_root_path(maglev_editing_route_context)) do |layout| %>
         <% layout.with_topbar do |topbar| %>
@@ -50,6 +45,8 @@
       <%= turbo_frame_tag "modal" do %>
         <%= yield :modal %> 
       <% end %>
+
+      <%= render 'maglev/editor/sections/section_toolbar_list' %>
     </div>
 
     <%= render 'maglev/editor/pages/preview' %>

@@ -1,5 +1,7 @@
 <div 
   id="page-layout"   
+  data-controller="uikit-page-layout"
+  data-action="turbo:before-render@window->uikit-page-layout#vtPair"
   class="<%= wrapper_classes %>"
   <%= expanded ? 'data-expanded' : 'data-not-expanded' %>  
 >

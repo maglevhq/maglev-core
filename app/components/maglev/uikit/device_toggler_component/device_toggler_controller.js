@@ -11,11 +11,15 @@ export default class extends Controller {
   }
 
   toggle(event) {
+    const device = event.currentTarget.dataset.device
+
     this.deviceTargets.forEach((device) => {
       device.classList.remove(...this.activeClasses)
     })
     event.currentTarget.classList.add(...this.activeClasses)
 
-    this.dispatch('change', { detail: { device: event.currentTarget.dataset.device } })
+    this.dispatch('change', { detail: { device } })
+
+    document.body.dataset.device = device
   }
 }

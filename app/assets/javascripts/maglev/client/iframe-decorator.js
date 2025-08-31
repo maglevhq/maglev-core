@@ -4,6 +4,7 @@ import { debounce, isBlank } from 'maglev-client/utils'
 // keep track of the current hovered section
 let listeners = []
 let hoveredSectionId = null
+let lastCursorPosition = { x: 0, y: 0 }
 
 export const start = (config) => {
   const previewDocument = window.document
@@ -15,7 +16,7 @@ export const start = (config) => {
   )
 
   // mousescroll
-  listenScrolling(previewDocument)
+  listenScrolling(previewDocument, config.stickySectionIds)
 
   // mouseenter
   listen(previewDocument, 'mouseenter', (el, type) => {
@@ -50,6 +51,12 @@ export const start = (config) => {
         break
     }
   })
+
+  // pointer move
+  addEventListener(previewDocument, 'pointermove', (event) => {
+    lastCursorPosition.x = event.pageX
+    lastCursorPosition.y = event.pageY
+  }, { passive: true })
 
   // click on links
   disableLinks(previewDocument)
@@ -108,10 +115,21 @@ const listen = (previewDocument, eventType, handler) => {
   )
 }
 
-const listenScrolling = (previewDocument) => {
+const listenScrolling = (previewDocument, stickySectionIds) => {
+  let endOfScrollingTimeout = null
+
   const scrollNotifier = () => {
     const el = previewDocument.querySelector('[data-maglev-section-id]:hover')
-    if (el) postMessage('scroll', { boundingRect: el.getBoundingClientRect() })
+    if (el) postMessage('scroll')
+
+    if (endOfScrollingTimeout) clearTimeout(endOfScrollingTimeout)
+      
+    endOfScrollingTimeout = setTimeout(() => {
+      const el = sectionUnderPoint(previewDocument, lastCursorPosition.x, lastCursorPosition.y)
+      if (el) {
+        onSectionHovered(previewDocument, el, stickySectionIds, true)
+      }
+    }, 400)
   }
 
   addEventListener(previewDocument, 'scroll', scrollNotifier)
@@ -177,6 +195,16 @@ const onSettingClicked = (el, event) => {
     [`${prefix}Id`]: fragments[0],
     settingId: fragments[1],
   })
+}
+
+const sectionUnderPoint = (previewDocument, x, y) =>{
+  // Get the z-stack at the pointer
+  const stack = previewDocument.elementsFromPoint(x, y)
+
+  // Prefer: ignore toolbars in the stack
+  const section = stack.find(el => el.matches?.('[data-maglev-section-id]'))
+
+  return section || null
 }
 
 const addEventListener = (target, type, listener, capture) => {

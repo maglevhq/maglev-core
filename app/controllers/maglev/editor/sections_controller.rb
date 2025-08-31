@@ -3,10 +3,7 @@
 module Maglev
   module Editor
     class SectionsController < Maglev::Editor::BaseController
-      def index
-        fetch_sections
-      end
-
+      
       def new        
         @grouped_sections = maglev_theme.sections.grouped_by_category
         @position = (params[:position] || -1).to_i
@@ -23,8 +20,7 @@ module Maglev
       end
 
       def edit
-        fetch_sections
-        @section = @sections.find { |section| section.id == params[:id] }
+        @section = current_maglev_sections.find { |section| section.id == params[:id] }
         @section_definition = maglev_theme.sections.find(@section.type)
       end
 
@@ -52,15 +48,7 @@ module Maglev
 
       private
 
-      def fetch_sections
-        @sections = Maglev::Content::SectionContent.build_many(
-          theme: maglev_theme,
-          content: services.get_page_sections.call(page: current_maglev_page, locale: content_locale)
-        )
-      end
-
       def render_index_with_error
-        fetch_sections
         flash.now[:error] = flash_t(:error)
         render 'index', status: :unprocessable_entity
       end      

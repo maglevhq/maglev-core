@@ -1,28 +1,41 @@
 <div class="w-112 mx-auto relative" data-section-container>
   <div class="w-full">
-    <div class="h-28 bg-green-200 flex items-center justify-center z-10" data-section-id="section-1">
+    <div class="h-28 bg-red-400 flex items-center justify-center z-10" data-section-id="section-1">
       <p>Navbar</p>
     </div>
-    <div class="h-28 bg-green-300 flex items-center justify-center z-10" data-section-id="section-2">
+    <div class="h-28 bg-orange-400 flex items-center justify-center z-10" data-section-id="section-2">
       <p>Hero</p>
     </div>
-    <div class="h-28 bg-green-400 flex items-center justify-center z-10" data-section-id="section-3">
+    <div class="h-28 bg-yellow-400 flex items-center justify-center z-10" data-section-id="section-3">
       <p>Features</p>
+    </div>
+    <div class="h-28 bg-blue-400 flex items-center justify-center z-10" data-section-id="section-4">
+      <p>Contact</p>
+    </div>
+    <div class="h-28 bg-purple-400 flex items-center justify-center z-10" data-section-id="section-5">
+      <p>Footer</p>
     </div>
   </div>
 </div>
 
-<%= render Maglev::Uikit::SectionToolbarComponent.new(id: "section-1", label: 'Navbar', paths: { show: '#' }, options: { insert_button: false }) %>
-<%= render Maglev::Uikit::SectionToolbarComponent.new(id: "section-2", label: 'Hero', paths: { show: '#' }, options: { has_blocks: true}) %>
-<%= render Maglev::Uikit::SectionToolbarComponent.new(id: "section-3", label: 'Features', paths: { show: '#' }) %>
+<div class="fixed inset-0 pointer-events-none">
+  <%= render Maglev::Uikit::SectionToolbarComponent.new(id: "section-1", label: 'Navbar', paths: { show: '#' }, options: { insert_button: false }) %>
+  <%= render Maglev::Uikit::SectionToolbarComponent.new(id: "section-2", label: 'Hero', paths: { show: '#' }, options: { has_blocks: true}) %>
+  <%= render Maglev::Uikit::SectionToolbarComponent.new(id: "section-3", label: 'Features', paths: { show: '#' }) %>
+  <%= render Maglev::Uikit::SectionToolbarComponent.new(id: "section-4", label: 'Contact', paths: { show: '#' }) %>
+  <%= render Maglev::Uikit::SectionToolbarComponent.new(id: "section-5", label: 'Footer', paths: { show: '#' }) %>
+</div>
 
 <script>
   document.querySelectorAll('[data-section-id]').forEach(section => {
     section.addEventListener('mouseenter', triggerHover)
-    section.addEventListener('mouseleave', triggerLeave)
+    section.addEventListener('mouseleave', triggerLeave)    
   })
+  addEventListener('scroll', scrollNotifier)
 
   function triggerHover(event) {
+    console.log('triggerHover 🥸', event.currentTarget.dataset.sectionId)
+
     const container = document.querySelector('[data-section-container]')
     if (!container.contains(event.currentTarget)) return
 
@@ -36,10 +49,24 @@
     window.dispatchEvent(maglevEvent)
   }
 
-  function triggerLeave(event) {    
+  function triggerLeave(event) {   
+    console.log('triggerLeave 👋', event.relatedTarget.nodeName)
+
     if (event.relatedTarget.nodeName === 'A' || event.relatedTarget.nodeName === 'FORM' || event.relatedTarget.nodeName === 'BUTTON') return
 
     const maglevEvent = new CustomEvent('maglev:section:leave')
+    window.dispatchEvent(maglevEvent)
+  }
+
+  function scrollNotifier() {
+    const el = document.querySelector('[data-section-id]:hover')
+    if (!el) return
+    const maglevEvent = new CustomEvent('maglev:scroll', { 
+      detail: {
+        sectionId: el.dataset.sectionId,
+        boundingRect: el.getBoundingClientRect(),
+      },
+    })
     window.dispatchEvent(maglevEvent)
   }
 </script>

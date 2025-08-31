@@ -17,7 +17,7 @@ module Maglev
       before_action :set_content_locale
 
       helper Maglev::ApplicationHelper
-      helper_method :maglev_site, :current_maglev_page, :current_maglev_page_urls, :maglev_theme,
+      helper_method :maglev_site, :current_maglev_page, :current_maglev_sections, :current_maglev_page_urls, :maglev_theme,
                     :maglev_editing_route_context, :maglev_disable_turbo_cache?, :maglev_page_live_url
 
       private
@@ -30,6 +30,10 @@ module Maglev
         current_maglev_page
       end
 
+      def fetch_maglev_sections
+        current_maglev_sections
+      end
+
       def maglev_site
         @maglev_site ||= services.fetch_site.call
       end
@@ -37,6 +41,13 @@ module Maglev
       def current_maglev_page
         # TODO: use services.search_pages.call OR a scope
         @current_maglev_page ||= Maglev::Page.find_by(id: params[:page_id])
+      end
+
+      def current_maglev_sections
+        @current_maglev_sections = Maglev::Content::SectionContent.build_many(
+          theme: maglev_theme,
+          content: services.get_page_sections.call(page: current_maglev_page, locale: content_locale)
+        )
       end
 
       def current_maglev_page_urls

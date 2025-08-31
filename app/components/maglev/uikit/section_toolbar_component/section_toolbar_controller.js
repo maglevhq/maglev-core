@@ -6,14 +6,17 @@ export default class extends Controller {
   static targets = ['topLeftCorner', 'topRightCorner', 'bottom']
   
   connect() {
-    console.log('SectionToolbarController connected')
     this.previewScaleRatioValue = 1
   }
 
   onHover(event) {
     const { sectionId, sectionRect, sectionOffsetTop } = event.detail
 
-    if (sectionId !== this.idValue) return
+    if (sectionId !== this.idValue) {
+      // trick to avoid having 2 section toolbars visible at the same time (especially when hovering the + button)
+      this.hideEverything()
+      return
+    }
 
     this.applyStyle(
       this.calculateStyle(sectionRect, sectionOffsetTop || 0)
@@ -24,6 +27,15 @@ export default class extends Controller {
 
   onLeave() {
     this.keepTransitionIntegrity(this.hideEverything.bind(this))    
+  }
+
+  onScaleRatioUpdated(event) {
+    console.log('onScaleRatioUpdated', event.detail.value)
+    this.previewScaleRatioValue = event.detail.value
+  }
+
+  onWindowScroll(event) {
+    this.hideEverything()
   }
 
   applyStyle(style) {
