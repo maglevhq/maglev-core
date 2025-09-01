@@ -42,7 +42,11 @@ export default class extends Controller {
     const currentPath = new URL(this.iframeTarget.src).pathname
     const newPath = document.querySelector('meta[name=page-preview-url]').content
 
-    if (currentPath !== newPath) this.iframeTarget.src = newPath
+    if (currentPath !== newPath) {
+      this.iframeTarget.src = newPath
+    } else {
+      this.clientReady()
+    }
   }
 
   // --- Transformation utilities ---

@@ -1,0 +1,8 @@
+<%= render Maglev::Uikit::DropdownComponent.new do |dropdown| %>
+  <% dropdown.with_trigger do %>
+    <button data-action="click->uikit-dropdown#toggle" data-uikit-dropdown-target="button" class="bg-gray-800 text-white px-4 py-2 rounded-md cursor-pointer">Click me</button>
+  <% end %>
+          
+  <p>Hello world</p>
+<% end %>
+          

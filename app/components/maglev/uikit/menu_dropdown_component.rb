@@ -14,7 +14,10 @@ module Maglev
 
       def item_classes(...)
         class_variants(
-          base: 'flex items-center px-4 py-4 hover:bg-gray-100 transition-colors duration-200 focus:outline-none cursor-pointer flex-1'
+          base: %(
+            flex items-center px-4 py-4 hover:bg-gray-100
+            transition-colors duration-200 focus:outline-none cursor-pointer flex-1
+          )
         ).render(...)
       end
 

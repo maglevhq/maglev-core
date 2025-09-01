@@ -17,7 +17,10 @@ module Maglev
 
       def wrapper_classes
         class_variants(
-          base: 'slide-pane absolute inset-y-0 h-[100dvh-(--spacing(16))] bg-white border-r border-gray-200 origin-top-left flex flex-col top-16 w-104',
+          base: %(
+            slide-pane absolute inset-y-0 h-[100dvh-(--spacing(16))] bg-white
+            border-r border-gray-200 origin-top-left flex flex-col top-16 w-104
+          ),
           variants: {
             expanded: 'left-0 z-40',
             '!expanded': 'left-16 z-10'

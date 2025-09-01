@@ -3,7 +3,7 @@
   group-data-[device=mobile]/device:w-[calc(375px*var(--page-preview-scale-ratio))] group-data-[device=tablet]/device:w-[calc(1024px*var(--page-preview-scale-ratio))]
   ">
   <% current_maglev_sections.each_with_index do |section, index| %>
-    <%= render Maglev::Uikit::SectionToolbarComponent.new(
+    <%= render Maglev::Uikit::SectionToolbar::SectionToolbarComponent.new(
       id: section.id, 
       label: section.type_name, 
       paths: { 

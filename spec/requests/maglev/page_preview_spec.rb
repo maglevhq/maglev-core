@@ -168,15 +168,16 @@ RSpec.describe 'Maglev::PagePreviewController', type: :request do
       page.save
     end
 
-    # rubocop:disable Layout/LineLength
     it 'displays the expected content' do
       get '/maglev/preview'
-      expect(response.body)
-        .to match(
-          %r{<li data-maglev-block-id="block-0">\s+<h3 data-maglev-id="block-0.title">\s+My work\s+</h3>\s+<img data-maglev-id="block-0.image" src="/samples/images/default.svg" />\s+</li>}
-        )
+
+      doc = Nokogiri::HTML(response.body)
+      block_item = doc.at_css('li[data-maglev-block-id="block-0"]')
+
+      expect(block_item).to be_present
+      expect(block_item.at_css('h3[data-maglev-id="block-0.title"]').text.strip).to eq('My work')
+      expect(block_item.at_css('img[data-maglev-id="block-0.image"]')['src']).to eq('/samples/images/default.svg')
     end
-    # rubocop:enable Layout/LineLength
 
     context 'with a missing key' do
       let(:block) do
@@ -184,15 +185,16 @@ RSpec.describe 'Maglev::PagePreviewController', type: :request do
           settings: [{ id: 'title', value: 'My work' }, { id: 'image', value: '' }] }
       end
 
-      # rubocop:disable Layout/LineLength
       it 'works anyway' do
         get '/maglev/preview'
-        expect(response.body)
-          .to match(
-            %r{<li data-maglev-block-id="block-0">\s+<h3 data-maglev-id="block-0.title">\s+My work\s+</h3>\s+<img data-maglev-id="block-0.image" src="" />\s+</li>}
-          )
+
+        doc = Nokogiri::HTML(response.body)
+        block_item = doc.at_css('li[data-maglev-block-id="block-0"]')
+
+        expect(block_item).to be_present
+        expect(block_item.at_css('h3[data-maglev-id="block-0.title"]').text.strip).to eq('My work')
+        expect(block_item.at_css('img[data-maglev-id="block-0.image"]')['src']).to eq('')
       end
-      # rubocop:enable Layout/LineLength
     end
   end
 
@@ -214,40 +216,42 @@ RSpec.describe 'Maglev::PagePreviewController', type: :request do
 
     it 'displays the expected content' do
       get '/maglev/preview'
-      expect(pretty_html(response.body))
-        .to include(<<-HTML
-              <nav>
-                <ul>
-                  <li class="navbar-item" id="block-block-0" data-maglev-block-id="block-0">
-                    <a data-maglev-id="block-0.link" href="/maglev/preview">
-                      <em>
-                        <span data-maglev-id="block-0.label">Item #0</span>
-                      </em>
-                    </a>
-                    <ul>
-                      <li class="navbar-nested-item" id="block-block-0-0" data-maglev-block-id="block-0-0">
-                        <a data-maglev-id="block-0-0.link" class="navbar-link" href="/maglev/preview">
-                          <span data-maglev-id="block-0-0.label">Item #0-0</span>
-                        </a>
-                      </li>
-                      <li class="navbar-nested-item" id="block-block-0-1" data-maglev-block-id="block-0-1">
-                        <a data-maglev-id="block-0-1.link" class="navbar-link" href="/maglev/preview">
-                          <span data-maglev-id="block-0-1.label">Item #0-1</span>
-                        </a>
-                      </li>
-                    </ul>
-                  </li>
-                  <li class="navbar-item" id="block-block-1" data-maglev-block-id="block-1">
-                    <a data-maglev-id="block-1.link" href="/maglev/preview">
-                      <em>
-                        <span data-maglev-id="block-1.label">Item #1</span>
-                      </em>
-                    </a>
-                  </li>
-                </ul>
-              </nav>
-        HTML
-          .strip)
+
+      doc = Nokogiri::HTML(response.body)
+      nav = doc.at_css('nav')
+
+      expect(nav).to be_present
+
+      # Check the main navigation structure
+      navbar_items = nav.css('.navbar-item')
+      expect(navbar_items.length).to eq(2)
+
+      # Check first item with nested children
+      first_item = navbar_items.first
+      expect(first_item['data-maglev-block-id']).to eq('block-0')
+      expect(first_item['id']).to eq('block-block-0')
+
+      first_link = first_item.at_css('a[data-maglev-id="block-0.link"]')
+      expect(first_link['href']).to eq('/maglev/preview')
+      expect(first_link.at_css('span[data-maglev-id="block-0.label"]').text.strip).to eq('Item #0')
+
+      # Check nested items
+      nested_items = first_item.css('.navbar-nested-item')
+      expect(nested_items.length).to eq(2)
+
+      expect(nested_items[0]['data-maglev-block-id']).to eq('block-0-0')
+      expect(nested_items[0]['id']).to eq('block-block-0-0')
+      expect(nested_items[0].at_css('span[data-maglev-id="block-0-0.label"]').text.strip).to eq('Item #0-0')
+
+      expect(nested_items[1]['data-maglev-block-id']).to eq('block-0-1')
+      expect(nested_items[1]['id']).to eq('block-block-0-1')
+      expect(nested_items[1].at_css('span[data-maglev-id="block-0-1.label"]').text.strip).to eq('Item #0-1')
+
+      # Check second item (no nested children)
+      second_item = navbar_items.last
+      expect(second_item['data-maglev-block-id']).to eq('block-1')
+      expect(second_item['id']).to eq('block-block-1')
+      expect(second_item.at_css('span[data-maglev-id="block-1.label"]').text.strip).to eq('Item #1')
     end
   end
 end

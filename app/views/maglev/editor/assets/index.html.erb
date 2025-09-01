@@ -16,8 +16,10 @@
             name: 'query', 
             value: params[:query], 
             search_path: editor_assets_path(query_params), 
-            placeholder: t('maglev.editor.image_library.search_placeholder'),
-            data: { turbo_frame: 'asset-search-results' }) %>
+            options: {
+              placeholder: t('maglev.editor.image_library.search_placeholder'),
+              data: { turbo_frame: 'asset-search-results' }
+            }) %>
         </div>
       </div>
 

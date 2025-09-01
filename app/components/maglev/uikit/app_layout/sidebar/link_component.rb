@@ -7,13 +7,13 @@ module Maglev
         class LinkComponent < Maglev::Uikit::BaseComponent
           attr_reader :path, :icon, :icon_size, :active, :data
 
-          def initialize(path:, icon:, icon_size: '1.5rem', active: false, position: :top, data: {})
+          def initialize(path:, icon:, active: false, options: {})
             @path = path
-            @icon = icon
-            @icon_size = icon_size
             @active = active
-            @position = position
-            @data = data
+            @icon = icon
+            @icon_size = options[:icon_size] || '1.5rem'
+            @position = options[:position] || :top
+            @data = options[:data]
           end
 
           def active?

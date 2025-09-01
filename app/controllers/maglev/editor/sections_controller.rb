@@ -3,8 +3,7 @@
 module Maglev
   module Editor
     class SectionsController < Maglev::Editor::BaseController
-
-      def new        
+      def new
         @grouped_sections = maglev_theme.sections.grouped_by_category
         @position = (params[:position] || -1).to_i
       end
@@ -15,17 +14,15 @@ module Maglev
           section_type: params[:section_type],
           position: params[:position].to_i
         )
-        redirect_to edit_editor_section_path(@section[:id], maglev_editing_route_context), 
-          flash: { section_id: @section[:id], position: params[:position].to_i },
-          notice: flash_t(:success),
-          status: :see_other
+        redirect_to edit_editor_section_path(@section[:id], maglev_editing_route_context),
+                    flash: newly_added_section_to_flash,
+                    notice: flash_t(:success),
+                    status: :see_other
       end
 
       def edit
         @section = current_maglev_sections.find { |section| section.id == params[:id] }
-        @section_definition = maglev_theme.sections.find(@section.type)
-        headers['X-Section-Id'] = flash[:section_id]
-        headers['X-Section-Position'] = flash[:position]
+        newly_added_section_to_headers
       end
 
       def update
@@ -34,7 +31,7 @@ module Maglev
 
       def sort
         current_maglev_page.reorder_sections(params[:item_ids])
-        if current_maglev_page.save          
+        if current_maglev_page.save
           redirect_to editor_sections_path(maglev_editing_route_context), notice: flash_t(:success), status: :see_other
         else
           render_index_with_error
@@ -55,7 +52,17 @@ module Maglev
       def render_index_with_error
         flash.now[:error] = flash_t(:error)
         render 'index', status: :unprocessable_entity
-      end      
+      end
+
+      def newly_added_section_to_flash
+        # use flash because we can't pass directly the information to the redirect
+        { section_id: @section[:id], position: params[:position].to_i }
+      end
+
+      def newly_added_section_to_headers
+        headers['X-Section-Id'] = flash[:section_id]
+        headers['X-Section-Position'] = flash[:position]
+      end
     end
   end
 end

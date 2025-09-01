@@ -12,9 +12,9 @@
   </div>
 </div>
 
-<%= render Maglev::Uikit::SectionToolbarComponent.new(id: "section-1", label: 'Navbar', paths: { show: '#' }, options: { insert_button: false }) %>
-<%= render Maglev::Uikit::SectionToolbarComponent.new(id: "section-2", label: 'Hero', paths: { show: '#' }, options: { has_blocks: true}) %>
-<%= render Maglev::Uikit::SectionToolbarComponent.new(id: "section-3", label: 'Features', paths: { show: '#' }) %>
+<%= render Maglev::Uikit::SectionToolbar::SectionToolbarComponent.new(id: "section-1", label: 'Navbar', paths: { show: '#' }, options: { insert_button: false }) %>
+<%= render Maglev::Uikit::SectionToolbar::SectionToolbarComponent.new(id: "section-2", label: 'Hero', paths: { show: '#' }, options: { has_blocks: true}) %>
+<%= render Maglev::Uikit::SectionToolbar::SectionToolbarComponent.new(id: "section-3", label: 'Features', paths: { show: '#' }) %>
 
 <script>
   document.querySelectorAll('[data-section-id]').forEach(section => {

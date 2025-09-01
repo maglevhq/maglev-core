@@ -16,6 +16,8 @@ pin '@hotwired/stimulus', to: '@hotwired--stimulus.js'
 pin '@rails/request.js', to: '@rails--request.js.js'
 
 pin_all_from File.expand_path('../app/components', __dir__), under: 'uikit-controllers', to: ''
-pin_all_from File.expand_path('../app/assets/javascripts/maglev/editor/controllers', __dir__), under: 'maglev-controllers',
-                                                                                        to: 'maglev/editor/controllers'
+pin_all_from File.expand_path('../app/assets/javascripts/maglev/editor/controllers', __dir__),
+             under: 'maglev-controllers',
+             to: 'maglev/editor/controllers'
+
 pin 'editor', to: 'maglev/editor/index.js'

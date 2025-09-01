@@ -7,6 +7,11 @@ export default class extends Controller {
     inactiveClass: String
   }
 
+  connect() {
+    this.activeClasses = this.activeClassValue.replace(/\s+|\s+/g, ' ').trim().split(' ')
+    this.inactiveClasses = this.inactiveClassValue.replace(/\s+|\s+/g, ' ').trim().split(' ')
+  }
+
   activateTab(event) {
     const tab = event.currentTarget
     const tabContent = this.tabContentTargets[tab.dataset.tabIndex]    
@@ -19,12 +24,12 @@ export default class extends Controller {
 
   updateTab(activeTab) {
     this.tabTargets.forEach(tab => {
-      tab.classList.remove(...this.activeClassValue.split(' '))
-      tab.classList.add(...this.inactiveClassValue.split(' '))
+      tab.classList.remove(...this.activeClasses)
+      tab.classList.add(...this.inactiveClasses)
     })
 
-    activeTab.classList.remove(...this.inactiveClassValue.split(' '))
-    activeTab.classList.add(...this.activeClassValue.split(' '))
+    activeTab.classList.remove(...this.inactiveClasses)
+    activeTab.classList.add(...this.inactiveClasses)
   }
 
   updateTabContent(activeTabContent) {

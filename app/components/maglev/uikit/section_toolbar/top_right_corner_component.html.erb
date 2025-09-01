@@ -13,7 +13,7 @@
 
   <%= link_to paths[:blocks], class: button_classes, data: { turbo_frame: '_top' } do %>
     <%= render Maglev::Uikit::IconComponent.new(name: 'settings') %>
-  <% end if has_blocks? %>
+  <% end if blocks? %>
 
   <%= button_to paths[:delete], method: :delete, class: button_classes, 
     data: { turbo_method: :delete, turbo_confirm: t('maglev.editor.sections.actions.delete_confirm') }, 

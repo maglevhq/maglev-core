@@ -1,0 +1,7 @@
+<%= render Maglev::Uikit::DropdownComponent.new do |dropdown| %>
+  <% dropdown.with_trigger do %>
+    <%= render Maglev::Uikit::IconButtonComponent.new(icon_name: 'more_2', data: { action: 'click->uikit-dropdown#toggle', 'uikit-dropdown-target': 'button' }) %>
+  <% end %>
+
+  <p>Hello world</p>
+<% end %>

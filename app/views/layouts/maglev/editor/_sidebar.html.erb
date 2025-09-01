@@ -2,7 +2,9 @@
   path: editor_pages_path(maglev_editing_route_context), 
   icon: 'file_copy', 
   active: controller_name == 'pages',
-  data: { controller: 'prevent-same-path' }
+  options: {
+    data: { controller: 'prevent-same-path' }
+  }
 ) %>
 
 <% sidebar.with_link(
@@ -14,11 +16,15 @@
 <% sidebar.with_link(
   path: editor_assets_path, 
   icon: 'image',
-  data: { turbo_frame: 'modal' }
+  options: {
+    data: { turbo_frame: 'modal' }
+  }
 ) %>
 
 <% sidebar.with_link(
   path: editor_leave_path, 
   icon: 'logout',
-  position: :bottom
+  options: {
+    position: :bottom
+  }
 ) %>

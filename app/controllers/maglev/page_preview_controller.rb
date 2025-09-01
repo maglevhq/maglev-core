@@ -33,7 +33,7 @@ module Maglev
       return super if action_name == 'index'
 
       super(
-        page_sections: params[:page_sections] ? JSON.parse(params[:page_sections]) : nil, 
+        page_sections: params[:page_sections] ? JSON.parse(params[:page_sections]) : nil,
         section_id: params[:section_id]
       )
     end

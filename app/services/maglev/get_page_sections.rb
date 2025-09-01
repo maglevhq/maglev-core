@@ -40,7 +40,7 @@ module Maglev
     def sections
       if page_sections.present?
         page_sections
-      elsif section_id.present? 
+      elsif section_id.present?
         page.sections.select { |section| section['id'] == section_id }
       else
         page.sections || []

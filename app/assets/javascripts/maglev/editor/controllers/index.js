@@ -8,7 +8,7 @@ import ImageFieldController from "uikit-controllers/maglev/uikit/form/image_fiel
 import ImageLibraryUploaderController from "uikit-controllers/maglev/uikit/image_library/uploader_controller"
 import CollapsibleController from "uikit-controllers/maglev/uikit/collapsible/collapsible_controller"
 import PageLayoutController from "uikit-controllers/maglev/uikit/page_layout_component/page_layout_controller"
-import SectionToolbarController from "uikit-controllers/maglev/uikit/section_toolbar_component/section_toolbar_controller"
+import SectionToolbarController from "uikit-controllers/maglev/uikit/section_toolbar/section_toolbar_controller"
 
 import DisappearanceController from "maglev-controllers/disappearance_controller"
 import MaxLengthController from "maglev-controllers/max_length_controller"

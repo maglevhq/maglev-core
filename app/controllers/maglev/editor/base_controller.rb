@@ -5,7 +5,7 @@ module Maglev
     class BaseController < ::Maglev::ApplicationController
       layout 'maglev/editor/application'
 
-      default_form_builder Maglev::FormBuilder
+      default_form_builder Maglev::Form::FormBuilder
 
       include Maglev::UserInterfaceLocaleConcern
       include Maglev::ContentLocaleConcern
@@ -17,7 +17,8 @@ module Maglev
       before_action :set_content_locale
 
       helper Maglev::ApplicationHelper
-      helper_method :maglev_site, :current_maglev_page, :current_maglev_sections, :current_maglev_page_urls, :maglev_theme,
+      helper_method :maglev_site, :maglev_theme,
+                    :current_maglev_page, :current_maglev_sections, :current_maglev_page_urls,
                     :maglev_editing_route_context, :maglev_disable_turbo_cache?, :maglev_page_live_url
 
       private

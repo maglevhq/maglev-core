@@ -3,6 +3,7 @@
 require 'vite_rails/version'
 require 'vite_rails/tag_helpers'
 
+# rubocop:disable Metrics/ModuleLength
 module Maglev
   module ApplicationHelper
     def maglev_editor_javascript_tags
@@ -11,6 +12,7 @@ module Maglev
 
     def maglev_client_javascript_tags
       return '' unless maglev_rendering_mode == :editor
+
       maglev_importmap_tags(:client, 'client')
     end
 
@@ -54,6 +56,7 @@ module Maglev
 
     # UI helpers
 
+    # rubocop:disable Metrics/MethodLength
     def maglev_button_classes(...)
       ClassVariants.build(
         base: 'rounded-xs transition-colors duration-200 text-center cursor-pointer',
@@ -73,21 +76,28 @@ module Maglev
         }
       ).render(...)
     end
+    # rubocop:enable Metrics/MethodLength
 
     def maglev_icon_button_classes(...)
       ClassVariants.build(
-        base: 'h-7 w-7 flex items-center justify-center rounded-full focus:outline-none transition-colors duration-200 cursor-pointer bg-gray-600/0 text-gray-800 hover:bg-gray-600/10 hover:text-gray-900'
+        base: %(h-7 w-7 flex items-center justify-center rounded-full focus:outline-none
+        transition-colors duration-200 cursor-pointer bg-gray-600/0 text-gray-800
+        hover:bg-gray-600/10 hover:text-gray-900)
       ).render(...)
     end
 
     def maglev_flash_message
-      if flash[:notice].present?
-        render Maglev::Uikit::BadgeComponent.new(color: :green, icon_name: 'checkbox_circle',
-                                                 disappear_after: 3.seconds).with_content(flash[:notice])
-      elsif flash[:error].present?
-        render Maglev::Uikit::BadgeComponent.new(color: :red, icon_name: 'error_warning',
-                                                 disappear_after: 3.seconds).with_content(flash[:error])
-      end
+      message, color, icon_name = if flash[:notice].present?
+                                    [flash[:notice], :green, 'checkbox_circle']
+                                  elsif flash[:error].present?
+                                    [flash[:error], :red, 'error_warning']
+                                  end
+
+      return '' if message.blank?
+
+      render Maglev::Uikit::BadgeComponent.new(color: color,
+                                               icon_name: icon_name,
+                                               disappear_after: 3.seconds).with_content(message)
     end
 
     def maglev_page_icon(page, size: '1.15rem')
@@ -96,10 +106,10 @@ module Maglev
     end
 
     def maglev_page_preview_reload_data
-      { 
-        controller: "dispatcher", 
-        action: "click->dispatcher#trigger", 
-        dispatcher_event_name_value: 'page-preview:reload' 
+      {
+        controller: 'dispatcher',
+        action: 'click->dispatcher#trigger',
+        dispatcher_event_name_value: 'page-preview:reload'
       }
     end
 
@@ -111,10 +121,11 @@ module Maglev
     end
 
     def maglev_live_preview_client_javascript_tag
+      # rubocop:disable Layout/LineLength
       Rails.logger.warn '🚨 maglev_live_preview_client_javascript_tag is deprecated, use maglev_client_javascript_tags instead'
+      # rubocop:enable Layout/LineLength
       maglev_client_javascript_tags
     end
-
 
     def legacy_live_preview_client_javascript_tag
       # no need to render the tag when the site is being visited outside the editor
@@ -136,3 +147,4 @@ module Maglev
     end
   end
 end
+# rubocop:enable Metrics/ModuleLength

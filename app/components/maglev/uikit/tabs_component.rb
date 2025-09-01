@@ -16,7 +16,10 @@ module Maglev
 
       def label_classes(...)
         class_variants(
-          base: 'relative py-1 pb-0 px-4 block focus:outline-none border-b-2 z-10 font-medium hover:text-editor-primary',
+          base: %(
+            relative py-1 pb-0 px-4 block focus:outline-none border-b-2
+            z-10 font-medium hover:text-editor-primary
+          ),
           variants: {
             active: 'text-editor-primary border-editor-primary',
             '!active': 'text-gray-500 border-transparent'

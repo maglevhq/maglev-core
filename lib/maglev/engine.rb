@@ -65,14 +65,14 @@ module Maglev
       if (Rails.env.development? || Rails.env.test?) && !app.config.cache_classes
         # Editor
         Engine.importmaps[:editor].cache_sweeper(watches: [
-                                         Engine.root.join('app/assets/javascripts'),
-                                         Engine.root.join('app/components')
-                                       ])
+                                                   Engine.root.join('app/assets/javascripts'),
+                                                   Engine.root.join('app/components')
+                                                 ])
 
         # Client
         Engine.importmaps[:client].cache_sweeper(watches: [
-                                                  Engine.root.join('app/assets/javascripts/maglev/client')
-                                                ])
+                                                   Engine.root.join('app/assets/javascripts/maglev/client')
+                                                 ])
 
         ActiveSupport.on_load(:action_controller_base) do
           before_action { Engine.importmaps[:editor].cache_sweeper.execute_if_updated }

@@ -6,45 +6,37 @@ module Maglev
       class CardComponentPreview < ViewComponent::Preview
         # @!group Variants
         def default
-          render_with_template(locals: {
-                                 id: 1,
-                                 image_url: '/images/img-1.jpg',
-                                 filename: 'Image 1',
-                                 width: 1920,
-                                 height: 1080,
-                                 byte_size: 217_021
-                               })
+          render_with_template(locals: { image: build_image(1) })
         end
 
         def with_vertical_image
           render_with_template(
             template: 'maglev/uikit/image_library/card_component_preview/default',
-            locals: {
-              id: 1,
-              image_url: '/images/img-2.jpg',
-              filename: 'Image 2',
-              width: 500,
-              height: 805,
-              byte_size: 5019
-            }
+            locals: { image: build_image(2) }
           )
         end
 
         def with_square_image
           render_with_template(
             template: 'maglev/uikit/image_library/card_component_preview/default',
-            locals: {
-              id: 1,
-              image_url: '/images/img-3.jpg',
-              filename: 'Image 3',
-              width: 1920,
-              height: 1920,
-              byte_size: 217_021
-            }
+            locals: { image: build_image(3) }
           )
         end
 
         # @!endgroup
+
+        private
+
+        def build_image(id)
+          {
+            id: id,
+            image_url: "/images/img-#{id}.jpg",
+            filename: "Image #{id}",
+            width: 1920,
+            height: 1080,
+            byte_size: 217_021
+          }
+        end
       end
     end
   end

@@ -19,11 +19,11 @@
 </div>
 
 <div class="fixed inset-0 pointer-events-none">
-  <%= render Maglev::Uikit::SectionToolbarComponent.new(id: "section-1", label: 'Navbar', paths: { show: '#' }, options: { insert_button: false }) %>
-  <%= render Maglev::Uikit::SectionToolbarComponent.new(id: "section-2", label: 'Hero', paths: { show: '#' }, options: { has_blocks: true}) %>
-  <%= render Maglev::Uikit::SectionToolbarComponent.new(id: "section-3", label: 'Features', paths: { show: '#' }) %>
-  <%= render Maglev::Uikit::SectionToolbarComponent.new(id: "section-4", label: 'Contact', paths: { show: '#' }) %>
-  <%= render Maglev::Uikit::SectionToolbarComponent.new(id: "section-5", label: 'Footer', paths: { show: '#' }) %>
+  <%= render Maglev::Uikit::SectionToolbar::SectionToolbarComponent.new(id: "section-1", label: 'Navbar', paths: { show: '#' }, options: { insert_button: false }) %>
+  <%= render Maglev::Uikit::SectionToolbar::SectionToolbarComponent.new(id: "section-2", label: 'Hero', paths: { show: '#' }, options: { has_blocks: true}) %>
+  <%= render Maglev::Uikit::SectionToolbar::SectionToolbarComponent.new(id: "section-3", label: 'Features', paths: { show: '#' }) %>
+  <%= render Maglev::Uikit::SectionToolbar::SectionToolbarComponent.new(id: "section-4", label: 'Contact', paths: { show: '#' }) %>
+  <%= render Maglev::Uikit::SectionToolbar::SectionToolbarComponent.new(id: "section-5", label: 'Footer', paths: { show: '#' }) %>
 </div>
 
 <script>

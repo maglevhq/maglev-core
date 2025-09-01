@@ -8,8 +8,10 @@
       name: 'q', 
       value: params[:q], 
       search_path: editor_pages_path, 
-      placeholder: t('maglev.editor.pages.list.search_placeholder'),
-      data: { turbo_action: 'replace' }
+      options: {
+        placeholder: t('maglev.editor.pages.list.search_placeholder'),
+        data: { turbo_action: 'replace' }
+      }
     )) %>
 
     <%= render 'list' %>

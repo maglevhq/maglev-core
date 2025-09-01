@@ -23,6 +23,7 @@ module Maglev
           )
         end
 
+        # rubocop:disable Metrics/MethodLength
         def with_an_image_and_alt_text
           render Maglev::Uikit::Form::ImageFieldComponent.new(
             label: 'Image',
@@ -36,6 +37,7 @@ module Maglev
             search_path: '#'
           )
         end
+        # rubocop:enable Metrics/MethodLength
 
         # @!endgroup
       end

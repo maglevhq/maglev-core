@@ -6,13 +6,13 @@ module Maglev
       class CardComponent < Maglev::Uikit::BaseComponent
         attr_reader :id, :image_url, :filename, :width, :height, :byte_size, :delete_path, :picker_attributes
 
-        def initialize(id:, image_url:, filename:, width:, height:, byte_size:, delete_path:, picker_attributes: nil)
-          @id = id
-          @image_url = image_url
-          @filename = filename
-          @width = width
-          @height = height
-          @byte_size = byte_size
+        def initialize(image:, delete_path:, picker_attributes: nil)
+          @id = image[:id]
+          @image_url = image[:image_url]
+          @filename = image[:filename]
+          @width = image[:width]
+          @height = image[:height]
+          @byte_size = image[:byte_size]
           @delete_path = delete_path
           @picker_attributes = picker_attributes
         end
@@ -20,15 +20,19 @@ module Maglev
         def picker_event_payload
           {
             source: picker_attributes[:source],
-            image: {
-              id: id,
-              filename: filename,
-              image_url: image_url,
-              width: width,
-              height: height,
-              byte_size: byte_size
-            }
+            image: picker_event_image_payload
           }.to_json
+        end
+
+        def picker_event_image_payload
+          {
+            id: id,
+            filename: filename,
+            image_url: image_url,
+            width: width,
+            height: height,
+            byte_size: byte_size
+          }
         end
 
         def picker_event_name

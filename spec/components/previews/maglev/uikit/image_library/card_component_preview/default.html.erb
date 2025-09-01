@@ -1,11 +1,3 @@
 <div class="w-48 h-58">
-  <%= render Maglev::Uikit::ImageLibrary::CardComponent.new(
-    id: id,
-    image_url:,
-    filename:,
-    width:,
-    height:,
-    byte_size:,
-    delete_path: '#'
-  ) %>
+  <%= render Maglev::Uikit::ImageLibrary::CardComponent.new(image: image, delete_path: '#') %>
 </div>

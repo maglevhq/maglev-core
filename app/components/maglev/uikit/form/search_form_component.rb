@@ -6,18 +6,21 @@ module Maglev
       class SearchFormComponent < Maglev::Uikit::BaseComponent
         attr_reader :name, :value, :search_path, :placeholder, :data
 
-        def initialize(name:, value:, search_path:, placeholder: nil, class_names: nil, data: nil)
+        def initialize(name:, value:, search_path:, options: {})
           @name = name
           @value = value
           @search_path = search_path
-          @placeholder = placeholder
-          @class_names = class_names
-          @data = data
+          @placeholder = options[:placeholder]
+          @class_names = options[:class_names]
+          @data = options[:data]
         end
 
         def class_names
           class_variants(
-            base: 'inline-flex items-center py-2 px-4 rounded bg-gray-100 text-gray-800 has-[:focus]:ring has-[:focus]:ring-inset has-[:focus]:ring-2 has-[:focus]:ring-editor-primary/50'
+            base: %(
+              inline-flex items-center py-2 px-4 rounded bg-gray-100 text-gray-800
+              has-[:focus]:ring has-[:focus]:ring-inset has-[:focus]:ring-2 has-[:focus]:ring-editor-primary/50
+            )
           ).render(class: @class_names || '')
         end
 

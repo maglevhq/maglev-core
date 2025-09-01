@@ -51,9 +51,7 @@ module Maglev
                 col: 'flex-col'
               }
             },
-            default: {
-              disposition: :col
-            }
+            default: { disposition: :col }
           ).render(disposition: big_image? ? :col : :row)
         end
 
