@@ -1,10 +1,17 @@
 <div class="py-6">
   <% if current_maglev_sections.any? %>
-    <%= render Maglev::Uikit::List::ListComponent.new(sort_form: { path: sort_editor_sections_path(maglev_editing_route_context), data: { turbo_frame: '_top' } }) do |component| %>
+    <%= render Maglev::Uikit::List::ListComponent.new(
+        sort_form: { 
+          path: sort_editor_sections_path(maglev_editing_route_context), 
+          data: { 
+            turbo_frame: '_top',
+            action: 'sortable:drag-stopped@window->preview-notification-center#moveSection',            
+          } 
+        }) do |component| %>
       <% component.with_item_insert_button(link: { url: new_editor_section_path(position: 0, **maglev_editing_route_context), data: { turbo_frame: '_top' } })%>
       
       <% current_maglev_sections.each_with_index do |section, index| %>
-        <% component.with_item_content(id: section.id,link: { url: edit_editor_section_path(section.id, maglev_editing_route_context), data: { turbo_frame: '_top' } }) do |item| %>
+        <% component.with_item_content(id: section.id, link: { url: edit_editor_section_path(section.id, maglev_editing_route_context), data: { turbo_frame: '_top' } }) do |item| %>
           <% item.with_handle %>
 
           <% if section.label? %>

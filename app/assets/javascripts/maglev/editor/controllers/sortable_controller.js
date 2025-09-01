@@ -25,10 +25,30 @@ export default class extends Controller {
       },
     });
 
-    this.sortable.on('drag:stopped', this.onSorted.bind(this))
+    const _emitEvent = this.emitEvent.bind(this)
+    const _persist = this.persist.bind(this)
+    
+    this.sortable.on('sortable:stop', _emitEvent)
+    this.sortable.on('drag:stopped', _persist)
   }
 
-  onSorted() {
+  disconnect() {
+    this.sortable.destroy()
+  }
+
+  emitEvent(event) {
+    // optimistic UI update
+    const { oldIndex, newIndex } = event.data
+    const direction = oldIndex < newIndex ? 'down' : 'up'
+
+    const oldItemId = this.itemTargets[direction === 'down' ? oldIndex : newIndex].dataset.itemId
+    const newItemId = this.itemTargets[direction === 'down' ? newIndex : oldIndex].dataset.itemId
+
+    this.dispatch('drag-stopped', { detail: { oldItemId, newItemId, direction } })
+  }
+
+  persist() {
+    // persisting the new order in DB
     this.itemTargets.forEach(item => {  
       const hiddenField = document.createElement('input')
       hiddenField.type = 'hidden'
@@ -38,9 +58,5 @@ export default class extends Controller {
     })
     
     this.sortableFormTarget.requestSubmit()
-  }
-
-  disconnect() {
-    this.sortable.destroy()
   }
 }

@@ -57,7 +57,7 @@ const moveSections = (event) => {
     )
 
   // scroll to the new placement of the section
-  sectionElement.scrollIntoView(true)
+  scrollToSection(sectionElement)
 }
 
 const updateSection = (event) => {
@@ -166,10 +166,7 @@ const updatePreviewDocument = async (content, section, insertAt) => {
 
   runScripts(sourceElement)
 
-  previewDocument.documentElement.scrollTo({
-    top: targetElement.offsetTop,
-    behavior: 'smooth',
-  })
+  scrollToSection(targetElement)
 }
 
 const debouncedUpdatePreviewDocument = debounce(updatePreviewDocument, 300)
@@ -220,4 +217,11 @@ const getUpdatedDoc = async (attributes) => {
   const parser = new DOMParser()
   const doc = parser.parseFromString(data, 'text/html')
   return doc
+}
+
+const scrollToSection = (element) => {
+  previewDocument.documentElement.scrollTo({
+    top: element.offsetTop,
+    behavior: 'smooth',
+  })
 }

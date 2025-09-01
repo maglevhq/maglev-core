@@ -23,9 +23,15 @@ export default class extends Controller {
   }
 
   deleteSection(event) {
-    console.log('deleteSection', event, event.detail.fetchResponse.response.headers.get('X-Hello'))
+    console.log('deleteSection', event)
     const { sectionId } = event.params
     this.postMessage('section:remove', { sectionId  })
+  }
+
+  moveSection(event) {
+    console.log('moveSection 💨💨💨', event)
+    const { oldItemId: sectionId, newItemId: targetSectionId, direction } = event.detail
+    this.postMessage('section:move', { sectionId, targetSectionId, direction })
   }
   
   // === UTILS ===

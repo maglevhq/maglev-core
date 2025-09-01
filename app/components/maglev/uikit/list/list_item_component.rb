@@ -11,12 +11,13 @@ module Maglev
         renders_one :title
         renders_one :action
 
-        attr_reader :link
+        attr_reader :link, :index
 
-        def initialize(link: nil, id: nil, wrapper_classes: nil)
+        def initialize(id: nil, link: nil, options: {})
           @id = id
           @link = link
-          @custom_wrapper_classes = wrapper_classes
+          @custom_wrapper_classes = options[:wrapper_classes]
+          @index = options[:index]
         end
 
         def id

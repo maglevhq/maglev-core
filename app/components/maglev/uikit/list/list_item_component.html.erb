@@ -1,4 +1,4 @@
-<div <%= tag.attributes(class: wrapper_classes, data: { sortable_target: 'item', item_id: id }) %>>
+<div <%= tag.attributes(class: wrapper_classes, data: { sortable_target: 'item', item_id: id, item_index: index }) %>>
   <% if handle? %>
     <div class="flex items-center cursor-move" data-sortable-target="handle">
       <%= render Maglev::Uikit::IconComponent.new(name: "draggable") %>
