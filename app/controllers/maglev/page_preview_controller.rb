@@ -32,7 +32,10 @@ module Maglev
     def fetch_maglev_page_sections
       return super if action_name == 'index'
 
-      super(JSON.parse(params[:page_sections]))
+      super(
+        page_sections: params[:page_sections] ? JSON.parse(params[:page_sections]) : nil, 
+        section_id: params[:section_id]
+      )
     end
 
     def maglev_rendering_mode

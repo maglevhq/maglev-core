@@ -104,7 +104,7 @@ export default class extends Controller {
     // console.log('calculateTransformations 🍔', this.calculateTransformX(), this.calculateScaleRatio())
     document.body.style.setProperty('--page-preview-transform-x', `${this.calculateTransformX()}px`)
     document.body.style.setProperty('--page-preview-scale-ratio', `${scaleRatio}`)
-
+    
     if (this.expandedPageLayout() && scaleRatio === 1) {
       document.body.style.setProperty('--page-preview-width', `${this.previewMaxWidth()}px`)
     } else {

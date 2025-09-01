@@ -11,12 +11,15 @@
       <% if sections.any? %>
         <div class="space-y-4 py-2">
           <% sections.each do |section| %>
-            <%= render Maglev::Uikit::List::ListItemComponent.new(link: { url: editor_sections_path(section_type: section.id, position: @position, **maglev_editing_route_context), data: { turbo_method: :post, turbo_frame: '_top' } }, wrapper_classes: 'transition duration-150 ease-in-out transform hover:-translate-y-1') do |item| %>
-              <% item.with_big_image do %>
-                <%= image_tag services.fetch_section_screenshot_url.call(section: section), class: item.big_image_classes, data: { controller: 'failed-image' } %>
+            <label class="block cursor-pointer">
+              <%= f.radio_button :section_type, section.id, class: 'sr-only peer' %>
+              <%= render Maglev::Uikit::List::ListItemComponent.new(wrapper_classes: 'transition duration-150 ease-in-out transform hover:-translate-y-1') do |item| %>
+                <% item.with_big_image do %>
+                  <%= image_tag services.fetch_section_screenshot_url.call(section: section), class: item.big_image_classes, data: { controller: 'failed-image' } %>
+                <% end %>
+                <% item.with_title_content(section.name) %>
               <% end %>
-              <% item.with_title_content(section.name) %>
-            <% end %>
+            </label>
           <% end %>
         </div>
       <% else %>

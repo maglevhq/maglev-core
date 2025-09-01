@@ -15,7 +15,15 @@ export default class extends Controller {
   
   // === SECTIONS ===
 
+  addSection(event) {
+    console.log('addSection', event, event.detail.fetchResponse.response.headers.get('X-Section-Id'), event.detail.fetchResponse.response.headers.get('X-Section-Position'))
+    const sectionId = event.detail.fetchResponse.response.headers.get('X-Section-Id')
+    const position = event.detail.fetchResponse.response.headers.get('X-Section-Position')
+    this.postMessage('section:add', { sectionId, insertAt: parseInt(position) })
+  }
+
   deleteSection(event) {
+    console.log('deleteSection', event, event.detail.fetchResponse.response.headers.get('X-Hello'))
     const { sectionId } = event.params
     this.postMessage('section:remove', { sectionId  })
   }

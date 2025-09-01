@@ -5,7 +5,7 @@
     </div>
   <% end %>
 
-  <%= link_to link_url, data: link_data, class: link_classes do %>
+  <% item_body = capture do %>
     <% if image? %>
       <div class="h-8 w-8 bg-gray-400">
         <%= image %>
@@ -13,7 +13,7 @@
     <% end %>
 
     <% if big_image? %>
-      <%= big_image %>      
+      <%= big_image %>
     <% end %>
 
     <div class="flex flex-col overflow-hidden">
@@ -23,6 +23,16 @@
       <% else %>
         <div class="truncate"><%= title %></div>
       <% end %>
+    </div>    
+  <% end %>
+
+  <% if link? %>
+    <%= link_to link_url, data: link_data, class: content_classes do %>
+      <%= item_body %>
+    <% end %>
+  <% else %>
+    <div class="<%= content_classes %>">
+      <%= item_body %>
     </div>
   <% end %>
 

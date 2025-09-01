@@ -18,10 +18,11 @@ module Maglev
 
     argument :page
     argument :page_sections, default: nil
+    argument :section_id, default: nil
     argument :locale, default: nil
 
     def call
-      (page_sections || page.sections || []).map do |section|
+      sections.map do |section|
         transform_section(section.dup)
       end.compact
     end
@@ -34,6 +35,16 @@ module Maglev
 
     def site
       fetch_site.call
+    end
+
+    def sections
+      if page_sections.present?
+        page_sections
+      elsif section_id.present? 
+        page.sections.select { |section| section['id'] == section_id }
+      else
+        page.sections || []
+      end.compact
     end
 
     def transform_section(section)

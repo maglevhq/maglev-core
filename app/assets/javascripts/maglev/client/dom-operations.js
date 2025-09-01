@@ -31,8 +31,8 @@ export const start = () => {
 // === Section related actions ===
 
 const addSection = (event) => {
-  const { content, section, insertAt } = event.detail
-  debouncedUpdatePreviewDocument(content, section, insertAt)
+  const { sectionId, insertAt } = event.detail
+  debouncedUpdatePreviewDocument(null, { id: sectionId }, insertAt)
 }
 
 const moveSections = (event) => {
@@ -67,7 +67,6 @@ const updateSection = (event) => {
 
 const removeSection = (event) => {
   const { sectionId } = event.detail
-  console.log("removeSection 🍔🍔🍔", event, event.detail.sectionId)
   const selector = `[data-maglev-section-id='${sectionId}']`
   const element = previewDocument.querySelector(selector)
   element.remove()
@@ -140,9 +139,10 @@ const updateTextSetting = (source, change) => {
 
 const updatePreviewDocument = async (content, section, insertAt) => {
   const doc = await getUpdatedDoc({
-    pageSections: JSON.stringify([
+    page_sections: content ? JSON.stringify([
       content.pageSections.find((s) => s.id == section.id), // no need to render the other sections
-    ]),
+    ]) : null,
+    section_id: section.id
   })
 
   // NOTE: Instructions to refresh the whole document
@@ -166,28 +166,33 @@ const updatePreviewDocument = async (content, section, insertAt) => {
 
   runScripts(sourceElement)
 
-  targetElement.scrollIntoView(true)
+  previewDocument.documentElement.scrollTo({
+    top: targetElement.offsetTop,
+    behavior: 'smooth',
+  })
 }
 
 const debouncedUpdatePreviewDocument = debounce(updatePreviewDocument, 300)
 
 const insertSectionInDOM = (element, insertAt) => {
   switch (insertAt) {
-    case 'top': {
+    case 'top':
+    case 0: {
       const parentNode = previewDocument.querySelector('[data-maglev-dropzone]')
       parentNode.prepend(element)
       break
     }
-    case 'bottom':
+    case -1:
+    case 'bottom':    
     case undefined:
     case null:
-    case '': {
+    case '': {      
       const parentNode = previewDocument.querySelector('[data-maglev-dropzone]')
       parentNode.appendChild(element)
       break
     }
     default: {
-      const selector = `[data-maglev-section-id='${insertAt}']`
+      const selector = `[data-maglev-dropzone] > [data-maglev-section-id]:nth-child(${insertAt})`
       const pivotElement = previewDocument.querySelector(selector)
       pivotElement.parentNode.insertBefore(element, pivotElement.nextSibling)
     }

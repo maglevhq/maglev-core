@@ -1,6 +1,14 @@
-<%= render Maglev::Uikit::PageLayoutComponent.new(back_path: editor_sections_path(maglev_editing_route_context)) do |page_layout| %>
+<%= render Maglev::Uikit::PageLayoutComponent.new(expanded: true, back_path: editor_sections_path(maglev_editing_route_context)) do |page_layout| %>
   <% page_layout.with_title_content t('maglev.editor.sections.add_pane.title') %>
   <% page_layout.with_notification_content maglev_flash_message %>
 
-  <%= render 'theme_list' %>
+  <%= form_with url: editor_sections_path(maglev_editing_route_context), data: { 
+      turbo_frame: '_top', 
+      controller: 'auto-save',
+      action: 'turbo:submit-end->preview-notification-center#addSection' 
+    } do |f| %>
+    <%= f.hidden_field :position, value: @position %>
+
+    <%= render 'theme_list', f: f %>
+  <% end %>
 <% end %>

@@ -13,7 +13,7 @@ module Maglev
 
         attr_reader :link
 
-        def initialize(link:, id: nil, wrapper_classes: nil)
+        def initialize(link: nil, id: nil, wrapper_classes: nil)
           @id = id
           @link = link
           @custom_wrapper_classes = wrapper_classes
@@ -21,6 +21,10 @@ module Maglev
 
         def id
           @id || SecureRandom.uuid
+        end
+
+        def link?
+          link.present?
         end
 
         def link_url
@@ -37,7 +41,7 @@ module Maglev
           ).render(class: @custom_wrapper_classes)
         end
 
-        def link_classes
+        def content_classes
           class_variants(
             base: 'flex flex-1 py-3 gap-3 overflow-hidden px-2',
             variants: {
