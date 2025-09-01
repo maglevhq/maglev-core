@@ -438,7 +438,6 @@ DEPENDENCIES
   rubocop-rspec
   simplecov
   sqlite3
-  view_component
   web-console
 
 BUNDLED WITH

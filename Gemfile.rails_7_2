@@ -44,6 +44,9 @@ gem 'sqlite3'
 gem 'observer'
 gem 'ostruct'
 
+# Use ESM with importmap to manage modern JavaScript in Rails without transpiling or bundling.
+gem 'importmap-rails', '~> 2.2'
+
 group :development, :test do
   # Use SCSS for stylesheets
   gem 'bcrypt'

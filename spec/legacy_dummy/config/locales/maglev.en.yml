@@ -1,0 +1,16 @@
+# en:
+#   maglev:
+#     themes:
+#       simple:
+#         sections:
+#           jumbotron: 
+#             type: "Jumbotron [EN]"
+#         categories:
+#           headers:
+#             name: "Headers 🥸"
+#           features:
+#             name: "Features 🥸"
+#           call_to_actions:
+#             name: "Call to Actions 🥸"
+
+en: {}

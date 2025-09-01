@@ -1,0 +1,14 @@
+fr:
+  maglev:
+    themes:
+      simple:
+        sections:
+          jumbotron: 
+            type: "Jumbotron [FR]"
+          categories:
+            headers:
+              name: "En-têtes"
+            features:
+              name: "Fonctionnalités"
+            call_to_actions:
+              name: "Appels à l'action"

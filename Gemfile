@@ -39,7 +39,7 @@ gem 'observer'
 gem 'ostruct'
 
 # ViewComponent is a library for building reusable, testable & encapsulated view components in Ruby on Rails.
-gem 'view_component'
+# gem 'view_component'
 
 # Lookbook is a UI development environment for Ruby on Rails applications
 gem 'lookbook'

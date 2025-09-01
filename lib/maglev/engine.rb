@@ -48,8 +48,8 @@ module Maglev
 
     def self.importmaps
       @importmaps ||= {
-        editor: Importmap::Map.new,
-        client: Importmap::Map.new
+        editor: ::Importmap::Map.new,
+        client: ::Importmap::Map.new
       }
     end
 
