@@ -18,7 +18,7 @@ RSpec.describe 'Maglev::PagePreviewController', type: :request do
       expect(response.body).to include('<link rel="alternate" hreflang="x-default" href="http://www.example.com/maglev/preview">')
       expect(response.body).to include('<link rel="alternate" hreflang="en" href="http://www.example.com/maglev/preview">')
       expect(response.body).to include('<link rel="alternate" hreflang="fr" href="http://www.example.com/maglev/preview/fr">')
-      expect(response.body).to match(%r{<h1 data-maglev-id="\S+\.title" class="display-3">Let's create the product<br/>your clients<br/>will love\.</h1>})
+      expect(response.body).to match(%r{<h1 data-maglev-id="\S+\.title" class="[^>]+">Let's create the product<br/>your clients<br/>will love\.</h1>})
       expect(response.body).to include('Our projects')
     end
     # rubocop:enable Layout/LineLength
@@ -151,7 +151,7 @@ RSpec.describe 'Maglev::PagePreviewController', type: :request do
 
     it 'renders the index page with the content from the params' do
       post '/maglev/preview', params: { page_sections: sections.to_json }
-      expect(response.body).to match(%r{<h1 data-maglev-id="\S+\.title" class="display-3">UPDATED TITLE</h1>})
+      expect(response.body).to match(%r{<h1 data-maglev-id="\S+\.title" class="[^>]+">UPDATED TITLE</h1>})
     end
   end
 
@@ -171,12 +171,14 @@ RSpec.describe 'Maglev::PagePreviewController', type: :request do
     it 'displays the expected content' do
       get '/maglev/preview'
 
-      doc = Nokogiri::HTML(response.body)
-      block_item = doc.at_css('li[data-maglev-block-id="block-0"]')
+      doc = parse_html(response.body)
+      block_item = expect_element_present(doc, 'li[data-maglev-block-id="block-0"]')
 
-      expect(block_item).to be_present
-      expect(block_item.at_css('h3[data-maglev-id="block-0.title"]').text.strip).to eq('My work')
-      expect(block_item.at_css('img[data-maglev-id="block-0.image"]')['src']).to eq('/samples/images/default.svg')
+      title_element = expect_element_present(block_item, 'h3[data-maglev-id="block-0.title"]')
+      expect_element_text(title_element, 'My work')
+
+      image_element = expect_element_present(block_item, 'img[data-maglev-id="block-0.image"]')
+      expect_element_attributes(image_element, { src: '/samples/images/default.svg' })
     end
 
     context 'with a missing key' do
@@ -188,12 +190,14 @@ RSpec.describe 'Maglev::PagePreviewController', type: :request do
       it 'works anyway' do
         get '/maglev/preview'
 
-        doc = Nokogiri::HTML(response.body)
-        block_item = doc.at_css('li[data-maglev-block-id="block-0"]')
+        doc = parse_html(response.body)
+        block_item = expect_element_present(doc, 'li[data-maglev-block-id="block-0"]')
 
-        expect(block_item).to be_present
-        expect(block_item.at_css('h3[data-maglev-id="block-0.title"]').text.strip).to eq('My work')
-        expect(block_item.at_css('img[data-maglev-id="block-0.image"]')['src']).to eq('')
+        title_element = expect_element_present(block_item, 'h3[data-maglev-id="block-0.title"]')
+        expect_element_text(title_element, 'My work')
+
+        image_element = expect_element_present(block_item, 'img[data-maglev-id="block-0.image"]')
+        expect_element_attributes(image_element, { src: '' })
       end
     end
   end

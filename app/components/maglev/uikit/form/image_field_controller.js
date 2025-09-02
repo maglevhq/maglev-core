@@ -6,10 +6,6 @@ export default class extends Controller {
     searchPath: String
   }
 
-  connect() {
-    console.log('MaglevUikitFormImageFieldController connected')
-  }
-
   focus() {
     this.openPicker()
   }

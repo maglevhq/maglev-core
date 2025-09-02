@@ -9,7 +9,7 @@
 <%= render Maglev::Uikit::ModalComponent.new(id: 'example', open: false) do |modal| %>
   <% modal.with_title_content 'Editing user' %>
 
-  <%= form_with model: user, url: '#', builder: Maglev::FormBuilder do |form| %>    
+  <%= form_with model: user, url: '#', builder: Maglev::Form::FormBuilder do |form| %>    
     <%= form.text_field :name %>
 
     <% content_for :form_actions do %>

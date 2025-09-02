@@ -19,13 +19,27 @@ RSpec.describe 'Maglev::PagePreviewController', type: :request do
 
     it 'renders a page of the main app' do
       get "/products/#{product.id}"
-      html_response = pretty_html(response.body)
-      expect(html_response).to include('<title>My awesome product</title>')
-        # rubocop:disable Layout/LineLength
-        .and include('<div class="navbar" id="section-yyy" data-maglev-section-id="yyy" data-maglev-section-type="navbar">')
-        # rubocop:enable Layout/LineLength
-        .and include('<h1>My awesome product</h1>')
-        .and include('<p>Price: $42.00</p>')
+
+      doc = parse_html(response.body)
+
+      # Check the page title
+      title_element = expect_element_present(doc, 'title')
+      expect_element_text(title_element, 'My awesome product')
+
+      # Check the navbar section
+      navbar_div = expect_element_present(doc, 'div[data-maglev-section-id="yyy"]')
+      expect_element_attributes(navbar_div, {
+                                  id: 'section-yyy',
+                                  "data-maglev-section-type": 'navbar'
+                                })
+
+      # Check the main heading
+      h1_element = expect_element_present(doc, 'h1')
+      expect_element_text(h1_element, 'My awesome product')
+
+      # Check the price paragraph
+      price_paragraph = expect_element_present(doc, 'p')
+      expect_element_text(price_paragraph, 'Price: $42.00')
     end
   end
 end

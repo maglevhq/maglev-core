@@ -25,7 +25,7 @@
           :style="{ opacity: previewReady ? 1 : 0 }"
         >
           <iframe
-            class="w-full h-full"
+            class="w-full h-full bg-white"
             :src="currentPage.previewUrl"
             @load="onIframeLoaded"
             ref="iframe"

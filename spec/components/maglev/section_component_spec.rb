@@ -34,17 +34,25 @@ describe Maglev::SectionComponent do
 
     context 'using low-level tags (ex: jumbotron)' do
       it 'returns a valid HTML' do
-        expect(subject).to eq(<<~HTML
-          <div data-maglev-section-id="def" data-maglev-section-type="jumbotron" class="jumbotron">
-            <div class="container">
-              <h1 data-maglev-id="def.title" class="display-3">Hello world</h1>
-              <div data-maglev-id="def.body">
-                <p>Lorem ipsum</p>
-              </div>
-            </div>
-          </div>
-        HTML
-        .strip)
+        actual_doc = parse_html(subject)
+
+        # Check the main container div
+        main_div = expect_element_present(actual_doc, 'div[data-maglev-section-id="def"]')
+        expect_element_attributes(main_div, { "data-maglev-section-type": 'jumbotron' })
+
+        # # Check the container div
+        # container_div = expect_element_present(main_div, 'div.container')
+
+        # Check the h1 element
+        h1_element = expect_element_present(main_div, 'h1[data-maglev-id="def.title"]')
+        expect_element_text(h1_element, 'Hello world')
+
+        # Check the body div
+        body_div = expect_element_present(main_div, 'div[data-maglev-id="def.body"]')
+
+        # Check the paragraph
+        paragraph = expect_element_present(body_div, 'p')
+        expect_element_text(paragraph, 'Lorem ipsum')
       end
     end
 
@@ -55,48 +63,97 @@ describe Maglev::SectionComponent do
       before { create(:site) }
 
       it 'returns a valid HTML' do
-        expect(subject).to eq(<<~HTML
-          <div class="navbar" id="section-abc" data-maglev-section-id="abc" data-maglev-section-type="navbar">
-            <a href="/">
-              <img src="logo.png" data-maglev-id="abc.logo" class="brand-logo"/>
-            </a>
-            <nav>
-              <ul>
-                <li class="navbar-item" id="block-menu-item-0" data-maglev-block-id="menu-item-0">
-                  <a data-maglev-id="menu-item-0.link" href="/">
-                    <em>
-                      <span data-maglev-id="menu-item-0.label">Home</span>
-                    </em>
-                  </a>
-                </li>
-                <li class="navbar-item" id="block-menu-item-1" data-maglev-block-id="menu-item-1">
-                  <a data-maglev-id="menu-item-1.link" href="/about-us">
-                    <em>
-                      <span data-maglev-id="menu-item-1.label">About us</span>
-                    </em>
-                  </a>
-                  <ul>
-                    <li class="navbar-nested-item" id="block-menu-item-1-1" data-maglev-block-id="menu-item-1-1">
-                      <a data-maglev-id="menu-item-1-1.link" class="navbar-link" href="/about-us/team">
-                        <span data-maglev-id="menu-item-1-1.label">Our team</span>
-                      </a>
-                    </li>
-                    <li class="navbar-nested-item" id="block-menu-item-1-2" data-maglev-block-id="menu-item-1-2">
-                      <a data-maglev-id="menu-item-1-2.link" target="_blank" class="navbar-link" href="/about-us/office">
-                        <span data-maglev-id="menu-item-1-2.label">Our office</span>
-                      </a>
-                    </li>
-                  </ul>
-                </li>
-              </ul>
-            </nav>
-            <div>
-              <a class="active" href="http://www.example.com/empty">English</a>
-              <a class="" href="http://www.example.com/fr/empty">Français</a>
-            </div>
-          </div>
-        HTML
-        .strip)
+        actual_doc = parse_html(subject)
+
+        # Check the main navbar div
+        navbar_div = expect_element_present(actual_doc, 'div[data-maglev-section-id="abc"]')
+        expect_element_attributes(navbar_div, { id: 'section-abc', "data-maglev-section-type": 'navbar' })
+
+        # Check the logo link and image
+        logo_link = expect_element_present(navbar_div, 'a[href="/"]')
+        logo_img = expect_element_present(logo_link, 'img[data-maglev-id="abc.logo"]')
+        expect_element_attributes(logo_img, {
+                                    src: 'logo.png',
+                                    class: 'brand-logo'
+                                  })
+
+        # Check the navigation
+        nav_element = expect_element_present(navbar_div, 'nav')
+
+        # Check the main menu items
+        menu_items = expect_elements_count(nav_element, 'div.navbar-item', 2)
+
+        # Check first menu item (Home)
+        home_item = menu_items[0]
+        expect_element_attributes(home_item, {
+                                    id: 'block-menu-item-0',
+                                    "data-maglev-block-id": 'menu-item-0'
+                                  })
+        home_link = expect_element_present(home_item, 'a[data-maglev-id="menu-item-0.link"]')
+        expect_element_attributes(home_link, { href: '/' })
+        home_label = expect_element_present(home_link, 'span[data-maglev-id="menu-item-0.label"]')
+        expect_element_text(home_label, 'Home')
+
+        # Check second menu item (About us) with nested items
+        about_item = menu_items[1]
+        expect_element_attributes(about_item, {
+                                    id: 'block-menu-item-1',
+                                    "data-maglev-block-id": 'menu-item-1'
+                                  })
+        about_link = expect_element_present(about_item, 'a[data-maglev-id="menu-item-1.link"]')
+        expect_element_attributes(about_link, { href: '/about-us' })
+        about_label = expect_element_present(about_link, 'span[data-maglev-id="menu-item-1.label"]')
+        expect_element_text(about_label, 'About us')
+
+        # Check nested menu items
+        nested_items = expect_elements_count(about_item, 'li.navbar-nested-item', 2)
+
+        # Check first nested item (Our team)
+        team_item = nested_items[0]
+        expect_element_attributes(team_item, {
+                                    id: 'block-menu-item-1-1',
+                                    "data-maglev-block-id": 'menu-item-1-1'
+                                  })
+        team_link = expect_element_present(team_item, 'a[data-maglev-id="menu-item-1-1.link"]')
+        expect_element_attributes(team_link, {
+                                    class: 'navbar-link',
+                                    href: '/about-us/team'
+                                  })
+        team_label = expect_element_present(team_link, 'span[data-maglev-id="menu-item-1-1.label"]')
+        expect_element_text(team_label, 'Our team')
+
+        # Check second nested item (Our office)
+        office_item = nested_items[1]
+        expect_element_attributes(office_item, {
+                                    id: 'block-menu-item-1-2',
+                                    "data-maglev-block-id": 'menu-item-1-2'
+                                  })
+        office_link = expect_element_present(office_item, 'a[data-maglev-id="menu-item-1-2.link"]')
+        expect_element_attributes(office_link, {
+                                    class: 'navbar-link',
+                                    href: '/about-us/office',
+                                    target: '_blank'
+                                  })
+        office_label = expect_element_present(office_link, 'span[data-maglev-id="menu-item-1-2.label"]')
+        expect_element_text(office_label, 'Our office')
+
+        # Check language links
+        lang_div = expect_element_present(navbar_div, '.locales')
+        expect_elements_count(lang_div, 'a', 2)
+
+        english_link = find_element_by_text(lang_div, 'a', 'English')
+        expect(english_link).to be_present
+        expect_element_attributes(english_link, {
+                                    "data-active": 'true',
+                                    href: 'http://www.example.com/empty'
+                                  })
+
+        french_link = find_element_by_text(lang_div, 'a', 'Français')
+        expect(french_link).to be_present
+        expect_element_attributes(french_link, {
+                                    "data-active": 'false',
+                                    href: 'http://www.example.com/fr/empty'
+                                  })
       end
     end
   end

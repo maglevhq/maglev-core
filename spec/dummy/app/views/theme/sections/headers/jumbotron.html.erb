@@ -1,6 +1,10 @@
-<div <%= section.dom_data %> class="jumbotron">
-  <div class="container">
-    <h1 <%= section.settings.title.dom_data %> class="display-3"><%= raw section.settings.title %></h1>
-    <div <%= section.settings.body.dom_data %>><%= raw section.settings.body %></div>
+<div 
+  <%= section.dom_data %> 
+  class="jumbotron overflow-hidden px-5 pt-32 mx-auto max-w-7xl lg:rounded-4xl lg:mt-5 lg:px-0"
+  style="background: linear-gradient(165deg, #f2f2f2 30%, #f9d8ad 40%, #f1a9d3 60%, #f0d1fc 70%, #fbd2e2 80%, #e3f1fd 100%)"
+>
+  <div className="mb-12 text-left md:text-center">
+    <h1 <%= section.settings.title.dom_data %> class="mx-auto mb-6 max-w-3xl text-3xl text-center font-normal tracking-tight leading-tight text-gray-900 text-balance sm:text-4xl md:text-5xl lg:text-6xl"><%= raw section.settings.title %></h1>
+    <div <%= section.settings.body.dom_data %> class="mx-auto mb-8 text-lg text-center leading-relaxed text-gray-600 md:max-w-lg md:text-xl"><%= raw section.settings.body %></div>
   </div>
 </div>
