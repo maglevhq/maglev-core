@@ -1,33 +1,35 @@
-<%= maglev_section.wrapper_tag class: 'navbar' do %>
-  <%= link_to maglev_site_link do %>
-    <%= maglev_section.setting_tag :logo, class: 'brand-logo' %>
-  <% end %>  
-  <nav>
-    <ul>
-      <% maglev_section.blocks.each do |maglev_block| %>
-        <%= maglev_block.wrapper_tag.li class: 'navbar-item' do %>
-          <%= maglev_block.setting_tag :link do %>
-            <em><%= maglev_block.setting_tag :label, html_tag: :span %></em>
-          <% end %>
-          <% if maglev_block.children? %>
-            <ul>
-              <% maglev_block.children.each do |nested_maglev_block| %>
-                <%= nested_maglev_block.wrapper_tag.li class: 'navbar-nested-item' do %>
-                  <%= nested_maglev_block.setting_tag :link, class: 'navbar-link' do %>
-                    <%= nested_maglev_block.setting_tag :label, html_tag: :span %>
+<%= maglev_section.wrapper_tag class: 'fixed z-50 px-5 w-full select-none lg:top-5 lg:px-0' do %>
+  <div class="px-2.5 mx-auto mt-5 max-w-2xl rounded-full shadow-lg backdrop-blur-sm bg-black/90">
+    <div class="flex justify-between items-center h-14">
+      <%= link_to maglev_site_link do %>
+        <%= maglev_section.setting_tag :logo, class: 'brand-logo' if maglev_section.settings.logo.to_s.present? %>
+      <% end %>  
+      <nav class="hidden absolute top-0 left-0 flex-col items-start p-6 space-y-5 w-full text-base rounded-3xl opacity-100 duration-300 ease-out translate-y-16 peer-checked:starting:opacity-0 peer-checked:starting:translate-y-14 bg-black/90 peer-checked:flex md:relative md:flex md:w-auto md:translate-y-0 md:flex-row md:items-center md:space-x-8 md:space-y-0 md:rounded-none md:bg-transparent md:p-0 md:text-sm">
+        <% maglev_section.blocks.each do |maglev_block| %>
+          <%= maglev_block.wrapper_tag.div class: 'navbar-item text-stone-300 hover:text-stone-100' do %>
+            <%= maglev_block.setting_tag :link do %>
+              <%= maglev_block.setting_tag :label, html_tag: :span %>
+            <% end %>
+            <% if maglev_block.children? %>
+              <ul>
+                <% maglev_block.children.each do |nested_maglev_block| %>
+                  <%= nested_maglev_block.wrapper_tag.li class: 'navbar-nested-item' do %>
+                    <%= nested_maglev_block.setting_tag :link, class: 'navbar-link' do %>
+                      <%= nested_maglev_block.setting_tag :label, html_tag: :span %>
+                    <% end %>
                   <% end %>
                 <% end %>
-              <% end %>
-            </ul>
+              </ul>
+            <% end %>
           <% end %>
         <% end %>
-      <% end %>
-    </ul>
-  </nav>
+      </nav>
 
-  <div>
-    <% maglev_site.locales.each do |locale| %>
-      <%= link_to t("lang.#{locale.prefix}"), maglev_alt_link(locale.prefix), class: { 'active': maglev_current_locale?(locale.prefix) } %>
-    <% end %>
+      <div class="locales flex items-center space-x-4">
+        <% maglev_site.locales.each do |locale| %>
+          <%= link_to t("lang.#{locale.prefix}"), maglev_alt_link(locale.prefix), class: 'px-6 py-2 text-xs font-medium text-gray-900 bg-white rounded-full border border-gray-300 transition-colors cursor-pointer hover:bg-gray-50', data: { active: maglev_current_locale?(locale.prefix) } %>
+        <% end %>
+      </div>
+    </div>
   </div>
 <% end %>
