@@ -97,6 +97,11 @@ export default (api) => ({
     return api.post(`/pages/${id}/translations`, { locale }).then(({ data }) => data)
   },
 
+  isTranslated: (id, locale) => {
+    console.log('[PageService] Checking if page is translated #', id, locale)
+    return api.get(`/pages/${id}/translations`, { params: { locale } }).then(({ data }) => data.translated)
+  },
+
   destroy: (id) => {
     console.log('[PageService] Destroying page #', id)
     return api.destroy(`/pages/${id}`)

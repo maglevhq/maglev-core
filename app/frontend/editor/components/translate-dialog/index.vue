@@ -39,7 +39,7 @@
 export default {
   name: 'TranslateDialog',
   data() {
-    return { submitState: 'default' }
+    return { submitState: 'default', pollingSubmission: false, pollingInterval: null }
   },
   computed: {
     localeName() {
@@ -49,17 +49,45 @@ export default {
       return this.$t(`support.locales.${this.currentDefaultLocale}`)
     }
   },
+  unmounted() {
+    if (this.pollingInterval) clearInterval(this.pollingInterval)
+  },
   methods: {
     translate() {
       this.submitState = 'inProgress'
       this.services.page.translate(this.currentPage.id, this.currentLocale)
-      .then(() => {        
-         // Force a refresh
-        this.$nextTick(() => { this.$router.go(0) })
+      .then(() => {
+        this.pollingSubmission = true
+        // Force a refresh
+        // this.$nextTick(() => { this.$router.go(0) })
       })
       .catch(() => {
         this.submitState = 'fail'        
       })
+    },
+    isTranslated() {
+      this.services.page.isTranslated(this.currentPage.id, this.currentLocale)
+      .then((translated) => {
+        if (translated) {
+          this.pollingSubmission = false
+          // Force a refresh
+          this.$nextTick(() => { this.$router.go(0) })
+        }
+      })
+      .catch(() => {
+        this.pollingSubmission = false
+        this.submitState = 'fail'
+      })
+    }
+  },
+  watch: {
+    pollingSubmission(newValue, oldValue) {
+      if (!newValue) {
+        if (this.pollingInterval) clearInterval(this.pollingInterval)
+        return
+      }
+
+      this.pollingInterval = setInterval(() => this.isTranslated(), 1000)
     }
   }
 }
