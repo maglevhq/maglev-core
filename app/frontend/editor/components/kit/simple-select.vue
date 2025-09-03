@@ -33,6 +33,7 @@ export default {
         return []
       },
     },
+    i18nScope: { type: String, default: 'support.simpleSelect' },
   },
   computed: {
     selectedOption: {
@@ -46,14 +47,16 @@ export default {
   },
   methods: {
     getOptionLabel(option) {
-      if (typeof option === 'string') return option
-      if (typeof option === 'object' && typeof option.label === 'string') return option.label
-      return option.label[this.currentLocale]
+      const value = this.getOptionValue(option)
+      const i18nKey = `${this.i18nScope}.${this.name}_options.${value}`
+      const translatedLabel = this.$st(i18nKey)
+
+      if (!this.isBlank(translatedLabel)) return translatedLabel
+
+      return typeof option === 'string' ? option : option.label
     },
     getOptionValue(option) {
-      if (typeof option === 'string') return option
-      if (typeof option === 'object' && typeof option.value === 'string') return option.value
-      return option.value[this.currentLocale]
+      return (typeof option === 'string') ? option : option.value
     },
   },
 }

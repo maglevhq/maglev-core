@@ -20,6 +20,18 @@ settings:
   html: true
   line_break: true
   default: "Body"
+
+- label: "Alignment"
+  id: alignment
+  type: select
+  select_options: 
+  - label: "Left"
+    value: left
+  - label: "Center" 
+    value: center
+  - label: "Right"
+    value: right
+
   
 # Definition of the blocks.
 # You can define as many types of blocks as you want.

@@ -74,6 +74,7 @@
       :name="setting.id"
       v-model="inputValue"
       :selectOptions="options.selectOptions"
+      :i18nScope="i18nScope"
       v-if="setting.type == 'select'"
     />
     <uikit-collection-item-input
