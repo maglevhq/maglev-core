@@ -1,0 +1,12 @@
+<div data-controller="editor-text-input" data-editor-text-input-setting-id-value="<%= setting.id %>">
+  <%= render Maglev::Uikit::Form::TextFieldComponent.new(
+    label: setting.label,
+    name: input_name,
+    options: {
+      value: value,
+    },
+    html_options: {
+      data: { action: 'keyup->editor-text-input#onKeyUp' }
+    }
+  ) %>
+</div>

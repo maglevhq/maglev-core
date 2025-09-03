@@ -10,7 +10,7 @@ module Maglev
           @template.render(Maglev::Uikit::Form::TextFieldComponent.new(
                              label: options[:label].presence || attributes[:content],
                              name: attributes[:name],
-                             value: object.public_send(method),
+                             value: options.has_key?(:value) ? options[:value] : object.public_send(method),
                              placeholder: options[:placeholder],
                              error: error_messages(method)
                            ))

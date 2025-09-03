@@ -19,8 +19,8 @@
     data: { turbo_method: :delete, turbo_confirm: t('maglev.editor.sections.actions.delete_confirm') }, 
     form: { 
       data: { 
-        action: 'turbo:submit-end->preview-notification-center#deleteSection',
-        'preview-notification-center-section-id-param': id
+        action: 'turbo:submit-end->editor-preview-notification-center#deleteSection',
+        'editor-preview-notification-center-section-id-param': id
       } 
     } do %>
     <%= render Maglev::Uikit::IconComponent.new(name: 'delete_bin') %>

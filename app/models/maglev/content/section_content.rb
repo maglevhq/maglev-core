@@ -3,6 +3,9 @@
 module Maglev
   module Content
     class SectionContent
+      include ActiveModel::Model
+      extend ActiveModel::Naming
+
       attr_accessor :id, :type, :settings, :blocks, :definition
 
       def initialize(id:, type:, definition:, settings:, blocks:)
@@ -13,9 +16,13 @@ module Maglev
         @blocks = blocks
       end
 
+      def persisted?
+        true
+      end
+ 
       def label
         definition.settings.each do |setting_definition|
-          value = settings.find { |setting| setting['id'] == setting_definition.id }&.fetch('value')
+          value = settings.value_of(setting_definition.id)
           next if value.blank?
 
           label = setting_definition.content_label(value)
@@ -41,7 +48,7 @@ module Maglev
           id: raw_section_content['id'],
           definition: theme.sections.find(raw_section_content['type']),
           type: raw_section_content['type'],
-          settings: raw_section_content['settings'],
+          settings: Maglev::Content::SettingContent::AssociationProxy.new(raw_section_content['settings']),
           blocks: raw_section_content['blocks']
         )
       end

@@ -1,0 +1,3 @@
+<%= turbo_stream.update 'page-layout-notification', method: 'morph' do %>
+  <%= render Maglev::Uikit::BadgeComponent.new(color: :green, icon_name: 'checkbox_circle', disappear_after: 3.seconds).with_content('saved') %>
+<% end %>

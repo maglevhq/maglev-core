@@ -1,4 +1,17 @@
 <%= render Maglev::Uikit::PageLayoutComponent.new(expanded: true, back_path: editor_sections_path(maglev_editing_route_context)) do |page_layout| %>
   <% page_layout.with_title_content @section.type_name %>
   <% page_layout.with_notification_content maglev_flash_message %>
+
+
+  <%= form_with model: @section, scope: 'section', url: editor_section_path(@section, maglev_editing_route_context), method: :put do |f| %>
+
+    <div class="mt-2 grid grid-cols-1 gap-4">
+      <% @section.definition.settings.each do |setting| %>
+        <% if setting.type == 'text' %>
+          <%= f.text_field setting.id, value: @section.settings.value_of(setting.id) %>
+        <% end %>
+      <% end %>
+    </div>
+
+  <% end %>
 <% end %>

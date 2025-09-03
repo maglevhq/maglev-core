@@ -1,0 +1,31 @@
+<%= form_with url: path, 
+  method: :put, 
+  data: { 
+    controller: 'editor-section-form', 
+    'editor-section-form-section-id-value': section.id,
+    action: %(
+      editor-input:settingChange@window->editor-section-form#onSettingChange
+      editor-section-form:updateSetting->editor-preview-notification-center#updateSetting
+      editor-section-form:updateSection->editor-preview-notification-center#updateSection
+      client:setting:updated@window->editor-section-form#afterSettingUpdate
+    )
+  } do 
+%>
+  <div class="mt-2 grid grid-cols-1 gap-4">
+    <% section.definition.settings.each do |setting| %>
+      <% if setting.type == 'text' %>
+        <%= render Maglev::Inputs::Text::TextComponent.new(
+          setting: setting, 
+          value: section.settings.value_of(setting.id),
+          scope: 'section'
+        ) %>
+      <% elsif setting.type == 'image' %>
+        <%= render Maglev::Inputs::Image::ImageComponent.new(
+          setting: setting, 
+          value: section.settings.value_of(setting.id),
+          scope: 'section'
+        ) %>
+      <% end %>
+    <% end %>
+  </div>
+<% end %>

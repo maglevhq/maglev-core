@@ -1,0 +1,32 @@
+<div 
+  data-controller="editor-image-input"
+  data-editor-image-input-setting-id-value="<%= setting.id %>"
+  data-action="
+    dispatcher:image-selected-<%= image_source %>@window->editor-image-input#onImageSelected
+    uikit-form-image-field:image-cleared-<%= image_source %>@window->editor-image-input#onImageCleared
+  "
+>
+  <% %w(id width height byte_size).each do |key| %>
+    <%= hidden_field_tag input_names[key.to_sym], value&.fetch(key.to_sym, nil), data: { editor_image_input_target: key.camelize(:lower) } %>
+  <% end %>
+  
+  <%= render Maglev::Uikit::Form::ImageFieldComponent.new(
+    label: 'Image',
+    name: input_names[:url],
+    value: value&.fetch(:url, nil),
+    alt_text: {
+      name: input_names[:alt_text],
+      value: value&.fetch(:alt_text, nil),
+      placeholder: t('maglev.editor.image_input.alt_text_placeholder'),
+      html_options: {
+        data: {
+          action: 'keyup->editor-image-input#altTextChange'
+        }
+      }
+    },
+    search_path: helpers.editor_assets_path({ 
+      picker: true, 
+      source: image_source
+    })
+  ) %>
+</div>

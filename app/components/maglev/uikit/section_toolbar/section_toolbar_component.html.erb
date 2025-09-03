@@ -2,10 +2,10 @@
   data-controller="uikit-section-toolbar"
   class="h-48 absolute pointer-events-none transition duration-200 ease-in-out hidden group/section-toolbar mx-auto w-full"
   data-action="
-    page-preview:scale-ratio-updated@window->uikit-section-toolbar#onScaleRatioUpdated
-    maglev:section:hover@window->uikit-section-toolbar#onHover
-    maglev:section:leave@window->uikit-section-toolbar#onLeave
-    maglev:scroll@window->uikit-section-toolbar#onWindowScroll
+    editor-page-preview:scale-ratio-updated@window->uikit-section-toolbar#onScaleRatioUpdated
+    client:section:hover@window->uikit-section-toolbar#onHover
+    client:section:leave@window->uikit-section-toolbar#onLeave
+    client:scroll@window->uikit-section-toolbar#onWindowScroll
   "
   data-uikit-section-toolbar-id-value="<%= id %>"
 >

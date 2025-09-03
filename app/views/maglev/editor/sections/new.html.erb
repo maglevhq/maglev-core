@@ -5,7 +5,7 @@
   <%= form_with url: editor_sections_path(maglev_editing_route_context), data: { 
       turbo_frame: '_top', 
       controller: 'auto-save',
-      action: 'turbo:submit-end->preview-notification-center#addSection' 
+      action: 'turbo:submit-end->editor-preview-notification-center#addSection' 
     } do |f| %>
     <%= f.hidden_field :position, value: @position %>
 

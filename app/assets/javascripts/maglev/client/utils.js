@@ -22,5 +22,5 @@ export const debounce = (fn, time) => {
 }
 
 export const postMessageToEditor = (type, data) => {
-  window.parent.dispatchEvent(new CustomEvent(`maglev:${type}`, { detail: data || {} }))
+  window.parent.dispatchEvent(new CustomEvent(`client:${type}`, { detail: data || {} }))
 }

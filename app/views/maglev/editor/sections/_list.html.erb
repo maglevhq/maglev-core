@@ -5,7 +5,7 @@
           path: sort_editor_sections_path(maglev_editing_route_context), 
           data: { 
             turbo_frame: '_top',
-            action: 'sortable:drag-stopped@window->preview-notification-center#moveSection',            
+            action: 'sortable:drag-stopped@window->editor-preview-notification-center#moveSection',            
           } 
         }) do |component| %>
       <% component.with_item_insert_button(link: { url: new_editor_section_path(position: 0, **maglev_editing_route_context), data: { turbo_frame: '_top' } })%>
@@ -30,8 +30,8 @@
               }, 
               form: { 
                 data: {
-                  action: 'turbo:submit-end->preview-notification-center#deleteSection',
-                  'preview-notification-center-section-id-param': section.id
+                  action: 'turbo:submit-end->editor-preview-notification-center#deleteSection',
+                  'editor-preview-notification-center-section-id-param': section.id
                 }
               } do %>
               <%= render Maglev::Uikit::IconComponent.new(name: "delete_bin", size: "1.15rem") %>
