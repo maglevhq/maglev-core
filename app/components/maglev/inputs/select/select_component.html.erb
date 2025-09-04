@@ -1,0 +1,15 @@
+<div 
+  data-controller="editor-select-input" 
+  data-editor-select-input-setting-id-value="<%= setting.id %>"
+>
+  <%= render Maglev::Uikit::Form::SelectComponent.new(
+    label: label,
+    name: input_name,
+    choices: choices,
+    options: {
+      value: value,
+      include_blank: true,
+      data: { action: 'change->editor-select-input#onChange' }
+    }
+  ) %>
+</div>

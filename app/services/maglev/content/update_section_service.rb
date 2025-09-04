@@ -32,7 +32,7 @@ module Maglev
       def update_section_content(source)
         current_section_content = fetch_section_content(source)
 
-        section.settings.each do |setting|
+        section.definition.settings.each do |setting|
           next unless content.key?(setting.id.to_sym)
 
           update_section_setting_value(setting, current_section_content)
@@ -45,7 +45,13 @@ module Maglev
 
       def update_section_setting_value(setting, current_section_content)
         setting_content = current_section_content.find { |s| s['id'] == setting.id }
-        setting_content['value'] = content[setting.id.to_sym]
+        value = content[setting.id.to_sym]
+
+        if setting_content.nil?
+          current_section_content.push({ id: setting.id, value: value })
+        else        
+          setting_content['value'] = value
+        end
       end
 
       def section_definition

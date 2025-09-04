@@ -32,7 +32,8 @@ module Maglev
         def input_classes_map
           {
             text: Proc.new { |setting| text_input_class(setting) },
-            image: Maglev::Inputs::Image::ImageComponent
+            image: Maglev::Inputs::Image::ImageComponent,
+            select: Maglev::Inputs::Select::SelectComponent
           }
         end
 

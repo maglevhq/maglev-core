@@ -1,0 +1,30 @@
+class Maglev::Uikit::Form::SelectComponent < ViewComponent::Base
+  attr_reader :label, :name, :choices, :options
+
+  def initialize(label:, name:, choices:, options: {})
+    @label = label
+    @name = name
+    @choices = choices
+    @options = options
+  end
+
+  def dom_id
+    name.to_s.parameterize.underscore
+  end
+
+  def error
+    options[:error]
+  end
+
+  def input_tag_options
+    {
+      id: dom_id,
+      value: options[:value],
+      **options.slice(:multiple, :disabled, :include_blank, :prompt, :data)
+    }
+  end
+
+  def html_choices
+    helpers.options_for_select(choices, options[:value])
+  end
+end

@@ -30,7 +30,7 @@ module Maglev
         services.update_section.call(
           page: current_maglev_page,
           section: @section,
-          content: params[:section]
+          content: params[:section].to_unsafe_h
         )
       end
 

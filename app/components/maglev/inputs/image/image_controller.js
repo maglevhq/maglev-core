@@ -4,10 +4,6 @@ export default class extends Controller {
   static targets = ['id', 'width', 'height', 'byteSize']
   static values = { settingId: String }
   
-  connect() {
-    console.log('ImageController connected')
-  }
-
   onImageSelected(event) {
     console.log('[ImageController]onImageSelected', event.detail)
     this.value = event.detail.image

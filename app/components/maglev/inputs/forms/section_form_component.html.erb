@@ -11,6 +11,7 @@
     )
   } do 
 %>
+  <p><%= section.settings.each { |content| content.inspect } %></p>
   <div class="mt-2 grid grid-cols-1 gap-4">
     <% section.definition.settings.each do |setting| %>
       <%= render input_instance_for(setting) %>      

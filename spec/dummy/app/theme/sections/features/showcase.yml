@@ -20,7 +20,7 @@ settings:
   type: icon
 
 - label: "[TEST] select"
-  id: select
+  id: blabla
   type: select
   select_options:
   - label: Option 1

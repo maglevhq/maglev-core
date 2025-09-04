@@ -5,6 +5,15 @@
 #         sections:
 #           jumbotron: 
 #             type: "Jumbotron [EN]"
+#           navbar:
+#             settings:
+#               logo: 'Logo 🧁'
+#           showcase:
+#             settings:
+#               blabla: 'Select 🧁'
+#               blabla_options:
+#                 option_1: "Option #1"
+#                 option_2: "Option #2"
 #         categories:
 #           headers:
 #             name: "Headers 🥸"
@@ -13,11 +22,4 @@
 #           call_to_actions:
 #             name: "Call to Actions 🥸"
 
-en:
-  maglev:
-    themes:
-      simple:
-        sections:
-          navbar:
-            settings:
-              logo: 'Logo 🧁'
+en: {}
