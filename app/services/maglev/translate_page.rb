@@ -126,6 +126,8 @@ module Maglev
     end
 
     def prepare_translate_settings(section_or_block, definition)
+      return if definition.blank? # happens if the section/block is not defined in the theme
+
       section_or_block['settings'].each do |setting|
         type = definition.settings.find { |s| s.id == setting['id'] }&.type
         next if type.blank?
