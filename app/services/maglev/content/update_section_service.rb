@@ -1,54 +1,68 @@
 # frozen_string_literal: true
 
-class Maglev::Content::UpdateSectionService
-  include Injectable
+module Maglev
+  module Content
+    class UpdateSectionService
+      include Injectable
 
-  dependency :fetch_theme
-  dependency :fetch_site
+      dependency :fetch_theme
+      dependency :fetch_site
 
-  argument :page
-  argument :section
-  argument :content
+      argument :page
+      argument :section
+      argument :content
 
-  def call
-    raise Maglev::Errors::UnknownSection unless section_definition
-    
-    ActiveRecord::Base.transaction do
-      update_section_content!(site, section, content) if site_scoped?
-      update_section_content!(page, section, content)      
-    end   
-  end
+      def call
+        raise Maglev::Errors::UnknownSection unless section_definition
 
-  private
+        ActiveRecord::Base.transaction do
+          update_section_content!(site) if site_scoped?
+          update_section_content!(page)
+        end
+      end
 
-  def update_section_content!(source, section, content)
-    source.sections_translations_will_change!
-    current_section_content = source.sections.find { |s| s['id'] == section.id }['settings']
+      private
 
-    section.settings.each do |setting|
-      next unless content.has_key?(setting.id.to_sym)
+      def update_section_content!(source)
+        source.sections_translations_will_change!
+        update_section_content(source)
+        source.save!
+      end
 
-      setting_content = current_section_content.find { |s| s['id'] == setting.id }
-    
-      setting_content['value'] = content[setting.id.to_sym]
+      def update_section_content(source)
+        current_section_content = fetch_section_content(source)
+
+        section.settings.each do |setting|
+          next unless content.key?(setting.id.to_sym)
+
+          update_section_setting_value(setting, current_section_content)
+        end
+      end
+
+      def fetch_section_content(source)
+        source.sections.find { |s| s['id'] == section.id }['settings']
+      end
+
+      def update_section_setting_value(setting, current_section_content)
+        setting_content = current_section_content.find { |s| s['id'] == setting.id }
+        setting_content['value'] = content[setting.id.to_sym]
+      end
+
+      def section_definition
+        theme.sections.find(section.type)
+      end
+
+      def site_scoped?
+        section_definition.site_scoped?
+      end
+
+      def theme
+        @theme ||= fetch_theme.call
+      end
+
+      def site
+        @site ||= fetch_site.call
+      end
     end
-
-    source.save!
-  end
-
-  def section_definition
-    theme.sections.find(section.type)
-  end
-
-  def site_scoped?
-    section_definition.site_scoped?
-  end
-
-  def theme
-    @theme ||= fetch_theme.call
-  end
-
-  def site
-    @site ||= fetch_site.call
   end
 end

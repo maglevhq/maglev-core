@@ -1,8 +1,16 @@
-class Maglev::Inputs::Forms::SectionFormComponent < ViewComponent::Base
-  attr_reader :section, :path
+# frozen_string_literal: true
 
-  def initialize(section:, path:)
-    @section = section
-    @path = path
+module Maglev
+  module Inputs
+    module Forms
+      class SectionFormComponent < ViewComponent::Base
+        attr_reader :section, :path
+
+        def initialize(section:, path:)
+          @section = section
+          @path = path
+        end
+      end
+    end
   end
 end

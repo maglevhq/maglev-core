@@ -10,7 +10,7 @@ module Maglev
       def persisted?
         true
       end
- 
+
       def label
         definition.settings.each do |setting_definition|
           value = settings.value_of(setting_definition.id)

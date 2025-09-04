@@ -1,13 +1,19 @@
-class Maglev::Inputs::InputBaseComponent < ViewComponent::Base
-  attr_reader :setting, :value, :scope
+# frozen_string_literal: true
 
-  def initialize(setting:, value:, scope:)
-    @setting = setting
-    @value = value
-    @scope = scope
-  end
+module Maglev
+  module Inputs
+    class InputBaseComponent < ViewComponent::Base
+      attr_reader :setting, :value, :scope
 
-  def input_name
-    "#{scope}[#{setting.id}]"
+      def initialize(setting:, value:, scope:)
+        @setting = setting
+        @value = value
+        @scope = scope
+      end
+
+      def input_name
+        "#{scope}[#{setting.id}]"
+      end
+    end
   end
 end

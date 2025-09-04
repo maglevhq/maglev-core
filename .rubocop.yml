@@ -23,6 +23,7 @@ Documentation:
 Lint/MissingSuper:
   Exclude:
     - 'app/components/maglev/uikit/**/*.rb'
+    - 'app/components/maglev/inputs/**/*.rb'
 
 AllCops:
   TargetRubyVersion: 3.0

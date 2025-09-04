@@ -1,23 +1,29 @@
-class Maglev::Content::SettingContent
-  include ActiveModel::Model
-  
-  attr_accessor :id, :type, :value
+# frozen_string_literal: true
 
-  class AssociationProxy
-    def initialize(raw_settings)
-      @settings = raw_settings.map { |raw_setting| Maglev::Content::SettingContent.new(raw_setting) }
-    end
+module Maglev
+  module Content
+    class SettingContent
+      include ActiveModel::Model
 
-    def [](id)
-      @settings.find { |s| s.id == id }
-    end
+      attr_accessor :id, :type, :value
 
-    def value_of(id)
-      self[id]&.value
-    end
+      class AssociationProxy
+        def initialize(raw_settings)
+          @settings = raw_settings.map { |raw_setting| Maglev::Content::SettingContent.new(raw_setting) }
+        end
 
-    def each(&block)
-      @settings.each(&block)
+        def [](id)
+          @settings.find { |s| s.id == id }
+        end
+
+        def value_of(id)
+          self[id]&.value
+        end
+
+        def each(&block)
+          @settings.each(&block)
+        end
+      end
     end
   end
 end

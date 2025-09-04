@@ -1,3 +1,10 @@
-class Maglev::Inputs::Text::TextComponent < Maglev::Inputs::InputBaseComponent
-  
+# frozen_string_literal: true
+
+module Maglev
+  module Inputs
+    module Text
+      class TextComponent < Maglev::Inputs::InputBaseComponent
+      end
+    end
+  end
 end

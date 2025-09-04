@@ -22,7 +22,7 @@ module Maglev
                     status: :see_other
       end
 
-      def edit        
+      def edit
         newly_added_section_to_headers
       end
 

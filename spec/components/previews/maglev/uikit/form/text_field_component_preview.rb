@@ -17,7 +17,7 @@ module Maglev
           render(Maglev::Uikit::Form::TextFieldComponent.new(
                    label: 'Label',
                    name: 'user[name]',
-                   options: {placeholder: 'Placeholder' }
+                   options: { placeholder: 'Placeholder' }
                  ))
         end
 

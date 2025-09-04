@@ -45,7 +45,8 @@ module Maglev
     dependency :persist_page,               class: Maglev::PersistPage, depends_on: %i[fetch_theme]
 
     dependency :add_section,                class: Maglev::Content::AddSectionService, depends_on: %i[fetch_theme]
-    dependency :update_section,             class: Maglev::Content::UpdateSectionService, depends_on: %i[fetch_site fetch_theme]
+    dependency :update_section,             class: Maglev::Content::UpdateSectionService,
+                                            depends_on: %i[fetch_site fetch_theme]
 
     def call
       self
