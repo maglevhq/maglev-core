@@ -4,17 +4,8 @@ module Maglev
   module Content
     class SectionContent
       include ActiveModel::Model
-      extend ActiveModel::Naming
 
       attr_accessor :id, :type, :settings, :blocks, :definition
-
-      def initialize(id:, type:, definition:, settings:, blocks:)
-        @id = id
-        @type = type
-        @definition = definition
-        @settings = settings
-        @blocks = blocks
-      end
 
       def persisted?
         true

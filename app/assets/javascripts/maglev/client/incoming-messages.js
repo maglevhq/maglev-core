@@ -16,7 +16,7 @@ export const start = () => {
         })
 
         // we answer back we're ready!
-        postMessageToEditor('client-ready', { message: "👋, I'm a Maglev site and I'm ready" })
+        postMessageToEditor('ready', { message: "👋, I'm a Maglev site and I'm ready" })
         break
       case 'section:add':
       case 'section:move':
@@ -27,6 +27,7 @@ export const start = () => {
       case 'block:move':
       case 'block:update':
       case 'block:remove':
+      case 'setting:update':
       case 'style:update':
         triggerEvent(type, data)
         break

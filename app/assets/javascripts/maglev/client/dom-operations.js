@@ -1,4 +1,4 @@
-import { debounce } from 'maglev-client/utils'
+import { debounce, postMessageToEditor } from 'maglev-client/utils'
 import runScripts from 'maglev-client/run-scripts'
 
 const parentDocument = window.parent.document
@@ -24,6 +24,7 @@ export const start = () => {
   window.addEventListener('maglev:block:move', replaceSection)
   window.addEventListener('maglev:block:update', updateBlock)
   window.addEventListener('maglev:block:remove', replaceSection)
+  window.addEventListener('maglev:setting:update', updateSetting)
 
   window.addEventListener('maglev:style:update', updateStyle)
 }
@@ -61,8 +62,8 @@ const moveSections = (event) => {
 }
 
 const updateSection = (event) => {
-  const { content, section, change } = event.detail
-  updateSectionOrBlock(content, section, section, change)
+  const { sectionId } = event.detail
+  debouncedUpdatePreviewDocument(null, { id: sectionId })
 }
 
 const removeSection = (event) => {
@@ -86,6 +87,30 @@ const replaceSection = (event) => {
 
 // === Other actions ===
 
+const updateSetting = (event) => {
+  const { sectionId, sourceId, change } = event.detail
+
+  let foundSetting = false
+  
+  switch (change.settingType) {
+    case 'text':
+      foundSetting = updateTextSetting(sourceId, change)
+      break
+    default:
+      // ok, we can't cherry-pick the modification so we have to refresh the whole section
+      break
+  }
+
+  // if we couldn't find the setting, we have to refresh the whole section
+  // so we send a message to the editor to refresh the whole section
+  postMessageToEditor('setting:updated', { 
+    sectionId, 
+    sourceId, 
+    change,
+    updated: foundSetting
+  })
+}
+
 const updateStyle = async (event) => {
   const { content, style } = event.detail
 
@@ -107,17 +132,17 @@ const updateStyle = async (event) => {
 // === Helpers ===
 
 const updateSectionOrBlock = (content, section, source, change) => {
-  const foundSetting = updateSetting(source, change)
+  const foundSetting = legacyUpdateSetting(source, change)
   if (!foundSetting) debouncedUpdatePreviewDocument(content, section)
 }
 
-const updateSetting = (source, change) => {
+const legacyUpdateSetting = (source, change) => {
   switch (change.settingType) {
     case 'text':
-      return updateTextSetting(source, change)
+      return updateTextSetting(source.id, change)
     case 'link':
       if (change.settingOptions.withText && change.value)
-        return updateTextSetting(source, {
+        return updateTextSetting(source.id, {
           ...change,
           value: change.value.text,
           settingId: `${change.settingId}.text`,
@@ -130,8 +155,8 @@ const updateSetting = (source, change) => {
   return false
 }
 
-const updateTextSetting = (source, change) => {
-  const selector = `[data-maglev-id='${source.id}.${change.settingId}']`
+const updateTextSetting = (sourceId, change) => {
+  const selector = `[data-maglev-id='${sourceId}.${change.settingId}']`
   const settings = previewDocument.querySelectorAll(selector)
   settings.forEach(($el) => ($el.innerHTML = change.value))
   return settings.length > 0
@@ -169,7 +194,7 @@ const updatePreviewDocument = async (content, section, insertAt) => {
   scrollToSection(targetElement)
 }
 
-const debouncedUpdatePreviewDocument = debounce(updatePreviewDocument, 300)
+const debouncedUpdatePreviewDocument = debounce(updatePreviewDocument, 150)
 
 const insertSectionInDOM = (element, insertAt) => {
   switch (insertAt) {

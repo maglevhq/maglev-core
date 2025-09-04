@@ -15,7 +15,8 @@ pin '@rails/actioncable/src', to: '@rails--actioncable--src.js'
 pin '@hotwired/stimulus', to: '@hotwired--stimulus.js'
 pin '@rails/request.js', to: '@rails--request.js.js'
 
-pin_all_from File.expand_path('../app/components', __dir__), under: 'uikit-controllers', to: ''
+pin_all_from File.expand_path('../app/components/maglev/uikit', __dir__), under: 'uikit-controllers', to: 'maglev/uikit'
+pin_all_from File.expand_path('../app/components/maglev/inputs', __dir__), under: 'inputs-controllers', to: 'maglev/inputs'
 pin_all_from File.expand_path('../app/assets/javascripts/maglev/editor/controllers', __dir__),
              under: 'maglev-controllers',
              to: 'maglev/editor/controllers'

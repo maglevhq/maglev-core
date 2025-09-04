@@ -33,6 +33,20 @@ export default class extends Controller {
     const { oldItemId: sectionId, newItemId: targetSectionId, direction } = event.detail
     this.postMessage('section:move', { sectionId, targetSectionId, direction })
   }
+
+  updateSection(event) {
+    console.log('updateSection 🧼🧼🧼', event)
+    const { sectionId  } = event.detail
+    this.postMessage('section:update', { sectionId })
+  }
+
+  // === SETTINGS ===
+
+  updateSetting(event) {
+    console.log('[NOTIFICATION-CENTER] updateSetting', event)
+    const { sourceId, change } = event.detail
+    this.postMessage('setting:update', { sourceId, change })
+  }
   
   // === UTILS ===
 

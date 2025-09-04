@@ -3,16 +3,13 @@ import { Controller } from '@hotwired/stimulus'
 export default class extends Controller {
   static targets = ['hiddenInput', 'image']
   static values = {
-    searchPath: String
+    searchPath: String,
+    sourceId: String
   }
 
   focus() {
     this.openPicker()
-  }
-
-  clear() {
-    this.hiddenInputTarget.value = ''
-    this.element.classList.add('none')
+    this.value = null
   }
 
   openPicker() {
@@ -25,5 +22,11 @@ export default class extends Controller {
     this.hiddenInputTarget.value = event.detail.image.image_url
     this.imageTarget.src = event.detail.image.image_url
     this.element.classList.remove('none')
+  }
+
+  clear() {
+    this.hiddenInputTarget.value = ''
+    this.element.classList.add('none')
+    this.dispatch(`image-cleared-${this.sourceIdValue}`)
   }
 }

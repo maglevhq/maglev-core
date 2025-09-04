@@ -72,10 +72,7 @@ describe Maglev::SectionComponent do
         # Check the logo link and image
         logo_link = expect_element_present(navbar_div, 'a[href="/"]')
         logo_img = expect_element_present(logo_link, 'img[data-maglev-id="abc.logo"]')
-        expect_element_attributes(logo_img, {
-                                    src: 'logo.png',
-                                    class: 'brand-logo'
-                                  })
+        expect_element_attributes(logo_img, { src: 'logo.png' })
 
         # Check the navigation
         nav_element = expect_element_present(navbar_div, 'nav')

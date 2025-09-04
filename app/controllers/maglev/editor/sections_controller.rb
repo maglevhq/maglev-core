@@ -3,6 +3,8 @@
 module Maglev
   module Editor
     class SectionsController < Maglev::Editor::BaseController
+      before_action :set_section, only: %i[edit update]
+
       def new
         @grouped_sections = maglev_theme.sections.grouped_by_category
         @position = (params[:position] || -1).to_i
@@ -20,13 +22,16 @@ module Maglev
                     status: :see_other
       end
 
-      def edit
-        @section = current_maglev_sections.find { |section| section.id == params[:id] }
+      def edit        
         newly_added_section_to_headers
       end
 
       def update
-        # TODO: implement it
+        services.update_section.call(
+          page: current_maglev_page,
+          section: @section,
+          content: params[:section]
+        )
       end
 
       def sort
@@ -52,6 +57,10 @@ module Maglev
       def render_index_with_error
         flash.now[:error] = flash_t(:error)
         render 'index', status: :unprocessable_entity
+      end
+
+      def set_section
+        @section = current_maglev_sections.find { |section| section.id == params[:id] }
       end
 
       def newly_added_section_to_flash

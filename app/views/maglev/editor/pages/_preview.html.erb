@@ -4,7 +4,7 @@
   data-page-preview-primary-color-value="<%= maglev_primary_hex_color %>"
   data-action="
     uikit-device-toggler:change@window->editor-page-preview#changeDevice 
-    maglev:client-ready@window->editor-page-preview#clientReady
+    client:ready@window->editor-page-preview#clientReady
     turbo:load@window->editor-page-preview#detectUrlChange
     dispatcher:page-preview:reload@window->editor-page-preview#startLoading
   "

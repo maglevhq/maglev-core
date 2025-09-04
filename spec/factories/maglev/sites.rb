@@ -14,7 +14,7 @@ FactoryBot.define do
         [
           {
             type: 'navbar',
-            id: 'yyy',
+            id: 'abc',
             settings: [
               { id: :logo, value: 'mynewlogo.png' }
             ],

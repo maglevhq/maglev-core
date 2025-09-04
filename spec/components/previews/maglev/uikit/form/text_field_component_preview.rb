@@ -17,7 +17,7 @@ module Maglev
           render(Maglev::Uikit::Form::TextFieldComponent.new(
                    label: 'Label',
                    name: 'user[name]',
-                   placeholder: 'Placeholder'
+                   options: {placeholder: 'Placeholder' }
                  ))
         end
 
@@ -25,7 +25,7 @@ module Maglev
           render(Maglev::Uikit::Form::TextFieldComponent.new(
                    label: 'Label',
                    name: 'user[name]',
-                   value: 'Lorem ipsum dolor sit amet'
+                   options: { value: 'Lorem ipsum dolor sit amet' }
                  ))
         end
 
@@ -33,7 +33,7 @@ module Maglev
           render(Maglev::Uikit::Form::TextFieldComponent.new(
                    label: 'Label',
                    name: 'user[name]',
-                   error: 'must be present'
+                   options: { error: 'must be present' }
                  ))
         end
 
