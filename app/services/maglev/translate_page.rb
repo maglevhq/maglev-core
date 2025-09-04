@@ -163,13 +163,13 @@ module Maglev
       id = SecureRandom.uuid
       @translations[id] = text
 
-      "{#{id}}"
+      "--#{id}--"
     end
 
     def replace_translated_text(text)
       return text if text.blank?
 
-      text.gsub(/\{([a-f0-9-]{36})\}/) do |_match|
+      text.gsub(/--([a-f0-9-]{36})--/) do |_match|
         @translations[::Regexp.last_match(1)]
       end
     end
