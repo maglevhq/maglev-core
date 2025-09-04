@@ -5,7 +5,7 @@ module Maglev
     class SectionContent
       include ActiveModel::Model
 
-      attr_accessor :id, :type, :settings, :blocks, :definition
+      attr_accessor :id, :type, :settings, :blocks, :definition, :theme_id
 
       def persisted?
         true
@@ -40,7 +40,8 @@ module Maglev
           definition: theme.sections.find(raw_section_content['type']),
           type: raw_section_content['type'],
           settings: Maglev::Content::SettingContent::AssociationProxy.new(raw_section_content['settings']),
-          blocks: raw_section_content['blocks']
+          blocks: raw_section_content['blocks'],
+          theme_id: theme.id
         )
       end
     end

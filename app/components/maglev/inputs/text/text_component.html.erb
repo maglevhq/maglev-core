@@ -1,6 +1,6 @@
 <div data-controller="editor-text-input" data-editor-text-input-setting-id-value="<%= setting.id %>">
   <%= render Maglev::Uikit::Form::TextFieldComponent.new(
-    label: setting.label,
+    label: label,
     name: input_name,
     options: {
       value: value,

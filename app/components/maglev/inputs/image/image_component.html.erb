@@ -11,7 +11,7 @@
   <% end %>
   
   <%= render Maglev::Uikit::Form::ImageFieldComponent.new(
-    label: 'Image',
+    label: label,
     name: input_names[:url],
     value: value&.fetch(:url, nil),
     alt_text: {

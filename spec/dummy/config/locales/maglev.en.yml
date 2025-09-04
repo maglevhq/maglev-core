@@ -13,4 +13,11 @@
 #           call_to_actions:
 #             name: "Call to Actions 🥸"
 
-en: {}
+en:
+  maglev:
+    themes:
+      simple:
+        sections:
+          navbar:
+            settings:
+              logo: 'Logo 🧁'
