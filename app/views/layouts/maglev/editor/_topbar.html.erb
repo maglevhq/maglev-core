@@ -8,7 +8,8 @@
       clone: editor_page_clone_path(current_maglev_page, maglev_editing_route_context),
       delete: editor_page_path(current_maglev_page, maglev_editing_route_context)
     },
-    live_page_url: current_maglev_page_urls[:live]
+    live_page_url: current_maglev_page_urls[:live],
+    prefix_page_path: default_content_locale? ? '' : "#{content_locale}/"
   ) %>
 <% end %>
 

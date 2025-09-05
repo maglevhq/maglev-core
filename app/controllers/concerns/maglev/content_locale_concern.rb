@@ -7,7 +7,7 @@ module Maglev
     included do
       alias_method :maglev_content_locale, :content_locale
 
-      helper_method :maglev_content_locale, :content_locale
+      helper_method :maglev_content_locale, :content_locale, :default_content_locale?
     end
 
     private
@@ -23,6 +23,10 @@ module Maglev
 
     def default_content_locale
       maglev_site.default_locale.prefix
+    end
+
+    def default_content_locale?
+      content_locale.to_s == default_content_locale
     end
   end
 end
