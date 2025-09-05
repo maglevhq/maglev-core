@@ -1,7 +1,6 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static values = { primaryColor: String }
   static targets = ["loading", "iframeWrapper", "iframe"]
 
   connect() {

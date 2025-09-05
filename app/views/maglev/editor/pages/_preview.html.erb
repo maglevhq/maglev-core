@@ -1,7 +1,6 @@
 <div 
   class="absolute top-16 left-16 right-0 bottom-0 overflow-hidden group"
   data-controller="editor-page-preview"
-  data-page-preview-primary-color-value="<%= maglev_primary_hex_color %>"
   data-action="
     uikit-device-toggler:change@window->editor-page-preview#changeDevice 
     client:ready@window->editor-page-preview#clientReady
@@ -20,7 +19,7 @@
       data-editor-page-preview-target="iframe"
       data-editor-preview-notification-center-target="iframe"
       data-editor-preview-notification-center-primary-color-param="<%= maglev_primary_hex_color %>"
-      data-editor-preview-notification-center-sticky-section-ids-param="[]"
+      data-editor-preview-notification-center-sticky-section-ids-param="<%=current_maglev_sections.select(&:sticky?).map(&:id).to_json %>"
       data-action="load->editor-preview-notification-center#sendConfig"></iframe>
   </div>
 

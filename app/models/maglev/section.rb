@@ -38,7 +38,7 @@ module Maglev
     end
 
     def viewport_fixed_position?
-      !!viewport_fixed_position?
+      !!viewport_fixed_position
     end
 
     def assign_attributes_from_yaml(hash)

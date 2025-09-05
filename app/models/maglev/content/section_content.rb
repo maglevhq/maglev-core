@@ -12,6 +12,10 @@ module Maglev
         true
       end
 
+      def sticky?
+        definition.viewport_fixed_position?
+      end
+
       def blocks?
         blocks.present?
       end
