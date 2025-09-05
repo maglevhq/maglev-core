@@ -49,7 +49,7 @@ module Maglev
 
         if setting_content.nil?
           current_section_content.push({ id: setting.id, value: value })
-        else        
+        else
           setting_content['value'] = value
         end
       end

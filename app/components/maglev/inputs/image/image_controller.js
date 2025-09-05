@@ -3,9 +3,15 @@ import { Controller } from '@hotwired/stimulus'
 export default class extends Controller {
   static targets = ['id', 'width', 'height', 'byteSize']
   static values = { settingId: String }
+
+  connect() {
+    if (window.location.hash) {
+      // dirty way to wait for the ImageFieldController to be connected
+      setTimeout(() => this.focus(), 100)
+    }
+  }
   
   onImageSelected(event) {
-    console.log('[ImageController]onImageSelected', event.detail)
     this.value = event.detail.image
 
     this.idTarget.value = event.detail.image.id
@@ -16,20 +22,18 @@ export default class extends Controller {
     this.bubbleChange()
   }
 
-  onImageCleared(event) {
-    console.log('[ImageController] onImageCleared', event.detail)
+  onImageCleared() {
+    this.value = null
+
     this.idTarget.value = ''
     this.widthTarget.value = ''
     this.heightTarget.value = ''
     this.byteSizeTarget.value = ''
-    this.value = null
-
+    
     this.bubbleChange()
   }
 
   altTextChange(event) {
-    console.log('[ImageController] altTextChange', this.settingIdValue, event.target.value)
-    
     // Update the alt_text in the current value
     this.value = { alt_text: event.target.value }
     
@@ -37,12 +41,22 @@ export default class extends Controller {
   }
 
   bubbleChange() {
-    console.log('[ImageController] bubbleChange', this.settingIdValue, this.value)
     const newEvent = new CustomEvent("editor-input:settingChange", { detail: {      
       id: this.settingIdValue,
       type: 'image',
       value: this.value
     } });
     window.dispatchEvent(newEvent)
+  }
+
+  focus() {
+    const settingId = window.location.hash.replace('#', '')
+    if (settingId === this.settingIdValue) {
+      const imageFieldController = this.application.getControllerForElementAndIdentifier(
+        this.element.querySelector('[data-controller=uikit-form-image-field]'),
+        'uikit-form-image-field'
+      )
+      if (imageFieldController) imageFieldController.openPicker()      
+    }
   }
 }

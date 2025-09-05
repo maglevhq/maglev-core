@@ -11,7 +11,7 @@ module Maglev
                    label: 'Label',
                    name: 'user[choice]',
                    choices: ['Option 1', 'Option 2', 'Option 3'],
-                   options: { include_blank: true  }
+                   options: { include_blank: true }
                  ))
         end
 
@@ -38,10 +38,10 @@ module Maglev
                    label: 'Label',
                    name: 'user[choice]',
                    choices: [['Option 1', 'option_1'], ['Option 2', 'option_2'], ['Option 3', 'option_3']],
-                   options: { 
-                    value: 'option_2',
-                    error: 'must be compliant'
-                    }
+                   options: {
+                     value: 'option_2',
+                     error: 'must be compliant'
+                   }
                  ))
         end
 

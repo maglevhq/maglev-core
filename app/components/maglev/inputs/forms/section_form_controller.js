@@ -8,13 +8,6 @@ export default class extends Controller {
 
   connect() {
     useDebounce(this)
-    console.log('SectionFormController connected')
-    // this._onChange = this.onChange.bind(this)
-    // this.element.addEventListener('change', this._onChange)
-  }
-
-  disconnect() {
-    // this.element.removeEventListener('change', this._onChange)
   }
 
   onSettingChange(event) {

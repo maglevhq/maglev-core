@@ -1,4 +1,5 @@
 import { Controller } from '@hotwired/stimulus'
+import { isSamePath } from"maglev-controllers/utils"
 
 export default class extends Controller {
   connect() {
@@ -11,10 +12,7 @@ export default class extends Controller {
   }
 
   onClick(event) {
-    const current = new URL(window.location.href)
-    const target  = new URL(event.currentTarget.href, window.location.origin)
-
-    if (current.pathname === target.pathname) {
+    if (isSamePath(event.currentTarget.href)) {
       event.preventDefault();
       event.stopImmediatePropagation();
     }

@@ -1,8 +1,11 @@
 import { Controller } from "@hotwired/stimulus"
+import { isSamePath } from"maglev-controllers/utils"
 
 export default class extends Controller { 
-
   static targets = ["iframe"]
+  static values = {
+    sectionPath: String
+  }
   
   // called when the iframe DOM is loaded
   sendConfig(event) {
@@ -11,6 +14,20 @@ export default class extends Controller {
       primaryColor,
       stickySectionIds, // TODO: get the sticky section ids from the page, use a JSON value
     })
+  }
+
+  // called by the iframe when the user clicks on a setting
+  editSection(event) {
+    console.log('📨 editSection', event)
+    const { sectionId, settingId } = event.detail
+    let path = `${this.sectionPathValue}`.replace(':section_id', sectionId)
+    path = `${path}#${settingId}`
+
+    if (isSamePath(path)) {
+      window.location.hash = settingId
+    } else {
+      Turbo.visit(path)
+    }
   }
   
   // === SECTIONS ===
@@ -43,7 +60,6 @@ export default class extends Controller {
   // === SETTINGS ===
 
   updateSetting(event) {
-    console.log('[NOTIFICATION-CENTER] updateSetting', event)
     const { sourceId, change } = event.detail
     this.postMessage('setting:update', { sourceId, change })
   }

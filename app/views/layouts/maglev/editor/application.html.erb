@@ -26,7 +26,12 @@
       }
     </style>
   </head>
-  <body class="h-full overflow-y-hidden font-nunito group/device group/page-layout" data-controller="editor-preview-notification-center">
+  <body 
+    class="h-full overflow-y-hidden font-nunito group/device group/page-layout" 
+    data-controller="editor-preview-notification-center"
+    data-editor-preview-notification-center-section-path-value="<%= edit_editor_section_path(':section_id', maglev_editing_route_context) %>"
+    data-action="client:section:setting:clicked@window->editor-preview-notification-center#editSection"
+  >
     <div id="root">
       <%= render Maglev::Uikit::AppLayout::LayoutComponent.new(page: current_maglev_page, root_path: editor_real_root_path(maglev_editing_route_context)) do |layout| %>
         <% layout.with_topbar do |topbar| %>

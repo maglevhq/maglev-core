@@ -4,6 +4,7 @@
   data-action="
     dispatcher:image-selected-<%= image_source %>@window->editor-image-input#onImageSelected
     uikit-form-image-field:image-cleared-<%= image_source %>@window->editor-image-input#onImageCleared
+    hashchange@window->editor-image-input#focus
   "
 >
   <% %w(id width height byte_size).each do |key| %>
