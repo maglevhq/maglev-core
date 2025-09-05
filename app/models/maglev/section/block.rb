@@ -35,7 +35,7 @@ class Maglev::Section::Block
   def self.build_many(list)
     return [] if list.blank?
 
-    list.map do |hash_or_object| 
+    list.map do |hash_or_object|
       hash_or_object.is_a?(Hash) ? build(hash_or_object) : hash_or_object
     end
   end

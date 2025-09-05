@@ -58,7 +58,7 @@ module Maglev
 
         def link_html_options
           @link[:html_options] || {}
-        end        
+        end
       end
     end
   end

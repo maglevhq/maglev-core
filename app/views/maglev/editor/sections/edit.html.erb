@@ -3,7 +3,7 @@
   <% page_layout.with_notification_content maglev_flash_message %>
 
   <% page_layout.with_pre_title do %>
-    <%= render Maglev::Uikit::BreadcrumbsComponent.new do |breadcrumbs| %>
+    <%= render Maglev::Uikit::Breadcrumbs::BreadcrumbsComponent.new do |breadcrumbs| %>
       <% breadcrumbs.with_breadcrumb(label: t('maglev.editor.sections.breadcrumbs.sections'), url: editor_sections_path(maglev_editing_route_context), icon: 'stack') %>
     <% end %>
   <% end %>

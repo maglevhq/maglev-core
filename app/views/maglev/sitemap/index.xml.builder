@@ -3,7 +3,7 @@
 xml.instruct!
 
 xml.urlset xmlns: 'http://www.google.com/schemas/sitemap/0.9', "xmlns:xhtml": 'http://www.w3.org/1999/xhtml' do
-  @pages.each do |page|
+  @pages.find_each do |page|
     xml.url do
       xml.loc sitemap_url(@host, page, maglev_site.default_locale_prefix)
       xml.lastmod page.updated_at.strftime('%Y-%m-%d')

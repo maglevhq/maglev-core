@@ -21,7 +21,7 @@ module Maglev
     end
 
     def fetch_pages
-      Maglev::Page.all.visible
+      Maglev::Page.all.visible.order(created: :asc)
     end
 
     def verify_request_format!

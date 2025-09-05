@@ -3,7 +3,7 @@
   <% component.with_description_content 'Page description' %>
   
   <% component.with_pre_title do %>
-    <%= render Maglev::Uikit::BreadcrumbsComponent.new do |breadcrumbs| %>
+    <%= render Maglev::Uikit::Breadcrumbs::BreadcrumbsComponent.new do |breadcrumbs| %>
       <% breadcrumbs.with_breadcrumb(label: 'Home', url: '#', icon: 'home') %>
       <% breadcrumbs.with_breadcrumb(label: 'Settings', url: '#', icon: 'settings') %>    
     <% end %>

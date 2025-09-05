@@ -25,13 +25,6 @@ module Maglev::SectionsConcern
     sections.select { |section| section['type'] == type }
   end
 
-  # def add_section(theme, type)
-  #   sections_translations_will_change!
-  #   section = theme.sections.find(type).build_default_content
-  #   sections.push(section)
-  #   section
-  # end
-
   def reorder_sections(section_ids)
     sections_translations_will_change!
     sections.sort! { |a, b| section_ids.index(a['id']) <=> section_ids.index(b['id']) }

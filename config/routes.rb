@@ -56,7 +56,7 @@ Maglev::Engine.routes.draw do
         resources :blocks, controller: :section_blocks do
           put :sort, on: :collection
         end
-      end      
+      end
     end
 
     resources :assets, only: %i[index create destroy]

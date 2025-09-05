@@ -13,4 +13,11 @@ describe 'Maglev::Editor::Sections', type: :request do
       expect(response).to be_successful
     end
   end
+
+  describe 'GET /maglev/editor/:context/sections/:id/edit' do
+    it 'returns a success response' do
+      get "/maglev/editor/en/#{home_page.id}/sections/#{home_page.sections.dig(1, 'id')}/edit"
+      expect(response).to be_successful
+    end
+  end
 end

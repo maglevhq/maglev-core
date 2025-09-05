@@ -115,7 +115,20 @@ FactoryBot.define do
                 settings: {
                   title: 'Our projects'
                 },
-                blocks: []
+                blocks: [
+                  {
+                    type: 'showcase_item',
+                    settings: {
+                      name: 'My last project'
+                    }
+                  },
+                  {
+                    type: 'showcase_item',
+                    settings: {
+                      name: 'My first project'
+                    }
+                  }
+                ]
               }
             ]
           }.with_indifferent_access,

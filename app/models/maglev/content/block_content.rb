@@ -11,7 +11,7 @@ module Maglev
       def persisted?
         true
       end
-      
+
       def name
         ::I18n.t("#{i18n_scope}.types.#{type}", default: definition.name)
       end
@@ -19,8 +19,6 @@ module Maglev
       def name_with_position
         "#{name} ##{position + 1}"
       end
-
-      private
 
       def self.build(raw_block_content:, i18n_scope:, definition:, position:)
         new(
@@ -36,8 +34,8 @@ module Maglev
       def self.build_many(raw_blocks_content:, section_content:)
         raw_blocks_content.each_with_index.map do |raw_block_content, index|
           build(
-            raw_block_content: raw_block_content, 
-            i18n_scope: section_content.i18n_scope, 
+            raw_block_content: raw_block_content,
+            i18n_scope: section_content.i18n_scope,
             definition: section_content.definition.blocks.find(raw_block_content['type']),
             position: index
           )
@@ -52,7 +50,7 @@ module Maglev
         def initialize(section_content:, raw_blocks_content:)
           @array = Maglev::Content::BlockContent.build_many(
             section_content: section_content,
-            raw_blocks_content: raw_blocks_content            
+            raw_blocks_content: raw_blocks_content
           )
         end
 
@@ -62,11 +60,9 @@ module Maglev
 
         def each(&block)
           array.each(&block)
-        end     
-        
-        def empty?
-          array.empty?
         end
+
+        delegate :empty?, to: :array
       end
     end
   end
