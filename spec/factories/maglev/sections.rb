@@ -15,6 +15,10 @@ FactoryBot.define do
     blocks { [] }
     blocks_label { 'List of items' }
 
+    after(:build) do |section|
+      section.blocks = ::Maglev::Section::Block::Store.new(section.blocks)
+    end
+
     trait :invalid_settings do
       after(:build) do |section|
         section.settings = [

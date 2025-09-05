@@ -9,5 +9,9 @@ class Maglev::SettingTypes::Image < Maglev::SettingTypes::Base
       value || {}
     end
   end
+
+  def content_image(value)
+    value&.fetch('url', nil)
+  end
 end
 # rubocop:enable Style/ClassAndModuleChildren

@@ -32,6 +32,10 @@ class Maglev::Section::Setting
     self.class.registered_types[type.to_s].content_label(value)
   end
 
+  def content_image(value)
+    self.class.registered_types[type.to_s].content_image(value)
+  end
+
   # NOTE: any modification to that method must be reflected in the JS editor
   def build_default_content(custom_default = nil)
     default = custom_default.nil? ? self.default : custom_default

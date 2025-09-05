@@ -14,7 +14,7 @@ export default class extends Controller {
 
   activateTab(event) {
     const tab = event.currentTarget
-    const tabContent = this.tabContentTargets[tab.dataset.tabIndex]    
+    const tabContent = this.tabContentTargets[tab.dataset.tabIndex]
 
     this.updateTab(tab)
     this.updateTabContent(tabContent)
@@ -29,7 +29,7 @@ export default class extends Controller {
     })
 
     activeTab.classList.remove(...this.inactiveClasses)
-    activeTab.classList.add(...this.inactiveClasses)
+    activeTab.classList.add(...this.activeClasses)
   }
 
   updateTabContent(activeTabContent) {

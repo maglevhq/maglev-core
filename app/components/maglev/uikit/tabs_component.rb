@@ -3,8 +3,8 @@
 module Maglev
   module Uikit
     class TabsComponent < Maglev::Uikit::BaseComponent
-      renders_many :tabs, lambda { |label:, active: false, &block|
-        Tab.new(self, label: label, active: active, block: block)
+      renders_many :tabs, lambda { |label:, active: false, link: nil, &block|
+        Tab.new(self, label: label, active: active, link: link, block: block)
       }
 
       attr_reader :container_classes, :active_tab, :active_tab_index
@@ -33,12 +33,14 @@ module Maglev
       end
 
       class Tab < Maglev::Uikit::BaseComponent
-        attr_reader :label, :block
+        attr_reader :label, :block, :link
+        attr_writer :active
 
-        def initialize(component, label:, active:, block:)
+        def initialize(component, label:, active:, link:, block: nil)
           @component = component
           @label = label
           @active = active
+          @link = link
           @block = block
         end
 
@@ -46,7 +48,17 @@ module Maglev
           @active
         end
 
-        attr_writer :active
+        def block?
+          @block.present?
+        end
+
+        def link?
+          @link.present?
+        end
+
+        def link_html_options
+          @link[:html_options] || {}
+        end        
       end
     end
   end

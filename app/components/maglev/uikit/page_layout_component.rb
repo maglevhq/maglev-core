@@ -3,6 +3,7 @@
 module Maglev
   module Uikit
     class PageLayoutComponent < Maglev::Uikit::BaseComponent
+      renders_one :pre_title
       renders_one :title
       renders_one :description
       renders_one :notification

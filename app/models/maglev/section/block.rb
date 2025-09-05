@@ -35,7 +35,24 @@ class Maglev::Section::Block
   def self.build_many(list)
     return [] if list.blank?
 
-    list.map { |hash| build(hash) }
+    list.map do |hash_or_object| 
+      hash_or_object.is_a?(Hash) ? build(hash_or_object) : hash_or_object
+    end
+  end
+
+  class Store
+    extend Forwardable
+    def_delegators :@array, :all, :first, :last, :count, :each, :each_with_index, :map, :group_by
+
+    attr_reader :array
+
+    def initialize(blocks)
+      @array = ::Maglev::Section::Block.build_many(blocks)
+    end
+
+    def find(type)
+      array.find { |block| block.type == type }
+    end
   end
 end
 # rubocop:enable Style/ClassAndModuleChildren

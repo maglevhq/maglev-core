@@ -47,7 +47,7 @@ module Maglev::Section::ContentConcern
   end
 
   def core_build_default_block_content(block, parent_id = nil)
-    settings = blocks.find { |bd| bd.type == block[:type] }&.settings
+    settings = blocks.find(block[:type])&.settings
     return unless settings
 
     content = {

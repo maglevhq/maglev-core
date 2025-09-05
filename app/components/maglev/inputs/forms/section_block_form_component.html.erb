@@ -3,6 +3,7 @@
   data: { 
     controller: 'editor-section-form', 
     'editor-section-form-section-id-value': section.id,
+    'editor-section-form-section-block-id-value': section_block.id,
     action: %(
       editor-input:settingChange@window->editor-section-form#onSettingChange
       editor-section-form:updateSetting->editor-preview-notification-center#updateSetting
@@ -11,13 +12,8 @@
     )
   } do 
 %>
-  <%
-=begin%>
- <p><%= section.settings.each { |content| content.inspect } %></p> 
-<%
-=end%>
   <div class="grid grid-cols-1 gap-4">
-    <% section.definition.settings.each do |setting| %>
+    <% section_block.definition.settings.each do |setting| %>
       <%= render input_instance_for(setting) %>      
     <% end %>
   </div>

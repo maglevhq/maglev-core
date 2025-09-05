@@ -9,6 +9,10 @@ class Maglev::SettingTypes::Base
   def content_label(_value)
     nil
   end
+
+  def content_image(_value)
+    nil
+  end
 end
 
 # rubocop:enable Style/ClassAndModuleChildren

@@ -1,0 +1,18 @@
+<%= render Maglev::Uikit::PageLayoutComponent.new(expanded: true, back_path: editor_root_path(maglev_editing_route_context)) do |page_layout| %>
+  <% page_layout.with_title_content @section_block.name_with_position %>
+  <% page_layout.with_notification_content maglev_flash_message %>
+
+  <% page_layout.with_pre_title do %>
+    <%= render Maglev::Uikit::BreadcrumbsComponent.new do |breadcrumbs| %>
+      <% breadcrumbs.with_breadcrumb(label: 'Sections', url: editor_sections_path(maglev_editing_route_context), icon: 'stack') %>
+      <% breadcrumbs.with_breadcrumb(label: truncate(@section.type_name, length: 20), url: edit_editor_section_path(@section, **maglev_editing_route_context), icon: 'settings') %>
+      <% breadcrumbs.with_breadcrumb(label: 'Blocks', url: editor_section_blocks_path(@section, **maglev_editing_route_context), icon: 'archive_stack') %>
+    <% end %>
+  <% end %>
+
+  <%= render Maglev::Inputs::Forms::SectionBlockFormComponent.new(
+    section: @section,
+    section_block: @section_block,
+    path: editor_section_block_path(@section, @section_block, **maglev_editing_route_context)
+  ) %>
+<% end %>

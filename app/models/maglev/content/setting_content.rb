@@ -8,12 +8,16 @@ module Maglev
       attr_accessor :id, :type, :value
 
       class AssociationProxy
+        include Enumerable
+
+        attr_reader :settings
+
         def initialize(raw_settings)
           @settings = raw_settings.map { |raw_setting| Maglev::Content::SettingContent.new(raw_setting) }
         end
 
         def [](id)
-          @settings.find { |s| s.id == id }
+          settings.find { |s| s.id == id }
         end
 
         def value_of(id)
@@ -21,7 +25,7 @@ module Maglev
         end
 
         def each(&block)
-          @settings.each(&block)
+          settings.each(&block)
         end
       end
     end

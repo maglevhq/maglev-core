@@ -78,7 +78,7 @@ module Maglev
 
     def transform_section_blocks(blocks, definition)
       blocks.each do |block|
-        block_definition = definition.blocks.find { |bd| bd.type == block['type'] }
+        block_definition = definition.blocks.find(block['type'])
 
         next unless block_definition
 

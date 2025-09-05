@@ -2,7 +2,7 @@ import { Controller } from '@hotwired/stimulus'
 import { useDebounce } from 'stimulus-use'
 
 export default class extends Controller {
-  static values = { sectionId: String }
+  static values = { sectionId: String, sectionBlockId: String }
 
   static debounces = ['afterSettingUpdate']
 
@@ -13,7 +13,7 @@ export default class extends Controller {
   onSettingChange(event) {
     console.log('onSettingChange', event.detail)
     this.dispatch('updateSetting', { detail: {
-        sourceId: this.sectionIdValue,
+        sourceId: this.sectionBlockIdValue ?? this.sectionIdValue,
         change: {
           settingType: event.detail.type,
           settingId: event.detail.id,

@@ -33,6 +33,10 @@ module Maglev
       !!singleton
     end
 
+    def blocks_tree?
+      blocks_presentation == 'tree'
+    end
+
     def viewport_fixed_position?
       !!viewport_fixed_position?
     end
@@ -40,7 +44,7 @@ module Maglev
     def assign_attributes_from_yaml(hash)
       attributes = prepare_default_attributes(hash).merge(
         settings: ::Maglev::Section::Setting.build_many(hash['settings']),
-        blocks: ::Maglev::Section::Block.build_many(hash['blocks'])
+        blocks: ::Maglev::Section::Block::Store.new(hash['blocks'])
       )
 
       assign_attributes(attributes)
@@ -80,8 +84,8 @@ module Maglev
         @array = array
       end
 
-      def find(id)
-        @array.find { |section| section.id == id }
+      def find(type)
+        @array.find { |section| section.id == type }
       end
 
       def find_all_by_type(type)

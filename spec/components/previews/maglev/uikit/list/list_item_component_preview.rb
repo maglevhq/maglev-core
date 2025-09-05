@@ -17,6 +17,10 @@ module Maglev
           render_with_template
         end
 
+        def with_unknown_image
+          render_with_template
+        end
+
         def with_big_image
           render_with_template
         end

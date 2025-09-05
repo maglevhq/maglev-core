@@ -187,12 +187,15 @@ const onSettingClicked = (el, event) => {
 
   const fragments = el.dataset.maglevId.split('.')
 
-  // is it a section or a block setting?
-  const isSectionBlock = !!el.closest('[data-maglev-block-id]')
-  const prefix = isSectionBlock ? 'sectionBlock' : 'section'
+  const section = el.closest('[data-maglev-section-id]')
+  const sectionId = section.dataset.maglevSectionId
+  const sectionBlock = el.closest('[data-maglev-block-id]')
+  const sectionBlockId = sectionBlock?.dataset?.maglevBlockId
+  const prefix = sectionBlockId ? 'sectionBlock' : 'section'
 
   postMessageToEditor(`${prefix}:setting:clicked`, {
-    [`${prefix}Id`]: fragments[0],
+    sectionId,
+    sectionBlockId,
     settingId: fragments[1],
   })
 }

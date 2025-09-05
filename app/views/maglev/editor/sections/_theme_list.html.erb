@@ -15,7 +15,7 @@
               <%= f.radio_button :section_type, section.id, class: 'sr-only peer' %>
               <%= render Maglev::Uikit::List::ListItemComponent.new do |item| %>
                 <% item.with_big_image do %>
-                  <%= image_tag services.fetch_section_screenshot_url.call(section: section), class: item.big_image_classes, data: { controller: 'failed-image' } %>
+                  <%= image_tag services.fetch_section_screenshot_url.call(section: section), class: item.big_image_classes, data: { controller: 'broken-image' } %>
                 <% end %>
                 <% item.with_title_content(section.name) %>
               <% end %>

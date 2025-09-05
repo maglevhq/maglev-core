@@ -25,7 +25,12 @@
 
     <div class="block group-[.none]/image:hidden" data-controller="transition">
       <div class="relative bg-checkerboard h-48 rounded overflow-hidden" data-action="mouseenter->transition#enter mouseleave->transition#leave">
-        <img src="<%= value %>" class="h-full w-full object-contain rounded" data-uikit-form-image-field-target="image">
+        <img 
+          src="<%= value %>" 
+          class="h-full w-full object-contain rounded" 
+          data-controller="broken-image"
+          data-uikit-form-image-field-target="image"
+        />
         <div
           class="flex items-center justify-center py-3 px-2 absolute bg-black/75 bottom-0 w-full text-white text-xs cursor-default rounded-b hidden"
           data-transition-target="revealable"

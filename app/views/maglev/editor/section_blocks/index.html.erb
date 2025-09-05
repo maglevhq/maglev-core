@@ -1,0 +1,17 @@
+<%= render Maglev::Uikit::PageLayoutComponent.new(expanded: true, back_path: editor_root_path(maglev_editing_route_context)) do |page_layout| %>
+  <% page_layout.with_title_content @section.blocks_label %>
+  <% page_layout.with_notification_content maglev_flash_message %>
+
+  <% page_layout.with_pre_title do %>
+    <%= render Maglev::Uikit::BreadcrumbsComponent.new do |breadcrumbs| %>
+      <% breadcrumbs.with_breadcrumb(label: 'Sections', url: editor_sections_path(maglev_editing_route_context), icon: 'stack') %>
+      <% breadcrumbs.with_breadcrumb(label: truncate(@section.type_name, length: 20), url: edit_editor_section_path(@section, maglev_editing_route_context), icon: 'settings') %>
+    <% end %>
+  <% end %>
+
+  <% if @section.definition.blocks_tree? %>
+    <p>TODO</p>
+  <% else %>
+    <%= render 'list' %>
+  <% end %>
+<% end %>

@@ -4,7 +4,8 @@ import { isSamePath } from"maglev-controllers/utils"
 export default class extends Controller { 
   static targets = ["iframe"]
   static values = {
-    sectionPath: String
+    sectionPath: String,
+    sectionBlockPath: String
   }
   
   // called when the iframe DOM is loaded
@@ -16,13 +17,13 @@ export default class extends Controller {
     })
   }
 
-  // called by the iframe when the user clicks on a setting
+  // called by the iframe when the user clicks on a setting of a section or a section block
   editSection(event) {
     console.log('📨 editSection', event)
-    const { sectionId, settingId } = event.detail
-    let path = `${this.sectionPathValue}`.replace(':section_id', sectionId)
-    path = `${path}#${settingId}`
-
+    const { sectionId, sectionBlockId, settingId } = event.detail
+    const pathTemplate = sectionBlockId ? this.sectionBlockPathValue : this.sectionPathValue
+    const path = `${pathTemplate}#${settingId}`.replace(':section_id', sectionId).replace(':section_block_id', sectionBlockId)
+    
     if (isSamePath(path)) {
       window.location.hash = settingId
     } else {
@@ -55,6 +56,20 @@ export default class extends Controller {
     console.log('updateSection 🧼🧼🧼', event)
     const { sectionId  } = event.detail
     this.postMessage('section:update', { sectionId })
+  }
+  
+  // === SECTION BLOCKS ===
+
+  deleteSectionBlock(event) {
+    console.log('deleteSectionBlock 💨💨💨', event)
+    const { sectionId, sectionBlockId } = event.params
+    this.postMessage('block:remove', { sectionId, sectionBlockId })
+  }
+
+  moveSectionBlocks(event) {
+    console.log('moveSectionBlocks 💨💨💨', event)
+    // const { oldItemId: sectionBlockId, newItemId: targetSectionBlockId, direction } = event.detail
+    // this.postMessage('sectionBlock:move', { sectionBlockId, targetSectionBlockId, direction })
   }
 
   // === SETTINGS ===

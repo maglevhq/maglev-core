@@ -1,0 +1,12 @@
+<li class="flex items-center h-full">
+  <% if url? %>
+    <%= link_to url, class: 'inline-flex items-center text-xs space-x-1.5 rounded-sm hover:text-gray-900', data: { turbo_frame: '_top' } do %>
+      <% if icon? %>
+        <%= render Maglev::Uikit::IconComponent.new(name: icon, size: '0.85rem') %>
+      <% end %>
+      <span><%= label %></span>
+    <% end %>
+  <% else %>
+    <span class="inline-flex items-center text-xs space-x-1.5 rounded-sm"><%= label %></span>
+  <% end %>
+</li>  

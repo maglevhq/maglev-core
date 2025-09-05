@@ -26,7 +26,7 @@ export default class extends Controller {
 
   updateBodyDataset(expanded) {
     if (expanded === undefined || expanded === false) {
-      delete document.body.dataset.expandedPageLayout      
+      delete document.body.dataset.expandedPageLayout   
     } else {
       document.body.dataset.expandedPageLayout = true
     }

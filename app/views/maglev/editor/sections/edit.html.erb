@@ -1,10 +1,31 @@
-<%= render Maglev::Uikit::PageLayoutComponent.new(expanded: true, back_path: editor_sections_path(maglev_editing_route_context)) do |page_layout| %>
+<%= render Maglev::Uikit::PageLayoutComponent.new(expanded: true, back_path: editor_root_path(maglev_editing_route_context)) do |page_layout| %>
   <% page_layout.with_title_content @section.type_name %>
   <% page_layout.with_notification_content maglev_flash_message %>
 
-  <%= render Maglev::Inputs::Forms::SectionFormComponent.new(
-    section: @section,
-    path: editor_section_path(@section, maglev_editing_route_context)
-  ) %>
+  <% page_layout.with_pre_title do %>
+    <%= render Maglev::Uikit::BreadcrumbsComponent.new do |breadcrumbs| %>
+      <% breadcrumbs.with_breadcrumb(label: t('maglev.editor.sections.breadcrumbs.sections'), url: editor_sections_path(maglev_editing_route_context), icon: 'stack') %>
+    <% end %>
+  <% end %>
 
+  <% section_form = capture do %>
+    <%= render Maglev::Inputs::Forms::SectionFormComponent.new(
+      section: @section,
+      path: editor_section_path(@section, maglev_editing_route_context)
+    ) %>
+  <% end %>
+
+  <% if @section.blocks.empty? %>
+    <%= section_form %>
+  <% else %>
+    <%= render Maglev::Uikit::TabsComponent.new(container_classes: 'w-full h-full flex flex-col') do |tabs| %>
+      <% tabs.with_tab(label: t('maglev.editor.section_pane.tabs.settings')) do %>
+       <%= section_form %>
+      <% end %>
+      <% tabs.with_tab(
+        label: @section.blocks_label, 
+        link: { url: editor_section_blocks_path(@section, maglev_editing_route_context), html_options: { data: { turbo_frame: '_top' } } }) 
+      %>
+    <% end %>
+  <% end %>
 <% end %>

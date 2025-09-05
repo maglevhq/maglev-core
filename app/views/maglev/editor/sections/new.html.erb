@@ -1,6 +1,12 @@
-<%= render Maglev::Uikit::PageLayoutComponent.new(expanded: true, back_path: editor_sections_path(maglev_editing_route_context)) do |page_layout| %>
+<%= render Maglev::Uikit::PageLayoutComponent.new(expanded: true, back_path: editor_root_path(maglev_editing_route_context)) do |page_layout| %>
   <% page_layout.with_title_content t('maglev.editor.sections.add_pane.title') %>
   <% page_layout.with_notification_content maglev_flash_message %>
+
+  <% page_layout.with_pre_title do %>
+    <%= render Maglev::Uikit::BreadcrumbsComponent.new do |breadcrumbs| %>
+      <% breadcrumbs.with_breadcrumb(label: t('maglev.editor.sections.breadcrumbs.sections'), url: editor_sections_path(maglev_editing_route_context), icon: 'stack') %>
+    <% end %>
+  <% end %>
 
   <%= form_with url: editor_sections_path(maglev_editing_route_context), data: { 
       turbo_frame: '_top', 

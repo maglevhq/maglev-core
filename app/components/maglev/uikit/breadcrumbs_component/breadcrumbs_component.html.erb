@@ -1,0 +1,10 @@
+<nav class="flex justify-between">
+  <ol class="inline-flex items-center space-x-0.5 text-xs text-gray-500">
+    <% breadcrumbs.each_with_index do |breadcrumb, index| %>
+      <%= breadcrumb %>
+      <% if index < breadcrumbs.size - 1 %>
+        <%= render Maglev::Uikit::IconComponent.new(name: 'arrow_right', size: '1rem', class_names: 'text-gray-400') %>
+      <% end %>
+    <% end %>
+  </ol>
+</nav>

@@ -81,8 +81,8 @@ const updateBlock = (event) => {
 }
 
 const replaceSection = (event) => {
-  const { content, section } = event.detail
-  debouncedUpdatePreviewDocument(content, section)
+  const { sectionId } = event.detail
+  debouncedUpdatePreviewDocument(null, { id: sectionId })
 }
 
 // === Other actions ===

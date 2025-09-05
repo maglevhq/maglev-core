@@ -76,7 +76,7 @@ module Maglev
 
     def build_blocks(blocks)
       (blocks || []).map do |block_attributes|
-        block_definition = definition.blocks.find { |settings| settings.type == block_attributes[:type] }
+        block_definition = definition.blocks.find(block_attributes[:type])
         next unless block_definition
 
         block = build_block(block_definition, block_attributes)

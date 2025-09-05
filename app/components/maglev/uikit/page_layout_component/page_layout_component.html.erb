@@ -6,11 +6,19 @@
   <%= expanded ? 'data-expanded' : 'data-not-expanded' %>  
 >
   <div class="py-6 mx-4">
+    <% title_html = capture do %>
+      <h2 class="text-gray-800 font-semibold text-lg capitalize-first antialiased">
+        <%= title %>
+      </h2>
+    <% end %>
+
     <div class="h-6 flex items-center">
       <div class="shrink-0">
-        <h2 class="text-gray-800 font-semibold text-lg capitalize-first antialiased">
-          <%= title %>
-        </h2>
+        <% if pre_title? %>
+          <%= pre_title %>
+        <% else %>
+          <%= title_html %>
+        <% end %>
       </div>
       <div class="ml-auto pl-2 gap-0.5 flex items-center">
         <turbo-frame id="page-layout-notification">
@@ -24,6 +32,11 @@
         <% end %>
       </div>
     </div>
+
+    <% if pre_title? %>
+      <%= title_html %>
+    <% end %>
+
     <% if description? %>
       <div class="text-gray-400 text-sm">
         <%= description %>

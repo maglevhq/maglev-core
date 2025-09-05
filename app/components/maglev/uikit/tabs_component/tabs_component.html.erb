@@ -10,7 +10,11 @@
     <ul class="flex flex-col sm:flex-row">
       <% tabs.each_with_index do |tab, index| %>
         <li>
-          <%= link_to tab.label, '#', class: label_classes(active: tab.active?), data: { uikit_tabs_target: 'tab', action: 'click->uikit-tabs#activateTab:prevent', tab_index: index } %>
+          <% if tab.link? %>
+            <%= link_to tab.label, tab.link[:url], class: label_classes(active: tab.active?), **tab.link_html_options %>
+          <% else %>
+            <%= link_to tab.label, '#', class: label_classes(active: tab.active?), data: { uikit_tabs_target: 'tab', action: 'click->uikit-tabs#activateTab:prevent', tab_index: index } %>
+          <% end %>
         </li>
       <% end %>
     </ul>
@@ -20,7 +24,7 @@
 
   <% tabs.each_with_index do |tab, index| %>
     <div data-uikit-tabs-target="tabContent" class="flex-1 mt-4 pb-4 overflow-y-auto overflow-x-visible <%= 'hidden' unless tab.active? %>">
-      <%= capture(&tab.block) %>
+      <%= capture(&tab.block) if tab.block? %>
     </div>
   <% end %>
 </div>

@@ -27,4 +27,26 @@ RSpec.describe Maglev::Content::SectionContent do
       end
     end
   end
+
+  context '#blocks' do
+    let(:page) { build(:page, :with_navbar) }
+
+    it 'builds all the blocks of the section' do
+      expect(section_content.blocks.count).to eq 4
+    end
+
+    describe 'a block' do
+      it 'returns the block type' do
+        expect(section_content.blocks.first.type).to eq 'menu_item'
+      end
+
+      it 'returns the block settings' do
+        expect(section_content.blocks.first.settings.count).to eq 2
+      end
+
+      it 'returns the block settings values' do
+        expect(section_content.blocks.first.settings.first.value).to eq 'Home'
+      end
+    end
+  end
 end
