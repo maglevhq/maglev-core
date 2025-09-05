@@ -41,4 +41,14 @@ describe Maglev::TranslatePage do
     expect(subject.sections_translations.dig('fr', 1, 'settings', 0, 'value')).to eq 'Hello world [FR]'
   end
   # rubocop:enable Style/StringHashKeys
+
+  context 'The translation service returns unscaped HTML' do
+    before do
+      allow(service).to receive(:translate_text).and_return('Hello world <a href="https://www.google.com">Google</a>')
+    end
+
+    it 'escapes the HTML' do
+      expect(subject.sections_translations.dig('fr', 1, 'settings', 0, 'value')).to eq 'Hello world <a href="https://www.google.com">Google</a>'
+    end
+  end
 end

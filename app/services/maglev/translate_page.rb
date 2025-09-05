@@ -170,7 +170,7 @@ module Maglev
       return text if text.blank?
 
       text.gsub(/--([a-f0-9-]{36})--/) do |_match|
-        @translations[::Regexp.last_match(1)]
+        @translations[::Regexp.last_match(1)].to_json.gsub(/^\"/, '').gsub(/\"$/, '')
       end
     end
 
