@@ -21,6 +21,10 @@ module Maglev::SectionsConcern
     end
   end
 
+  def find_section_by_id(id)
+    sections.find { |section| section['id'] == id }
+  end
+
   def find_sections_by_type(type)
     sections.select { |section| section['type'] == type }
   end

@@ -11,6 +11,19 @@ module Maglev::Section::ContentConcern
     }
   end
 
+  def build_block_content_for(block_type, parent_id = nil)
+    block_definition = self.blocks.find(block_type)
+     
+    raise Maglev::Errors::UnknownBlock unless block_definition
+
+    {
+      id: SecureRandom.urlsafe_base64(8),
+      type: block_definition.type,
+      settings: build_default_settings_content(block_definition.settings),
+      parent_id: parent_id
+    }.compact_blank
+  end
+
   private
 
   def build_default_settings_content(source = nil, custom_settings = nil)
@@ -35,6 +48,7 @@ module Maglev::Section::ContentConcern
     blocks_content.values.compact
   end
 
+  # block is a hash representing a block content from a section "sample" attribute
   def build_default_block_content(block, memo, parent_id = nil)
     content = core_build_default_block_content(block, parent_id)
     return unless content
