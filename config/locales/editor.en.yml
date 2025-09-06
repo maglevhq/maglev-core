@@ -208,6 +208,19 @@ en:
           create:
             success: "Added!"
             error: "Failed!"
+          update:
+            success: "Saved!"
+            error: "Failed!"
+          destroy:
+            success: "Deleted!"
+            error: "Failed!"
+        section_blocks:
+          update:
+            success: "Saved!"
+            error: "Failed!"
+          sort:
+            success: "Sorted!"
+            error: "Failed!"
           destroy:
             success: "Deleted!"
             error: "Failed!"

@@ -48,6 +48,13 @@ module Maglev
     dependency :update_section,             class: Maglev::Content::UpdateSectionService,
                                             depends_on: %i[fetch_site fetch_theme]
 
+    dependency :update_section_block,       class: Maglev::Content::UpdateSectionBlockService,
+                                            depends_on: %i[fetch_site fetch_theme]
+    dependency :delete_section_block,       class: Maglev::Content::DeleteSectionBlockService,
+                                            depends_on: %i[fetch_site fetch_theme]
+    dependency :sort_section_blocks,        class: Maglev::Content::SortSectionBlocksService,
+                                            depends_on: %i[fetch_site fetch_theme]
+
     def call
       self
     end

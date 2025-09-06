@@ -4,7 +4,7 @@ module Maglev
   module Editor
     class SectionBlocksController < Maglev::Editor::BaseController
       before_action :set_section
-      before_action :set_section_block, only: %i[edit destroy]
+      before_action :set_section_block, only: %i[edit update destroy]
 
       def index
         @blocks = @section.blocks
@@ -21,16 +21,31 @@ module Maglev
       def edit; end
 
       def update
-        # TODO
+        services.update_section_block.call(
+          page: current_maglev_page,
+          section_id: @section.id,
+          block_id: @section_block.id,
+          content: params[:section_block].to_unsafe_h
+        )
+        flash.now[:notice] = flash_t(:success)
       end
 
       def sort
-        # TODO
-        head :ok
+        services.sort_section_blocks.call(
+          page: current_maglev_page,
+          section_id: @section.id,
+          block_ids: params[:item_ids]
+        )
+        redirect_to editor_section_blocks_path(@section.id, **maglev_editing_route_context), notice: flash_t(:success), status: :see_other
       end
 
       def destroy
-        # TODO
+        services.delete_section_block.call(
+          page: current_maglev_page,
+          section_id: @section.id,
+          block_id: @section_block.id
+        )
+        redirect_to editor_section_blocks_path(@section.id, **maglev_editing_route_context), notice: flash_t(:success), status: :see_other
       end
 
       private

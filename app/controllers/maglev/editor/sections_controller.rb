@@ -32,6 +32,7 @@ module Maglev
           section_id: @section.id,
           content: params[:section].to_unsafe_h
         )
+        flash.now[:notice] = flash_t(:success)
       end
 
       def sort
