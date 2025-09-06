@@ -10,12 +10,13 @@ module Maglev
         @blocks = @section.blocks
       end
 
-      def new
-        # TODO
-      end
-
       def create
-        # TODO
+        services.add_section_block.call(
+          page: current_maglev_page,
+          section_id: @section.id,
+          block_type: params[:block_type]
+        )
+        redirect_to editor_section_blocks_path(@section.id, **maglev_editing_route_context), notice: flash_t(:success), status: :see_other
       end
 
       def edit; end

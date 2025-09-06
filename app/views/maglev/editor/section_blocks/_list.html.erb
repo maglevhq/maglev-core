@@ -4,7 +4,8 @@
       path: sort_editor_section_blocks_path(@section, **maglev_editing_route_context), 
       data: { 
         turbo_frame: '_top',
-        action: 'sortable:drag-stopped@window->editor-preview-notification-center#moveSectionBlocks',            
+        action: 'sortable:drag-stopped@window->editor-preview-notification-center#moveSectionBlocks', 
+        'editor-preview-notification-center-section-id-param': @section.id,
       } 
     }
   ) do |component| %>

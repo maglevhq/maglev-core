@@ -3,5 +3,7 @@
     <%= item %>
   <% end %>
 
-  <%= form_with url: sort_form_path, method: :put, data: sort_form_data, class: 'invisible' if sortable? %>
+  <%= form_with url: sort_form_path, method: :put, data: sort_form_data, class: 'invisible' do %>
+    <!-- Empty form -->
+  <% end if sortable? %>
 </div>

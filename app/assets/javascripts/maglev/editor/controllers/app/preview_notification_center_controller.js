@@ -60,6 +60,12 @@ export default class extends Controller {
   
   // === SECTION BLOCKS ===
 
+  addSectionBlock(event) {
+    console.log('addSectionBlock 💨💨💨', event)
+    const { sectionId } = event.params
+    this.postMessage('block:add', { sectionId })
+  }
+
   deleteSectionBlock(event) {
     console.log('deleteSectionBlock 💨💨💨', event)
     const { sectionId, sectionBlockId } = event.params
@@ -68,8 +74,9 @@ export default class extends Controller {
 
   moveSectionBlocks(event) {
     console.log('moveSectionBlocks 💨💨💨', event)
-    // const { oldItemId: sectionBlockId, newItemId: targetSectionBlockId, direction } = event.detail
-    // this.postMessage('sectionBlock:move', { sectionBlockId, targetSectionBlockId, direction })
+    const sectionId = event.params.sectionId
+    const { oldItemId: sectionBlockId, newItemId: targetSectionBlockId, direction } = event.detail    
+    this.postMessage('block:move', { sectionId, sectionBlockId, targetSectionBlockId, direction })
   }
 
   // === SETTINGS ===

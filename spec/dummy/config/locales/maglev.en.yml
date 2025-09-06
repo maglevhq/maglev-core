@@ -12,12 +12,14 @@ en: {}
 #               logo: 'Logo 🧁'
 #             blocks:
 #               label: "Menu 🍔"
-#           showcase:
+#           showcase:            
 #             settings:
 #               blabla: 'Select 🧁'
 #               blabla_options:
 #                 option_1: "Option #1"
 #                 option_2: "Option #2"
+#             blocks:
+#               label: "List of items 💰"
 #         categories:
 #           headers:
 #             name: "Headers 🥸"

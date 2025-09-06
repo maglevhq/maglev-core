@@ -77,6 +77,10 @@ en:
           empty: "There are no sections."
           add_button: "Add a new section"
           confirm_delete: "Are you sure you want to delete it?"
+      section_blocks:
+        index:
+          add_button: "Add a new item"
+          confirm_delete: "Are you sure you want to delete it?"
       section_pane:
         tabs:
           settings: "Content"
@@ -215,6 +219,9 @@ en:
             success: "Deleted!"
             error: "Failed!"
         section_blocks:
+          create:
+            success: "Added!"
+            error: "Failed!"
           update:
             success: "Saved!"
             error: "Failed!"
