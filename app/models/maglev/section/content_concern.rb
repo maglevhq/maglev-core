@@ -12,8 +12,8 @@ module Maglev::Section::ContentConcern
   end
 
   def build_block_content_for(block_type, parent_id = nil)
-    block_definition = self.blocks.find(block_type)
-     
+    block_definition = blocks.find(block_type)
+
     raise Maglev::Errors::UnknownBlock unless block_definition
 
     {

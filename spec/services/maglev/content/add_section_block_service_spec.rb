@@ -31,10 +31,10 @@ describe Maglev::Content::AddSectionBlockService do
 
     it 'returns the block' do
       expect(subject).to match(hash_including(
-        id: kind_of(String),
-        type: 'showcase_item',
-        settings: kind_of(Array)
-      ))
+                                 id: kind_of(String),
+                                 type: 'showcase_item',
+                                 settings: kind_of(Array)
+                               ))
     end
   end
 end

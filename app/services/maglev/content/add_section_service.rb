@@ -4,6 +4,7 @@ module Maglev
   module Content
     class AddSectionService
       include Injectable
+      include Maglev::Content::HelpersConcern
 
       dependency :fetch_theme
       dependency :fetch_site
@@ -15,11 +16,11 @@ module Maglev
       def call
         raise Maglev::Errors::UnknownSection unless section_definition
 
-        section_content = build_section_content(section_definition)
+        section_content = build_section_content
 
         ActiveRecord::Base.transaction do
-          add_to_site!(section_content, section_definition)
-          add_to_page!(section_content, section_definition)
+          add_to_site!(section_content) if site_scoped?
+          add_to_page!(section_content)
         end
 
         section_content
@@ -27,9 +28,7 @@ module Maglev
 
       private
 
-      def add_to_site!(section_content, section_definition)
-        return unless section_definition.site_scoped?
-
+      def add_to_site!(section_content)
         site.sections_translations_will_change!
         # we don't care about the position for site scoped sections
         site.sections ||= []
@@ -39,7 +38,7 @@ module Maglev
         site.save!
       end
 
-      def add_to_page!(section_content, _section_definition)
+      def add_to_page!(section_content)
         page.sections_translations_will_change!
         page.sections ||= []
         page.sections.insert(position, section_content)
@@ -47,16 +46,8 @@ module Maglev
         page.save!
       end
 
-      def build_section_content(section_definition)
+      def build_section_content
         section_definition.build_default_content.with_indifferent_access
-      end
-
-      def theme
-        @theme ||= fetch_theme.call
-      end
-
-      def site
-        @site ||= fetch_site.call
       end
 
       def section_definition

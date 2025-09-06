@@ -3,17 +3,17 @@
 require 'rails_helper'
 
 describe Maglev::Content::UpdateSectionService do
-  subject(:service_call) { service.call(page: page, section: section, content: content) }
+  subject(:service_call) { service.call(page: page, section_id: section_id, content: content) }
 
   let(:site) { create(:site) }
   let(:page) { create(:page) }
   let(:theme) { build(:theme) }
   let(:fetch_theme) { double('FetchTheme', call: theme) }
   let(:fetch_site) { double('FetchSite', call: site) }
+  let(:section_id) { page.sections.dig(0, 'id') }
   let(:service) { described_class.new(fetch_site: fetch_site, fetch_theme: fetch_theme) }
 
   context 'Given an existing page section' do
-    let(:section) { Maglev::Content::SectionContent.build(theme: theme, raw_section_content: page.sections.first) }
     let(:content) { { title: 'Hello world!' } }
 
     it 'updates the section' do
@@ -25,7 +25,6 @@ describe Maglev::Content::UpdateSectionService do
   context 'Given an existing site section' do
     let(:site) { create(:site, :with_navbar) }
     let(:page) { create(:page, :with_navbar) }
-    let(:section) { Maglev::Content::SectionContent.build(theme: theme, raw_section_content: page.sections.first) }
     let(:content) { { logo: { url: '/awesome-logo.png' } } }
 
     it 'updates the section' do

@@ -4,12 +4,13 @@ module Maglev
   module Content
     class UpdateSectionService
       include Injectable
+      include Maglev::Content::HelpersConcern
 
       dependency :fetch_theme
       dependency :fetch_site
 
       argument :page
-      argument :section
+      argument :section_id
       argument :content
 
       def call
@@ -30,44 +31,13 @@ module Maglev
       end
 
       def update_section_content(source)
-        current_section_content = fetch_section_content(source)
+        current_section_content = find_section_content(source)
 
-        section.definition.settings.each do |setting|
+        section_definition.settings.each do |setting|
           next unless content.key?(setting.id.to_sym)
 
-          update_section_setting_value(setting, current_section_content)
+          update_setting_value(setting, current_section_content)
         end
-      end
-
-      def fetch_section_content(source)
-        source.sections.find { |s| s['id'] == section.id }['settings']
-      end
-
-      def update_section_setting_value(setting, current_section_content)
-        setting_content = current_section_content.find { |s| s['id'] == setting.id }
-        value = content[setting.id.to_sym]
-
-        if setting_content.nil?
-          current_section_content.push({ id: setting.id, value: value })
-        else
-          setting_content['value'] = value
-        end
-      end
-
-      def section_definition
-        theme.sections.find(section.type)
-      end
-
-      def site_scoped?
-        section_definition.site_scoped?
-      end
-
-      def theme
-        @theme ||= fetch_theme.call
-      end
-
-      def site
-        @site ||= fetch_site.call
       end
     end
   end

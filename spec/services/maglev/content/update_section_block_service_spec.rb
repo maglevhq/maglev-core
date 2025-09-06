@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe Maglev::Content::UpdateSectionBlockService do
-  subject(:service_call) { service.call(page: page,section_id: section_id, block_id: block_id, content: content) }
+  subject(:service_call) { service.call(page: page, section_id: section_id, block_id: block_id, content: content) }
 
   let(:site) { create(:site) }
   let!(:page) { create(:page) }
@@ -19,7 +19,9 @@ describe Maglev::Content::UpdateSectionBlockService do
     let(:content) { { name: 'My first project [UPDATED]' } }
 
     it 'updates the section block' do
-      expect { subject }.to change { page.sections.dig(1, 'blocks', 0, 'settings', 0, 'value') }.to('My first project [UPDATED]')
+      expect { subject }.to change {
+        page.sections.dig(1, 'blocks', 0, 'settings', 0, 'value')
+      }.to('My first project [UPDATED]')
     end
   end
 end
