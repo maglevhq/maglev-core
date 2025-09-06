@@ -40,9 +40,12 @@ module Maglev
         find_section(source)['settings']
       end
 
-      def find_block(source)
+      def find_blocks(source)
         find_section(source)['blocks']
-          .find { |block| block['id'] == block_id }
+      end
+
+      def find_block(source)
+        find_blocks(source).find { |block| block['id'] == block_id }
       end
 
       def find_block_content(source)

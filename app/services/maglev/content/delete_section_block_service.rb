@@ -1,0 +1,38 @@
+# frozen_string_literal: true
+
+module Maglev
+  module Content
+    class DeleteSectionBlockService
+      include Injectable
+      include Maglev::Content::HelpersConcern
+
+      dependency :fetch_theme
+      dependency :fetch_site
+
+      argument :page
+      argument :section_id
+      argument :block_id
+
+      def call
+        raise Maglev::Errors::UnknownSection unless section_definition
+
+        ActiveRecord::Base.transaction do
+          delete_section_block!(site) if site_scoped?
+          delete_section_block!(page)
+        end
+      end
+
+      private
+
+      def delete_section_block!(source)
+        source.sections_translations_will_change!
+        delete_section_block(source)
+        source.save!
+      end
+
+      def delete_section_block(source)
+        find_blocks(source).delete_if { |block| block['id'] == block_id }
+      end
+    end
+  end
+end

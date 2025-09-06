@@ -21,6 +21,11 @@ FactoryBot.define do
   factory :page, class: 'Maglev::Page' do
     title { 'Home' }
     path { 'index' }
+
+    transient do
+      number_of_showcase_blocks { 1 }
+    end
+
     sections do
       [
         {
@@ -34,15 +39,15 @@ FactoryBot.define do
         {
           type: 'showcase',
           settings: [{ id: :title, value: 'Our projects' }],
-          blocks: [
+          blocks: number_of_showcase_blocks.times.map do |i|
             {
               type: 'showcase_item',
               settings: [
-                { id: :name, value: 'My first project' },
-                { id: :screenshot, value: '/assets/screenshot-01.png' }
+                { id: :name, value: i == 0 ? 'My first project' : "My project ##{i + 1}" },
+                { id: :screenshot, value: "/assets/screenshot-0#{i + 1}.png" }
               ]
             }
-          ]
+          end
         }
       ]
     end
