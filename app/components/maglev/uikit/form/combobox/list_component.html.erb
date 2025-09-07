@@ -1,0 +1,14 @@
+<% options.each_with_index do |option, index| %>
+  <li
+    class="relative cursor-default select-none py-2 pl-3 pr-9 text-gray-900 group data-[focus]:bg-editor-primary data-[focus]:text-white" 
+    role="option" 
+    tabindex="-1"     
+    data-id="<%= option.id %>"
+    data-label="<%= option.label %>"
+    data-index="<%= index %>"
+    data-uikit-form-combobox-target="option" 
+    data-action="click->uikit-form-combobox#choose mouseover->uikit-form-combobox#mouseover"    
+  >
+    <%= option %>
+  </li>
+<% end %>

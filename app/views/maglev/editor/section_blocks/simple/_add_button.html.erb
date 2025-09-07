@@ -25,7 +25,7 @@
       %>
     <% end %>
             
-    <div class="w-80 p-4">
+    <div class="p-4">
       <%= render Maglev::Uikit::List::ListComponent.new do |component| %>
         <% @section.definition.blocks.each do |block| %>
           <% component.with_item_content(

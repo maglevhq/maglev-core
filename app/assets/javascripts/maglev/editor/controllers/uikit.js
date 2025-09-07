@@ -10,6 +10,7 @@ import ImageLibraryUploaderController from "uikit-controllers/image_library/uplo
 import CollapsibleController from "uikit-controllers/collapsible/collapsible_controller"
 import PageLayoutController from "uikit-controllers/page_layout_component/page_layout_controller"
 import SectionToolbarController from "uikit-controllers/section_toolbar/section_toolbar_controller"
+import ComboboxController from "uikit-controllers/form/combobox_controller"
 
 application.register("uikit-dropdown", DropdownController)
 application.register("uikit-tabs", TabsController)
@@ -21,3 +22,4 @@ application.register("uikit-form-image-field", ImageFieldController)
 application.register("uikit-collapsible", CollapsibleController)
 application.register("uikit-page-layout", PageLayoutController)
 application.register("uikit-section-toolbar", SectionToolbarController)
+application.register("uikit-form-combobox", ComboboxController)

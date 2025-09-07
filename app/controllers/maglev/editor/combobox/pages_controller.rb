@@ -1,0 +1,12 @@
+class Maglev::Editor::Combobox::PagesController < Maglev::Editor::BaseController
+  def index
+    @pages = services.search_pages.call(
+      q: params[:query], 
+      content_locale: content_locale,
+      default_locale: default_content_locale,
+      with_static_pages: true,
+      index_first: true
+    )
+    response.set_header('X-Select-Options-Size', @pages.size)
+  end
+end

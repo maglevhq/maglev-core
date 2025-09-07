@@ -57,6 +57,9 @@ Maglev::Engine.routes.draw do
           put :sort, on: :collection
         end
       end
+      namespace :combobox do
+        resources :pages, only: :index
+      end
     end
 
     resources :assets, only: %i[index create destroy]

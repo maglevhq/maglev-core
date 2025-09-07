@@ -1,10 +1,10 @@
 import { Controller } from '@hotwired/stimulus'
-import { computePosition, flip, shift, autoUpdate } from '@floating-ui/dom'
+import { computePosition, flip, shift, size, autoUpdate } from '@floating-ui/dom'
 import { useTransition, useClickOutside } from 'stimulus-use'
 
 export default class extends Controller {
-  static targets = ['button', 'content'];
-
+  static targets = ['button', 'content']
+  
   connect() {
     const button = this.buttonTarget
     const content = this.contentTarget
@@ -12,12 +12,22 @@ export default class extends Controller {
     this.cleanup = autoUpdate(button, content, () => computePosition(button, content, { 
       strategy: 'fixed',
       placement: 'bottom-start',
-      middleware: [flip(), shift()],
+      middleware: [
+        flip(), 
+        shift(),
+        size({
+          apply({ rects, elements }) {
+            Object.assign(elements.floating.style, {
+              minWidth: `${rects.reference.width}px`,
+            });
+          },
+        })
+      ],
     }).then(({x, y}) => {
       Object.assign(content.style, {
         left: `${x}px`,
         top: `${y}px`,
-      });
+      })
     }))
 
     useTransition(this, {
@@ -39,12 +49,20 @@ export default class extends Controller {
     this.cleanup()
   }
 
-  clickOutside(event) {
-    this.leave();
+  clickOutside() {
+    this.leave()
   }
 
   toggle(event) {
     event.preventDefault() && event.stopPropagation()
     this.toggleTransition()
+  }
+
+  show() {
+    this.enter()
+  }
+
+  hide() {
+    this.leave()
   }
 }
