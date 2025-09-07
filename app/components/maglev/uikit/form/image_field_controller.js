@@ -20,6 +20,7 @@ export default class extends Controller {
   onImageSelected(event) {
     console.log('onImageSelected', event.detail)
     this.hiddenInputTarget.value = event.detail.image.image_url
+    this.imageTarget.classList.remove('hidden')
     this.imageTarget.src = event.detail.image.image_url
     this.element.classList.remove('none')
   }

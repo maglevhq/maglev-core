@@ -19,7 +19,7 @@ module Maglev::Section::ContentConcern
     {
       id: SecureRandom.urlsafe_base64(8),
       type: block_definition.type,
-      settings: build_default_settings_content(block_definition.settings),
+      settings: fallback_build_default_settings_content(block_definition.settings),
       parent_id: parent_id
     }.compact_blank
   end

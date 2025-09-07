@@ -12,25 +12,14 @@
   <% if @section.definition.blocks_tree? %>
     <p>TODO</p>
   <% else %>
-    <%= render 'list' %>
+    <%= render 'maglev/editor/section_blocks/simple/list' %>
   <% end %>
 
   <% page_layout.with_footer do %>
     <% if @section.definition.blocks_tree? %>
       <p>TODO</p>
     <% else %>
-      <%= button_to t('maglev.editor.section_blocks.index.add_button'),
-        editor_section_blocks_path(@section, block_type: @section.definition.blocks.first.type, **maglev_editing_route_context), 
-        class: maglev_button_classes(size: :big),
-        method: :post,
-        name: 'add_section_block',
-        form: {
-          data: { 
-            turbo_frame: '_top',
-            action: 'turbo:submit-end->editor-preview-notification-center#addSectionBlock',
-            'editor-preview-notification-center-section-id-param': @section.id,
-          } 
-        }%>
+      <%= render 'maglev/editor/section_blocks/simple/add_button' %>
     <% end %>
   <% end %>
 <% end %>

@@ -25,6 +25,10 @@ module Maglev
 
     ## methods ##
 
+    def human_name
+      ::I18n.t("#{i18n_scope}.name", default: name.humanize)
+    end
+
     def site_scoped?
       !!site_scoped
     end
@@ -44,10 +48,14 @@ module Maglev
     def assign_attributes_from_yaml(hash)
       attributes = prepare_default_attributes(hash).merge(
         settings: ::Maglev::Section::Setting.build_many(hash['settings']),
-        blocks: ::Maglev::Section::Block::Store.new(hash['blocks'])
+        blocks: ::Maglev::Section::Block::Store.new(hash['blocks'], section: self)
       )
 
       assign_attributes(attributes)
+    end
+
+    def i18n_scope
+      "maglev.themes.#{theme.id}.sections.#{id}"
     end
 
     ## class methods ##

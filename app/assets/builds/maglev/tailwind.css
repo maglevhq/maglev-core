@@ -714,11 +714,20 @@
   .w-72 {
     width: calc(var(--spacing) * 72);
   }
+  .w-80 {
+    width: calc(var(--spacing) * 80);
+  }
+  .w-90 {
+    width: calc(var(--spacing) * 90);
+  }
   .w-96 {
     width: calc(var(--spacing) * 96);
   }
   .w-104 {
     width: calc(var(--spacing) * 104);
+  }
+  .w-106 {
+    width: calc(var(--spacing) * 106);
   }
   .w-108 {
     width: calc(var(--spacing) * 108);

@@ -5,9 +5,9 @@ en: {}
 #       simple:
 #         sections:
 #           jumbotron: 
-#             type: "Jumbotron [EN]"
+#             name: "Jumbotron [EN]"
 #           navbar:
-#             type: "Navbar [EN]"
+#             name: "Navbar [EN]"
 #             settings:
 #               logo: 'Logo 🧁'
 #             blocks:
@@ -20,6 +20,8 @@ en: {}
 #                 option_2: "Option #2"
 #             blocks:
 #               label: "List of items 💰"
+#               types:
+#                 item: Showcase Item
 #         categories:
 #           headers:
 #             name: "Headers 🥸"

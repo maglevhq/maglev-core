@@ -6,7 +6,7 @@ class Maglev::Section::Block
   include ActiveModel::Model
 
   ## attributes ##
-  attr_accessor :name, :type, :settings, :root, :accept, :limit
+  attr_accessor :name, :type, :settings, :root, :accept, :limit, :section
 
   ## validation ##
   validates :name, :type, presence: true
@@ -14,29 +14,38 @@ class Maglev::Section::Block
 
   ## methods
 
+  def human_name
+    ::I18n.t("#{section.i18n_scope}.blocks.types.#{type}", default: name.humanize)
+  end
+
   def root?
     !!root
   end
 
+  def as_json
+    super(only: [:name, :type, :settings, :root, :accept])
+  end
+
   ## class methods ##
 
-  def self.build(hash)
+  def self.build(hash, section:)
     attributes = hash.slice('name', 'type', 'accept', 'root', 'limit')
     attributes['root'] = true if attributes['root'].nil?
     attributes['limit'] = -1 if attributes['limit'].nil?
 
     new(
-      attributes.merge(
-        settings: Maglev::Section::Setting.build_many(hash['settings'])
-      )
+      **attributes.merge(
+        settings: Maglev::Section::Setting.build_many(hash['settings']),
+        section: section
+      )      
     )
   end
 
-  def self.build_many(list)
+  def self.build_many(list, section:)
     return [] if list.blank?
 
     list.map do |hash_or_object|
-      hash_or_object.is_a?(Hash) ? build(hash_or_object) : hash_or_object
+      hash_or_object.is_a?(Hash) ? build(hash_or_object, section: section) : hash_or_object
     end
   end
 
@@ -46,8 +55,8 @@ class Maglev::Section::Block
 
     attr_reader :array
 
-    def initialize(blocks)
-      @array = ::Maglev::Section::Block.build_many(blocks)
+    def initialize(blocks, section:)
+      @array = ::Maglev::Section::Block.build_many(blocks, section: section)
     end
 
     def find(type)
