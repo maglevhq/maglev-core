@@ -12,14 +12,14 @@
   <% if @section.definition.blocks_tree? %>
     <p>TODO</p>
   <% else %>
-    <%= render 'maglev/editor/section_blocks/simple/list' %>
+    <%= render 'maglev/editor/section_blocks/simple_display/list' %>
   <% end %>
 
   <% page_layout.with_footer do %>
     <% if @section.definition.blocks_tree? %>
       <p>TODO</p>
     <% else %>
-      <%= render 'maglev/editor/section_blocks/simple/add_button' %>
+      <%= render 'maglev/editor/section_blocks/simple_display/add_button' %>
     <% end %>
   <% end %>
 <% end %>

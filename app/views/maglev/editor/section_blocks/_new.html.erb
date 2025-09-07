@@ -1,0 +1,19 @@
+<%= form_with url: editor_section_blocks_path(@section, **maglev_editing_route_context), 
+  data: { 
+    turbo_frame: '_top', 
+    controller: 'auto-save',
+    action: 'turbo:submit-end->editor-preview-notification-center#addSectionBlock',
+    'editor-preview-notification-center-section-id-param': @section.id,
+  } do |f| %>
+
+  <div class="space-y-4">
+    <% @section.definition.blocks.each do |block_definition| %>
+      <label class="block cursor-pointer transition duration-150 ease-in-out transform hover:-translate-y-1">
+        <%= f.radio_button :block_type, block_definition.type, class: 'sr-only peer' %>
+        <%= render Maglev::Uikit::List::ListItemComponent.new do |item| %>
+          <% item.with_title_content block_definition.human_name %>
+        <% end %>
+      </label>
+    <% end %>
+  </div>
+<% end %>
