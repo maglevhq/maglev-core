@@ -56,7 +56,7 @@ module Maglev
                                             depends_on: %i[fetch_site fetch_theme]
     dependency :sort_section_blocks,        class: Maglev::Content::SortSectionBlocksService,
                                             depends_on: %i[fetch_site fetch_theme]
-    
+
     def call
       self
     end

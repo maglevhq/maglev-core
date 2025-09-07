@@ -16,7 +16,8 @@ module Maglev
           section_id: @section.id,
           block_type: params[:block_type]
         )
-        redirect_to editor_section_blocks_path(@section.id, **maglev_editing_route_context), notice: flash_t(:success), status: :see_other
+        redirect_to editor_section_blocks_path(@section.id, **maglev_editing_route_context), notice: flash_t(:success),
+                                                                                             status: :see_other
       end
 
       def edit; end
@@ -37,7 +38,8 @@ module Maglev
           section_id: @section.id,
           block_ids: params[:item_ids]
         )
-        redirect_to editor_section_blocks_path(@section.id, **maglev_editing_route_context), notice: flash_t(:success), status: :see_other
+        redirect_to editor_section_blocks_path(@section.id, **maglev_editing_route_context), notice: flash_t(:success),
+                                                                                             status: :see_other
       end
 
       def destroy
@@ -46,7 +48,8 @@ module Maglev
           section_id: @section.id,
           block_id: @section_block.id
         )
-        redirect_to editor_section_blocks_path(@section.id, **maglev_editing_route_context), notice: flash_t(:success), status: :see_other
+        redirect_to editor_section_blocks_path(@section.id, **maglev_editing_route_context), notice: flash_t(:success),
+                                                                                             status: :see_other
       end
 
       private

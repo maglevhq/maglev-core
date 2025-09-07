@@ -23,7 +23,7 @@ class Maglev::Section::Block
   end
 
   def as_json
-    super(only: [:name, :type, :settings, :root, :accept])
+    super(only: %i[name type settings root accept])
   end
 
   ## class methods ##
@@ -37,7 +37,7 @@ class Maglev::Section::Block
       **attributes.merge(
         settings: Maglev::Section::Setting.build_many(hash['settings']),
         section: section
-      )      
+      )
     )
   end
 
