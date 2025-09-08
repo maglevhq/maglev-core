@@ -2,7 +2,7 @@
 
 # rubocop:disable Metrics/BlockLength
 Maglev::Engine.routes.draw do
-  # API
+  # API (only used by the Legacy Editor)
   constraints format: :json do
     namespace :api do
       root to: proc { [200, {}, ['{}']] }
@@ -18,7 +18,7 @@ Maglev::Engine.routes.draw do
 
   root to: redirect { Maglev::Engine.routes.url_helpers.admin_root_path }
 
-  # JS client lib for a headless use of Maglev
+  # JS client lib for a headless use of Maglev (TO BE REMOVED)
   get 'live-preview-client.js', to: (redirect(status: 302) do |_, request|
     manifest = ::Maglev::Engine.vite_ruby.manifest
     entries = manifest.resolve_entries(*%w[live-preview-rails-client], type: :javascript)
@@ -28,7 +28,7 @@ Maglev::Engine.routes.draw do
     ].join
   end), as: :live_preview_client_js
 
-  # Admin
+  # Admin (to be refactored)
   namespace :admin do
     root to: 'dashboard#index'
     resource :theme, only: %i[show]
@@ -44,6 +44,9 @@ Maglev::Engine.routes.draw do
     root to: 'home#index'
 
     get 'leave', to: 'home#destroy', as: :leave
+
+    resources :assets, only: %i[index create destroy]
+    resources :links, only: %i[edit update]
 
     # always keep the scope of the current page and locale in the url
     scope ':locale/:page_id' do
@@ -61,8 +64,6 @@ Maglev::Engine.routes.draw do
         resources :pages, only: :index
       end
     end
-
-    resources :assets, only: %i[index create destroy]
   end
 
   # Legacy Editor

@@ -1,32 +1,32 @@
-en: {}
-# en:
-#   maglev:
-#     themes:
-#       simple:
-#         sections:
-#           jumbotron: 
-#             name: "Jumbotron [EN]"
-#           navbar:
-#             name: "Navbar [EN]"
-#             settings:
-#               logo: 'Logo 🧁'
-#             blocks:
-#               label: "Menu 🍔"
-#           showcase:            
-#             settings:
-#               blabla: 'Select 🧁'
-#               blabla_options:
-#                 option_1: "Option #1"
-#                 option_2: "Option #2"
-#             blocks:
-#               label: "List of items 💰"
-#               types:
-#                 item: Showcase Item
-#         categories:
-#           headers:
-#             name: "Headers 🥸"
-#           features:
-#             name: "Features 🥸"
-#           call_to_actions:
-#             name: "Call to Actions 🥸"
+# en: {}
+en:
+  maglev:
+    themes:
+      simple:
+        sections:
+          jumbotron: 
+            name: "Jumbotron [EN]"
+          navbar:
+            name: "Navbar [EN]"
+            settings:
+              logo: 'Logo 🧁'
+            blocks:
+              label: "Menu 🍔"
+          showcase:            
+            settings:
+              blabla: 'Select 🧁'
+              blabla_options:
+                option_1: "Option #1"
+                option_2: "Option #2"
+            blocks:
+              label: "List of items 💰"
+              types:
+                item: Showcase Item
+        categories:
+          headers:
+            name: "Headers 🥸"
+          features:
+            name: "Features 🥸"
+          call_to_actions:
+            name: "Call to Actions 🥸"
 

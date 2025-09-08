@@ -11,6 +11,7 @@ import CollapsibleController from "uikit-controllers/collapsible/collapsible_con
 import PageLayoutController from "uikit-controllers/page_layout_component/page_layout_controller"
 import SectionToolbarController from "uikit-controllers/section_toolbar/section_toolbar_controller"
 import ComboboxController from "uikit-controllers/form/combobox_controller"
+import LinkController from "uikit-controllers/form/link_controller"
 
 application.register("uikit-dropdown", DropdownController)
 application.register("uikit-tabs", TabsController)
@@ -23,3 +24,4 @@ application.register("uikit-collapsible", CollapsibleController)
 application.register("uikit-page-layout", PageLayoutController)
 application.register("uikit-section-toolbar", SectionToolbarController)
 application.register("uikit-form-combobox", ComboboxController)
+application.register("uikit-form-link", LinkController)

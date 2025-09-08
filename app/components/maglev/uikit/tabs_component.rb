@@ -7,11 +7,13 @@ module Maglev
         Tab.new(self, label: label, active: active, link: link, block: block)
       }
 
-      attr_reader :container_classes, :active_tab, :active_tab_index
+      attr_reader :container_classes, :active_tab, :active_tab_index, :disable_inputs
 
-      def initialize(container_classes: nil, active_tab_index: nil)
+      # disable_inputs: true | false (default: false) if true, the inputs of hidden tabs will not be submitted
+      def initialize(container_classes: nil, active_tab_index: nil, disable_inputs: false)
         @container_classes = container_classes
         @active_tab_index = active_tab_index
+        @disable_inputs = disable_inputs
       end
 
       def label_classes(...)
@@ -30,6 +32,10 @@ module Maglev
       def before_render
         @active_tab = tabs.find(&:active?) || tabs[active_tab_index.to_i]
         @active_tab.active = true
+      end
+
+      def disable_inputs?
+        @disable_inputs
       end
 
       class Tab < Maglev::Uikit::BaseComponent

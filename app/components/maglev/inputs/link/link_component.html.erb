@@ -1,0 +1,16 @@
+<%= tag.div(
+  data: {
+    controller: "editor-link-input",
+    'editor-link-input-setting-id-value': setting.id
+  }
+) do %>
+  <%= render Maglev::Uikit::Form::LinkComponent.new(
+    name: input_name,
+    path: helpers.edit_editor_link_path(':id', link: value),
+    options: {
+      label: label,
+      value: value,
+      data: { action: 'change->editor-link-input#onChange' }
+    }
+  ) %>
+<% end %>

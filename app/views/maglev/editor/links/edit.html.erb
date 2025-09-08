@@ -1,0 +1,35 @@
+<%= turbo_frame_tag 'modal' do %>
+  <%= render Maglev::Uikit::ModalComponent.new(id: 'link-modal', open: true) do |modal| %>    
+    <% modal.with_title_content t("maglev.editor.links.edit.title") %>
+    <% modal.with_notification_content maglev_flash_message %>
+
+    <%
+=begin%>
+ <pre><%= @link.inspect %></pre> 
+<%
+=end%>
+
+    <%= form_with model: @link, 
+      url: editor_link_path(params[:id]), 
+      method: :put, 
+      id: 'link-form',
+      data: { 
+        turbo_frame: params[:id],
+        action: 'turbo:submit-end->uikit-modal#close'
+      } do |f| %>
+
+      <%= render 'maglev/editor/links/edit/tabs', f: f %>
+
+      <% content_for :form_actions do %>
+        <button class='<%= maglev_button_classes(color: :secondary) %>' data-action="click->uikit-modal#close">
+          Cancel
+        </button>
+        <%= f.submit 'Select', form: 'link-form', class: maglev_button_classes %>
+      <% end %>
+    <% end %>
+
+    <% modal.with_footer do %>
+      <%= yield :form_actions %>
+    <% end %>
+  <% end %>
+<% end %>

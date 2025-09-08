@@ -1,6 +1,6 @@
 import "@hotwired/turbo-rails"
 import "maglev-controllers"
-import { PageRenderer } from '@hotwired/turbo'
+import { PageRenderer, StreamActions } from '@hotwired/turbo'
 
 console.log('Maglev Editor v2 ⚡️')
 
@@ -32,4 +32,11 @@ PageRenderer.prototype.assignNewBody = function() {
   } else {
     document.documentElement.appendChild(this.newElement)
   }
+}
+
+// Custom stream actions
+ 
+StreamActions.console_log = function() {
+  const message = this.getAttribute("message")
+  console.log(message)
 }

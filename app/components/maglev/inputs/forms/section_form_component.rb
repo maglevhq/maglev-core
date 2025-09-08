@@ -24,7 +24,7 @@ module Maglev
         end
 
         def input_instance_for(setting)
-          klass_or_proc = input_classes_map.fetch(setting.type.to_sym, Maglev::Inputs::InputBaseComponent)
+          klass_or_proc = input_klasses_map.fetch(setting.type.to_sym, Maglev::Inputs::InputBaseComponent)
           klass = klass_or_proc.is_a?(Proc) ? klass_or_proc.call(setting) : klass_or_proc
 
           klass.new(
@@ -37,15 +37,16 @@ module Maglev
 
         private
 
-        def input_classes_map
+        def input_klasses_map
           {
-            text: proc { |setting| text_input_class(setting) },
+            text: proc { |setting| text_input_klass(setting) },
             image: Maglev::Inputs::Image::ImageComponent,
-            select: Maglev::Inputs::Select::SelectComponent
+            select: Maglev::Inputs::Select::SelectComponent,
+            link: Maglev::Inputs::Link::LinkComponent
           }
         end
 
-        def text_input_class(_setting)
+        def text_input_klass(_setting)
           # TODO: we have different text inputs for text, textarea, rich text.
           Maglev::Inputs::Text::TextComponent
         end

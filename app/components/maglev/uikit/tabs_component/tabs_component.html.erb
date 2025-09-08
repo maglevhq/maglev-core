@@ -3,8 +3,9 @@
   data-controller="uikit-tabs"
   data-uikit-tabs-active-class-value="<%= label_classes(active: true) %>"
   data-uikit-tabs-inactive-class-value="<%= label_classes(active: false) %>"
+  data-uikit-tabs-disable-inputs-value="<%= disable_inputs? %>"
 >
-  <input type="hidden" name="active_tab" value="<%= active_tab_index %>" data-uikit-tabs-target="hiddenInput">
+  <input type="hidden" name="active_tab" value="<%= active_tab_index %>" data-uikit-tabs-target="hiddenInput" />  
 
   <nav>
     <ul class="flex flex-col sm:flex-row">
@@ -13,7 +14,11 @@
           <% if tab.link? %>
             <%= link_to tab.label, tab.link[:url], class: label_classes(active: tab.active?), **tab.link_html_options %>
           <% else %>
-            <%= link_to tab.label, '#', class: label_classes(active: tab.active?), data: { uikit_tabs_target: 'tab', action: 'click->uikit-tabs#activateTab:prevent', tab_index: index } %>
+            <%= link_to tab.label, '#', class: label_classes(active: tab.active?), data: { 
+              uikit_tabs_target: 'tab', 
+              action: 'click->uikit-tabs#activateTab:prevent', 
+              tab_index: index
+            } %>
           <% end %>
         </li>
       <% end %>

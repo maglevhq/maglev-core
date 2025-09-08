@@ -6,6 +6,10 @@ require 'vite_rails/tag_helpers'
 # rubocop:disable Metrics/ModuleLength
 module Maglev
   module ApplicationHelper
+    def turbo_stream
+      Maglev::Turbo::Streams::TagBuilder.new(self)
+    end
+    
     def maglev_editor_javascript_tags
       maglev_importmap_tags(:editor, 'editor')
     end

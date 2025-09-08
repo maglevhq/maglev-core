@@ -1,0 +1,11 @@
+<%= render Maglev::Uikit::TabsComponent.new(container_classes: 'w-full h-full flex flex-col', disable_inputs: true) do |tabs| %>
+  <% tabs.with_tab(label: t('maglev.editor.links.edit.tabs.page'), active: @link.page_type?) do %>
+    <%= render 'maglev/editor/links/edit/page', f: f %>
+  <% end %>
+  <% tabs.with_tab(label: t('maglev.editor.links.edit.tabs.url'), active: @link.url_type?) do %>
+    <%= render 'maglev/editor/links/edit/url', f: f %>
+  <% end %>
+  <% tabs.with_tab(label: t('maglev.editor.links.edit.tabs.email'), active: @link.email_type?) do %>
+    <%= render 'maglev/editor/links/edit/email', f: f %>
+  <% end %>
+<% end %>

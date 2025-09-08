@@ -1,0 +1,10 @@
+<%= turbo_stream.update params[:id], method: 'morph' do %>
+  <%= render Maglev::Uikit::Form::LinkComponent.link_type_component(
+      value: @link.to_component_params, 
+      path: edit_editor_link_path(params[:id], link: @link.to_component_params)
+    ) %>
+<% end %>
+
+<%= turbo_stream.console_log message: "Hello World (1)" %>
+
+<turbo-stream action="console_log" message="Hello World (2)"></turbo-stream>
