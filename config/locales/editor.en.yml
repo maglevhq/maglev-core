@@ -69,6 +69,7 @@ en:
             main: "Main"
             seo: "SEO"          
       sections:
+        breadcrumb: "Sections"
         add_pane:
           title: "Add a section"
         list_pane:

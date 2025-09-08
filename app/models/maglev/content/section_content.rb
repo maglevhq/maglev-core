@@ -21,16 +21,11 @@ module Maglev
       end
 
       def type_name
-        ::I18n.t("#{i18n_scope}.type", default: definition.name)
+        definition.human_name
       end
 
       def blocks_label
-        ::I18n.t("#{i18n_scope}.blocks.label",
-                 default: definition.blocks_label || ::I18n.t('maglev.editor.section_pane.tabs.blocks'))
-      end
-
-      def i18n_scope
-        "maglev.themes.#{definition.theme.id}.sections.#{type}"
+        definition.human_blocks_label(::I18n.t('maglev.editor.section_pane.tabs.blocks'))
       end
 
       def build_blocks(raw_section_content)

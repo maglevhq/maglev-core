@@ -29,6 +29,10 @@ module Maglev
       ::I18n.t("#{i18n_scope}.name", default: name.humanize)
     end
 
+    def human_blocks_label(default = nil)
+      ::I18n.t("#{i18n_scope}.blocks.label", default: blocks_label || default)
+    end
+
     def site_scoped?
       !!site_scoped
     end
