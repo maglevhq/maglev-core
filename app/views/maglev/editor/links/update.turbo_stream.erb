@@ -1,10 +1,9 @@
-<%= turbo_stream.update params[:id], method: 'morph' do %>
+<%= turbo_stream.update "#{input_id}-frame", method: 'morph' do %>
   <%= render Maglev::Uikit::Form::LinkComponent.link_type_component(
+      input_name: params[:input_name],
       value: @link.to_component_params, 
-      path: edit_editor_link_path(params[:id], link: @link.to_component_params)
+      path: edit_editor_link_path(link: @link.to_component_params, input_name: params[:input_name])
     ) %>
 <% end %>
 
-<%= turbo_stream.console_log message: "Hello World (1)" %>
-
-<turbo-stream action="console_log" message="Hello World (2)"></turbo-stream>
+<%= turbo_stream.dispatch_event "link-selected-#{input_id}", payload: @link.to_component_params.to_json %>

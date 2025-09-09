@@ -10,13 +10,13 @@
 =end%>
 
     <%= form_with model: @link, 
-      url: editor_link_path(params[:id]), 
+      url: editor_link_path, 
       method: :put, 
       id: 'link-form',
       data: { 
-        turbo_frame: params[:id],
         action: 'turbo:submit-end->uikit-modal#close'
       } do |f| %>
+      <%= hidden_field_tag :input_name, params[:input_name] %>
 
       <%= render 'maglev/editor/links/edit/tabs', f: f %>
 

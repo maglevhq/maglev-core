@@ -1,12 +1,16 @@
 <%= tag.div(
   data: {
     controller: "editor-link-input",
-    'editor-link-input-setting-id-value': setting.id
+    'editor-link-input-setting-id-value': setting.id,
+    action: %(
+      uikit-form-link:link-selected->editor-link-input#onLinkSelected
+      uikit-form-link:link-cleared->editor-link-input#onLinkCleared
+    )
   }
 ) do %>
   <%= render Maglev::Uikit::Form::LinkComponent.new(
     name: input_name,
-    path: helpers.edit_editor_link_path(':id', link: value),
+    path: helpers.edit_editor_link_path(link: value, input_name: input_name),
     options: {
       label: label,
       value: value,

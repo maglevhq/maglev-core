@@ -7,6 +7,8 @@ module Maglev
 
       layout false
 
+      helper_method :input_id
+
       def edit
         @link = Maglev::Content::EditorLink.new(link_params(:link))
       end
@@ -22,7 +24,11 @@ module Maglev
       private
 
       def link_params(key = :content_editor_link)
-        params.require(key).permit(:link_type, :link_id, :url_href, :email_href, :href,:open_new_window)
+        params.require(key).permit(:link_type, :link_id, :url_href, :email, :href, :open_new_window)
+      end
+
+      def input_id
+        params[:input_name].parameterize.underscore
       end
     end
   end

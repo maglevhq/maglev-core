@@ -3,20 +3,16 @@ import { Controller } from '@hotwired/stimulus'
 export default class extends Controller {
   static targets = ['inputItem', 'emptyItem']
 
-  // focus() {
-  //   // this.inputTarget.focus()
-  // }
-
-  clear(event) {
-    console.log('clear')
-    this.inputItemTarget.classList.add('hidden')
-    this.emptyItemTarget.classList.remove('hidden')
-    this.dispatch(`link-cleared-${this.sourceIdValue}`)
+  clear() {
+    console.log('[Link] clear')
+    this.element.classList.remove('is-present')
+    this.inputItemTarget.remove()
+    this.dispatch('link-cleared')
   }
 
   onLinkSelected(event) {
-    console.log('onLinkSelected', event.detail)
-    // this.inputItemTarget.classList.remove('hidden')
-    // this.emptyItemTarget.classList.add('hidden')
+    console.log('[Link]onLinkSelected 🧁🧁🧁', event.detail)
+    this.element.classList.add('is-present')
+    this.dispatch('link-selected', { detail: event.detail })
   }
 }

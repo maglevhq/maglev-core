@@ -1,13 +1,19 @@
 <%= tag.div( 
-  class: 'space-y-1 flex flex-col',
+  class: class_names('space-y-1 flex flex-col group/link', 'is-present' => value?),
   data: { 
     controller: 'uikit-form-link', 
     uikit_form_link_name_value: name, 
     uikit_form_link_path_value: path, 
     uikit_form_link_options_value: options.to_json,
-    action: "dispatcher:link-selected-#{dom_id}@window->uikit-form-link#onLinkSelected"
+    action: %(
+      dispatcher:link-selected-#{dom_id}@window->uikit-form-link#onLinkSelected
+    )
   }) do 
 %>
+  <%= hidden_field_tag "#{name}[link_type]", '' %>
+
+  <pre><%= value.inspect %></pre>
+
   <label for="<%= dom_id %>" class="block font-semibold text-gray-800 flex items-center gap-2">
     <span><%= label %></span>
     <% if error %>
@@ -30,15 +36,25 @@
       </div>
     <% end %>
 
-    <%= helpers.turbo_frame_tag turbo_frame_id do %>
-      <%= render link_type_component %>
-    <% end %>
+    <%
+=begin%>
+ <div class="group-[:not(.is-present)]/link:hidden group-[.is-present]/link:block"> 
+<%
+=end%>
+      <%= helpers.turbo_frame_tag turbo_frame_id do %>
+        <%= render link_type_component if value? %>
+      <% end %>
+    <%
+=begin%>
+ </div> 
+<%
+=end%>
 
     <%= link_to placeholder,
       path,
       class: class_names(
         'flex items-center h-10 px-3 rounded bg-gray-100 text-gray-500 focus:outline-none focus:ring focus:ring-inset focus:ring-2 focus:ring-editor-primary/50',
-        'hidden' => value?
+        'group-[.is-present]/link:hidden'
       ),
       data: {
         turbo_frame: 'modal',

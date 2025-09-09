@@ -40,3 +40,11 @@ StreamActions.console_log = function() {
   const message = this.getAttribute("message")
   console.log(message)
 }
+
+StreamActions.dispatch_event = function() {
+  const type = this.getAttribute("type")
+  const payload = this.getAttribute("payload")
+  console.log('dispatchEvent', type, payload, `dispatcher:${type}`)
+  const event = new CustomEvent(`dispatcher:${type}`, { detail: payload })
+  window.dispatchEvent(event)
+}

@@ -46,7 +46,7 @@ Maglev::Engine.routes.draw do
     get 'leave', to: 'home#destroy', as: :leave
 
     resources :assets, only: %i[index create destroy]
-    resources :links, only: %i[edit update]
+    resource :link, only: %i[edit update]
 
     # always keep the scope of the current page and locale in the url
     scope ':locale/:page_id' do

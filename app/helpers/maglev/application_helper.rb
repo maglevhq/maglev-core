@@ -7,6 +7,7 @@ require 'vite_rails/tag_helpers'
 module Maglev
   module ApplicationHelper
     def turbo_stream
+      # we don't want to pollute the global Turbo::Streams::TagBuilder
       Maglev::Turbo::Streams::TagBuilder.new(self)
     end
     

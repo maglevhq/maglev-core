@@ -9,4 +9,8 @@
   <div class="absolute right-3 top-0 bottom-0 flex items-center pl-3">
     <%= render(Maglev::Uikit::IconButtonComponent.new(icon_name: 'eraser', data: { action: 'click->uikit-form-link#clear:prevent' })) %>
   </div>
+  
+  <%= hidden_field_tag "#{input_name}[href]", link[:href] %>
+  <%= hidden_field_tag "#{input_name}[link_type]", link[:link_type] %>
+  <%= hidden_field_tag "#{input_name}[open_new_window]", link[:open_new_window] %>
 <% end %>

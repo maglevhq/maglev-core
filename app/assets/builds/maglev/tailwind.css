@@ -2096,6 +2096,21 @@
       opacity: 100%;
     }
   }
+  .group-\[\.is-present\]\/link\:\!hidden {
+    &:is(:where(.group\/link):is(.is-present) *) {
+      display: none !important;
+    }
+  }
+  .group-\[\.is-present\]\/link\:block {
+    &:is(:where(.group\/link):is(.is-present) *) {
+      display: block;
+    }
+  }
+  .group-\[\.is-present\]\/link\:hidden {
+    &:is(:where(.group\/link):is(.is-present) *) {
+      display: none;
+    }
+  }
   .group-\[\.none\]\/image\:block {
     &:is(:where(.group\/image):is(.none) *) {
       display: block;
@@ -2103,6 +2118,16 @@
   }
   .group-\[\.none\]\/image\:hidden {
     &:is(:where(.group\/image):is(.none) *) {
+      display: none;
+    }
+  }
+  .group-\[\:not\(\.is-present\)\]\/link\:\!hidden {
+    &:is(:where(.group\/link):is(:not(.is-present)) *) {
+      display: none !important;
+    }
+  }
+  .group-\[\:not\(\.is-present\)\]\/link\:hidden {
+    &:is(:where(.group\/link):is(:not(.is-present)) *) {
       display: none;
     }
   }
