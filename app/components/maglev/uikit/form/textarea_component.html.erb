@@ -8,17 +8,20 @@
   <% end %>
 >
   <label for="<%= dom_id %>" class="block font-semibold text-gray-800 flex justify-between items-center">
-    <span><%= label %></span>
+    <div class="gap-2 flex items-center">
+      <span><%= label %></span>
+      <% if error %>
+        <span class="text-red-700 bg-red-100 text-xs py-1 px-3 rounded"><%= error %></span>
+      <% end %>
+    </div>
+    
     <% if max_length? %>
       <span class="text-xs" data-max-length-target="counter"><%= num_characters %> / <%= max_length %></span>
     <% end %>
   </label>
+
   <textarea
-    id="<%= dom_id %>"
-    name="<%= name %>"
+    <%= input_html_attributes %>
     class="block mt-1 py-2 px-3 rounded bg-gray-100 text-gray-800 focus:outline-none focus:ring focus:ring-inset focus:ring-2 focus:ring-editor-primary/50 placeholder-gray-500"
-    autocomplete="off"
-    rows="<%= rows %>"
-    data-max-length-target="input"
   ><%= value %></textarea>
 </div>

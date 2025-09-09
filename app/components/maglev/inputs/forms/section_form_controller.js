@@ -8,12 +8,13 @@ export default class extends Controller {
 
   connect() {
     useDebounce(this)
+    this.sourceId = this.sectionBlockIdValue !== '' ?  this.sectionBlockIdValue : this.sectionIdValue
   }
 
   onSettingChange(event) {
-    console.log('onSettingChange', event.detail)
+    console.log('onSettingChange', this.sourceId , event.detail)
     this.dispatch('updateSetting', { detail: {
-        sourceId: this.sectionBlockIdValue ?? this.sectionIdValue,
+        sourceId: this.sourceId,
         change: {
           settingType: event.detail.type,
           settingId: event.detail.id,

@@ -21,7 +21,7 @@ module Maglev
       end
 
       def call
-        content_tag(:div, "Unknown input type: #{setting.type}", class: 'bg-red-500 text-white p-4 rounded-md')
+        content_tag(:div, "Unknown input type: #{setting.type} / #{setting.options}", class: 'bg-red-500 text-white p-4 rounded-md')
       end
     end
   end

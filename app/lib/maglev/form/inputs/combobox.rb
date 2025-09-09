@@ -26,7 +26,7 @@ module Maglev
             placeholder: options[:placeholder],
             error: error_messages(method)
           }
-        end        
+        end
       end
     end
   end

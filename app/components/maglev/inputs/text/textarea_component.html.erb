@@ -1,0 +1,20 @@
+<div 
+  data-controller="editor-text-input" 
+  data-editor-text-input-setting-id-value="<%= setting.id %>"
+  data-action="hashchange@window->editor-text-input#focus"
+>
+  <%= render Maglev::Uikit::Form::TextareaComponent.new(
+    label: label,
+    name: input_name,
+    options: {
+      value: value,
+      rows: setting.options[:nb_rows],
+    },
+    html_options: {
+      data: { 
+        'editor-text-input-target': 'input',
+        action: 'keyup->editor-text-input#onKeyUp' 
+      }
+    }
+  ) %>
+</div>

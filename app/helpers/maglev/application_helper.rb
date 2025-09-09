@@ -10,7 +10,7 @@ module Maglev
       # we don't want to pollute the global Turbo::Streams::TagBuilder
       Maglev::Turbo::Streams::TagBuilder.new(self)
     end
-    
+
     def maglev_editor_javascript_tags
       maglev_importmap_tags(:editor, 'editor')
     end

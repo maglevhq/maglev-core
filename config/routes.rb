@@ -47,7 +47,7 @@ Maglev::Engine.routes.draw do
 
     resources :assets, only: %i[index create destroy]
     resource :link, only: %i[edit update]
-    
+
     # combobox routes
     namespace :combobox do
       resources :pages, only: :index
@@ -64,7 +64,7 @@ Maglev::Engine.routes.draw do
         resources :blocks, controller: :section_blocks do
           put :sort, on: :collection
         end
-      end      
+      end
     end
   end
 

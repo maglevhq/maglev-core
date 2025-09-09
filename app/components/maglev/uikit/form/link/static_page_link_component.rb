@@ -1,2 +1,12 @@
-class Maglev::Uikit::Form::Link::StaticPageLinkComponent < Maglev::Uikit::Form::Link::BaseComponent
+# frozen_string_literal: true
+
+module Maglev
+  module Uikit
+    module Form
+      module Link
+        class StaticPageLinkComponent < Maglev::Uikit::Form::Link::BaseComponent
+        end
+      end
+    end
+  end
 end

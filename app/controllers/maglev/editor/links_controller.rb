@@ -12,15 +12,14 @@ module Maglev
 
       helper_method :input_id
 
-      def edit
-      end
+      def edit; end
 
       def update
         # some inputs are displayed based on the value of other inputs
-        if params[:refresh] == '1' || !@link.valid?
-          flash.now[:error] = flash_t(:error) unless @link.valid?
-          render :edit, status: :unprocessable_entity
-        end
+        return unless params[:refresh] == '1' || !@link.valid?
+
+        flash.now[:error] = flash_t(:error) unless @link.valid?
+        render :edit, status: :unprocessable_entity
       end
 
       private
@@ -31,16 +30,18 @@ module Maglev
 
       def set_page
         @page = page_resources.find_by(id: @link.link_id) ||
-          services.fetch_static_pages.call.find { |page| page.id == @link.link_id }
+                services.fetch_static_pages.call.find { |page| page.id == @link.link_id }
       end
 
       def set_sections
         return unless @page
+
         @sections = services.get_page_section_names.call(page: @page)
       end
 
       def link_params
-        params.require(:link).permit(:link_label,:link_type, :link_id, :url_href, :email, :href, :section_id, :open_new_window)
+        params.require(:link).permit(:link_label, :link_type, :link_id, :url_href, :email, :href, :section_id,
+                                     :open_new_window)
       end
 
       def input_id

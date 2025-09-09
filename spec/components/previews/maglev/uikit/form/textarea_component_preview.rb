@@ -9,7 +9,9 @@ module Maglev
           render(Maglev::Uikit::Form::TextareaComponent.new(
                    label: 'Label',
                    name: 'name',
-                   value: 'Value'
+                   options: {
+                    placeholder: 'Please write something...'
+                   },
                  ))
         end
 
@@ -17,7 +19,9 @@ module Maglev
           render(Maglev::Uikit::Form::TextareaComponent.new(
                    label: 'Label',
                    name: 'name',
-                   value: 'Lorem ipsum dolor sit amet'
+                   options: {
+                    value: 'Lorem ipsum dolor sit amet'
+                   },
                  ))
         end
 
@@ -25,9 +29,24 @@ module Maglev
           render(Maglev::Uikit::Form::TextareaComponent.new(
                    label: 'Label',
                    name: 'name',
-                   value: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.',
-                   max_length: 10,
-                   rows: 5
+                   options: {
+                    value: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.',
+                    max_length: 10,
+                   rows: 5,
+                   },                   
+                 ))
+        end
+
+        def with_error
+          render(Maglev::Uikit::Form::TextareaComponent.new(
+                   label: 'Label',
+                   name: 'name',
+                   options: {
+                    value: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.',
+                    max_length: 10,
+                    rows: 5,
+                    error: 'Error'
+                   },                   
                  ))
         end
 

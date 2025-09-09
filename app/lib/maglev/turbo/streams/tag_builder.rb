@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# rubocop:disable ClassAndModuleChildren
 module Maglev
   module Turbo
     module Streams
@@ -16,4 +15,3 @@ module Maglev
     end
   end
 end
-# rubocop:enable ClassAndModuleChildren
