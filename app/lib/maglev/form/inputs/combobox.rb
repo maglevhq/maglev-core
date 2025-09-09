@@ -22,6 +22,7 @@ module Maglev
           {
             value: options.key?(:value) ? options[:value] : object.public_send(method),
             selected_label: options[:selected_label],
+            label_name: options[:label_name],
             placeholder: options[:placeholder],
             error: error_messages(method)
           }

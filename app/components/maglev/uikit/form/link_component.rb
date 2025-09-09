@@ -65,6 +65,7 @@ class Maglev::Uikit::Form::LinkComponent < Maglev::Uikit::BaseComponent
       email: Maglev::Uikit::Form::Link::EmailLinkComponent,
       url: Maglev::Uikit::Form::Link::UrlLinkComponent,
       page: Maglev::Uikit::Form::Link::PageLinkComponent,
+      static_page: Maglev::Uikit::Form::Link::StaticPageLinkComponent,
     }
   end
 end

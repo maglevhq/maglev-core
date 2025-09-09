@@ -12,7 +12,7 @@ RSpec.describe Maglev::Content::EditorLink, type: :model do
   describe '#to_json' do
     it 'includes the attributes' do
       expect(subject.as_json['attributes'].symbolize_keys).to eq(
-        { link_type: 'url', link_id: nil, section_id: nil, email: nil, href: 'https://www.google.com', open_new_window: true } 
+        { link_type: 'url', link_id: nil, link_label: nil, section_id: nil, email: nil, href: 'https://www.google.com', open_new_window: true } 
       )
     end
   end

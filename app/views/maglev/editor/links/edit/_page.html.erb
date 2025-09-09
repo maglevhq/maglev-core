@@ -3,7 +3,8 @@
 
   <%= f.combobox :link_id, 
       search_path: editor_combobox_pages_path, 
-      selected_label: @page&.title,
+      selected_label: @link.link_label,
+      label_name: "link[link_label]",
       html_options: {     
         data: {
           action: 'uikit-form-combobox:change->form-refresh#refresh'
@@ -11,12 +12,17 @@
       }
   %>
 
-  <%= f.select :section_id, 
-      @sections.map { |section| [section[:name], section[:id]] },
-      prompt: t('maglev.editor.links.edit.page.section_prompt'),
-      html_options: {
-      } if @page
-  %>
+  <%= f.hidden_field :href, value: "/#{@page.path}" if @page %>
+  <%= f.hidden_field :link_type, value: 'static_page' if @page&.static? %>
+  
+  <% if @page && @sections.any? %>
+    <%= f.select :section_id, 
+        @sections.map { |section| [section[:name], section[:id]] },
+        prompt: t('maglev.editor.links.edit.page.section_prompt')
+    %>
+  <% else %>
+    <%= f.hidden_field :section_id, value:nil %>
+  <% end %>
   
   <%= f.check_box :open_new_window %>
 </div>

@@ -185,7 +185,7 @@ en:
           button: "Close"
       form:
         link:
-          text_placeholder: "Please enter the text for the link"
+          placeholder: "Please click to select a link"
       links:
         edit:
           title: "Select a link"

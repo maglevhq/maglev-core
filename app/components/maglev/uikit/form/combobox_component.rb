@@ -36,6 +36,10 @@ module Maglev
           options[:placeholder]
         end
 
+        def label_name
+          options[:label_name]
+        end
+
         def error
           options[:error]
         end

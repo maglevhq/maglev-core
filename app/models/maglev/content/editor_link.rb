@@ -6,6 +6,7 @@ class Maglev::Content::EditorLink
   validates :email, presence: true, if: :email_type?
   validates :href, presence: true, if: :url_type?
 
+  attribute :link_label, :string, default: nil
   attribute :link_type, :string
   attribute :link_id, :string, default: nil
   attribute :section_id, :string, default: nil
@@ -13,7 +14,7 @@ class Maglev::Content::EditorLink
   attribute :email, :string
   attribute :open_new_window, :boolean, default: false
 
-  %w[email url page].each do |type|
+  %w[email url page static_page].each do |type|
     define_method(:"#{type}_type?") do
       link_type == type
     end

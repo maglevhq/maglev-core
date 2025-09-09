@@ -30,8 +30,8 @@ module Maglev
       end
 
       def set_page
-        return unless @link.link_id
-        @page = page_resources.find(@link.link_id)
+        @page = page_resources.find_by(id: @link.link_id) ||
+          services.fetch_static_pages.call.find { |page| page.id == @link.link_id }
       end
 
       def set_sections
@@ -40,7 +40,7 @@ module Maglev
       end
 
       def link_params
-        params.require(:link).permit(:link_type, :link_id, :url_href, :email, :href, :section_id, :open_new_window)
+        params.require(:link).permit(:link_label,:link_type, :link_id, :url_href, :email, :href, :section_id, :open_new_window)
       end
 
       def input_id
