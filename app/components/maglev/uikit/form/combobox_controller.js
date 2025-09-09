@@ -267,6 +267,8 @@ export default class extends Controller {
 
     this.selectedLabel = this.getLabel(index)
     this.selectedIndex = index
+
+    this.dispatch('change', { detail: { value: this.inputTarget.value } })
   }
 
   selectItemAtStartup() {

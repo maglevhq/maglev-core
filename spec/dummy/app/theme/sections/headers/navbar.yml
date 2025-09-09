@@ -32,7 +32,7 @@ blocks:
     id: link
     type: link
     default: "/"
-  
+    
 # By default, in the editor UI, blocks will be listed below the "Content" title.
 # The title can be changed with the following property:
 blocks_label: "Menu"

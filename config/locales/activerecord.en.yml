@@ -22,6 +22,8 @@ en:
   activemodel:
     attributes:
       'maglev/content/editor_link':
+        link_id: Page
+        section_id: Section
         email: Email
         url_href: URL
         open_new_window: "Open in new window"

@@ -15,6 +15,11 @@ export default class extends Controller {
     this.bubbleChange(event.detail)
   }
 
+  onLinkTextChanged(event) {
+    console.log('[Section][Link] onLinkTextChanged', event.detail)
+    this.bubbleChange(event.detail)
+  }
+
   bubbleChange(linkValue) {
     const newEvent = new CustomEvent("editor-input:settingChange", { detail: {      
       id: this.settingIdValue,

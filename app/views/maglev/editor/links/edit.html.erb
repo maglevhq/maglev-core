@@ -3,17 +3,13 @@
     <% modal.with_title_content t("maglev.editor.links.edit.title") %>
     <% modal.with_notification_content maglev_flash_message %>
 
-    <%
-=begin%>
- <pre><%= @link.inspect %></pre> 
-<%
-=end%>
-
-    <%= form_with model: @link, 
+    <%= form_with model: @link,    
       url: editor_link_path, 
-      method: :put, 
+      method: :put,
       id: 'link-form',
+      scope: 'link',
       data: { 
+        controller: 'form-refresh',
         action: 'turbo:submit-end->uikit-modal#close'
       } do |f| %>
       <%= hidden_field_tag :input_name, params[:input_name] %>

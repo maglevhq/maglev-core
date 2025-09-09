@@ -47,6 +47,11 @@ Maglev::Engine.routes.draw do
 
     resources :assets, only: %i[index create destroy]
     resource :link, only: %i[edit update]
+    
+    # combobox routes
+    namespace :combobox do
+      resources :pages, only: :index
+    end
 
     # always keep the scope of the current page and locale in the url
     scope ':locale/:page_id' do
@@ -59,10 +64,7 @@ Maglev::Engine.routes.draw do
         resources :blocks, controller: :section_blocks do
           put :sort, on: :collection
         end
-      end
-      namespace :combobox do
-        resources :pages, only: :index
-      end
+      end      
     end
   end
 

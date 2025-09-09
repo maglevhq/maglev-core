@@ -1,9 +1,12 @@
-<div class="space-y-1 flex flex-col" 
-  data-controller="uikit-form-combobox" 
-  data-uikit-form-combobox-url-value="<%= search_path %>" 
-  data-uikit-form-combobox-selected-label-value="<%= selected_label %>"
-  data-uikit-form-combobox-turbo-frame-name-value="<%= turbo_frame_name %>"
->
+<%= tag.div(
+  class: 'space-y-1 flex flex-col',
+  data: { 
+    controller: 'uikit-form-combobox', 
+    'uikit-form-combobox-url-value': search_path, 
+    'uikit-form-combobox-selected-label-value': selected_label, 
+    'uikit-form-combobox-turbo-frame-name-value': turbo_frame_name,
+    **html_options[:data]
+  }) do %>
   <label for="<%= dom_id %>" class="block font-semibold text-gray-800 flex items-center gap-2">
     <span><%= label %></span>
     <% if error %>
@@ -12,7 +15,7 @@
   </label>
   
   <%= hidden_field_tag name, value, { data: { 'uikit-form-combobox-target' => 'hiddenInput' }  }%>
-    
+
   <%= render Maglev::Uikit::DropdownComponent.new do |dropdown| %>
     <% dropdown.with_trigger do %>
       <input 
@@ -51,4 +54,4 @@
       <% end %>
     </ul>
   <% end %> 
-</div>
+<% end %>

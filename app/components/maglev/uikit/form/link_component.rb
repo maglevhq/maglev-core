@@ -43,6 +43,7 @@ class Maglev::Uikit::Form::LinkComponent < Maglev::Uikit::BaseComponent
   def link_text
     {
       name: "#{name}[text]",
+      value: value[:text],
       placeholder: t('maglev.editor.form.link.text_placeholder'),
     }.merge(options[:link_text] || {})
   end

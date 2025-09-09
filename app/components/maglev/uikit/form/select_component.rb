@@ -4,13 +4,14 @@ module Maglev
   module Uikit
     module Form
       class SelectComponent < ViewComponent::Base
-        attr_reader :label, :name, :choices, :options
+        attr_reader :label, :name, :choices, :options, :html_options
 
-        def initialize(label:, name:, choices:, options: {})
+        def initialize(label:, name:, choices:, options: {}, html_options: {})
           @label = label
           @name = name
           @choices = choices
           @options = options
+          @html_options = html_options
         end
 
         def dom_id

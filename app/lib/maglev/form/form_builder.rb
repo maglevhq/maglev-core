@@ -7,6 +7,8 @@ module Maglev
       include Maglev::Form::Inputs::ImageField
       include Maglev::Form::Inputs::CheckBox
       include Maglev::Form::Inputs::Textarea
+      include Maglev::Form::Inputs::Combobox
+      include Maglev::Form::Inputs::Select
 
       private
 

@@ -7,7 +7,8 @@ class Maglev::Content::EditorLink
   validates :href, presence: true, if: :url_type?
 
   attribute :link_type, :string
-  attribute :link_id, :integer
+  attribute :link_id, :string, default: nil
+  attribute :section_id, :string, default: nil
   attribute :href, :string
   attribute :email, :string
   attribute :open_new_window, :boolean, default: false

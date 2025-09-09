@@ -9,7 +9,7 @@ module Maglev
           render Maglev::Uikit::Form::ComboboxComponent.new(
             label: 'Page',
             name: 'page_id',
-            search_path: '/maglev/editor/en/1/combobox/pages'
+            search_path: search_path
           )
         end
 
@@ -17,7 +17,7 @@ module Maglev
           render(Maglev::Uikit::Form::ComboboxComponent.new(
                    label: 'Page',
                    name: 'page2_id',
-                   search_path: '/maglev/editor/en/1/combobox/pages',
+                   search_path: search_path,
                    options: { placeholder: 'Placeholder' }
                  ))
         end
@@ -26,7 +26,7 @@ module Maglev
           render(Maglev::Uikit::Form::ComboboxComponent.new(
                    label: 'Page',
                    name: 'page3_id',
-                   search_path: '/maglev/editor/en/1/combobox/pages',
+                   search_path: search_path,
                    options: { value: '1', selected_label: 'Home page' }
                  ))
         end
@@ -35,12 +35,18 @@ module Maglev
           render(Maglev::Uikit::Form::ComboboxComponent.new(
                    label: 'Page',
                    name: 'page4_id',
-                   search_path: '/maglev/editor/en/1/combobox/pages',
+                   search_path: search_path,
                    options: { error: 'must be present' }
                  ))
         end
 
         # @!endgroup
+
+        private
+
+        def search_path
+          '/maglev/editor/combobox/pages'
+        end
       end
     end
   end

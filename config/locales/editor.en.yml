@@ -193,6 +193,8 @@ en:
             page: "Page"
             url: "Url"
             email: "Email"
+          page:
+            section_prompt: "Select a section"
       support:
         human:
           storage_units:

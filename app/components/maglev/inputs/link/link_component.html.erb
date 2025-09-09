@@ -5,6 +5,7 @@
     action: %(
       uikit-form-link:link-selected->editor-link-input#onLinkSelected
       uikit-form-link:link-cleared->editor-link-input#onLinkCleared
+      uikit-form-link:link-text-changed->editor-link-input#onLinkTextChanged
     )
   }
 ) do %>
@@ -14,7 +15,7 @@
     options: {
       label: label,
       value: value,
-      data: { action: 'change->editor-link-input#onChange' }
+      with_text: setting.options[:with_text]
     }
   ) %>
 <% end %>

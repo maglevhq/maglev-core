@@ -9,6 +9,7 @@ import PreventSamePathController from "maglev-controllers/shared/prevent_same_pa
 import SortableController from "maglev-controllers/shared/sortable_controller"
 import BrokenImageController from "maglev-controllers/shared/broken_image_controller"
 import AutoSaveController from "maglev-controllers/shared/auto_save_controller"
+import FormRefreshController from "maglev-controllers/shared/form_refresh_controller"
 
 application.register("disappearance", DisappearanceController)
 application.register("max-length", MaxLengthController)
@@ -19,3 +20,4 @@ application.register("prevent-same-path", PreventSamePathController)
 application.register("sortable", SortableController)
 application.register("broken-image", BrokenImageController)
 application.register("auto-save", AutoSaveController)
+application.register("form-refresh", FormRefreshController)
