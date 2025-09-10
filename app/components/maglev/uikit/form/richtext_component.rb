@@ -5,7 +5,7 @@ class Maglev::Uikit::Form::RichtextComponent < ViewComponent::Base
     @label = label
     @name = name
     @options = options
-    @html_options = html_options
+    @html_options = html_options || {}
   end
 
   def dom_id
@@ -24,6 +24,10 @@ class Maglev::Uikit::Form::RichtextComponent < ViewComponent::Base
     options[:line_break] || false
   end
 
+  def edit_link_path
+    options[:edit_link_path]
+  end
+
   def placeholder
     options[:placeholder]
   end
@@ -34,5 +38,9 @@ class Maglev::Uikit::Form::RichtextComponent < ViewComponent::Base
 
   def error
     options[:error]
+  end
+
+  def build_data_action(actions)
+    [html_options.dig(:data, :action), actions].compact.join(' ')
   end
 end

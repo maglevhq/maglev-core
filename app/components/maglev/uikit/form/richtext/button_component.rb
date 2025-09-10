@@ -1,8 +1,9 @@
 class Maglev::Uikit::Form::Richtext::ButtonComponent < ViewComponent::Base
-  attr_reader :name, :icon
+  attr_reader :name, :action_name,:icon
   
-  def initialize(name:, icon:)
+  def initialize(name:, icon:, action_name: nil)
     @name = name
+    @action_name = action_name.presence || "toggle#{name.camelize}"
     @icon = icon
   end
 end

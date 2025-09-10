@@ -3,9 +3,11 @@
   style: "--number-of-rows: #{number_of_rows};",
   data: {
     controller: 'uikit-form-richtext',
+    uikit_form_richtext_input_name_value: dom_id,
     uikit_form_richtext_content_value: value,
-    uikit_form_richtext_line_break_value: line_break?,
-    **html_options[:data] || {}
+    uikit_form_richtext_line_break_value: line_break?,    
+    uikit_form_richtext_edit_link_path_value: edit_link_path,
+    action: build_data_action("dispatcher:link-selected-#{dom_id}@window->uikit-form-richtext#setLink")
   }) do %>
 
   <label for="<%= dom_id %>" class="block font-semibold text-gray-800 flex items-center gap-2">

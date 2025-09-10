@@ -13,10 +13,43 @@ import Underline from '@tiptap/extension-underline'
 import Strike from '@tiptap/extension-strike'
 import Superscript from '@tiptap/extension-superscript'
 import HardBreak from '@tiptap/extension-hard-break'
+import Link from '@tiptap/extension-link'
+import { ListItem,BulletList, OrderedList } from '@tiptap/extension-list'
+
+const MaglevLink = Link.extend({
+  addAttributes() {
+    return {
+      href: {
+        default: null,
+        parseHTML(element) {
+          return element.getAttribute('href')
+        },
+      },
+      target: {
+        default: this.options.HTMLAttributes.target,
+      },
+      rel: {
+        default: this.options.HTMLAttributes.rel,
+      },
+      class: {
+        default: this.options.HTMLAttributes.class,
+      },
+      'maglev-link-type': {
+        default: 'url'
+      },
+      'maglev-link-id': {
+        default: null,
+      },
+      'maglev-section-id': {
+        default: null,
+      },
+    }
+  },
+})
 
 export default class extends Controller {
   static targets = ['editor', 'hiddenInput', 'button', 'blockButton']
-  static values = { content: String, lineBreak: Boolean }
+  static values = { inputName: String, content: String, lineBreak: Boolean, editLinkPath: String }
 
   connect() {
     this.buildEditor()
@@ -36,6 +69,7 @@ export default class extends Controller {
         this.toggleButtonState('superscript', editor.isActive('superscript'))
         this.toggleButtonState('unordered_list', editor.isActive('bulletList'))
         this.toggleButtonState('ordered_list', editor.isActive('orderedList'))
+        this.toggleButtonState('link', editor.isActive('link'))
 
         // Block buttons
         this.toggleBlockButtonState()
@@ -55,12 +89,10 @@ export default class extends Controller {
 
   buildExtensions() {
     const extensions = [
-      Document, Text, History, Bold, Italic, Underline, Strike, Superscript,
-      Paragraph, Blockquote, CodeBlock,
-      Heading.configure({
-        levels: [2, 3, 4],
-      })
+      Document, Text, Paragraph, History, Bold, Italic, Underline, Strike, Superscript,
+      MaglevLink.configure({ openOnClick: false, target: null }),
     ]
+    // Line break (ie: <br> instead of <p>)
     if (this.lineBreakValue) {
       const customHardBreak = HardBreak.extend({
         addKeyboardShortcuts () {
@@ -70,6 +102,11 @@ export default class extends Controller {
         }
       })
       extensions.push(customHardBreak)
+    } else {
+      extensions.push(
+        Blockquote, CodeBlock, ListItem, BulletList, OrderedList,
+        Heading.configure({ levels: [2, 3, 4] })
+      )
     }
     return extensions
   }
@@ -83,39 +120,43 @@ export default class extends Controller {
     this.editor.commands.focus('end')
   }
 
-  bold(event) {
+  // Mark buttons
+
+  toggleBold(event) {
     this.editor.chain().focus().toggleBold().run()
     event.currentTarget.classList.toggle('active')
   }
 
-  italic(event) {
+  toggleItalic(event) {
     this.editor.chain().focus().toggleItalic().run()
     event.currentTarget.classList.toggle('active')
   }
 
-  underline(event) {
+  toggleUnderline(event) {
     this.editor.chain().focus().toggleUnderline().run()
     event.currentTarget.classList.toggle('active')
   }
 
-  strikethrough(event) {
+  toggleStrikethrough(event) {
     this.editor.chain().focus().toggleStrike().run()
     event.currentTarget.classList.toggle('active')
   }
 
-  superscript(event) {
+  toggleSuperscript(event) {
     this.editor.chain().focus().toggleSuperscript().run()
     event.currentTarget.classList.toggle('active')
   }
 
-  unorderedList(event) {
-    this.editor.chain().focus().toggleBulletList().run()
-    event.currentTarget.classList.toggle('active')
+  toggleUnorderedList(event) {
+    this.editor.commands.toggleBulletList()
+    event.currentTarget.classList.toggle('active', this.editor.isActive('bulletList'))
+    this.toggleButtonState('ordered_list', false)
   }
 
-  orderedList(event) {
+  toggleOrderedList(event) {
     this.editor.chain().focus().toggleOrderedList().run()
-    event.currentTarget.classList.toggle('active')
+    event.currentTarget.classList.toggle('active', this.editor.isActive('orderedList'))
+    this.toggleButtonState('unordered_list', false)
   }
 
   toggleParagraph() {
@@ -148,15 +189,17 @@ export default class extends Controller {
     this.toggleBlockButtonState()
   }
 
-  toggleButtonState(actionName, isActive) {
+  toggleButtonState(name, isActive) {
     this.buttonTargets.forEach(button => {
-      if (button.dataset.actionName !== actionName) return
+      if (button.dataset.name !== name) return
       button.classList.toggle('active', isActive)
     })
   }
 
   toggleBlockButtonState() {
-    let name = null
+    if (!this.hasBlockButtonTarget) return
+
+    let name = 'paragraph'
     if (this.editor.isActive('paragraph')) {
       name = 'paragraph'
     } else if (this.editor.isActive('heading', { level: 2 })) {
@@ -173,5 +216,47 @@ export default class extends Controller {
     this.blockButtonTarget.querySelectorAll(`[data-block-button-name]`).forEach(button => {
       button.classList.toggle('hidden', button.dataset.blockButtonName !== name)
     })
-  } 
+  }
+
+  openLinkModal(event) {
+    console.log('toggleLink', event)
+    const url = new URL(this.editLinkPathValue, window.location.origin)
+    const link = this.editor.getAttributes('link')
+
+    console.log('toggleLink,build link from', link)
+    
+    url.searchParams.set('input_name', this.inputNameValue)
+    url.searchParams.set('link[href]', link.href ?? '')
+    url.searchParams.set('link[link_id]', link['maglev-link-id'])
+    url.searchParams.set('link[section_id]', link['maglev-section-id'])
+    url.searchParams.set('link[open_new_window]', link.target === '_blank')
+
+    // get or guess the link type
+    let linkType = link['maglev-link-type']
+    if (!linkType) linkType = link.href?.startsWith('mailto:') ? 'email' : 'url'
+    url.searchParams.set('link[link_type]', linkType)
+    
+    // email
+    if (linkType === 'email')
+      url.searchParams.set('link[email]', link.href.replace('mailto:', ''))
+    
+    Turbo.visit(url, { frame: 'modal' })
+  }
+
+  setLink(event) {
+    const link = JSON.parse(event.detail)
+    console.log('setLink, link=', link)
+    this.editor.commands.setLink({ 
+      href: link.href, 
+      target: link.open_new_window ? '_blank' : '', 
+      'maglev-link-type': link.link_type,
+      'maglev-link-id': link.link_id,
+      'maglev-section-id': link.section_id
+    })
+  }
+
+  unsetLink() {
+    this.editor.commands.unsetLink()
+    this.toggleButtonState('link', false)
+  }
 }

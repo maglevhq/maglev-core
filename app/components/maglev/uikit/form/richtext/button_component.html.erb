@@ -7,9 +7,9 @@
   ),
   type: 'button', 
   data: { 
-    action_name: name,
-    action: "click->uikit-form-richtext##{name.camelize(:lower)}",
-    'uikit-form-richtext-target': "button"    
+    name: name,
+    action: "click->uikit-form-richtext##{action_name}",
+    'uikit-form-richtext-target': "button"
   }
   ) do %>
   <%= render Maglev::Uikit::IconComponent.new(name: icon) %>

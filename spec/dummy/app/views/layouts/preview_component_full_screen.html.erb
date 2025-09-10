@@ -3,6 +3,7 @@
 <head>
   <title>Maglev preview component</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="content-locale" content="en">
   
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
@@ -22,6 +23,8 @@
 
 <body class="h-full">
   <%= yield %>  
+
+  <%= turbo_frame_tag 'modal' %>
 </body>
 
 </html>

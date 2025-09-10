@@ -3,7 +3,7 @@
 
   <%= f.combobox :link_id, 
       search_path: editor_combobox_pages_path, 
-      selected_label: @link.link_label,
+      selected_label: @link.link_label || @page&.title,
       label_name: "link[link_label]",
       html_options: {     
         data: {

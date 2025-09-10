@@ -3,6 +3,7 @@
 <head>
   <title>Maglev preview component</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="content-locale" content="en">
   
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
@@ -24,6 +25,8 @@
   <div style="max-width: <%= params.dig(:lookbook, :display, :max_width) || '100%' %>" class="h-full mx-auto">
     <%= yield %>
   </div>
+
+  <%= turbo_frame_tag 'modal' %>
 </body>
 
 </html>

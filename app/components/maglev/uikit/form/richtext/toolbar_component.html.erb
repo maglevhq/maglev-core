@@ -12,6 +12,11 @@
   <% end %>
 
   <%= render Maglev::Uikit::Form::Richtext::ButtonGroupComponent.new do |button_group| %>
+    <% button_group.with_button(name: 'link', icon: 'text_link', action_name: 'openLinkModal') %>
+    <% button_group.with_button(name: 'unlink', icon: 'text_unlink', action_name: 'unsetLink') %>
+  <% end %>
+
+  <%= render Maglev::Uikit::Form::Richtext::ButtonGroupComponent.new do |button_group| %>
     <% button_group.with_button(name: 'unordered_list', icon: 'text_unorderd_list') %>
     <% button_group.with_button(name: 'ordered_list', icon: 'text_ordered_list') %>
   <% end unless line_break? %>

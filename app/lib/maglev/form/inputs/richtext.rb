@@ -19,6 +19,8 @@ module Maglev
           {
             value: options.key?(:value) ? options[:value] : object.public_send(method),
             placeholder: options[:placeholder],
+            line_break: options[:line_break],
+            edit_link_path: options[:edit_link_path],
             error: error_messages(method)
           }
         end
