@@ -4,6 +4,7 @@ import { useTransition, useClickOutside } from 'stimulus-use'
 
 export default class extends Controller {
   static targets = ['button', 'content']
+  static values = { placement: String }
   
   connect() {
     const button = this.buttonTarget
@@ -11,7 +12,7 @@ export default class extends Controller {
 
     this.cleanup = autoUpdate(button, content, () => computePosition(button, content, { 
       strategy: 'fixed',
-      placement: 'bottom-start',
+      placement: this.placementValue || 'bottom-start',
       middleware: [
         flip(), 
         shift(),

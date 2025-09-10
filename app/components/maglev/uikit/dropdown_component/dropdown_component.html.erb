@@ -1,4 +1,10 @@
-<div data-controller="uikit-dropdown" class="relative">
+<%= tag.div(
+  class: 'relative',
+  data: {
+    controller: 'uikit-dropdown',
+    'uikit-dropdown-placement-value': placement
+  }
+) do %>
   <%= trigger %>
 
   <div 
@@ -9,4 +15,4 @@
   >
     <%= content %>
   </div>
-</div>
+<% end %>

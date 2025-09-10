@@ -754,6 +754,12 @@
   .max-w-7xl {
     max-width: var(--container-7xl);
   }
+  .min-w-4 {
+    min-width: calc(var(--spacing) * 4);
+  }
+  .min-w-5 {
+    min-width: calc(var(--spacing) * 5);
+  }
   .flex-1 {
     flex: 1;
   }
@@ -2696,11 +2702,30 @@
       background-color: var(--color-gray-400);
     }
   }
+  .\[\&\.active\]\:bg-gray-600 {
+    &.active {
+      background-color: var(--color-gray-600);
+    }
+  }
+  .\[\&\.active\]\:text-white {
+    &.active {
+      color: var(--color-white);
+    }
+  }
   .\[\&\.active\]\:hover\:bg-gray-400 {
     &.active {
       &:hover {
         @media (hover: hover) {
           background-color: var(--color-gray-400);
+        }
+      }
+    }
+  }
+  .\[\&\.active\]\:hover\:bg-gray-600 {
+    &.active {
+      &:hover {
+        @media (hover: hover) {
+          background-color: var(--color-gray-600);
         }
       }
     }

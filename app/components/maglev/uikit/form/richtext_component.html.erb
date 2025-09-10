@@ -4,6 +4,7 @@
   data: {
     controller: 'uikit-form-richtext',
     uikit_form_richtext_content_value: value,
+    uikit_form_richtext_line_break_value: line_break?,
     **html_options[:data] || {}
   }) do %>
 
@@ -17,7 +18,7 @@
   <%= hidden_field_tag name, value, data: { uikit_form_richtext_target: 'hiddenInput' } %>
 
   <div class="relative flex flex-col">
-    <%= render Maglev::Uikit::Form::Richtext::ToolbarComponent.new %>
+    <%= render Maglev::Uikit::Form::Richtext::ToolbarComponent.new(line_break: line_break?) %>
 
     <div data-uikit-form-richtext-target="editor"></div>
   </div>

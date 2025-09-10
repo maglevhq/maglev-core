@@ -1,0 +1,38 @@
+<%= render Maglev::Uikit::DropdownComponent.new(placement: 'right') do |dropdown| %>
+  <% dropdown.with_trigger do %>
+    <%= tag.button(
+      class: 'cursor-pointer rounded-sm px-2 py-2 bg-gray-100 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-editor-primary/50 focus:ring-inset focus:ring bg-gray-100',
+      type: 'button', 
+      data: { 
+        'uikit-dropdown-target': 'button',
+        'uikit-form-richtext-target': 'blockButton',
+        action: 'click->uikit-dropdown#toggle'
+      }
+      ) do %>
+      <% choices.each_with_index do |choice, index| %>
+        <%= tag.div(
+          class: class_names('hidden': index != 0), 
+          data: { block_button_name: choice[:name] } 
+        ) do %>
+          <%= render Maglev::Uikit::IconComponent.new(name: choice[:icon]) %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+          
+  <div class="flex flex-row space-x-2 py-1 px-1">
+    <% choices.each do |choice| %>
+      <%= tag.button(
+        class: 'hover:bg-gray-100 px-2 py-1 cursor-pointer rounded-sm',
+        data: { 
+          action: %(
+            click->uikit-form-richtext#toggle#{choice[:name].camelize}
+            click->uikit-dropdown#hide
+          )
+        }
+      ) do %>
+        <%= render Maglev::Uikit::IconComponent.new(name: choice[:icon]) %>
+      <% end %>
+    <% end %>
+  </div>
+<% end %>
