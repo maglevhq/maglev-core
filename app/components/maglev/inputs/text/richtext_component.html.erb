@@ -1,0 +1,25 @@
+<%= tag.div(
+  data: {
+    controller: 'editor-text-input',
+    'editor-text-input-setting-id-value': setting.id,
+    action: %(
+      hashchange@window->editor-text-input#focus
+    )
+  }
+) do %>
+  <%= render Maglev::Uikit::Form::RichtextComponent.new(
+    label: label,
+    name: input_name,
+    options: {
+      value: value,
+    },
+    html_options: {
+      data: { 
+        action: %(
+          uikit-form-richtext:onUpdate->editor-text-input#onChange
+          editor-text-input:focus@window->uikit-form-richtext#focus
+        )
+      }
+    }
+  ) %>
+<% end %>

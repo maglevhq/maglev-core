@@ -18,4 +18,171 @@
     background-size: 20px 20px;
     background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
   }
+
+  /* Tiptap / ProseMirror */
+  .ProseMirror {
+    @apply block py-2 px-3 rounded bg-gray-100 text-gray-800 focus:outline-none focus:ring focus:ring-inset focus:ring-2 focus:ring-editor-primary/50 placeholder-gray-500;
+
+    @apply h-[calc(var(--number-of-rows)*var(--spacing)*8)] overflow-auto leading-6; 
+
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
+
+    * {
+      caret-color: currentColor;
+    }
+
+    p {
+      margin-bottom: 0.5rem;
+    }
+
+    a {
+      @apply underline;
+    }
+
+    h2,
+    h3 {
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+    }
+
+    h2 {
+      font-size: 1.25rem;
+    }
+
+    h3 {
+      font-size: 1.2rem;
+    }
+
+    ol {
+      list-style: decimal;
+    }
+
+    ul {
+      list-style: disc;
+    }
+
+    strong {
+      @apply text-black;
+      font-weight: bold;
+    }
+
+    pre {
+      padding: 0.7rem 1rem;
+      border-radius: 5px;
+      @apply bg-gray-800;
+      @apply text-white;
+      font-size: 0.8rem;
+      overflow-x: auto;
+
+      code {
+        display: block;
+      }
+    }
+
+    p code {
+      padding: 0.2rem 0.4rem;
+      border-radius: 5px;
+      font-size: 0.8rem;
+      font-weight: bold;
+      @apply bg-gray-300;
+      @apply text-gray-700;
+    }
+
+    ul,
+    ol {
+      padding-left: 1rem;
+    }
+
+    li > p,
+    li > ol,
+    li > ul {
+      margin: 0;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    blockquote {
+      @apply border-2;
+      @apply border-solid;
+      @apply border-gray-200;
+      @apply text-gray-700;
+
+      padding-left: 0.8rem;
+      font-style: italic;
+
+      p {
+        margin: 0;
+      }
+    }
+
+    img {
+      max-width: 100%;
+      border-radius: 3px;
+    }
+
+    table {
+      border-collapse: collapse;
+      table-layout: fixed;
+      width: 100%;
+      margin: 0;
+      overflow: hidden;
+
+      td,
+      th {
+        min-width: 1em;
+        // border: 2px solid $color-grey;
+        @apply border-2;
+        @apply border-solid;
+        padding: 3px 5px;
+        vertical-align: top;
+        box-sizing: border-box;
+        position: relative;
+        > * {
+          margin-bottom: 0;
+        }
+      }
+
+      th {
+        font-weight: bold;
+        text-align: left;
+      }
+
+      .selectedCell:after {
+        z-index: 2;
+        position: absolute;
+        content: '';
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        background: rgba(200, 200, 255, 0.4);
+        pointer-events: none;
+      }
+
+      .column-resize-handle {
+        position: absolute;
+        right: -2px;
+        top: 0;
+        bottom: 0;
+        width: 4px;
+        z-index: 20;
+        background-color: #adf;
+        pointer-events: none;
+      }
+    }
+
+    .tableWrapper {
+      margin: 1em 0;
+      overflow-x: auto;
+    }
+
+    .resize-cursor {
+      cursor: ew-resize;
+      cursor: col-resize;
+    }
+  }
 }

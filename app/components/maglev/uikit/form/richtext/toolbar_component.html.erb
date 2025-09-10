@@ -1,0 +1,9 @@
+<div class="flex sticky top-0 z-10 pb-2 bg-white space-x-1 overflow-x-auto">  
+  <%= render Maglev::Uikit::Form::Richtext::ButtonGroupComponent.new do |button_group| %>
+    <%= button_group.with_button(name: 'bold', icon: 'text_bold') %>
+    <%= button_group.with_button(name: 'italic', icon: 'text_italic') %>
+    <%= button_group.with_button(name: 'underline', icon: 'text_underline') %>
+    <%= button_group.with_button(name: 'strikethrough', icon: 'text_strikethrough') %>
+    <%= button_group.with_button(name: 'superscript', icon: 'text_superscript') %>
+  <% end %>
+</div>

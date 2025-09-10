@@ -15,6 +15,10 @@ pin '@rails/actioncable/src', to: '@rails--actioncable--src.js'
 pin '@hotwired/stimulus', to: '@hotwired--stimulus.js'
 pin '@rails/request.js', to: '@rails--request.js.js'
 
+pin "@tiptap/core", to: "https://esm.sh/@tiptap/core"
+pin "@tiptap/starter-kit", to: "https://esm.sh/@tiptap/starter-kit"
+pin "@tiptap/extension-superscript", to: "https://esm.sh/@tiptap/extension-superscript"
+
 pin_all_from File.expand_path('../app/components/maglev/uikit', __dir__), under: 'uikit-controllers', to: 'maglev/uikit'
 pin_all_from File.expand_path('../app/components/maglev/inputs', __dir__), under: 'inputs-controllers',
                                                                            to: 'maglev/inputs'

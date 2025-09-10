@@ -49,10 +49,8 @@ module Maglev
         end
 
         def text_input_klass(setting)
-          # TODO: we have different text inputs for text, textarea, rich text.
           if setting.options[:html]
-            # Maglev::Inputs::Text::RichTextComponent
-            nil
+            Maglev::Inputs::Text::RichtextComponent
           elsif setting.options[:nb_rows].to_i > 1
             Maglev::Inputs::Text::TextareaComponent
           else

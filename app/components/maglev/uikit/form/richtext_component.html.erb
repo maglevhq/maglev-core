@@ -1,0 +1,24 @@
+<%= tag.div(
+  class: 'space-y-1 flex flex-col group/richtext',
+  style: "--number-of-rows: #{number_of_rows};",
+  data: {
+    controller: 'uikit-form-richtext',
+    uikit_form_richtext_content_value: value,
+    **html_options[:data] || {}
+  }) do %>
+
+  <label for="<%= dom_id %>" class="block font-semibold text-gray-800 flex items-center gap-2">
+    <span><%= label %></span>
+    <% if error %>
+      <span class="text-red-700 bg-red-100 text-xs py-1 px-3 rounded"><%= error %></span>
+    <% end %>
+  </label>
+
+  <%= hidden_field_tag name, value, data: { uikit_form_richtext_target: 'hiddenInput' } %>
+
+  <div class="relative flex flex-col">
+    <%= render Maglev::Uikit::Form::Richtext::ToolbarComponent.new %>
+
+    <div data-uikit-form-richtext-target="editor"></div>
+  </div>
+<% end %>
