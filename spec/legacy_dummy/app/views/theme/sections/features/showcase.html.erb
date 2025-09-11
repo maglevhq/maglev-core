@@ -1,15 +1,36 @@
-<%= tag.section class: 'showcase', data: section.tag_data do %>
-  <div class="container">
-    <%= tag.h2 class: 'display-4', data: section.settings.title.tag_data do %>
-      <%= raw section.settings.title %>
-    <% end %>
-    <ul>
+<%= tag.section class: 'showcase relative py-20 my-20 bg-zinc-100 lg:rounded-4xl', data: section.tag_data do %>
+  <div class="relative px-10 mx-auto max-w-7xl xl:px-16">
+    <div class="max-w-3xl mx-auto mb-12 text-center lg:mb-20">
+      <p><%= section.setting_tag :icon, html_tag: 'i' %></p>
+
+      <%= tag.h2 class: 'mt-3 mb-10 text-4xl font-bold font-heading', data: section.settings.title.tag_data do %>
+        <%= raw section.settings.title %>
+      <% end %>
+    </div>
+    
+    <ul role="list" class="grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-1 sm:gap-x-6 lg:grid-cols-2 xl:gap-x-8">
       <% section.blocks.each do |block| %>
-        <%= tag.li data: block.tag_data do %>
-          <%= tag.h3 data: block.settings.title.tag_data do %>
-            <%= block.settings.title %>
+        <% if block.type == 'item_2' %>
+          <p>TODO</p>
+        <% else %>
+          <%= tag.li data: block.tag_data, class: 'relative' do %>
+    
+            <div class="relative flex items-end justify-center mx-2 overflow-hidden bg-zinc-300 rounded-lg group h-96">
+              <%= image_tag block.settings.image.url || '', alt: block.settings.image.alt_text, data: block.settings.image.tag_data, class: 'absolute object-cover object-center w-full h-full transition duration-300 ease-out transform scale-100 group-hover:scale-105' %>
+              <div class="absolute z-10 w-full h-full bg-gradient-to-b from-transparent to-black opacity-60"></div>
+              <div class="relative z-20 p-5 text-left">
+                  <span class="relative inline-block px-3 py-1 -ml-1 text-xs tracking-wide text-white uppercase">
+                    <span class="absolute inset-0 transform -skew-x-6 bg-indigo-500"></span>
+                    <%= tag.h3 data: block.settings.title.tag_data, class: 'relative inline-block' do %>
+                      <%= block.settings.title %>
+                    <% end %>
+                  </span>
+                  <%= tag.div data: block.settings.description.tag_data, class: 'my-2 font-serif text-xl font-semibold text-white' do %>
+                    <%= block.settings.description.to_s.html_safe %>
+                  <% end %>
+              </div>
+            </div>          
           <% end %>
-          <%= image_tag block.settings.image.url, alt: block.settings.image.alt_text, data: block.settings.image.tag_data %>
         <% end %>
       <% end %>
     </ul>

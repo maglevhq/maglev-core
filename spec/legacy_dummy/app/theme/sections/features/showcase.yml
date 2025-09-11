@@ -13,7 +13,20 @@ settings:
   type: text
   # html: true
   # line_break: true
-  default: "My work"
+  default: "My work..."
+
+- label: "Icon"
+  id: icon
+  type: icon
+
+- label: "[TEST] select"
+  id: blabla
+  type: select
+  select_options:
+  - label: Option 1
+    value: option_1
+  - label: Option 2
+    value: option_2
   
 # Definition of the blocks.
 # You can define as many types of blocks as you want.
@@ -40,6 +53,15 @@ blocks:
     nb_rows: 6
     # line_break: true
     default: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec eros nisi, feugiat non molestie ac, pretium sodales eros. Nullam faucibus malesuada orci non dignissim. "
+
+- name: "Item 2" 
+  type: item_2
+  settings:
+  - label: "Title"
+    id: title
+    type: text
+    default: "Alt Work #1"
+
 
 # By default, in the editor UI, blocks will be listed below the "Content" title.
 # The title can be changed with the following property:

@@ -3,11 +3,19 @@
 <head>
   <title><%= maglev_site.name %> - <%= maglev_page.title %></title>
 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />  
+  
+
   <meta name="description" content="<%= maglev_page.meta_description %>" />  
   <meta property="og:title" content="<%= maglev_page.og_title %>" />
   <meta property="og:description" content="<%= maglev_page.og_description %>" />
   <meta property="og:image" content="<%= maglev_page.og_title %>" />
 
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.css" rel="preload" as="style" />
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.6.0/fonts/remixicon.css" rel="stylesheet" />
+  
   <style id="maglev-style">
     :root {
       --basic-theme-primary-color: <%= maglev_style.primary_color %>;
@@ -17,10 +25,15 @@
   <meta name="hello" content="<%= I18n.t('hello') %>" />
   <%= render_maglev_alternate_links %>
   <%= maglev_live_preview_client_javascript_tag %>
+  <%#= legacy_live_preview_client_javascript_tag %>  
 </head>
-<body>
-  <main data-maglev-dropzone>
-    <%= render_maglev_sections %>
-  </main>
+<body class="flex h-full antialiased">
+  <div class="flex w-full">
+    <div class="relative flex w-full flex-col lg:px-5">
+      <main data-maglev-dropzone>
+        <%= render_maglev_sections %>
+      </main>
+    </div>
+  </div>
 </body>
 </html>
