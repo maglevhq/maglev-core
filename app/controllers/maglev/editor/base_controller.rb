@@ -39,8 +39,12 @@ module Maglev
         @maglev_site ||= services.fetch_site.call
       end
 
+      def maglev_page_resources
+        ::Maglev::Page
+      end
+
       def current_maglev_page
-        @current_maglev_page ||= page_resources.find_by(id: params[:page_id])
+        @current_maglev_page ||= maglev_page_resources.find_by(id: params[:page_id])
       end
 
       def current_maglev_sections
@@ -87,10 +91,6 @@ module Maglev
         return if turbo_frame_request?
 
         redirect_to editor_root_path
-      end
-
-      def page_resources
-        ::Maglev::Page
       end
     end
   end

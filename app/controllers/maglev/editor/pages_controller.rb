@@ -16,7 +16,7 @@ module Maglev
       end
 
       def new
-        @page = resources.build
+        @page = maglev_page_resources.build
       end
 
       def edit
@@ -26,7 +26,7 @@ module Maglev
       end
 
       def create
-        @page = resources.build(page_params)
+        @page = maglev_page_resources.build(page_params)
         if @page.save
           redirect_to editor_real_root_path(maglev_editing_route_context(page: @page)), status: :see_other
         else
@@ -54,7 +54,7 @@ module Maglev
       private
 
       def set_page
-        @page = resources.find(params[:id])
+        @page = maglev_page_resources.find(params[:id])
       end
 
       def page_params
@@ -66,10 +66,6 @@ module Maglev
 
       def query_params(from_list: false)
         { q: params[:q], from_list: params[:from_list] || from_list }.compact_blank
-      end
-
-      def resources
-        ::Maglev::Page
       end
     end
   end

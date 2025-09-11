@@ -1,0 +1,6 @@
+<%= maglev_section.wrapper_tag class: 'featured-product' do %>
+  <%= maglev_section.setting_tag :product, class: 'featured-product' do |product| %>
+    <h2><%= product.name %></h2>
+    <p><%= number_to_currency product.price %></p>
+  <% end %>
+<% end %>

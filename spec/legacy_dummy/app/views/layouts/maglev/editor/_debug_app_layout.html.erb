@@ -1,0 +1,10 @@
+<% # Please override this file to customize the top bar or the sidebar %>
+
+<%= render Maglev::Uikit::AppLayout::LayoutComponent.new(page: @page) do |layout| %>
+  <% layout.with_sidebar do |sidebar| %>    
+    <% sidebar.with_link(path: maglev.editor_pages_path(locale: I18n.locale, page_id: @page.id), icon: 'file_copy') %>
+    <% sidebar.with_link(path: maglev.editor_sections_path(locale: I18n.locale, page_id: @page.id), icon: 'stack') %>
+  <% end %>
+
+  <%= content %>
+<% end %>

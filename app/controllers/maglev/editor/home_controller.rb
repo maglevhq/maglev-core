@@ -22,11 +22,7 @@ module Maglev
       end
 
       def home_page
-        @home_page ||= page_resources.home.first
-      end
-
-      def page_resources
-        ::Maglev::Page
+        @home_page ||= maglev_page_resources.home.first
       end
     end
   end

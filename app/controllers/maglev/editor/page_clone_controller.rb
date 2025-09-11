@@ -4,7 +4,8 @@ module Maglev
   module Editor
     class PageCloneController < Maglev::Editor::BaseController
       def create
-        @page = clone_page(resources.find(params[:page_id]))
+        @source_page = maglev_page_resources.find(params[:page_id])
+        @page = clone_page(@source_page)
         redirect_to edit_editor_page_path(@page, maglev_editing_route_context(page: @page)), notice: flash_t(:success),
                                                                                              status: :see_other
       end
@@ -13,10 +14,6 @@ module Maglev
 
       def clone_page(page)
         services.clone_page.call(page: page)
-      end
-
-      def resources
-        ::Maglev::Page
       end
     end
   end

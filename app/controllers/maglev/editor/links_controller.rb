@@ -29,7 +29,7 @@ module Maglev
       end
 
       def set_page
-        @page = page_resources.find_by(id: @link.link_id) ||
+        @page = maglev_page_resources.find_by(id: @link.link_id) ||
                 services.fetch_static_pages.call.find { |page| page.id == @link.link_id }
       end
 
@@ -46,10 +46,6 @@ module Maglev
 
       def input_id
         params[:input_name].parameterize.underscore
-      end
-
-      def page_resources
-        ::Maglev::Page
       end
     end
   end

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+  <title>Maglev preview component</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="content-locale" content="en">
+  
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+
+  <%= stylesheet_link_tag "maglev/tailwind" %>
+  <%= stylesheet_link_tag "maglev/application", "data-turbo-track": "reload" %>
+  <%= maglev_editor_javascript_tags %>
+
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
+
+  <style>
+    :root {
+      --editor-color-primary: <%= maglev_primary_hex_color %>;
+    }
+  </style>
+</head>
+
+<body class="h-full">
+  <%= yield %>  
+
+  <%= turbo_frame_tag 'modal' %>
+</body>
+
+</html>
