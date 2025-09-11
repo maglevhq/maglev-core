@@ -1,4 +1,7 @@
-<% topbar.with_logo %>
+<% topbar.with_logo(
+  root_path: editor_real_root_path(maglev_editing_route_context), 
+  logo_url: maglev_editor_logo_url) 
+%>
 
 <% topbar.with_page_info do %>
   <%= render Maglev::Uikit::AppLayout::Topbar::PageInfoComponent.new(

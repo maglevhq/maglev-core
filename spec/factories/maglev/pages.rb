@@ -41,10 +41,10 @@ FactoryBot.define do
           settings: [{ id: :title, value: 'Our projects' }],
           blocks: number_of_showcase_blocks.times.map do |i|
             {
-              type: 'showcase_item',
+              type: 'item',
               settings: [
-                { id: :name, value: i == 0 ? 'My first project' : "My project ##{i + 1}" },
-                { id: :screenshot, value: "/assets/screenshot-0#{i + 1}.png" }
+                { id: :title, value: i == 0 ? 'My first project' : "My project ##{i + 1}" },
+                { id: :image, value: "/assets/screenshot-0#{i + 1}.png" }
               ]
             }
           end
@@ -110,10 +110,10 @@ FactoryBot.define do
             settings: [{ id: :title, value: 'Our projects' }],
             blocks: [
               {
-                type: 'showcase_item',
+                type: 'item',
                 settings: [
-                  { id: :name, value: 'My first project' },
-                  { id: :screenshot, value: '/assets/screenshot-01.png' }
+                  { id: :title, value: 'My first project' },
+                  { id: :image, value: '/assets/screenshot-01.png' }
                 ]
               }
             ]
@@ -145,10 +145,10 @@ FactoryBot.define do
             settings: [{ id: :title, value: 'Our projects' }],
             blocks: [
               {
-                type: 'showcase_item',
+                type: 'item',
                 settings: [
-                  { id: :name, value: 'My first project' },
-                  { id: :screenshot, value: '/assets/screenshot-01.png' }
+                  { id: :title, value: 'My first project' },
+                  { id: :image, value: '/assets/screenshot-01.png' }
                 ]
               }
             ]
@@ -203,10 +203,10 @@ FactoryBot.define do
             settings: [{ id: :title, value: 'Our projects' }, { id: :foo, value: 'foo' }],
             blocks: [
               {
-                type: 'showcase_item',
+                type: 'item',
                 settings: [
-                  { id: :name, value: 'My first project' },
-                  { id: :screenshot, value: '/assets/screenshot-01.png' },
+                  { id: :title, value: 'My first project' },
+                  { id: :image, value: '/assets/screenshot-01.png' },
                   { id: :bar, value: 'bar' }
                 ]
               }

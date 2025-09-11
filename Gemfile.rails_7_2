@@ -62,6 +62,8 @@ group :development, :test do
 
   gem 'nokogiri', '>= 1.15.6'
 
+  gem 'capybara'
+
   gem 'rdoc', '>= 6.6.3.1'
 end
 

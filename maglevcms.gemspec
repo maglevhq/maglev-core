@@ -30,35 +30,22 @@ Gem::Specification.new do |spec|
   # end
 
   spec.files = Dir[
-    '.babelrc',
-    '.eslintrc.js',
-    '.yarnrc.yml',
-    '{.yarn,app,config,db,exe,lib}/**/*',
-    'bin/vite',
+    '{app,config,db,exe,lib}/**/*',
     'package.json',
     'yarn.lock',
-    'postcss.config.cjs',
-    'tailwind.config.js',
-    'vite.config.ts',
     'MIT-LICENSE',
     'Rakefile',
     'README.md'
   ]
 
-  spec.add_dependency 'jbuilder', '< 3', '>= 2'
   spec.add_dependency 'maglev-injectable', '~> 2.1.1'
   spec.add_dependency 'pagy', '>= 6'
-  spec.add_dependency 'rails', '< 9', '>= 7'
+  spec.add_dependency 'rails', '< 9', '>= 7.2'
 
   # Gems required by the new editor
   spec.add_dependency 'class_variants', '~> 1.1'
   spec.add_dependency 'importmap-rails', '< 3', '>= 2'
   spec.add_dependency 'turbo-rails', '< 3', '>= 2'
   spec.add_dependency 'view_component', '~> 4.0.0.rc5'
-
-  # TO BE REMOVED AT THE VERY END OF THE MIGRATION
-  spec.add_dependency 'kaminari', '~> 1.2.1'
-  spec.add_dependency 'vite_rails', '< 4', '>= 3'
-  spec.add_dependency 'vite_ruby', '>= 3.5'
 end
 # rubocop:enable Metrics/BlockLength

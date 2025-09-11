@@ -39,6 +39,10 @@ module Maglev::SectionsConcern
     sections.delete_if { |section| section['id'] == section_id }
   end
 
+  def section_ids
+    sections.map { |section| section['id'] }
+  end
+
   private
 
   def prepare_section(theme, section)

@@ -16,7 +16,7 @@ describe Maglev::Content::UpdateSectionBlockService do
 
   context 'Given an existing page section block' do
     let(:block_id) { page.sections.dig(1, 'blocks', 0, 'id') }
-    let(:content) { { name: 'My first project [UPDATED]' } }
+    let(:content) { { title: 'My first project [UPDATED]' } }
 
     it 'updates the section block' do
       expect { subject }.to change {

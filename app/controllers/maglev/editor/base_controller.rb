@@ -40,8 +40,7 @@ module Maglev
       end
 
       def current_maglev_page
-        # TODO: use services.search_pages.call OR a scope
-        @current_maglev_page ||= Maglev::Page.find_by(id: params[:page_id])
+        @current_maglev_page ||= page_resources.find_by(id: params[:page_id])
       end
 
       def current_maglev_sections
@@ -88,6 +87,10 @@ module Maglev
         return if turbo_frame_request?
 
         redirect_to editor_root_path
+      end
+
+      def page_resources
+        ::Maglev::Page
       end
     end
   end

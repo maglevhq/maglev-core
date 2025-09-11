@@ -9,7 +9,6 @@ require_relative 'maglev/preview_constraint'
 require_relative 'maglev/reserved_paths'
 
 require 'injectable'
-require 'jbuilder'
 require 'pagy'
 require 'view_component'
 

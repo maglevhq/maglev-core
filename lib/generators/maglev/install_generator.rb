@@ -6,11 +6,6 @@ module Maglev
     source_root File.expand_path('templates/install', __dir__)
     hook_for :maglev_install
 
-    def compile_editor_assets
-      rake 'maglev:vite:install_dependencies'
-      rake 'maglev:vite:build_all'
-    end
-
     def migrations
       rake 'maglev:install:migrations'
       rake 'db:migrate'

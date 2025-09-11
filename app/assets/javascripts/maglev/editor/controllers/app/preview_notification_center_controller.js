@@ -13,7 +13,7 @@ export default class extends Controller {
     const { primaryColor, stickySectionIds } = event.params
     this.postMessage('config', {
       primaryColor,
-      stickySectionIds, // TODO: get the sticky section ids from the page, use a JSON value
+      stickySectionIds,
     })
   }
 

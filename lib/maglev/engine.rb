@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require 'vite_ruby'
 require 'turbo-rails'
 require 'maglev/migration'
 
@@ -40,12 +39,6 @@ module Maglev
       Rails.application.config.i18n.load_path += Dir["#{config.root}/config/locales/**/*.yml"]
     end
 
-    delegate :vite_ruby, to: :class
-
-    def self.vite_ruby
-      @vite_ruby ||= ::ViteRuby.new(root: root, mode: Rails.env)
-    end
-
     def self.importmaps
       @importmaps ||= {
         editor: ::Importmap::Map.new,
@@ -78,49 +71,6 @@ module Maglev
           before_action { Engine.importmaps[:editor].cache_sweeper.execute_if_updated }
           before_action { Engine.importmaps[:client].cache_sweeper.execute_if_updated }
         end
-      end
-    end
-
-    # Serves the engine's vite-ruby when requested
-    initializer 'maglev.vite_rails.static' do |app|
-      if Rails.application.config.public_file_server.enabled
-        # this is the right setup when the main application is already
-        # using Vite for the theme assets.
-        app.middleware.insert_after ActionDispatch::Static,
-                                    Rack::Static,
-                                    urls: ["/#{vite_ruby.config.public_output_dir}"],
-                                    root: root.join(vite_ruby.config.public_dir),
-                                    header_rules: [
-                                      # rubocop:disable Style/StringHashKeys
-                                      [:all, { 'Access-Control-Allow-Origin' => '*' }]
-                                      # rubocop:enable Style/StringHashKeys
-                                    ]
-      else
-        # mostly when running the application in production behind NGINX or APACHE
-        app.middleware.insert_before 0,
-                                     Rack::Static,
-                                     urls: ["/#{vite_ruby.config.public_output_dir}"],
-                                     root: root.join(vite_ruby.config.public_dir),
-                                     header_rules: [
-                                       # rubocop:disable Style/StringHashKeys
-                                       [:all, { 'Access-Control-Allow-Origin' => '*' }]
-                                       # rubocop:enable Style/StringHashKeys
-                                     ]
-      end
-    end
-
-    initializer 'maglev.vite_rails_engine.proxy' do |app|
-      if vite_ruby.run_proxy?
-        app.middleware.insert_before 0,
-                                     ViteRuby::DevServerProxy,
-                                     ssl_verify_none: true,
-                                     vite_ruby: vite_ruby
-      end
-    end
-
-    initializer 'maglev.vite_rails_engine.logger' do
-      config.after_initialize do
-        vite_ruby.logger = Rails.logger
       end
     end
   end

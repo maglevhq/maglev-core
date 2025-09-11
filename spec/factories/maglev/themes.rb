@@ -67,10 +67,10 @@ FactoryBot.define do
                                                       blocks: [
                                                         {
                                                           name: 'Showcase item',
-                                                          type: 'showcase_item',
+                                                          type: 'item',
                                                           settings: [
-                                                            { label: 'Name', id: 'name', type: 'text', default: 'Work #1' },
-                                                            { label: 'Screenshot', id: 'screenshot', type: 'image',
+                                                            { label: 'Title', id: 'title', type: 'text', default: 'Work #1' },
+                                                            { label: 'Image', id: 'image', type: 'image',
                                                               default: '/samples/images/default.svg' },
                                                             { label: 'Description', id: 'description', type: 'text',
                                                               default: 'Description' }
@@ -117,15 +117,15 @@ FactoryBot.define do
                 },
                 blocks: [
                   {
-                    type: 'showcase_item',
+                    type: 'item',
                     settings: {
-                      name: 'My last project'
+                      title: 'My last project'
                     }
                   },
                   {
-                    type: 'showcase_item',
+                    type: 'item',
                     settings: {
-                      name: 'My first project'
+                      title: 'My first project'
                     }
                   }
                 ]

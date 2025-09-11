@@ -69,10 +69,10 @@ describe Maglev::GetPageSections do
                                   { 'id' => 'title', 'value' => 'Our projects' }
                                 ], 'blocks' => [
                                   {
-                                    'type' => 'showcase_item',
+                                    'type' => 'item',
                                     'settings' => [
-                                      { 'id' => 'name', 'value' => 'My first project' },
-                                      { 'id' => 'screenshot', 'value' => '/assets/screenshot-01.png' }
+                                      { 'id' => 'title', 'value' => 'My first project' },
+                                      { 'id' => 'image', 'value' => '/assets/screenshot-01.png' }
                                     ]
                                   }
                                 ]
@@ -91,10 +91,10 @@ describe Maglev::GetPageSections do
                                     { 'id' => 'title', 'value' => 'Our projects' }
                                   ], 'blocks' => [
                                     {
-                                      'type' => 'showcase_item',
+                                      'type' => 'item',
                                       'settings' => [
-                                        { 'id' => 'name', 'value' => 'My first project' },
-                                        { 'id' => 'screenshot',
+                                        { 'id' => 'title', 'value' => 'My first project' },
+                                        { 'id' => 'image',
                                           'value' => '/assets/screenshot-01.png' }
                                       ]
                                     }
@@ -131,10 +131,10 @@ describe Maglev::GetPageSections do
                                     { 'id' => 'title', 'value' => 'Our projects' }
                                   ], 'blocks' => [
                                     {
-                                      'type' => 'showcase_item',
+                                      'type' => 'item',
                                       'settings' => [
-                                        { 'id' => 'name', 'value' => 'My first project' },
-                                        { 'id' => 'screenshot', 'value' => '/assets/screenshot-01.png' }
+                                        { 'id' => 'title', 'value' => 'My first project' },
+                                        { 'id' => 'image', 'value' => '/assets/screenshot-01.png' }
                                       ]
                                     }
                                   ]

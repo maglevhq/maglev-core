@@ -23,7 +23,7 @@ describe Maglev::Content::AddSectionBlockService do
   end
 
   context 'Given a valid block type' do
-    let(:block_type) { 'showcase_item' }
+    let(:block_type) { 'item' }
 
     it 'adds the block to the section' do
       expect { subject }.to change { page.sections.dig(1, 'blocks').count }.by(1)
@@ -32,7 +32,7 @@ describe Maglev::Content::AddSectionBlockService do
     it 'returns the block' do
       expect(subject).to match(hash_including(
                                  id: kind_of(String),
-                                 type: 'showcase_item',
+                                 type: 'item',
                                  settings: kind_of(Array)
                                ))
     end

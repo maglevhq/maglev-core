@@ -7,9 +7,7 @@ module Maglev
 
       before_action :redirect_to_home_page, only: :index
 
-      def index
-        logger.info "turbo_frame_request? #{turbo_frame_request?} 🤔🤔🤔"
-      end
+      def index; end
 
       def destroy
         call_back_action
@@ -24,8 +22,11 @@ module Maglev
       end
 
       def home_page
-        # TODO: use services.search_pages.call OR a scope
-        @home_page ||= Maglev::Page.home.first
+        @home_page ||= page_resources.home.first
+      end
+
+      def page_resources
+        ::Maglev::Page
       end
     end
   end

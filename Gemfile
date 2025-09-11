@@ -63,6 +63,8 @@ group :development, :test do
 
   gem 'annotaterb'
 
+  gem 'capybara'
+
   gem 'rdoc', '>= 6.6.3.1'
 
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem

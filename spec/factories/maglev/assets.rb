@@ -5,6 +5,10 @@ FactoryBot.define do
     file { Rack::Test::UploadedFile.new('spec/fixtures/files/asset.jpg', 'image/jpeg') }
     filename { 'asset.jpg' }
     content_type { 'image/jpeg' }
+
+    trait :small do
+      file { Rack::Test::UploadedFile.new('spec/fixtures/files/small-asset.jpg', 'image/jpeg') }
+    end
   end
 end
 

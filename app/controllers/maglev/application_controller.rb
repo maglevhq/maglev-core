@@ -7,12 +7,6 @@ module Maglev
 
     protect_from_forgery with: :exception
 
-    helper_method :services, :use_engine_vite?
-
-    private
-
-    def use_engine_vite?
-      true
-    end
+    helper_method :services
   end
 end

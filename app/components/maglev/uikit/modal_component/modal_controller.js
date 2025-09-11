@@ -44,9 +44,4 @@ export default class extends Controller {
 
     if (this.idValue) history.replaceState(null, null, ' ')
   }
-
-  // TODO: inherit from the Stimulus transition controller and include this behavior
-  resetTransition(event) {
-    event.target.classList.add(...event.target.dataset.transitionLeaveTo.split(' '))
-  }
 }

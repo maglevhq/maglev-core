@@ -42,10 +42,6 @@ module Maglev
       params[:rendering_mode] || super
     end
 
-    def use_engine_vite?
-      false
-    end
-
     def extract_content_locale(&block)
       _, locale = maglev_services.extract_locale.call(params: params, locales: maglev_site.locale_prefixes)
       ::I18n.with_locale(locale, &block)

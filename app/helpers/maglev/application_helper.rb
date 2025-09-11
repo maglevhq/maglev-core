@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-require 'vite_rails/version'
-require 'vite_rails/tag_helpers'
-
 # rubocop:disable Metrics/ModuleLength
 module Maglev
   module ApplicationHelper
@@ -27,6 +24,28 @@ module Maglev
         javascript_importmap_module_preload_tags(Maglev::Engine.importmaps[namespace]),
         javascript_import_module_tag(entry_point)
       ], "\n"
+    end
+
+    def maglev_editor_title
+      case maglev_config.title
+      when nil
+        'Maglev - EDITOR'
+      when String
+        maglev_config.title
+      when Proc
+        instance_exec(maglev_site, &maglev_config.title)
+      end
+    end
+
+    def maglev_editor_logo_url
+      case maglev_config.logo
+      when nil
+        asset_path('maglev/logo.svg')
+      when String
+        asset_path(maglev_config.logo)
+      when Proc
+        instance_exec(maglev_site, &maglev_config.logo)
+      end
     end
 
     def maglev_favicon_url
@@ -118,37 +137,11 @@ module Maglev
       }
     end
 
-    # [DEPRECATED]Vite Rails helpers
-    include ::ViteRails::TagHelpers
-
-    def vite_manifest
-      use_engine_vite? ? maglev_asset_manifest : super
-    end
-
     def maglev_live_preview_client_javascript_tag
       # rubocop:disable Layout/LineLength
       Rails.logger.warn '🚨 maglev_live_preview_client_javascript_tag is deprecated, use maglev_client_javascript_tags instead'
       # rubocop:enable Layout/LineLength
       maglev_client_javascript_tags
-    end
-
-    def legacy_live_preview_client_javascript_tag
-      # no need to render the tag when the site is being visited outside the editor
-      return '' unless maglev_rendering_mode == :editor
-
-      entries = maglev_asset_manifest.resolve_entries(*%w[live-preview-rails-client], type: :javascript)
-
-      javascript_include_tag(
-        *entries.fetch(:scripts).flatten.uniq,
-        crossorigin: 'anonymous',
-        type: 'module',
-        defer: true,
-        nonce: true
-      )
-    end
-
-    def maglev_asset_manifest
-      ::Maglev::Engine.vite_ruby.manifest
     end
   end
 end
