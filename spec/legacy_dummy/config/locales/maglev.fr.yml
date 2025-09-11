@@ -4,7 +4,7 @@ fr:
       simple:
         sections:
           jumbotron: 
-            type: "Jumbotron [FR]"
+            name: "Jumbotron [FR]"
           categories:
             headers:
               name: "En-têtes"
