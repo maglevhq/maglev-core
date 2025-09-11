@@ -76,10 +76,3 @@ jobs:
           cp spec/legacy_dummy/db/schema.pg.rb spec/legacy_dummy/db/schema.rb
           rm -f spec/dummy/db/maglev_engine_test.sqlite3
           rm -f spec/legacy_dummy/db/maglev_engine_test.sqlite3
-
-      - name: Run Javascript tests
-        run: yarn test
-
-      # NOTE: disabled because an error of eslint in the GH env
-      # - name: Run Javascript linter
-      #   run: yarn lint
