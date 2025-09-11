@@ -19,7 +19,6 @@ jobs:
 
     strategy:
       matrix:
-        node: [20, 23]
         gemfile: ["Gemfile.rails_7_2", "Gemfile"]
 
     steps:
@@ -36,20 +35,6 @@ jobs:
       - name: Install ImageMagick 🏞️
         run: |
           sudo apt-get update && sudo apt-get install -y imagemagick
-
-      - name: Enable Corepack before setting up Node
-        run: |
-          corepack enable
-
-      - name: Use Node.js ${{ matrix.node }}
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ matrix.node }}
-          cache: yarn      
-
-      - name: Install packages
-        run: |
-          yarn install
 
       - name: Setup test database
         env:
