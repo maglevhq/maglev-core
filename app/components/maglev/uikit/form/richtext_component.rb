@@ -1,46 +1,54 @@
-class Maglev::Uikit::Form::RichtextComponent < ViewComponent::Base
-  attr_reader :label, :name, :options, :html_options
+# frozen_string_literal: true
 
-  def initialize(label:, name:, options: {}, html_options: {})
-    @label = label
-    @name = name
-    @options = options
-    @html_options = html_options || {}
-  end
+module Maglev
+  module Uikit
+    module Form
+      class RichtextComponent < ViewComponent::Base
+        attr_reader :label, :name, :options, :html_options
 
-  def dom_id
-    name.to_s.parameterize.underscore
-  end
+        def initialize(label:, name:, options: {}, html_options: {})
+          @label = label
+          @name = name
+          @options = options
+          @html_options = html_options || {}
+        end
 
-  def value
-    options[:value]
-  end
+        def dom_id
+          name.to_s.parameterize.underscore
+        end
 
-  def number_of_rows
-    options[:rows] || 4
-  end
+        def value
+          options[:value]
+        end
 
-  def line_break?
-    options[:line_break] || false
-  end
+        def number_of_rows
+          options[:rows] || 4
+        end
 
-  def edit_link_path
-    options[:edit_link_path]
-  end
+        def line_break?
+          options[:line_break] || false
+        end
 
-  def placeholder
-    options[:placeholder]
-  end
+        def edit_link_path
+          options[:edit_link_path]
+        end
 
-  def label_name
-    options[:label_name]
-  end
+        def placeholder
+          options[:placeholder]
+        end
 
-  def error
-    options[:error]
-  end
+        def label_name
+          options[:label_name]
+        end
 
-  def build_data_action(actions)
-    [html_options.dig(:data, :action), actions].compact.join(' ')
+        def error
+          options[:error]
+        end
+
+        def build_data_action(actions)
+          [html_options.dig(:data, :action), actions].compact.join(' ')
+        end
+      end
+    end
   end
 end

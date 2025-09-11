@@ -10,8 +10,8 @@ module Maglev
                    label: 'Label',
                    name: 'name',
                    options: {
-                    placeholder: 'Please write something...'
-                   },
+                     placeholder: 'Please write something...'
+                   }
                  ))
         end
 
@@ -20,8 +20,8 @@ module Maglev
                    label: 'Label',
                    name: 'name',
                    options: {
-                    value: 'Lorem ipsum dolor sit amet'
-                   },
+                     value: 'Lorem ipsum dolor sit amet'
+                   }
                  ))
         end
 
@@ -30,9 +30,9 @@ module Maglev
                    label: 'Label',
                    name: 'name',
                    options: {
-                    value: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.',
-                    error: 'Error'
-                   },                   
+                     value: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.',
+                     error: 'Error'
+                   }
                  ))
         end
 

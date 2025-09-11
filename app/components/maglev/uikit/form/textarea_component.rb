@@ -4,33 +4,19 @@ module Maglev
   module Uikit
     module Form
       class TextareaComponent < ViewComponent::Base
-        attr_reader :label, :name, :options, :html_options
+        attr_reader :label, :name, :options, :input_data, :html_options
 
         # options: { value: nil, rows: 2, max_length: nil }
         def initialize(label:, name:, options: {}, html_options: {})
           @label = label
           @name = name
           @options = options
-          @html_options = html_options          
+          @input_data = html_options.delete(:data) || {}
+          @html_options = html_options
         end
 
         def dom_id
           name.to_s.parameterize.underscore
-        end
-
-        def input_html_attributes
-          helpers.tag.attributes(
-            id: dom_id,
-            name: name,
-            autocomplete: 'off',
-            placeholder: placeholder,
-            rows: rows,
-            data: {
-              'max-length-target': 'input',
-              **html_options.delete(:data) || {}
-            },
-            **html_options
-          )
         end
 
         def placeholder

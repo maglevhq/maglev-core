@@ -1,10 +1,19 @@
-class Maglev::Uikit::Form::Richtext::ToolbarComponent < ViewComponent::Base
-  
-  def initialize(line_break: false  )
-    @line_break = line_break
-  end
+# frozen_string_literal: true
 
-  def line_break?
-    @line_break
+module Maglev
+  module Uikit
+    module Form
+      module Richtext
+        class ToolbarComponent < ViewComponent::Base
+          def initialize(line_break: false)
+            @line_break = line_break
+          end
+
+          def line_break?
+            @line_break
+          end
+        end
+      end
+    end
   end
 end

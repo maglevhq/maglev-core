@@ -28,7 +28,7 @@ module Maglev
           klass = klass_or_proc.is_a?(Proc) ? klass_or_proc.call(setting) : klass_or_proc
 
           klass = Maglev::Inputs::InputBaseComponent if klass.nil?
-          
+
           klass.new(
             setting: setting,
             value: value_of(setting.id),
