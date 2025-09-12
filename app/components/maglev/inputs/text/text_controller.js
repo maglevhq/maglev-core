@@ -10,14 +10,11 @@ export default class extends Controller {
     }, 0)
   }
 
-  onKeyUp(event) {
-    // we can't use this.dispatchEvent because we want a generic type name for all the inputs
-    this.dispatchSettingChange(event.target.value)    
-  }
-
   onChange(event) {
     console.log('onChange', event)
-    this.dispatchSettingChange(event.detail.content)
+    const content = event.detail?.content ?? event.target.value
+    // we can't use this.dispatchEvent because we want a generic type name for all the inputs
+    this.dispatchSettingChange(content)
   }
   
   dispatchSettingChange(value) {

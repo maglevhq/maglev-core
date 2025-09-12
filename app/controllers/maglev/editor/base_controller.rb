@@ -77,7 +77,7 @@ module Maglev
         {
           locale: locale || ::Maglev::I18n.current_locale,
           page_id: page || current_maglev_page
-        }
+        }.compact_blank
       end
 
       def maglev_disable_turbo_cache

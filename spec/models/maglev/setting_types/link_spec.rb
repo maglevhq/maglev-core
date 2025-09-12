@@ -36,7 +36,9 @@ describe Maglev::SettingTypes::Link do
     end
 
     describe 'value is a hash' do
-      let(:value) { { text: 'Hello' } }
+      # rubocop:disable Style/StringHashKeys
+      let(:value) { { 'text' => 'Hello' } }
+      # rubocop:enable Style/StringHashKeys
       it { is_expected.to eq 'Hello' }
     end
   end

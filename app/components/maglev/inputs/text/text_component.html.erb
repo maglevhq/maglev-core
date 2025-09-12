@@ -12,7 +12,7 @@
     html_options: {
       data: { 
         'editor-text-input-target': 'input',
-        action: 'keyup->editor-text-input#onKeyUp' 
+        action: 'input->editor-text-input#onChange compositionstart->editor-text-input#onChange' 
       }
     }
   ) %>

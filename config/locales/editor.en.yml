@@ -186,6 +186,7 @@ en:
       form:
         link:
           placeholder: "Please click to select a link"
+          text_placeholder: "Enter the text of the link"
       links:
         edit:
           title: "Select a link"

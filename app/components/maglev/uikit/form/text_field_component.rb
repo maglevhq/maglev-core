@@ -15,17 +15,6 @@ module Maglev
           @html_options = html_options
         end
 
-        def input_html_attributes
-          helpers.tag.attributes(
-            id: dom_id,
-            name: name,
-            autocomplete: 'off',
-            placeholder: placeholder,
-            value: value,
-            **html_options
-          )
-        end
-
         def dom_id
           name.to_s.parameterize.underscore
         end

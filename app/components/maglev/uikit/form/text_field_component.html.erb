@@ -5,8 +5,13 @@
       <span class="text-red-700 bg-red-100 text-xs py-1 px-3 rounded"><%= error %></span>
     <% end %>
   </label>
-  <input 
-    <%= input_html_attributes %>
-    class="block py-2 px-3 rounded bg-gray-100 text-gray-800 focus:outline-none focus:ring focus:ring-inset focus:ring-2 focus:ring-editor-primary/50 placeholder-gray-500"
-  />
+  <%= tag.input(
+    name: name,
+    value: value,
+    type: 'text',
+    placeholder: placeholder,
+    autocomplete: 'off',
+    class: 'block py-2 px-3 rounded bg-gray-100 text-gray-800 focus:outline-none focus:ring focus:ring-inset focus:ring-2 focus:ring-editor-primary/50 placeholder-gray-500',
+    **html_options
+  ) %>
 </div>

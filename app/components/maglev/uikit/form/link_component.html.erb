@@ -22,15 +22,15 @@
   <div class="space-y-2 mt-2">
     <% if with_text? %>
       <div class="space-y-1 flex flex-col">
-        <input 
-          name="<%= link_text[:name] %>"
-          value="<%= link_text[:value] %>"
-          type="text" 
-          placeholder="<%= link_text[:placeholder] %>"
-          autocomplete="off" 
-          class="block py-2 px-3 rounded bg-gray-100 text-gray-800 focus:outline-none focus:ring focus:ring-inset focus:ring-2 focus:ring-editor-primary/50 placeholder-gray-500"
-          data-action="keyup->uikit-form-link#textChange"
-        >
+        <%= tag.input(
+          name: link_text[:name],
+          value: link_text[:value],
+          type: 'text',
+          placeholder: link_text[:placeholder],
+          autocomplete: 'off',
+          class: 'block py-2 px-3 rounded bg-gray-100 text-gray-800 focus:outline-none focus:ring focus:ring-inset focus:ring-2 focus:ring-editor-primary/50 placeholder-gray-500',
+          data: { action: 'input->uikit-form-link#textChange' }
+        ) %>
       </div>
     <% end %>
     

@@ -11,7 +11,7 @@ class Maglev::SettingTypes::Link < Maglev::SettingTypes::Base
   end
 
   def content_label(value)
-    value&.fetch(:text, nil)
+    value&.fetch('text', nil)
   end
 end
 # rubocop:enable Style/ClassAndModuleChildren
