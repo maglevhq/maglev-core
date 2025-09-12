@@ -19,7 +19,7 @@ module Maglev
         return unless params[:refresh] == '1' || !@link.valid?
 
         flash.now[:error] = flash_t(:error) unless @link.valid?
-        render :edit, status: :unprocessable_entity
+        render :edit, status: :unprocessable_content
       end
 
       private

@@ -7,6 +7,7 @@ module Maglev
 
       default_form_builder Maglev::Form::FormBuilder
 
+      include Maglev::AuthenticationConcern
       include Maglev::UserInterfaceLocaleConcern
       include Maglev::ContentLocaleConcern
       include Maglev::ServicesConcern

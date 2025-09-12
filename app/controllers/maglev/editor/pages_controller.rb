@@ -26,12 +26,12 @@ module Maglev
       end
 
       def create
-        @page = maglev_page_resources.build(page_params)
+        @page = build_page_resource
         if @page.save
           redirect_to editor_real_root_path(maglev_editing_route_context(page: @page)), status: :see_other
         else
           flash.now[:error] = flash_t(:error)
-          render :new, status: :unprocessable_entity
+          render :new, status: :unprocessable_content
         end
       end
 
@@ -42,7 +42,7 @@ module Maglev
                       notice: flash_t(:success), status: :see_other
         else
           flash.now[:error] = flash_t(:error)
-          render :edit, status: :unprocessable_entity
+          render :edit, status: :unprocessable_content
         end
       end
 
@@ -66,6 +66,10 @@ module Maglev
 
       def query_params(from_list: false)
         { q: params[:q], from_list: params[:from_list] || from_list }.compact_blank
+      end
+
+      def build_page_resource
+        maglev_page_resources.build(page_params)
       end
     end
   end

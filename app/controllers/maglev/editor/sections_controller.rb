@@ -57,7 +57,7 @@ module Maglev
 
       def render_index_with_error
         flash.now[:error] = flash_t(:error)
-        render 'index', status: :unprocessable_entity
+        render 'index', status: :unprocessable_content
       end
 
       def set_section

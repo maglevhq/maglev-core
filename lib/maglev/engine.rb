@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'turbo-rails'
+require 'importmap-rails'
 require 'maglev/migration'
 
 module Maglev
