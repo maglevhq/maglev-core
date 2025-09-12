@@ -13,6 +13,7 @@ import SectionToolbarController from "uikit-controllers/section_toolbar/section_
 import ComboboxController from "uikit-controllers/form/combobox_controller"
 import LinkController from "uikit-controllers/form/link_controller"
 import RichtextController from "uikit-controllers/form/richtext_controller"
+import ColorFieldController from "uikit-controllers/form/color_field_controller"
 
 application.register("uikit-dropdown", DropdownController)
 application.register("uikit-tabs", TabsController)
@@ -20,10 +21,11 @@ application.register("uikit-device-toggler", DeviceTogglerController)
 application.register("uikit-modal", ModalController)
 application.register("uikit-search-form", SearchFormController)
 application.register("uikit-image-library-uploader", ImageLibraryUploaderController)
-application.register("uikit-form-image-field", ImageFieldController)
 application.register("uikit-collapsible", CollapsibleController)
 application.register("uikit-page-layout", PageLayoutController)
 application.register("uikit-section-toolbar", SectionToolbarController)
+application.register("uikit-form-image-field", ImageFieldController)
 application.register("uikit-form-combobox", ComboboxController)
 application.register("uikit-form-link", LinkController)
 application.register("uikit-form-richtext", RichtextController)
+application.register("uikit-form-color-field", ColorFieldController)
