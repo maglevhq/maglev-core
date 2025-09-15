@@ -1,10 +1,12 @@
 <div 
   class="flex flex-col" 
   <% if max_length? %>
-  data-controller="max-length"
+  data-controller="uikit-form-text-field max-length"
   data-max-length-threshold-value="<%= max_length %>"
   data-max-length-threshold-class-value="text-red-600"
   data-max-length-default-class-value="text-gray-600"
+  <% else %>
+  data-controller="uikit-form-text-field"
   <% end %>
 >
   <label for="<%= dom_id %>" class="block font-semibold text-gray-800 flex justify-between items-center">
@@ -29,7 +31,13 @@
     rows: rows,
     data: {
       'max-length-target': 'input',
+      'uikit-form-text-field-target': 'input',
+      action: [
+        'input->uikit-form-text-field#change',
+        **input_action
+      ].join(' '),      
       **input_data
     },
-    **html_options %>
+    **html_options
+  %>
 </div>

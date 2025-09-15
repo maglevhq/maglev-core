@@ -77,7 +77,7 @@ export default class extends Controller {
       onUpdate: ({ editor }) => {
         const content = this.getHTML(editor)
         this.hiddenInputTarget.value = content
-        this.dispatch('onUpdate', { detail: { content } })
+        this.dispatch('change', { detail: { value:content } })
       }
     })
     this.toggleBlockButtonState()

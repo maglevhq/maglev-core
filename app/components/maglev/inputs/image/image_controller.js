@@ -56,7 +56,7 @@ export default class extends Controller {
         this.element.querySelector('[data-controller=uikit-form-image-field]'),
         'uikit-form-image-field'
       )
-      if (imageFieldController) imageFieldController.openPicker()      
+      if (imageFieldController) imageFieldController.openPicker() 
     }
   }
 }

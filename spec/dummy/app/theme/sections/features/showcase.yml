@@ -27,6 +27,11 @@ settings:
     value: option_1
   - label: Option 2
     value: option_2
+
+- label: "[TEST] checkbox"
+  id: my_checkbox
+  type: checkbox
+  default: false
   
 # Definition of the blocks.
 # You can define as many types of blocks as you want.

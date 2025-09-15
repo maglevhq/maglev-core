@@ -30,7 +30,7 @@
       autocomplete: 'off',
       minlength: 4,
       maxlength: 8,
-      size: 8,
+      size: 9,
       class: 'block py-2 pl-11 pr-8 rounded bg-gray-100 text-gray-800 focus:outline-none focus:ring focus:ring-inset focus:ring-2 focus:ring-editor-primary/50 placeholder-gray-500',
       data: {
         'uikit-form-color-field-target': 'input',
@@ -41,17 +41,13 @@
     ) %>
 
     <% if presets? %>
-      <div class="absolute top-1.5 right-1">
+      <div class="absolute top-1.5 right-3">
         <%= render Maglev::Uikit::DropdownComponent.new(placement: 'bottom-end') do |dropdown| %>
           <% dropdown.with_trigger do %>
-            <button 
-              type="button" 
-              class="px-1 py-1 hover:text-gray-900 focus:outline-none transition-colors duration-200 cursor-pointer" 
-              data-action="click->uikit-dropdown#toggle" 
-              data-uikit-dropdown-target="button"
-            >
-              <%= render Maglev::Uikit::IconComponent.new(name: 'palette') %>
-            </button>                
+            <%= render Maglev::Uikit::IconButtonComponent.new(
+              icon_name: 'palette', 
+              data: { action: 'click->uikit-dropdown#toggle', 'uikit-dropdown-target': 'button' }
+            ) %>            
           <% end %>
                   
           <div class="flex flex-row flex-wrap gap-2">

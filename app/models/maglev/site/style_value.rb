@@ -11,18 +11,29 @@ class Maglev::Site::StyleValue
     @value = value
   end
 
-  class Store
-    extend Forwardable
-    def_delegators :@array, :all, :first, :last, :count, :each, :each_with_index, :map, :group_by
+  class AssociationProxy
+    include Enumerable
 
-    attr_reader :array
+    attr_reader :style_values
 
-    def initialize(array)
-      @array = array
+    def initialize(values)
+      @style_values = values
+    end
+
+    def [](id)
+      style_values.find { |setting| setting.id == id }
+    end
+
+    def each(&block)
+      style_values.each(&block)
+    end
+
+    def value_of(id)
+      self[id]&.value
     end
 
     def method_missing(method_name, *_args)
-      setting = array.find { |local_setting| local_setting.id == method_name.to_s }
+      setting = self[method_name.to_s]
       if setting
         setting.value
       else
@@ -31,12 +42,7 @@ class Maglev::Site::StyleValue
     end
 
     def respond_to_missing?(method_name, include_private = false)
-      Rails.logger.debug 'yeasss!!!'
-      array.map(&:id).include?(method_name.to_s) || super
-    end
-
-    def as_json(**_options)
-      @array.as_json
+      style_values.map(&:id).include?(method_name.to_s) || super
     end
   end
 end

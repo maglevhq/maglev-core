@@ -20,5 +20,6 @@ export default class extends Controller {
     if (!color.startsWith('#')) color = `#${color}`
     this.inputTarget.value = color
     this.previewTarget.style.backgroundColor = color
+    this.dispatch('change', { detail: { value: color } })
   }
 }

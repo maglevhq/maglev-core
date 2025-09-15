@@ -4,7 +4,7 @@ module Maglev
   module Inputs
     module Image
       class ImageComponent < Maglev::Inputs::InputBaseComponent
-        def initialize(setting:, value:, scope:, i18n_scope:)
+        def initialize(definition:, value:, scope:, i18n_scope:)
           super
           @value = value&.with_indifferent_access
         end

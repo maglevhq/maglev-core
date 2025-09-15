@@ -27,6 +27,7 @@ module Maglev
     validates :name, presence: true
 
     ## methods ##
+
     def api_attributes
       %i[id name]
     end

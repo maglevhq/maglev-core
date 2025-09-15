@@ -1,9 +1,12 @@
 <%= tag.div(
   data: {
-    controller: 'editor-text-input',
-    'editor-text-input-setting-id-value': setting.id,
+    controller: 'editor-input',
+    'editor-input-setting-id-value': definition.id,
+    'editor-input-setting-type-value': definition.type,
+    'editor-input-core-controller-name-value': 'uikit-form-richtext',
     action: %(
-      hashchange@window->editor-text-input#focus
+      hashchange@window->editor-input#focus
+      uikit-form-richtext:change->editor-input#change
     )
   }
 ) do %>
@@ -12,16 +15,8 @@
     name: input_name,
     options: {
       value: value,
-      line_break: setting.options[:line_break],
+      line_break: definition.options[:line_break],
       edit_link_path: helpers.edit_editor_link_path
-    },
-    html_options: {
-      data: { 
-        action: %(
-          uikit-form-richtext:onUpdate->editor-text-input#onChange
-          editor-text-input:focus@window->uikit-form-richtext#focus
-        )
-      }
     }
   ) %>
 <% end %>

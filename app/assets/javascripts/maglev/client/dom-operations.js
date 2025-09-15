@@ -112,10 +112,9 @@ const updateSetting = (event) => {
 }
 
 const updateStyle = async (event) => {
-  const { content, style } = event.detail
+  const { style } = event.detail
 
   const doc = await getUpdatedDoc({
-    pageSections: JSON.stringify(content.pageSections),
     style: JSON.stringify(style),
   })
 
@@ -156,6 +155,7 @@ const legacyUpdateSetting = (source, change) => {
 }
 
 const updateTextSetting = (sourceId, change) => {
+  console.log('[DOM Operations] updateTextSetting', sourceId, change)
   const selector = `[data-maglev-id='${sourceId}.${change.settingId}']`
   const settings = previewDocument.querySelectorAll(selector)
   settings.forEach(($el) => ($el.innerHTML = change.value))

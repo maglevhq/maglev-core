@@ -14,6 +14,15 @@
 ) %>
 
 <% sidebar.with_link(
+  path: edit_editor_style_path(maglev_editing_route_context), 
+  icon: 'drop',
+  active: controller_name == 'style',
+  options: {
+    icon_size: '1.25rem'
+  }
+) if maglev_theme.style? %>
+
+<% sidebar.with_link(
   path: editor_assets_path, 
   icon: 'image',
   options: {

@@ -30,6 +30,10 @@ module Maglev
       section_setting_types[key]
     end
 
+    def style?
+      style_settings.present?
+    end
+
     private
 
     def section_setting_types

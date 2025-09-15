@@ -1,0 +1,18 @@
+<%= render Maglev::Uikit::PageLayoutComponent.new(back_path: editor_root_path(maglev_editing_route_context)) do |page_layout| %>
+  <% page_layout.with_title_content t('maglev.editor.style.edit.title') %>
+  <% page_layout.with_notification_content maglev_flash_message %>
+
+  <%= render Maglev::Inputs::Forms::StyleFormComponent.new(
+    values: @style,
+    theme: maglev_theme,
+    path: editor_style_path(**maglev_editing_route_context),
+  ) %>
+
+  <% page_layout.with_footer do %>
+    <%= submit_tag t('maglev.editor.style.edit.submit_button.default'), 
+      form: 'editor-style-form',
+      class: maglev_button_classes(color: :primary, size: :big),
+      data: { turbo_submits_with:  t('maglev.editor.style.edit.submit_button.in_progress') }
+    %>
+  <% end %>
+<% end %>

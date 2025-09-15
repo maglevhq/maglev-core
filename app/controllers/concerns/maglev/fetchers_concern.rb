@@ -116,10 +116,7 @@ module Maglev
     end
 
     def maglev_style
-      maglev_services.fetch_style.call(
-        site: maglev_site,
-        theme: maglev_theme
-      )
+      maglev_services.fetch_style.call
     end
   end
 end

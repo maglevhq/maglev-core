@@ -1,6 +1,26 @@
+<%= tag.div(
+  data: {
+    controller: "editor-input",
+    editor_input_setting_id_value: definition.id,
+    editor_input_setting_type_value: definition.type,
+    editor_input_core_controller_name_value: "uikit-form-text-field",
+    action: %(
+      uikit-form-text-field:change->editor-input#change
+      hashchange@window->editor-input#focus
+    )
+  }
+) do %>
+  <%= render Maglev::Uikit::Form::TextFieldComponent.new(
+    label: label,
+    name: input_name,
+    options: { value: value },   
+  ) %>
+<% end %>
+
+<% if false %>
 <div 
   data-controller="editor-text-input" 
-  data-editor-text-input-setting-id-value="<%= setting.id %>"
+  data-editor-text-input-setting-id-value="<%= definition.id %>"
   data-action="hashchange@window->editor-text-input#focus"
 >
   <%= render Maglev::Uikit::Form::TextFieldComponent.new(
@@ -17,3 +37,4 @@
     }
   ) %>
 </div>
+<% end %>

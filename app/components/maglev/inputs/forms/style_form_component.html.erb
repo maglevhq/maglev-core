@@ -1,0 +1,17 @@
+<%= form_with url: path, 
+  method: :put, 
+  id: 'editor-style-form',
+  data: {    
+    controller: 'editor-style-form',
+    'editor-style-form-style-value': values,
+    action: %(
+      editor-input:change->editor-style-form#update
+      editor-style-form:onUpdate->editor-preview-notification-center#updateStyle
+    )
+  } do %>
+  <div class="grid grid-cols-1 gap-4">
+    <% definitions.each do |definition| %>
+      <%= render input_instance_for(definition) %>      
+    <% end %>
+  </div>
+<% end %>

@@ -4,7 +4,7 @@ module Maglev
   module Uikit
     module Form
       class TextFieldComponent < ViewComponent::Base
-        attr_reader :label, :name, :options, :html_options
+        attr_reader :label, :name, :options, :input_data, :input_action, :html_options
 
         # options: { value: nil, placeholder: nil, error: nil }
         # html_options: { data: { attribute: 'value' } }
@@ -13,6 +13,8 @@ module Maglev
           @name = name
           @options = options
           @html_options = html_options
+          @input_data = html_options.delete(:data) || {}
+          @input_action = input_data.delete(:action)
         end
 
         def dom_id

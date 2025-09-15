@@ -12,20 +12,17 @@ export default class extends Controller {
   }
 
   onSettingChange(event) {
-    console.log('onSettingChange', this.sourceId , event.detail)
+    console.log('[SectionForm][onSettingChange]', this.sourceId , event.detail)
+    const { detail: { settingType, settingId, value } } = event
     this.dispatch('updateSetting', { detail: {
         sourceId: this.sourceId,
-        change: {
-          settingType: event.detail.type,
-          settingId: event.detail.id,
-          value: event.detail.value
-        }
+        change: { settingType, settingId, value }
       }
     })
   }
 
   async afterSettingUpdate(event) {
-    console.log('afterSettingUpdate 🙌🙌', event.detail)
+    console.log('[SectionForm][afterSettingUpdate] 🙌🙌', event.detail)
     await this.element.requestSubmit()
     
     if (!event.detail.updated) {

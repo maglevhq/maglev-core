@@ -3,11 +3,13 @@
 require 'rails_helper'
 
 describe Maglev::FetchStyle do
-  subject { service.call(site: site, theme: theme) }
-
   let!(:site) { create(:site) }
   let!(:theme) { build(:theme) }
-  let(:service) { described_class.new }
+  let(:fetch_site) { instance_double('FetchSite', call: site) }
+  let(:fetch_theme) { instance_double('FetchTheme', call: theme) }
+  let(:service) { described_class.new(fetch_site: fetch_site, fetch_theme: fetch_theme) }
+  
+  subject { service.call }
 
   context 'the site has no style settings' do
     it 'uses the default values from the theme' do

@@ -14,7 +14,7 @@ module Maglev
     dependency :fetch_site,                 class: Maglev::FetchSite, depends_on: %i[config context]
     dependency :fetch_theme,                class: Maglev::FetchTheme, depends_on: %i[fetch_site context]
     dependency :fetch_theme_layout,         class: Maglev::FetchThemeLayout, depends_on: %i[fetch_theme]
-    dependency :fetch_style,                class: Maglev::FetchStyle
+    dependency :fetch_style,                class: Maglev::FetchStyle, depends_on: %i[fetch_site fetch_theme]
     dependency :fetch_sections_path,        class: Maglev::FetchSectionsPath, depends_on: :fetch_theme
     dependency :fetch_section_screenshot_path, class: Maglev::FetchSectionScreenshotPath,
                                                depends_on: :fetch_sections_path
@@ -43,6 +43,8 @@ module Maglev
     dependency :get_page_section_names,     class: Maglev::GetPageSectionNames, depends_on: :fetch_theme
     dependency :clone_page,                 class: Maglev::ClonePage, depends_on: :fetch_site
     dependency :persist_page,               class: Maglev::PersistPage, depends_on: %i[fetch_theme]
+
+    dependency :persist_style,              class: Maglev::PersistStyleService, depends_on: %i[fetch_site fetch_theme]
 
     dependency :add_section,                class: Maglev::Content::AddSectionService, depends_on: %i[fetch_theme]
     dependency :update_section,             class: Maglev::Content::UpdateSectionService,

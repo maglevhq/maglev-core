@@ -1,11 +1,10 @@
 <%= tag.div(
   data: {
-    controller: "editor-link-input",
-    'editor-link-input-setting-id-value': setting.id,
+    controller: "editor-input",
+    'editor-input-setting-id-value': definition.id,
+    'editor-input-setting-type-value': definition.type,
     action: %(
-      uikit-form-link:link-selected->editor-link-input#onLinkSelected
-      uikit-form-link:link-cleared->editor-link-input#onLinkCleared
-      uikit-form-link:link-text-changed->editor-link-input#onLinkTextChanged
+      uikit-form-link:change->editor-input#change      
     )
   }
 ) do %>
@@ -15,7 +14,7 @@
     options: {
       label: label,
       value: value,
-      with_text: setting.options[:with_text]
+      with_text: definition.options[:with_text]
     }
   ) %>
 <% end %>

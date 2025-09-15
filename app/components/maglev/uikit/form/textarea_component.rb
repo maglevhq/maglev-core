@@ -4,7 +4,7 @@ module Maglev
   module Uikit
     module Form
       class TextareaComponent < ViewComponent::Base
-        attr_reader :label, :name, :options, :input_data, :html_options
+        attr_reader :label, :name, :options, :input_data, :input_action, :html_options
 
         # options: { value: nil, rows: 2, max_length: nil }
         def initialize(label:, name:, options: {}, html_options: {})
@@ -12,6 +12,7 @@ module Maglev
           @name = name
           @options = options
           @input_data = html_options.delete(:data) || {}
+          @input_action = input_data.delete(:action)
           @html_options = html_options
         end
 

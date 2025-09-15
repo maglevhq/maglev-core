@@ -248,6 +248,10 @@ en:
         links:
           update:
             error: "Error(s) found"
+        style:
+          update:
+            success: "Updated!"
+            error: "Failed!"
         assets:
           create:
             success:

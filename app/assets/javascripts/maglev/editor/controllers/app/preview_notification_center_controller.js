@@ -19,7 +19,7 @@ export default class extends Controller {
 
   // called by the iframe when the user clicks on a setting of a section or a section block
   editSection(event) {
-    console.log('📨 editSection', event)
+    console.log('[PreviewNotificationCenter][editSection]', event.detail)
     const { sectionId, sectionBlockId, settingId } = event.detail
     const pathTemplate = sectionBlockId ? this.sectionBlockPathValue : this.sectionPathValue
     const path = `${pathTemplate}#${settingId}`.replace(':section_id', sectionId).replace(':section_block_id', sectionBlockId)
@@ -84,6 +84,13 @@ export default class extends Controller {
   updateSetting(event) {
     const { sourceId, change } = event.detail
     this.postMessage('setting:update', { sourceId, change })
+  }
+
+  // === STYLE ===
+
+  updateStyle(event) {
+    const { style } = event.detail
+    this.postMessage('style:update', { style })
   }
   
   // === UTILS ===

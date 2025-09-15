@@ -33,7 +33,7 @@ class Maglev::Theme::StyleSetting
     attributes = hash.slice('id', 'label', 'type', 'default')
     options = hash.except('id', 'label', 'type', 'default')
 
-    new(attributes.merge(options: options))
+    new(attributes.merge(options: options.with_indifferent_access))
   end
 
   def self.build_many(list)

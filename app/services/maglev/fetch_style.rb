@@ -5,34 +5,44 @@ module Maglev
   class FetchStyle
     include Injectable
 
-    argument :site
-    argument :theme
+    dependency :fetch_site
+    dependency :fetch_theme
 
     def call
-      Maglev::Site::StyleValue::Store.new(
+      Maglev::Site::StyleValue::AssociationProxy.new(
         build_style_value_list
       )
     end
 
     protected
 
+    def site
+      @site ||= fetch_site.call
+    end
+
+    def theme
+      @theme ||= fetch_theme.call
+    end
+
     def build_style_value_list
-      theme.style_settings.map do |setting|
-        build_style_value(setting)
+      theme.style_settings.map do |definition|
+        build_style_value(definition)
       end
     end
 
-    def build_style_value(setting)
+    def build_style_value(definition)
       Maglev::Site::StyleValue.new(
-        setting.id,
-        setting.type,
-        custom_value(setting)
+        definition.id,
+        definition.type,
+        custom_value(definition)
       )
     end
 
-    def custom_value(setting)
-      value = site.style.find { |local_value| local_value['id'] == setting.id }
-      value && value['type'] == setting.type ? value['value'] : setting.default
+    def custom_value(definition)
+      value = site.style.find do |local_value| 
+        local_value['id'] == definition.id && local_value['type'] == definition.type
+      end
+      value ? value['value'] : definition.default
     end
   end
 end
