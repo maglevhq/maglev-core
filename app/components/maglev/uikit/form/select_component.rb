@@ -4,7 +4,7 @@ module Maglev
   module Uikit
     module Form
       class SelectComponent < ViewComponent::Base
-        attr_reader :label, :name, :choices, :options, :html_options
+        attr_reader :label, :name, :choices, :options, :html_options, :input_data, :input_action
 
         def initialize(label:, name:, choices:, options: {}, html_options: {})
           @label = label
@@ -12,6 +12,8 @@ module Maglev
           @choices = choices
           @options = options
           @html_options = html_options
+          @input_data = html_options.delete(:data) || {}
+          @input_action = input_data.delete(:action)
         end
 
         def dom_id
@@ -26,7 +28,14 @@ module Maglev
           {
             id: dom_id,
             value: options[:value],
-            **options.slice(:multiple, :disabled, :include_blank, :prompt, :data)
+            **options.slice(:multiple, :disabled, :include_blank, :prompt),
+            data: {
+              action: [
+                'change->uikit-form-select#change',
+                **input_action
+              ].join(' '),
+              **input_data
+            }
           }
         end
 

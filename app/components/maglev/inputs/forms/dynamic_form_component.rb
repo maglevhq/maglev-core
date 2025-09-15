@@ -45,7 +45,8 @@ module Maglev
             image: Maglev::Inputs::Image::ImageComponent,
             select: Maglev::Inputs::Select::SelectComponent,
             link: Maglev::Inputs::Link::LinkComponent,
-            color: Maglev::Inputs::Color::ColorComponent
+            color: Maglev::Inputs::Color::ColorComponent,
+            checkbox: Maglev::Inputs::Checkbox::CheckboxComponent
           }
         end
 

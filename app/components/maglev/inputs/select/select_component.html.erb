@@ -1,7 +1,13 @@
-<div 
-  data-controller="editor-select-input" 
-  data-editor-select-input-setting-id-value="<%= definition.id %>"
->
+<%= tag.div(
+  data: {
+    controller: "editor-input",
+    'editor-input-setting-id-value': definition.id,
+    'editor-input-setting-type-value': definition.type,
+    action: %(
+      uikit-form-select:change->editor-input#change
+    )
+  }
+) do %>
   <%= render Maglev::Uikit::Form::SelectComponent.new(
     label: label,
     name: input_name,
@@ -9,7 +15,6 @@
     options: {
       value: value,
       include_blank: true,
-      data: { action: 'change->editor-select-input#onChange' }
     }
   ) %>
-</div>
+<% end %>

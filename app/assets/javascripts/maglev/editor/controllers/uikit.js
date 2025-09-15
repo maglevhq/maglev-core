@@ -15,6 +15,8 @@ import LinkController from "uikit-controllers/form/link_controller"
 import RichtextController from "uikit-controllers/form/richtext_controller"
 import ColorFieldController from "uikit-controllers/form/color_field_controller"
 import TextFieldController from "uikit-controllers/form/text_field_controller"
+import SelectController from "uikit-controllers/form/select_controller"
+import CheckboxController from "uikit-controllers/form/checkbox_controller"
 
 application.register("uikit-dropdown", DropdownController)
 application.register("uikit-tabs", TabsController)
@@ -31,3 +33,5 @@ application.register("uikit-form-combobox", ComboboxController)
 application.register("uikit-form-link", LinkController)
 application.register("uikit-form-richtext", RichtextController)
 application.register("uikit-form-color-field", ColorFieldController)
+application.register("uikit-form-select", SelectController)
+application.register("uikit-form-checkbox", CheckboxController)

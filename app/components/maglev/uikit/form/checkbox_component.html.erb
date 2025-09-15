@@ -1,4 +1,4 @@
-<div>
+<div data-controller="uikit-form-checkbox">
   <label for="<%= dom_id %>" class="flex items-center cursor-pointer">
     <div class="font-semibold text-gray-800">
       <%= label %>
@@ -6,7 +6,7 @@
     <div class="ml-auto group relative inline-flex w-10 shrink-0 rounded-full bg-gray-200 p-0.5 inset-ring inset-ring-gray-900/5 outline-offset-2 outline-editor-primary transition-colors duration-200 ease-in-out has-checked:bg-editor-primary has-focus-visible:outline-2">
       <span class="size-5 rounded-full bg-white shadow-xs ring-1 ring-gray-900/5 transition-transform duration-200 ease-in-out group-has-checked:translate-x-4"></span>
       <%= hidden_field_tag name, '0', { id: "#{dom_id}_hidden" } %>
-      <%= check_box_tag name, '1', checked?, class: 'absolute inset-0 appearance-none focus:outline-hidden cursor-pointer', aria: { label: label } %>
+      <%= check_box_tag name, '1', checked?, class: 'absolute inset-0 appearance-none focus:outline-hidden cursor-pointer', aria: { label: label }, data: { action: 'change->uikit-form-checkbox#change' } %>
     </div>
   </label>
   <% if placeholder.present? %>
