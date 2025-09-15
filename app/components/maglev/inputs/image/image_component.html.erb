@@ -1,33 +1,30 @@
-<div 
-  data-controller="editor-image-input"
-  data-editor-image-input-setting-id-value="<%= definition.id %>"
-  data-action="
-    dispatcher:image-selected-<%= image_source %>@window->editor-image-input#onImageSelected
-    uikit-form-image-field:image-cleared-<%= image_source %>@window->editor-image-input#onImageCleared
-    hashchange@window->editor-image-input#focus
-  "
->
-  <% %w(id width height byte_size).each do |key| %>
-    <%= hidden_field_tag input_names[key.to_sym], value&.fetch(key.to_sym, nil), data: { editor_image_input_target: key.camelize(:lower) } %>
-  <% end %>
-  
-  <%= render Maglev::Uikit::Form::ImageFieldComponent.new(
-    label: label,
-    name: input_names[:url],
-    value: value&.fetch(:url, nil),
-    alt_text: {
-      name: input_names[:alt_text],
-      value: value&.fetch(:alt_text, nil),
-      placeholder: t('maglev.editor.image_input.alt_text_placeholder'),
-      html_options: {
-        data: {
-          action: 'keyup->editor-image-input#altTextChange'
-        }
-      }
-    },
+<%= tag.div(
+  data: {
+    controller: 'editor-input',
+    editor_input_setting_id_value: definition.id,
+    editor_input_setting_type_value: definition.type,
+    editor_input_core_controller_name_value: 'uikit-form-image-field',
+    action: %(
+      uikit-form-image-field:change->editor-input#change
+      hashchange@window->editor-input#focus
+    )
+  }
+) do %>
+  <%= render Maglev::Uikit::Form::ImageFieldComponent.new(    
+    name: input_name,
     search_path: helpers.editor_assets_path({ 
       picker: true, 
       source: image_source
-    })
+    }),
+    options: {
+      label: label,
+      value: value,
+      extra_fields: true
+    },    
+    alt_text: {
+      name: alt_text_input_name,
+      value: value&.fetch(:alt_text, nil),
+      placeholder: t('maglev.editor.image_input.alt_text_placeholder'),
+    }    
   ) %>
-</div>
+<% end %>

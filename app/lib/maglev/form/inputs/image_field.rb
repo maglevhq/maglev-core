@@ -8,15 +8,22 @@ module Maglev
           attributes = field_attributes(method)
 
           @template.render(Maglev::Uikit::Form::ImageFieldComponent.new(
-                             label: options[:label].presence || attributes[:content],
                              name: attributes[:name],
-                             value: object.public_send(method),
-                             alt_text: options[:alt_text],
-                             search_path: image_search_path(attributes, options)
+                             search_path: image_search_path(attributes, options),
+                             options: image_field_options(method, attributes, options),
+                             alt_text: options[:alt_text]
                            ))
         end
 
         protected
+
+        def image_field_options(method, attributes, options)
+          {
+            label: options[:label].presence || attributes[:content],
+            value: object.public_send(method),
+            extra_fields: options[:extra_fields] || false
+          }
+        end
 
         def image_search_path(attributes, options)
           if options[:search_path].is_a?(Proc)

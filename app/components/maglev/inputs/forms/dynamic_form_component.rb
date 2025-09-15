@@ -14,14 +14,13 @@ module Maglev
           @path = path
         end
 
-        def value_of(setting_id)
+        def value_of(_setting_id)
           raise Maglev::Errors::NotImplemented
         end
 
         def input_scope
           raise Maglev::Errors::NotImplemented
         end
-
 
         def input_instance_for(definition)
           klass_or_proc = input_klasses_map.fetch(definition.type.to_sym, nil)

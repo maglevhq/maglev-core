@@ -11,7 +11,7 @@ settings:
   id: title
   type: text
   default: "Title"
-  nb_rows: 5
+  # nb_rows: 5
   # html: true
   # line_break: true
   

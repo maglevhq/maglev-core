@@ -28,7 +28,7 @@ module Maglev
           {
             id: id,
             filename: filename,
-            image_url: image_url,
+            url: image_url,
             width: width,
             height: height,
             byte_size: byte_size

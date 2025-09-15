@@ -19,11 +19,11 @@ Maglev::Engine.routes.draw do
     # always keep the scope of the current page and locale in the url
     scope ':locale/:page_id' do
       root to: 'home#index', as: :real_root
-      
+
       resources :pages do
         resource :clone, controller: :page_clone, only: :create
       end
-      
+
       resources :sections do
         put :sort, on: :collection
         resources :blocks, controller: :section_blocks do

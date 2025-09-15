@@ -1,15 +1,30 @@
-<div 
-  class="group/image <%= 'none' if blank? %>"
-  data-controller="uikit-form-image-field" 
-  data-uikit-form-image-field-search-path-value="<%= search_path %>"
-  data-uikit-form-image-field-source-id-value="<%= dom_id %>"
-  data-action="dispatcher:image-selected-<%= dom_id %>@window->uikit-form-image-field#onImageSelected"
->
+<%= tag.div(
+  class: class_names('group/image', 'none': blank?),
+  data: {
+    controller: 'uikit-form-image-field',
+    'uikit-form-image-field-search-path-value': search_path,
+    'uikit-form-image-field-source-id-value': dom_id,
+    'uikit-form-image-field-extra-fields-value': extra_fields?,
+    action: %(
+      dispatcher:image-selected-#{dom_id}@window->uikit-form-image-field#onImageSelected
+    )
+  }
+) do %>
   <label for="<%= dom_id %>" class="block font-semibold text-gray-800" data-action="click->uikit-form-image-field#focus">
     <%= label %>
   </label>
   <div class="mt-1">
-    <%= hidden_field_tag name, value, data: { uikit_form_image_field_target: 'hiddenInput' } %>
+    <% if extra_fields? %>
+      <% hidden_input_names.each do |key, input_name| %>
+        <%= hidden_field_tag input_name, 
+          value&.fetch(key.to_sym, nil), 
+          data: { 
+            uikit_form_image_field_target: "hidden#{key.camelize}Input" 
+          } %>      
+      <% end %>
+    <% else %>
+      <%= hidden_field_tag name, value, data: { uikit_form_image_field_target: "hiddenUrlInput" } %>
+    <% end %>
 
     <div class="hidden group-[.none]/image:block">
       <div class="flex items-center justify-center bg-gray-100 h-48 rounded">
@@ -26,7 +41,7 @@
     <div class="block group-[.none]/image:hidden" data-controller="transition">
       <div class="relative bg-checkerboard h-48 rounded overflow-hidden" data-action="mouseenter->transition#enter mouseleave->transition#leave">
         <img 
-          src="<%= value %>" 
+          src="<%= image_url %>" 
           class="h-full w-full object-contain rounded" 
           data-controller="broken-image"
           data-uikit-form-image-field-target="image"
@@ -76,10 +91,12 @@
             placeholder="<%= alt_text[:placeholder] %>"
             autocomplete="off" 
             class="block py-2 px-3 rounded bg-gray-100 text-gray-800 focus:outline-none focus:ring focus:ring-inset focus:ring-2 focus:ring-editor-primary/50 placeholder-gray-500"
+            data-uikit-form-image-field-target="hiddenAltTextInput"
+            data-action="input->uikit-form-image-field#onChangeAltText"
             <%= tag.attributes(alt_text[:html_options]) %>
           >
         </div>
       <% end %>
     </div>
   </div>
-</div>
+<% end %>

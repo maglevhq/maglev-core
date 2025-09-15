@@ -9,15 +9,13 @@ module Maglev
           @value = value&.with_indifferent_access
         end
 
-        # required by the ImageLibrary when selecting an image
+        # required by the ImageLibrary modal when selecting an image
         def image_source
-          input_names[:url].parameterize.underscore
+          input_name.parameterize.underscore
         end
 
-        def input_names
-          %w[id url alt_text width height byte_size].each_with_object({}) do |key, hash|
-            hash[key.to_sym] = "#{input_name}[#{key}]"
-          end
+        def alt_text_input_name
+          "#{input_name}[alt_text]"
         end
       end
     end

@@ -1,30 +1,34 @@
-class Maglev::PersistStyleService
-  include Injectable
+# frozen_string_literal: true
 
-  dependency :fetch_theme
-  dependency :fetch_site
+module Maglev
+  class PersistStyleService
+    include Injectable
 
-  argument :new_style
+    dependency :fetch_theme
+    dependency :fetch_site
 
-  def call
-    site.style = compute_new_style
-    site.save!
-  end
+    argument :new_style
 
-  private
+    def call
+      site.style = compute_new_style
+      site.save!
+    end
 
-  def site
-    @site ||= fetch_site.call
-  end
+    private
 
-  def theme
-    @theme ||= fetch_theme.call
-  end
+    def site
+      @site ||= fetch_site.call
+    end
 
-  def compute_new_style
-    theme.style_settings.map do |definition|
-      value = new_style[definition.id.to_s]
-      { id: definition.id, value: value, type: definition.type }
+    def theme
+      @theme ||= fetch_theme.call
+    end
+
+    def compute_new_style
+      theme.style_settings.map do |definition|
+        value = new_style[definition.id.to_s]
+        { id: definition.id, value: value, type: definition.type }
+      end
     end
   end
 end

@@ -29,13 +29,17 @@ module Maglev
             id: dom_id,
             value: options[:value],
             **options.slice(:multiple, :disabled, :include_blank, :prompt),
-            data: {
-              action: [
-                'change->uikit-form-select#change',
-                **input_action
-              ].join(' '),
-              **input_data
-            }
+            data: input_tag_data
+          }
+        end
+
+        def input_tag_data
+          {
+            action: [
+              'change->uikit-form-select#change',
+              **input_action
+            ].join(' '),
+            **input_data
           }
         end
 

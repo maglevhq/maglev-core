@@ -16,25 +16,3 @@
     options: { value: value },   
   ) %>
 <% end %>
-
-<% if false %>
-<div 
-  data-controller="editor-text-input" 
-  data-editor-text-input-setting-id-value="<%= definition.id %>"
-  data-action="hashchange@window->editor-text-input#focus"
->
-  <%= render Maglev::Uikit::Form::TextFieldComponent.new(
-    label: label,
-    name: input_name,
-    options: {
-      value: value,
-    },
-    html_options: {
-      data: { 
-        'editor-text-input-target': 'input',
-        action: 'input->editor-text-input#onChange compositionstart->editor-text-input#onChange' 
-      }
-    }
-  ) %>
-</div>
-<% end %>

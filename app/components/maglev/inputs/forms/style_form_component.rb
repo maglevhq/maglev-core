@@ -1,19 +1,24 @@
-class Maglev::Inputs::Forms::StyleFormComponent < Maglev::Inputs::Forms::DynamicFormComponent
+# frozen_string_literal: true
 
-  def initialize(values:, theme:, path:)
-    super(
-      values: values, 
-      definitions: theme.style_settings, 
-      path: path, 
-      i18n_scope: "maglev.themes.#{theme.id}.style"
-    )
-  end
+module Maglev
+  module Inputs
+    module Forms
+      class StyleFormComponent < Maglev::Inputs::Forms::DynamicFormComponent
+        def initialize(values:, theme:, path:)
+          super(
+            values: values,
+            definitions: theme.style_settings,
+            path: path,
+            i18n_scope: "maglev.themes.#{theme.id}.style"
+          )
+        end
 
-  def value_of(definition_id)
-    values.value_of(definition_id)
-  end
+        delegate :value_of, to: :values
 
-  def input_scope
-    'style'
+        def input_scope
+          'style'
+        end
+      end
+    end
   end
 end

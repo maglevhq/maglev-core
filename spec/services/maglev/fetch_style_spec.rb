@@ -8,7 +8,7 @@ describe Maglev::FetchStyle do
   let(:fetch_site) { instance_double('FetchSite', call: site) }
   let(:fetch_theme) { instance_double('FetchTheme', call: theme) }
   let(:service) { described_class.new(fetch_site: fetch_site, fetch_theme: fetch_theme) }
-  
+
   subject { service.call }
 
   context 'the site has no style settings' do
