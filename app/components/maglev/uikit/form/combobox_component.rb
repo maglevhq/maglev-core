@@ -6,7 +6,10 @@ module Maglev
       class ComboboxComponent < ViewComponent::Base
         attr_reader :label, :name, :search_path, :options, :html_options
 
-        # options: { value: nil, placeholder: nil, error: nil, selected_label: nil, clearable: false, spread_fields: false }
+        # options: {
+        #   value: nil, placeholder: nil, error: nil, selected_label: nil,
+        #   clearable: false, spread_fields: false
+        # }
         # html_options: { data: { attribute: 'value' } }
         def initialize(label:, name:, search_path:, options: {}, html_options: {})
           @label = label

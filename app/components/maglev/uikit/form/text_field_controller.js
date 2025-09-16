@@ -9,6 +9,10 @@ export default class extends Controller {
   }
 
   focus() {
-    this.inputTarget.focus()
+    const input = this.inputTarget
+    const len = input.value.length
+    input.focus()
+    input.setSelectionRange(len, len)
+    input.scrollLeft = input.scrollWidth
   }
 }
