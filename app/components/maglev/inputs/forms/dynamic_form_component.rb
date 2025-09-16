@@ -38,6 +38,7 @@ module Maglev
 
         private
 
+        # rubocop:disable Metrics/MethodLength
         def input_klasses_map
           {
             text: proc { |definition| text_input_klass(definition) },
@@ -46,9 +47,12 @@ module Maglev
             link: Maglev::Inputs::Link::LinkComponent,
             color: Maglev::Inputs::Color::ColorComponent,
             checkbox: Maglev::Inputs::Checkbox::CheckboxComponent,
-            collection_item: Maglev::Inputs::CollectionItem::CollectionItemComponent
+            collection_item: Maglev::Inputs::CollectionItem::CollectionItemComponent,
+            divider: Maglev::Inputs::Divider::DividerComponent,
+            hint: Maglev::Inputs::Hint::HintComponent
           }
         end
+        # rubocop:enable Metrics/MethodLength
 
         def text_input_klass(definition)
           if definition.options[:html]

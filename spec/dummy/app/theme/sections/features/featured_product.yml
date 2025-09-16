@@ -6,12 +6,21 @@ settings:
 - label: "Title"
   id: title
   type: text
-  
+
+- label: "Lorem ipsum dolor sit amet"
+  id: test_hint
+  type: hint
+
 - label: "Product"
   id: product
   type: collection_item
   collection_id: products
   default: any
+
+- label: "This text will be displayed in the editor UI"
+  id: test_divider
+  type: divider
+  with_hint: true
 
 - label: "Description"
   id: description
