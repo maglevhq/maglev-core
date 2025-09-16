@@ -9,6 +9,7 @@ Maglev::Engine.routes.draw do
     get 'leave', to: 'home#destroy', as: :leave
 
     resources :assets, only: %i[index create destroy]
+    resources :icons, only: %i[index]
     resource :link, only: %i[edit update]
 
     # combobox routes

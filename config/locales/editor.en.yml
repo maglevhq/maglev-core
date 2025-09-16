@@ -127,8 +127,9 @@ en:
         replace_button: "Replace icon"
         clear_button: "Clear"
       icon_library:
-        title: "Icons"
-        picker_title: "Pick an icon"
+        title: "Pick an icon"
+        search_placeholder: "Search for an icon"
+        no_items: "No icons found"
       link_input:
         placeholder: "Click here to select a link"
         with_nested_text_label: "Enable text"

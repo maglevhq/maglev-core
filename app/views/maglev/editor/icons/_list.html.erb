@@ -1,0 +1,27 @@
+<div class="overflow-y-auto h-64 w-102">
+  <% if icons.any? %>  
+    <div class="grid grid-cols-6 gap-2 pt-2 pb-8">
+      <% icons.each do |icon| %>
+        <div class="flex justify-center">
+          <%= tag.div(
+            class: 'cursor-pointer text-gray-900 h-12 w-12 flex items-center justify-center rounded hover:bg-gray-900 hover:text-white hover:shadow-lg transition transform duration-200 ease-in-out hover:scale-125',
+            data: {
+              controller: 'dispatcher',
+              action: 'click->dispatcher#trigger click->uikit-modal#close',
+              dispatcher_event_name_value: "icon-selected-#{query_params[:source]}",
+              dispatcher_payload_value: { icon: icon }.to_json
+            }
+          ) do %>
+            <%= tag.i(class: class_names('text-3xl', icon)) %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="flex items-center justify-center h-full">
+      <p class="text-gray-500">
+        <%= t('maglev.editor.icon_library.no_items') %>
+      </p>
+    </div>
+  <% end %>
+</div>

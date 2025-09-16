@@ -1,0 +1,76 @@
+<%= tag.div(
+  class: class_names(
+    'group/icon space-y-1 flex flex-col',
+    'none': blank?
+  ),
+  data: {
+    controller: 'uikit-form-icon-field',
+    'uikit-form-icon-field-search-path-value': search_path,
+    'uikit-form-icon-field-icon-value': value,
+    action: %(
+      dispatcher:icon-selected-#{dom_id}@window->uikit-form-icon-field#onIconSelected
+    )
+  }
+) do %>
+  <label for="<%= dom_id %>" class="block font-semibold text-gray-800 flex items-center gap-2">
+    <span><%= label %></span>
+    <% if error %>
+      <span class="text-red-700 bg-red-100 text-xs py-1 px-3 rounded"><%= error %></span>
+    <% end %>
+  </label>
+
+  <%= hidden_field_tag name, value, data: { uikit_form_icon_field_target: "hiddenInput" } %>
+
+  <div class="hidden group-[.none]/icon:flex items-center justify-center bg-gray-100 h-24 rounded">
+    <button type="button"class="flex items-center justify-center flex-col cursor-pointer" data-action="click->uikit-form-icon-field#openPicker">
+      <%= render Maglev::Uikit::IconComponent.new(name: 'book', size: '1.25rem', class_names: 'text-gray-800') %>
+      <span class="uppercase text-xs mt-1"><%= t('maglev.editor.icon_input.add_button') %></span>
+    </button>
+  </div>
+
+  <div 
+    class="flex group-[.none]/icon:hidden items-center justify-center bg-gray-100 h-24 rounded relative" 
+    data-controller="transition"
+    data-action="mouseenter->transition#enter mouseleave->transition#leave"
+  >
+    <%= tag.div(
+      class: class_names('text-6xl text-gray-800 font-bold', value),
+      data: { uikit_form_icon_field_target: "icon" }
+    ) %>
+
+    <div
+      class="flex items-center justify-center py-3 px-2 absolute bg-black/75 bottom-0 w-full text-white text-xs cursor-default rounded-b hidden"
+      data-transition-target="revealable"
+      data-transition-enter="ease-out duration-100"
+      data-transition-enter-start="translate-y-4 opacity-0"
+      data-transition-enter-end="translate-y-0 opacity-100"
+      data-transition-leave="ease-in duration-100"
+      data-transition-leave-start="translate-y-0 opacity-100"
+      data-transition-leave-end="translate-y-4 opacity-0"
+    >
+      <div class="flex items-center gap-6">
+        <button 
+          type="button" 
+          class="flex items-center justify-center flex-col cursor-pointer" 
+          data-action="click->uikit-form-icon-field#openPicker"
+        >
+          <%= render Maglev::Uikit::IconComponent.new(name: 'book') %>
+          <span class="uppercase text-xs mt-1">
+            <%= t('maglev.editor.icon_input.replace_button') %>
+          </span>
+        </button>
+
+        <button
+          type="button"
+          class="flex items-center justify-center flex-col cursor-pointer"
+          data-action="click->uikit-form-icon-field#clear"
+        >
+          <%= render Maglev::Uikit::IconComponent.new(name: 'eraser') %>
+          <span class="uppercase text-xs mt-1">
+            <%= t('maglev.editor.icon_input.clear_button') %>
+          </span>
+        </button>
+      </div>
+    </div>
+  </div>
+<% end %>

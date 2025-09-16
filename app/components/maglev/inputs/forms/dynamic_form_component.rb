@@ -49,7 +49,8 @@ module Maglev
             checkbox: Maglev::Inputs::Checkbox::CheckboxComponent,
             collection_item: Maglev::Inputs::CollectionItem::CollectionItemComponent,
             divider: Maglev::Inputs::Divider::DividerComponent,
-            hint: Maglev::Inputs::Hint::HintComponent
+            hint: Maglev::Inputs::Hint::HintComponent,
+            icon: Maglev::Inputs::Icon::IconComponent
           }
         end
         # rubocop:enable Metrics/MethodLength

@@ -32,6 +32,7 @@ bin/test
 
 spec/dummy/db/*.sqlite3
 spec/legacy_dummy/db/*.sqlite3
+spec/dummy/log/development.log.*
 
 docs/
 TODO.md

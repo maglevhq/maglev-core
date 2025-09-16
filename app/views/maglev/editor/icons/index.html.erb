@@ -1,0 +1,23 @@
+<%= turbo_frame_tag 'modal' do %>
+  <%= render Maglev::Uikit::ModalComponent.new(id: 'icons-modal', open: true) do |modal| %>    
+    <% modal.with_title_content t("maglev.editor.icon_library.title") %>
+    
+    <div class="space-y-5">
+      <div class="flex w-full">
+        <%= render Maglev::Uikit::Form::SearchFormComponent.new(
+          name: 'query', 
+          value: params[:query], 
+          search_path: editor_icons_path, 
+          options: {
+            class_names: 'w-full',
+            placeholder: t('maglev.editor.icon_library.search_placeholder'),
+            data: { turbo_frame: 'icon-search-results' }
+          }) do %>
+            <%= hidden_field_tag 'source', params[:source] %>
+          <% end %>
+      </div>
+
+      <%= render 'list', icons: @icons %>
+    </div>
+  <% end %>
+<% end %>
