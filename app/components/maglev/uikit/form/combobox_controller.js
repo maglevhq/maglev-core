@@ -2,8 +2,8 @@ import { Controller } from '@hotwired/stimulus'
 import { useDebounce } from 'stimulus-use'
 
 export default class extends Controller {
-  static targets = ["input", "hiddenInput", "list", "option", "spinner"]
-  static values = { url: String, turboFrameName: String }
+  static targets = ["input", "hiddenInput", "hiddenLabelInput", "list", "option", "spinner", "clearButton"]
+  static values = { url: String, turboFrameName: String, clearable: Boolean, spreadFields: Boolean }
   static debounces = ['remoteFilter']
 
   connect() {
@@ -202,7 +202,7 @@ export default class extends Controller {
     this.focus()
     this.dispatch('toggleResults')
     this.listTarget.classList.toggle("hidden")
-  } 
+  }
 
   highlightFirstItem() {
     const index = this.findFirstVisibleItem()
@@ -261,14 +261,30 @@ export default class extends Controller {
     option.dataset.selected = true
 
     this.inputTarget.value = this.getLabel(index)    
-    this.hiddenInputTarget.value = option.dataset.id    
-    
-    this.close()
+    this.hiddenInputTarget.value = option.dataset.id
+
+    if (this.spreadFieldsValue) {
+      this.hiddenLabelInputTarget.value = this.getLabel(index)
+    }
+
+    if (this.clearableValue) {
+      this.clearButtonTarget.classList.remove('hidden')
+    }
 
     this.selectedLabel = this.getLabel(index)
     this.selectedIndex = index
 
-    this.dispatch('change', { detail: { value: this.inputTarget.value } })
+    this.close()
+    this.notifyChange()
+  }
+
+  notifyChange() {
+    const value = this.spreadFieldsValue ? {
+      id: this.hiddenInputTarget.value,
+      label: this.inputTarget.value,
+    } : this.hiddenInputTarget.value
+
+    this.dispatch('change', { detail: { value } })
   }
 
   selectItemAtStartup() {
@@ -321,16 +337,27 @@ export default class extends Controller {
     this.unselectItem(this.selectedIndex)
     
     this.optionTargets.forEach(option => option.classList.add('hidden'))
-    this.close()
+    
+    if (this.spreadFieldsValue) {
+      this.hiddenLabelInputTarget.value = ''
+    }
+        
+    if (this.clearableValue) {
+      this.clearButtonTarget.classList.add('hidden')
+    }
     
     this.selectedIndex = -1
     this.selectedLabel = null
+
+    this.close()
+    this.notifyChange()
   }
 
   buildURL() {
-    const params = { query: this.inputTarget.value, turbo_frame: this.turboFrameNameValue }
-    const search = new URLSearchParams(params).toString()
-    return `${this.urlValue}?${search}`
+    const url = new URL(this.urlValue, window.location.origin)
+    url.searchParams.set('query', this.inputTarget.value)
+    url.searchParams.set('turbo_frame', this.turboFrameNameValue)
+    return url.toString()
   }
 
   blockMouseover() {

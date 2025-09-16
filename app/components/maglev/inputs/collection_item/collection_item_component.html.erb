@@ -1,0 +1,25 @@
+<%= tag.div(
+  data: {
+    controller: 'editor-input',
+    editor_input_setting_id_value: definition.id,
+    editor_input_setting_type_value: definition.type,
+    editor_input_core_controller_name_value: 'uikit-form-combobox',
+    action: %(
+      uikit-form-combobox:change->editor-input#change
+      hashchange@window->editor-input#focus
+    )
+  }
+) do %>
+  <%= render(Maglev::Uikit::Form::ComboboxComponent.new(
+    label: label,
+    name: input_name,
+    search_path: helpers.editor_combobox_collection_items_path(collection_id: definition.options[:collection_id]),
+    options: {
+      placeholder: t('maglev.editor.collection_item_input.placeholder'),
+      spread_fields: true,
+      clearable: true,
+      value: selected_item_id,
+      selected_label: selected_item_label
+    }
+  )) %>
+<% end %>

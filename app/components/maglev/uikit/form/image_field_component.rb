@@ -12,7 +12,7 @@ module Maglev
           @value = options[:value]
           @label = options[:label]
           @alt_text = alt_text
-          @extra_fields = options[:extra_fields] || false
+          @spread_fields = options[:spread_fields] || false
         end
 
         def alt_text?
@@ -23,22 +23,22 @@ module Maglev
           name.to_s.parameterize.underscore
         end
 
-        def extra_fields?
-          @extra_fields
+        def spread_fields?
+          @spread_fields
         end
 
         def value
-          return @value unless extra_fields?
+          return @value unless spread_fields?
 
           @value.is_a?(Hash) ? @value.compact_blank : { url: @value }
         end
 
         def image_url
-          extra_fields? ? value[:url] : value
+          spread_fields? ? value[:url] : value
         end
 
         def hidden_input_names
-          return [] unless extra_fields?
+          return [] unless spread_fields?
 
           %w[id url filename width height byte_size].index_with do |key|
             "#{name}[#{key}]"

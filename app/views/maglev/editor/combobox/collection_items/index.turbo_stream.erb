@@ -1,0 +1,18 @@
+<%= turbo_stream.update params[:turbo_frame], method: 'morph' do %>
+  <%= render Maglev::Uikit::Form::Combobox::ListComponent.new do |component| %>
+    <% @items.each do |item| %>
+      <% if item.image_url.present? %>
+        <%= component.with_option(id: item.id, label: item.label) do %>
+          <div class="flex items-center gap-2">
+            <div class="h-10 w-10 rounded-md bg-gray-100 outline -outline-offset-1 outline-black/5">
+              <%= image_tag item.image_url, class: 'h-full w-full object-contain', data: { controller: 'broken-image' } %>
+            </div>
+            <div class="truncate"><%= item.label %></div>
+          </div>
+        <% end %>        
+      <% else %>
+        <%= component.with_option(id: item.id, label: item.label) %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>

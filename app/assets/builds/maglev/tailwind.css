@@ -510,6 +510,14 @@
     width: calc(var(--spacing) * 5);
     height: calc(var(--spacing) * 5);
   }
+  .size-6 {
+    width: calc(var(--spacing) * 6);
+    height: calc(var(--spacing) * 6);
+  }
+  .size-10 {
+    width: calc(var(--spacing) * 10);
+    height: calc(var(--spacing) * 10);
+  }
   .h-0 {
     height: calc(var(--spacing) * 0);
   }
@@ -1535,8 +1543,17 @@
     outline-style: var(--tw-outline-style);
     outline-width: 1px;
   }
+  .-outline-offset-1 {
+    outline-offset: calc(1px * -1);
+  }
   .outline-offset-2 {
     outline-offset: 2px;
+  }
+  .outline-black\/5 {
+    outline-color: color-mix(in srgb, #000 5%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      outline-color: color-mix(in oklab, var(--color-black) 5%, transparent);
+    }
   }
   .outline-editor-primary {
     outline-color: var(--color-editor-primary);

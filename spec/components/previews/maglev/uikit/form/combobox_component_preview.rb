@@ -27,7 +27,7 @@ module Maglev
                    label: 'Page',
                    name: 'page3_id',
                    search_path: search_path,
-                   options: { value: '1', selected_label: 'Home page' }
+                   options: { value: '1', selected_label: 'Home page', clearable: true }
                  ))
         end
 

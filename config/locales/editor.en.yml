@@ -163,10 +163,7 @@ en:
           new_window_input:
             label: "Open in new window"
       collection_item_input:
-        select:
-          placeholder: "Select an item"
-          search_placeholder: "Search..."
-          empty_label: "No items found"
+        placeholder: "Select an item"          
       pagination:
         default_label: "%{start} - %{end} of %{totalItems} items"
         default_no_items: "None"

@@ -21,7 +21,7 @@ module Maglev
           {
             label: options[:label].presence || attributes[:content],
             value: object.public_send(method),
-            extra_fields: options[:extra_fields] || false
+            spread_fields: options[:spread_fields] || false
           }
         end
 

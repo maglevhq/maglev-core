@@ -4,7 +4,7 @@
     controller: 'uikit-form-image-field',
     'uikit-form-image-field-search-path-value': search_path,
     'uikit-form-image-field-source-id-value': dom_id,
-    'uikit-form-image-field-extra-fields-value': extra_fields?,
+    'uikit-form-image-field-spread-fields-value': spread_fields?,
     action: %(
       dispatcher:image-selected-#{dom_id}@window->uikit-form-image-field#onImageSelected
     )
@@ -14,7 +14,7 @@
     <%= label %>
   </label>
   <div class="mt-1">
-    <% if extra_fields? %>
+    <% if spread_fields? %>
       <% hidden_input_names.each do |key, input_name| %>
         <%= hidden_field_tag input_name, 
           value&.fetch(key.to_sym, nil), 

@@ -14,7 +14,7 @@ export default class extends Controller {
   static values = {
     searchPath: String,
     sourceId: String,
-    extraFields: Boolean
+    spreadFields: Boolean
   }
 
   focus() {
@@ -56,12 +56,12 @@ export default class extends Controller {
     }
 
     this.element.classList.add('none')
-    const value = this.extraFieldsValue ? {} : null
+    const value = this.spreadFieldsValue ? {} : null
     this.dispatch('change', { detail: { value }})
   }
 
   hiddenInputMaps() {
-    if (!this.extraFieldsValue) return { url: this.hiddenUrlInputTarget }
+    if (!this.spreadFieldsValue) return { url: this.hiddenUrlInputTarget }
 
     return {
       id: this.hiddenIdInputTarget, 

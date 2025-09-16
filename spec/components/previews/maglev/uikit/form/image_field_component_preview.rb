@@ -45,14 +45,14 @@ module Maglev
           )
         end
 
-        def with_extra_fields
+        def with_spread_fields
           render Maglev::Uikit::Form::ImageFieldComponent.new(
             name: 'section[background_image]',
             search_path: '#',
             options: {
               label: 'Image',
               value: '/images/img-2.jpg',
-              extra_fields: true
+              spread_fields: true
             },
             alt_text: {
               name: 'section[background_image][alt_text]',

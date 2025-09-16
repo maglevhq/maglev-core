@@ -14,6 +14,7 @@ Maglev::Engine.routes.draw do
     # combobox routes
     namespace :combobox do
       resources :pages, only: :index
+      resources :collection_items, only: :index
     end
 
     # always keep the scope of the current page and locale in the url
