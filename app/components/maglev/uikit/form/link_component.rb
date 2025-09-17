@@ -34,7 +34,7 @@ module Maglev
         end
 
         def placeholder
-          options[:placeholder].presence || t('maglev.editor.form.link.placeholder')
+          options[:placeholder].presence || t('maglev.uikit.form.link.placeholder')
         end
 
         def error
@@ -49,7 +49,7 @@ module Maglev
           {
             name: "#{name}[text]",
             value: value[:text],
-            placeholder: t('maglev.editor.form.link.text_placeholder')
+            placeholder: t('maglev.uikit.form.link.text_placeholder')
           }.merge(options[:link_text] || {})
         end
 

@@ -5,6 +5,7 @@
       search_path: editor_combobox_pages_path, 
       selected_label: @link.link_label || @page&.title,
       label_name: "link[link_label]",
+      placeholder: t('maglev.editor.links.edit.page.placeholder'),
       html_options: {     
         data: {
           action: 'uikit-form-combobox:change->form-refresh#refresh'

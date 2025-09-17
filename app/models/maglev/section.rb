@@ -50,11 +50,11 @@ module Maglev
     end
 
     def main_settings
-      settings.select { |definition| !definition.advanced? }
+      settings.reject(&:advanced?)
     end
 
     def advanced_settings
-      settings.select { |definition| definition.advanced? }
+      settings.select(&:advanced?)
     end
 
     def assign_attributes_from_yaml(hash)

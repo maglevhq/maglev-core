@@ -179,6 +179,7 @@ en:
             url: "Url"
             email: "Email"
           page:
+            placeholder: "Select a page"
             section_prompt: "Select a section"
       support:
         human:

@@ -101,7 +101,7 @@ FactoryBot.define do
     end
 
     trait :all_settings do
-      id { 'pot-pourri'}
+      id { 'pot-pourri' }
       name { 'Pot pourri' }
       theme { build(:theme) }
       category { 'content' }
@@ -118,7 +118,7 @@ FactoryBot.define do
           build(:section_setting, :hint),
           build(:section_setting, :icon),
           build(:section_setting, :collection_item),
-          build(:section_setting, :color),
+          build(:section_setting, :color)
         ]
       end
     end

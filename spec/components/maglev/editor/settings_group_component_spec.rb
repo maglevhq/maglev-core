@@ -13,8 +13,11 @@ RSpec.describe Maglev::Editor::SettingsGroupComponent, type: :component do
       edit_link_path: '/links/edit',
       icons_path: '/icons'
     }
-  end  
-  let(:instance) { described_class.new(values: values, definitions: settings, paths: paths, scope: { input: 'section', i18n: 'maglev.editor' }) }
+  end
+  let(:instance) do
+    described_class.new(values: values, definitions: settings, paths: paths,
+                        scope: { input: 'section', i18n: 'maglev.editor' })
+  end
 
   subject { render_inline(instance) }
 
@@ -23,12 +26,12 @@ RSpec.describe Maglev::Editor::SettingsGroupComponent, type: :component do
   end
 
   it 'renders all settings' do
-    subject    
+    subject
     expect(rendered_content).to have_selector('div', text: 'Link')
     expect(rendered_content).to have_selector('div', text: 'Simple Text 🍔')
     expect(rendered_content).to have_selector('div', text: 'Richtext 🍔')
     expect(rendered_content).to have_selector('div', text: 'Textarea 🍔')
-    expect(rendered_content).to have_selector('div', text: 'Image 🍔')    
+    expect(rendered_content).to have_selector('div', text: 'Image 🍔')
     expect(rendered_content).to have_selector('div', text: 'Checkbox 🍔')
     expect(rendered_content).to have_selector('div', text: 'Select 🍔')
   end

@@ -14,7 +14,7 @@ FactoryBot.define do
       type { 'link' }
       options { { with_text: true } }
     end
-    
+
     trait :simple_text do
       id { 'test_simple_text' }
       label { 'Simple Text 🍔' }
@@ -33,7 +33,7 @@ FactoryBot.define do
       options { { nb_rows: 5 } }
     end
 
-    trait :checkbox do 
+    trait :checkbox do
       id { 'test_checkbox' }
       label { 'Checkbox 🍔' }
       type { 'checkbox' }

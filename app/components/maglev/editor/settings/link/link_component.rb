@@ -6,7 +6,11 @@ module Maglev
       module Link
         class LinkComponent < Maglev::Editor::Settings::BaseComponent
           def edit_link_path
-            fetch_path(:edit_link_path, { link: value, source: input_name })
+            fetch_path(:edit_link_path, { value: value, input_name: input_name })
+          end
+
+          def after_initialize
+            @value = value&.with_indifferent_access
           end
         end
       end

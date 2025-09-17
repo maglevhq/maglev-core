@@ -1,11 +1,13 @@
+# frozen_string_literal: true
+
 module Maglev
   module Editor
     module SettingRegistry
-      
       def self.instance
         @instance ||= Instance.new(components: default_components)
       end
 
+      # rubocop:disable Metrics/MethodLength
       def self.default_components
         {
           text: proc { |definition| instance.text_field_klass(definition) },
@@ -17,9 +19,10 @@ module Maglev
           collection_item: Maglev::Editor::Settings::CollectionItem::CollectionItemComponent,
           icon: Maglev::Editor::Settings::Icon::IconComponent,
           divider: Maglev::Editor::Settings::Divider::DividerComponent,
-          hint: Maglev::Editor::Settings::Hint::HintComponent          
+          hint: Maglev::Editor::Settings::Hint::HintComponent
         }
       end
+      # rubocop:enable Metrics/MethodLength
 
       class Instance
         attr_reader :components
@@ -38,7 +41,7 @@ module Maglev
 
           return Maglev::Editor::Settings::BaseComponent if klass.nil?
 
-          klass    
+          klass
         end
 
         def text_field_klass(definition)
@@ -50,7 +53,7 @@ module Maglev
             Maglev::Editor::Settings::Text::TextComponent
           end
         end
-      end      
+      end
     end
   end
 end

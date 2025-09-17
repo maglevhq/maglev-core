@@ -1,5 +1,5 @@
 <%= turbo_frame_tag 'modal' do %>
-  <%= render Maglev::Uikit::ModalComponent.new(id: 'link-modal', open: true) do |modal| %>    
+  <%= render Maglev::Uikit::ModalComponent.new(id: 'link-modal', open: true, focus: false) do |modal| %>    
     <% modal.with_title_content t("maglev.editor.links.edit.title") %>
     <% modal.with_notification_content maglev_flash_message %>
 

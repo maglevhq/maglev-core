@@ -5,9 +5,9 @@ module Maglev
     class SettingsGroupComponent < ViewComponent::Base
       attr_reader :values, :definitions, :paths, :scope
 
-      def initialize(values:, definitions:, paths: {}, scope:)
+      def initialize(values:, definitions:, scope:, paths: {})
         @values = values
-        @definitions = definitions        
+        @definitions = definitions
         @paths = paths
         @scope = scope
       end

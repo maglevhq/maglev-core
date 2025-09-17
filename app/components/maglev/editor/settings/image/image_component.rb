@@ -4,7 +4,7 @@ module Maglev
   module Editor
     module Settings
       module Image
-        class ImageComponent < Maglev::Editor::Settings::BaseComponent          
+        class ImageComponent < Maglev::Editor::Settings::BaseComponent
           def after_initialize
             @value = value&.with_indifferent_access
           end
@@ -13,7 +13,7 @@ module Maglev
             "#{input_name}[alt_text]"
           end
 
-          def search_path           
+          def search_path
             fetch_path(:assets_path, { source: input_source })
           end
         end
