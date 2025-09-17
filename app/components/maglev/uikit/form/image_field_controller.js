@@ -13,7 +13,6 @@ export default class extends Controller {
   ]
   static values = {
     searchPath: String,
-    sourceId: String,
     spreadFields: Boolean
   }
 

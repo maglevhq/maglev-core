@@ -3,6 +3,8 @@
 module Maglev
   module Editor
     class StyleController < Maglev::Editor::BaseController
+      helper Maglev::Editor::SettingsHelper
+
       before_action :set_style
 
       def edit; end

@@ -1,0 +1,26 @@
+<%= tag.div(
+  data: {
+    controller: 'editor-setting',
+    editor_setting_setting_id_value: definition.id,
+    editor_setting_setting_type_value: definition.type,
+    editor_setting_core_controller_name_value: 'uikit-form-image-field',
+    action: %(
+      uikit-form-image-field:change->editor-setting#change
+      hashchange@window->editor-setting#focus
+    )
+  }
+) do %>
+  <%= render Maglev::Uikit::Form::ImageFieldComponent.new(    
+    name: input_name,
+    search_path: search_path,
+    options: {
+      label: label,
+      value: value,
+      spread_fields: true
+    },    
+    alt_text: {
+      name: alt_text_input_name,
+      value: value&.fetch(:alt_text, nil)
+    }    
+  ) %>
+<% end %>

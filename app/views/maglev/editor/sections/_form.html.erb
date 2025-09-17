@@ -1,0 +1,19 @@
+<% if @section.blocks.empty? && !@section.definition.advanced_settings.any? %>
+  <%= section_form_settings(@section) %>
+<% else %>
+  <%= render Maglev::Uikit::TabsComponent.new(container_classes: 'w-full h-full flex flex-col') do |tabs| %>
+    <% tabs.with_tab(label: t('maglev.editor.sections.edit.tabs.settings')) do %>
+      <%= section_form_settings(@section) %>
+    <% end %>
+
+    <% tabs.with_tab(label: t('maglev.editor.sections.edit.tabs.advanced')) do %>
+      <%= section_form_settings(@section, advanced: true) %>
+    <% end if @section.definition.advanced_settings.any? %>
+
+    <% tabs.with_tab(
+        label: @section.blocks_label, 
+        link: { url: editor_section_blocks_path(@section, maglev_editing_route_context), html_options: { data: { turbo_frame: '_top' } } }
+      ) if @section.blocks.any?
+    %>
+  <% end %>
+<% end %>

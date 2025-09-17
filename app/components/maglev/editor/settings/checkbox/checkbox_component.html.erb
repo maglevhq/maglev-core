@@ -1,0 +1,16 @@
+<%= tag.div(
+  data: {
+    controller: "editor-input",
+    editor_input_setting_id_value: definition.id,
+    editor_input_setting_type_value: definition.type,
+    action: %(
+      uikit-form-checkbox:change->editor-input#change
+    )
+  }
+) do %>
+  <%= render Maglev::Uikit::Form::CheckboxComponent.new(
+    label: label,
+    name: input_name,
+    checked: value
+  ) %>
+<% end %>

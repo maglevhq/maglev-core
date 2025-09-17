@@ -3,7 +3,6 @@
   data: {
     controller: 'uikit-form-image-field',
     'uikit-form-image-field-search-path-value': search_path,
-    'uikit-form-image-field-source-id-value': dom_id,
     'uikit-form-image-field-spread-fields-value': spread_fields?,
     action: %(
       dispatcher:image-selected-#{dom_id}@window->uikit-form-image-field#onImageSelected
@@ -32,7 +31,7 @@
           <%= render Maglev::Uikit::IconComponent.new(name: 'camera') %>
 
           <p class="uppercase text-xs mt-1">
-            <%= t('maglev.editor.image_input.add_button') %>
+            <%= t('maglev.uikit.form.image_field.add_button') %>
           </p>
         </button>
       </div>
@@ -64,7 +63,7 @@
             >
               <%= render Maglev::Uikit::IconComponent.new(name: 'camera') %>
               <span class="uppercase text-xs mt-1">
-                <%= t('maglev.editor.image_input.replace_button') %>
+                <%= t('maglev.uikit.form.image_field.replace_button') %>
               </span>
             </button>
 
@@ -75,7 +74,7 @@
             >
               <%= render Maglev::Uikit::IconComponent.new(name: 'eraser') %>
               <span class="uppercase text-xs mt-1">
-                <%= t('maglev.editor.image_input.clear_button') %>
+                <%= t('maglev.uikit.form.image_field.clear_button') %>
               </span>
             </button>            
           </div>
@@ -88,7 +87,7 @@
             name="<%= alt_text[:name] %>"
             value="<%= alt_text[:value] %>"
             type="text" 
-            placeholder="<%= alt_text[:placeholder] %>"
+            placeholder="<%= alt_text[:placeholder] || t('maglev.uikit.form.image_field.alt_text_placeholder') %>"
             autocomplete="off" 
             class="block py-2 px-3 rounded bg-gray-100 text-gray-800 focus:outline-none focus:ring focus:ring-inset focus:ring-2 focus:ring-editor-primary/50 placeholder-gray-500"
             data-uikit-form-image-field-target="hiddenAltTextInput"

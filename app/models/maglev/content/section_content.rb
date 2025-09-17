@@ -25,7 +25,7 @@ module Maglev
       end
 
       def blocks_label
-        definition.human_blocks_label(::I18n.t('maglev.editor.section_pane.tabs.blocks'))
+        definition.human_blocks_label(::I18n.t('maglev.editor.section_blocks.breadcrumb'))
       end
 
       def build_blocks(raw_section_content)

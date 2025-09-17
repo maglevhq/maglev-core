@@ -1,0 +1,25 @@
+<%= tag.div(
+  data: {
+    controller: 'editor-setting',
+    editor_setting_setting_id_value: definition.id,
+    editor_setting_setting_type_value: definition.type,
+    editor_setting_core_controller_name_value: 'uikit-form-combobox',
+    action: %(
+      uikit-form-combobox:change->editor-setting#change
+      hashchange@window->editor-setting#focus
+    )
+  }
+) do %>
+  <%= render(Maglev::Uikit::Form::ComboboxComponent.new(
+    label: label,
+    name: input_name,
+    search_path: fetch_path(:collection_items_path),
+    options: {
+      placeholder: placeholder,
+      spread_fields: true,
+      clearable: true,
+      value: selected_item_id,
+      selected_label: selected_item_label
+    }
+  )) %>
+<% end %>

@@ -99,5 +99,28 @@ FactoryBot.define do
         }
       end
     end
+
+    trait :all_settings do
+      id { 'pot-pourri'}
+      name { 'Pot pourri' }
+      theme { build(:theme) }
+      category { 'content' }
+      settings do
+        [
+          build(:section_setting, :simple_text),
+          build(:section_setting, :richtext),
+          build(:section_setting, :textarea),
+          build(:section_setting, :image),
+          build(:section_setting, :link),
+          build(:section_setting, :checkbox),
+          build(:section_setting, :select),
+          build(:section_setting, :divider),
+          build(:section_setting, :hint),
+          build(:section_setting, :icon),
+          build(:section_setting, :collection_item),
+          build(:section_setting, :color),
+        ]
+      end
+    end
   end
 end

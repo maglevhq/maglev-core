@@ -4,9 +4,9 @@ module Maglev
   module Inputs
     module Forms
       class SectionFormComponent < Maglev::Inputs::Forms::DynamicFormComponent
-        attr_reader :section
+        attr_reader :section, :advanced
 
-        def initialize(section:, path:)
+        def initialize(section:, advanced: false, path:)
           super(
             values: section.settings,
             definitions: section.definition.settings,
@@ -14,9 +14,14 @@ module Maglev
             i18n_scope: "maglev.themes.#{section.theme_id}.sections.#{section.type}"
           )
           @section = section
+          @advanced = advanced
         end
 
         delegate :value_of, to: :values
+
+        def settings
+          section.definition.settings.select { |definition| definition.advanced? == advanced }
+        end      
 
         def input_scope
           'section'

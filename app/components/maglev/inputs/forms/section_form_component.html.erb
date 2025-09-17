@@ -12,7 +12,7 @@
   } do 
 %>
   <div class="grid grid-cols-1 gap-4">
-    <% section.definition.settings.each do |definition| %>
+    <% settings.each do |definition| %>
       <%= render input_instance_for(definition) %>      
     <% end %>
   </div>

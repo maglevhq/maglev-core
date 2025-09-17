@@ -1,0 +1,22 @@
+<%= tag.div(
+  data: {
+    controller: 'editor-setting',
+    'editor-setting-setting-id-value': definition.id,
+    'editor-setting-setting-type-value': definition.type,
+    'editor-setting-core-controller-name-value': 'uikit-form-richtext',
+    action: %(
+      hashchange@window->editor-setting#focus
+      uikit-form-richtext:change->editor-setting#change
+    )
+  }
+) do %>
+  <%= render Maglev::Uikit::Form::RichtextComponent.new(
+    label: label,
+    name: input_name,
+    options: {
+      value: value,
+      line_break: definition.options[:line_break],
+      edit_link_path: fetch_path(:edit_link_path)
+    }
+  ) %>
+<% end %>

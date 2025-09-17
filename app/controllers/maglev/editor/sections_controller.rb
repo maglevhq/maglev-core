@@ -3,6 +3,8 @@
 module Maglev
   module Editor
     class SectionsController < Maglev::Editor::BaseController
+      helper Maglev::Editor::SettingsHelper
+      
       before_action :set_section, only: %i[edit update]
 
       def new

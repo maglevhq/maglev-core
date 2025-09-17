@@ -49,6 +49,14 @@ module Maglev
       !!viewport_fixed_position
     end
 
+    def main_settings
+      settings.select { |definition| !definition.advanced? }
+    end
+
+    def advanced_settings
+      settings.select { |definition| definition.advanced? }
+    end
+
     def assign_attributes_from_yaml(hash)
       attributes = prepare_default_attributes(hash).merge(
         settings: ::Maglev::Section::Setting.build_many(hash['settings']),

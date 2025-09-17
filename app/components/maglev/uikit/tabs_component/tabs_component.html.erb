@@ -28,7 +28,7 @@
   <div class="relative -mt-0.5"><div class="w-full border-gray-200 border-t-2 h-0"></div></div>
 
   <% tabs.each_with_index do |tab, index| %>
-    <div data-uikit-tabs-target="tabContent" class="flex-1 mt-4 pb-4 overflow-y-auto overflow-x-visible <%= 'hidden' unless tab.active? %>">
+    <div data-uikit-tabs-target="tabContent" class="flex-1 mt-4 pt-2 pb-4 overflow-y-auto overflow-x-visible <%= 'hidden' unless tab.active? %>">
       <%= capture(&tab.block) if tab.block? %>
     </div>
   <% end %>

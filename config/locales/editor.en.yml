@@ -70,32 +70,29 @@ en:
             seo: "SEO"          
       sections:
         breadcrumb: "Sections"
-        add_pane:
-          title: "Add a section"
-        list_pane:
+        index:
           title: "Organize sections"
           sub_title: "Re-order / delete the sections of the page"
           empty: "There are no sections."
           add_button: "Add a new section"
-          confirm_delete: "Are you sure you want to delete it?"
+          confirm_delete: "Are you sure you want to delete it?"          
+        new:
+          title: "Add a section"
+          empty_category: "No sections"
+        edit:
+          tabs:
+            main: "Content"
+            advanced: "Advanced"
+            blocks: "Blocks"            
       section_blocks:
+        breadcrumb: "Blocks"
         index:
           add_button: "Add a new item"
           confirm_delete: "Are you sure you want to delete it?"
-      section_pane:
-        tabs:
-          settings: "Content"
-          blocks: "Blocks"
-          advanced: "Advanced"
-        block_list:
-          add: "Add new item"
-      section_block_pane:
-        tabs:
-          settings: "Content"
-          blocks: "Blocks"
-          advanced: "Advanced"
-      theme_section_list:
-        empty_category: "No sections"
+        edit:
+          tabs:
+            main: "Content"
+            advanced: "Advanced"       
       style:
         edit:
           title: "Style your site"
@@ -103,12 +100,7 @@ en:
             default: "Update style"
             in_progress: "Updating..."
             success: "Updated!"
-            fail: "Fail!"
-      image_input:
-        add_button: "Add image"
-        replace_button: "Replace image"
-        clear_button: "Clear"
-        alt_text_placeholder: "Alt text to help search engines"
+            fail: "Fail!"      
       image_library:
         title: "List of images"
         picker_title: "Select an image"
@@ -163,8 +155,6 @@ en:
           cancel_button: "Cancel"
           new_window_input:
             label: "Open in new window"
-      collection_item_input:
-        placeholder: "Select an item"          
       pagination:
         default_label: "%{start} - %{end} of %{totalItems} items"
         default_no_items: "None"
@@ -181,10 +171,6 @@ en:
           title: "We are sorry 🙇"
           message: "You're not permitted to do this. Check with your administrator."
           button: "Close"
-      form:
-        link:
-          placeholder: "Please click to select a link"
-          text_placeholder: "Enter the text of the link"
       links:
         edit:
           title: "Select a link"

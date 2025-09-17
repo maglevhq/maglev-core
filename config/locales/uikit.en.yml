@@ -1,0 +1,14 @@
+en:
+  maglev:
+    uikit:
+      form:
+        image_field:
+          add_button: "Add image"
+          replace_button: "Replace image"
+          clear_button: "Clear"
+          alt_text_placeholder: "Alt text to help search engines"
+        link_field:
+          placeholder: "Please click to select a link"
+          text_placeholder: "Enter the text of the link"
+        combobox:
+          placeholder: "Select an item"

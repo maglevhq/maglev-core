@@ -22,6 +22,14 @@ class Maglev::Section::Block
     !!root
   end
 
+  def main_settings
+    settings.select { |definition| !definition.advanced? }
+  end
+
+  def advanced_settings
+    settings.select { |definition| definition.advanced? }
+  end
+
   def as_json
     super(only: %i[name type settings root accept])
   end

@@ -2,11 +2,16 @@
   <% page_layout.with_title_content t('maglev.editor.style.edit.title') %>
   <% page_layout.with_notification_content maglev_flash_message %>
 
-  <%= render Maglev::Inputs::Forms::StyleFormComponent.new(
-    values: @style,
-    theme: maglev_theme,
-    path: editor_style_path(**maglev_editing_route_context),
-  ) %>
+  <%= form_with url: editor_style_path(**maglev_editing_route_context), method: :put, id: 'editor-style-form', data: {    
+    controller: 'editor-style-form',
+    'editor-style-form-style-value': @style,
+    action: %(
+      editor-setting:change->editor-style-form#update
+      editor-style-form:onUpdate->editor-preview-notification-center#updateStyle
+    )
+  } do %>
+    <%= style_form_settings(@style, maglev_theme) %>    
+  <% end %>
 
   <% page_layout.with_footer do %>
     <%= submit_tag t('maglev.editor.style.edit.submit_button.default'), 

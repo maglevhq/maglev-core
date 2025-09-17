@@ -36,6 +36,8 @@ pin '@tiptap/extension-hard-break', to: 'https://esm.sh/@tiptap/extension-hard-b
 pin_all_from File.expand_path('../app/components/maglev/uikit', __dir__), under: 'uikit-controllers', to: 'maglev/uikit'
 pin_all_from File.expand_path('../app/components/maglev/inputs', __dir__), under: 'inputs-controllers',
                                                                            to: 'maglev/inputs'
+# pin_all_from File.expand_path('../app/components/maglev/editor/settings', __dir__), under: 'settings-controllers',
+#                                                                            to: 'maglev/editor/settings'
 pin_all_from File.expand_path('../app/assets/javascripts/maglev/editor/controllers', __dir__),
              under: 'maglev-controllers',
              to: 'maglev/editor/controllers'

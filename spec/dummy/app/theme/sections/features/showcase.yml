@@ -22,6 +22,7 @@ settings:
 - label: "[TEST] select"
   id: blabla
   type: select
+  advanced: true
   select_options:
   - label: Option 1
     value: option_1
@@ -32,6 +33,7 @@ settings:
   id: my_checkbox
   type: checkbox
   default: false
+  advanced: true
   
 # Definition of the blocks.
 # You can define as many types of blocks as you want.

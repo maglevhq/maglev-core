@@ -6,8 +6,8 @@ module Maglev
       class SectionBlockFormComponent < Maglev::Inputs::Forms::SectionFormComponent
         attr_reader :section_block
 
-        def initialize(section:, section_block:, path:)
-          super(section: section, path: path)
+        def initialize(section:, section_block:, advanced: false, path:)
+          super(section: section, advanced: advanced, path: path)
           @section_block = section_block
         end
 
@@ -17,6 +17,10 @@ module Maglev
 
         def input_scope
           'section_block'
+        end
+
+        def settings
+          section_block.definition.settings.select { |definition| definition.advanced? == advanced }
         end
 
         def value_of(setting_id)

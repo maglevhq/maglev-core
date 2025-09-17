@@ -3,6 +3,8 @@
 module Maglev
   module Editor
     class SectionBlocksController < Maglev::Editor::BaseController
+      helper Maglev::Editor::SettingsHelper
+      
       before_action :set_section
       before_action :set_section_block, only: %i[edit update destroy]
 

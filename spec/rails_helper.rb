@@ -62,6 +62,8 @@ RSpec.configure do |config|
   config.include ActionDispatch::TestProcess::FixtureFile
   config.include FactoryBot::Syntax::Methods
   config.include Capybara::RSpecMatchers, type: :request
+  config.include Capybara::RSpecMatchers, type: :component
+  config.include ViewComponent::TestHelpers, type: :component
 
   config.before do
     Maglev.configure do |c|

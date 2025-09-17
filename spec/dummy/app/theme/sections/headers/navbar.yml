@@ -28,10 +28,17 @@ blocks:
     # html: true
     # line_break: true
     default: "Menu item"
+
   - label: "Link"
     id: link
     type: link
     default: "/"
+
+  - label: "FooBar"
+    id: foobar
+    type: text
+    default: "FooBar"
+    advanced: true
     
 # By default, in the editor UI, blocks will be listed below the "Content" title.
 # The title can be changed with the following property:

@@ -1,0 +1,20 @@
+<%= tag.div(
+  data: {
+    controller: "editor-setting",
+    'editor-setting-setting-id-value': definition.id,
+    'editor-setting-setting-type-value': definition.type,
+    action: %(
+      uikit-form-link:change->editor-setting#change      
+    )
+  }
+) do %>
+  <%= render Maglev::Uikit::Form::LinkComponent.new(
+    name: input_name,
+    path: edit_link_path,
+    options: {
+      label: label,
+      value: value,
+      with_text: definition.options[:with_text]
+    }
+  ) %>
+<% end %>

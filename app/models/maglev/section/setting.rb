@@ -24,6 +24,10 @@ class Maglev::Section::Setting
     end
   end
 
+  def advanced?
+    !!options[:advanced]
+  end
+
   def cast_value(value)
     self.class.registered_types[type.to_s].cast_value(value)
   end

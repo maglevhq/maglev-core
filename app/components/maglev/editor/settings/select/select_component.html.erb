@@ -1,0 +1,20 @@
+<%= tag.div(
+  data: {
+    controller: "editor-setting",
+    'editor-setting-setting-id-value': definition.id,
+    'editor-setting-setting-type-value': definition.type,
+    action: %(
+      uikit-form-select:change->editor-setting#change
+    )
+  }
+) do %>
+  <%= render Maglev::Uikit::Form::SelectComponent.new(
+    label: label,
+    name: input_name,
+    choices: choices,
+    options: {
+      value: value,
+      include_blank: true,
+    }
+  ) %>
+<% end %>

@@ -10,9 +10,17 @@
     <% end %>
   <% end %>
 
-  <%= render Maglev::Inputs::Forms::SectionBlockFormComponent.new(
-    section: @section,
-    section_block: @section_block,
-    path: editor_section_block_path(@section, @section_block, **maglev_editing_route_context)
-  ) %>
+  <%= form_with url: editor_section_block_path(@section, @section_block, **maglev_editing_route_context), method: :put, data: { 
+    controller: 'editor-section-form', 
+    'editor-section-form-section-id-value': @section.id,
+    'editor-section-form-section-block-id-value': @section_block.id,
+    action: %(
+      editor-setting:change->editor-section-form#onSettingChange
+      editor-section-form:updateSetting->editor-preview-notification-center#updateSetting
+      editor-section-form:updateSection->editor-preview-notification-center#updateSection
+      client:setting:updated@window->editor-section-form#afterSettingUpdate
+    )
+  } do %>
+    <%= render 'maglev/editor/section_blocks/form' %>
+  <% end %>
 <% end %>
