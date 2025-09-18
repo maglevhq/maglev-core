@@ -47,7 +47,7 @@ module Maglev
       }
     end
 
-    initializer 'maglev.importmap' do |app|
+    initializer 'maglev.importmap', before: 'propshaft.append_assets_path' do |app|
       Engine.importmaps[:editor].draw(Engine.root.join('config/editor_importmap.rb'))
       Engine.importmaps[:client].draw(Engine.root.join('config/client_importmap.rb'))
 
