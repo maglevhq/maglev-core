@@ -29,9 +29,9 @@ module Maglev::SectionsConcern
     sections.select { |section| section['type'] == type }
   end
 
-  def reorder_sections(section_ids)
+  def reorder_sections(sorted_section_ids)
     sections_translations_will_change!
-    sections.sort! { |a, b| section_ids.index(a['id']) <=> section_ids.index(b['id']) }
+    sections.sort! { |a, b| (sorted_section_ids.index(a['id'])) <=> (sorted_section_ids.index(b['id'])) }
   end
 
   def delete_section(section_id)
@@ -67,6 +67,8 @@ module Maglev::SectionsConcern
   end
 
   def prepare_settings(theme, section_type, block_type, settings)
+    settings ||= [] # some blocks don't have settings
+
     # NOTE: in the theme definition file, we allow developers to declare
     # default content like this: { <setting_id_1>: <setting_value_1>, ..., <setting_id_n>: <setting_value_n> }
     settings = settings.map { |key, value| { id: key, value: value } } unless settings.is_a?(Array)

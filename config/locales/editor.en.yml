@@ -89,6 +89,7 @@ en:
         index:
           add_button: "Add a new item"
           confirm_delete: "Are you sure you want to delete it?"
+          empty: "There are no items."
         edit:
           tabs:
             main: "Content"

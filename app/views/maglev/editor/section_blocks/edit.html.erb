@@ -1,5 +1,9 @@
 <%= render Maglev::Uikit::PageLayoutComponent.new(expanded: true, back_path: editor_root_path(maglev_editing_route_context)) do |page_layout| %>
-  <% page_layout.with_title_content @section_block.name_with_position %>
+  <% page_layout.with_title do %> 
+    <span class="text-gray-800 font-extrabold">#<%= @section_block.position + 1 %></span>
+    &dash;
+    <%= @section_block.name %>
+  <% end %>
   <% page_layout.with_notification_content maglev_flash_message %>
 
   <% page_layout.with_pre_title do %>

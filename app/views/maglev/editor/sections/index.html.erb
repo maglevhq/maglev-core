@@ -1,11 +1,11 @@
 <%= render Maglev::Uikit::PageLayoutComponent.new(expanded: true, back_path: editor_real_root_path(maglev_editing_route_context)) do |page_layout| %>
-  <% page_layout.with_title_content t('maglev.editor.sections.list_pane.title') %>
-  <% page_layout.with_description_content t('maglev.editor.sections.list_pane.sub_title') %>
+  <% page_layout.with_title_content t('maglev.editor.sections.index.title') %>
+  <% page_layout.with_description_content t('maglev.editor.sections.index.sub_title') %>
   <% page_layout.with_notification_content maglev_flash_message %>
 
   <%= render 'list' %>
 
   <% page_layout.with_footer do %>
-    <%= link_to t('maglev.editor.sections.list_pane.add_button'), new_editor_section_path(maglev_editing_route_context), class: maglev_button_classes(size: :big), data: { turbo_frame: '_top' } %>
+    <%= link_to t('maglev.editor.sections.index.add_button'), new_editor_section_path(maglev_editing_route_context), class: maglev_button_classes(size: :big), data: { turbo_frame: '_top' } %>
   <% end %>
 <% end %>

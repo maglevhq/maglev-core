@@ -1,0 +1,56 @@
+<%= render Maglev::Uikit::List::ListComponent.new(
+  sort_form: { 
+    path: sort_editor_section_blocks_path(@section, parent_id: parent_id, **maglev_editing_route_context), 
+    data: { turbo_frame: '_top' } 
+  },
+  sortable_scope: parent_id || 'root',
+  html_options: {
+    data: {
+      action: 'sortable:drag-stopped@window->editor-preview-notification-center#moveSectionBlocks:self', 
+      'editor-preview-notification-center-section-id-param': @section.id,
+    }
+  }
+) do |component| %>
+  <% blocks.each do |section_block| %>
+    <% component.with_item_content(
+      id: section_block.id,
+      options: { sortable_scope: parent_id || 'root' },
+      link: { 
+        url: edit_editor_section_block_path(@section, section_block, **maglev_editing_route_context), 
+        data: { turbo_frame: '_top' } 
+      }) do |item| %>
+      <% item.with_handle %>
+
+      <% if section_block.label? %>
+        <% item.with_title_content(section_block.label) %>
+      <% else %>
+        <% item.with_title_content(section_block.name) %>
+      <% end %>
+
+      <% item.with_image do %>
+        <%= image_tag section_block.image, class: item.image_classes, data: { controller: 'broken-image' } %>
+      <% end if section_block.image? %>
+
+      <% item.with_action do %>
+        <%= add_child_section_block_button(@section, section_block) %>
+        
+        <%= delete_section_block_button(@section, section_block, maglev_editing_route_context) %>        
+      <% end %>
+
+      <% if @section.child_blocks_of(section_block.id).any? %>
+        <div class="ml-5 mt-3">
+          <%= render 'maglev/editor/section_blocks/tree_display/list', 
+            blocks: @section.child_blocks_of(section_block.id), 
+            parent_id: section_block.id
+          %>
+        </div>
+      <% end %>
+    <% end %>    
+  <% end %>
+<% end %>
+
+<% if blocks.blank? && parent_id.blank? %>
+  <p class="text-center mt-20 text-gray-800">
+    <%= t('maglev.editor.section_blocks.index.empty') %>
+  </p>
+<% end %>

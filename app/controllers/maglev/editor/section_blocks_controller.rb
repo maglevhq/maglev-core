@@ -16,7 +16,8 @@ module Maglev
         services.add_section_block.call(
           page: current_maglev_page,
           section_id: @section.id,
-          block_type: params[:block_type]
+          block_type: params[:block_type],
+          parent_id: params[:parent_id]
         )
         redirect_to editor_section_blocks_path(@section.id, **maglev_editing_route_context), notice: flash_t(:success),
                                                                                              status: :see_other
@@ -38,7 +39,8 @@ module Maglev
         services.sort_section_blocks.call(
           page: current_maglev_page,
           section_id: @section.id,
-          block_ids: params[:item_ids]
+          block_ids: params[:item_ids],
+          parent_id: params[:parent_id]
         )
         redirect_to editor_section_blocks_path(@section.id, **maglev_editing_route_context), notice: flash_t(:success),
                                                                                              status: :see_other

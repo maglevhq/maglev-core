@@ -5,9 +5,10 @@
     action: 'turbo:submit-end->editor-preview-notification-center#addSectionBlock',
     'editor-preview-notification-center-section-id-param': @section.id,
   } do |f| %>
+  <%= f.hidden_field :parent_id, parent_id %>
 
   <div class="space-y-4">
-    <% @section.definition.blocks.each do |block_definition| %>
+    <% blocks.each do |block_definition| %>
       <label class="block cursor-pointer transition duration-150 ease-in-out transform hover:-translate-y-1">
         <%= f.radio_button :block_type, block_definition.type, class: 'sr-only peer' %>
         <%= render Maglev::Uikit::List::ListItemComponent.new do |item| %>

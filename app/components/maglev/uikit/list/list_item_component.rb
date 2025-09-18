@@ -11,13 +11,14 @@ module Maglev
         renders_one :title
         renders_one :action
 
-        attr_reader :link, :index
+        attr_reader :link, :index, :options
 
         def initialize(id: nil, link: nil, options: {})
           @id = id
           @link = link
           @custom_wrapper_classes = options[:wrapper_classes]
           @index = options[:index]
+          @options = options
         end
 
         def id
@@ -65,6 +66,18 @@ module Maglev
           class_variants(
             base: 'w-full'
           ).render(...)
+        end
+
+        def sortable_scope
+          options[:sortable_scope]
+        end
+
+        def sortable_target
+          sortable_scope.present? ? "item-#{sortable_scope}" : 'item'
+        end
+
+        def sortable_handle
+          sortable_scope.present? ? "handle-#{sortable_scope}" : 'handle'
         end
       end
     end

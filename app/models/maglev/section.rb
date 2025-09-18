@@ -41,8 +41,16 @@ module Maglev
       !!singleton
     end
 
+    def root_blocks
+      blocks.select(&:root?)
+    end
+
     def blocks_tree?
       blocks_presentation == 'tree'
+    end
+
+    def accepts_blocks?
+      blocks.any? { |block| block.accept.present? }
     end
 
     def viewport_fixed_position?

@@ -2,7 +2,7 @@
 
 module Maglev
   module Content
-    class SortSectionBlocksService
+    class DeleteSectionService
       include Injectable
       include Maglev::Content::HelpersConcern
 
@@ -11,31 +11,23 @@ module Maglev
 
       argument :page
       argument :section_id
-      argument :block_ids
-      argument :parent_id, default: nil
 
       def call
         raise Maglev::Errors::UnknownSection unless section_definition
 
         ActiveRecord::Base.transaction do
-          sort_section_blocks!(site) if site_scoped?
-          sort_section_blocks!(page)
+          delete_section!(site) if site_scoped?
+          delete_section!(page)
         end
       end
 
       private
 
-      def sort_section_blocks!(source)
+      def delete_section!(source)
         source.sections_translations_will_change!
-        sort_section_blocks(source)
+        source.delete_section(section_id)
         source.save!
-      end
-
-      def sort_section_blocks(source)
-        find_blocks(source)&.sort_by! do |block|
-          block['parent_id'] == parent_id ? block_ids.index(block['id']) || Float::INFINITY : -1          
-        end
-      end
+      end      
     end
   end
 end

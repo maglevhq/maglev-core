@@ -2,13 +2,16 @@ import { Controller } from "@hotwired/stimulus"
 import { Sortable, Plugins } from "@shopify/draggable"
 
 export default class extends Controller {
-  static targets = ["item", "sortableForm"]
-  static values = { path: String }
+  static targets = ["sortableForm"]
+  static values = { path: String, scope: String }
 
   connect() {
+    this.draggableName = this.scopeValue ? `item-${this.scopeValue}` : 'item'
+    const handleName = this.scopeValue ? `handle-${this.scopeValue}` : 'handle'
+
     this.sortable = new Sortable(this.element, {
-      draggable: '[data-sortable-target="item"]',
-      handle: '[data-sortable-target="handle"]',
+      draggable: `[data-sortable-target="${this.draggableName}"]`,
+      handle: `[data-sortable-target="${handleName}"]`,
       classes: {
         'container:dragging': ['is-dragging'],
         'mirror': ['shadow-md'],
@@ -37,26 +40,32 @@ export default class extends Controller {
   }
 
   emitEvent(event) {
+    console.log('🚨', event)
+
     // optimistic UI update
     const { oldIndex, newIndex } = event.data
     const direction = oldIndex < newIndex ? 'down' : 'up'
 
-    const oldItemId = this.itemTargets[direction === 'down' ? oldIndex : newIndex].dataset.itemId
-    const newItemId = this.itemTargets[direction === 'down' ? newIndex : oldIndex].dataset.itemId
+    const oldItemId = this.itemTargets()[direction === 'down' ? oldIndex : newIndex].dataset.itemId
+    const newItemId = this.itemTargets()[direction === 'down' ? newIndex : oldIndex].dataset.itemId
 
     this.dispatch('drag-stopped', { detail: { oldItemId, newItemId, direction } })
   }
 
   persist() {
     // persisting the new order in DB
-    this.itemTargets.forEach(item => {  
+    this.itemTargets().forEach(item => {  
       const hiddenField = document.createElement('input')
       hiddenField.type = 'hidden'
       hiddenField.name = 'item_ids[]'
       hiddenField.value = item.dataset.itemId
       this.sortableFormTarget.appendChild(hiddenField)
     })
-    
+
     this.sortableFormTarget.requestSubmit()
+  }
+
+  itemTargets() {
+    return this.element.querySelectorAll(`[data-sortable-target="${this.draggableName}"]`)
   }
 }

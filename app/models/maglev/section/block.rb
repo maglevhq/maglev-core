@@ -57,9 +57,8 @@ class Maglev::Section::Block
     end
   end
 
-  class Store
-    extend Forwardable
-    def_delegators :@array, :all, :first, :last, :count, :each, :each_with_index, :map, :group_by
+  class Store    
+    include Enumerable
 
     attr_reader :array
 
@@ -69,6 +68,10 @@ class Maglev::Section::Block
 
     def find(type)
       array.find { |block| block.type == type }
+    end
+
+    def each(&block)
+      array.each(&block)
     end
   end
 end

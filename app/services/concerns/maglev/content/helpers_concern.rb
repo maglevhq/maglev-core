@@ -41,7 +41,7 @@ module Maglev
       end
 
       def find_blocks(source)
-        find_section(source)['blocks']
+        find_section(source)&.fetch('blocks', nil)
       end
 
       def find_block(source)

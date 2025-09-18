@@ -29,21 +29,7 @@
         <% end if section_block.image? %>
 
         <% item.with_action do %>
-          <%= button_to editor_section_block_path(@section, section_block, **maglev_editing_route_context), 
-            method: :delete, 
-            class: maglev_icon_button_classes, 
-            data: { 
-              turbo_confirm: t('maglev.editor.section_blocks.index.confirm_delete')
-            }, 
-            form: { 
-              data: {
-                action: 'turbo:submit-end->editor-preview-notification-center#deleteSectionBlock',
-                'editor-preview-notification-center-section-id-param': @section.id,
-                'editor-preview-notification-center-section-block-id-param': section_block.id
-              }
-            } do %>
-            <%= render Maglev::Uikit::IconComponent.new(name: "delete_bin", size: "1.15rem") %>
-          <% end %>
+          <%= delete_section_block_button(@section, section_block, maglev_editing_route_context) %>
         <% end %>
       <% end %>
     <% end %>

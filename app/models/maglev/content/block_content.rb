@@ -6,18 +6,22 @@ module Maglev
       include ActiveModel::Model
       include Maglev::Content::EnhancedValueConcern
 
-      attr_accessor :id, :type, :settings, :definition, :position
+      attr_accessor :id, :type, :settings, :definition, :position, :parent_id
 
       def persisted?
         true
       end
 
-      def name
-        definition.human_name
+      def root?
+        definition.root?
       end
 
-      def name_with_position
-        "#{name} ##{position + 1}"
+      def accepted_child_types
+        definition.accept || []
+      end
+
+      def name
+        definition.human_name
       end
 
       def self.build(raw_block_content:, definition:, position:)
@@ -26,6 +30,7 @@ module Maglev
           definition: definition,
           type: raw_block_content['type'],
           settings: Maglev::Content::SettingContent::AssociationProxy.new(raw_block_content['settings']),
+          parent_id: raw_block_content['parent_id'],
           position: position
         )
       end
@@ -54,6 +59,20 @@ module Maglev
 
         def find(id)
           array.find { |block| block.id == id }
+        end
+
+        def find_all_by_type(type)
+          array.select { |block| block.type == type }
+        end
+
+        def can_add?(type)
+          blocks = find_all_by_type(type)
+
+          return true if blocks.size.zero?
+
+          definition = blocks.first.definition
+
+          definition.limit == -1 || blocks.size < definition.limit
         end
 
         def each(&block)

@@ -47,12 +47,8 @@ module Maglev
       end
 
       def destroy
-        current_maglev_page.delete_section(params[:id])
-        if current_maglev_page.save
-          redirect_to editor_sections_path(maglev_editing_route_context), notice: flash_t(:success), status: :see_other
-        else
-          render_index_with_error
-        end
+        services.delete_section.call(page: current_maglev_page, section_id: params[:id])
+        redirect_to editor_sections_path(maglev_editing_route_context), notice: flash_t(:success), status: :see_other        
       end
 
       private

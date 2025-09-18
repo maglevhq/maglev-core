@@ -21,7 +21,7 @@ module Maglev::Section::ContentConcern
       type: block_definition.type,
       settings: fallback_build_default_settings_content(block_definition.settings),
       parent_id: parent_id
-    }.compact_blank
+    }.compact
   end
 
   private

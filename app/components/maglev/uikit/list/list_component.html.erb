@@ -1,9 +1,17 @@
-<div class="flex flex-col gap-3 group" <%= tag.attributes(data: { controller: 'sortable' }) if sortable? %>>
+<%= tag.div(
+  class: 'flex flex-col gap-3 group',
+  data: { 
+    controller: sortable? ? 'sortable' : nil, 
+    'sortable-scope-value': sortable? ? sortable_scope : nil,
+    **html_options[:data]
+  }.compact,
+) do %>
   <% items.each do |item| %>
     <%= item %>
   <% end %>
 
   <%= form_with url: sort_form_path, method: :put, data: sort_form_data, class: 'invisible' do %>
     <!-- Empty form -->
+    <%= hidden_field_tag :scope, sortable_scope if sortable_scope.present? %>
   <% end if sortable? %>
-</div>
+<% end %>

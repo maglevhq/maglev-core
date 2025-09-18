@@ -9,17 +9,17 @@
     <% end %>
   <% end %>
 
-  <% if @section.definition.blocks_tree? %>
-    <p>TODO</p>
+  <% if @section.definition.blocks_tree? && @section.definition.accepts_blocks? %>
+    <%= render 'maglev/editor/section_blocks/tree_display/list', blocks: @section.root_blocks, parent_id: nil %>
   <% else %>
     <%= render 'maglev/editor/section_blocks/simple_display/list' %>
   <% end %>
 
   <% page_layout.with_footer do %>
-    <% if @section.definition.blocks_tree? %>
-      <p>TODO</p>
+    <% if @section.definition.blocks_tree? && @section.definition.accepts_blocks? %>
+      <%= add_section_block_button(@section, @section.root_block_definitions) %>
     <% else %>
-      <%= render 'maglev/editor/section_blocks/simple_display/add_button' %>
+      <%= add_section_block_button(@section, @section.block_definitions) %>
     <% end %>
   <% end %>
 <% end %>

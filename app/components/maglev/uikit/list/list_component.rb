@@ -9,10 +9,12 @@ module Maglev
           insert_button: Maglev::Uikit::List::InsertButtonComponent
         }
 
-        attr_reader :sort_form
+        attr_reader :sort_form, :sortable_scope, :html_options
 
-        def initialize(sort_form: nil)
+        def initialize(sort_form: nil, sortable_scope: nil, html_options: {})
           @sort_form = sort_form
+          @sortable_scope = sortable_scope
+          @html_options = html_options
         end
 
         def sort_form_path

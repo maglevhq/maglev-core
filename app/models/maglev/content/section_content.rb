@@ -16,16 +16,41 @@ module Maglev
         definition.viewport_fixed_position?
       end
 
+      def type_name
+        definition.human_name
+      end
+      
       def blocks?
         blocks.present?
       end
 
-      def type_name
-        definition.human_name
+      def block_definitions
+        definition.blocks
+      end
+
+      def root_blocks
+        blocks.select(&:root?)
+      end
+
+      # return the definitions of root blocks that can be added
+      def root_block_definitions        
+        definition.root_blocks.select { |block_definition| blocks.can_add?(block_definition.type) }
+      end
+
+      # return the definitions of blocks that can be added as children of the given block
+      def child_block_definitions_of(block_id)
+        accepted_block_types = blocks.find(block_id).accepted_child_types
+        definition.blocks.select do |block_definition| 
+          accepted_block_types.include?(block_definition.type) && blocks.can_add?(block_definition.type)
+        end
       end
 
       def blocks_label
         definition.human_blocks_label(::I18n.t('maglev.editor.section_blocks.breadcrumb'))
+      end
+
+      def child_blocks_of(block_id)
+        blocks.select { |block| block.parent_id == block_id }
       end
 
       def build_blocks(raw_section_content)

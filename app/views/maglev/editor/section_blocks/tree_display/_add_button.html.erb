@@ -1,6 +1,6 @@
-<% if @section.definition.blocks.count == 1 %>
+<% if @section.definition.root_blocks.count == 1 %>
   <%= button_to t('maglev.editor.section_blocks.index.add_button'),
-    editor_section_blocks_path(@section, block_type: @section.definition.blocks.first.type, **maglev_editing_route_context), 
+    editor_section_blocks_path(@section, block_type: @section.definition.root_blocks.first.type, **maglev_editing_route_context), 
     class: maglev_button_classes(size: :big),
     method: :post,
     name: 'add_section_block',
@@ -26,7 +26,7 @@
     <% end %>
             
     <div class="p-4">
-      <%= render 'maglev/editor/section_blocks/new', blocks: @section.definition.blocks %>
+      <%= render 'maglev/editor/section_blocks/new', blocks: @section.definition.root_blocks %>
     </div>
   <% end %>
 <% end %>

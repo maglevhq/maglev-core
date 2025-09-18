@@ -7,7 +7,8 @@ describe Maglev::Content::AddSectionService do
 
   let(:site) { create(:site) }
   let!(:page) { create(:page) }
-  let(:fetch_theme) { double('FetchTheme', call: build(:theme)) }
+  let(:theme) { build(:theme) }
+  let(:fetch_theme) { double('FetchTheme', call: theme) }
   let(:fetch_site) { double('FetchSite', call: site) }
   let(:service) { described_class.new(fetch_site: fetch_site, fetch_theme: fetch_theme) }
 
@@ -30,6 +31,13 @@ describe Maglev::Content::AddSectionService do
 
     it 'adds the section to the page' do
       expect { subject }.to change { page.sections.count }.by(1)
+    end
+
+    it 'sets the same section id for the site and the page' do
+      subject
+      site.reload.prepare_sections(theme)
+      page.reload.prepare_sections(theme)
+      expect(site.sections.last['id']).to eq page.sections.last['id']
     end
   end
 

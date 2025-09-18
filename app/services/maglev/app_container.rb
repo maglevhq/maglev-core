@@ -46,8 +46,10 @@ module Maglev
 
     dependency :persist_style,              class: Maglev::PersistStyleService, depends_on: %i[fetch_site fetch_theme]
 
-    dependency :add_section,                class: Maglev::Content::AddSectionService, depends_on: %i[fetch_theme]
+    dependency :add_section,                class: Maglev::Content::AddSectionService, depends_on: %i[fetch_site fetch_theme]
     dependency :update_section,             class: Maglev::Content::UpdateSectionService,
+                                            depends_on: %i[fetch_site fetch_theme]
+    dependency :delete_section,             class: Maglev::Content::DeleteSectionService,
                                             depends_on: %i[fetch_site fetch_theme]
 
     dependency :add_section_block,          class: Maglev::Content::AddSectionBlockService,

@@ -12,6 +12,7 @@ module Maglev
       argument :page
       argument :section_id
       argument :block_type
+      argument :parent_id, default: nil
 
       def call
         raise Maglev::Errors::UnknownSection unless section_definition
@@ -29,7 +30,9 @@ module Maglev
       private
 
       def build_block_content
-        section_definition.build_block_content_for(block_type)
+        section_definition.build_block_content_for(block_type).tap do |block_content|
+          block_content[:parent_id] = parent_id if parent_id.present?
+        end
       end
 
       def add_to_section!(source, block_content)
