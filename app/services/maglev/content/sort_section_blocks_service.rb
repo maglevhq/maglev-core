@@ -33,7 +33,7 @@ module Maglev
 
       def sort_section_blocks(source)
         find_blocks(source)&.sort_by! do |block|
-          block['parent_id'] == parent_id ? block_ids.index(block['id']) || Float::INFINITY : -1          
+          block['parent_id'] == parent_id ? block_ids.index(block['id']) || Float::INFINITY : -1
         end
       end
     end

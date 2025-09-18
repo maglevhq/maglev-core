@@ -10,9 +10,9 @@
   <% end %>
 
   <% if @section.definition.blocks_tree? && @section.definition.accepts_blocks? %>
-    <%= render 'maglev/editor/section_blocks/tree_display/list', blocks: @section.root_blocks, parent_id: nil %>
+    <%= render 'maglev/editor/section_blocks/index/tree', blocks: @section.root_blocks, parent_id: nil %>
   <% else %>
-    <%= render 'maglev/editor/section_blocks/simple_display/list' %>
+    <%= render 'maglev/editor/section_blocks/index/list' %>
   <% end %>
 
   <% page_layout.with_footer do %>

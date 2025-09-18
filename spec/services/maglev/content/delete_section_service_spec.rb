@@ -7,7 +7,7 @@ describe Maglev::Content::DeleteSectionService do
   let(:page) { create(:page) }
   let(:theme) { build(:theme) }
   let(:fetch_theme) { double('FetchTheme', call: theme) }
-  let(:fetch_site) { double('FetchSite', call: site) }  
+  let(:fetch_site) { double('FetchSite', call: site) }
   let(:service) { described_class.new(fetch_site: fetch_site, fetch_theme: fetch_theme) }
 
   subject { service.call(page: page, section_id: section_id) }

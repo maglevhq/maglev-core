@@ -57,7 +57,7 @@ class Maglev::Section::Block
     end
   end
 
-  class Store    
+  class Store
     include Enumerable
 
     attr_reader :array

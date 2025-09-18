@@ -39,7 +39,7 @@ describe Maglev::Content::SortSectionBlocksService do
     let(:block_ids) do
       [
         page.sections.dig(0, 'blocks', 3, 'id'),
-        page.sections.dig(0, 'blocks', 2, 'id'),        
+        page.sections.dig(0, 'blocks', 2, 'id')
       ]
     end
 

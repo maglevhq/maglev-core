@@ -1,6 +1,6 @@
 <%= render Maglev::Uikit::PageLayoutComponent.new(expanded: true, back_path: editor_root_path(maglev_editing_route_context)) do |page_layout| %>
   <% page_layout.with_title do %> 
-    <span class="text-gray-800 font-extrabold">#<%= @section_block.position + 1 %></span>
+    <span class="text-gray-800 font-extrabold">#<%= @section_block.position_in_parent + 1 %></span>
     &dash;
     <%= @section_block.name %>
   <% end %>

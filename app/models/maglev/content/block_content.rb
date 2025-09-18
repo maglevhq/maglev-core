@@ -6,15 +6,13 @@ module Maglev
       include ActiveModel::Model
       include Maglev::Content::EnhancedValueConcern
 
-      attr_accessor :id, :type, :settings, :definition, :position, :parent_id
+      attr_accessor :id, :type, :settings, :definition, :position, :parent_id, :position_in_parent
 
       def persisted?
         true
       end
 
-      def root?
-        definition.root?
-      end
+      delegate :root?, to: :definition
 
       def accepted_child_types
         definition.accept || []
@@ -42,6 +40,15 @@ module Maglev
             definition: section_content.definition.blocks.find(raw_block_content['type']),
             position: index
           )
+        end.tap { |blocks| compute_position_in_parent(blocks) }
+      end
+
+      def self.compute_position_in_parent(blocks)
+        memo = {} # key: parent_id, value: number of blocks
+        blocks.each do |block|
+          memo[block.parent_id] ||= 0
+          block.position_in_parent = memo[block.parent_id]
+          memo[block.parent_id] += 1
         end
       end
 
@@ -68,7 +75,7 @@ module Maglev
         def can_add?(type)
           blocks = find_all_by_type(type)
 
-          return true if blocks.size.zero?
+          return true if blocks.empty?
 
           definition = blocks.first.definition
 

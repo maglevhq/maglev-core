@@ -19,7 +19,7 @@ module Maglev
       def type_name
         definition.human_name
       end
-      
+
       def blocks?
         blocks.present?
       end
@@ -33,14 +33,14 @@ module Maglev
       end
 
       # return the definitions of root blocks that can be added
-      def root_block_definitions        
+      def root_block_definitions
         definition.root_blocks.select { |block_definition| blocks.can_add?(block_definition.type) }
       end
 
       # return the definitions of blocks that can be added as children of the given block
       def child_block_definitions_of(block_id)
         accepted_block_types = blocks.find(block_id).accepted_child_types
-        definition.blocks.select do |block_definition| 
+        definition.blocks.select do |block_definition|
           accepted_block_types.include?(block_definition.type) && blocks.can_add?(block_definition.type)
         end
       end

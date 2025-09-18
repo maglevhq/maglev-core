@@ -61,19 +61,19 @@ export default class extends Controller {
   // === SECTION BLOCKS ===
 
   addSectionBlock(event) {
-    console.log('addSectionBlock 💨💨💨', event)
+    console.log('addSectionBlock 💨💨💨', event.params)
     const { sectionId } = event.params
     this.postMessage('block:add', { sectionId })
   }
 
   deleteSectionBlock(event) {
-    console.log('deleteSectionBlock 💨💨💨', event)
+    console.log('deleteSectionBlock 💨💨💨', event.params)
     const { sectionId, sectionBlockId } = event.params
     this.postMessage('block:remove', { sectionId, sectionBlockId })
   }
 
   moveSectionBlocks(event) {
-    console.log('moveSectionBlocks 💨💨💨', event)
+    console.log('moveSectionBlocks 💨💨💨', event.params)
     const sectionId = event.params.sectionId
     const { oldItemId: sectionBlockId, newItemId: targetSectionBlockId, direction } = event.detail    
     this.postMessage('block:move', { sectionId, sectionBlockId, targetSectionBlockId, direction })

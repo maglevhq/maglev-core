@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe Maglev::Content::AddSectionBlockService do  
+describe Maglev::Content::AddSectionBlockService do
   let(:site) { create(:site, :empty) }
   let!(:page) { create(:page) }
   let(:fetch_theme) { double('FetchTheme', call: build(:theme)) }
@@ -13,8 +13,9 @@ describe Maglev::Content::AddSectionBlockService do
 
   before { page.prepare_sections(fetch_theme.call) }
 
-  subject(:service_call) { service.call(page: page, section_id: section_id, block_type: block_type, parent_id: parent_id) }
-
+  subject(:service_call) do
+    service.call(page: page, section_id: section_id, block_type: block_type, parent_id: parent_id)
+  end
 
   context 'Given a block type that does not exist' do
     let(:block_type) { 'not_existing' }
@@ -46,8 +47,10 @@ describe Maglev::Content::AddSectionBlockService do
     let(:block_type) { 'menu_item' }
     let(:parent_id) { 'menu-item-1' }
 
-    before { site.update(sections: [page.sections[0]]) } # in a site scoped section, site + page shares the same instance of the section
-
+    # in a site scoped section, site + page shares the same instance of the section
+    before do
+      site.update(sections: [page.sections[0]])
+    end
     it 'adds the block to the section' do
       expect { subject }.to change { page.sections.dig(0, 'blocks').count }.by(1)
     end

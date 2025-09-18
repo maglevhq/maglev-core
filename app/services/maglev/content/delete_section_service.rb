@@ -27,7 +27,7 @@ module Maglev
         source.sections_translations_will_change!
         source.delete_section(section_id)
         source.save!
-      end      
+      end
     end
   end
 end
