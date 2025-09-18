@@ -28,9 +28,7 @@ en:
       page_preview:
         loading: "Loading..."
         empty:
-          title:
-            without_locale: "Your page is blank"
-            with_locale: "Your page in %{locale_name} is blank"
+          title: "Your page is blank"
           message: "Please add the first section by clicking on the %{button} button in the left sidebar."
       pages:
         list:

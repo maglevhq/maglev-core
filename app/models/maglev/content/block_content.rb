@@ -34,13 +34,14 @@ module Maglev
       end
 
       def self.build_many(raw_blocks_content:, section_content:)
-        raw_blocks_content.each_with_index.map do |raw_block_content, index|
+        blocks = raw_blocks_content.each_with_index.map do |raw_block_content, index|
           build(
             raw_block_content: raw_block_content,
             definition: section_content.definition.blocks.find(raw_block_content['type']),
             position: index
           )
-        end.tap { |blocks| compute_position_in_parent(blocks) }
+        end
+        compute_position_in_parent(blocks)
       end
 
       def self.compute_position_in_parent(blocks)
@@ -50,6 +51,7 @@ module Maglev
           block.position_in_parent = memo[block.parent_id]
           memo[block.parent_id] += 1
         end
+        blocks
       end
 
       class AssociationProxy

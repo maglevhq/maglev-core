@@ -1,7 +1,7 @@
 <%= turbo_stream.update params[:turbo_frame], method: 'morph' do %>
   <%= render Maglev::Uikit::Form::Combobox::ListComponent.new do |component| %>
     <% @pages.each do |page| %>
-      <%= component.with_option(id: page.id, label: page.title) %>        
+      <%= component.with_option(id: page.id, label: page.title.presence || page.default_title) %>        
     <% end %>
   <% end %>
 <% end %>

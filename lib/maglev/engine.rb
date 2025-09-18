@@ -47,17 +47,19 @@ module Maglev
       }
     end
 
-    initializer 'maglev.importmap', before: 'propshaft.append_assets_path' do |app|
-      Engine.importmaps[:editor].draw(Engine.root.join('config/editor_importmap.rb'))
-      Engine.importmaps[:client].draw(Engine.root.join('config/client_importmap.rb'))
-
+    initializer 'maglev.assets' do |app|
+      app.config.assets.paths << Engine.root.join('app/assets/builds')
       app.config.assets.paths << Engine.root.join('app/components')
       app.config.assets.paths << Engine.root.join('app/assets/javascripts')
-      app.config.assets.paths << Engine.root.join('app/assets/builds')
       app.config.assets.paths << Engine.root.join('vendor/javascript')
 
       # required by Sprockets (if used by the main app)
       app.config.assets.precompile += %w[maglev_manifest]
+    end
+
+    initializer 'maglev.importmap', after: 'importmap' do |app|
+      Engine.importmaps[:editor].draw(Engine.root.join('config/editor_importmap.rb'))
+      Engine.importmaps[:client].draw(Engine.root.join('config/client_importmap.rb'))
 
       if (Rails.env.development? || Rails.env.test?) && !app.config.cache_classes
         # Editor

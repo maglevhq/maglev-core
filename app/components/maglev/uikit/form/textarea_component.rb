@@ -12,7 +12,7 @@ module Maglev
           @name = name
           @options = options
           @input_data = html_options.delete(:data) || {}
-          @input_action = input_data.delete(:action)
+          @input_action = input_data.delete(:action) || {}
           @html_options = html_options
         end
 

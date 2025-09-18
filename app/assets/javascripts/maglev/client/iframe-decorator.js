@@ -5,7 +5,6 @@ let listeners = []
 let hoveredSectionId = null
 let lastCursorPosition = { x: 0, y: 0 }
 
-
 export const start = (config) => {
   const previewDocument = window.document
 

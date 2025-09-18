@@ -7,7 +7,7 @@
     'uikit-form-combobox-turbo-frame-name-value': turbo_frame_name,
     'uikit-form-combobox-clearable-value': clearable?,
     'uikit-form-combobox-spread-fields-value': spread_fields?,
-    **html_options[:data]
+    **(html_options[:data] || {})
   }) do %>
   <label for="<%= dom_id %>" class="block font-semibold text-gray-800 flex items-center gap-2">
     <span><%= label %></span>

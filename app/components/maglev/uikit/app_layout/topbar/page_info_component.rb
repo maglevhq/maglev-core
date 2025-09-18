@@ -19,7 +19,7 @@ module Maglev
           end
 
           def page_path
-            "#{prefix_page_path}#{page.path}"
+            "#{prefix_page_path}#{page.path.presence || page.default_path}"
           end
         end
       end

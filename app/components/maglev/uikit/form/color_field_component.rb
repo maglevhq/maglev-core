@@ -49,7 +49,7 @@ module Maglev
         end
 
         def input_action
-          @input_action ||= input_data.delete(:action)
+          @input_action ||= input_data.delete(:action) || {}
         end
       end
     end

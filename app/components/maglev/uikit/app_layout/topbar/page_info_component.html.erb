@@ -5,7 +5,9 @@
     <div class="flex flex-col leading-none overflow-hidden">
       <div class="flex items-center">
         <%= render Maglev::Uikit::IconComponent.new(name: icon_name, size: '1.1rem', class_names: 'shrink-0 text-gray-900') %>
-        <div class="text-base font-semibold truncate ml-1 mr-3"><%= page.title %></div>
+        <div class="text-base font-semibold truncate ml-1 mr-3">
+          <%= page.title.presence || page.default_title %>
+        </div>
 
         <%= render(Maglev::Uikit::PageActionsDropdownComponent.new(
           paths: paths, 

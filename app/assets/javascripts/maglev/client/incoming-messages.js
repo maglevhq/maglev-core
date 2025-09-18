@@ -16,7 +16,10 @@ export const start = () => {
         })
 
         // we answer back we're ready!
-        postMessageToEditor('ready', { message: "👋, I'm a Maglev site and I'm ready" })
+        postMessageToEditor('ready', { 
+          message: "👋, I'm a Maglev site and I'm ready",
+          numberOfSections: window.document.querySelectorAll('[data-maglev-section-id]').length
+        })
         break
       case 'section:add':
       case 'section:move':

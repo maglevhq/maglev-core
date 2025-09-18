@@ -28,9 +28,7 @@ fr:
       page_preview:
         loading: "Chargement..."
         empty:
-          title:
-            without_locale: "Votre page est vide"
-            with_locale: "Votre page en %{locale_name} est vide"
+          title: "Votre page est vide"
           message: "Veuillez ajouter la première section en cliquant sur le bouton %{button} dans la barre latérale gauche."
       pages:
         list:

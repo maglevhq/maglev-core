@@ -3,7 +3,7 @@
   data: { 
     controller: sortable? ? 'sortable' : nil, 
     'sortable-scope-value': sortable? ? sortable_scope : nil,
-    **html_options[:data]
+    **(html_options[:data] || {})
   }.compact,
 ) do %>
   <% items.each do |item| %>

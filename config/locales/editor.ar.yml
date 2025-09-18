@@ -28,9 +28,7 @@ ar:
       page_preview:
         loading: "جاري التحميل..."
         empty:
-          title:
-            without_locale: "صفحتك فارغة"
-            with_locale: "صفحتك في %{locale_name} فارغة"
+          title: "صفحتك فارغة"
           message: "يرجى إضافة القسم الأول بالنقر على زر %{button} في الشريط الجانبي الأيسر."
       pages:
         list:

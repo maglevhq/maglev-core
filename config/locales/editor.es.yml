@@ -28,9 +28,7 @@ es:
       page_preview:
         loading: "Cargando..."
         empty:
-          title:
-            without_locale: "Tu página está en blanco"
-            with_locale: "Tu página en %{locale_name} está en blanco"
+          title: "Tu página está vacía"
           message: "Por favor agrega la primera sección haciendo clic en el botón %{button} en la barra lateral izquierda."
       pages:
         list:
