@@ -53,6 +53,7 @@ module Maglev
 
       app.config.assets.paths << Engine.root.join('app/components')
       app.config.assets.paths << Engine.root.join('app/assets/javascripts')
+      app.config.assets.paths << Engine.root.join('app/assets/builds')
       app.config.assets.paths << Engine.root.join('vendor/javascript')
 
       # required by Sprockets (if used by the main app)
