@@ -30,8 +30,8 @@ fr:
         empty:
           title:
             without_locale: "Votre page est vide"
-            with_locale: "Votre page en %{localeName} est vide"
-          message: "Veuillez ajouter la première section en cliquant sur le bouton {icon} dans la barre latérale gauche."
+            with_locale: "Votre page en %{locale_name} est vide"
+          message: "Veuillez ajouter la première section en cliquant sur le bouton %{button} dans la barre latérale gauche."
       pages:
         list:
           title: "Liste des pages"
@@ -69,26 +69,31 @@ fr:
             main: "Principal"
             seo: "SEO"          
       sections:
-        add_pane:
-          title: "Ajouter une section"
-        list_pane:
+        breadcrumb: "Sections"
+        index:
           title: "Organiser les sections"
+          sub_title: "Réorganiser / supprimer les sections de la page"
           empty: "Il n'y a pas de sections."
           add_button: "Ajouter une nouvelle section"
-      section_pane:
-        tabs:
-          settings: "Contenu"
-          blocks: "Blocs"
-          advanced: "Avancé"
-        block_list:
-          add: "Ajouter un nouvel élément"
-      section_block_pane:
-        tabs:
-          settings: "Contenu"
-          blocks: "Blocs"
-          advanced: "Avancé"
-      theme_section_list:
-        empty_category: "Aucune section"
+          confirm_delete: "Êtes-vous sûr de vouloir le supprimer ?"          
+        new:
+          title: "Ajouter une section"
+          empty_category: "Aucune section"
+        edit:
+          tabs:
+            main: "Contenu"
+            advanced: "Avancé"
+            blocks: "Blocs"            
+      section_blocks:
+        breadcrumb: "Blocs"
+        index:
+          add_button: "Ajouter un nouvel élément"
+          confirm_delete: "Êtes-vous sûr de vouloir le supprimer ?"
+          empty: "Il n'y a pas d'éléments."
+        edit:
+          tabs:
+            main: "Contenu"
+            advanced: "Avancé"       
       style:
         edit:
           title: "Styliser votre site"
@@ -96,12 +101,7 @@ fr:
             default: "Mettre à jour le style"
             in_progress: "Mise à jour..."
             success: "Mis à jour !"
-            fail: "Échec !"
-      image_input:
-        add_button: "Ajouter une image"
-        replace_button: "Remplacer l'image"
-        clear_button: "Effacer"
-        alt_text_placeholder: "Texte alternatif pour aider les moteurs de recherche"
+            fail: "Échec !"      
       image_library:
         title: "Liste des images"
         picker_title: "Sélectionner une image"
@@ -120,8 +120,9 @@ fr:
         replace_button: "Remplacer l'icône"
         clear_button: "Effacer"
       icon_library:
-        title: "Icônes"
-        picker_title: "Choisir une icône"
+        title: "Choisir une icône"
+        search_placeholder: "Rechercher une icône"
+        no_items: "Aucune icône trouvée"
       link_input:
         placeholder: "Cliquez ici pour sélectionner un lien"
         with_nested_text_label: "Activer le texte"
@@ -155,11 +156,6 @@ fr:
           cancel_button: "Annuler"
           new_window_input:
             label: "Ouvrir dans une nouvelle fenêtre"
-      collection_item_input:
-        select:
-          placeholder: "Sélectionner un élément"
-          search_placeholder: "Rechercher..."
-          empty_label: "Aucun élément trouvé"
       pagination:
         default_label: "%{start} - %{end} sur %{totalItems} éléments"
         default_no_items: "Aucun"
@@ -176,8 +172,26 @@ fr:
           title: "Nous sommes désolés 🙇"
           message: "Vous n'êtes pas autorisé à faire cela. Vérifiez avec votre administrateur."
           button: "Fermer"
+      links:
+        edit:
+          title: "Sélectionner un lien"
+          tabs:
+            page: "Page"
+            url: "Url"
+            email: "Email"
+          page:
+            placeholder: "Sélectionner une page"
+            section_prompt: "Sélectionner une section"
       support:
         human:
+          locales:
+            fr: 'Français'
+            en: 'English'
+            de: 'Deutsch'
+            it: 'Italiano'
+            es: 'Español'
+            ar: 'Arabic'
+            pt: 'Português'            
           storage_units:
             format: "%{number} %{unit}"
             units:
@@ -199,6 +213,39 @@ fr:
         page_clone:
           create:
             success: "Clonée !"
+        sections:
+          sort:
+            success: 'Trié !'
+            error: 'Échec !'
+          create:
+            success: "Ajoutée !"
+            error: "Échec !"
+          update:
+            success: "Enregistrée !"
+            error: "Échec !"
+          destroy:
+            success: "Supprimée !"
+            error: "Échec !"
+        section_blocks:
+          create:
+            success: "Ajouté !"
+            error: "Échec !"
+          update:
+            success: "Enregistré !"
+            error: "Échec !"
+          sort:
+            success: "Trié !"
+            error: "Échec !"
+          destroy:
+            success: "Supprimé !"
+            error: "Échec !"
+        links:
+          update:
+            error: "Erreur(s) trouvée(s)"
+        style:
+          update:
+            success: "Mis à jour !"
+            error: "Échec !"
         assets:
           create:
             success:

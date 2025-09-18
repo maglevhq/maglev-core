@@ -1,8 +1,5 @@
 fr:
   activerecord:
-    models:
-      'maglev/page': Page
-
     attributes:
       'maglev/page':
         title: Titre
@@ -15,17 +12,20 @@ fr:
         og_title: "og:title"
         og_description: "og:description"
         og_image_url: "og:image"
-
     errors:
       models:
-        maglev/page:
-          attributes:
-            title:
-              blank: doît être rempli
-            path:
-              taken: est déjà utilisé par une autre page
-              exclusion: est déjà utilisé par une autre page
         maglev/page_path:
           attributes:
             value:
               invalid_path: "n'est pas un chemin valide"
+
+  activemodel:
+    attributes:
+      'maglev/content/editor_link':
+        link_id: Page
+        section_id: Section
+        email: Email
+        url_href: URL
+        open_new_window: "Ouvrir dans une nouvelle fenêtre"
+
+    

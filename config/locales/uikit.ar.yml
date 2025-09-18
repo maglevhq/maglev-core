@@ -1,0 +1,14 @@
+ar:
+  maglev:
+    uikit:
+      form:
+        image_field:
+          add_button: "إضافة صورة"
+          replace_button: "استبدال الصورة"
+          clear_button: "مسح"
+          alt_text_placeholder: "نص بديل لمساعدة محركات البحث"
+        link:
+          placeholder: "يرجى النقر لاختيار رابط"
+          text_placeholder: "أدخل نص الرابط"
+        combobox:
+          placeholder: "اختر عنصر"

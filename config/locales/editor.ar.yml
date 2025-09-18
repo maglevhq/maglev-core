@@ -30,8 +30,8 @@ ar:
         empty:
           title:
             without_locale: "صفحتك فارغة"
-            with_locale: "صفحتك في %{localeName} فارغة"
-          message: "يرجى إضافة القسم الأول بالنقر على زر {icon} في الشريط الجانبي الأيسر."
+            with_locale: "صفحتك في %{locale_name} فارغة"
+          message: "يرجى إضافة القسم الأول بالنقر على زر %{button} في الشريط الجانبي الأيسر."
       pages:
         list:
           title: "قائمة الصفحات"
@@ -69,26 +69,31 @@ ar:
             main: "الرئيسية"
             seo: "تحسين محركات البحث"          
       sections:
-        add_pane:
-          title: "إضافة قسم"
-        list_pane:
+        breadcrumb: "الأقسام"
+        index:
           title: "تنظيم الأقسام"
+          sub_title: "إعادة ترتيب / حذف أقسام الصفحة"
           empty: "لا توجد أقسام."
           add_button: "إضافة قسم جديد"
-      section_pane:
-        tabs:
-          settings: "المحتوى"
-          blocks: "الكتل"
-          advanced: "متقدم"
-        block_list:
-          add: "إضافة عنصر جديد"
-      section_block_pane:
-        tabs:
-          settings: "المحتوى"
-          blocks: "الكتل"
-          advanced: "متقدم"
-      theme_section_list:
-        empty_category: "لا توجد أقسام"
+          confirm_delete: "هل أنت متأكد من أنك تريد حذفه؟"          
+        new:
+          title: "إضافة قسم"
+          empty_category: "لا توجد أقسام"
+        edit:
+          tabs:
+            main: "المحتوى"
+            advanced: "متقدم"
+            blocks: "الكتل"            
+      section_blocks:
+        breadcrumb: "الكتل"
+        index:
+          add_button: "إضافة عنصر جديد"
+          confirm_delete: "هل أنت متأكد من أنك تريد حذفه؟"
+          empty: "لا توجد عناصر."
+        edit:
+          tabs:
+            main: "المحتوى"
+            advanced: "متقدم"       
       style:
         edit:
           title: "تنسيق موقعك"
@@ -96,12 +101,7 @@ ar:
             default: "تحديث النمط"
             in_progress: "جاري التحديث..."
             success: "تم التحديث!"
-            fail: "فشل!"
-      image_input:
-        add_button: "إضافة صورة"
-        replace_button: "استبدال الصورة"
-        clear_button: "مسح"
-        alt_text_placeholder: "نص بديل لمساعدة محركات البحث"
+            fail: "فشل!"      
       image_library:
         title: "قائمة الصور"
         picker_title: "اختر صورة"
@@ -120,8 +120,9 @@ ar:
         replace_button: "استبدال الأيقونة"
         clear_button: "مسح"
       icon_library:
-        title: "الأيقونات"
-        picker_title: "اختر أيقونة"
+        title: "اختر أيقونة"
+        search_placeholder: "البحث عن أيقونة"
+        no_items: "لم يتم العثور على أيقونات"
       link_input:
         placeholder: "انقر هنا لاختيار رابط"
         with_nested_text_label: "تمكين النص"
@@ -155,11 +156,6 @@ ar:
           cancel_button: "إلغاء"
           new_window_input:
             label: "فتح في نافذة جديدة"
-      collection_item_input:
-        select:
-          placeholder: "اختر عنصر"
-          search_placeholder: "البحث..."
-          empty_label: "لم يتم العثور على عناصر"
       pagination:
         default_label: "%{start} - %{end} من %{totalItems} عنصر"
         default_no_items: "لا شيء"
@@ -176,8 +172,26 @@ ar:
           title: "نعتذر 🙇"
           message: "غير مسموح لك بفعل هذا. تحقق من مديرك."
           button: "إغلاق"
+      links:
+        edit:
+          title: "اختر رابط"
+          tabs:
+            page: "الصفحة"
+            url: "الرابط"
+            email: "البريد الإلكتروني"
+          page:
+            placeholder: "اختر صفحة"
+            section_prompt: "اختر قسم"
       support:
         human:
+          locales:
+            fr: 'Français'
+            en: 'English'
+            de: 'Deutsch'
+            it: 'Italiano'
+            es: 'Español'
+            ar: 'Arabic'
+            pt: 'Português'            
           storage_units:
             format: "%{number} %{unit}"
             units:
@@ -199,6 +213,39 @@ ar:
         page_clone:
           create:
             success: "تم الاستنساخ!"
+        sections:
+          sort:
+            success: 'تم الترتيب!'
+            error: 'فشل!'
+          create:
+            success: "تم الإضافة!"
+            error: "فشل!"
+          update:
+            success: "تم الحفظ!"
+            error: "فشل!"
+          destroy:
+            success: "تم الحذف!"
+            error: "فشل!"
+        section_blocks:
+          create:
+            success: "تم الإضافة!"
+            error: "فشل!"
+          update:
+            success: "تم الحفظ!"
+            error: "فشل!"
+          sort:
+            success: "تم الترتيب!"
+            error: "فشل!"
+          destroy:
+            success: "تم الحذف!"
+            error: "فشل!"
+        links:
+          update:
+            error: "تم العثور على خطأ(أخطاء)"
+        style:
+          update:
+            success: "تم التحديث!"
+            error: "فشل!"
         assets:
           create:
             success:

@@ -1,4 +1,4 @@
-'pt-BR':
+"pt-BR":
   activerecord:
     attributes:
       'maglev/page':
@@ -6,10 +6,9 @@
         cloned_title: "%{title} CÓPIA"
         paths:
           value: Caminho
-        visible: "Visível"
-        visible_placeholder: "Mostrar/Ocultar a página"
-        seo_title: "Meta título"
-        meta_description: "Meta descrição"
+        visible: Visível
+        seo_title: Meta título
+        meta_description: Meta descrição
         og_title: "og:title"
         og_description: "og:description"
         og_image_url: "og:image"
@@ -18,4 +17,15 @@
         maglev/page_path:
           attributes:
             value:
-              invalid_path: "não é um caminho válido" 
+              invalid_path: "não é um caminho válido"
+
+  activemodel:
+    attributes:
+      'maglev/content/editor_link':
+        link_id: Página
+        section_id: Seção
+        email: Email
+        url_href: URL
+        open_new_window: "Abrir em nova janela"
+
+    

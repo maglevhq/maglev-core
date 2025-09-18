@@ -7,8 +7,8 @@ ar:
         paths:
           value: المسار
         visible: مرئية
-        seo_title: "عنوان ميتا"
-        meta_description: "وصف ميتا"
+        seo_title: عنوان ميتا
+        meta_description: وصف ميتا
         og_title: "og:title"
         og_description: "og:description"
         og_image_url: "og:image"
@@ -18,3 +18,14 @@ ar:
           attributes:
             value:
               invalid_path: "ليس مسارًا صالحًا"
+
+  activemodel:
+    attributes:
+      'maglev/content/editor_link':
+        link_id: الصفحة
+        section_id: القسم
+        email: البريد الإلكتروني
+        url_href: الرابط
+        open_new_window: "فتح في نافذة جديدة"
+
+    

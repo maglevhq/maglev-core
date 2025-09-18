@@ -30,8 +30,8 @@
         empty:
           title:
             without_locale: "Sua página está em branco"
-            with_locale: "Sua página em %{localeName} está em branco"
-          message: "Por favor, adicione a primeira seção clicando no botão {icon} na barra lateral esquerda."
+            with_locale: "Sua página em %{locale_name} está em branco"
+          message: "Por favor, adicione a primeira seção clicando no botão %{button} na barra lateral esquerda."
       pages:
         list:
           title: "Lista de páginas"
@@ -69,26 +69,31 @@
             main: "Principal"
             seo: "SEO"          
       sections:
-        add_pane:
-          title: "Adicionar uma seção"
-        list_pane:
+        breadcrumb: "Seções"
+        index:
           title: "Organizar seções"
+          sub_title: "Reordenar / excluir as seções da página"
           empty: "Não há seções."
           add_button: "Adicionar uma nova seção"
-      section_pane:
-        tabs:
-          settings: "Conteúdo"
-          blocks: "Blocos"
-          advanced: "Avançado"
-        block_list:
-          add: "Adicionar novo item"
-      section_block_pane:
-        tabs:
-          settings: "Conteúdo"
-          blocks: "Blocos"
-          advanced: "Avançado"
-      theme_section_list:
-        empty_category: "Sem seções"
+          confirm_delete: "Tem certeza de que deseja excluí-lo?"          
+        new:
+          title: "Adicionar uma seção"
+          empty_category: "Sem seções"
+        edit:
+          tabs:
+            main: "Conteúdo"
+            advanced: "Avançado"
+            blocks: "Blocos"            
+      section_blocks:
+        breadcrumb: "Blocos"
+        index:
+          add_button: "Adicionar novo item"
+          confirm_delete: "Tem certeza de que deseja excluí-lo?"
+          empty: "Não há itens."
+        edit:
+          tabs:
+            main: "Conteúdo"
+            advanced: "Avançado"       
       style:
         edit:
           title: "Estilizar seu site"
@@ -96,12 +101,7 @@
             default: "Atualizar estilo"
             in_progress: "Atualizando..."
             success: "Atualizado!"
-            fail: "Falhou!"
-      image_input:
-        add_button: "Adicionar imagem"
-        replace_button: "Substituir imagem"
-        clear_button: "Limpar"
-        alt_text_placeholder: "Texto alternativo para ajudar os motores de busca"
+            fail: "Falhou!"      
       image_library:
         title: "Lista de imagens"
         picker_title: "Selecionar uma imagem"
@@ -120,8 +120,9 @@
         replace_button: "Substituir ícone"
         clear_button: "Limpar"
       icon_library:
-        title: "Ícones"
-        picker_title: "Escolher um ícone"
+        title: "Escolher um ícone"
+        search_placeholder: "Pesquisar um ícone"
+        no_items: "Nenhum ícone encontrado"
       link_input:
         placeholder: "Clique aqui para selecionar um link"
         with_nested_text_label: "Habilitar texto"
@@ -155,11 +156,6 @@
           cancel_button: "Cancelar"
           new_window_input:
             label: "Abrir em nova janela"
-      collection_item_input:
-        select:
-          placeholder: "Selecionar um item"
-          search_placeholder: "Pesquisar..."
-          empty_label: "Nenhum item encontrado"
       pagination:
         default_label: "%{start} - %{end} de %{totalItems} itens"
         default_no_items: "Nenhum"
@@ -176,8 +172,26 @@
           title: "Sentimos muito 🙇"
           message: "Você não tem permissão para fazer isso. Verifique com seu administrador."
           button: "Fechar"
+      links:
+        edit:
+          title: "Selecionar um link"
+          tabs:
+            page: "Página"
+            url: "Url"
+            email: "Email"
+          page:
+            placeholder: "Selecionar uma página"
+            section_prompt: "Selecionar uma seção"
       support:
         human:
+          locales:
+            fr: 'Français'
+            en: 'English'
+            de: 'Deutsch'
+            it: 'Italiano'
+            es: 'Español'
+            ar: 'Arabic'
+            pt: 'Português'            
           storage_units:
             format: "%{number} %{unit}"
             units:
@@ -199,6 +213,39 @@
         page_clone:
           create:
             success: "Clonada!"
+        sections:
+          sort:
+            success: 'Ordenado!'
+            error: 'Falhou!'
+          create:
+            success: "Adicionada!"
+            error: "Falhou!"
+          update:
+            success: "Salva!"
+            error: "Falhou!"
+          destroy:
+            success: "Excluída!"
+            error: "Falhou!"
+        section_blocks:
+          create:
+            success: "Adicionado!"
+            error: "Falhou!"
+          update:
+            success: "Salvo!"
+            error: "Falhou!"
+          sort:
+            success: "Ordenado!"
+            error: "Falhou!"
+          destroy:
+            success: "Excluído!"
+            error: "Falhou!"
+        links:
+          update:
+            error: "Erro(s) encontrado(s)"
+        style:
+          update:
+            success: "Atualizado!"
+            error: "Falhou!"
         assets:
           create:
             success:

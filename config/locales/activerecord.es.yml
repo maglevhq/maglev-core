@@ -1,8 +1,5 @@
 es:
   activerecord:
-    models:
-      'maglev/page': Página
-
     attributes:
       'maglev/page':
         title: Título
@@ -10,22 +7,25 @@ es:
         paths:
           value: Ruta
         visible: Visible
-        seo_title: "Meta título"
-        meta_description: "Meta descripción"
+        seo_title: Meta título
+        meta_description: Meta descripción
         og_title: "og:title"
         og_description: "og:description"
         og_image_url: "og:image"
-
     errors:
       models:
-        maglev/page:
-          attributes:
-            title:
-              blank: no puede estar en blanco
-            path:
-              taken: ya está en uso por otra página
-              exclusion: ya está en uso por otra página
         maglev/page_path:
           attributes:
             value:
               invalid_path: "no es una ruta válida"
+
+  activemodel:
+    attributes:
+      'maglev/content/editor_link':
+        link_id: Página
+        section_id: Sección
+        email: Email
+        url_href: URL
+        open_new_window: "Abrir en nueva ventana"
+
+    

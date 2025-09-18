@@ -1,0 +1,14 @@
+es:
+  maglev:
+    uikit:
+      form:
+        image_field:
+          add_button: "Agregar imagen"
+          replace_button: "Reemplazar imagen"
+          clear_button: "Limpiar"
+          alt_text_placeholder: "Texto alternativo para ayudar a los motores de búsqueda"
+        link:
+          placeholder: "Por favor haz clic para seleccionar un enlace"
+          text_placeholder: "Ingresa el texto del enlace"
+        combobox:
+          placeholder: "Seleccionar un elemento"
