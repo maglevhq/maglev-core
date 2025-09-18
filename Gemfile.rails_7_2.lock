@@ -8,7 +8,7 @@ PATH
       pagy (>= 6)
       rails (>= 7.2, < 9)
       turbo-rails (>= 2, < 3)
-      view_component (~> 4.0.0.rc5)
+      view_component (~> 4.0.0)
 
 GEM
   remote: https://rubygems.org/
