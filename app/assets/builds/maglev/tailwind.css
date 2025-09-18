@@ -634,6 +634,9 @@
   .h-\[calc\(100vh-4rem\)\] {
     height: calc(100vh - 4rem);
   }
+  .h-\[calc\(var\(--number-of-rows\)\*var\(--spacing\)\*8\)\] {
+    height: calc(var(--number-of-rows) * var(--spacing) * 8);
+  }
   .h-full {
     height: 100%;
   }
@@ -759,6 +762,9 @@
   }
   .shrink-0 {
     flex-shrink: 0;
+  }
+  .border-collapse {
+    border-collapse: collapse;
   }
   .origin-top-left {
     transform-origin: top left;
@@ -1025,6 +1031,9 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+  }
+  .overflow-auto {
+    overflow: auto;
   }
   .overflow-hidden {
     overflow: hidden;
