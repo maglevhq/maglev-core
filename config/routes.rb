@@ -34,6 +34,8 @@ Maglev::Engine.routes.draw do
       end
 
       resource :style, controller: :style, only: %i[edit update]
+
+      resource :publication, controller: :publication, only: :create
     end
   end
 

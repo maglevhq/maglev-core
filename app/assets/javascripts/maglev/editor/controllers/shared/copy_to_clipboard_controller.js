@@ -12,7 +12,11 @@ export default class extends Controller {
     this.textTarget.classList.add('hidden')
     this.successTarget.classList.remove('hidden')
 
-    navigator.clipboard.writeText(this.sourceValue)
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(this.sourceValue)
+    } else {
+      console.log('Clipboard API not supported or unavailable.')
+    }
     
     this.timeout = setTimeout(() => {
       this.successTarget.classList.add('hidden')

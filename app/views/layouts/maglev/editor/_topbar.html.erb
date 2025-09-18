@@ -28,4 +28,13 @@
     end,
     current_locale: Maglev::I18n.current_locale,
   ) %>
+
+  <div class="flex items-center h-full px-4">
+    <%= button_to t('maglev.editor.header_nav.publish_button.default'), 
+      editor_publication_path(maglev_editing_route_context), 
+      method: :post, 
+      class: maglev_button_classes(color: :primary, size: :medium), 
+      data: { turbo_submits_with: t('maglev.editor.header_nav.publish_button.in_progress') } 
+    %>
+  </div>
 <% end %>

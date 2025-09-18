@@ -62,6 +62,8 @@ module Maglev
     dependency :sort_section_blocks,        class: Maglev::Content::SortSectionBlocksService,
                                             depends_on: %i[fetch_site fetch_theme]
 
+    dependency :publish,                    class: Maglev::PublishService
+
     def call
       self
     end

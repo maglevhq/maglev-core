@@ -10,8 +10,12 @@
 
   <%= form_with url: editor_sections_path(maglev_editing_route_context), data: { 
       turbo_frame: '_top',
-      controller: 'auto-save',
-      action: 'turbo:submit-end->editor-preview-notification-center#addSection' 
+      controller: 'auto-save dispatcher',
+      action: %(
+        turbo:submit-end->editor-preview-notification-center#addSection
+        turbo:submit-end->dispatcher#trigger
+      ),
+      'dispatcher-event-name-value': 'page-preview:remove-empty-message'
     } do |f| %>
     <%= f.hidden_field :position, value: @position %>
 

@@ -1,0 +1,24 @@
+<div class="absolute inset-0 flex-col justify-center items-center hidden group-[.is-empty]:flex bg-gray-50">
+  <h2 class="text-center text-2xl font-bold">
+    <% content_locale_name = capture do %>
+      <span class="capitalize-first bg-editor-primary/20 px-2 mx-2">
+        <%= t(content_locale, scope: 'maglev.editor.support.human.locales') %>
+      </span>
+    <% end %>
+
+    <% if maglev_site.locales.count > 1 %>
+      <%= t('maglev.editor.page_preview.empty.title.with_locale', locale_name: content_locale_name).html_safe %>
+    <% else %>
+      <%= t('maglev.editor.page_preview.empty.title.without_locale') %>
+    <% end %>
+  </h2>
+  <div class="mt-4 text-gray-600 max-w-md mx-auto leading-9">
+    <% new_section_link = capture do %>
+      <%= link_to new_editor_section_path(**maglev_editing_route_context), class: 'text-editor-primary inline-block relative top-1.5' do %>
+        <%= render Maglev::Uikit::IconComponent.new(name: 'stack', size: '1.5rem') %>
+      <% end %>
+    <% end %>
+
+    <%= t('maglev.editor.page_preview.empty.message', button: new_section_link).html_safe %>    
+  </div>
+</div>

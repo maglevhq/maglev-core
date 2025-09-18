@@ -2,6 +2,9 @@ import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
   static targets = ["loading", "iframeWrapper", "iframe"]
+  static values = {
+    hasSections: Boolean,
+  }
 
   connect() {
     this.setupTransformations()
@@ -28,12 +31,20 @@ export default class extends Controller {
   // called when the user is being redirected to a new page in the editor (another Maglev page OR in a different locale) 
   // It displays the splash screen (the loading message). Required for a good UX.
   startLoading() {
-    this.element.classList.remove('is-loaded')
+    this.element.classList.remove('is-loaded')    
   }
 
   // called when the Maglev client JS lib has been fully loaded on the iframe
   clientReady() {
     this.element.classList.add('is-loaded')
+    if (!this.hasSectionsValue) {
+      this.element.classList.add('is-empty')
+    }
+  }
+
+  removeEmptyMessage() {
+    this.hasSectionsValue = true
+    this.element.classList.remove('is-empty')
   }
 
   // called when the user navigates to a new page in the editor (another Maglev page OR in a different locale) 

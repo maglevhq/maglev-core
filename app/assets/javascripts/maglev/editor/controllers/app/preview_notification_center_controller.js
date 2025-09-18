@@ -34,26 +34,26 @@ export default class extends Controller {
   // === SECTIONS ===
 
   addSection(event) {
-    console.log('addSection', event, event.detail.fetchResponse.response.headers.get('X-Section-Id'), event.detail.fetchResponse.response.headers.get('X-Section-Position'))
+    console.log('addSection', event.detail.fetchResponse.response.headers.get('X-Section-Id'), event.detail.fetchResponse.response.headers.get('X-Section-Position'))
     const sectionId = event.detail.fetchResponse.response.headers.get('X-Section-Id')
     const position = event.detail.fetchResponse.response.headers.get('X-Section-Position')
     this.postMessage('section:add', { sectionId, insertAt: parseInt(position) })
   }
 
   deleteSection(event) {
-    console.log('deleteSection', event)
+    console.log('deleteSection', event.params)
     const { sectionId } = event.params
     this.postMessage('section:remove', { sectionId  })
   }
 
   moveSection(event) {
-    console.log('moveSection 💨💨💨', event)
+    console.log('moveSection 💨💨💨', event.detail)
     const { oldItemId: sectionId, newItemId: targetSectionId, direction } = event.detail
     this.postMessage('section:move', { sectionId, targetSectionId, direction })
   }
 
   updateSection(event) {
-    console.log('updateSection 🧼🧼🧼', event)
+    console.log('updateSection 🧼🧼🧼', event.detail)
     const { sectionId  } = event.detail
     this.postMessage('section:update', { sectionId })
   }

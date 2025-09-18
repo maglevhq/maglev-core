@@ -30,8 +30,8 @@ en:
         empty:
           title:
             without_locale: "Your page is blank"
-            with_locale: "Your page in %{localeName} is blank"
-          message: "Please add the first section by clicking on the {icon} button in the left sidebar."
+            with_locale: "Your page in %{locale_name} is blank"
+          message: "Please add the first section by clicking on the %{button} button in the left sidebar."
       pages:
         list:
           title: "List of pages"
@@ -184,6 +184,14 @@ en:
             section_prompt: "Select a section"
       support:
         human:
+          locales:
+            fr: 'Français'
+            en: 'English'
+            de: 'Deutsch'
+            it: 'Italiano'
+            es: 'Español'
+            ar: 'Arabic'
+            pt: 'Português'            
           storage_units:
             format: "%{number} %{unit}"
             units:

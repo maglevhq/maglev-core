@@ -1,5 +1,5 @@
-<% if @section_block.definition.advanced_settings.any? %>
-  <%= section_block_form_settings(@section,@section_block) %>
+<% if @section_block.definition.advanced_settings.blank? %>
+  <%= section_block_form_settings(@section, @section_block) %>
 <% else %>
   <%= render Maglev::Uikit::TabsComponent.new(container_classes: 'w-full h-full flex flex-col') do |tabs| %>
     <% tabs.with_tab(label: t('maglev.editor.section_blocks.edit.tabs.settings')) do %>
