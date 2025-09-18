@@ -18,7 +18,9 @@ export default class extends Controller {
     
     this.hiddenInputTarget.value = icon  
 
-    this.iconTarget.classList.remove(this.iconValue)
+    if (this.iconTarget.classList.contains(this.iconValue)) {
+      this.iconTarget.classList.remove(this.iconValue)
+    }
     this.iconTarget.classList.add(icon)
 
     this.element.classList.remove('none')

@@ -2,7 +2,7 @@
   <%= section_form_settings(@section) %>
 <% else %>
   <%= render Maglev::Uikit::TabsComponent.new(container_classes: 'w-full h-full flex flex-col') do |tabs| %>
-    <% tabs.with_tab(label: t('maglev.editor.sections.edit.tabs.settings')) do %>
+    <% tabs.with_tab(label: t('maglev.editor.sections.edit.tabs.main')) do %>
       <%= section_form_settings(@section) %>
     <% end %>
 

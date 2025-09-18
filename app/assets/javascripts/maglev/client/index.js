@@ -13,4 +13,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // listen local events (converted from messages) and process them
   startListeningEvents()  
+
+  console.log('Maglev Client v2 ✅')
 })
