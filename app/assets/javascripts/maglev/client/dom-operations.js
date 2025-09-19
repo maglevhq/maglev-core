@@ -37,13 +37,15 @@ const addSection = (event) => {
 }
 
 const moveSections = (event) => {
-  const { sectionId, targetSectionId, direction } = event.detail
+  const { oldIndex, newIndex } = event.detail
+
+  const direction = oldIndex < newIndex ? 'down' : 'up'
 
   const sectionElement = previewDocument.querySelector(
-    `[data-maglev-section-id='${sectionId}']`,
+    `[data-maglev-section-id]:nth-child(${oldIndex + 1})`,
   )
   const targetSectionElement = previewDocument.querySelector(
-    `[data-maglev-section-id='${targetSectionId}']`,
+    `[data-maglev-section-id]:nth-child(${newIndex + 1})`,
   )
 
   if (direction === 'up')

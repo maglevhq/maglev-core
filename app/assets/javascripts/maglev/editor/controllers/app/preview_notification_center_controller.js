@@ -48,8 +48,8 @@ export default class extends Controller {
 
   moveSection(event) {
     console.log('moveSection 💨💨💨', event.detail)
-    const { oldItemId: sectionId, newItemId: targetSectionId, direction } = event.detail
-    this.postMessage('section:move', { sectionId, targetSectionId, direction })
+    const { oldIndex, newIndex } = event.detail
+    this.postMessage('section:move', { oldIndex, newIndex })
   }
 
   updateSection(event) {

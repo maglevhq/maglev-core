@@ -26,9 +26,9 @@ module Maglev
 
           def link_classes(...)
             class_variants(
-              base: 'flex justify-center py-5 -ml-4 -mr-4 hover:bg-editor-primary/5 transition-colors duration-200',
+              base: 'flex justify-center py-5 -ml-4 -mr-4 hover:bg-gray-100 transition-colors duration-200',
               variants: {
-                active: 'bg-editor-primary/5',
+                active: 'bg-gray-100',
                 '!active': 'bg-white'
               }
             ).render(...)

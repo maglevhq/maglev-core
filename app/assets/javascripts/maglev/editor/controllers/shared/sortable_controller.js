@@ -40,16 +40,9 @@ export default class extends Controller {
   }
 
   emitEvent(event) {
-    console.log('🚨', event)
-
     // optimistic UI update
-    const { oldIndex, newIndex } = event.data
-    const direction = oldIndex < newIndex ? 'down' : 'up'
-
-    const oldItemId = this.itemTargets()[direction === 'down' ? oldIndex : newIndex].dataset.itemId
-    const newItemId = this.itemTargets()[direction === 'down' ? newIndex : oldIndex].dataset.itemId
-
-    this.dispatch('drag-stopped', { detail: { oldItemId, newItemId, direction } })
+    const { oldIndex, newIndex } = event.data    
+    this.dispatch('drag-stopped', { detail: { oldIndex, newIndex } })
   }
 
   persist() {

@@ -5,7 +5,7 @@ module Maglev
     class DeviceTogglerComponent < Maglev::Uikit::BaseComponent
       def toggler_classes(...)
         class_variants(
-          base: 'cursor-pointer hover:bg-editor-primary/5 h-10 w-10 flex items-center justify-center',
+          base: 'cursor-pointer hover:bg-gray-100 h-10 w-10 flex items-center justify-center',
           variants: {
             active: active_classes
           }
@@ -13,7 +13,7 @@ module Maglev
       end
 
       def active_classes
-        'bg-editor-primary/5'
+        'bg-gray-100'
       end
 
       def devices

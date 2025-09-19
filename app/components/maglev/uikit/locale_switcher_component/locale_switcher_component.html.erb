@@ -1,7 +1,7 @@
 <%= render(Maglev::Uikit::MenuDropdownComponent.new) do |dropdown| %>
   <% dropdown.with_trigger do %>
     <button 
-      class="flex-1 h-full w-full px-6 hover:bg-editor-primary/5 transition-colors duration-200 flex items-center focus:outline-none focus:none cursor-pointer space-x-2"
+      class="flex-1 h-full w-full px-6 hover:bg-gray-100 transition-colors duration-200 flex items-center focus:outline-none focus:none cursor-pointer space-x-2"
       data-action="click->uikit-dropdown#toggle" 
       data-uikit-dropdown-target="button">
       <%= render Maglev::Uikit::IconComponent.new(name: 'global') %>
