@@ -85,6 +85,7 @@ export default class extends Controller {
 
   disconnect() {
     this.editor?.destroy()
+    this.editor = null
   }
 
   buildExtensions() {

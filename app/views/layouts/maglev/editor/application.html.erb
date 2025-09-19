@@ -52,15 +52,15 @@
       
       <%= turbo_frame_tag "page-layout" do %>
         <%= yield %>
-      <% end %>
-
-      <%= turbo_frame_tag "modal" do %>
-        <%= yield :modal %> 
-      <% end %>
+      <% end %>      
 
       <%= render 'maglev/editor/sections/toolbar_list' %>
     </div>
 
     <%= render 'maglev/editor/pages/preview' %>
+
+    <%= turbo_frame_tag "modal" do %>
+      <%= yield :modal %> 
+    <% end %>
   </body>
 </html>
