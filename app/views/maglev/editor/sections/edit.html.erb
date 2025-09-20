@@ -17,9 +17,10 @@
         editor-section-form:updateSetting->editor-preview-notification-center#updateSetting
         editor-section-form:updateSection->editor-preview-notification-center#updateSection
         client:setting:updated@window->editor-section-form#afterSettingUpdate
+        dispatcher:section-block-#{@section.id}:persisted@window->editor-section-form#onPersist
       )
     } do 
-  %>
+  %>    
     <%= render 'maglev/editor/sections/form' %>
   <% end %>
 <% end %>

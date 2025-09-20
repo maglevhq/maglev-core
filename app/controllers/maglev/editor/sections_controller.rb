@@ -7,6 +7,10 @@ module Maglev
 
       before_action :set_section, only: %i[edit update]
 
+      def show
+        redirect_to edit_editor_section_path(params[:id], maglev_editing_route_context)
+      end
+
       def new
         @grouped_sections = maglev_theme.sections.grouped_by_category
         @position = (params[:position] || -1).to_i
@@ -29,16 +33,14 @@ module Maglev
       end
 
       def update
-        services.update_section.call(
-          page: current_maglev_page,
-          section_id: @section.id,
-          content: params[:section].to_unsafe_h
-        )
+        update_section
+        # NOTE: at some point, we will manage real Section ActiveModel instances.
+        @section.lock_version = current_maglev_page.find_section_by_id(@section.id)['lock_version']
         flash.now[:notice] = flash_t(:success)
       end
 
       def sort
-        current_maglev_page.reorder_sections(params[:item_ids])
+        current_maglev_page.reorder_sections(params[:item_ids], params[:lock_version])
         if current_maglev_page.save
           redirect_to editor_sections_path(maglev_editing_route_context), notice: flash_t(:success), status: :see_other
         else
@@ -53,6 +55,15 @@ module Maglev
       end
 
       private
+
+      def update_section
+        services.update_section.call(
+          page: current_maglev_page,
+          section_id: @section.id,
+          content: params[:section].to_unsafe_h,
+          lock_version: params[:lock_version]
+        )
+      end
 
       def render_index_with_error
         flash.now[:error] = flash_t(:error)

@@ -10,7 +10,7 @@ module Maglev
       def edit; end
 
       def update
-        maglev_services.persist_style.call(new_style: style_params)
+        maglev_services.persist_style.call(new_style: style_params, lock_version: params[:lock_version])
 
         redirect_to edit_editor_style_path(maglev_editing_route_context),
                     notice: flash_t(:success),

@@ -12,6 +12,10 @@ module Maglev
         @blocks = @section.blocks
       end
 
+      def show
+        redirect_to edit_editor_section_block_path(params[:section_id], params[:id], maglev_editing_route_context)
+      end
+
       def create
         services.add_section_block.call(
           page: current_maglev_page,
@@ -26,12 +30,9 @@ module Maglev
       def edit; end
 
       def update
-        services.update_section_block.call(
-          page: current_maglev_page,
-          section_id: @section.id,
-          block_id: @section_block.id,
-          content: params[:section_block].to_unsafe_h
-        )
+        update_section_block
+        @section_block.lock_version = current_maglev_page.find_section_block_by_id(@section.id,
+                                                                                   @section_block.id)['lock_version']
         flash.now[:notice] = flash_t(:success)
       end
 
@@ -40,7 +41,8 @@ module Maglev
           page: current_maglev_page,
           section_id: @section.id,
           block_ids: params[:item_ids],
-          parent_id: params[:parent_id]
+          parent_id: params[:parent_id],
+          lock_version: params[:lock_version]
         )
         redirect_to editor_section_blocks_path(@section.id, **maglev_editing_route_context), notice: flash_t(:success),
                                                                                              status: :see_other
@@ -64,6 +66,16 @@ module Maglev
 
       def set_section_block
         @section_block = @section.blocks.find(params[:id])
+      end
+
+      def update_section_block
+        services.update_section_block.call(
+          page: current_maglev_page,
+          section_id: @section.id,
+          block_id: @section_block.id,
+          content: params[:section_block].to_unsafe_h,
+          lock_version: params[:lock_version]
+        )
       end
     end
   end

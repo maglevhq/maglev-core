@@ -1,6 +1,6 @@
 <%= render Maglev::Uikit::List::ListComponent.new(
   sort_form: { 
-    path: sort_editor_section_blocks_path(@section, parent_id: parent_id, **maglev_editing_route_context), 
+    path: sort_editor_section_blocks_path(@section, parent_id: parent_id, lock_version: @section.lock_version, **maglev_editing_route_context), 
     data: { turbo_frame: '_top' } 
   },
   sortable_scope: parent_id || 'root',

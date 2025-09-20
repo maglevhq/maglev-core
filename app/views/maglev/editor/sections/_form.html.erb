@@ -1,3 +1,5 @@
+<%= hidden_field_tag 'lock_version', @section.lock_version.presence || 0, data: { editor_section_form_target: 'lockVersion' } %>
+
 <% if @section.blocks.empty? && !@section.definition.advanced_settings.any? %>
   <%= section_form_settings(@section) %>
 <% else %>

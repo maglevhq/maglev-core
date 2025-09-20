@@ -10,6 +10,7 @@ import SortableController from "maglev-controllers/shared/sortable_controller"
 import BrokenImageController from "maglev-controllers/shared/broken_image_controller"
 import AutoSaveController from "maglev-controllers/shared/auto_save_controller"
 import FormRefreshController from "maglev-controllers/shared/form_refresh_controller"
+import ReloadPageController from "maglev-controllers/shared/reload_page_controller"
 
 application.register("disappearance", DisappearanceController)
 application.register("max-length", MaxLengthController)
@@ -21,3 +22,4 @@ application.register("sortable", SortableController)
 application.register("broken-image", BrokenImageController)
 application.register("auto-save", AutoSaveController)
 application.register("form-refresh", FormRefreshController)
+application.register("reload-page", ReloadPageController)

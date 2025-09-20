@@ -10,6 +10,7 @@
       editor-style-form:onUpdate->editor-preview-notification-center#updateStyle
     )
   } do %>
+    <%= hidden_field_tag :lock_version, maglev_site.lock_version %>
     <%= style_form_settings(@style, maglev_theme) %>    
   <% end %>
 

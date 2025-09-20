@@ -52,6 +52,6 @@ StreamActions.dispatch_event = function() {
   const type = this.getAttribute("type")
   const payload = this.getAttribute("payload")
   console.log('dispatchEvent', type, payload, `dispatcher:${type}`)
-  const event = new CustomEvent(`dispatcher:${type}`, { detail: payload })
+  const event = new CustomEvent(`dispatcher:${type}`, { detail: JSON.parse(payload) })
   window.dispatchEvent(event)
 }

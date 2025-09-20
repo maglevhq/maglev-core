@@ -12,6 +12,7 @@ module Maglev
       include Maglev::ContentLocaleConcern
       include Maglev::ServicesConcern
       include Maglev::FlashI18nConcern
+      include Maglev::Editor::ErrorsConcern
 
       before_action :fetch_maglev_site
       before_action :fetch_maglev_page

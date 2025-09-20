@@ -12,6 +12,7 @@ module Maglev
       argument :page
       argument :section_id
       argument :content
+      argument :lock_version, default: nil
 
       def call
         raise Maglev::Errors::UnknownSection unless section_definition
@@ -25,6 +26,8 @@ module Maglev
       private
 
       def update_section_content!(source)
+        check_section_lock_version!(source)
+
         source.sections_translations_will_change!
         update_section_content(source)
         source.save!

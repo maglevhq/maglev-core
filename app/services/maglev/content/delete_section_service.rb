@@ -16,7 +16,8 @@ module Maglev
         raise Maglev::Errors::UnknownSection unless section_definition
 
         ActiveRecord::Base.transaction do
-          delete_section!(site) if site_scoped?
+          # we never delete site scoped sections:
+          # A page might not need it anymore but others might still need it.
           delete_section!(page)
         end
       end

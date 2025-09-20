@@ -13,6 +13,7 @@ module Maglev
       argument :section_id
       argument :block_ids
       argument :parent_id, default: nil
+      argument :lock_version, default: nil
 
       def call
         raise Maglev::Errors::UnknownSection unless section_definition
@@ -26,6 +27,8 @@ module Maglev
       private
 
       def sort_section_blocks!(source)
+        check_section_lock_version!(source)
+
         source.sections_translations_will_change!
         sort_section_blocks(source)
         source.save!

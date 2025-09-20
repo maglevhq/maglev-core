@@ -2,6 +2,7 @@ import { Controller } from '@hotwired/stimulus'
 import { useDebounce } from 'stimulus-use'
 
 export default class extends Controller {
+  static targets = ['lockVersion']
   static values = { sectionId: String, sectionBlockId: String }
 
   static debounces = ['afterSettingUpdate']
@@ -19,6 +20,11 @@ export default class extends Controller {
         change: { settingType, settingId, value }
       }
     })
+  }
+
+  onPersist(event) {
+    console.log('[SectionForm::onPersist]', event.detail, typeof event.detail)
+    this.lockVersionTarget.value = event.detail.lockVersion
   }
 
   async afterSettingUpdate(event) {

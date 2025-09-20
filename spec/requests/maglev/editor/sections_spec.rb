@@ -69,7 +69,8 @@ describe 'Maglev::Editor::Sections', type: :request do
     it 'returns a success response' do
       original_section_ids = home_page.section_ids
       expect do
-        put "/maglev/editor/en/#{home_page.id}/sections/sort", params: { item_ids: original_section_ids.reverse }
+        put "/maglev/editor/en/#{home_page.id}/sections/sort",
+            params: { item_ids: original_section_ids.reverse, lock_version: home_page.lock_version }
         expect(response).to redirect_to("/maglev/editor/en/#{home_page.id}/sections")
       end.to change { home_page.reload.section_ids }.to(original_section_ids.reverse)
     end

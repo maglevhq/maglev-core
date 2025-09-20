@@ -44,7 +44,7 @@ RSpec.describe Maglev::Page, type: :model do
     let(:sections) { page.sections }
     let(:new_section_ids) { sections.reverse.map { |section| section['id'] } }
 
-    subject { page.reorder_sections(new_section_ids) }
+    subject { page.reorder_sections(new_section_ids, page.lock_version) }
 
     it 'reorders the sections' do
       subject

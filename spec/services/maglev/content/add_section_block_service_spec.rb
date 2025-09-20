@@ -10,11 +10,13 @@ describe Maglev::Content::AddSectionBlockService do
   let(:service) { described_class.new(fetch_site: fetch_site, fetch_theme: fetch_theme) }
   let(:section_id) { page.sections.dig(1, 'id') } # showcase section
   let(:parent_id) { nil }
+  let(:lock_version) { nil }
 
   before { page.prepare_sections(fetch_theme.call) }
 
   subject(:service_call) do
-    service.call(page: page, section_id: section_id, block_type: block_type, parent_id: parent_id)
+    service.call(page: page, section_id: section_id, block_type: block_type, parent_id: parent_id,
+                 lock_version: lock_version)
   end
 
   context 'Given a block type that does not exist' do
@@ -38,6 +40,16 @@ describe Maglev::Content::AddSectionBlockService do
                                  type: 'item',
                                  settings: kind_of(Array)
                                ))
+    end
+
+    context 'Given the page has been modified while adding the block' do
+      let(:lock_version) { 1 }
+
+      before { page.sections[1]['lock_version'] = 2 }
+
+      it 'raises an exception about the stale page' do
+        expect { subject }.to raise_exception(ActiveRecord::StaleObjectError)
+      end
     end
   end
 

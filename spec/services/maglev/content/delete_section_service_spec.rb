@@ -19,6 +19,14 @@ describe Maglev::Content::DeleteSectionService do
       expect(subject).to eq(true)
       expect(page.reload.section_ids).not_to include(section_id)
     end
+
+    context 'Given the page has been modified while deleting the section' do
+      before { Maglev::Page.find(page.id).update!(title: 'UPDATED') } # force a change and so a lock version change
+
+      it 'raises an exception about the stale page' do
+        expect { subject }.to raise_exception(ActiveRecord::StaleObjectError)
+      end
+    end
   end
 
   context 'Given a site scoped section' do
@@ -30,9 +38,8 @@ describe Maglev::Content::DeleteSectionService do
       page.save!
     end
 
-    it 'deletes the section' do
+    it 'deletes the section only on the page' do
       expect(subject).to eq(true)
-      expect(site.reload.section_ids).not_to include(section_id)
       expect(page.reload.section_ids).not_to include(section_id)
     end
   end

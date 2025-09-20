@@ -2,7 +2,7 @@
   <% if current_maglev_sections.any? %>
     <%= render Maglev::Uikit::List::ListComponent.new(
         sort_form: { 
-          path: sort_editor_sections_path(maglev_editing_route_context), 
+          path: sort_editor_sections_path(lock_version: current_maglev_page.lock_version, **maglev_editing_route_context), 
           data: { 
             turbo_frame: '_top',
             action: 'sortable:drag-stopped@window->editor-preview-notification-center#moveSection',            

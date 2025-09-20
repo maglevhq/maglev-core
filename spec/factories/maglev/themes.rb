@@ -23,6 +23,8 @@ FactoryBot.define do
                                                       id: 'navbar',
                                                       category: 'headers',
                                                       site_scoped: true,
+                                                      singleton: true,
+                                                      insert_at: 'top',
                                                       settings: [{ label: 'Logo', id: 'logo', type: 'image' }],
                                                       blocks: [
                                                         {

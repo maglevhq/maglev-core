@@ -162,10 +162,10 @@ en:
         confirm_button_label: "Yes"
         cancel_button_label: "No"
       error_modals:
-        stale_record:
-          title: "We are sorry 🙇"
-          message: "We couldn't persist your changes because someone else has updated the content in the meantime."
-          button: "Please reload your page"
+        stale_object:
+          title: "Sorry about that 🙇"
+          message: "<p>We couldn’t save your changes because someone else updated the content in the meantime.</p><p>Please reload the page to continue — otherwise, your changes will be lost.</p>"
+          button: "Reload page"
         forbidden:
           title: "We are sorry 🙇"
           message: "You're not permitted to do this. Check with your administrator."

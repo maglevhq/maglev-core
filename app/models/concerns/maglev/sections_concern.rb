@@ -26,10 +26,11 @@ module Maglev::SectionsConcern
   end
 
   def find_sections_by_type(type)
-    sections.select { |section| section['type'] == type }
+    sections&.find_all { |section| section['type'] == type } || []
   end
 
-  def reorder_sections(sorted_section_ids)
+  def reorder_sections(sorted_section_ids, lock_version)
+    self.lock_version = lock_version
     sections_translations_will_change!
     sections.sort! { |a, b| (sorted_section_ids.index(a['id'])) <=> (sorted_section_ids.index(b['id'])) }
   end
@@ -41,6 +42,10 @@ module Maglev::SectionsConcern
 
   def section_ids
     sections.map { |section| section['id'] }
+  end
+
+  def find_section_block_by_id(section_id, id)
+    find_section_by_id(section_id)&.dig('blocks')&.find { |block| block['id'] == id }
   end
 
   private
