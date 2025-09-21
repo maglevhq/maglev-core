@@ -170,6 +170,10 @@ en:
           title: "Sorry about that 🙇"
           message: "You're not permitted to do this. Check with your administrator."
           button: "Close"
+        standard_error:
+          title: "Oops 😬"
+          message: "Something went wrong. Please try again later or contact support."
+          button: "Close"
       links:
         edit:
           title: "Select a link"

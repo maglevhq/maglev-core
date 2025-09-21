@@ -21,8 +21,11 @@ module Maglev
         block_content = build_block_content
 
         ActiveRecord::Base.transaction do
-          add_to_section!(site, block_content) if section_definition.site_scoped?
-          add_to_section!(page, block_content)
+          if section_definition.site_scoped?
+            add_to_section!(site, block_content) 
+          else
+            add_to_section!(page, block_content)
+          end
         end
 
         block_content

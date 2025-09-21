@@ -23,16 +23,14 @@ module Maglev
           block_type: params[:block_type],
           parent_id: params[:parent_id]
         )
-        redirect_to editor_section_blocks_path(@section.id, **maglev_editing_route_context), notice: flash_t(:success),
-                                                                                             status: :see_other
+        redirect_to_section_blocks_path
       end
 
       def edit; end
 
       def update
         update_section_block
-        @section_block.lock_version = current_maglev_page.find_section_block_by_id(@section.id,
-                                                                                   @section_block.id)['lock_version']
+        refresh_lock_version
         flash.now[:notice] = flash_t(:success)
       end
 
@@ -44,8 +42,7 @@ module Maglev
           parent_id: params[:parent_id],
           lock_version: params[:lock_version]
         )
-        redirect_to editor_section_blocks_path(@section.id, **maglev_editing_route_context), notice: flash_t(:success),
-                                                                                             status: :see_other
+        redirect_to_section_blocks_path
       end
 
       def destroy
@@ -54,8 +51,7 @@ module Maglev
           section_id: @section.id,
           block_id: @section_block.id
         )
-        redirect_to editor_section_blocks_path(@section.id, **maglev_editing_route_context), notice: flash_t(:success),
-                                                                                             status: :see_other
+        redirect_to_section_blocks_path
       end
 
       private
@@ -76,6 +72,19 @@ module Maglev
           content: params[:section_block].to_unsafe_h,
           lock_version: params[:lock_version]
         )
+      end
+
+      def refresh_lock_version
+        source = @section.site_scoped? ? maglev_site : current_maglev_page
+        @section_block.lock_version = source.find_section_block_by_id(
+          @section.id,
+          @section_block.id
+        )['lock_version']        
+      end
+
+      def redirect_to_section_blocks_path
+        path = editor_section_blocks_path(@section.id, **maglev_editing_route_context)
+        redirect_to path, notice: flash_t(:success), status: :see_other
       end
     end
   end

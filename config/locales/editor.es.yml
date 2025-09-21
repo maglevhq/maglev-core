@@ -170,6 +170,10 @@ es:
           title: "Lo sentimos 🙇"
           message: "No tienes permiso para hacer esto. Consulta con tu administrador."
           button: "Cerrar"
+        standard_error:
+          title: "Ups 😬"
+          message: "Algo salió mal. Por favor intenta de nuevo más tarde o contacta soporte."
+          button: "Cerrar"
       links:
         edit:
           title: "Seleccionar un enlace"

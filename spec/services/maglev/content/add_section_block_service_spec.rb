@@ -64,12 +64,12 @@ describe Maglev::Content::AddSectionBlockService do
       site.update(sections: [page.sections[0]])
     end
     it 'adds the block to the section' do
-      expect { subject }.to change { page.sections.dig(0, 'blocks').count }.by(1)
+      expect { subject }.to change { site.sections.dig(0, 'blocks').count }.by(1)
     end
 
     it 'sets the parent id' do
       subject
-      expect(page.sections.dig(0, 'blocks').last['parent_id']).to eq 'menu-item-1'
+      expect(site.sections.dig(0, 'blocks').last['parent_id']).to eq 'menu-item-1'
     end
   end
 end

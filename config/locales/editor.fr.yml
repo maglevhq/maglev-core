@@ -170,6 +170,10 @@ fr:
           title: "Nous sommes désolés 🙇"
           message: "Vous n'êtes pas autorisé à faire cela. Vérifiez avec votre administrateur."
           button: "Fermer"
+        standard_error:
+          title: "Oups 😬"
+          message: "Quelque chose s'est mal passé. Veuillez réessayer plus tard ou contacter le support."
+          button: "Fermer"
       links:
         edit:
           title: "Sélectionner un lien"

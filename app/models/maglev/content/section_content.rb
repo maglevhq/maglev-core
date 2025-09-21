@@ -16,6 +16,10 @@ module Maglev
         definition.viewport_fixed_position?
       end
 
+      def site_scoped?
+        definition.site_scoped?
+      end
+
       def type_name
         definition.human_name
       end

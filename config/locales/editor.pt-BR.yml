@@ -170,6 +170,10 @@
           title: "Sentimos muito 🙇"
           message: "Você não tem permissão para fazer isso. Verifique com seu administrador."
           button: "Fechar"
+        standard_error:
+          title: "Ops 😬"
+          message: "Algo deu errado. Por favor, tente novamente mais tarde ou entre em contato com o suporte."
+          button: "Fechar"
       links:
         edit:
           title: "Selecionar um link"

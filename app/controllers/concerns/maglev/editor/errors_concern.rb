@@ -6,8 +6,12 @@ module Maglev
       extend ActiveSupport::Concern
 
       included do
+        unless Rails.env.local?
+          rescue_from ::StandardError, with: :handle_standard_error
+        end
+
         rescue_from ActiveRecord::StaleObjectError, with: :handle_stale_object
-        rescue_from Maglev::Errors::NotAuthorized, with: :handle_not_authorized
+        rescue_from Maglev::Errors::NotAuthorized, with: :handle_not_authorized        
       end
 
       private
@@ -23,6 +27,13 @@ module Maglev
         respond_to do |format|
           format.turbo_stream { render 'maglev/editor/shared/errors/not_authorized_error' }
           format.html { redirect_to main_app.root_path, alert: 'You are not authorized to access this content.' }
+        end
+      end
+
+      def handle_standard_error
+        respond_to do |format|
+          format.turbo_stream { render 'maglev/editor/shared/errors/standard_error' }
+          format.html { redirect_to editor_root_path, alert: 'An error occurred. Please try again.' }
         end
       end
     end

@@ -18,8 +18,11 @@ module Maglev
         raise Maglev::Errors::UnknownSection unless section_definition
 
         ActiveRecord::Base.transaction do
-          delete_section_block!(site) if site_scoped?
-          delete_section_block!(page)
+          if site_scoped?
+            delete_section_block!(site)
+          else
+            delete_section_block!(page)
+          end
         end
       end
 

@@ -42,7 +42,7 @@ module Maglev
       def sort
         current_maglev_page.reorder_sections(params[:item_ids], params[:lock_version])
         if current_maglev_page.save
-          redirect_to editor_sections_path(maglev_editing_route_context), notice: flash_t(:success), status: :see_other
+          redirect_to_sections_path
         else
           render_index_with_error
         end
@@ -50,8 +50,7 @@ module Maglev
 
       def destroy
         services.delete_section.call(page: current_maglev_page, section_id: params[:id])
-        redirect_to editor_sections_path(maglev_editing_route_context), notice: flash_t(:success),
-                                                                        status: :see_other
+        redirect_to_sections_path
       end
 
       private
@@ -82,6 +81,10 @@ module Maglev
       def newly_added_section_to_headers
         headers['X-Section-Id'] = flash[:section_id]
         headers['X-Section-Position'] = flash[:position]
+      end
+
+      def redirect_to_sections_path
+        redirect_to editor_sections_path(maglev_editing_route_context), notice: flash_t(:success), status: :see_other
       end
     end
   end

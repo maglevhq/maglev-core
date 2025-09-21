@@ -1,0 +1,17 @@
+<%= turbo_stream.update 'modal' do %>
+  <%= render Maglev::Uikit::ModalComponent.new(id: 'stale-object-error', open: true) do |modal| %>
+    <% modal.with_title_content t('maglev.editor.error_modals.standard_error.title') %>
+    
+    <div class="prose">
+      <%= t('maglev.editor.error_modals.standard_error.message').html_safe %>
+    </div>
+
+    <% modal.with_footer do %>
+      <%= button_tag t('maglev.editor.error_modals.standard_error.button'), 
+        type: 'button', 
+        class: maglev_button_classes,
+        data: { action: 'click->uikit-modal#close' } 
+      %>
+    <% end %>
+  <% end %>
+<% end %>
