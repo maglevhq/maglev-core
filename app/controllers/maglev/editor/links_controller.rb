@@ -18,7 +18,7 @@ module Maglev
         # some inputs are displayed based on the value of other inputs
         return unless params[:refresh] == '1' || !@link.valid?
 
-        flash.now[:error] = flash_t(:error) unless @link.valid?
+        flash.now[:alert] = flash_t(:error) unless @link.valid?
         render :edit, status: :unprocessable_content
       end
 

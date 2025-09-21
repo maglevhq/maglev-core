@@ -94,6 +94,10 @@ module Maglev
 
         redirect_to editor_root_path
       end
+
+      def redirect_to_real_root
+        redirect_to editor_real_root_path(maglev_editing_route_context)
+      end
     end
   end
 end

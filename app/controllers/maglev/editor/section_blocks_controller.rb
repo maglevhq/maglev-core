@@ -8,6 +8,9 @@ module Maglev
       before_action :set_section
       before_action :set_section_block, only: %i[edit update destroy]
 
+      rescue_from Maglev::Errors::UnknownSection, with: :redirect_to_real_root
+      rescue_from Maglev::Errors::UnknownBlock, with: -> { redirect_to_section_blocks_path(success: nil) }
+
       def index
         @blocks = @section.blocks
       end
@@ -21,7 +24,8 @@ module Maglev
           page: current_maglev_page,
           section_id: @section.id,
           block_type: params[:block_type],
-          parent_id: params[:parent_id]
+          parent_id: params[:parent_id],
+          lock_version: params[:lock_version]
         )
         redirect_to_section_blocks_path
       end
@@ -48,8 +52,8 @@ module Maglev
       def destroy
         services.delete_section_block.call(
           page: current_maglev_page,
-          section_id: @section.id,
-          block_id: @section_block.id
+          section_id: params[:section_id],
+          block_id: params[:id]
         )
         redirect_to_section_blocks_path
       end
@@ -58,10 +62,12 @@ module Maglev
 
       def set_section
         @section = current_maglev_sections.find { |section| section.id == params[:section_id] }
+        raise Maglev::Errors::UnknownSection unless @section
       end
 
       def set_section_block
         @section_block = @section.blocks.find(params[:id])
+        raise Maglev::Errors::UnknownBlock unless @section_block
       end
 
       def update_section_block
@@ -82,9 +88,16 @@ module Maglev
         )['lock_version']
       end
 
-      def redirect_to_section_blocks_path
+      def redirect_to_section_blocks_path(success: true)
+        flash = case success
+                when true then { notice: flash_t(:success) }
+                when false then { alert: flash_t(:error) }
+                else {}
+                end
+
         path = editor_section_blocks_path(@section.id, **maglev_editing_route_context)
-        redirect_to path, notice: flash_t(:success), status: :see_other
+
+        redirect_to path, status: :see_other, **flash
       end
     end
   end

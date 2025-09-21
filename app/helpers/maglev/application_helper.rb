@@ -113,8 +113,8 @@ module Maglev
     def maglev_flash_message
       message, color, icon_name = if flash[:notice].present?
                                     [flash[:notice], :green, 'checkbox_circle']
-                                  elsif flash[:error].present?
-                                    [flash[:error], :red, 'error_warning']
+                                  elsif flash[:alert].present?
+                                    [flash[:alert], :red, 'error_warning']
                                   end
 
       return '' if message.blank?

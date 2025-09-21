@@ -30,7 +30,7 @@ module Maglev
         if @page.save
           redirect_to editor_real_root_path(maglev_editing_route_context(page: @page)), status: :see_other
         else
-          flash.now[:error] = flash_t(:error)
+          flash.now[:alert] = flash_t(:error)
           render :new, status: :unprocessable_content
         end
       end
@@ -41,7 +41,7 @@ module Maglev
           redirect_to edit_editor_page_path(@page, **query_params, **maglev_editing_route_context),
                       notice: flash_t(:success), status: :see_other
         else
-          flash.now[:error] = flash_t(:error)
+          flash.now[:alert] = flash_t(:error)
           render :edit, status: :unprocessable_content
         end
       end

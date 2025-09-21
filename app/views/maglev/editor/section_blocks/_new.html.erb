@@ -6,6 +6,7 @@
     'editor-preview-notification-center-section-id-param': @section.id,
   } do |f| %>
   <%= f.hidden_field :parent_id, parent_id if parent_id %>
+  <%= f.hidden_field :lock_version, @section.lock_version %>
 
   <div class="space-y-4">
     <% blocks.each do |block_definition| %>

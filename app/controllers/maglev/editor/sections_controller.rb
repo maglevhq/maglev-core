@@ -7,6 +7,8 @@ module Maglev
 
       before_action :set_section, only: %i[edit update]
 
+      rescue_from Maglev::Errors::UnknownSection, with: :redirect_to_real_root
+
       def show
         redirect_to edit_editor_section_path(params[:id], maglev_editing_route_context)
       end
@@ -54,6 +56,11 @@ module Maglev
 
       private
 
+      def set_section
+        @section = current_maglev_sections.find { |section| section.id == params[:id] }
+        raise Maglev::Errors::UnknownSection unless @section
+      end
+
       def update_section
         services.update_section.call(
           page: current_maglev_page,
@@ -64,12 +71,8 @@ module Maglev
       end
 
       def render_index_with_error
-        flash.now[:error] = flash_t(:error)
+        flash.now[:alert] = flash_t(:error)
         render 'index', status: :unprocessable_content
-      end
-
-      def set_section
-        @section = current_maglev_sections.find { |section| section.id == params[:id] }
       end
 
       def newly_added_section_to_flash

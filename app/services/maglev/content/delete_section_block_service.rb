@@ -16,6 +16,7 @@ module Maglev
 
       def call
         raise Maglev::Errors::UnknownSection unless section_definition
+        raise Maglev::Errors::UnknownBlock unless block_definition
 
         ActiveRecord::Base.transaction do
           if site_scoped?
