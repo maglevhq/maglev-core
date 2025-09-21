@@ -34,8 +34,7 @@ module Maglev
 
       def update
         update_section
-        # NOTE: at some point, we will manage real Section ActiveModel instances.
-        @section.lock_version = current_maglev_page.find_section_by_id(@section.id)['lock_version']
+        refresh_lock_version
         flash.now[:notice] = flash_t(:success)
       end
 
@@ -81,6 +80,11 @@ module Maglev
       def newly_added_section_to_headers
         headers['X-Section-Id'] = flash[:section_id]
         headers['X-Section-Position'] = flash[:position]
+      end
+
+      def refresh_lock_version
+        source = @section.site_scoped? ? maglev_site : current_maglev_page
+        @section.lock_version = source.find_section_by_id(@section.id)['lock_version']
       end
 
       def redirect_to_sections_path

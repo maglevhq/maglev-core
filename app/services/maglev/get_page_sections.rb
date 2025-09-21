@@ -71,7 +71,8 @@ module Maglev
       section.merge!(
         'id' => site_section['id'],
         'settings' => site_section['settings'],
-        'blocks' => site_section['blocks']
+        'blocks' => site_section['blocks'],
+        'lock_version' => site_section['lock_version']
       )
     end
     # rubocop:enable Style/StringHashKeys

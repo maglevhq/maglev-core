@@ -79,7 +79,7 @@ module Maglev
         @section_block.lock_version = source.find_section_block_by_id(
           @section.id,
           @section_block.id
-        )['lock_version']        
+        )['lock_version']
       end
 
       def redirect_to_section_blocks_path

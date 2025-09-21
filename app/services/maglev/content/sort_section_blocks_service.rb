@@ -19,8 +19,11 @@ module Maglev
         raise Maglev::Errors::UnknownSection unless section_definition
 
         ActiveRecord::Base.transaction do
-          sort_section_blocks!(site) if site_scoped?
-          sort_section_blocks!(page)
+          if site_scoped?
+            sort_section_blocks!(site)
+          else
+            sort_section_blocks!(page)
+          end
         end
       end
 

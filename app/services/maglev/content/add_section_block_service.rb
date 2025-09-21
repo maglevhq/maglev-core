@@ -22,7 +22,7 @@ module Maglev
 
         ActiveRecord::Base.transaction do
           if section_definition.site_scoped?
-            add_to_section!(site, block_content) 
+            add_to_section!(site, block_content)
           else
             add_to_section!(page, block_content)
           end

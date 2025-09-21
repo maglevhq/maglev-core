@@ -16,9 +16,7 @@ module Maglev
         definition.viewport_fixed_position?
       end
 
-      def site_scoped?
-        definition.site_scoped?
-      end
+      delegate :site_scoped?, to: :definition
 
       def type_name
         definition.human_name

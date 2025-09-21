@@ -34,6 +34,7 @@ describe Maglev::GetPageSections do
                               {
                                 'id' => 'abc',
                                 'type' => 'navbar',
+                                'lock_version' => nil,
                                 'settings' => [{ 'id' => 'logo', 'value' => 'mynewlogo.png' }],
                                 'blocks' => [
                                   {
