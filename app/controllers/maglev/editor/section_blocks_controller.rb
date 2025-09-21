@@ -8,9 +8,6 @@ module Maglev
       before_action :set_section
       before_action :set_section_block, only: %i[edit update destroy]
 
-      rescue_from Maglev::Errors::UnknownSection, with: :redirect_to_real_root
-      rescue_from Maglev::Errors::UnknownBlock, with: -> { redirect_to_section_blocks_path(success: nil) }
-
       def index
         @blocks = @section.blocks
       end
@@ -62,12 +59,12 @@ module Maglev
 
       def set_section
         @section = current_maglev_sections.find { |section| section.id == params[:section_id] }
-        raise Maglev::Errors::UnknownSection unless @section
+        raise ActiveRecord::StaleObjectError unless @section
       end
 
       def set_section_block
         @section_block = @section.blocks.find(params[:id])
-        raise Maglev::Errors::UnknownBlock unless @section_block
+        raise ActiveRecord::StaleObjectError unless @section_block
       end
 
       def update_section_block

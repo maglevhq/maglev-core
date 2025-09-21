@@ -17,7 +17,7 @@ module Maglev
       def handle_stale_object
         respond_to do |format|
           format.turbo_stream { render 'maglev/editor/shared/errors/stale_object_error' }
-          format.html { redirect_to editor_root_path, alert: 'Someone else has updated this content. Please reload.' }
+          format.html { redirect_to editor_root_path }
         end
       end
 

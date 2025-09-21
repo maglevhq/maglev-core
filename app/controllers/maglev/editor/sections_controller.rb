@@ -7,8 +7,6 @@ module Maglev
 
       before_action :set_section, only: %i[edit update]
 
-      rescue_from Maglev::Errors::UnknownSection, with: :redirect_to_real_root
-
       def show
         redirect_to edit_editor_section_path(params[:id], maglev_editing_route_context)
       end
@@ -58,7 +56,7 @@ module Maglev
 
       def set_section
         @section = current_maglev_sections.find { |section| section.id == params[:id] }
-        raise Maglev::Errors::UnknownSection unless @section
+        raise ActiveRecord::StaleObjectError unless @section
       end
 
       def update_section
