@@ -50,7 +50,7 @@ module Maglev
       end
 
       def current_maglev_sections
-        @current_maglev_sections = Maglev::Content::SectionContent.build_many(
+        @current_maglev_sections ||= Maglev::Content::SectionContent.build_many(
           theme: maglev_theme,
           content: services.get_page_sections.call(page: current_maglev_page, locale: content_locale)
         )

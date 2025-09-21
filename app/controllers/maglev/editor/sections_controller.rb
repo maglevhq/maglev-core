@@ -12,7 +12,7 @@ module Maglev
       end
 
       def new
-        @grouped_sections = maglev_theme.sections.grouped_by_category
+        @grouped_sections = maglev_theme.sections.available_for(current_maglev_sections).grouped_by_category
         @position = (params[:position] || -1).to_i
       end
 

@@ -18,8 +18,11 @@ module Maglev
         raise Maglev::Errors::UnknownSection unless section_definition
 
         ActiveRecord::Base.transaction do
-          update_section_content!(site) if site_scoped?
-          update_section_content!(page)
+          if site_scoped?
+            update_section_content!(site)
+          else
+            update_section_content!(page)
+          end
         end
       end
 

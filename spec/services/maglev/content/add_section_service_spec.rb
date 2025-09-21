@@ -47,7 +47,7 @@ describe Maglev::Content::AddSectionService do
         subject
         expect(site.sections.count).to eq 1
         expect(site.sections.dig(0, 'id')).to eq 'abc'
-        expect(page.sections.dig(0, 'id')).not_to eq 'abc'
+        expect(page.sections.dig(0, 'id')).to eq 'abc'
       end
     end
 

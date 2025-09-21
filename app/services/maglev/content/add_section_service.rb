@@ -48,7 +48,7 @@ module Maglev
       end
 
       def can_add_to_site?
-        # We don't want to add the section if there is already a section with the same type
+        # We don't want to add the section to the site if there is already a section with the same type
         site_scoped? && site.find_sections_by_type(section_type).empty?
       end
 
@@ -59,9 +59,7 @@ module Maglev
 
       def build_section_content
         if site_scoped? && site.find_sections_by_type(section_type).any?
-          site.find_sections_by_type(section_type).first.dup.tap do |section|
-            section['id'] = SecureRandom.urlsafe_base64(8)
-          end
+          site.find_sections_by_type(section_type).first.dup
         else
           section_definition.build_default_content
         end.with_indifferent_access

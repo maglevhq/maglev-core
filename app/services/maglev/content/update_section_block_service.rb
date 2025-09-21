@@ -20,8 +20,11 @@ module Maglev
         raise Maglev::Errors::UnknownBlock unless block_definition
 
         ActiveRecord::Base.transaction do
-          update_section_block_content!(site) if site_scoped?
-          update_section_block_content!(page)
+          if site_scoped?
+            update_section_block_content!(site)
+          else
+            update_section_block_content!(page)
+          end
         end
       end
 

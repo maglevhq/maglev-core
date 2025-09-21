@@ -124,6 +124,16 @@ module Maglev
         @array.group_by(&:category)
       end
 
+      def available_for(sections_content)
+        # we don't want to add site_scoped sections or singleton sections that are already present on the page
+        new_array = @array.reject do |section|
+          (section.site_scoped? || section.singleton?) && sections_content.any? do |section_content|
+            section_content.type == section.id
+          end
+        end
+        self.class.new(new_array)
+      end
+
       def as_json(**_options)
         @array.as_json
       end

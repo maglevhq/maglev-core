@@ -43,16 +43,20 @@ describe Maglev::Content::UpdateSectionService do
     end
   end
 
-  context 'Given an existing site section' do
+  context 'Given an existing site scoped section' do
     let(:site) { create(:site, :with_navbar) }
     let(:page) { create(:page, :with_navbar) }
     let(:content) { { logo: { url: '/awesome-logo.png' } } }
 
-    it 'updates the section' do
+    it 'updates the section content on the site' do
       expect(subject).to eq(true)
       # rubocop:disable Style/StringHashKeys
       expect(site.sections.dig(0, 'settings', 0, 'value')).to eq({ 'url' => '/awesome-logo.png' })
       # rubocop:enable Style/StringHashKeys
+    end
+
+    it "doesn't touch the page" do
+      expect { subject }.not_to(change { page.reload.lock_version })
     end
   end
 end
