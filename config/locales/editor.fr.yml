@@ -162,11 +162,11 @@ fr:
         confirm_button_label: "Oui"
         cancel_button_label: "Non"
       error_modals:
-        stale_record:
+        stale_object:
           title: "Nous sommes désolés 🙇"
-          message: "Nous n'avons pas pu persister vos modifications car quelqu'un d'autre a mis à jour le contenu entre-temps."
-          button: "Veuillez recharger votre page"
-        forbidden:
+          message: "<p>Nous n'avons pas pu sauvegarder vos modifications car quelqu'un d'autre a mis à jour le contenu entre-temps.</p><p>Veuillez recharger la page pour continuer — sinon, vos modifications seront perdues.</p>"
+          button: "Recharger la page"
+        not_authorized:
           title: "Nous sommes désolés 🙇"
           message: "Vous n'êtes pas autorisé à faire cela. Vérifiez avec votre administrateur."
           button: "Fermer"

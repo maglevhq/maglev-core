@@ -162,11 +162,11 @@ es:
         confirm_button_label: "Sí"
         cancel_button_label: "No"
       error_modals:
-        stale_record:
+        stale_object:
           title: "Lo sentimos 🙇"
-          message: "No pudimos persistir tus cambios porque alguien más ha actualizado el contenido en el ínterin."
-          button: "Por favor recarga tu página"
-        forbidden:
+          message: "<p>No pudimos guardar tus cambios porque alguien más actualizó el contenido mientras tanto.</p><p>Por favor recarga la página para continuar — de lo contrario, se perderán tus cambios.</p>"
+          button: "Recargar página"
+        not_authorized:
           title: "Lo sentimos 🙇"
           message: "No tienes permiso para hacer esto. Consulta con tu administrador."
           button: "Cerrar"

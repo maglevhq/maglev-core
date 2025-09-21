@@ -166,8 +166,8 @@ en:
           title: "Sorry about that 🙇"
           message: "<p>We couldn’t save your changes because someone else updated the content in the meantime.</p><p>Please reload the page to continue — otherwise, your changes will be lost.</p>"
           button: "Reload page"
-        forbidden:
-          title: "We are sorry 🙇"
+        not_authorized:
+          title: "Sorry about that 🙇"
           message: "You're not permitted to do this. Check with your administrator."
           button: "Close"
       links:

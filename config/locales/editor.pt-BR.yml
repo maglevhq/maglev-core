@@ -162,11 +162,11 @@
         confirm_button_label: "Sim"
         cancel_button_label: "Não"
       error_modals:
-        stale_record:
+        stale_object:
           title: "Sentimos muito 🙇"
-          message: "Não conseguimos persistir suas alterações porque alguém mais atualizou o conteúdo no meio tempo."
-          button: "Por favor, recarregue sua página"
-        forbidden:
+          message: "<p>Não conseguimos salvar suas alterações porque alguém mais atualizou o conteúdo no meio tempo.</p><p>Por favor, recarregue a página para continuar — caso contrário, suas alterações serão perdidas.</p>"
+          button: "Recarregar página"
+        not_authorized:
           title: "Sentimos muito 🙇"
           message: "Você não tem permissão para fazer isso. Verifique com seu administrador."
           button: "Fechar"
