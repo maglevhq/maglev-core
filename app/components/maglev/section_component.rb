@@ -1,13 +1,15 @@
 # frozen_string_literal: true
 
 module Maglev
+  # rubocop:disable Metrics/ClassLength
   class SectionComponent < BaseComponent
     include TagHelper
 
     extend Forwardable
     def_delegators :parent, :site, :page, :config
 
-    attr_reader :parent, :id, :type, :settings, :attributes, :definition, :templates_root_path, :rendering_mode
+    attr_reader :parent, :id, :type, :settings, :attributes, :definition, :templates_root_path,
+                :rendering_mode
 
     # rubocop:disable Lint/MissingSuper
     def initialize(parent:, attributes:, definition:, templates_root_path:, rendering_mode:)
@@ -26,14 +28,22 @@ module Maglev
     # rubocop:enable Lint/MissingSuper
 
     def dom_id
-      "section-#{id}"
+      @dom_id ||= "section-#{id}"
     end
 
-    # rubocop:disable Rails/OutputSafety
-    def dom_data
-      "data-maglev-section-id=\"#{id}\" data-maglev-section-type=\"#{type}\"".html_safe
+    def lock_version
+      @lock_version ||= attributes[:lock_version] || '0'
     end
-    # rubocop:enable Rails/OutputSafety
+
+    def dom_data
+      view_context.tag.attributes(
+        data: {
+          'maglev-section-id': id,
+          'maglev-section-type': type,
+          'maglev-section-lock-version': lock_version
+        }
+      )
+    end
 
     def tag_data
       { maglev_section_id: id, maglev_section_type: type }
@@ -127,4 +137,5 @@ module Maglev
       %w[id site_id type].map { |field| [field, send(field)] }
     end
   end
+  # rubocop:enable Metrics/ClassLength
 end

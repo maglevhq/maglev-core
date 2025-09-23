@@ -25,7 +25,11 @@ describe Maglev::SectionComponent do
     subject { component.dom_data }
 
     it 'returns a HTML formatted data attribute' do
-      expect(subject).to eq 'data-maglev-section-id="def" data-maglev-section-type="jumbotron"'
+      is_expected.to eq %w[
+        data-maglev-section-id="def"
+        data-maglev-section-type="jumbotron"
+        data-maglev-section-lock-version="0"
+      ].join(' ').strip
     end
   end
 

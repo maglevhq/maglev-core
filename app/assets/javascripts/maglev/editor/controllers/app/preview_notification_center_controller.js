@@ -57,6 +57,12 @@ export default class extends Controller {
     const { sectionId  } = event.detail
     this.postMessage('section:update', { sectionId })
   }
+
+  checkSectionLockVersion(event) {
+    console.log('checkSectionLockVersion 🕵🏻‍♂️🕵🏻‍♂️🕵🏻‍♂️', event)
+    const { sectionId, lockVersion } = event.detail
+    this.postMessage('section:checkLockVersion', { sectionId, lockVersion })
+  }
   
   // === SECTION BLOCKS ===
 

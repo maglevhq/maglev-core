@@ -3,13 +3,14 @@ import { useDebounce } from 'stimulus-use'
 
 export default class extends Controller {
   static targets = ['lockVersion']
-  static values = { sectionId: String, sectionBlockId: String }
+  static values = { sectionId: String, sectionBlockId: String, sectionLockVersion: String }
 
   static debounces = ['afterSettingUpdate']
 
   connect() {
     useDebounce(this)
     this.sourceId = this.sectionBlockIdValue !== '' ?  this.sectionBlockIdValue : this.sectionIdValue
+    this.dispatch('connected', { bubbles: true, detail: { sectionId: this.sectionIdValue, lockVersion: this.sectionLockVersionValue } })
   }
 
   onSettingChange(event) {

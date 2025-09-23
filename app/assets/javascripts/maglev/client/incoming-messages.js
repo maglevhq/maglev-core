@@ -26,6 +26,7 @@ export const start = () => {
       case 'section:update':
       case 'section:remove':
       case 'section:ping':
+      case 'section:checkLockVersion':
       case 'block:add':
       case 'block:move':
       case 'block:update':

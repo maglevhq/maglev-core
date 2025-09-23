@@ -20,6 +20,7 @@ export const start = () => {
   window.addEventListener('maglev:section:move', moveSections)
   window.addEventListener('maglev:section:update', updateSection)
   window.addEventListener('maglev:section:remove', removeSection)
+  window.addEventListener('maglev:section:checkLockVersion', checkSectionLockVersion)
   window.addEventListener('maglev:block:add', replaceSection)
   window.addEventListener('maglev:block:move', replaceSection)
   window.addEventListener('maglev:block:update', updateBlock)
@@ -73,6 +74,15 @@ const removeSection = (event) => {
   const selector = `[data-maglev-section-id='${sectionId}']`
   const element = previewDocument.querySelector(selector)
   element.remove()
+}
+
+const checkSectionLockVersion = (event) => {
+  const { sectionId, lockVersion } = event.detail
+  const section = previewDocument.querySelector(`[data-maglev-section-id='${sectionId}']`)
+  const localLockVersion = section?.getAttribute('data-maglev-section-lock-version')
+  if (lockVersion !== localLockVersion) {
+    debouncedUpdatePreviewDocument(null, { id: sectionId })
+  }
 }
 
 // === Block related actions ===
