@@ -1,7 +1,7 @@
 import { start as startListeningEvents } from 'maglev-client/dom-operations'
 import { start as startListeningMessages } from 'maglev-client/incoming-messages'
 
-document.addEventListener('DOMContentLoaded', () => {
+const initializeClient = () => {
   console.log('Maglev Client v2 🚆')
 
   // no need to start the client when the site is being visited outside the editor
@@ -15,4 +15,12 @@ document.addEventListener('DOMContentLoaded', () => {
   startListeningEvents()  
 
   console.log('Maglev Client v2 ✅')
-})
+}
+
+// Check if document is already ready
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initializeClient)
+} else {
+  // Document is already ready, initialize immediately
+  initializeClient()
+}

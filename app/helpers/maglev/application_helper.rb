@@ -15,7 +15,7 @@ module Maglev
     def maglev_client_javascript_tags
       return '' unless maglev_rendering_mode == :editor
 
-      maglev_importmap_tags(:client, 'client')
+      maglev_importmap_tags(:client, 'maglev-client')
     end
 
     def maglev_importmap_tags(namespace, entry_point)
