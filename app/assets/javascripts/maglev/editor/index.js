@@ -31,6 +31,15 @@ PageRenderer.prototype.assignNewBody = function() {
   const body = document.querySelector("#root")
   const el   = this.newElement.querySelector("#root")
 
+  // replace all the data attributes of the BODY tag with the data attributes of the newElement
+  // This is because the BODY tag carries the current page id in one of the controller values
+  const bodyDataAttributes = document.body.dataset
+  const newElementDataAttributes = this.newElement.dataset
+  Object.keys(newElementDataAttributes).forEach(key => {
+    bodyDataAttributes[key] = newElementDataAttributes[key]
+  })
+
+  // now replace the "body" with the newElement
   if (body && el) {
     body.replaceWith(el)
     return
