@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 module Maglev
-  # rubocop:disable Metrics/ClassLength
   class SectionComponent < BaseComponent
     include TagHelper
 
@@ -36,17 +35,11 @@ module Maglev
     end
 
     def dom_data
-      view_context.tag.attributes(
-        data: {
-          'maglev-section-id': id,
-          'maglev-section-type': type,
-          'maglev-section-lock-version': lock_version
-        }
-      )
+      view_context.tag.attributes(data: tag_data)
     end
 
     def tag_data
-      { maglev_section_id: id, maglev_section_type: type }
+      { maglev_section_id: id, maglev_section_type: type, maglev_section_lock_version: lock_version }
     end
 
     def blocks
@@ -137,5 +130,4 @@ module Maglev
       %w[id site_id type].map { |field| [field, send(field)] }
     end
   end
-  # rubocop:enable Metrics/ClassLength
 end
