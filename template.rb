@@ -10,7 +10,7 @@ gsub_file 'Gemfile', /gem "puma", "~> 5\.\d"/, 'gem "puma", "~> 6.6"'
 
 gem 'maglevcms', '~> 2.0.0'
 gem 'maglevcms-hyperui-kit', '~> 1.2.0'
-gem 'image_processing', '~> 1.2'
+gem 'image_processing', '~> 1.3'
 
 after_bundle do
   rails_command 'db:create'
