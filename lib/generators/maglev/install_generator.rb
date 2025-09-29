@@ -25,7 +25,7 @@ module Maglev
         <<-CODE
   mount Maglev::Engine => '/maglev'
   get '/sitemap', to: 'maglev/sitemap#index', defaults: { format: 'xml' }
-  get '(*path)', to: 'maglev/page_preview#index', defaults: { path: 'index' }, constraints: Maglev::PreviewConstraint.new
+  get '(*path)', to: 'maglev/published_page_preview#index', defaults: { path: 'index' }, constraints: Maglev::PreviewConstraint.new
         CODE
       end
     end
