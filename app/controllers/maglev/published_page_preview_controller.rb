@@ -1,19 +1,18 @@
 # frozen_string_literal: true
 
 module Maglev
-  class PagePreviewController < ApplicationController
+  class PublishedPagePreviewController < ApplicationController
     include Maglev::RenderingConcern
-    include Maglev::JsonConcern
     include Maglev::ContentLocaleConcern
 
     before_action :fetch_maglev_site
     around_action :extract_content_locale
 
-    def index
-      render_maglev_page
-    end
+    rescue_from Maglev::Errors::UnpublishedPage, with: :content_not_found!
 
-    def create
+    helper Maglev::PagePreviewHelper
+
+    def index
       render_maglev_page
     end
 
@@ -24,19 +23,15 @@ module Maglev
         raise ActiveRecord::RecordNotFound if site.nil?
 
         maglev_services.context.site = site
-
-        site.style = JSON.parse(params[:style]) if params[:style]
       end
     end
 
     def fetch_maglev_page_sections
-      return super if action_name == 'index'
-
-      super(section_id: params[:section_id])
+      maglev_services.get_published_page_sections.call(page: fetch_maglev_page, locale: content_locale)
     end
 
     def maglev_rendering_mode
-      params[:rendering_mode] || super
+      :live
     end
 
     def extract_content_locale(&block)
@@ -45,7 +40,11 @@ module Maglev
     end
 
     def fallback_to_default_locale
-      maglev_rendering_mode == :editor
+      false
+    end
+
+    def content_not_found!
+      raise ActionController::RoutingError, 'Not Found'
     end
   end
 end

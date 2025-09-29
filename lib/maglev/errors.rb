@@ -7,6 +7,7 @@ module Maglev
     class UnknownBlock < StandardError; end
     class DuplicateSectionDefinition < StandardError; end
     class NotImplemented < StandardError; end
+    class UnpublishedPage < StandardError; end
 
     class UnknownSetting < StandardError
       def initialize(section_id, block_id, setting_id)

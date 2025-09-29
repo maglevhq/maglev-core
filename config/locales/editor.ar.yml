@@ -10,7 +10,7 @@ ar:
           draft_link: "نسخة مسودة"
           live_link: "نسخة مباشرة"
         publish_button:
-          default: "نشر الموقع"
+          default: "نشر الصفحة"
           in_progress: "جاري النشر..."
           success: "تم النشر!"
           fail: "فشل!"

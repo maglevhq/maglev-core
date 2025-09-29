@@ -20,6 +20,9 @@ module Maglev
     include Maglev::SectionsConcern
     include Maglev::Translatable
 
+    ## associations ##
+    has_many :sections_content_stores, as: :container, dependent: :destroy
+
     ## translations ##
     translates :sections
 

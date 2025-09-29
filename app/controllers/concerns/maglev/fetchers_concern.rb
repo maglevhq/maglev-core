@@ -35,10 +35,9 @@ module Maglev
       )
     end
 
-    def fetch_maglev_page_sections(page_sections: nil, section_id: nil)
+    def fetch_maglev_page_sections(section_id: nil)
       @fetch_maglev_page_sections ||= maglev_services.get_page_sections.call(
         page: fetch_maglev_page,
-        page_sections: page_sections,
         section_id: section_id,
         locale: content_locale
       )

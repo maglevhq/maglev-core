@@ -10,7 +10,7 @@ es:
           draft_link: "Versión borrador"
           live_link: "Versión en vivo"
         publish_button:
-          default: "Publicar sitio"
+          default: "Publicar página"
           in_progress: "Publicando..."
           success: "¡Publicado!"
           fail: "¡Falló!"

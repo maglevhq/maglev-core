@@ -25,6 +25,9 @@ module Maglev
     include Maglev::Page::PathConcern
     include Maglev::Page::SearchConcern
 
+    ## associations ##
+    has_many :sections_content_stores, as: :container, dependent: :destroy
+
     ## translations ##
     translates :title, presence: true
     translates :sections

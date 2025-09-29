@@ -1,10 +1,7 @@
 # frozen_string_literal: true
 
 module Maglev
-  # Get the content of a page in a specific locale.
-  # The content comes from the sections of the page.
-  # Also replace the links by their real values based on the context (live editing or not).
-  class GetPageSections
+  class GetPublishedPageSectionsService
     include Injectable
     include Maglev::GetPageSections::TransformSectionConcern
 
@@ -15,11 +12,10 @@ module Maglev
     dependency :get_page_fullpath
 
     argument :page
-    argument :section_id, default: nil
     argument :locale, default: nil
 
     def call
-      sections.map do |section|
+      fetch_container_store(page).sections.map do |section|
         transform_section(section.dup)
       end.compact
     end
@@ -34,16 +30,19 @@ module Maglev
       fetch_site.call
     end
 
-    def sections
-      if section_id.present? # when refreshing the preview of a section in the editor
-        [page.find_section_by_id(section_id)]
-      else
-        page.sections || []
-      end.compact
+    def site_store
+      @site_store ||= fetch_container_store(site)
     end
 
     def find_site_section(type)
-      site.find_section(type)
+      site_store.find_sections_by_type(type).first
+    end
+
+    def fetch_container_store(container)
+      store = container.sections_content_stores.published.first
+      raise Maglev::Errors::UnpublishedPage if store.blank?
+
+      store
     end
   end
 end

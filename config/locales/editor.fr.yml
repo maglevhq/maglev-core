@@ -10,7 +10,7 @@ fr:
           draft_link: "Version brouillon"
           live_link: "Version en direct"
         publish_button:
-          default: "Publier le site"
+          default: "Publier la page"
           in_progress: "Publication..."
           success: "Publié !"
           fail: "Échec !"

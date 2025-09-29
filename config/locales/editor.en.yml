@@ -10,7 +10,7 @@ en:
           draft_link: "Draft version"
           live_link: "Live version"
         publish_button:
-          default: "Publish site"
+          default: "Publish page"
           in_progress: "Publishing..."
           success: "Published!"
           fail: "Fail!"

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2022_06_12_092235) do
+ActiveRecord::Schema[8.0].define(version: 2025_09_29_203214) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -81,6 +81,18 @@ ActiveRecord::Schema[8.0].define(version: 2022_06_12_092235) do
     t.jsonb "og_title_translations", default: {}
     t.jsonb "og_description_translations", default: {}
     t.jsonb "og_image_url_translations", default: {}
+  end
+
+  create_table "maglev_sections_content_stores", force: :cascade do |t|
+    t.string "container_id"
+    t.string "container_type"
+    t.jsonb "sections_translations", default: {}
+    t.boolean "published", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["container_id", "container_type", "published"], name: "maglev_sections_content_stores_container_and_published"
+    t.index ["container_id", "container_type"], name: "maglev_sections_content_stores_container"
+    t.index ["published"], name: "index_maglev_sections_content_stores_on_published"
   end
 
   create_table "maglev_sites", force: :cascade do |t|
