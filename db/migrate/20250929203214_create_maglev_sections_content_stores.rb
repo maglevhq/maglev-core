@@ -14,8 +14,6 @@ class CreateMaglevSectionsContentStores < ActiveRecord::Migration[6.0]
       t.timestamps
     end
 
-    add_index :maglev_sections_content_stores, :published
-    add_index :maglev_sections_content_stores, %i[container_id container_type published], name: 'maglev_sections_content_stores_container_and_published'
-    add_index :maglev_sections_content_stores, %i[container_id container_type], name: 'maglev_sections_content_stores_container'
+    add_index :maglev_sections_content_stores, %i[container_id container_type published], unique: true, name: 'maglev_sections_content_stores_container_and_published'
   end
 end
