@@ -7,7 +7,12 @@ export default class extends Controller {
     sectionPath: String,
     sectionBlockPath: String
   }
-  
+
+  connect() {
+    this.isClientReady = false
+    this.clientReadyCallbacks = []    
+  }
+
   // called when the iframe DOM is loaded
   sendConfig(event) {
     const { primaryColor, stickySectionIds } = event.params
@@ -15,6 +20,12 @@ export default class extends Controller {
       primaryColor,
       stickySectionIds,
     })
+  }
+
+  // called when the Maglev client JS lib has been fully loaded on the iframe
+  clientReady(event) {
+    this.isClientReady = true
+    this.processClientReadyCallbacks()
   }
 
   // called by the iframe when the user clicks on a setting of a section or a section block
@@ -63,17 +74,23 @@ export default class extends Controller {
     const { sectionId, lockVersion } = event.detail
     this.postMessage('section:checkLockVersion', { sectionId, lockVersion })
   }
+
+  pingSection(event) {
+    console.log('pingSection 🏓🏓🏓', event.detail, this.isClientReady)
+    const { sectionId } = event.detail
+    this.postMessageWhenClientReady('section:ping', { sectionId })
+  }
   
   // === SECTION BLOCKS ===
 
   addSectionBlock(event) {
-    console.log('addSectionBlock 💨💨💨', event.params)
+    console.log('addSectionBlock ➕➕➕', event.params)
     const { sectionId } = event.params
     this.postMessage('block:add', { sectionId })
   }
 
   deleteSectionBlock(event) {
-    console.log('deleteSectionBlock 💨💨💨', event.params)
+    console.log('deleteSectionBlock 🗑️🗑️🗑️', event.params)
     const { sectionId, sectionBlockId } = event.params
     this.postMessage('block:remove', { sectionId, sectionBlockId })
   }
@@ -83,6 +100,12 @@ export default class extends Controller {
     const sectionId = event.params.sectionId
     const { oldItemId: sectionBlockId, newItemId: targetSectionBlockId, direction } = event.detail    
     this.postMessage('block:move', { sectionId, sectionBlockId, targetSectionBlockId, direction })
+  }
+
+  pingSectionBlock(event) {
+    console.log('pingSectionBlock 🏓🏓🏓', event.detail)
+    const { sectionBlockId } = event.detail
+    this.postMessageWhenClientReady('block:ping', { sectionBlockId })
   }
 
   // === SETTINGS ===
@@ -98,10 +121,23 @@ export default class extends Controller {
     const { style } = event.detail
     this.postMessage('style:update', { style })
   }
-  
+
   // === UTILS ===
 
   postMessage(type, data) {
     this.iframeTarget.contentWindow.postMessage({ type: `maglev:${type}`, ...(data || {}) }, '*')
+  }
+
+  postMessageWhenClientReady(type, data) {
+    if (this.isClientReady) {
+      this.postMessage(type, data)
+    } else {
+      this.clientReadyCallbacks.push({ type, data })
+    }
+  }
+
+  processClientReadyCallbacks() {
+    this.clientReadyCallbacks.forEach(({ type, data }) => this.postMessage(type, data))
+    this.clientReadyCallbacks = []
   }
 }

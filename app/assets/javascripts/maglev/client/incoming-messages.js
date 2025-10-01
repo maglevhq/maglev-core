@@ -29,8 +29,8 @@ export const start = () => {
       case 'section:checkLockVersion':
       case 'block:add':
       case 'block:move':
-      case 'block:update':
       case 'block:remove':
+      case 'block:ping':
       case 'setting:update':
       case 'style:update':
         triggerEvent(type, data)

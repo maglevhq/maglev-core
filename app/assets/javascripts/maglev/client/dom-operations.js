@@ -21,10 +21,11 @@ export const start = () => {
   window.addEventListener('maglev:section:update', updateSection)
   window.addEventListener('maglev:section:remove', removeSection)
   window.addEventListener('maglev:section:checkLockVersion', checkSectionLockVersion)
+  window.addEventListener('maglev:section:ping', pingSection)
   window.addEventListener('maglev:block:add', replaceSection)
   window.addEventListener('maglev:block:move', replaceSection)
-  window.addEventListener('maglev:block:update', updateBlock)
   window.addEventListener('maglev:block:remove', replaceSection)
+  window.addEventListener('maglev:block:ping', pingSectionBlock)
   window.addEventListener('maglev:setting:update', updateSetting)
 
   window.addEventListener('maglev:style:update', updateStyle)
@@ -34,7 +35,7 @@ export const start = () => {
 
 const addSection = (event) => {
   const { sectionId, insertAt } = event.detail
-  debouncedUpdatePreviewDocument(null, { id: sectionId }, insertAt)
+  debouncedUpdatePreviewDocument({ sectionId, insertAt, scrollToSection: true })
 }
 
 const moveSections = (event) => {
@@ -61,12 +62,12 @@ const moveSections = (event) => {
     )
 
   // scroll to the new placement of the section
-  scrollToSection(sectionElement)
+  scrollToSectionOrBlock(sectionElement)
 }
 
 const updateSection = (event) => {
   const { sectionId } = event.detail
-  debouncedUpdatePreviewDocument(null, { id: sectionId })
+  debouncedUpdatePreviewDocument({ sectionId })
 }
 
 const removeSection = (event) => {
@@ -78,23 +79,37 @@ const removeSection = (event) => {
 
 const checkSectionLockVersion = (event) => {
   const { sectionId, lockVersion } = event.detail
+  console.log('[DOM Operations] checkSectionLockVersion', event)
   const section = previewDocument.querySelector(`[data-maglev-section-id='${sectionId}']`)
   const localLockVersion = section?.getAttribute('data-maglev-section-lock-version')
-  if (lockVersion !== localLockVersion) {
-    debouncedUpdatePreviewDocument(null, { id: sectionId })
+  if (lockVersion !== localLockVersion && lockVersion !== '') {
+    debouncedUpdatePreviewDocument({ sectionId })
+  }
+}
+
+const pingSection = (event) => {
+  const { sectionId } = event.detail
+  const selector = `[data-maglev-section-id='${sectionId}']`
+  const sectionElement = previewDocument.querySelector(selector)
+  if (sectionElement) {
+    scrollToSectionOrBlock(sectionElement)
   }
 }
 
 // === Block related actions ===
 
-const updateBlock = (event) => {
-  const { content, section, sectionBlock, change } = event.detail
-  updateSectionOrBlock(content, section, sectionBlock, change)
-}
-
 const replaceSection = (event) => {
   const { sectionId } = event.detail
-  debouncedUpdatePreviewDocument(null, { id: sectionId })
+  debouncedUpdatePreviewDocument({ sectionId })
+}
+
+const pingSectionBlock = (event) => {
+  const { sectionBlockId } = event.detail
+  const selector = `[data-maglev-block-id='${sectionBlockId}']`
+  const blockElement = previewDocument.querySelector(selector)
+  if (blockElement) {
+    scrollToSectionOrBlock(blockElement)
+  }
 }
 
 // === Other actions ===
@@ -107,6 +122,9 @@ const updateSetting = (event) => {
   switch (change.settingType) {
     case 'text':
       foundSetting = updateTextSetting(sourceId, change)
+      break
+    case 'link':
+      foundSetting = updateLinkSetting(sourceId, change)
       break
     default:
       // ok, we can't cherry-pick the modification so we have to refresh the whole section
@@ -142,29 +160,24 @@ const updateStyle = async (event) => {
 
 // === Helpers ===
 
-const updateSectionOrBlock = (content, section, source, change) => {
-  const foundSetting = legacyUpdateSetting(source, change)
-  if (!foundSetting) debouncedUpdatePreviewDocument(content, section)
-}
-
-const legacyUpdateSetting = (source, change) => {
-  switch (change.settingType) {
-    case 'text':
-      return updateTextSetting(source.id, change)
-    case 'link':
-      if (change.settingOptions.withText && change.value)
-        return updateTextSetting(source.id, {
-          ...change,
-          value: change.value.text,
-          settingId: `${change.settingId}.text`,
-        })
-      break
-    default:
-      // ok, we can't cherry-pick the modification so we have to refresh the whole section
-      break
-  }
-  return false
-}
+// const legacyUpdateSetting = (source, change) => {
+//   switch (change.settingType) {
+//     case 'text':
+//       return updateTextSetting(source.id, change)
+//     case 'link':
+//       if (change.settingOptions.withText && change.value)
+//         return updateTextSetting(source.id, {
+//           ...change,
+//           value: change.value.text,
+//           settingId: `${change.settingId}.text`,
+//         })
+//       break
+//     default:
+//       // ok, we can't cherry-pick the modification so we have to refresh the whole section
+//       break
+//   }
+//   return false
+// }
 
 const updateTextSetting = (sourceId, change) => {
   console.log('[DOM Operations] updateTextSetting', sourceId, change)
@@ -174,25 +187,26 @@ const updateTextSetting = (sourceId, change) => {
   return settings.length > 0
 }
 
-const updatePreviewDocument = async (content, section, insertAt) => {
-  const doc = await getUpdatedDoc({
-    page_sections: content ? JSON.stringify([
-      content.pageSections.find((s) => s.id == section.id), // no need to render the other sections
-    ]) : null,
-    section_id: section.id
-  })
+const updateLinkSetting = (sourceId, change) => {
+  console.log('updateLinkSetting', sourceId, change)
+}
+
+const updatePreviewDocument = async ({ sectionId, insertAt = undefined, scrollToSection = false }) => {
+  console.log('[DOM Operations] updatePreviewDocument', sectionId, insertAt, scrollToSection)
+
+  const doc = await getUpdatedDoc({ section_id: sectionId })
 
   // NOTE: Instructions to refresh the whole document
   // removeEventListeners()
   // previewDocument.querySelector('body').replaceWith(doc.querySelector('body'))
   // setupEvents(previewDocument)
 
-  const selector = `[data-maglev-section-id='${section.id}']`
+  const selector = `[data-maglev-section-id='${sectionId}']`
   const sourceElement = doc.querySelector(selector)
   let targetElement = previewDocument.querySelector(selector)
 
   if (!sourceElement)
-    throw new Error(`Maglev section ${section.id} not generated by the server`)
+    throw new Error(`Maglev section ${sectionId} not generated by the server`)
 
   if (targetElement) {
     targetElement.replaceWith(sourceElement)
@@ -203,7 +217,8 @@ const updatePreviewDocument = async (content, section, insertAt) => {
 
   runScripts(sourceElement)
 
-  scrollToSection(targetElement)
+  if (scrollToSection)
+    scrollToSectionOrBlock(targetElement)
 }
 
 const debouncedUpdatePreviewDocument = debounce(updatePreviewDocument, 150)
@@ -256,9 +271,12 @@ const getUpdatedDoc = async (attributes) => {
   return doc
 }
 
-const scrollToSection = (element) => {
-  previewDocument.documentElement.scrollTo({
-    top: element.offsetTop,
+const scrollToSectionOrBlock = (element) => {
+  const previewWindow = previewDocument.defaultView
+  const scrollY = previewWindow.scrollY || 0
+  const elementTop = element.getBoundingClientRect().top + scrollY
+  previewWindow.scrollTo({
+    top: elementTop,
     behavior: 'smooth',
   })
 }

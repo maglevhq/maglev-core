@@ -16,6 +16,7 @@
       action: %(
         editor-setting:change->editor-section-form#onSettingChange
         editor-section-form:connected@window->editor-preview-notification-center#checkSectionLockVersion
+        editor-section-form:connected@window->editor-preview-notification-center#pingSection
         editor-section-form:updateSetting->editor-preview-notification-center#updateSetting
         editor-section-form:updateSection->editor-preview-notification-center#updateSection
         client:setting:updated@window->editor-section-form#afterSettingUpdate

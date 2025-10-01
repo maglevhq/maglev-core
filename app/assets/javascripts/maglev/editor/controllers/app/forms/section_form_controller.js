@@ -8,9 +8,15 @@ export default class extends Controller {
   static debounces = ['afterSettingUpdate']
 
   connect() {
-    useDebounce(this)
+    useDebounce(this)    
     this.sourceId = this.sectionBlockIdValue !== '' ?  this.sectionBlockIdValue : this.sectionIdValue
-    this.dispatch('connected', { bubbles: true, detail: { sectionId: this.sectionIdValue, lockVersion: this.sectionLockVersionValue } })
+    requestAnimationFrame(() => {
+      this.dispatch('connected', { bubbles: true, detail: { 
+        sectionId: this.sectionIdValue, 
+          sectionBlockId: this.sectionBlockIdValue, 
+          lockVersion: this.sectionLockVersionValue } 
+        })
+    })
   }
 
   onSettingChange(event) {
