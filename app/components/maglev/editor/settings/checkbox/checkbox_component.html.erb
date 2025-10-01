@@ -1,10 +1,10 @@
 <%= tag.div(
   data: {
-    controller: "editor-input",
+    controller: "editor-setting",
     editor_input_setting_id_value: definition.id,
     editor_input_setting_type_value: definition.type,
     action: %(
-      uikit-form-checkbox:change->editor-input#change
+      uikit-form-checkbox:change->editor-setting#change
     )
   }
 ) do %>
