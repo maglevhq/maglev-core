@@ -23,6 +23,14 @@ module Maglev
           )
         end
 
+        def with_very_long_filename
+          image = build_image(3)
+          render_with_template(
+            template: 'maglev/uikit/image_library/card_component_preview/default',
+            locals: { image: image.merge(filename: 'amory-timeo-manon-aram-et-sabrina-cinq-des-sept-animateurs-de-la-tabactiere-heureux-pour-le-gain-de-leur-client-photo-christian-salisson-1727456837.jpg') }
+          )
+        end
+
         # @!endgroup
 
         private
