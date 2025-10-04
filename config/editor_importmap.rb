@@ -16,7 +16,7 @@ pin '@hotwired/stimulus', to: '@hotwired--stimulus.js'
 pin '@rails/request.js', to: '@rails--request.js.js'
 
 # check out scripts/tiptap-bundle/README.md for more information
-pin "tiptap", to: "tiptap.bundle.js"
+pin 'tiptap', to: 'tiptap.bundle.js'
 
 pin_all_from File.expand_path('../app/components/maglev/uikit', __dir__), under: 'uikit-controllers', to: 'maglev/uikit'
 pin_all_from File.expand_path('../app/assets/javascripts/maglev/editor/controllers', __dir__),

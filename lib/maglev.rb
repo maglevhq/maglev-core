@@ -40,6 +40,7 @@ module Maglev
         c.admin_password = nil
         c.static_pages = []
         c.reserved_paths = []
+        c.tailwindcss_folders = []
       end
     end
     # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
