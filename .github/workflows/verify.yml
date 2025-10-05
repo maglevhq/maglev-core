@@ -32,9 +32,10 @@ jobs:
         env:
           BUNDLE_GEMFILE: ${{ matrix.gemfile }}
 
-      - name: Install ImageMagick 🏞️
+      - name: Install libvips
         run: |
-          sudo apt-get update && sudo apt-get install -y imagemagick
+          sudo apt-get update
+          sudo apt-get install --no-install-recommends libvips
 
       - name: Setup test database
         env:
