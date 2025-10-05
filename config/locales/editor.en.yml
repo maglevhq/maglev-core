@@ -160,7 +160,17 @@ en:
       confirmation_button:
         text: "Are you sure to perform this action?"
         confirm_button_label: "Yes"
-        cancel_button_label: "No"
+        cancel_button_label: "No"      
+      links:
+        edit:
+          title: "Select a link"
+          tabs:
+            page: "Page"
+            url: "Url"
+            email: "Email"
+          page:
+            placeholder: "Select a page"
+            section_prompt: "Select a section"
       error_modals:
         stale_object:
           title: "Sorry about that 🙇"
@@ -174,16 +184,8 @@ en:
           title: "Oops 😬"
           message: "Something went wrong. Please try again later or contact support."
           button: "Close"
-      links:
-        edit:
-          title: "Select a link"
-          tabs:
-            page: "Page"
-            url: "Url"
-            email: "Email"
-          page:
-            placeholder: "Select a page"
-            section_prompt: "Select a section"
+      errors:
+        standard_error: "An error occurred. Please try again."
       support:
         human:
           locales:

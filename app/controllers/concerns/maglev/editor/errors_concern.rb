@@ -19,19 +19,12 @@ module Maglev
           format.turbo_stream { render 'maglev/editor/shared/errors/stale_object_error' }
           format.html { redirect_to editor_root_path }
         end
-      end
-
-      def handle_not_authorized
-        respond_to do |format|
-          format.turbo_stream { render 'maglev/editor/shared/errors/not_authorized_error' }
-          format.html { redirect_to main_app.root_path, alert: 'You are not authorized to access this content.' }
-        end
-      end
+      end      
 
       def handle_standard_error
         respond_to do |format|
           format.turbo_stream { render 'maglev/editor/shared/errors/standard_error' }
-          format.html { redirect_to editor_root_path, alert: 'An error occurred. Please try again.' }
+          format.html { redirect_to editor_root_path, alert: t('maglev.editor.errors.standard_error') }
         end
       end
     end
