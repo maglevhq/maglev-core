@@ -1,4 +1,4 @@
-<%= render Maglev::Uikit::PageLayoutComponent.new(expanded: true, back_path: editor_root_path(maglev_editing_route_context)) do |page_layout| %>
+<%= render Maglev::Uikit::PageLayoutComponent.new(expanded: true, back_path: editor_real_root_path(maglev_editing_route_context)) do |page_layout| %>
   <% page_layout.with_title_content @section.type_name %>
   <% page_layout.with_notification_content maglev_flash_message %>
 
