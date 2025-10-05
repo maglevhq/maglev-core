@@ -75,7 +75,7 @@ module Maglev
 
       def newly_added_section_to_flash
         # use flash because we can't pass directly the information to the redirect
-        { section_id: @section[:id], position: params[:position].to_i }
+        { section_id: @section[:id], position: current_maglev_page.position_of_section(@section[:id]) }
       end
 
       def newly_added_section_to_headers

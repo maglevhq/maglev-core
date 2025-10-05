@@ -21,6 +21,10 @@ module Maglev::SectionsConcern
     end
   end
 
+  def position_of_section(section_id)
+    sections.index { |section| section['id'] == section_id }
+  end
+
   def find_section_by_id(id)
     sections.find { |section| section['id'] == id }
   end

@@ -25,12 +25,28 @@ describe 'Maglev::Editor::Sections', type: :request do
   describe 'POST /maglev/editor/:context/sections' do
     let(:theme) { build(:theme) }
     let!(:home_page) { create(:page, sections: []) }
+    let(:section_type) { 'jumbotron' }
     it 'returns a success response' do
       expect do
-        post "/maglev/editor/en/#{home_page.id}/sections", params: { section_type: 'jumbotron', position: 0 }
+        post "/maglev/editor/en/#{home_page.id}/sections", params: { section_type: section_type, position: 0 }
         section_id = home_page.reload.sections.dig(0, 'id')
         expect(response).to redirect_to("/maglev/editor/en/#{home_page.id}/sections/#{section_id}/edit")
+        expect(flash[:section_id]).not_to be_nil
+        expect(flash[:position]).to eq(0)
       end.to change { home_page.reload.sections.count }.by(1)
+    end
+
+    describe 'Give the section definition defines a position (insert_at: top)' do
+      let(:section_type) { 'navbar' }
+      before do
+        home_page.update(sections_translations: build(:page).sections_translations)
+      end
+      it 'adds the section to the top of the page' do
+        expect do
+          post "/maglev/editor/en/#{home_page.id}/sections", params: { section_type: section_type, position: 2 }
+          expect(flash[:position]).to eq(0)
+        end.to change { home_page.reload.sections.count }.by(1)
+      end
     end
   end
 
