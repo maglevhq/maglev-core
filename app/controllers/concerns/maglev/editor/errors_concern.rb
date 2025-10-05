@@ -9,7 +9,6 @@ module Maglev
         rescue_from ::StandardError, with: :handle_standard_error unless Rails.env.local?
 
         rescue_from ActiveRecord::StaleObjectError, with: :handle_stale_object
-        rescue_from Maglev::Errors::NotAuthorized, with: :handle_not_authorized
       end
 
       private

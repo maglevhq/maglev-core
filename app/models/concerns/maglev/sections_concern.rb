@@ -36,7 +36,7 @@ module Maglev::SectionsConcern
   def reorder_sections(sorted_section_ids, lock_version)
     self.lock_version = lock_version
     sections_translations_will_change!
-    sections.sort! { |a, b| (sorted_section_ids.index(a['id'])) <=> (sorted_section_ids.index(b['id'])) }
+    sections.sort! { |a, b| sorted_section_ids.index(a['id']) <=> sorted_section_ids.index(b['id']) }
   end
 
   def delete_section(section_id)

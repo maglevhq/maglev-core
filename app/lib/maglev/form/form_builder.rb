@@ -13,8 +13,11 @@ module Maglev
       private
 
       def field_attributes(method)
-        ActionView::Helpers::Tags::Label.new(@object_name, method, @template, nil,
-                                             objectify_options({})).complete_attributes
+        {
+          id: field_id(method),
+          name: field_name(method),
+          content: label_translation(method)
+        }
       end
 
       def error_messages(method)
@@ -23,32 +26,13 @@ module Maglev
         object.errors.messages_for(method).join(', ')
       end
 
-      # rubocop:disable Style/ClassAndModuleChildren, Metrics/MethodLength, Metrics/AbcSize
-      class ActionView::Helpers::Tags::Label
-        def complete_attributes
-          options = @options.stringify_keys
-          tag_value = options.delete('value')
-          name_and_id = options.dup
-
-          if name_and_id['for']
-            name_and_id['id'] = name_and_id['for']
-          else
-            name_and_id.delete('id')
-          end
-
-          add_default_name_and_id_for_value(tag_value, name_and_id)
-          options.delete('index')
-          options.delete('namespace')
-          options['for'] = name_and_id['id'] unless options.key?('for')
-
-          builder = LabelBuilder.new(@template_object, @object_name, @method_name, @object, tag_value)
-
-          content = render_component(builder)
-
-          { content: content }.merge(name_and_id.symbolize_keys)
+      def label_translation(method)
+        content = nil
+        ActionView::Helpers::Tags::Label.new(@object_name, method, @template).render do |builder|
+          content = builder.translation
         end
+        content
       end
-      # rubocop:enable Style/ClassAndModuleChildren, Metrics/MethodLength, Metrics/AbcSize
     end
   end
 end
