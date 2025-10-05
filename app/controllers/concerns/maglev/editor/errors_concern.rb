@@ -19,7 +19,7 @@ module Maglev
           format.turbo_stream { render 'maglev/editor/shared/errors/stale_object_error' }
           format.html { redirect_to editor_root_path }
         end
-      end      
+      end
 
       def handle_standard_error
         respond_to do |format|

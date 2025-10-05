@@ -92,6 +92,9 @@ en:
           tabs:
             main: "Content"
             advanced: "Advanced"       
+      settings:
+        collection_item:
+          placeholder: "Select a collection item"
       style:
         edit:
           title: "Style your site"
@@ -154,13 +157,6 @@ en:
           cancel_button: "Cancel"
           new_window_input:
             label: "Open in new window"
-      pagination:
-        default_label: "%{start} - %{end} of %{totalItems} items"
-        default_no_items: "None"
-      confirmation_button:
-        text: "Are you sure to perform this action?"
-        confirm_button_label: "Yes"
-        cancel_button_label: "No"      
       links:
         edit:
           title: "Select a link"
@@ -171,6 +167,13 @@ en:
           page:
             placeholder: "Select a page"
             section_prompt: "Select a section"
+      pagination:
+        default_label: "%{start} - %{end} of %{totalItems} items"
+        default_no_items: "None"
+      confirmation_button:
+        text: "Are you sure to perform this action?"
+        confirm_button_label: "Yes"
+        cancel_button_label: "No"            
       error_modals:
         stale_object:
           title: "Sorry about that 🙇"

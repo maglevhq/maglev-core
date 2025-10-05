@@ -29,7 +29,11 @@ module Maglev
         end
 
         def placeholder
-          ::I18n.t("#{i18n_scope}.settings.#{definition.id}_placeholder")
+          ::I18n.t("#{i18n_scope}.settings.#{definition.id}_placeholder", default: default_placeholder)
+        end
+
+        def default_placeholder
+          ::I18n.t("maglev.editor.settings.#{definition.type}.placeholder")
         end
 
         def call

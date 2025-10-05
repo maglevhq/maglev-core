@@ -92,6 +92,9 @@ ar:
           tabs:
             main: "المحتوى"
             advanced: "متقدم"       
+      settings:
+        collection_item:
+          placeholder: "اختر عنصر من المجموعة"
       style:
         edit:
           title: "تنسيق موقعك"

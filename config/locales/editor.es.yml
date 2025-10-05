@@ -92,6 +92,9 @@ es:
           tabs:
             main: "Contenido"
             advanced: "Avanzado"       
+      settings:
+        collection_item:
+          placeholder: "Seleccionar un elemento de colección"
       style:
         edit:
           title: "Estilizar tu sitio"
