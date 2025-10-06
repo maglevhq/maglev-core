@@ -83,4 +83,8 @@ Maglev.configure do |config|
   # Prevent the content editors to create pages sharing the same path with other
   # existing pages of the application.
   # config.reserved_paths = %w(products sign-in search posts/*)
+
+  # Extra Tailwind CSS folders to watch for changes.
+  # To be used if you need to implement a custom component in a folder of the main app.
+  # config.tailwindcss_folders = []
 end
