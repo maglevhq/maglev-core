@@ -58,7 +58,8 @@ module Maglev
         end
 
         def self.link_type_component(input_name:, value:, path:)
-          klass = link_type_klasses_map.fetch(value[:link_type].to_sym, nil)
+          # Default to url if the link type is not found (shouldn't happen)
+          klass = link_type_klasses_map.fetch(value[:link_type].to_sym, 'url')
 
           return unless klass
 
