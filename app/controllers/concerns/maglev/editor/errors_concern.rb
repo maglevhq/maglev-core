@@ -23,7 +23,7 @@ module Maglev
       def handle_standard_error(error)
         track_maglev_error(error)
         respond_to do |format|
-          format.turbo_stream { render 'maglev/editor/shared/errors/standard_error' }
+          format.turbo_stream { render 'maglev/editor/shared/errors/standard_error', status: :internal_server_error }
           format.html { redirect_to editor_root_path, alert: t('maglev.editor.errors.standard_error') }
         end
       end

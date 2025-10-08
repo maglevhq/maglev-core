@@ -29,7 +29,7 @@ describe 'Maglev::Editor::ErrorsConcern', type: :request do
 
         get "/maglev/editor/en/#{home_page.id}/pages", as: :turbo_stream
 
-        expect(response).to have_http_status(:ok)
+        expect(response).to have_http_status(:internal_server_error)
         expect(response.media_type).to eq('text/vnd.turbo-stream.html')
       end
     end
