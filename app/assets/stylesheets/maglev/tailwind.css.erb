@@ -8,11 +8,9 @@
   --color-editor-primary: var(--editor-color-primary);
 }
 
-<% if Maglev.config.tailwindcss_folders.any? %>
-  @source "../../../";
-  <% Maglev.config.tailwindcss_folders.each do |folder| %>
-  @source "<%= folder %>";
-  <% end %>
+@source "../../../";  
+<% Maglev.config.tailwindcss_folders.each do |folder| %>
+@source "<%= folder %>";
 <% end %>
 
 @utility bg-checkerboard {
