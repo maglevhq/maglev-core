@@ -28,7 +28,10 @@ namespace :maglev do
       rendered_css = ERB.new(File.read(erb_input_path)).result
       File.write(input_path, rendered_css)
 
-      system "#{command_path} -i #{input_path} -o #{output_path} #{options}"
+      require 'bundler'
+      Bundler.with_unbundled_env do
+        system "#{command_path} -i #{input_path} -o #{output_path} #{options}"
+      end
     end
     # rubocop:enable Metrics/AbcSize
   end

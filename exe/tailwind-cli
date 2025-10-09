@@ -4,11 +4,12 @@
 # This is a wrapper for the tailwindcss-ruby gem to make it easier to use in the Maglev CMS.
 # Source: https://github.com/flavorjones/tailwindcss-ruby
 
+
 require 'bundler/inline'
 
 gemfile do
   source 'https://rubygems.org'
-  gem 'tailwindcss-ruby', '~> 4.1', '>= 4.1.11'
+  gem 'tailwindcss-ruby', '4.1.11'
 end
 
 require 'tailwindcss/ruby'
