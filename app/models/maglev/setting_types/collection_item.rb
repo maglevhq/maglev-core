@@ -11,7 +11,7 @@ class Maglev::SettingTypes::CollectionItem < Maglev::SettingTypes::Base
   end
 
   def content_label(value)
-    value&.fetch(:label, nil)
+    value&.with_indifferent_access&.fetch(:label, nil)
   end
 end
 # rubocop:enable Style/ClassAndModuleChildren
