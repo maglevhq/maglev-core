@@ -88,6 +88,13 @@ module Maglev
 
         raise ActiveRecord::StaleObjectError.new(source, action_name)
       end
+
+      def reset_memoization
+        @theme = nil
+        @site = nil
+        @section_definition = nil
+        @block_definition = nil
+      end
     end
   end
 end

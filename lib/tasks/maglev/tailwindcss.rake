@@ -13,7 +13,7 @@ namespace :maglev do
       run_tailwindcss_cli('--watch')
     end
 
-    # rubocop:disable Metrics/AbcSize
+    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     def run_tailwindcss_cli(options = nil)
       command_path = Maglev::Engine.root.join('exe', 'tailwind-cli')
       Maglev::Engine.root.join('tmp/maglev-compiled-tailwind.css')
@@ -33,6 +33,6 @@ namespace :maglev do
         system "#{command_path} -i #{input_path} -o #{output_path} #{options}"
       end
     end
-    # rubocop:enable Metrics/AbcSize
+    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
   end
 end

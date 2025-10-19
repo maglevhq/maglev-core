@@ -49,6 +49,10 @@ module Maglev
         @current_maglev_page ||= maglev_page_resources.find_by(id: params[:page_id])
       end
 
+      def maglev_home_page
+        @maglev_home_page ||= maglev_page_resources.home.first
+      end
+
       def current_maglev_sections
         @current_maglev_sections ||= Maglev::Content::SectionContent.build_many(
           theme: maglev_theme,

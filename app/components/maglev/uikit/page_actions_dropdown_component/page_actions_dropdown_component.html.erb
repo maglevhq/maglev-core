@@ -31,7 +31,7 @@
   <% end if allow?(:copy_url_to_clipboard) %>
 
   <% dropdown.with_item do %>
-    <%= button_to paths[:delete], method: :delete, class: dropdown.item_classes, form_class: dropdown.form_item_classes, data: { turbo_confirm: t('maglev.editor.pages.actions.delete_confirm') } do %>
+    <%= button_to paths[:delete], method: :delete, class: dropdown.item_classes, form_class: dropdown.form_item_classes, data: { turbo_confirm: t('maglev.editor.pages.actions.delete_confirm'), turbo_frame: '_top' } do %>
       <%= render Maglev::Uikit::IconComponent.new(name: 'delete_bin', class_names: 'shrink-0') %>
       <span class="ml-2 whitespace-nowrap truncate overflow-hidden"><%= t('maglev.editor.pages.actions.delete') %></span>
     <% end if allow?(:delete) %>

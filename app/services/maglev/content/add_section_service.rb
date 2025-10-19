@@ -11,7 +11,11 @@ module Maglev
 
       argument :page
       argument :section_type
+      argument :content, default: nil
       argument :position, default: -1
+      argument :dry_run, default: false
+      argument :site, default: nil
+      argument :theme, default: nil
 
       def call
         raise Maglev::Errors::UnknownSection unless section_definition
@@ -23,10 +27,22 @@ module Maglev
           add_to_page!(section_content) if can_add_to_page?
         end
 
+        # in case the instance of the service is reused, we need to reset the memoization
+        # this is the case for the setup_pages service
+        reset_memoization
+
         section_content
       end
 
       private
+
+      def theme
+        @theme ||= fetch_theme.call
+      end
+
+      def site
+        @site ||= fetch_site.call
+      end
 
       def add_to_site!(section_content)
         # we don't care about the position for site scoped sections
@@ -36,7 +52,7 @@ module Maglev
         site.sections.push(section_content)
         site.prepare_sections(theme)
 
-        site.save!
+        site.save! unless dry_run
       end
 
       def add_to_page!(section_content)
@@ -44,7 +60,8 @@ module Maglev
         page.sections ||= []
         page.sections.insert(final_position, section_content)
         page.prepare_sections(theme)
-        page.save!
+
+        page.save! unless dry_run
       end
 
       def can_add_to_site?
@@ -61,7 +78,7 @@ module Maglev
         if site_scoped? && site.find_sections_by_type(section_type).any?
           site.find_sections_by_type(section_type).first.dup
         else
-          section_definition.build_default_content
+          content || section_definition.build_default_content
         end.with_indifferent_access
       end
 

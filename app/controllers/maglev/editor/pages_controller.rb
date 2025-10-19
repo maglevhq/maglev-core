@@ -26,8 +26,8 @@ module Maglev
       end
 
       def create
-        @page = build_page_resource
-        if @page.save
+        @page = maglev_services.create_page.call(attributes: page_params)
+        if @page.persisted?
           redirect_to editor_real_root_path(maglev_editing_route_context(page: @page)), status: :see_other
         else
           flash.now[:alert] = flash_t(:error)
@@ -48,7 +48,8 @@ module Maglev
 
       def destroy
         @page.destroy!
-        redirect_to editor_pages_path(query_params), notice: flash_t(:success), status: :see_other
+        redirect_to editor_pages_path(**query_params, **maglev_editing_route_context(page: maglev_home_page)),
+                    notice: flash_t(:success), status: :see_other
       end
 
       private

@@ -6,55 +6,77 @@ module Maglev
   class SetupPages
     include Injectable
 
-    dependency :persist_page, class: Maglev::PersistPage
+    dependency :create_page, class: Maglev::CreatePageService
+    dependency :add_section, class: Maglev::Content::AddSectionService
 
     argument :site
     argument :theme
 
     def call
       pages&.map do |page_attributes|
-        create_page(
-          attributes_in_all_locales(page_attributes.with_indifferent_access)
-        )
+        create_page_with_sections(page_attributes)
       end
     end
 
     private
 
     def pages
-      theme&.pages
+      theme&.pages&.map(&:with_indifferent_access)
     end
 
-    def create_page(page_attributes)
-      persist_page.call(
+    def create_page_with_sections(page_attributes)
+      page = create_page.call(
         site: site,
-        site_attributes: site_attributes_from(page_attributes),
-        theme: theme,
-        page: Maglev::Page.new,
-        page_attributes: page_attributes
+        attributes: attributes_in_all_locales(page_attributes)
       )
+
+      throw ActiveRecord::StatementInvalid.new(page.errors.full_messages.join(', ')) if page.errors.any?
+
+      add_sections(page, page_attributes)
+
+      page
     end
 
-    def site_attributes_from(page_attributes)
-      if page_attributes.include?(:sections_translations)
-        { sections_translations: site_sections_translations(page_attributes) }
-      else
-        { sections: select_site_scoped_sections(page_attributes[:sections]) }
-      end.compact || {}
-    end
+    def add_sections(page, page_attributes)
+      value_in_all_locales(page_attributes[:sections]).each do |locale, sections_attributes|
+        next if sections_attributes.blank?
 
-    def site_sections_translations(page_attributes)
-      sections_translations = page_attributes[:sections_translations].transform_values do |sections|
-        select_site_scoped_sections(sections)
+        Maglev::I18n.with_locale(locale) do
+          add_sections_in_page(page, sections_attributes)
+        end
       end
-      sections_translations.any? { |_, sections| sections.blank? } ? nil : sections_translations
+
+      page.save!
+      site.save!
+    end
+
+    def add_sections_in_page(page, sections_attributes)
+      sections_attributes.each do |section_attributes|
+        add_section_in_page(page, section_attributes)
+      end
+    end
+
+    def add_section_in_page(page, attributes)
+      add_section.call(
+        theme: theme,
+        site: site,
+        page: page,
+        section_type: attributes.fetch('type', nil),
+        content: attributes,
+        dry_run: true
+      )
     end
 
     def attributes_in_all_locales(attributes)
       {
         title_translations: value_in_all_locales(attributes[:title]),
-        sections_translations: value_in_all_locales(attributes[:sections]),
-        path: value_in_all_locales(attributes[:path])
+        path: value_in_all_locales(attributes[:path]),
+        seo_title_translations: value_in_all_locales(attributes[:seo_title]),
+        meta_description_translations: value_in_all_locales(attributes[:meta_description]),
+        og_title_translations: value_in_all_locales(attributes[:og_title]),
+        og_description_translations: value_in_all_locales(attributes[:og_description]),
+        og_image_url_translations: value_in_all_locales(attributes[:og_image_url]),
+        sections_translations: value_in_all_locales(attributes[:sections])
       }
     end
 
@@ -69,16 +91,6 @@ module Maglev
 
     def fill_translations(value)
       site.locale_prefixes.index_with { |_locale| value }
-    end
-
-    def select_site_scoped_sections(sections)
-      (sections || []).find_all do |section|
-        definition = theme.sections.find(section['type'])
-
-        raise "[Maglev] Unknown section type: #{section['type']}" unless definition
-
-        definition.site_scoped?
-      end
     end
   end
 end

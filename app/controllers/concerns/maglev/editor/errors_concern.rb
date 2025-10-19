@@ -6,7 +6,7 @@ module Maglev
       extend ActiveSupport::Concern
 
       included do
-        rescue_from ::StandardError, with: :handle_standard_error
+        around_action :handle_editor_errors
 
         rescue_from ActiveRecord::StaleObjectError, with: :handle_stale_object
       end
@@ -20,8 +20,12 @@ module Maglev
         end
       end
 
-      def handle_standard_error(error)
-        track_maglev_error(error)
+      def handle_editor_errors
+        yield
+      rescue Maglev::Errors::NotAuthorized
+        raise # Let the main app handle this one
+      rescue StandardError => e
+        track_maglev_error(e)
         respond_to do |format|
           format.turbo_stream { render 'maglev/editor/shared/errors/standard_error', status: :internal_server_error }
           format.html { redirect_to editor_root_path, alert: t('maglev.editor.errors.standard_error') }

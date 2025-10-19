@@ -5,7 +5,7 @@ module Maglev
     class HomeController < Maglev::Editor::BaseController
       include Maglev::BackActionConcern
 
-      before_action :redirect_to_home_page, only: :index
+      before_action :redirect_to_maglev_home_page, only: :index
 
       def index; end
 
@@ -15,14 +15,10 @@ module Maglev
 
       private
 
-      def redirect_to_home_page
+      def redirect_to_maglev_home_page
         return if params[:page_id].present?
 
-        redirect_to editor_real_root_path(maglev_editing_route_context(page: home_page))
-      end
-
-      def home_page
-        @home_page ||= maglev_page_resources.home.first
+        redirect_to editor_real_root_path(maglev_editing_route_context(page: maglev_home_page))
       end
     end
   end
