@@ -1,10 +1,12 @@
 <%= tag.div(
   data: {
     controller: "editor-setting",
-    'editor-setting-setting-id-value': definition.id,
-    'editor-setting-setting-type-value': definition.type,
+    editor_setting_setting_id_value: definition.id,
+    editor_setting_setting_type_value: definition.type,
+    editor_setting_core_controller_name_value: 'uikit-form-link',
     action: %(
-      uikit-form-link:change->editor-setting#change      
+      uikit-form-link:change->editor-setting#change
+      hashchange@window->editor-setting#focus
     )
   }
 ) do %>

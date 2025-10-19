@@ -29,7 +29,10 @@
           placeholder: link_text[:placeholder],
           autocomplete: 'off',
           class: 'block py-2 px-3 rounded bg-gray-100 text-gray-800 focus:outline-none focus:ring focus:ring-inset focus:ring-2 focus:ring-editor-primary/50 placeholder-gray-500',
-          data: { action: 'input->uikit-form-link#textChange' }
+          data: { 
+            action: 'input->uikit-form-link#textChange', 
+            uikit_form_link_target: 'textInput' 
+          }
         ) %>
       </div>
     <% end %>
