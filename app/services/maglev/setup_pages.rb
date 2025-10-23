@@ -75,8 +75,7 @@ module Maglev
         meta_description_translations: value_in_all_locales(attributes[:meta_description]),
         og_title_translations: value_in_all_locales(attributes[:og_title]),
         og_description_translations: value_in_all_locales(attributes[:og_description]),
-        og_image_url_translations: value_in_all_locales(attributes[:og_image_url]),
-        sections_translations: value_in_all_locales(attributes[:sections])
+        og_image_url_translations: value_in_all_locales(attributes[:og_image_url])
       }
     end
 

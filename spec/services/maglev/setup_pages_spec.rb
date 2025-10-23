@@ -22,6 +22,7 @@ describe Maglev::SetupPages do
     it 'creates the pages in DB' do
       expect { subject }.to change(Maglev::Page, :count).by(3)
       expect(subject.map(&:title)).to eq ['Home', 'About us', 'Empty']
+      expect(subject[0].sections.map { |section| section['type'] }).to eq(%w[navbar jumbotron showcase])
     end
 
     it 'persist the content of the site scoped sections' do
