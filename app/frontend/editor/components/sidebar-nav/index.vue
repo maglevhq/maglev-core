@@ -23,6 +23,14 @@
           :tooltipMessage="$t('sidebarNav.managePageSectionsTooltip')"        
         />
       </li>
+      <li v-if="isTranslatable">
+        <sidebar-nav-link
+          :isRouterLink="false"
+          iconName="ri-translate"
+          :tooltipMessage="$t('sidebarNav.translateTooltip')"
+          @click.prevent="openTranslateModal"          
+        />        
+      </li>
       <li v-if="hasStyle">
         <sidebar-nav-link
           :routerLinkName="'editStyle'"
@@ -59,12 +67,14 @@
 
 <script>
 import ImageLibrary from '@/components/image-library/index.vue'
+import TranslateDialog from '@/components/translate-dialog/index.vue'
 import SidebarNavLink from './link.vue'
 
 export default {
   name: 'SidebarNav',
   components: { 
-    SidebarNavLink 
+    SidebarNavLink,
+    TranslateDialog
   },
   computed: {
     hasStyle() {
@@ -85,6 +95,9 @@ export default {
     isEditPageActive() {
       return this.$route.name === 'editPageSettings'
     },
+    isTranslatable() {
+      return this.currentSectionList.length === 0 && (this.currentLocale !== this.currentDefaultLocale)
+    },
     leaveEditorUrl() {
       return window.leaveUrl
     },
@@ -97,6 +110,12 @@ export default {
         props: { modalClass: 'w-216' },
       })
     },
+    openTranslateModal() {
+      this.openModal({
+        title: this.$t('translateDialog.title'),
+        component: TranslateDialog,
+      })
+    }
   },
 }
 </script>

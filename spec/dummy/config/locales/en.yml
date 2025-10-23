@@ -36,20 +36,20 @@ en:
     fr: "Français"
 
 
-  # maglev:
-  #   themes:
-  #     simple:
-  #       sections:
-  #         navbar:
-  #           blocks:
-  #             label: "Menu 🍔"
-  #             types:
-  #               menu_item: "Menu item 🤬"
-  #               alt_menu_item: "Alt Menu item 🍪"
-  #         jumbotron:
-  #           settings:
-  #             alignment: "Alignment 📏"
-  #             alignment_options:
-  #               left: "Left"
-  #               center: "Center"
-  #               right: "Right"
+  maglev:
+    themes:
+      simple:
+        sections:
+          navbar:
+            blocks:
+              label: "Menu 🍔"
+              types:
+                menu_item: "Menu item 🤬"
+                alt_menu_item: "Alt Menu item 🍪"
+          jumbotron:
+            settings:
+              alignment: "Alignment 📏"
+              alignment_options:
+                left: "Left 🍔"
+                center: "Center 🍪"
+                right: "Right 🥗"

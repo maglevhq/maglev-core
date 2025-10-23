@@ -53,7 +53,7 @@
             <template v-slot:localeName>
               <span
                 class="capitalize-first bg-editor-primary bg-opacity-20 px-2"
-                >{{ currentLocaleName }}</span
+                >{{ $t(`support.locales.${currentLocale}`) }}</span
               >
             </template>
           </i18n>
@@ -61,13 +61,20 @@
           <i18n
             path="pagePreview.empty.message"
             tag="div"
-            class="flex mt-4 text-gray-600"
+            class="mt-4 text-gray-600 max-w-md mx-auto leading-9"
           >
             <template v-slot:icon>
               <uikit-icon
                 name="ri-stack-line"
                 size="1.5rem"
-                class="mx-1 text-black"
+                class="mx-1 text-black inline-block"
+              />
+            </template>
+            <template v-slot:translateIcon>
+              <uikit-icon
+                name="ri-translate"
+                size="1.5rem"
+                class="mx-1 text-black inline-block"
               />
             </template>
           </i18n>
@@ -104,11 +111,6 @@ export default {
     },
     numberOfLocales() {
       return this.currentSite.locales.length
-    },
-    currentLocaleName() {
-      return this.currentSite.locales.find(
-        (locale) => locale.prefix === this.currentLocale,
-      ).label
     },
     deviceClass() {
       switch (this.device) {

@@ -7,9 +7,10 @@ module Maglev
     class UnavailableLocaleError < RuntimeError; end
     extend ActiveSupport::Concern
 
-    def translations_for(attr)
+    def translations_for(attr, locale = nil)
       # With MySQL, there is no default value for JSON columns, so we need to check for nil
-      public_send("#{attr}_translations").presence || {}
+      translations = public_send("#{attr}_translations").presence || {}
+      locale.present? ? translations[locale.to_s] : translations
     end
 
     def translate_attr_in(attr, locale, source_locale)
