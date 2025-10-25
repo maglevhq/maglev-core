@@ -43,7 +43,7 @@ ar:
           hide: "إخفاء الصفحة"
           show: "إظهار الصفحة"
           delete: "حذف الصفحة"
-          delete_confirm: "هل أنت متأكد من أنك تريد حذف هذه الصفحة؟"
+          confirm_delete: "هل أنت متأكد من أنك تريد حذف هذه الصفحة؟"
           copy_url_to_clipboard: "نسخ الرابط"
           copy_url_to_clipboard_success: "تم النسخ إلى الحافظة!"
         new:

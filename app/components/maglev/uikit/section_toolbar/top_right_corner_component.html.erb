@@ -16,7 +16,7 @@
   <% end if blocks? %>
 
   <%= button_to paths[:delete], method: :delete, class: button_classes, 
-    data: { turbo_method: :delete, turbo_confirm: t('maglev.editor.sections.actions.delete_confirm') }, 
+    data: { turbo_method: :delete, turbo_confirm: t('maglev.editor.sections.index.confirm_delete') }, 
     form: { 
       data: { 
         action: 'turbo:submit-end->editor-preview-notification-center#deleteSection',

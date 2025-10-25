@@ -43,7 +43,7 @@ es:
           hide: "Ocultar página"
           show: "Mostrar página"
           delete: "Eliminar página"
-          delete_confirm: "¿Estás seguro de que quieres eliminar esta página?"
+          confirm_delete: "¿Estás seguro de que quieres eliminar esta página?"
           copy_url_to_clipboard: "Copiar URL"
           copy_url_to_clipboard_success: "¡Copiado al portapapeles!"
         new:

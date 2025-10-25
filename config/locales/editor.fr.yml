@@ -43,7 +43,7 @@ fr:
           hide: "Masquer la page"
           show: "Afficher la page"
           delete: "Supprimer la page"
-          delete_confirm: "Êtes-vous sûr de vouloir supprimer cette page ?"
+          confirm_delete: "Êtes-vous sûr de vouloir supprimer cette page ?"
           copy_url_to_clipboard: "Copier l'URL"
           copy_url_to_clipboard_success: "Copié dans le presse-papiers !"
         new:
