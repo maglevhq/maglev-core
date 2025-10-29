@@ -41,6 +41,14 @@ export default class extends Controller {
       Turbo.visit(path)
     }
   }
+
+  editSectionBlock(event) {
+    console.log('[PreviewNotificationCenter][editSectionBlock]', event.detail)
+    const { sectionId, sectionBlockId } = event.detail
+    const pathTemplate = this.sectionBlockPathValue
+    const path = `${pathTemplate}#${sectionBlockId}`.replace(':section_id', sectionId).replace(':section_block_id', sectionBlockId)
+    Turbo.visit(path)
+  }
   
   // === SECTIONS ===
 

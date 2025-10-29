@@ -35,6 +35,7 @@
     data-editor-preview-notification-center-section-path-value="<%= edit_editor_section_path(':section_id', maglev_editing_route_context) %>"
     data-editor-preview-notification-center-section-block-path-value="<%= edit_editor_section_block_path(':section_id', ':section_block_id', maglev_editing_route_context) %>"
     data-action="
+      client:sectionBlock:clicked@window->editor-preview-notification-center#editSectionBlock
       client:section:setting:clicked@window->editor-preview-notification-center#editSection
       client:sectionBlock:setting:clicked@window->editor-preview-notification-center#editSection
     "

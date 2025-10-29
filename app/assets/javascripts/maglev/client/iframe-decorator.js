@@ -22,6 +22,8 @@ export const start = (config) => {
     switch (type) {
       case 'section':
         return onSectionHovered(previewDocument, el, config.stickySectionIds)
+      case 'block':
+        return onBlockHovered(el)
       case 'setting':
         return onSettingHovered(el)
       default:
@@ -34,6 +36,8 @@ export const start = (config) => {
     switch (type) {
       case 'section':
         return onSectionLeft(el)
+      case 'block':
+        return onBlockLeft(el)
       case 'setting':
         return onSettingLeft(el)
       default:
@@ -46,6 +50,8 @@ export const start = (config) => {
     switch (type) {
       case 'setting':
         return onSettingClicked(el, event)
+      case 'block':
+        return onBlockClicked(el, event)
       default:
         break
     }
@@ -83,8 +89,9 @@ const listen = (previewDocument, eventType, handler) => {
       if (event.target === previewDocument) return
 
       let sectionElement = event.target.closest('[data-maglev-section-id]')
+      let blockElement = event.target.closest('[data-maglev-block-id]')
       let settingElement = event.target.closest('[data-maglev-id]')
-      let el = settingElement || sectionElement
+      let el = settingElement || blockElement || sectionElement
 
       // not related to maglev element, no need to continue
       if (!el) return
@@ -92,6 +99,8 @@ const listen = (previewDocument, eventType, handler) => {
       if (eventType === 'mouseleave') {
         if (settingElement) {
           if (settingElement != event.target) return
+        }else if (blockElement) {
+          if (blockElement != event.target) return
         } else {
           if (sectionElement != event.target) return
           // special case: hovering the section-highlighter component from the parent document
@@ -165,6 +174,22 @@ const onSectionLeft = () => {
   hoveredSectionId = null
 }
 
+const onBlockHovered = (el) => {
+  if (!el) return null
+  el.style.outline = '2px solid transparent'
+  el.style.outlineOffset = '2px'
+  el.style.boxShadow = '0 0 0 2px var(--maglev-editor-outline-color)'
+  if (
+    !el.style.borderRadius &&
+    window.getComputedStyle(el).borderRadius === '0px'
+  )
+    el.style.borderRadius = '2px'
+}
+
+const onBlockLeft = (el) => {
+  el.style.boxShadow = 'none'
+}
+
 const onSettingHovered = (el) => {
   if (!el) return null
   el.style.outline = '2px solid transparent'
@@ -199,6 +224,15 @@ const onSettingClicked = (el, event) => {
   })
 }
 
+const onBlockClicked = (el, event) => {
+  event.stopPropagation() & event.preventDefault()
+  const section = el.closest('[data-maglev-section-id]')
+  const sectionId = section.dataset.maglevSectionId
+  const sectionBlockId = el.dataset.maglevBlockId
+
+  postMessageToEditor(`sectionBlock:clicked`, { sectionId, sectionBlockId })
+}
+
 const sectionUnderPoint = (previewDocument, x, y) =>{
   // Get the z-stack at the pointer
   const stack = previewDocument.elementsFromPoint(x, y)
@@ -225,5 +259,7 @@ const disableLinks = (previewDocument) => {
 }
 
 const getElementType = (el) => {
-  return el.dataset.maglevSectionId ? 'section' : 'setting'
+  if (el.dataset.maglevBlockId) return 'block'
+  if (el.dataset.maglevSectionId) return 'section'
+  return 'setting'
 }
