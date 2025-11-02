@@ -25,6 +25,7 @@
     "listPagesTooltip": "Manage the pages of your site",
     "managePageSectionsTooltip": "Re-order / delete the sections of the page",
     "editStyleTooltip": "Change the style of your site",
+    "translateTooltip": "Translate the page",
     "openImageLibraryTooltip": "Open the gallery of images",
     "leaveEditorTooltip": "Back to the main app"
   },
@@ -35,7 +36,7 @@
         "withoutLocale": "Your page is blank",
         "withLocale": "Your page in %{localeName} is blank"
       },
-      "message": "Please add the first section by clicking on the {icon} button in the left sidebar."
+      "message": "Please add the first section by clicking on the {icon} button or translate the whole page by clicking on the {translateIcon} button."
     }
   },
   "page": {
@@ -225,6 +226,16 @@
       "emptyLabel": "No items found"
     }
   },
+  "translateDialog": {
+    "title": "Translate the current page",
+    "description": "This page is not translated into %{locale} yet. Do you want to translate it now from %{sourceLocale}?",
+    "submitButton": {
+      "default": "Translate",
+      "inProgress": "Translating...",
+      "success": "Translated!"
+    },
+    "cancelButton": "Cancel"
+  },
   "pagination": {
     "defaultLabel": "%{start} - %{end} of %{totalItems} items",
     "defaultNoItems": "None"
@@ -247,6 +258,13 @@
     }
   },
   "support": {
+    "locales": {
+      "en": "English",
+      "es": "Spanish",
+      "fr": "French",
+      "pt-BR": "Portuguese",
+      "ar": "Arabic"
+    },
     "human": {
       "storageUnits": {
         "format": "%{number} %{unit}",
