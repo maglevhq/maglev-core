@@ -8,7 +8,7 @@ PATH
       pagy (>= 6)
       rails (>= 7.2, < 9)
       turbo-rails (>= 2, < 3)
-      view_component (~> 4.0.0)
+      view_component (~> 4.1.0)
 
 GEM
   remote: https://rubygems.org/
@@ -368,8 +368,8 @@ GEM
       unicode-emoji (~> 4.1)
     unicode-emoji (4.1.0)
     useragent (0.16.11)
-    view_component (4.0.2)
-      activesupport (>= 7.1.0, < 8.1)
+    view_component (4.1.0)
+      activesupport (>= 7.1.0, < 8.2)
       concurrent-ruby (~> 1)
     websocket-driver (0.8.0)
       base64

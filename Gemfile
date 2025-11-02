@@ -8,7 +8,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 # development dependencies will be added by default to the :development group.
 gemspec
 
-gem 'rails', '~> 8.0.2'
+gem 'rails', '~> 8.1.1'
 
 # Use Active Storage variant
 gem 'image_processing', '~> 1.12.2'
@@ -38,9 +38,7 @@ gem 'sqlite3'
 # Gems no longer be part of the default gems from Ruby 3.5.0
 gem 'observer'
 gem 'ostruct'
-
-# ViewComponent is a library for building reusable, testable & encapsulated view components in Ruby on Rails.
-# gem 'view_component'
+gem 'benchmark'
 
 # Lookbook is a UI development environment for Ruby on Rails applications
 gem 'lookbook'
