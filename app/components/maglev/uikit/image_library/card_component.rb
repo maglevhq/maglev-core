@@ -17,6 +17,10 @@ module Maglev
           @picker_attributes = picker_attributes
         end
 
+        def picker_mode?
+          picker_attributes.present? && picker_attributes[:picker].present?
+        end
+
         def picker_event_payload
           {
             source: picker_attributes[:source],
@@ -37,6 +41,10 @@ module Maglev
 
         def picker_event_name
           "image-selected-#{picker_attributes[:source]}"
+        end
+
+        def width_and_height?
+          width.present? && height.present?
         end
       end
     end

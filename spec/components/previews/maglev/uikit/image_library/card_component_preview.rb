@@ -33,6 +33,13 @@ module Maglev
           )
         end
 
+        def with_missing_width_and_height
+          render_with_template(
+            template: 'maglev/uikit/image_library/card_component_preview/default',
+            locals: { image: build_image(1).merge(width: nil, height: nil) }
+          )
+        end
+
         # @!endgroup
 
         private

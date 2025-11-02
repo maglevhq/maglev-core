@@ -6,12 +6,6 @@
     <div class="space-y-5">
       <div class="flex items-center">
         <div>
-          <%= render Maglev::Uikit::ImageLibrary::UploaderComponent.new(
-            create_path: editor_assets_path,
-            refresh_path: editor_assets_path(query_params)
-          ) %>
-        </div>
-        <div class="ml-auto">
           <%= render Maglev::Uikit::Form::SearchFormComponent.new(
             name: 'query', 
             value: params[:query], 
@@ -20,6 +14,13 @@
               placeholder: t('maglev.editor.image_library.search_placeholder'),
               data: { turbo_frame: 'asset-search-results' }
             }) %>
+          
+        </div>
+        <div class="ml-auto">
+          <%= render Maglev::Uikit::ImageLibrary::UploaderComponent.new(
+            create_path: editor_assets_path,
+            refresh_path: editor_assets_path(query_params)
+          ) %>
         </div>
       </div>
 

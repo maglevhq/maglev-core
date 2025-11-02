@@ -3,8 +3,8 @@
     <div class="absolute inset-0 h-full w-full rounded">
       <img
         src="<%= image_url %>" 
-        class="h-full w-full object-contain <%= 'cursor-pointer' if picker_attributes %>"
-        <% if picker_attributes %>
+        class="h-full w-full object-contain <%= 'cursor-pointer' if picker_mode? %>"
+        <% if picker_mode? %>
         data-controller="dispatcher"
         data-action="click->dispatcher#trigger click->uikit-modal#close:self"
         data-dispatcher-event-name-value="<%= picker_event_name %>"
@@ -35,7 +35,7 @@
   </div>
   <div class="mt-1 text-xs font-bold text-gray-900 truncate" title="<%= filename %>"><%= filename %></div>
   <div class="mb-1 flex items-center text-xs justify-between text-gray-700">
-    <span><%= width %>x<%= height %></span>
-    <span><%= number_to_human_size(byte_size) %></span>
+    <span><% if width_and_height? %><%= width %>x<%= height %><% end %></span>
+    <span><% if byte_size.present? %><%= number_to_human_size(byte_size) %><% end %></span>
   </div>
 </div>
