@@ -39,7 +39,7 @@ Gem::Specification.new do |spec|
   ].reject { |f| f.start_with?('db/mysql') }
 
   spec.add_dependency 'maglev-injectable', '~> 2.1.1'
-  spec.add_dependency 'pagy', '>= 6'
+  spec.add_dependency 'pagy', '>= 6', '< 10'
   spec.add_dependency 'rails', '< 9', '>= 7.2'
 
   # Gems required by the new editor
