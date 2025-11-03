@@ -5,7 +5,7 @@ PATH
       class_variants (~> 1.1)
       importmap-rails (>= 2, < 3)
       maglev-injectable (~> 2.1.1)
-      pagy (>= 6)
+      pagy (>= 6, < 10)
       rails (>= 7.2, < 9)
       turbo-rails (>= 2, < 3)
       view_component (~> 4.1.0)
