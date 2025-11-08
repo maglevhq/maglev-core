@@ -39,6 +39,7 @@
           empty: "Nenhuma página encontrada"
         actions:
           edit: "Editar configurações"
+          preview: "Visualizar página"
           clone: "Clonar página"
           hide: "Ocultar página"
           show: "Mostrar página"

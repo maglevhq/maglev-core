@@ -36,9 +36,9 @@ gem 'pg', '~> 1.5.9'
 gem 'sqlite3'
 
 # Gems no longer be part of the default gems from Ruby 3.5.0
+gem 'benchmark'
 gem 'observer'
 gem 'ostruct'
-gem 'benchmark'
 
 # Lookbook is a UI development environment for Ruby on Rails applications
 gem 'lookbook'

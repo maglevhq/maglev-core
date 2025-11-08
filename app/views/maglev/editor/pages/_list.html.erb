@@ -14,6 +14,7 @@
           <%= render Maglev::Uikit::PageActionsDropdownComponent.new(
             paths: {
               edit: edit_editor_page_path(page.id, **query_params(from_list: true), **maglev_editing_route_context),
+              preview: maglev_page_preview_url(page),
               clone: editor_page_clone_path(page.id, maglev_editing_route_context),
               delete: editor_page_path(page.id, **query_params, **maglev_editing_route_context)
             },

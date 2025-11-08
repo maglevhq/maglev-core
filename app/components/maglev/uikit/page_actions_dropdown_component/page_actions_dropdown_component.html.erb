@@ -3,15 +3,22 @@
     <%= link_to paths[:edit], class: dropdown.item_classes, data: { turbo_frame: '_top' } do %>
       <%= render Maglev::Uikit::IconComponent.new(name: 'settings', class_names: 'shrink-0') %>
       <span class="ml-2 whitespace-nowrap truncate overflow-hidden"><%= t('maglev.editor.pages.actions.edit') %></span>
-    <% end if allow?(:edit) %>
-  <% end %>
+    <% end %>
+  <% end if allow?(:edit) %>
+
+  <% dropdown.with_item do %>  
+    <%= link_to paths[:preview], class: dropdown.item_classes, target: '_blank' do %>
+      <%= render Maglev::Uikit::IconComponent.new(name: 'preview', class_names: 'shrink-0') %>
+      <span class="ml-2 whitespace-nowrap truncate overflow-hidden"><%= t('maglev.editor.pages.actions.preview') %></span>
+    <% end %>
+  <% end if allow?(:preview) %>
 
   <% dropdown.with_item do %>
     <%= button_to paths[:clone], class: dropdown.form_item_classes, form_class: dropdown.item_classes do %>
       <%= render Maglev::Uikit::IconComponent.new(name: 'clone', class_names: 'shrink-0') %>
       <span class="ml-2 whitespace-nowrap truncate overflow-hidden"><%= t('maglev.editor.pages.actions.clone') %></span>
-    <% end if allow?(:clone) %>
-  <% end %>
+    <% end %>
+  <% end if allow?(:clone) %>
 
   <% dropdown.with_item do %> 
     <div data-controller="copy-to-clipboard" data-copy-to-clipboard-source-value="<%= live_url %>">
@@ -34,6 +41,6 @@
     <%= button_to paths[:delete], method: :delete, class: dropdown.item_classes, form_class: dropdown.form_item_classes, data: { turbo_confirm: t('maglev.editor.pages.actions.confirm_delete'), turbo_frame: '_top' } do %>
       <%= render Maglev::Uikit::IconComponent.new(name: 'delete_bin', class_names: 'shrink-0') %>
       <span class="ml-2 whitespace-nowrap truncate overflow-hidden"><%= t('maglev.editor.pages.actions.delete') %></span>
-    <% end if allow?(:delete) %>
-  <% end %>
+    <% end %>
+  <% end if allow?(:delete) %>
 <% end %>

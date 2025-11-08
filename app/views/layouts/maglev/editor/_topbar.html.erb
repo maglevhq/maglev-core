@@ -8,6 +8,7 @@
     page: current_maglev_page,
     paths: {
       edit: edit_editor_page_path(current_maglev_page, maglev_editing_route_context),
+      preview: current_maglev_page_urls[:preview],
       clone: editor_page_clone_path(current_maglev_page, maglev_editing_route_context),
       delete: editor_page_path(current_maglev_page, maglev_editing_route_context)
     },

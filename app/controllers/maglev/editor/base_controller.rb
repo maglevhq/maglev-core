@@ -21,7 +21,8 @@ module Maglev
       helper Maglev::ApplicationHelper
       helper_method :maglev_site, :maglev_theme,
                     :current_maglev_page, :current_maglev_sections, :current_maglev_page_urls,
-                    :maglev_editing_route_context, :maglev_disable_turbo_cache?, :maglev_page_live_url
+                    :maglev_editing_route_context, :maglev_disable_turbo_cache?,
+                    :maglev_page_live_url, :maglev_page_preview_url
 
       private
 
@@ -64,14 +65,17 @@ module Maglev
         {
           path: maglev_services.get_page_fullpath.call(page: current_maglev_page, preview_mode: false,
                                                        locale: content_locale),
-          preview: maglev_services.get_page_fullpath.call(page: current_maglev_page, preview_mode: true,
-                                                          locale: content_locale),
+          preview: maglev_page_preview_url(current_maglev_page),
           live: maglev_page_live_url(current_maglev_page)
         }
       end
 
       def maglev_page_live_url(page)
         maglev_services.get_page_fullpath.call(page: page, preview_mode: false, locale: content_locale)
+      end
+
+      def maglev_page_preview_url(page)
+        maglev_services.get_page_fullpath.call(page: page, preview_mode: true, locale: content_locale)
       end
 
       def maglev_theme

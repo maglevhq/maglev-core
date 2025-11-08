@@ -39,6 +39,7 @@ fr:
           empty: "Aucune page trouvée"
         actions:
           edit: "Modifier les paramètres"
+          preview: "Aperçu de la page"
           clone: "Cloner la page"
           hide: "Masquer la page"
           show: "Afficher la page"

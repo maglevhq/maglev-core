@@ -22,7 +22,7 @@ module Maglev
 
     ## associations ##
     has_many :sections_content_stores, as: :container, dependent: :destroy
-    
+
     ## force JSON columns for MariaDB ##
     attribute :style, :json
     attribute :sections_translations, :json

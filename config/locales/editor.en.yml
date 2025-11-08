@@ -39,6 +39,7 @@ en:
           empty: "No pages found"
         actions:
           edit: "Edit settings"
+          preview: "Preview page"
           clone: "Clone page"
           hide: "Hide page"
           show: "Show page"
