@@ -28,7 +28,7 @@
       }
     end,
     current_locale: Maglev::I18n.current_locale,
-  ) %>
+  ) if maglev_site.many_locales? %>
 
   <div class="flex items-center h-full px-4">
     <%= button_to t('maglev.editor.header_nav.publish_button.default'), 

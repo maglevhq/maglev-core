@@ -38,5 +38,9 @@ module Maglev::Site::LocalesConcern
       end
     end
   end
+
+  def many_locales?
+    locales.size > 1
+  end
 end
 # rubocop:enable Style/ClassAndModuleChildren
