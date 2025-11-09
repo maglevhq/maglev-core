@@ -1,0 +1,18 @@
+<span class="group-[.is-pending]/form:hidden group-[.is-success]/form:hidden group-[.is-error]/form:hidden">
+  <%= label %>
+</span>
+
+<span class="hidden group-[.is-pending]/form:inline-flex gap-x-2 items-center">
+  <%= pending_label %>
+  <%= render Maglev::Uikit::IconComponent.new(name: 'spinner', size: '1rem', class_names: 'animate-spin') %>
+</span>
+
+<span class="hidden group-[.is-success]/form:inline-flex gap-x-2 items-center">
+  <%= success_label %>
+  <%= render Maglev::Uikit::IconComponent.new(name: 'check', size: '1rem') %>
+</span>
+
+<span class="hidden group-[.is-error]/form:inline-flex gap-x-2 items-center">
+  <%= error_label %>
+  <%= render Maglev::Uikit::IconComponent.new(name: 'error_warning', size: '1rem') %>
+</span>

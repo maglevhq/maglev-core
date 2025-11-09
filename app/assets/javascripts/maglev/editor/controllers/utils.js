@@ -4,3 +4,7 @@ export const isSamePath = (targetPath) => {
 
   return current.pathname === target.pathname
 }
+
+export const sleep = (ms) => {
+  return new Promise(resolve => setTimeout(resolve, ms))
+}

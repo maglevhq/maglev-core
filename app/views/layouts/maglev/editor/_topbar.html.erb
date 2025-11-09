@@ -31,11 +31,15 @@
   ) if maglev_site.many_locales? %>
 
   <div class="flex items-center h-full px-4">
-    <%= button_to t('maglev.editor.header_nav.publish_button.default'), 
-      editor_publication_path(maglev_editing_route_context), 
+    <%= button_to editor_publication_path(maglev_editing_route_context), 
       method: :post, 
-      class: maglev_button_classes(color: :primary, size: :medium), 
-      data: { turbo_submits_with: t('maglev.editor.header_nav.publish_button.in_progress') } 
-    %>
+      class: maglev_button_classes(color: :primary, size: :medium),
+      form_class: 'group/form is-default',
+      data: { controller: 'submit-button' } do %>
+      <%= maglev_button_label(
+        t('maglev.editor.header_nav.publish_button.default'),
+        pending: t('maglev.editor.header_nav.publish_button.in_progress'),
+        )%>
+    <% end %>
   </div>
 <% end %>

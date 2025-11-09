@@ -25,11 +25,15 @@ module Maglev
       rescue Maglev::Errors::NotAuthorized
         raise # Let the main app handle this one
       rescue StandardError => e
-        track_maglev_error(e)
         respond_to do |format|
-          format.turbo_stream { render 'maglev/editor/shared/errors/standard_error', status: :internal_server_error }
-          format.html { redirect_to editor_root_path, alert: t('maglev.editor.errors.standard_error') }
+          format.turbo_stream { render_turbo_stream_standard_error(e) }
+          format.html { raise(e) }
         end
+      end
+
+      def render_turbo_stream_standard_error(error)
+        track_maglev_error(error)
+        render 'maglev/editor/shared/errors/standard_error', status: :internal_server_error
       end
 
       def track_maglev_error(error)

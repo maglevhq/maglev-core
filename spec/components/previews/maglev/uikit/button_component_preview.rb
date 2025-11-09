@@ -13,6 +13,12 @@ module Maglev
       end
 
       # @param size select { choices: [medium, big] }
+      # @param form_state select { choices: [default, pending, success, error] }
+      def primary_in_a_form(size: :medium, form_state: :default)
+        render_with_template(locals: { color: :primary, size: size, form_state: form_state })
+      end
+
+      # @param size select { choices: [medium, big] }
       # @param disabled toggle
       def secondary(size: :medium, disabled: false)
         render_with_template(template: 'maglev/uikit/button_component_preview/default',

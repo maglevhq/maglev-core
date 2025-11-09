@@ -17,10 +17,9 @@ describe 'Maglev::Editor::ErrorsConcern', type: :request do
         # Mock a controller action that raises StandardError
         allow_any_instance_of(Maglev::Editor::PagesController).to receive(:index).and_raise(StandardError, 'Test error')
 
-        get "/maglev/editor/en/#{home_page.id}/pages"
-
-        expect(response).to have_http_status(:redirect)
-        expect(response).to redirect_to('/maglev/editor')
+        expect do
+          get "/maglev/editor/en/#{home_page.id}/pages"
+        end.to raise_error(StandardError, 'Test error')
       end
 
       it 'renders standard_error template for turbo_stream requests' do

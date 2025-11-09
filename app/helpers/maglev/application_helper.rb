@@ -80,10 +80,25 @@ module Maglev
 
     # UI helpers
 
+    def maglev_button_label(label, options = {})
+      options = (options || {}).with_indifferent_access
+
+      render 'maglev/editor/shared/button_label', label: label,
+                                                  pending_label: options[:pending] || label,
+                                                  success_label: options[:success] || label,
+                                                  error_label: options[:error] || label
+    end
+
     # rubocop:disable Metrics/MethodLength
     def maglev_button_classes(...)
       ClassVariants.build(
-        base: 'rounded-xs transition-colors duration-200 text-center cursor-pointer',
+        base: %(
+        rounded-xs transition-colors transition-background duration-200 text-center cursor-pointer
+        group-[.is-success]/form:bg-green-500/95 group-[.is-success]/form:hover:bg-green-500/100
+        group-[.is-success]/form:disabled:bg-green-500/75
+        group-[.is-error]/form:bg-red-500/95 group-[.is-error]/form:hover:bg-red-500/100
+        group-[.is-error]/form:disabled:bg-red-500/75
+        ),
         variants: {
           color: {
             primary: 'text-white bg-editor-primary/95 hover:bg-editor-primary/100 disabled:bg-editor-primary/75',
