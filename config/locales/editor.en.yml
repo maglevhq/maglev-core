@@ -56,9 +56,9 @@ en:
             fail: "Fail!"
           cancel_button: "Cancel"
         edit:
-          title: "Editing a page"
+          title: "Edit a page"
           current_page:
-            title: "Editing the current page"
+            title: "Edit the current page"
           submit_button:
             default: "Update page"
             in_progress: "Updating..."            
