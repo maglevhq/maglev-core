@@ -3,11 +3,14 @@
 module Maglev
   module Uikit
     class PageLayoutComponent < Maglev::Uikit::BaseComponent
+      renders_one :back_link, 'BackLinkComponent'
       renders_one :pre_title
       renders_one :title
       renders_one :description
       renders_one :notification
       renders_one :footer
+
+      
 
       attr_reader :back_path, :expanded
 
@@ -27,6 +30,14 @@ module Maglev
             '!expanded': 'left-16 z-10'
           }
         ).render(expanded: expanded)
+      end
+
+      class BackLinkComponent < Maglev::Uikit::BaseComponent
+        attr_reader :path
+
+        def initialize(path:)
+          @path = path
+        end
       end
     end
   end

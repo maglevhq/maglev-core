@@ -18,6 +18,10 @@ module Maglev
       def with_notification
         render_with_template
       end
+
+      def with_back_link
+        render_with_template
+      end
     end
   end
 end

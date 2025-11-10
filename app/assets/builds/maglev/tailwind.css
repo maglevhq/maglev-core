@@ -36,6 +36,8 @@
     --color-yellow-600: oklch(68.1% 0.162 75.834);
     --color-yellow-700: oklch(55.4% 0.135 66.442);
     --color-yellow-800: oklch(47.6% 0.114 61.907);
+    --color-lime-200: oklch(93.8% 0.127 124.321);
+    --color-lime-500: oklch(76.8% 0.233 130.85);
     --color-green-50: oklch(98.2% 0.018 155.826);
     --color-green-100: oklch(96.2% 0.044 156.743);
     --color-green-200: oklch(92.5% 0.084 155.995);
@@ -556,6 +558,12 @@
   .top-full {
     top: 100%;
   }
+  .-right-0\.5 {
+    right: calc(var(--spacing) * -0.5);
+  }
+  .-right-1 {
+    right: calc(var(--spacing) * -1);
+  }
   .-right-2 {
     right: calc(var(--spacing) * -2);
   }
@@ -643,6 +651,12 @@
   .bottom-full {
     bottom: 100%;
   }
+  .-left-0\.5 {
+    left: calc(var(--spacing) * -0.5);
+  }
+  .-left-1 {
+    left: calc(var(--spacing) * -1);
+  }
   .-left-2 {
     left: calc(var(--spacing) * -2);
   }
@@ -666,6 +680,9 @@
   }
   .left-0 {
     left: calc(var(--spacing) * 0);
+  }
+  .left-0\.5 {
+    left: calc(var(--spacing) * 0.5);
   }
   .left-1 {
     left: calc(var(--spacing) * 1);
@@ -6356,21 +6373,6 @@
       opacity: 0%;
     }
   }
-  .group-\[\.is-default\]\/form\:block {
-    &:is(:where(.group\/form):is(.is-default) *) {
-      display: block;
-    }
-  }
-  .group-\[\.is-default\]\/form\:hidden {
-    &:is(:where(.group\/form):is(.is-default) *) {
-      display: none;
-    }
-  }
-  .group-\[\.is-default\]\/form\:inline-flex {
-    &:is(:where(.group\/form):is(.is-default) *) {
-      display: inline-flex;
-    }
-  }
   .group-\[\.is-dragging\]\:hidden {
     &:is(:where(.group):is(.is-dragging) *) {
       display: none;
@@ -6391,16 +6393,6 @@
       background-image: linear-gradient(45deg, #F2F2F2 25%, transparent 25%), linear-gradient(-45deg, #F2F2F2 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #F2F2F2 75%), linear-gradient(-45deg, transparent 75%, #F2F2F2 75%);
       background-size: 20px 20px;
       background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
-    }
-  }
-  .group-\[\.is-error\]\:block {
-    &:is(:where(.group):is(.is-error) *) {
-      display: block;
-    }
-  }
-  .group-\[\.is-error\]\/form\:block {
-    &:is(:where(.group\/form):is(.is-error) *) {
-      display: block;
     }
   }
   .group-\[\.is-error\]\/form\:hidden {
@@ -6446,16 +6438,6 @@
       opacity: 100%;
     }
   }
-  .group-\[\.is-pending\]\:block {
-    &:is(:where(.group):is(.is-pending) *) {
-      display: block;
-    }
-  }
-  .group-\[\.is-pending\]\/form\:block {
-    &:is(:where(.group\/form):is(.is-pending) *) {
-      display: block;
-    }
-  }
   .group-\[\.is-pending\]\/form\:hidden {
     &:is(:where(.group\/form):is(.is-pending) *) {
       display: none;
@@ -6469,16 +6451,6 @@
   .group-\[\.is-present\]\/link\:hidden {
     &:is(:where(.group\/link):is(.is-present) *) {
       display: none;
-    }
-  }
-  .group-\[\.is-success\]\:block {
-    &:is(:where(.group):is(.is-success) *) {
-      display: block;
-    }
-  }
-  .group-\[\.is-success\]\/form\:block {
-    &:is(:where(.group\/form):is(.is-success) *) {
-      display: block;
     }
   }
   .group-\[\.is-success\]\/form\:hidden {
@@ -13807,60 +13779,6 @@
       &:hover {
         @media (hover: hover) {
           background-color: var(--color-gray-600);
-        }
-      }
-    }
-  }
-  .\[\.is-error\]\:bg-red-500\/95 {
-    &:is(.is-error) {
-      background-color: color-mix(in srgb, oklch(63.7% 0.237 25.331) 95%, transparent);
-      @supports (color: color-mix(in lab, red, red)) {
-        background-color: color-mix(in oklab, var(--color-red-500) 95%, transparent);
-      }
-    }
-  }
-  .\[\.is-error\]\:hover\:bg-red-500\/100 {
-    &:is(.is-error) {
-      &:hover {
-        @media (hover: hover) {
-          background-color: var(--color-red-500);
-        }
-      }
-    }
-  }
-  .\[\.is-error\]\:disabled\:bg-red-500\/75 {
-    &:is(.is-error) {
-      &:disabled {
-        background-color: color-mix(in srgb, oklch(63.7% 0.237 25.331) 75%, transparent);
-        @supports (color: color-mix(in lab, red, red)) {
-          background-color: color-mix(in oklab, var(--color-red-500) 75%, transparent);
-        }
-      }
-    }
-  }
-  .\[\.is-success\]\:bg-green-500\/95 {
-    &:is(.is-success) {
-      background-color: color-mix(in srgb, oklch(72.3% 0.219 149.579) 95%, transparent);
-      @supports (color: color-mix(in lab, red, red)) {
-        background-color: color-mix(in oklab, var(--color-green-500) 95%, transparent);
-      }
-    }
-  }
-  .\[\.is-success\]\:hover\:bg-green-500\/100 {
-    &:is(.is-success) {
-      &:hover {
-        @media (hover: hover) {
-          background-color: var(--color-green-500);
-        }
-      }
-    }
-  }
-  .\[\.is-success\]\:disabled\:bg-green-500\/75 {
-    &:is(.is-success) {
-      &:disabled {
-        background-color: color-mix(in srgb, oklch(72.3% 0.219 149.579) 75%, transparent);
-        @supports (color: color-mix(in lab, red, red)) {
-          background-color: color-mix(in oklab, var(--color-green-500) 75%, transparent);
         }
       }
     }

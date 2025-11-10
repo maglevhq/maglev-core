@@ -2,13 +2,8 @@
   <% page_layout.with_title_content @section.type_name %>
   <% page_layout.with_notification_content maglev_flash_message %>
 
-  <% page_layout.with_pre_title do %>
-    <%= render Maglev::Uikit::Breadcrumbs::BreadcrumbsComponent.new do |breadcrumbs| %>
-      <% breadcrumbs.with_breadcrumb(label: t('maglev.editor.sections.breadcrumbs.sections'), url: editor_sections_path(maglev_editing_route_context), icon: 'stack') %>
-    <% end %>
-  <% end %>
+  <% page_layout.with_back_link(path: editor_sections_path(maglev_editing_route_context)).with_content(t('maglev.editor.sections.breadcrumbs.sections')) %>    
 
-  
   <%= form_with url: editor_section_path(@section, maglev_editing_route_context), method: :put, data: { 
       controller: 'editor-section-form', 
       'editor-section-form-section-id-value': @section.id,

@@ -16,6 +16,8 @@
       <div class="shrink-0">
         <% if pre_title? %>
           <%= pre_title %>
+        <% elsif back_link? %>
+          <%= back_link %>
         <% else %>
           <%= title_html %>
         <% end %>
@@ -33,7 +35,7 @@
       </div>
     </div>
 
-    <% if pre_title? %>
+    <% if pre_title? || back_link? %>
       <%= title_html %>
     <% end %>
 
