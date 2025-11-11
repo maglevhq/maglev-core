@@ -1,7 +1,6 @@
 # MaglevCMS — Page Builder for Ruby on Rails
 
-![Screenshot of the MaglevCMS editor](https://raw.githubusercontent.com/maglevhq/maglev-core/main/docs/screenshot-editor.webp)
-
+![Screenshot of the MaglevCMS editor](https://github.com/user-attachments/assets/0dc61245-0cef-42dc-a65d-0e73909dcbba)
 
 [![Build Status](https://github.com/maglevhq/maglev-core/actions/workflows/verify.yml/badge.svg)](https://github.com/maglevhq/maglev-core/actions/workflows/verify.yml)
 
