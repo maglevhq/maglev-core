@@ -40,6 +40,8 @@ en:
         actions:
           edit: "Edit settings"
           preview: "Preview page"
+          draft_preview: "Draft version"
+          live_preview: "Live version"
           clone: "Clone page"
           hide: "Hide page"
           show: "Show page"

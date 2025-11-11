@@ -10,8 +10,6 @@ module Maglev
       renders_one :notification
       renders_one :footer
 
-      
-
       attr_reader :back_path, :expanded
 
       def initialize(back_path: nil, expanded: false)

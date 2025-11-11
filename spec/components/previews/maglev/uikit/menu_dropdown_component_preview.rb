@@ -10,6 +10,10 @@ module Maglev
       def custom_button
         render_with_template
       end
+
+      def nested_menu
+        render_with_template
+      end
     end
   end
 end

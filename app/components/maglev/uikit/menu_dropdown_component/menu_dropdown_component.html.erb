@@ -1,4 +1,4 @@
-<%= render Maglev::Uikit::DropdownComponent.new do |component| %>
+<%= render Maglev::Uikit::DropdownComponent.new(placement: placement) do |component| %>
   <% component.with_trigger do %>
     <% if trigger.present? %>
       <%= trigger %>

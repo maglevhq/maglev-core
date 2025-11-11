@@ -6,10 +6,20 @@
     <% end %>
   <% end if allow?(:edit) %>
 
-  <% dropdown.with_item do %>  
-    <%= link_to paths[:preview], class: dropdown.item_classes, target: '_blank' do %>
-      <%= render Maglev::Uikit::IconComponent.new(name: 'preview', class_names: 'shrink-0') %>
-      <span class="ml-2 whitespace-nowrap truncate overflow-hidden"><%= t('maglev.editor.pages.actions.preview') %></span>
+  <% dropdown.with_item do %>    
+    <%= render Maglev::Uikit::MenuDropdownComponent.new(placement: 'right-start') do |sub_menu| %>
+      <% sub_menu.with_trigger do %>
+        <%= button_tag class: sub_menu.item_classes, data: { action: 'click->uikit-dropdown#toggle', 'uikit-dropdown-target': 'button' } do %>
+          <%= render Maglev::Uikit::IconComponent.new(name: 'preview', class_names: 'shrink-0') %>
+          <span class="ml-2 whitespace-nowrap truncate overflow-hidden"><%= t('maglev.editor.pages.actions.preview') %></span>
+        <% end %>
+      <% end %>
+      <% sub_menu.with_item do %>
+        <%= link_to t('maglev.editor.pages.actions.draft_preview'), paths[:preview], class: sub_menu.item_classes, target: '_blank' %>
+      <% end %>
+      <% sub_menu.with_item do %>
+        <%= link_to t('maglev.editor.pages.actions.live_preview'), live_url, class: sub_menu.item_classes, target: '_blank' %>
+      <% end %>
     <% end %>
   <% end if allow?(:preview) %>
 

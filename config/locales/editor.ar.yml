@@ -40,6 +40,8 @@ ar:
         actions:
           edit: "تعديل الإعدادات"
           preview: "معاينة الصفحة"
+          draft_preview: "نسخة مسودة"
+          live_preview: "نسخة مباشرة"
           clone: "استنساخ الصفحة"
           hide: "إخفاء الصفحة"
           show: "إظهار الصفحة"

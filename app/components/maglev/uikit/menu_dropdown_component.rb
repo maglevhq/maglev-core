@@ -6,16 +6,17 @@ module Maglev
       renders_one :trigger
       renders_many :items
 
-      attr_reader :icon_name
+      attr_reader :icon_name, :placement
 
-      def initialize(icon_name: nil)
+      def initialize(icon_name: nil, placement: 'bottom-start')
         @icon_name = icon_name
+        @placement = placement
       end
 
       def item_classes(...)
         class_variants(
           base: %(
-            flex items-center px-4 py-4 hover:bg-gray-100
+            flex items-center px-4 py-4 hover:bg-gray-100 w-full
             transition-colors duration-200 focus:outline-none cursor-pointer flex-1
           )
         ).render(...)

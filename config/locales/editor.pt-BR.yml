@@ -40,6 +40,8 @@
         actions:
           edit: "Editar configurações"
           preview: "Visualizar página"
+          draft_preview: "Versão rascunho"
+          live_preview: "Versão ao vivo"
           clone: "Clonar página"
           hide: "Ocultar página"
           show: "Mostrar página"

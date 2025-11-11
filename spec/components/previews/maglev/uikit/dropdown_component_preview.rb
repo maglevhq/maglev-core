@@ -10,6 +10,10 @@ module Maglev
       def with_icon_button
         render_with_template
       end
+
+      def inner_dropdown
+        render_with_template
+      end
     end
   end
 end
