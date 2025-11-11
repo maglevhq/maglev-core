@@ -13,7 +13,11 @@ module Maglev
     def perform
       require File.expand_path('config/environment')
 
-      publish_pages(fetch_site)
+      site = fetch_site
+
+      return if site.blank?
+
+      publish_pages(site)
 
       say '🎉 All the pages of the site have been published with success!'
     end
