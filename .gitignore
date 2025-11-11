@@ -40,5 +40,4 @@ scripts/tiptap-bundle/node_modules/
 docker-compose.yml
 db/mysql/init/01-init-databases.sql
 
-docs/
 TODO.md
