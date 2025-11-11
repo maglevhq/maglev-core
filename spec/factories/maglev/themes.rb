@@ -86,6 +86,7 @@ FactoryBot.define do
                                                       id: 'footer',
                                                       category: 'footers',
                                                       site_scoped: true,
+                                                      insert_at: 'bottom',
                                                       settings: [{ label: 'Copyright', id: 'copyright', type: 'text' }],
                                                       blocks: []
                                                     }.with_indifferent_access)

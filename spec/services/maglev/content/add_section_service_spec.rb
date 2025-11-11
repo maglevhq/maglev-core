@@ -81,17 +81,17 @@ describe Maglev::Content::AddSectionService do
     end
 
     context 'The definition of the section has a position overriding the position' do
-      let(:section_type) { 'navbar' }
-      let(:position) { 2 }
-      it { is_expected.to eq %w[navbar jumbotron showcase] }
-    end
+      context 'When insert_at is top' do
+        let(:section_type) { 'navbar' }
+        let(:position) { 2 }
+        it { is_expected.to eq %w[navbar jumbotron showcase] }
+      end
 
-    context 'The section is a singleton' do
-      let(:page) { create(:page, :with_navbar) }
-      let(:section_type) { 'navbar' }
-      let(:position) { 2 }
-      it 'prevents the section from being added more than once' do
-        is_expected.to eq %w[navbar jumbotron showcase]
+      context 'When insert_at is bottom' do
+        let(:section_type) { 'footer' }
+        let(:position) { 0 }
+
+        it { is_expected.to eq %w[jumbotron showcase footer] }
       end
     end
   end

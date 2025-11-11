@@ -89,7 +89,7 @@ module Maglev
       def final_position
         case section_definition.insert_at
         when 'top' then 0
-        when 'bottom' then page.sections.count - 1
+        when 'bottom' then page.sections.count
         else
           position
         end
