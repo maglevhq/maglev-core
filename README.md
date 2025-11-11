@@ -1,8 +1,8 @@
+[![Build Status](https://github.com/maglevhq/maglev-core/actions/workflows/verify.yml/badge.svg)](https://github.com/maglevhq/maglev-core/actions/workflows/verify.yml)
+
 # MaglevCMS — Page Builder for Ruby on Rails
 
-![Screenshot of the MaglevCMS editor](https://github.com/user-attachments/assets/0dc61245-0cef-42dc-a65d-0e73909dcbba)
-
-[![Build Status](https://github.com/maglevhq/maglev-core/actions/workflows/verify.yml/badge.svg)](https://github.com/maglevhq/maglev-core/actions/workflows/verify.yml)
+![Screenshot of the MaglevCMS editor](https://github.com/user-attachments/assets/b3a1ad34-bbae-47d7-9661-7cec5342d027)
 
 **MaglevCMS** is a powerful, fully-integrated page builder for Ruby on Rails (7 & 8).  
 It lets your non‑technical users create and edit marketing pages visually — right inside your Rails app — without compromising performance, security, or developer experience.
