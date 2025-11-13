@@ -5,7 +5,6 @@ $LOAD_PATH.push File.expand_path('lib', __dir__)
 # Maintain your gem's version:
 require 'maglev/version'
 
-# rubocop:disable Metrics/BlockLength
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |spec|
   spec.name        = 'maglevcms'
@@ -30,9 +29,7 @@ Gem::Specification.new do |spec|
   # end
 
   spec.files = Dir[
-    '{app,config,db,exe,lib}/**/*',
-    'package.json',
-    'yarn.lock',
+    '{app,config,db,exe,lib,vendor}/**/*',
     'MIT-LICENSE',
     'Rakefile',
     'README.md'
@@ -48,4 +45,3 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'turbo-rails', '< 3', '>= 2'
   spec.add_dependency 'view_component', '~> 4.1.0'
 end
-# rubocop:enable Metrics/BlockLength
