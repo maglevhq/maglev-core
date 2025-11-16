@@ -26,6 +26,7 @@ namespace :maglev do
       puts "[Maglev] Generating temporary Tailwind input file at: #{input_path}"
 
       rendered_css = ERB.new(File.read(erb_input_path)).result
+      File.delete(input_path) if File.exist?(input_path)
       File.write(input_path, rendered_css)
 
       require 'bundler'

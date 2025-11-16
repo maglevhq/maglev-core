@@ -8,7 +8,9 @@
   --color-editor-primary: var(--editor-color-primary);
 }
 
-@source "../../../";  
+@source "<%= Maglev::Engine.root.join('app') %>";
+@source "<%= Maglev::Engine.root.join('lib') %>";
+
 <% Maglev.config.tailwindcss_folders.each do |folder| %>
 @source "<%= folder %>";
 <% end %>
