@@ -2,6 +2,7 @@
 
 module Maglev
   module Errors
+    class SiteNotFound < StandardError; end
     class NotAuthorized < StandardError; end
     class UnknownSection < StandardError; end
     class UnknownBlock < StandardError; end

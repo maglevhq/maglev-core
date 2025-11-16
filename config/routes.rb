@@ -2,6 +2,9 @@
 
 # rubocop:disable Metrics/BlockLength
 Maglev::Engine.routes.draw do
+  # convenient route to create the site in development mode from the Maglev UI
+  resource :site, only: %i[create], controller: :site if Rails.env.local?
+
   # Editor
   namespace :editor do
     root to: 'home#index'

@@ -2,6 +2,7 @@
 
 require 'turbo-rails'
 require 'importmap-rails'
+require 'class_variants'
 require 'maglev/migration'
 
 module Maglev

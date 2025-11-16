@@ -14,7 +14,9 @@ module Maglev
     private
 
     def site
-      @site ||= Maglev::Site.first
+      @site ||= Maglev::Site.first.tap do |site|
+        raise Maglev::Errors::SiteNotFound unless site
+      end
     end
 
     def change_default_locales(site)

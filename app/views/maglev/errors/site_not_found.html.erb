@@ -1,0 +1,33 @@
+<html>
+  <head>
+    <title>Site not found</title>
+    <%= stylesheet_link_tag "maglev/application", "maglev/tailwind", "data-turbo-track": "reload" %>
+    <%= favicon_link_tag maglev_favicon_url %>
+
+    <style>
+      :root {
+        --editor-color-primary: <%= maglev_primary_hex_color %>;
+        --editor-color-primary-rgb: <%= maglev_primary_rgb_color.join(' ') %>;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="flex flex-col items-center justify-center h-screen">
+      <div class="bg-white">
+        <div class="px-6 py-24 sm:py-32 lg:px-8">
+          <div class="mx-auto max-w-2xl text-center">
+            <div class="mb-4 flex justify-center"><%= image_tag 'maglev/logo.svg', class: 'w-18 h-18' %></div>
+            <h2 class="text-4xl font-semibold tracking-tight text-balance text-gray-900 sm:text-5xl">Your site doesn't exist yet.</h2>
+            <p class="mx-auto mt-6 max-w-xl text-lg/8 text-pretty text-gray-600">You should have missed a step in the installation process. That's ok, you can create your Maglevsite from here without using the CLI.</p>
+            <div class="mt-10 flex items-center justify-center gap-x-6">
+              <%= button_to "Create your site", site_path, class: maglev_button_classes(color: :primary) %>
+              <%= link_to 'https://docs.maglev.dev/quickstart/instructions-v3/', target: '_blank', class: maglev_button_classes(color: :secondary, size: :medium) do %>
+                See the documentation <span aria-hidden="true">→</span>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
