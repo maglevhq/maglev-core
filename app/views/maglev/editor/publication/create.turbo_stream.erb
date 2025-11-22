@@ -1,1 +1,9 @@
 <%= turbo_stream.console_log 'Publication created' %>
+
+<%= turbo_stream.update dom_id(current_maglev_page, 'topbar-page-info'), method: 'morph' do %>
+  <%= render 'layouts/maglev/editor/topbar/page_info' %>
+<% end %>
+
+<%= turbo_stream.update dom_id(current_maglev_page, 'topbar-submit-button'), method: 'morph' do %>
+  <%= render 'layouts/maglev/editor/topbar/submit_button' %>
+<% end %>

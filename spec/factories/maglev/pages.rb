@@ -10,6 +10,7 @@
 #  og_description_translations   :jsonb
 #  og_image_url_translations     :jsonb
 #  og_title_translations         :jsonb
+#  published_at                  :datetime
 #  sections_translations         :jsonb
 #  seo_title_translations        :jsonb
 #  title_translations            :jsonb
@@ -227,6 +228,11 @@ FactoryBot.define do
           }
         ]
       end
+    end
+
+    trait :published do
+      published_at { 1.minutes.ago }
+      updated_at { 2.minute.ago }
     end
   end
 end

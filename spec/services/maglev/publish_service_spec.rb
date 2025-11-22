@@ -14,6 +14,8 @@ describe Maglev::PublishService do
       expect { subject }.to change { Maglev::SectionsContentStore.published.count }.by(2)
       expect(site.sections_content_stores.published.count).to eq 1
       expect(page.sections_content_stores.published.count).to eq 1
+      expect(site.published?).to eq true
+      expect(page.published?).to eq true
     end
   end
 

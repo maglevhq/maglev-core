@@ -139,9 +139,12 @@ module Maglev
                                                disappear_after: 3.seconds).with_content(message)
     end
 
-    def maglev_page_icon(page, size: '1.15rem')
+    def maglev_page_icon(page, size: '1.15rem', wrapper_class_names: nil)
       icon_name = page.index? ? 'home' : 'file'
-      render Maglev::Uikit::IconComponent.new(name: icon_name, size: size, class_names: 'shrink-0')
+      content_tag :span, class: class_names('shrink-0 relative', wrapper_class_names) do
+        concat(content_tag(:span, '', class: 'absolute -bottom-0.25 right-0 bg-yellow-600 rounded-full w-1.5 h-1.5')) if page.need_to_be_published?
+        concat render(Maglev::Uikit::IconComponent.new(name: icon_name, size: size))  
+      end
     end
 
     def maglev_page_preview_reload_data

@@ -1,5 +1,13 @@
+<%= turbo_stream.dispatch_event "section-block-#{@section_block.id}:persisted", payload: { lockVersion: @section_block.lock_version }.to_json %>
+
 <%= turbo_stream.update 'page-layout-notification', method: 'morph' do %>
   <%= render Maglev::Uikit::BadgeComponent.new(color: :green, icon_name: 'checkbox_circle', disappear_after: 3.seconds).with_content(flash.now[:notice]) %>
 <% end %>
 
-<%= turbo_stream.dispatch_event "section-block-#{@section_block.id}:persisted", payload: { lockVersion: @section_block.lock_version }.to_json %>
+<%= turbo_stream.update dom_id(current_maglev_page, 'topbar-page-info'), method: 'morph' do %>
+  <%= render 'layouts/maglev/editor/topbar/page_info' %>
+<% end %>
+
+<%= turbo_stream.update dom_id(current_maglev_page, 'topbar-submit-button'), method: 'morph' do %>
+  <%= render 'layouts/maglev/editor/topbar/submit_button' %>
+<% end %>

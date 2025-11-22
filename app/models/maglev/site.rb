@@ -8,6 +8,7 @@
 #  locales               :jsonb
 #  lock_version          :integer
 #  name                  :string
+#  published_at          :datetime
 #  sections_translations :jsonb
 #  style                 :jsonb
 #  created_at            :datetime         not null
@@ -34,6 +35,10 @@ module Maglev
     validates :name, presence: true
 
     ## methods ##
+
+    def published?
+      published_at.present?
+    end
 
     def api_attributes
       %i[id name]

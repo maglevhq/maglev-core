@@ -36,6 +36,47 @@ RSpec.describe Maglev::Page, type: :model do
     end
   end
 
+  describe '#published?' do
+    let(:page) { build(:page) }
+
+    subject { page.published? }
+
+    it { is_expected.to eq false }
+
+    context 'the page has been published' do
+      let(:page) { build(:page, published_at: Time.current) }
+
+      it { is_expected.to eq true }
+    end
+  end
+
+  describe '#need_to_be_published?' do
+    let(:page) { build(:page) }
+
+    subject { page.need_to_be_published? }
+
+    context 'the page has never been published' do      
+      let(:page) { build(:page) }
+
+      it { is_expected.to eq true }
+    end
+    
+    context 'the page has been published' do
+      let(:page) { build(:page, :published) }
+
+      it { is_expected.to eq false }
+
+      context 'the page has just been modified and not published yet' do
+        before do
+          page.save
+          page.update(title: 'New title')
+        end
+
+        it { is_expected.to eq true }
+      end
+    end
+  end
+
   describe '#prepare_sections' do
     let(:page) { build(:page) }
     let(:theme) { build(:theme) }
@@ -106,6 +147,7 @@ end
 #  og_description_translations   :jsonb
 #  og_image_url_translations     :jsonb
 #  og_title_translations         :jsonb
+#  published_at                  :datetime
 #  sections_translations         :jsonb
 #  seo_title_translations        :jsonb
 #  title_translations            :jsonb

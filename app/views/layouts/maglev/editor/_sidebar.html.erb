@@ -18,7 +18,8 @@
   icon: 'drop',
   active: controller_name == 'style',
   options: {
-    icon_size: '1.25rem'
+    icon_size: '1.25rem',
+    data: { controller: 'prevent-same-path' }
   }
 ) if maglev_theme.style? %>
 
