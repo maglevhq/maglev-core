@@ -55,12 +55,12 @@ RSpec.describe Maglev::Page, type: :model do
 
     subject { page.need_to_be_published? }
 
-    context 'the page has never been published' do      
+    context 'the page has never been published' do
       let(:page) { build(:page) }
 
       it { is_expected.to eq true }
     end
-    
+
     context 'the page has been published' do
       let(:page) { build(:page, :published) }
 

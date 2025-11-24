@@ -231,8 +231,8 @@ FactoryBot.define do
     end
 
     trait :published do
-      published_at { 1.minutes.ago }
-      updated_at { 2.minute.ago }
+      published_at { 1.minute.ago }
+      updated_at { 2.minutes.ago }
     end
   end
 end
