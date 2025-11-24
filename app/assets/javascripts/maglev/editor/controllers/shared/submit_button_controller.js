@@ -1,5 +1,6 @@
 import { Controller } from "@hotwired/stimulus"
 import { sleep } from"maglev-controllers/utils"
+import TurboDelayedStreams from 'maglev-patches/turbo_delayed_streams'
 
 export default class extends Controller {
 
@@ -18,7 +19,9 @@ export default class extends Controller {
   }
 
   disconnect() {
+    console.log('disconnecting submit button controller', this.requestId)
     this.canceled = true
+    this.requestId = null
     this.formElement.removeEventListener('turbo:submit-start', this._start)
     this.formElement.removeEventListener('turbo:submit-end', this._end)    
   }
@@ -30,7 +33,10 @@ export default class extends Controller {
     this.formElement.classList.add('is-default')    
   }
 
-  start() {
+  start(event) {
+    // the requestId is set by the turbo:before-fetch-request listener. We need it if there are delayed streams to render
+    this.requestId = event.detail.formSubmission.fetchRequest.fetchOptions.turboRequestId
+
     this.formElement.classList.add('is-pending')
     this.startedAt = Date.now()
   }
@@ -46,7 +52,7 @@ export default class extends Controller {
     if (this.canceled) return
 
     this.formElement.classList.remove('is-pending')
-    this.formElement.classList.add(event.detail.success ? 'is-success' : 'is-error')      
+    this.formElement.classList.add(event.detail.success ? 'is-success' : 'is-error')
     
     // wait for 2 seconds and then remove the success or error class and add the default class
     await sleep(1400)
@@ -56,5 +62,9 @@ export default class extends Controller {
     this.formElement.classList.remove(event.detail.success ? 'is-success' : 'is-error')
     this.formElement.classList.add('is-default')
     this.element.disabled = false
+
+    // render the delayed turbo stream messages from the request
+    // use the requestId to identify the request and render the turbo stream messages
+    TurboDelayedStreams.render(this.requestId)
   }
 }

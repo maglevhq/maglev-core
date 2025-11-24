@@ -3,6 +3,7 @@
 # rubocop:disable Metrics/ModuleLength
 module Maglev
   module ApplicationHelper
+    ## "system" helpers
     def turbo_stream
       # we don't want to pollute the global Turbo::Streams::TagBuilder
       Maglev::Turbo::Streams::TagBuilder.new(self)
@@ -26,6 +27,16 @@ module Maglev
       ], "\n"
     end
 
+    def maglev_delayed_stream_tag
+      safe_join([
+        # since we set the turbo request id before the build of the fetch request, Turbo will set the X-TURBO-REQUEST-ID header to a comma-separated list of request ids
+        # we only want to use the first request id (ours), so we split the header value and take the first part
+        tag.meta(name: 'turbo-request-id', content: request.headers['X-TURBO-REQUEST-ID']&.split(',')&.first),
+        tag.meta(name: 'turbo-delayed-stream', content: 'true')
+      ])
+    end
+
+    ## Editor helpers
     def maglev_editor_title
       case maglev_config.title
       when nil

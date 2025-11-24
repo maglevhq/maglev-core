@@ -47,7 +47,12 @@ export default class extends Controller {
   }
 
   disconnect() {
-    this.cleanup()
+    this.cleanup() // clean up the observer for the floating element
+
+    // fix issue: https://github.com/stimulus-use/stimulus-use/issues/500
+    this.enter = null
+    this.leave = null
+    this.toggleTransition = null
   }
 
   clickOutside() {
