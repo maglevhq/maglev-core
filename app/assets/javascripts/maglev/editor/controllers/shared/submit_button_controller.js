@@ -19,7 +19,6 @@ export default class extends Controller {
   }
 
   disconnect() {
-    console.log('disconnecting submit button controller', this.requestId)
     this.canceled = true
     this.requestId = null
     this.formElement.removeEventListener('turbo:submit-start', this._start)

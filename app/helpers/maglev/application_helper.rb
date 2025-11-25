@@ -32,7 +32,7 @@ module Maglev
       # the X-TURBO-REQUEST-ID header to a comma-separated list of request ids
       # we only want to use the first request id (ours), so we split the header value and take the first part
       safe_join [
-        tag.meta(name: 'turbo-request-id', content: request.headers['X-TURBO-REQUEST-ID']&.split(',')&.first),
+        tag.meta(name: 'turbo-request-id', content: ::Turbo.current_request_id.split(',').first),
         tag.meta(name: 'turbo-delayed-stream', content: 'true')
       ], "\n"
     end

@@ -21,7 +21,6 @@ document.addEventListener("click", (event) => {
   const target  = new URL(link.href, window.location.origin)
 
   if (current.pathname === target.pathname && current.search === target.search) {
-    console.log('same link clicked!!!')
     link.dataset.turboAction = "replace"
   }
 })

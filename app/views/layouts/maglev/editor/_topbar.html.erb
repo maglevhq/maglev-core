@@ -4,7 +4,7 @@
 %>
 
 <% topbar.with_page_info do %>
-  <%= turbo_frame_tag dom_id(current_maglev_page, 'topbar-page-info'), data: { turbo_permanent: true, key: 'topbar-page-info', time: l(Time.now), need_to_be_published: current_maglev_page.need_to_be_published? } do %>
+  <%= turbo_frame_tag dom_id(current_maglev_page, 'topbar-page-info'), data: { turbo_sync: true } do %>
     <%= render 'layouts/maglev/editor/topbar/page_info' %>
   <% end %>
 <% end %>
@@ -22,7 +22,7 @@
     current_locale: Maglev::I18n.current_locale,
   ) if maglev_site.many_locales? %>
 
-  <%= turbo_frame_tag dom_id(current_maglev_page, 'topbar-publish-button') do %>
-    <%= render 'layouts/maglev/editor/topbar/publish_button' %>
+  <%= turbo_frame_tag dom_id(current_maglev_page, 'topbar-publish-button'), data: { turbo_sync: true } do %>
+    <%= render 'layouts/maglev/editor/topbar/publish_button' %>  
   <% end %>
 <% end %>

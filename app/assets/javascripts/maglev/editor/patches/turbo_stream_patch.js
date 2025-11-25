@@ -19,12 +19,17 @@ StreamActions.dispatch_event = function() {
 // Handle delayed streams through Turbo events
 
 document.addEventListener("turbo:before-stream-render", (event) => {
-  const delayedStream = event.detail.newStream.templateContent.querySelector('meta[name="turbo-delayed-stream"]')?.content === 'true'
-  const requestId = event.detail.newStream.templateContent.querySelector('meta[name="turbo-request-id"]')?.content
+  const delayedStream = (
+    event.detail.newStream.templateContent.querySelector('meta[name="turbo-delayed-stream"]')?.content ?? event.detail.newStream.getAttribute('delayed')
+  ) === 'true'
+  const requestId = (
+    event.detail.newStream.templateContent.querySelector('meta[name="turbo-request-id"]')?.content ?? event.detail.newStream.getAttribute('request-id')
+  )?.split(',')?.[0]
 
   if (delayedStream) {
     // Keep the stream in the queue to be rendered later
     TurboDelayedStreams.add(requestId, () => {
+      // console.log('rendering delayed stream', requestId, event.detail.newStream)
       event.detail.render(event.detail.newStream)
     })
           

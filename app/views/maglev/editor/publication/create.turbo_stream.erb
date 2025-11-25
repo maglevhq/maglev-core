@@ -1,13 +1,3 @@
 <%= turbo_stream.console_log 'Publication created' %>
 
-<meta name="maglev-turbo-request-id" content="<%= request.headers['X-MAGLEV-TURBO-REQUEST-ID'] %>" />
-
-<%= turbo_stream.update dom_id(current_maglev_page, 'topbar-page-info'), method: 'morph' do %>
-  <%= maglev_delayed_stream_tag %>
-  <%= render 'layouts/maglev/editor/topbar/page_info' %>
-<% end %>
-
-<%= turbo_stream.update dom_id(current_maglev_page, 'topbar-publish-button'), method: 'morph' do %>
-  <%= maglev_delayed_stream_tag %>
-  <%= render 'layouts/maglev/editor/topbar/publish_button' %>
-<% end %>
+<%= turbo_stream.refresh delayed: true %>
