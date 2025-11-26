@@ -1,6 +1,7 @@
 
 import { StreamActions } from '@hotwired/turbo'
 import TurboDelayedStreams from 'maglev-patches/turbo_delayed_streams'
+import { generateRequestId } from 'maglev-controllers/utils'
 
 // Custom stream actions
 StreamActions.console_log = function() {
@@ -39,7 +40,7 @@ document.addEventListener("turbo:before-stream-render", (event) => {
 })
 
 document.addEventListener('turbo:before-fetch-request', (event) => {
-  const requestId = crypto.randomUUID()
+  const requestId = generateRequestId()
 
   // Attach to headers (for server → client stream correlation)
   event.detail.fetchOptions.headers["X-Turbo-Request-ID"] = requestId

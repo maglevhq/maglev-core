@@ -1,5 +1,5 @@
 import { Controller } from "@hotwired/stimulus"
-import { isSamePath } from"maglev-controllers/utils"
+import { isSamePath } from "maglev-controllers/utils"
 
 export default class extends Controller { 
   static targets = ["iframe"]
