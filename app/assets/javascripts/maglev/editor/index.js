@@ -1,6 +1,7 @@
 import "@hotwired/turbo-rails"
 import "maglev-controllers"
-import { PageRenderer, StreamActions } from '@hotwired/turbo'
+import "maglev-patches/page_renderer_patch"
+import "maglev-patches/turbo_stream_patch"
 
 console.log('Maglev Editor v2 ⚡️')
 
@@ -23,44 +24,3 @@ document.addEventListener("click", (event) => {
     link.dataset.turboAction = "replace"
   }
 })
-
-// iFrames will always be reloaded even if we mark them as turbo-permanent. 
-// In the context of the Editor, the workaround is to replace the content of another DIV (#root) 
-// instead of the body and put the preview iframe as a sibling of the root DIV.
-PageRenderer.prototype.assignNewBody = function() {
-  const body = document.querySelector("#root")
-  const el   = this.newElement.querySelector("#root")
-
-  // replace all the data attributes of the BODY tag with the data attributes of the newElement
-  // This is because the BODY tag carries the current page id in one of the controller values
-  const bodyDataAttributes = document.body.dataset
-  const newElementDataAttributes = this.newElement.dataset
-  Object.keys(newElementDataAttributes).forEach(key => {
-    bodyDataAttributes[key] = newElementDataAttributes[key]
-  })
-
-  // now replace the "body" with the newElement
-  if (body && el) {
-    body.replaceWith(el)
-    return
-  } else if (document.body && this.newElement instanceof HTMLBodyElement) {
-    document.body.replaceWith(this.newElement)
-  } else {
-    document.documentElement.appendChild(this.newElement)
-  }
-}
-
-// Custom stream actions
- 
-StreamActions.console_log = function() {
-  const message = this.getAttribute("message")
-  console.log(message)
-}
-
-StreamActions.dispatch_event = function() {
-  const type = this.getAttribute("type")
-  const payload = this.getAttribute("payload")
-  console.log('dispatchEvent', type, payload, `dispatcher:${type}`)
-  const event = new CustomEvent(`dispatcher:${type}`, { detail: JSON.parse(payload) })
-  window.dispatchEvent(event)
-}

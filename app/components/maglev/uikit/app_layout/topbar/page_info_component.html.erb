@@ -4,7 +4,7 @@
   <div class="flex flex-row items-center h-full w-full px-4 overflow-hidden">
     <div class="flex flex-col leading-none overflow-hidden">
       <div class="flex items-center">
-        <%= render Maglev::Uikit::IconComponent.new(name: icon_name, size: '1.1rem', class_names: 'shrink-0 text-gray-900') %>
+        <%= helpers.maglev_page_icon(page, size: '1.1rem', wrapper_class_names: 'text-gray-900') %>
         <div class="text-base font-semibold truncate ml-1 mr-3">
           <%= page.title.presence || page.default_title %>
         </div>

@@ -7,27 +7,27 @@ module Maglev
 
       included do
         around_action :handle_editor_errors
-
-        rescue_from ActiveRecord::StaleObjectError, with: :handle_stale_object
       end
 
       private
-
-      def handle_stale_object
-        respond_to do |format|
-          format.turbo_stream { render 'maglev/editor/shared/errors/stale_object_error' }
-          format.html { redirect_to editor_root_path }
-        end
-      end
 
       def handle_editor_errors
         yield
       rescue Maglev::Errors::NotAuthorized
         raise # Let the main app handle this one
+      rescue ActiveRecord::StaleObjectError
+        handle_stale_object
       rescue StandardError => e
         respond_to do |format|
           format.turbo_stream { render_turbo_stream_standard_error(e) }
           format.html { raise(e) }
+        end
+      end
+
+      def handle_stale_object
+        respond_to do |format|
+          format.turbo_stream { render 'maglev/editor/shared/errors/stale_object_error' }
+          format.html { redirect_to editor_root_path }
         end
       end
 

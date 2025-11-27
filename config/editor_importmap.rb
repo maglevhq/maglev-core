@@ -22,5 +22,8 @@ pin_all_from File.expand_path('../app/components/maglev/uikit', __dir__), under:
 pin_all_from File.expand_path('../app/assets/javascripts/maglev/editor/controllers', __dir__),
              under: 'maglev-controllers',
              to: 'maglev/editor/controllers'
+pin_all_from File.expand_path('../app/assets/javascripts/maglev/editor/patches', __dir__),
+             under: 'maglev-patches',
+             to: 'maglev/editor/patches'
 
 pin 'editor', to: 'maglev/editor/index.js'

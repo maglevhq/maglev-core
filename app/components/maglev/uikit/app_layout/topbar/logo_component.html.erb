@@ -1,3 +1,3 @@
-<%= link_to root_path, class: "w-16 h-full flex justify-center items-center border-r border-gray-200 shrink-0" do %>
+<%= link_to root_path, class: "w-16 h-full flex justify-center items-center border-r border-gray-200 shrink-0", data: { controller: 'prevent-same-path' } do %>
   <%= image_tag logo_url, class: "w-2/4", id: 'editor-logo-image', data: { turbo_permanent: true } %>
 <% end %>

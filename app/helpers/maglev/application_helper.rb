@@ -3,6 +3,7 @@
 # rubocop:disable Metrics/ModuleLength
 module Maglev
   module ApplicationHelper
+    ## "system" helpers
     def turbo_stream
       # we don't want to pollute the global Turbo::Streams::TagBuilder
       Maglev::Turbo::Streams::TagBuilder.new(self)
@@ -26,6 +27,17 @@ module Maglev
       ], "\n"
     end
 
+    def maglev_delayed_stream_tag
+      # since we set the turbo request id before the build of the fetch request, Turbo will set
+      # the X-TURBO-REQUEST-ID header to a comma-separated list of request ids
+      # we only want to use the first request id (ours), so we split the header value and take the first part
+      safe_join [
+        tag.meta(name: 'turbo-request-id', content: ::Turbo.current_request_id.split(',').first),
+        tag.meta(name: 'turbo-delayed-stream', content: 'true')
+      ], "\n"
+    end
+
+    ## Editor helpers
     def maglev_editor_title
       case maglev_config.title
       when nil
@@ -139,9 +151,15 @@ module Maglev
                                                disappear_after: 3.seconds).with_content(message)
     end
 
-    def maglev_page_icon(page, size: '1.15rem')
+    def maglev_page_icon(page, size: '1.15rem', wrapper_class_names: nil)
       icon_name = page.index? ? 'home' : 'file'
-      render Maglev::Uikit::IconComponent.new(name: icon_name, size: size, class_names: 'shrink-0')
+      content_tag :span, class: class_names('shrink-0 relative', wrapper_class_names) do
+        if page.need_to_be_published?
+          concat(content_tag(:span, '',
+                             class: 'absolute -bottom-0.25 right-0 bg-yellow-600 rounded-full w-1.5 h-1.5'))
+        end
+        concat render(Maglev::Uikit::IconComponent.new(name: icon_name, size: size))
+      end
     end
 
     def maglev_page_preview_reload_data

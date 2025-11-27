@@ -4,17 +4,9 @@
 %>
 
 <% topbar.with_page_info do %>
-  <%= render Maglev::Uikit::AppLayout::Topbar::PageInfoComponent.new(
-    page: current_maglev_page,
-    paths: {
-      edit: edit_editor_page_path(current_maglev_page, maglev_editing_route_context),
-      preview: current_maglev_page_urls[:preview],
-      clone: editor_page_clone_path(current_maglev_page, maglev_editing_route_context),
-      delete: editor_page_path(current_maglev_page, maglev_editing_route_context)
-    },
-    live_page_url: current_maglev_page_urls[:live],
-    prefix_page_path: default_content_locale? ? '' : "#{content_locale}/"
-  ) %>
+  <%= turbo_frame_tag dom_id(current_maglev_page, 'topbar-page-info'), data: { turbo_sync: true } do %>
+    <%= render 'layouts/maglev/editor/topbar/page_info' %>
+  <% end %>
 <% end %>
 
 <% topbar.with_actions do %>
@@ -30,16 +22,7 @@
     current_locale: Maglev::I18n.current_locale,
   ) if maglev_site.many_locales? %>
 
-  <div class="flex items-center h-full px-4">
-    <%= button_to editor_publication_path(maglev_editing_route_context), 
-      method: :post, 
-      class: maglev_button_classes(color: :primary, size: :medium),
-      form_class: 'group/form is-default',
-      data: { controller: 'submit-button' } do %>
-      <%= maglev_button_label(
-        t('maglev.editor.header_nav.publish_button.default'),
-        pending: t('maglev.editor.header_nav.publish_button.in_progress'),
-        )%>
-    <% end %>
-  </div>
+  <%= turbo_frame_tag dom_id(current_maglev_page, 'topbar-publish-button'), data: { turbo_sync: true } do %>
+    <%= render 'layouts/maglev/editor/topbar/publish_button' %>  
+  <% end %>
 <% end %>
