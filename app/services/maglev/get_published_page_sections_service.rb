@@ -15,7 +15,7 @@ module Maglev
     argument :locale, default: nil
 
     def call
-      fetch_container_store(page).sections.map do |section|
+      (fetch_container_store(page).sections || []).map do |section|
         transform_section(section.dup)
       end.compact
     end

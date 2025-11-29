@@ -28,6 +28,14 @@ describe Maglev::GetPublishedPageSectionsService do
     it 'returns an empty array' do
       expect(subject).to eq([])
     end
+
+    context 'the page had an empty sections_translations' do
+      let(:page) { build(:page, sections_translations: {}) }
+
+      it 'returns an empty array' do
+        expect(subject).to eq([])
+      end
+    end
   end
 
   # rubocop:disable Style/StringHashKeys
