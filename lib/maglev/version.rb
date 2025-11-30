@@ -1,5 +1,5 @@
 # frozen_string_literal: true
 
 module Maglev
-  VERSION = '3.0.0.beta2'
+  VERSION = '3.0.0.beta3'
 end
