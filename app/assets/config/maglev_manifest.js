@@ -1,4 +1,5 @@
-//= link_directory ../stylesheets/maglev .css
+//= link_directory ../builds/maglev .css
+//= link maglev/application.css
 
 //= link_tree ../../../vendor/javascript .js
 //= link_tree ../../components .js
