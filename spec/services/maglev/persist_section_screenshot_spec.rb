@@ -38,7 +38,7 @@ describe Maglev::PersistSectionScreenshot do
 
   def raw_base64_logo
     content = File.read(
-      Rails.root.join('../fixtures/files/logo.png').to_s
+      Rails.root.join('../fixtures/files/jumbotron.jpg').to_s
     )
     Base64.encode64(content)
   end

@@ -23,9 +23,11 @@ module Maglev
     def mount_engine
       inject_into_file 'config/routes.rb', before: /^end/ do
         <<-CODE
+  # Mount Maglev engine (mainly used for the content editor)
   mount Maglev::Engine => '/maglev'
-  get '/sitemap', to: 'maglev/sitemap#index', defaults: { format: 'xml' }
-  get '(*path)', to: 'maglev/published_page_preview#index', defaults: { path: 'index' }, constraints: Maglev::PreviewConstraint.new
+
+  # Handle "/:path" + "/sitemap" requests by Maglev engine
+  draw 'maglev/public_preview'
         CODE
       end
     end
