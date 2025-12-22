@@ -19,7 +19,7 @@ module Maglev
     dependency :fetch_section_screenshot_path, class: Maglev::FetchSectionScreenshotPath,
                                                depends_on: :fetch_sections_path
     dependency :fetch_section_screenshot_url, class: Maglev::FetchSectionScreenshotUrl,
-                                              depends_on: :fetch_section_screenshot_path
+                                              depends_on: %i[fetch_section_screenshot_path context]
 
     dependency :fetch_collection_items, class: Maglev::FetchCollectionItems, depends_on: %i[fetch_site config]
     dependency :fetch_static_pages, class: Maglev::FetchStaticPages, depends_on: %i[config]
