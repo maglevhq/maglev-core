@@ -7,14 +7,14 @@ spec/dummy/db/*.sqlite3-*
 spec/dummy/log/*.log
 spec/dummy/storage/
 spec/dummy/tmp/
-spec/dummy/public/*theme*
+spec/dummy/public/sometheme/
 spec/legacy_dummy/db/*.sqlite3
 spec/legacy_dummy/db/*.sqlite3-journal
 spec/legacy_dummy/db/*.sqlite3-*
 spec/legacy_dummy/log/*.log
 spec/legacy_dummy/storage/
 spec/legacy_dummy/tmp/
-spec/legacy_dummy/public/*theme*
+spec/legacy_dummy/public/sometheme/
 .DS_Store
 tmp/
 public/maglev-packs
