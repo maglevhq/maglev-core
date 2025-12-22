@@ -26,6 +26,12 @@
   <%= render_maglev_alternate_links %>
   <%= maglev_live_preview_client_javascript_tag %>
   <%#= legacy_live_preview_client_javascript_tag %>  
+
+  <script>
+    window.addEventListener('maglev:page-updated', (event) => {
+      console.log('Page updated!', event)
+    })
+  </script>
 </head>
 <body class="flex h-full antialiased">
   <div class="flex w-full">

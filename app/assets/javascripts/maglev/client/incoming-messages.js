@@ -1,12 +1,14 @@
 import { start as decorateIframe } from 'maglev-client/iframe-decorator'
 import { postMessageToEditor } from 'maglev-client/utils'
 
+const PAGE_UPDATED_EVENTS = ['section:add', 'section:move', 'section:update', 'section:remove', 'block:add', 'block:move', 'block:remove', 'setting:update', 'style:update']
+
 export const start = () => {
   window.addEventListener('message', ({ data: { type, ...data } }) => {
     // a message MUST have a type
     if (!type) return
 
-    const internalType = type.replace('maglev:', '')
+    const internalType = getInternalType(type)
 
     switch (internalType) {
       case 'config':
@@ -46,4 +48,12 @@ export const start = () => {
 const triggerEvent = (type, data) => {
   const event = new CustomEvent(type, { detail: data })
   window.dispatchEvent(event)
+
+  if (PAGE_UPDATED_EVENTS.includes(getInternalType(type))) {
+    window.dispatchEvent(new CustomEvent('maglev:page-updated', { detail: { type, data } }))
+  }
+}
+
+function getInternalType(type) {
+  return type.replace('maglev:', '')
 }
