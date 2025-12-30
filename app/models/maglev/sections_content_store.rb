@@ -36,7 +36,7 @@ module Maglev
     SITE_HANDLE = '_site' # handle for the global site scoped sections
     
     ## associations ##
-    belongs_to :page, class_name: 'Maglev::Page', foreign_key: 'maglev_page_id', optional: true, inverse_of: :stores
+    belongs_to :page, class_name: 'Maglev::Page', foreign_key: 'maglev_page_id', optional: true, inverse_of: :sections_content_stores
 
     ## scopes ##
     scope :by_handles, ->(handles) { where(Maglev::SectionsContentStore.arel_table[:handle].in(handles)) }
