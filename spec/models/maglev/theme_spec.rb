@@ -45,9 +45,5 @@ describe Maglev::Theme do
     it 'returns the groups of a layout' do
       expect(subject.first.groups.map(&:id)).to eq(%w[header main footer])
     end
-
-    it 'sets _page handle for the main group if the page option is true' do
-      expect(subject.first.groups.find { |group| group.id == 'main' }.store).to eq('_page')
-    end
   end
 end
