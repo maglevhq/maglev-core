@@ -14,7 +14,7 @@ module Maglev
         OpenStruct.new(
           id: group_id.gsub('*', ''),
           label: group_id.gsub('*', '').humanize,
-          store: group_id.end_with?('*') ? 'page' : nil
+          page: group_id.end_with?('*')
         )
       end
     end
@@ -49,15 +49,13 @@ module Maglev
     def erb_template
       # rubocop:disable Layout/HeredocIndentation
       <<~ERB
-- name: <%= layout_name %>
+- label: <%= layout_name %>
   groups:
   <%- layout_groups.each do |group| -%>
   - id: <%= group.id %>
     label: "<%= group.label %>"
-    <%- if group.store -%>
-    store: <%= group.store %>
-    <%- else -%>
-    # store: <%= group.id %>
+    <%- if group.page -%>
+    page: true
     <%- end -%>
     # accept: []
     # recoverable: []

@@ -6,11 +6,12 @@ describe Maglev::RemoveSectionType do
   subject { described_class.call(site: site, type: type) }
 
   let(:site) { create(:site, locales: [{ label: 'English', prefix: 'en' }, { label: 'French', prefix: 'fr' }]) }
+  let(:site_scoped_store) { create(:sections_content_store, :site_scoped, :with_navbar) }
   let(:type) { 'hero' }
 
   describe 'when the site has sections of the specified type' do
     before do
-      site.update!(sections_translations: {
+      site_scoped_store.update!(sections_translations: {
                      en: [
                        { type: 'hero', settings: [{ value: 'Hello' }] },
                        { type: 'footer', settings: [{ value: 'Footer' }] }
@@ -28,7 +29,7 @@ describe Maglev::RemoveSectionType do
 
       # Check English locale
       Maglev::I18n.with_locale(:en) do
-        sections = site.reload.sections
+        sections = site_scoped_store.reload.sections
         expect(sections.length).to eq(1)
         expect(sections.first['type']).to eq('footer')
         expect(sections.first['settings'].first['value']).to eq('Footer')
@@ -36,7 +37,7 @@ describe Maglev::RemoveSectionType do
 
       # Check French locale
       Maglev::I18n.with_locale(:fr) do
-        sections = site.reload.sections
+        sections = site_scoped_store.reload.sections
         expect(sections.length).to eq(1)
         expect(sections.first['type']).to eq('footer')
         expect(sections.first['settings'].first['value']).to eq('Pied de page')
@@ -46,7 +47,7 @@ describe Maglev::RemoveSectionType do
 
   describe 'when the site has no sections of the specified type' do
     before do
-      site.update!(sections_translations: {
+      site_scoped_store.update!(sections_translations: {
                      en: [{ type: 'footer', settings: [{ value: 'Footer' }] }],
                      fr: [{ type: 'footer', settings: [{ value: 'Pied de page' }] }]
                    })
@@ -57,7 +58,7 @@ describe Maglev::RemoveSectionType do
 
       # Check English locale
       Maglev::I18n.with_locale(:en) do
-        sections = site.reload.sections
+        sections = site_scoped_store.reload.sections
         expect(sections.length).to eq(1)
         expect(sections.first['type']).to eq('footer')
         expect(sections.first['settings'].first['value']).to eq('Footer')
@@ -65,7 +66,7 @@ describe Maglev::RemoveSectionType do
 
       # Check French locale
       Maglev::I18n.with_locale(:fr) do
-        sections = site.reload.sections
+        sections = site_scoped_store.reload.sections
         expect(sections.length).to eq(1)
         expect(sections.first['type']).to eq('footer')
         expect(sections.first['settings'].first['value']).to eq('Pied de page')
@@ -74,19 +75,20 @@ describe Maglev::RemoveSectionType do
   end
 
   describe 'when removing all sections of a type' do
-    let!(:page) { create(:page) }
+    let(:page) { create(:page) }
+    let(:main_store) { fetch_sections_store('main', page.id) }
 
     before do
       # Set up sections for both site and page
-      site.update!(sections_translations: {
-                     en: [{ type: 'hero' }, { type: 'footer' }],
-                     fr: [{ type: 'hero' }, { type: 'footer' }]
-                   })
+      site_scoped_store.update!(sections_translations: {
+        en: [{ type: 'hero' }, { type: 'footer' }],
+        fr: [{ type: 'hero' }, { type: 'footer' }]
+      })
 
-      page.update!(sections_translations: {
-                     en: [{ type: 'hero' }, { type: 'banner' }],
-                     fr: [{ type: 'hero' }, { type: 'banner' }]
-                   })
+      main_store.update!(sections_translations: {
+        en: [{ type: 'hero' }, { type: 'banner' }],
+        fr: [{ type: 'hero' }, { type: 'banner' }]
+      })
     end
 
     it 'removes the sections from both site and pages and returns total count' do
@@ -95,12 +97,12 @@ describe Maglev::RemoveSectionType do
 
       # Check site sections
       Maglev::I18n.with_locale(:en) do
-        expect(site.reload.sections.map { |s| s['type'] }).to eq(['footer'])
+        expect(site_scoped_store.reload.sections.map { |s| s['type'] }).to eq(['footer'])
       end
 
       # Check page sections
       Maglev::I18n.with_locale(:en) do
-        expect(page.reload.sections.map { |s| s['type'] }).to eq(['banner'])
+        expect(main_store.reload.sections.map { |s| s['type'] }).to eq(['banner'])
       end
     end
   end

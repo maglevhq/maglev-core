@@ -29,19 +29,6 @@ module Maglev
     end
     # rubocop:enable Rails/OutputSafety
 
-    def render_maglev_section(type, site: nil, theme: nil, page: nil, page_sections: nil)
-      sections = (page_sections || maglev_page_sections).find_all do |section|
-        (section['type'] || section[:type]).start_with?(type.to_s)
-      end
-
-      render_maglev_sections(
-        site: site,
-        theme: theme,
-        page: page,
-        page_sections: sections
-      )
-    end
-
     def render_maglev_alternate_links(links: nil, x_default_locale: nil)
       links ||= maglev_page_fullpaths
       x_default_locale ||= maglev_site.default_locale_prefix.to_sym

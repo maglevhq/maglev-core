@@ -49,6 +49,12 @@ module Maglev
     ## translations ##
     translates :sections    
 
+    ## methods ##
+
+    def translate_in(locale, source_locale)
+      translate_attr_in(:sections, locale, source_locale)
+    end
+
     ## class methods ##
 
     def self.site_scoped(attributes = {})

@@ -3,13 +3,17 @@
 # rubocop:disable Style/ClassAndModuleChildren
 class Maglev::Theme::LayoutGroup < Maglev::Theme::BaseProperty
   ## attributes ##
-  attr_accessor :accept, :page_scoped, :recoverable, :mirror_section
+  attr_accessor :accept, :page_scoped, :recoverable, :mirror_section, :theme, :layout_id
 
   validates :id, :label, 'maglev/presence': true
 
   alias_attribute :handle, :id
 
   ## instance methods ##
+
+  def human_name
+    ::I18n.t("maglev.themes.#{theme.id}.layouts.#{layout_id}.stores.#{id}", default: label)
+  end
 
   def page_scoped?
     !!page_scoped
@@ -34,14 +38,14 @@ class Maglev::Theme::LayoutGroup < Maglev::Theme::BaseProperty
 
   ## class methods ##
 
-  def self.build(hash)
+  def self.build(hash, **args)
     attributes = prepare_attributes(hash).slice('id', 'label', 'page', 'accept', 'recoverable', 'mirror_section')
 
     attributes['accept'] ||= ['*']
     attributes['recoverable'] ||= []
     attributes['page_scoped'] = !!attributes.delete('page')
-    
-    new(attributes)
+
+    new(attributes.merge(theme: args[:theme], layout_id: args[:layout_id]))
   end
 end
 # rubocop:enable Style/ClassAndModuleChildren

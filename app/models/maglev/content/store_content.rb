@@ -14,7 +14,8 @@ module Maglev
       end
 
       def label
-        ::I18n.t("maglev.themes.#{theme.id}.layouts.#{layout_id}.stores.#{id}", default: definition.label)
+        # ::I18n.t("maglev.themes.#{theme.id}.layouts.#{layout_id}.stores.#{id}", default: definition.label)
+        definition.human_name
       end
 
       def to_param
