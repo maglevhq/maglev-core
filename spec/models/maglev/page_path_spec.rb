@@ -42,7 +42,7 @@ end
 #
 # Table name: maglev_page_paths
 #
-#  id             :bigint           not null, primary key
+#  id             :integer          not null, primary key
 #  canonical      :boolean          default(TRUE)
 #  locale         :string           not null
 #  value          :string           not null

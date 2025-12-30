@@ -14,9 +14,18 @@ RSpec.describe 'Maglev::PublishedPagePreviewController', type: :request do
   end
 
   context 'the page is published' do
+    let(:header_sections) { fetch_sections_translations('header') }
+    let(:home_page_sections) { fetch_sections_translations('main', home_page.id) }
+    
     before do
+<<<<<<< HEAD
       Maglev::PublishService.new.call(site: site, page: home_page)
       home_page.update(title: 'Home [DRAFT]')
+=======
+      # super simple publish process: just create the sections content stores
+      create(:sections_content_store, :published, handle: 'header', sections_translations: header_sections)
+      create(:sections_content_store, :published, handle: 'main', page: home_page, sections_translations: home_page_sections)
+>>>>>>> 06103aa7 (feat: minimal working version of the layout / multiple stores feature)
     end
 
     it 'renders the index page in the default locale' do
@@ -73,9 +82,9 @@ RSpec.describe 'Maglev::PublishedPagePreviewController', type: :request do
 
     context 'rendering a page from its old path' do
       before do
-        page = Maglev::Page.create(title: 'Contact us', path: 'contact')
+        page = create(:page, title: 'Contact us', path: 'contact')
         page.update!(path: 'contact-us')
-        create(:sections_content_store, container: page, sections: [], published: true)
+        create(:sections_content_store, page: page, sections: [], published: true)
       end
 
       it 'redirects to the canonical path of the page' do

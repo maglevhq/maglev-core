@@ -7,6 +7,24 @@ FactoryBot.define do
     name { 'Simple' }
     description { 'Super simple theme' }
 
+    layouts do
+      Maglev::Theme::Layout.build_many(JSON.parse([
+        {
+          label: 'Default',
+          groups: ['header', { id: 'main', page: true, accept: %w[jumbotron showcase featured_product], recoverable: %w[jumbotron] }, 'footer']
+        },
+        {
+          label: 'Sidebar',
+          groups: [
+            'header',
+            { id: 'main', page: true },
+            { label: 'Sidebar 😎', id: 'sidebar', accept: %w[sidebar_menu sidebar_ad] },
+            'footer'
+          ]
+        }
+      ].to_json))
+    end
+
     after(:build) do |theme, _evaluator|
       theme.style_settings = [
         Maglev::Theme::StyleSetting.build({
@@ -99,61 +117,81 @@ FactoryBot.define do
           {
             title: 'Home',
             path: 'index',
-            sections: [
-              {
-                type: 'navbar',
-                settings: {},
-                blocks: []
-              },
-              {
-                type: 'jumbotron',
-                settings: {
-                  "title": "Let's create the product<br/>your clients<br/>will love.",
-                  "body": '<p>NoCoffee, passionated developers,<br/>creators of web applications, mobiles apps and<br/>fancy R&D projects.</p>'
+            layout_id: 'default',
+            sections: {
+              header: [
+                {
+                  type: 'navbar',
+                  settings: {},
+                  blocks: []
                 },
-                blocks: []
-              },
-              {
-                type: 'showcase',
-                settings: {
-                  title: 'Our projects'
-                },
-                blocks: [
-                  {
-                    type: 'item',
-                    settings: {
-                      title: 'My last project'
-                    }
+              ],
+              main: [
+                {
+                  type: 'jumbotron',
+                  settings: {
+                    "title": "Let's create the product<br/>your clients<br/>will love.",
+                    "body": '<p>NoCoffee, passionated developers,<br/>creators of web applications, mobiles apps and<br/>fancy R&D projects.</p>'
                   },
-                  {
-                    type: 'item',
-                    settings: {
-                      title: 'My first project'
+                  blocks: []
+                },
+                {
+                  type: 'showcase',
+                  settings: {
+                    title: 'Our projects'
+                  },
+                  blocks: [
+                    {
+                      type: 'item',
+                      settings: {
+                        title: 'My last project'
+                      }
+                    },
+                    {
+                      type: 'item',
+                      settings: {
+                        title: 'My first project'
+                      }
                     }
-                  }
-                ]
-              }
-            ]
+                  ]
+                }
+              ]
+            }            
           }.with_indifferent_access,
           {
             title: 'About us',
             path: 'about-us',
-            sections: [
-              {
-                type: 'jumbotron',
-                settings: {
-                  "title": 'About our awesome team',
-                  "body": '<p>NoCoffee, passionated developers,<br/>creators of web applications, mobiles apps and<br/>fancy R&D projects.</p>'
-                },
-                blocks: []
-              }
-            ]
+            layout_id: 'default',
+            sections: {
+              main: [
+                {
+                  type: 'jumbotron',
+                  settings: {
+                    "title": 'About our awesome team',
+                    "body": '<p>NoCoffee, passionated developers,<br/>creators of web applications, mobiles apps and<br/>fancy R&D projects.</p>'
+                  },
+                  blocks: []
+                }
+              ]
+            }
           }.with_indifferent_access,
           {
             title: 'Empty',
-            path: 'empty'
+            path: 'empty',
+            layout_id: 'default',
           }.with_indifferent_access
         ]
+      end
+    end
+
+    trait :with_simple_layout do
+      layouts do
+        Maglev::Theme::Layout.build_many(JSON.parse([
+          {
+            label: 'Default',
+            groups: [{ id: 'main', page: true }]
+          }
+        ].to_json))
       end
     end
   end

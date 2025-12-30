@@ -1,50 +1,42 @@
-<div class="py-6">
-  <% if current_maglev_sections.any? %>
-    <%= render Maglev::Uikit::List::ListComponent.new(
-        sort_form: { 
-          path: sort_editor_sections_path(lock_version: current_maglev_page.lock_version, **maglev_editing_route_context), 
+<%= render Maglev::Uikit::List::ListComponent.new(
+    sort_form: { 
+      path: sort_editor_sections_path(store_id: sections_store, lock_version: sections_store.lock_version, **maglev_editing_route_context), 
+      data: { 
+        turbo_frame: '_top',
+        action: 'sortable:drag-stopped@window->editor-preview-notification-center#moveSection',            
+      } 
+    }) do |component| %>
+  <% component.with_item_insert_button(link: { url: new_editor_section_path(store_id: sections_store, position: 0, **maglev_editing_route_context), data: { turbo_frame: '_top' } })%>
+  
+  <% sections_store.sections.each_with_index do |section, index| %>
+    <% component.with_item_content(id: section.id, link: { url: edit_editor_section_path(section.id, maglev_editing_route_context), data: { turbo_frame: '_top' } }) do |item| %>
+      <% item.with_handle %>
+
+      <% if section.label? %>
+        <% item.with_pre_title_content(section.type_name) %>
+        <% item.with_title_content(section.label) %>
+      <% else %>
+        <% item.with_title_content(section.type_name) %>
+      <% end %>
+
+      <% item.with_action do %>
+        <%= button_to editor_section_path(section.id, maglev_editing_route_context), 
+          method: :delete, 
+          class: maglev_icon_button_classes, 
           data: { 
-            turbo_frame: '_top',
-            action: 'sortable:drag-stopped@window->editor-preview-notification-center#moveSection',            
-          } 
-        }) do |component| %>
-      <% component.with_item_insert_button(link: { url: new_editor_section_path(position: 0, **maglev_editing_route_context), data: { turbo_frame: '_top' } })%>
-      
-      <% current_maglev_sections.each_with_index do |section, index| %>
-        <% component.with_item_content(id: section.id, link: { url: edit_editor_section_path(section.id, maglev_editing_route_context), data: { turbo_frame: '_top' } }) do |item| %>
-          <% item.with_handle %>
-
-          <% if section.label? %>
-            <% item.with_pre_title_content(section.type_name) %>
-            <% item.with_title_content(section.label) %>
-          <% else %>
-            <% item.with_title_content(section.type_name) %>
-          <% end %>
-
-          <% item.with_action do %>
-            <%= button_to editor_section_path(section.id, maglev_editing_route_context), 
-              method: :delete, 
-              class: maglev_icon_button_classes, 
-              data: { 
-                turbo_confirm: t('maglev.editor.sections.index.confirm_delete')
-              }, 
-              form: { 
-                data: {
-                  action: 'turbo:submit-end->editor-preview-notification-center#deleteSection',
-                  'editor-preview-notification-center-section-id-param': section.id
-                }
-              } do %>
-              <%= render Maglev::Uikit::IconComponent.new(name: "delete_bin", size: "1.15rem") %>
-            <% end %>
-          <% end %>
+            turbo_confirm: t('maglev.editor.sections.index.confirm_delete')
+          }, 
+          form: { 
+            data: {
+              action: 'turbo:submit-end->editor-preview-notification-center#deleteSection',
+              'editor-preview-notification-center-section-id-param': section.id
+            }
+          } do %>
+          <%= render Maglev::Uikit::IconComponent.new(name: "delete_bin", size: "1.15rem") %>
         <% end %>
-        
-        <% component.with_item_insert_button(link: { url: new_editor_section_path(position: index + 1, **maglev_editing_route_context), data: { turbo_frame: '_top' } }) %> 
       <% end %>
     <% end %>
-  <% else %>
-    <p class="text-center mt-8 text-gray-800">
-      <%= t('maglev.editor.sections.index.empty') %>
-    </p>
+    
+    <% component.with_item_insert_button(link: { url: new_editor_section_path(store_id: sections_store, position: index + 1, **maglev_editing_route_context), data: { turbo_frame: '_top' } }) %> 
   <% end %>
-</div>
+<% end %>

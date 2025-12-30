@@ -9,7 +9,7 @@ module Maglev
       dependency :fetch_theme
       dependency :fetch_site
 
-      argument :page
+      argument :store
       argument :section_id
       argument :block_id
       argument :lock_version, default: nil
@@ -20,9 +20,9 @@ module Maglev
 
         ActiveRecord::Base.transaction do
           if site_scoped?
-            delete_section_block!(site)
+            delete_section_block!(site_scoped_store)
           else
-            delete_section_block!(page)
+            delete_section_block!(store)
           end
         end
       end

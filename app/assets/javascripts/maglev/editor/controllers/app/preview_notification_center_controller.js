@@ -53,10 +53,12 @@ export default class extends Controller {
   // === SECTIONS ===
 
   addSection(event) {
-    console.log('addSection', event.detail.fetchResponse.response.headers.get('X-Section-Id'), event.detail.fetchResponse.response.headers.get('X-Section-Position'))
-    const sectionId = event.detail.fetchResponse.response.headers.get('X-Section-Id')
-    const position = event.detail.fetchResponse.response.headers.get('X-Section-Position')
-    this.postMessage('section:add', { sectionId, insertAt: parseInt(position) })
+    const headers = event.detail.fetchResponse.response.headers
+    const layoutStoreId = headers.get('X-Layout-Store-Id')
+    const sectionId = headers.get('X-Section-Id')
+    const position = headers.get('X-Section-Position')
+    console.log('addSection', layoutStoreId, sectionId, position)
+    this.postMessage('section:add', { layoutStoreId, sectionId, insertAt: parseInt(position) })
   }
 
   deleteSection(event) {

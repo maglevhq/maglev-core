@@ -34,8 +34,8 @@ export const start = () => {
 // === Section related actions ===
 
 const addSection = (event) => {
-  const { sectionId, insertAt } = event.detail
-  debouncedUpdatePreviewDocument({ sectionId, insertAt, scrollToSection: true })
+  const { layoutStoreId, sectionId, insertAt } = event.detail
+  debouncedUpdatePreviewDocument({ layoutStoreId, sectionId, insertAt, scrollToSection: true })
 }
 
 const moveSections = (event) => {
@@ -160,25 +160,6 @@ const updateStyle = async (event) => {
 
 // === Helpers ===
 
-// const legacyUpdateSetting = (source, change) => {
-//   switch (change.settingType) {
-//     case 'text':
-//       return updateTextSetting(source.id, change)
-//     case 'link':
-//       if (change.settingOptions.withText && change.value)
-//         return updateTextSetting(source.id, {
-//           ...change,
-//           value: change.value.text,
-//           settingId: `${change.settingId}.text`,
-//         })
-//       break
-//     default:
-//       // ok, we can't cherry-pick the modification so we have to refresh the whole section
-//       break
-//   }
-//   return false
-// }
-
 const updateTextSetting = (sourceId, change) => {
   console.log('[DOM Operations] updateTextSetting', sourceId, change)
   const selector = `[data-maglev-id='${sourceId}.${change.settingId}']`
@@ -191,8 +172,8 @@ const updateLinkSetting = (sourceId, change) => {
   console.log('updateLinkSetting', sourceId, change)
 }
 
-const updatePreviewDocument = async ({ sectionId, insertAt = undefined, scrollToSection = false }) => {
-  console.log('[DOM Operations] updatePreviewDocument', sectionId, insertAt, scrollToSection)
+const updatePreviewDocument = async ({ layoutStoreId, sectionId, insertAt = undefined, scrollToSection = false }) => {
+  console.log('[DOM Operations] updatePreviewDocument', layoutStoreId, sectionId, insertAt, scrollToSection)
 
   const doc = await getUpdatedDoc({ section_id: sectionId })
 
@@ -211,7 +192,7 @@ const updatePreviewDocument = async ({ sectionId, insertAt = undefined, scrollTo
   if (targetElement) {
     targetElement.replaceWith(sourceElement)
   } else {
-    insertSectionInDOM(sourceElement, insertAt)
+    insertSectionInDOM(sourceElement, layoutStoreId, insertAt)
     targetElement = previewDocument.querySelector(selector)
   }
 
@@ -223,11 +204,12 @@ const updatePreviewDocument = async ({ sectionId, insertAt = undefined, scrollTo
 
 const debouncedUpdatePreviewDocument = debounce(updatePreviewDocument, 150)
 
-const insertSectionInDOM = (element, insertAt) => {
+const insertSectionInDOM = (element, layoutStoreId, insertAt) => {
+  const dropzoneSelector = `[data-maglev-${layoutStoreId}-dropzone]`
   switch (insertAt) {
     case 'top':
     case 0: {
-      const parentNode = previewDocument.querySelector('[data-maglev-dropzone]')
+      const parentNode = previewDocument.querySelector(dropzoneSelector)
       parentNode.prepend(element)
       break
     }
@@ -236,12 +218,12 @@ const insertSectionInDOM = (element, insertAt) => {
     case undefined:
     case null:
     case '': {      
-      const parentNode = previewDocument.querySelector('[data-maglev-dropzone]')
+      const parentNode = previewDocument.querySelector(dropzoneSelector)
       parentNode.appendChild(element)
       break
     }
     default: {
-      const selector = `[data-maglev-dropzone] > [data-maglev-section-id]:nth-child(${insertAt})`
+      const selector = `${dropzoneSelector} > [data-maglev-section-id]:nth-child(${insertAt})`
       const pivotElement = previewDocument.querySelector(selector)
       pivotElement.parentNode.insertBefore(element, pivotElement.nextSibling)
     }
