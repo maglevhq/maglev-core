@@ -104,7 +104,7 @@ module Maglev
 
     class Store
       extend Forwardable
-      def_delegators :@array, :all, :first, :last, :count, :each, :each_with_index, :map, :group_by
+      def_delegators :@array, :all, :first, :last, :count, :each, :each_with_index, :map, :group_by, :select
 
       attr_reader :array
 
@@ -120,18 +120,13 @@ module Maglev
         @array.select { |section| section.id == type }
       end
 
-      def grouped_by_category
+      def group_by_category
         @array.group_by(&:category)
       end
 
-      def available_for(sections_content)
-        # we don't want to add site_scoped sections or singleton sections that are already present on the page
-        new_array = @array.reject do |section|
-          (section.site_scoped? || section.singleton?) && sections_content.any? do |section_content|
-            section_content.type == section.id
-          end
-        end
-        self.class.new(new_array)
+      def available_for(store_content)
+        # we don't want to add site_scoped sections or singleton sections that are already present in the store
+        self.class.new(store_content.addable_sections)
       end
 
       def as_json(**_options)

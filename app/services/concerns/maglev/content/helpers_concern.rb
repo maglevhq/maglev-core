@@ -13,22 +13,33 @@ module Maglev
         @site ||= fetch_site.call
       end
 
+      def site_scoped_store
+        @site_scoped_store ||= scoped_stores.site_scoped.tap do |store|
+          # safely initialize the sections array in the current Maglev locale (Maglev::I18n.current_locale)
+          store.sections ||= []
+        end
+      end
+
+      def scoped_stores
+        ::Maglev::SectionsContentStore
+      end
+
       def site_scoped?
         section_definition.site_scoped?
       end
 
       def section_definition
-        # by default, use the page to find the section definition since every site scoped section is also in the page
+        # by default, use the store to find the section definition since every site scoped section is also in the store
         @section_definition ||= theme.sections.find(
           find_section&.fetch('type', nil)
         )
       end
 
       def block_definition
-        @block_definition ||= site_scoped? ? find_block_definition(site) : find_block_definition(page)
+        @block_definition ||= site_scoped? ? find_block_definition(site) : find_block_definition(store)
       end
 
-      def find_section(source = page)
+      def find_section(source = store)
         source.find_section_by_id(section_id)
       end
 
@@ -52,7 +63,7 @@ module Maglev
         find_block(source)['settings']
       end
 
-      def find_block_definition(source = page)
+      def find_block_definition(source = store)
         section_definition.blocks.find(find_block(source)&.fetch('type', nil))
       end
 
@@ -69,10 +80,20 @@ module Maglev
 
       def check_section_lock_version!(source)
         check_lock_version!(source, find_section(source), 'update_section')
+
+        return if store == source
+
+        # if the store is not the same as the source (ie: site_scoped_store), we need to refresh the lock version of the section in the store
+        find_section(store)['lock_version'] = find_section(source)['lock_version']
       end
 
       def check_block_lock_version!(source)
         check_lock_version!(source, find_block(source), 'update_block')
+        
+        return if store != source
+
+        # if the store is not the same as the source (ie: site_scoped_store), we need to refresh the lock version of the block in the store
+        find_block(store)['lock_version'] = find_block(source)['lock_version']
       end
 
       def check_lock_version!(source, section_or_block, action_name)
