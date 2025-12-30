@@ -18,7 +18,6 @@ module Maglev
   class Site < ApplicationRecord
     ## concerns ##
     include Maglev::Site::LocalesConcern
-    include Maglev::SectionsConcern
     include Maglev::Translatable
 
     ## force JSON columns for MariaDB ##
