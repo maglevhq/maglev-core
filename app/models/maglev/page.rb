@@ -4,12 +4,12 @@
 #
 # Table name: maglev_pages
 #
-#  id                            :integer          not null, primary key
+#  id                            :bigint           not null, primary key
 #  lock_version                  :integer
-#  meta_description_translations :json
-#  og_description_translations   :json
-#  og_image_url_translations     :json
-#  og_title_translations         :json
+#  meta_description_translations :jsonb
+#  og_description_translations   :jsonb
+#  og_image_url_translations     :jsonb
+#  og_title_translations         :jsonb
 #  published_at                  :datetime
 #  published_payload             :jsonb
 #  sections_translations         :jsonb

@@ -4,13 +4,13 @@
 #
 # Table name: maglev_sites
 #
-#  id                    :integer          not null, primary key
-#  locales               :json
+#  id                    :bigint           not null, primary key
+#  locales               :jsonb
 #  lock_version          :integer
 #  name                  :string
 #  published_at          :datetime
-#  sections_translations :json
-#  style                 :json
+#  sections_translations :jsonb
+#  style                 :jsonb
 #  created_at            :datetime         not null
 #  updated_at            :datetime         not null
 #
