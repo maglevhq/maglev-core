@@ -19,7 +19,7 @@ module Maglev
 
       def create
         services.add_section_block.call(
-          page: current_maglev_page,
+          store: sections_store,
           section_id: @section.id,
           block_type: params[:block_type],
           parent_id: params[:parent_id],
@@ -33,11 +33,20 @@ module Maglev
       def update
         update_section_block
         flash.now[:notice] = flash_t(:success)
+      end      
+
+      def destroy
+        services.delete_section_block.call(
+          store: sections_store,
+          section_id: params[:section_id],
+          block_id: params[:id]
+        )
+        redirect_to_section_blocks_path
       end
 
       def sort
         services.sort_section_blocks.call(
-          page: current_maglev_page,
+          store: sections_store,
           section_id: @section.id,
           block_ids: params[:item_ids],
           parent_id: params[:parent_id],
@@ -46,19 +55,10 @@ module Maglev
         redirect_to_section_blocks_path
       end
 
-      def destroy
-        services.delete_section_block.call(
-          page: current_maglev_page,
-          section_id: params[:section_id],
-          block_id: params[:id]
-        )
-        redirect_to_section_blocks_path
-      end
-
       private
 
       def set_section
-        @section = current_maglev_sections.find { |section| section.id == params[:section_id] }
+        @section = current_maglev_page_content.find_section(params[:section_id])
         redirect_to editor_sections_path_with_context unless @section
       end
 
@@ -67,9 +67,13 @@ module Maglev
         redirect_to editor_sections_path_with_context unless @section_block
       end
 
+      def sections_store
+        @sections_store ||= services.fetch_sections_store.call(page: current_maglev_page, handle: @section.store_handle)
+      end
+
       def update_section_block
         services.update_section_block.call(
-          page: current_maglev_page,
+          store: sections_store,
           section_id: @section.id,
           block_id: @section_block.id,
           content: params[:section_block].to_unsafe_h,
@@ -77,12 +81,8 @@ module Maglev
         )
       end
 
-      def lock_source
-        @section.site_scoped? ? maglev_site : current_maglev_page
-      end
-
       def source_lock_version
-        lock_source.lock_version || 0
+        sections_store.lock_version || 0
       end
 
       def redirect_to_section_blocks_path(success: true)
@@ -93,12 +93,12 @@ module Maglev
                 end
 
         path = editor_section_blocks_path(@section.id, **maglev_editing_route_context)
-
+        
         redirect_to path, status: :see_other, **flash
       end
 
-      def editor_sections_path_with_context
-        editor_sections_path(maglev_editing_route_context)
+      def editor_sections_stores_path_with_context
+        editor_sections_stores_path(maglev_editing_route_context)
       end
     end
   end

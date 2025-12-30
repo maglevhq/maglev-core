@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe Maglev::SetupPages do
+describe Maglev::SetupPages, type: :service do
   subject { service.call(site: site, theme: theme) }
 
   let(:service) { described_class.new }
@@ -22,12 +22,19 @@ describe Maglev::SetupPages do
     it 'creates the pages in DB' do
       expect { subject }.to change(Maglev::Page, :count).by(3)
       expect(subject.map(&:title)).to eq ['Home', 'About us', 'Empty']
-      expect(subject[0].sections.map { |section| section['type'] }).to eq(%w[navbar jumbotron showcase])
+      # expect(subject[0].sections.map { |section| section['type'] }).to eq(%w[navbar jumbotron showcase])
     end
 
-    it 'persist the content of the site scoped sections' do
-      subject
-      expect(site.reload.sections.size).to eq(1)
+    # it 'persist the content of the site scoped sections' do
+    #   subject
+    #   expect(site.reload.sections.size).to eq(1)
+    # end
+
+    it 'creates the sections content stores' do
+      expect { subject }.to change(Maglev::SectionsContentStore, :count).by(5)
+      expect(section_types('header')).to eq ['navbar']
+      expect(section_types('footer')).to eq []
+      expect(section_types('main', Maglev::Page.home.first.id)).to eq %w[jumbotron showcase]
     end
   end
 end

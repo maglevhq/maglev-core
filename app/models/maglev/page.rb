@@ -4,12 +4,12 @@
 #
 # Table name: maglev_pages
 #
-#  id                            :bigint           not null, primary key
+#  id                            :integer          not null, primary key
 #  lock_version                  :integer
-#  meta_description_translations :jsonb
-#  og_description_translations   :jsonb
-#  og_image_url_translations     :jsonb
-#  og_title_translations         :jsonb
+#  meta_description_translations :json
+#  og_description_translations   :json
+#  og_image_url_translations     :json
+#  og_title_translations         :json
 #  published_at                  :datetime
 #  published_payload             :jsonb
 #  sections_translations         :jsonb
@@ -18,6 +18,11 @@
 #  visible                       :boolean          default(TRUE)
 #  created_at                    :datetime         not null
 #  updated_at                    :datetime         not null
+#  layout_id                     :string
+#
+# Indexes
+#
+#  index_maglev_pages_on_layout_id  (layout_id)
 #
 module Maglev
   class Page < ApplicationRecord
@@ -29,7 +34,11 @@ module Maglev
     include Maglev::Page::PublishableConcern
 
     ## associations ##
-    has_many :sections_content_stores, as: :container, dependent: :destroy
+    # has_many :sections_content_stores, as: :container, dependent: :destroy
+    has_many :stores, class_name: 'Maglev::SectionsContentStore',
+                      foreign_key: 'maglev_page_id', # required by Rails 7.0
+                      dependent: :destroy,
+                      inverse_of: :page
 
     ## translations ##
     translates :title, presence: true

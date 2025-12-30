@@ -6,7 +6,7 @@ module Maglev
       include ActiveModel::Model
       include Maglev::Content::EnhancedValueConcern
 
-      attr_accessor :id, :type, :settings, :blocks, :definition, :theme_id, :lock_version
+      attr_accessor :id, :type, :settings, :blocks, :definition, :theme_id, :store_handle, :lock_version
 
       def persisted?
         true
@@ -62,19 +62,20 @@ module Maglev
         )
       end
 
-      def self.build_many(theme:, content:)
+      def self.build_many(theme:, store_handle:, content:)
         content.map do |raw_section_content|
-          build(theme: theme, raw_section_content: raw_section_content)
+          build(theme: theme, store_handle: store_handle, raw_section_content: raw_section_content)
         end
       end
 
-      def self.build(theme:, raw_section_content:)
+      def self.build(theme:, store_handle:, raw_section_content:)
         new(
           id: raw_section_content['id'],
           definition: theme.sections.find(raw_section_content['type']),
           type: raw_section_content['type'],
           settings: Maglev::Content::SettingContent::AssociationProxy.new(raw_section_content['settings']),
           theme_id: theme.id,
+          store_handle: store_handle,
           lock_version: raw_section_content['lock_version']
         ).tap do |section_content|
           section_content.build_blocks(raw_section_content)
