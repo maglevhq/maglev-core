@@ -44,8 +44,11 @@ module Maglev
     def add_sections(page, page_attributes)
       fetch_layout(page.layout_id).groups.each do |group|
         store = find_store(page, group)
-       
-        value_in_all_locales(page_attributes.dig(:sections, group.id)).each do |locale, section_attributes|
+        sections_attributes = page_attributes.dig(:sections, group.id)
+
+        next if sections_attributes.blank?
+        
+        value_in_all_locales(sections_attributes).each do |locale, section_attributes|
           next if section_attributes.blank?
 
           Maglev::I18n.with_locale(locale) do

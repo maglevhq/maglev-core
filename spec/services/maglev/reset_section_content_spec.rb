@@ -6,12 +6,13 @@ describe Maglev::ResetSectionContent do
   subject { described_class.call(site: site, theme: theme, type: type) }
 
   let(:site) { create(:site, locales: [{ label: 'English', prefix: 'en' }, { label: 'French', prefix: 'fr' }]) }
+  let(:site_scoped_store) { create(:sections_content_store, :site_scoped, :with_navbar) }
   let(:theme) { build(:theme) }
   let(:type) { 'jumbotron' }
 
   describe 'when the site has sections of the specified type' do
     before do
-      site.update!(sections_translations: {
+      site_scoped_store.update!(sections_translations: {
                      en: [{ type: 'jumbotron', settings: [{ id: 'title', value: 'Hello' }] }],
                      fr: [{ type: 'jumbotron', settings: [{ id: 'title', value: 'Bonjour' }] }]
                    })
@@ -23,21 +24,21 @@ describe Maglev::ResetSectionContent do
 
       # Check English locale
       Maglev::I18n.with_locale(:en) do
-        expect(site.reload.sections.first['type']).to eq('jumbotron')
-        expect(site.sections.first['settings'].first['value']).to eq('Title')
+        expect(site_scoped_store.reload.sections.first['type']).to eq('jumbotron')
+        expect(site_scoped_store.sections.first['settings'].first['value']).to eq('Title')
       end
 
       # Check French locale
       Maglev::I18n.with_locale(:fr) do
-        expect(site.reload.sections.first['type']).to eq('jumbotron')
-        expect(site.sections.first['settings'].first['value']).to eq('Title')
+        expect(site_scoped_store.reload.sections.first['type']).to eq('jumbotron')
+        expect(site_scoped_store.sections.first['settings'].first['value']).to eq('Title')
       end
     end
   end
 
   describe 'when the site has no sections of the specified type' do
     before do
-      site.update!(sections_translations: {
+      site_scoped_store.update!(sections_translations: {
                      en: [{ type: 'footer', settings: [{ value: 'Footer' }] }],
                      fr: [{ type: 'footer', settings: [{ value: 'Pied de page' }] }]
                    })
@@ -48,7 +49,7 @@ describe Maglev::ResetSectionContent do
 
       # Check English locale
       Maglev::I18n.with_locale(:en) do
-        sections = site.reload.sections
+        sections = site_scoped_store.reload.sections
         expect(sections.length).to eq(1)
         expect(sections.first['type']).to eq('footer')
         expect(sections.first['settings'].first['value']).to eq('Footer')
@@ -56,7 +57,7 @@ describe Maglev::ResetSectionContent do
 
       # Check French locale
       Maglev::I18n.with_locale(:fr) do
-        sections = site.reload.sections
+        sections = site_scoped_store.reload.sections
         expect(sections.length).to eq(1)
         expect(sections.first['type']).to eq('footer')
         expect(sections.first['settings'].first['value']).to eq('Pied de page')
@@ -76,16 +77,17 @@ describe Maglev::ResetSectionContent do
   end
 
   describe 'when resetting sections across site and pages' do
-    let!(:page) { create(:page) }
+    let(:page) { create(:page) }
+    let(:main_store) { fetch_sections_store('main', page.id) }
 
     before do
       # Set up sections for both site and page
-      site.update!(sections_translations: {
+      site_scoped_store.update!(sections_translations: {
                      en: [{ type: 'jumbotron', settings: [{ id: 'title', value: 'Site Hero' }] }, { type: 'footer' }],
                      fr: [{ type: 'jumbotron', settings: [{ id: 'title', value: 'Site Hero FR' }] }, { type: 'footer' }]
                    })
 
-      page.update!(sections_translations: {
+      main_store.update!(sections_translations: {
                      en: [{ type: 'jumbotron', settings: [{ id: 'title', value: 'Page Hero' }] },
                           { type: 'navigation' }],
                      fr: [{ type: 'jumbotron', settings: [{ id: 'title', value: 'Page Hero FR' }] },
@@ -99,14 +101,14 @@ describe Maglev::ResetSectionContent do
 
       # Check site sections
       Maglev::I18n.with_locale(:en) do
-        sections = site.reload.sections
+        sections = site_scoped_store.reload.sections
         expect(sections.map { |s| s['type'] }).to eq(%w[jumbotron footer])
         expect(sections.find { |s| s['type'] == 'jumbotron' }['settings'].first['value']).to eq('Title')
       end
 
       # Check page sections
       Maglev::I18n.with_locale(:en) do
-        sections = page.reload.sections
+        sections = main_store.reload.sections
         expect(sections.map { |s| s['type'] }).to eq(%w[jumbotron navigation])
         expect(sections.find { |s| s['type'] == 'jumbotron' }['settings'].first['value']).to eq('Title')
       end
@@ -115,7 +117,7 @@ describe Maglev::ResetSectionContent do
 
   describe 'when sections are blank' do
     before do
-      site.update!(sections_translations: {
+      site_scoped_store.update!(sections_translations: {
                      en: [],
                      fr: []
                    })
@@ -125,11 +127,11 @@ describe Maglev::ResetSectionContent do
       expect(subject).to eq(0)
 
       Maglev::I18n.with_locale(:en) do
-        expect(site.reload.sections).to be_empty
+        expect(site_scoped_store.reload.sections).to be_empty
       end
 
       Maglev::I18n.with_locale(:fr) do
-        expect(site.reload.sections).to be_empty
+        expect(site_scoped_store.reload.sections).to be_empty
       end
     end
   end

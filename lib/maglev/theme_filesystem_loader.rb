@@ -9,10 +9,10 @@ module Maglev
     end
 
     def call(path)
-      theme = add(YAML.safe_load(File.read(path.join('theme.yml')), aliases: true))
-      sections = load_sections(theme, Pathname.new(path).join('sections/**/*.yml'))
-      detect_duplicate_sections(sections)
-      theme.sections = Maglev::Section::Store.new(sections)
+      raw_attributes = YAML.safe_load(File.read(path.join('theme.yml')), aliases: true) 
+      theme = build_theme(raw_attributes)
+      theme.sections = load_sections(theme, Pathname.new(path).join('sections/**/*.yml'))
+      theme.layouts = load_layouts(theme, raw_attributes['layouts'])
       theme
     rescue Errno::ENOENT
       log_missing_theme_file(path)
@@ -20,11 +20,11 @@ module Maglev
 
     private
 
-    def add(hash)
+    def build_theme(hash)
       attributes = hash.merge(
         section_categories: Maglev::Theme::SectionCategory.build_many(hash['section_categories']),
         style_settings: Maglev::Theme::StyleSetting.build_many(hash['style_settings']),
-        layouts: Maglev::Theme::Layout.build_many(hash['layouts']),
+        layouts: [],
         sections: []
       )
 
@@ -33,7 +33,19 @@ module Maglev
       end
     end
 
+    def load_layouts(theme, layouts_attributes)
+      Maglev::Theme::Layout.build_many(layouts_attributes, theme: theme)
+    end
+
     def load_sections(theme, source_path)
+      Maglev::Section::Store.new(
+        load_sections_without_verification(theme, source_path).tap do |sections|
+          detect_duplicate_sections(sections)
+        end
+      )
+    end
+
+    def load_sections_without_verification(theme, source_path)
       Dir.glob(source_path).map do |path|
         section_id = File.basename(path, '.yml')
         attributes = YAML.safe_load(File.read(path)).with_indifferent_access

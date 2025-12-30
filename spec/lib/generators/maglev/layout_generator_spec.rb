@@ -51,12 +51,12 @@ describe Maglev::LayoutGenerator, type: :generator do
   it 'updates theme.yml with the new layout' do
     assert_file 'app/theme/theme.yml' do |content|
       # Check if the new layout is added after the default layout
-      assert_match(/name: default.*name: two_column/m, content)
+      assert_match(/label: default.*label: two_column/m, content)
       # Check if all groups are present
       assert_match(/- id: header/, content)
       assert_match(/- id: main$/, content)
       assert_match(/- id: sidebar/, content)
-      assert_match(/store: page$/, content)
+      assert_match(/page: true$/, content)
     end
   end
 
@@ -67,7 +67,7 @@ describe Maglev::LayoutGenerator, type: :generator do
 
     it 'does not duplicate the layout in theme.yml' do
       content = File.read(File.join(destination_root, 'app/theme/theme.yml'))
-      layout_count = content.scan(/name: two_column/).count
+      layout_count = content.scan(/label: two_column/).count
       expect(layout_count).to eq(1)
     end
   end

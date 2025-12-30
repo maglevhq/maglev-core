@@ -3,7 +3,7 @@
 # rubocop:disable Style/ClassAndModuleChildren
 class Maglev::Theme::Layout < Maglev::Theme::BaseProperty
   ## attributes ##
-  attr_accessor :groups
+  attr_accessor :theme, :groups
 
   validates :id, :label, 'maglev/presence': true
 
@@ -17,12 +17,16 @@ class Maglev::Theme::Layout < Maglev::Theme::BaseProperty
 
   ## class methods ##  
 
-  def self.build(hash)
-    attributes = prepare_attributes(hash).slice('id', 'label', 'groups')
+  def self.build(hash, **args)
+    attributes = prepare_attributes(hash).slice('id', 'label')
 
-    attributes['groups'] = Maglev::Theme::LayoutGroup.build_many(attributes['groups'])
-
-    new(attributes)
+    new(attributes).tap do |layout|
+      layout.groups = Maglev::Theme::LayoutGroup.build_many(
+        hash['groups'] || [],
+        theme: args[:theme],
+        layout_id: layout.id
+      )
+    end
   end
 end
 # rubocop:enable Style/ClassAndModuleChildren

@@ -6,6 +6,7 @@ describe Maglev::RenameSectionType do
   subject { described_class.call(site: site, theme: theme, old_type: old_type, new_type: new_type) }
 
   let(:site) { create(:site, locales: [{ label: 'English', prefix: 'en' }, { label: 'French', prefix: 'fr' }]) }
+  let(:site_scoped_store) { create(:sections_content_store, :site_scoped, :with_navbar) }
   let(:theme) { build(:theme) }
   let(:old_type) { 'hero' }
   let(:new_type) { 'banner' }
@@ -18,7 +19,7 @@ describe Maglev::RenameSectionType do
 
   describe 'when the site has sections of the specified type' do
     before do
-      site.update!(sections_translations: {
+      site_scoped_store.update!(sections_translations: {
                      en: [{ type: 'hero', settings: [{ value: 'Hello' }] }],
                      fr: [{ type: 'hero', settings: [{ value: 'Bonjour' }] }]
                    })
@@ -29,21 +30,21 @@ describe Maglev::RenameSectionType do
 
       # Check English locale
       Maglev::I18n.with_locale(:en) do
-        expect(site.reload.sections.first['type']).to eq('banner')
-        expect(site.sections.first['settings'].first['value']).to eq('Hello')
+        expect(site_scoped_store.reload.sections.first['type']).to eq('banner')
+        expect(site_scoped_store.sections.first['settings'].first['value']).to eq('Hello')
       end
 
       # Check French locale
       Maglev::I18n.with_locale(:fr) do
-        expect(site.reload.sections.first['type']).to eq('banner')
-        expect(site.sections.first['settings'].first['value']).to eq('Bonjour')
+        expect(site_scoped_store.reload.sections.first['type']).to eq('banner')
+        expect(site_scoped_store.sections.first['settings'].first['value']).to eq('Bonjour')
       end
     end
   end
 
   describe 'when the site has no sections of the specified type' do
     before do
-      site.update!(sections_translations: {
+      site_scoped_store.update!(sections_translations: {
                      en: [{ type: 'footer' }],
                      fr: [{ type: 'footer' }]
                    })
@@ -54,12 +55,12 @@ describe Maglev::RenameSectionType do
 
       # Check English locale
       Maglev::I18n.with_locale(:en) do
-        expect(site.reload.sections.first['type']).to eq('footer')
+        expect(site_scoped_store.reload.sections.first['type']).to eq('footer')
       end
 
       # Check French locale
       Maglev::I18n.with_locale(:fr) do
-        expect(site.reload.sections.first['type']).to eq('footer')
+        expect(site_scoped_store.reload.sections.first['type']).to eq('footer')
       end
     end
   end
@@ -80,19 +81,20 @@ describe Maglev::RenameSectionType do
   end
 
   describe 'when renaming sections across site and pages' do
-    let!(:page) { create(:page) }
+    let(:page) { create(:page) }
+    let(:main_store) { fetch_sections_store('main', page.id) }
 
     before do
       # Set up sections for both site and page
-      site.update!(sections_translations: {
+      site_scoped_store.update!(sections_translations: {
                      en: [{ type: 'hero' }, { type: 'footer' }],
                      fr: [{ type: 'hero' }, { type: 'footer' }]
                    })
 
-      page.update!(sections_translations: {
-                     en: [{ type: 'hero' }, { type: 'navigation' }],
-                     fr: [{ type: 'hero' }, { type: 'navigation' }]
-                   })
+      main_store.update!(sections_translations: {
+        en: [{ type: 'hero' }, { type: 'navigation' }],
+        fr: [{ type: 'hero' }, { type: 'navigation' }]
+      })
     end
 
     it 'renames the sections in both site and pages' do
@@ -100,12 +102,12 @@ describe Maglev::RenameSectionType do
 
       # Check site sections
       Maglev::I18n.with_locale(:en) do
-        expect(site.reload.sections.map { |s| s['type'] }).to eq(%w[banner footer])
+        expect(site_scoped_store.reload.sections.map { |s| s['type'] }).to eq(%w[banner footer])
       end
 
       # Check page sections
       Maglev::I18n.with_locale(:en) do
-        expect(page.reload.sections.map { |s| s['type'] }).to eq(%w[banner navigation])
+        expect(main_store.reload.sections.map { |s| s['type'] }).to eq(%w[banner navigation])
       end
     end
   end
