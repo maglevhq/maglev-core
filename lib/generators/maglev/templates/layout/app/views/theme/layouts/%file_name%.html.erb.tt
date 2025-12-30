@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%%= maglev_page.seo_title.presence || maglev_site.name %></title>
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+
+    <meta name="description" content="<%%= maglev_page.meta_description %>" />
+    <meta property="og:title" content="<%%= maglev_page.og_title %>" />
+    <meta property="og:description" content="<%%= maglev_page.og_description %>" />
+    <meta property="og:image" content="<%%= maglev_page.og_image_url %>" />
+
+    <%%= render_maglev_alternate_links %>
+
+    <%%= maglev_live_preview_client_javascript_tag %>
+
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
+  </head>
+
+  <body class="min-h-screen bg-gray-50">
+    <div class="mx-auto max-w-7xl">
+      <%- layout_groups.each do |group| %>
+      <div data-maglev-<%= group.id %>-dropzone>
+        <%%= render_maglev_group :<%= group.id -%> %>
+      </div>
+      <%- end %>
+    </div>
+  </body>
+</html>

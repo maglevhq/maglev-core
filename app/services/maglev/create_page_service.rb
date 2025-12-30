@@ -11,6 +11,7 @@ module Maglev
 
     def call
       page = translate(build_page)
+      page.layout_id ||= attributes[:layout_id]
       page.save
       page
     end

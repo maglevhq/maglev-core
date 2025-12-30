@@ -1,27 +1,10 @@
-<%= turbo_frame_tag 'modal' do %>
-  <%= render Maglev::Uikit::ModalComponent.new(id: 'new-section-modal', open: true) do |modal| %>    
-    <% modal.with_title_content t('maglev.editor.sections.new.title') %>
-    <% modal.with_notification_content maglev_flash_message %>
-
-    <div class="flex h-[calc(100dvh-16rem)] min-h-0 w-[calc(100dvw-4rem)] flex-col gap-2 lg:w-3xl xl:w-5xl">
-      <%= render 'maglev/editor/sections/theme/search' %>
-      
-      <% if @theme_sections.any? %>
-        <%= render 'maglev/editor/sections/theme/list' %>
-      <% else %>
-        <%= render 'maglev/editor/sections/theme/empty_list' %>
-      <% end %>
-    </div>
-  <% end %>
-<% end %>
-
 <%= render Maglev::Uikit::PageLayoutComponent.new(expanded: true, back_path: editor_real_root_path(maglev_editing_route_context)) do |page_layout| %>
   <% page_layout.with_title_content t('maglev.editor.sections.new.title') %>
   <% page_layout.with_notification_content maglev_flash_message %>
 
-  <% page_layout.with_back_link(path: editor_sections_path(maglev_editing_route_context)).with_content(t('maglev.editor.sections.breadcrumb')) %>
+  <% page_layout.with_back_link(path: editor_sections_stores_path(maglev_editing_route_context)).with_content(t('maglev.editor.sections.breadcrumbs.sections')) %>
 
-  <%= form_with url: editor_sections_path(maglev_editing_route_context), data: { 
+  <%= form_with url: editor_sections_path(store_id: @sections_store_content, **maglev_editing_route_context), data: { 
       turbo_frame: '_top',
       controller: 'auto-save dispatcher',
       action: %(
@@ -34,4 +17,4 @@
 
     <%= render 'theme_list', f: f %>
   <% end %>
-<% end if false %>
+<% end %>

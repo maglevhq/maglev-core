@@ -1,0 +1,21 @@
+<%= render Maglev::Uikit::PageLayoutComponent.new(expanded: true, back_path: editor_real_root_path(maglev_editing_route_context)) do |page_layout| %>
+  <% page_layout.with_title_content t('maglev.editor.sections.index.title') %>
+  <% page_layout.with_description_content t('maglev.editor.sections.index.sub_title') %>
+  <% page_layout.with_notification_content maglev_flash_message %>
+
+  <% if @sections_stores.one? %>
+    <div class="py-6">
+      <%= render 'maglev/editor/sections/list', sections_store: @sections_stores.first %>
+    </div>
+  <% else %>
+    <div class="divide-y divide-gray-200">
+      <%= render partial: 'maglev/editor/sections_stores/sections_store', collection: @sections_stores, as: :sections_store %>
+    </div>
+  <% end %>
+
+  <% page_layout.with_footer do %>
+    <% if @sections_stores.one? %>
+      <%= link_to t('maglev.editor.sections.index.add_button'), new_editor_section_path(store_id: @sections_stores.first, **maglev_editing_route_context), class: maglev_button_classes(size: :big), data: { turbo_frame: '_top' } %>
+    <% end %>
+  <% end %>
+<% end %>

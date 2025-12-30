@@ -1,28 +1,19 @@
 # frozen_string_literal: true
 
 # rubocop:disable Style/ClassAndModuleChildren
-class Maglev::Theme::SectionCategory
-  ## concerns ##
-  include ActiveModel::Model
-
-  ## attributes ##
-  attr_accessor :name, :id, :theme
-
+class Maglev::Theme::SectionCategory < Maglev::Theme::BaseProperty
   ## methods ##
   def human_name
-    I18n.t("maglev.themes.#{theme.id}.categories.#{id}.name", default: name.humanize)
+    I18n.t("maglev.themes.#{theme.id}.categories.#{id}.name", default: label.humanize)
   end
 
   ## class methods ##
 
   def self.build(hash)
-    attributes = hash.slice('name', 'id')
-    attributes['id'] ||= attributes['name'].parameterize(separator: '_')
-    new(attributes)
-  end
+    # keep compatibility with the previous versions of Maglev
+    hash['label'] = hash['name'] if hash.respond_to?(:keys)
 
-  def self.build_many(list)
-    (list || []).map { |hash| build(hash) }
+    new(prepare_attributes(hash).slice('id', 'label'))
   end
 end
 # rubocop:enable Style/ClassAndModuleChildren

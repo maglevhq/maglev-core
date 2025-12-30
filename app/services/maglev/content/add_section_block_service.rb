@@ -9,7 +9,7 @@ module Maglev
       dependency :fetch_theme
       dependency :fetch_site
 
-      argument :page
+      argument :store
       argument :section_id
       argument :block_type
       argument :parent_id, default: nil
@@ -22,9 +22,9 @@ module Maglev
 
         ActiveRecord::Base.transaction do
           if section_definition.site_scoped?
-            add_to_section!(site, block_content)
+            add_to_section!(site_scoped_store, block_content)
           else
-            add_to_section!(page, block_content)
+            add_to_section!(store, block_content)
           end
         end
 

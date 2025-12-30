@@ -9,7 +9,7 @@ module Maglev
       dependency :fetch_theme
       dependency :fetch_site
 
-      argument :page
+      argument :store
       argument :section_id
       argument :block_id
       argument :content
@@ -21,9 +21,9 @@ module Maglev
 
         ActiveRecord::Base.transaction do
           if site_scoped?
-            update_section_block_content!(site)
+            update_section_block_content!(site_scoped_store)
           else
-            update_section_block_content!(page)
+            update_section_block_content!(store)
           end
         end
       end

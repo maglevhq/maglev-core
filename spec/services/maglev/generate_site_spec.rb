@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe Maglev::GenerateSite do
+describe Maglev::GenerateSite, type: :service do
   subject { service.call(theme: theme) }
 
   let(:theme) { build(:theme, :predefined_pages) }
@@ -17,6 +17,7 @@ describe Maglev::GenerateSite do
 
   context 'Given Maglev was set up to be used with 2 locales' do
     let(:home_page) { Maglev::Page.first }
+    let(:home_page_sections) { fetch_sections_content('main', home_page.id) }
 
     it 'sets the same page title for all the locales' do
       subject
@@ -34,10 +35,10 @@ describe Maglev::GenerateSite do
     it 'sets the same sections for all the locales' do
       subject
       Maglev::I18n.with_locale(:en) do
-        expect(home_page.sections.last['settings'][0]['value']).to eq 'Our projects'
+        expect(home_page_sections.last.dig('settings', 0, 'value')).to eq 'Our projects'
       end
       Maglev::I18n.with_locale(:fr) do
-        expect(home_page.sections.last['settings'][0]['value']).to eq 'Our projects'
+        expect(home_page_sections.last.dig('settings', 0, 'value')).to eq 'Our projects'
       end
     end
   end

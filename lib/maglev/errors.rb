@@ -4,6 +4,8 @@ module Maglev
   module Errors
     class SiteNotFound < StandardError; end
     class NotAuthorized < StandardError; end
+    class MissingLayout < StandardError; end
+    class MissingLayoutGroup < StandardError; end
     class UnknownSection < StandardError; end
     class UnknownBlock < StandardError; end
     class DuplicateSectionDefinition < StandardError; end

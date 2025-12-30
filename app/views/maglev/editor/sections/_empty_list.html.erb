@@ -1,0 +1,12 @@
+<div class="px-4 py-6 border border-gray-200 rounded-md border-dashed space-y-4">
+  <p class="text-center text-gray-400 text-sm"><%= t('maglev.editor.sections.index.empty') %></p>
+  
+  <p class="text-center">
+    <%= link_to new_editor_section_path(store_id: sections_store, **maglev_editing_route_context), 
+    class: 'inline-flex items-center space-x-1.5 rounded-sm text-editor-primary/80 hover:text-editor-primary/100', 
+    data: { turbo_frame: '_top' } do %>
+      <%= render Maglev::Uikit::IconComponent.new(name: 'add_2', size: "1.15rem") %>
+      <span><%= t('maglev.editor.sections.index.add_button') %></span>
+    <% end %>
+  </p>
+</div>
