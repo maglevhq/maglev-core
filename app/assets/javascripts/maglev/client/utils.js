@@ -8,16 +8,26 @@ export const isBlank = (object) => {
 }
 
 export const debounce = (fn, time) => {
-  let timeoutId
+  const pendingTimeouts = new Map()
+  
   function wrapper(...args) {
-    if (timeoutId) {
-      clearTimeout(timeoutId)
+    // Create a key from the arguments to track different argument sets separately
+    const key = JSON.stringify(args)
+    
+    // If there's already a pending call with the same arguments, cancel it
+    if (pendingTimeouts.has(key)) {
+      clearTimeout(pendingTimeouts.get(key))
     }
-    timeoutId = setTimeout(() => {
-      timeoutId = null
+    
+    // Schedule the new call
+    const timeoutId = setTimeout(() => {
+      pendingTimeouts.delete(key)
       fn(...args)
     }, time)
+    
+    pendingTimeouts.set(key, timeoutId)
   }
+  
   return wrapper
 }
 

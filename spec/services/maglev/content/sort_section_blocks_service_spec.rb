@@ -4,16 +4,18 @@ require 'rails_helper'
 
 describe Maglev::Content::SortSectionBlocksService do
   let(:theme) { build(:theme) }
-  let(:site) { create(:site, :empty) }
-  let(:page) { create(:page, number_of_showcase_blocks: 4) }
-  let(:section_id) { page.sections.dig(1, 'id') }
+  let(:site) { create(:site) }
+  let!(:page) { create(:page, number_of_showcase_blocks: 4) }
+  let(:store) { fetch_sections_store('main', page.id) }
+  let(:section) { store.find_section_by_type('showcase') }
+  let(:section_id) { section.dig('id') }
   let(:parent_id) { nil }
   let(:block_ids) do
     [
-      page.sections.dig(1, 'blocks', 3, 'id'),
-      page.sections.dig(1, 'blocks', 0, 'id'),
-      page.sections.dig(1, 'blocks', 2, 'id'),
-      page.sections.dig(1, 'blocks', 1, 'id')
+      section.dig('blocks', 3, 'id'),
+      section.dig('blocks', 0, 'id'),
+      section.dig('blocks', 2, 'id'),
+      section.dig('blocks', 1, 'id')
     ]
   end
   let(:fetch_theme) { double('FetchTheme', call: theme) }
@@ -21,16 +23,16 @@ describe Maglev::Content::SortSectionBlocksService do
   let(:service) { described_class.new(fetch_site: fetch_site, fetch_theme: fetch_theme) }
   let(:lock_version) { nil }
 
-  before { page.prepare_sections(theme) }
+  before { store.prepare_sections(theme) }
 
   subject do
-    service.call(page: page, section_id: section_id, block_ids: block_ids, parent_id: parent_id,
+    service.call(store: store, section_id: section_id, block_ids: block_ids, parent_id: parent_id,
                  lock_version: lock_version)
   end
 
   it 'sorts the blocks' do
     expect { subject }.to change {
-      page.sections.dig(1, 'blocks').map do |block|
+      section.dig('blocks').map do |block|
         block['settings'].dig(0, 'value')
       end
     }.to ['My project #4', 'My first project', 'My project #3', 'My project #2']
@@ -39,7 +41,7 @@ describe Maglev::Content::SortSectionBlocksService do
   context 'Given an existing page section with a version' do
     let(:lock_version) { 1 }
 
-    before { page.sections[1]['lock_version'] = 2 }
+    before { section['lock_version'] = 2 }
 
     it 'raises an exception about the stale page' do
       expect { subject }.to raise_exception(ActiveRecord::StaleObjectError)
@@ -47,21 +49,27 @@ describe Maglev::Content::SortSectionBlocksService do
   end
 
   describe 'When the blocks are sorted in the tree' do
-    let(:page) { create(:page, :with_navbar) }
-    let(:section_id) { page.sections.dig(0, 'id') }
+    let!(:page) { create(:page, :with_navbar) }
+    let(:site_scoped_store) { create(:sections_content_store, :site_scoped, :empty) }    
+    let(:store) { fetch_sections_store('header') }
+    let(:section) { store.find_section_by_type('navbar') }
     let(:parent_id) { 'menu-item-1' }
     let(:block_ids) do
       [
-        page.sections.dig(0, 'blocks', 3, 'id'),
-        page.sections.dig(0, 'blocks', 2, 'id')
+        section.dig('blocks', 3, 'id'),
+        section.dig('blocks', 2, 'id')
       ]
     end
 
-    before { site.sections.push(page.sections[0]) }
+    before do 
+      site_scoped_store.sections = [section]
+      site_scoped_store.prepare_sections(theme)
+      site_scoped_store.save!
+    end
 
     it 'sorts the blocks' do
       expect { subject }.to change {
-        page.sections.dig(0, 'blocks').map do |block|
+        site_scoped_store.reload.sections.dig(0, 'blocks').map do |block|
           block['settings'].dig(0, 'value')
         end
       }.to ['Home', 'About us', 'Our office', 'Our team']

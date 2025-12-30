@@ -21,7 +21,7 @@
       data-editor-page-preview-target="iframe"
       data-editor-preview-notification-center-target="iframe"
       data-editor-preview-notification-center-primary-color-param="<%= maglev_primary_hex_color %>"
-      data-editor-preview-notification-center-sticky-section-ids-param="<%=current_maglev_sections.select(&:sticky?).map(&:id).to_json %>"
+      data-editor-preview-notification-center-sticky-section-ids-param="<%= current_maglev_page_content.sticky_section_ids.to_json %>"
       data-action="load->editor-preview-notification-center#sendConfig"></iframe>
   </div>
 

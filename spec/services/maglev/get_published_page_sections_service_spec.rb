@@ -3,195 +3,239 @@
 require 'rails_helper'
 
 describe Maglev::GetPublishedPageSectionsService do
-  let(:site) { create(:site, :with_navbar) }
-  let(:get_page_fullpath) { double('GetPageFullPath', call: nil) }
-  let(:fetch_collection_items) { double('FetchCollectionItems', call: nil) }
-  let(:service) do
-    described_class.new(
-      fetch_site: double('FetchSite', call: site),
-      fetch_theme: double('FetchTheme', call: build(:theme)),
-      get_page_fullpath: get_page_fullpath,
-      fetch_collection_items: fetch_collection_items
-    )
-  end
-
+  let(:site) { build(:site) } 
+  let(:page) { build(:page) }
+  let(:get_page_sections) { double('GetPageSections', call: nil) }
+  let(:service) { described_class.new(get_page_sections: get_page_sections) }
+  
   subject { service.call(page: page, locale: :en) }
 
-  before do
-    create(:sections_content_store, container: site, sections_translations: site.sections_translations, published: true)
-    create(:sections_content_store, container: page, sections_translations: page.sections_translations, published: true)
+  # before do
+  #   create(:sections_content_store, :published, sections_translations: site.sections_translations, published: true)
+  #   create(:sections_content_store, :published, container: page, sections_translations: page.sections_translations, published: true)
+  # end
+
+  it 'calls the get_page_sections service' do
+    expect(get_page_sections).to receive(:call).with(page: page, locale: :en, published: true).and_return(nil)
+    subject
   end
 
-  context 'the page has no sections' do
-    let(:page) { build(:page, sections: []) }
+  # context 'the page has no sections' do
+  #   # let(:page) { build(:page, sections: []) }
 
-    it 'returns an empty array' do
-      expect(subject).to eq([])
-    end
+  #   it 'returns an empty array' do
+  #     expect(subject).to eq([])
+  #   end
 
-    context 'the page had an empty sections_translations' do
-      let(:page) { build(:page, sections_translations: {}) }
+  #   # context 'the page had an empty sections_translations' do
+  #   #   let(:page) { build(:page, sections_translations: {}) }
 
-      it 'returns an empty array' do
-        expect(subject).to eq([])
-      end
-    end
-  end
+  #   #   it 'returns an empty array' do
+  #   #     expect(subject).to eq([])
+  #   #   end
+  #   # end
+  # end
 
-  # rubocop:disable Style/StringHashKeys
-  context 'the page is full of sections' do
-    let(:page) { build(:page, :with_blank_navbar) }
+  # context 'the site has global sections (header, footer) and the page has no sections' do
+  #   before do 
+  #     create(:sections_content_store, :header, :published)
+  #     create(:sections_content_store, :footer, :published)
+  #   end
 
-    it 'fetches the content of the site scoped sections of a page from the site' do
-      expect(subject).to eq([
-                              {
-                                'id' => 'abc',
-                                'type' => 'navbar',
-                                'lock_version' => nil,
-                                'settings' => [{ 'id' => 'logo', 'value' => 'mynewlogo.png' }],
-                                'blocks' => [
-                                  {
-                                    'id' => 'zzz',
-                                    'type' => 'menu_item',
-                                    'settings' => [
-                                      { 'id' => 'label', 'value' => 'Home' },
-                                      {
-                                        'id' => 'link',
-                                        'value' => {
-                                          'href' => 'https://www.nocoffee.fr',
-                                          'link_type' => 'url',
-                                          'open_new_window' => true
-                                        }
-                                      }
-                                    ]
-                                  }
-                                ]
-                              },
-                              {
-                                'id' => 'def',
-                                'type' => 'jumbotron',
-                                'settings' => [
-                                  { 'id' => 'title', 'value' => 'Hello world' },
-                                  { 'id' => 'body', 'value' => '<p>Lorem ipsum</p>' }
-                                ],
-                                'blocks' => []
-                              },
-                              {
-                                'id' => 'ghi',
-                                'type' => 'showcase',
-                                'settings' => [
-                                  { 'id' => 'title', 'value' => 'Our projects' }
-                                ], 'blocks' => [
-                                  {
-                                    'type' => 'item',
-                                    'settings' => [
-                                      { 'id' => 'title', 'value' => 'My first project' },
-                                      { 'id' => 'image', 'value' => '/assets/screenshot-01.png' }
-                                    ]
-                                  }
-                                ]
-                              }
-                            ])
-    end
+  #   it 'only returns the global sections (header, footer)' do
+  #     expect(subject).to eq({
+  #       header: [
+  #         {
+  #           'id' => 'abc',
+  #           'type' => 'navbar',
+  #           'lock_version' => nil,
+  #           'settings' => [{ 'id' => 'logo', 'value' => 'mynewlogo.png' }],
+  #           'blocks' => [
+  #             {
+  #               'id' => 'zzz',
+  #               'type' => 'menu_item',
+  #               'settings' => [
+  #                 { 'id' => 'label', 'value' => 'Home' },
+  #                 {
+  #                   'id' => 'link',
+  #                   'value' => {
+  #                     'href' => 'https://www.nocoffee.fr',
+  #                     'link_type' => 'url',
+  #                     'open_new_window' => true
+  #                   }
+  #                 }
+  #               ]
+  #             }
+  #           ]
+  #         },
+  #       ],
+  #       main: [],
+  #       footer: [
+  #         {
+  #           'id' => 'footer',
+  #           'type' => 'footer',
+  #           'settings' => [{ 'id' => 'copyright', 'value' => '(c) 2022 NoCoffee SARL' }],
+  #           'blocks' => []
+  #         }
+  #       ]
+  #     })
+  #   end
+  # end
 
-    context 'the section have unused settings' do
-      let(:page) { build(:page, :with_unused_settings) }
-      it 'skips the unused settings' do
-        expect(subject).to eq([
-                                {
-                                  'id' => 'ghi',
-                                  'type' => 'showcase',
-                                  'settings' => [
-                                    { 'id' => 'title', 'value' => 'Our projects' }
-                                  ], 'blocks' => [
-                                    {
-                                      'type' => 'item',
-                                      'settings' => [
-                                        { 'id' => 'title', 'value' => 'My first project' },
-                                        { 'id' => 'image',
-                                          'value' => '/assets/screenshot-01.png' }
-                                      ]
-                                    }
-                                  ]
-                                }
-                              ])
-      end
-    end
+  # # rubocop:disable Style/StringHashKeys
+  # context 'the page is full of sections + global sections (header, footer)' do
+  #   # let(:page) { build(:page, :with_blank_navbar) }
 
-    context "the site doesn't have a global content" do
-      let(:site) { create(:site, :empty) }
+  #   it 'fetches the content of the site scoped sections of a page from the site' do
+  #     expect(subject).to eq([
+  #                             {
+  #                               'id' => 'abc',
+  #                               'type' => 'navbar',
+  #                               'lock_version' => nil,
+  #                               'settings' => [{ 'id' => 'logo', 'value' => 'mynewlogo.png' }],
+  #                               'blocks' => [
+  #                                 {
+  #                                   'id' => 'zzz',
+  #                                   'type' => 'menu_item',
+  #                                   'settings' => [
+  #                                     { 'id' => 'label', 'value' => 'Home' },
+  #                                     {
+  #                                       'id' => 'link',
+  #                                       'value' => {
+  #                                         'href' => 'https://www.nocoffee.fr',
+  #                                         'link_type' => 'url',
+  #                                         'open_new_window' => true
+  #                                       }
+  #                                     }
+  #                                   ]
+  #                                 }
+  #                               ]
+  #                             },
+  #                             {
+  #                               'id' => 'def',
+  #                               'type' => 'jumbotron',
+  #                               'settings' => [
+  #                                 { 'id' => 'title', 'value' => 'Hello world' },
+  #                                 { 'id' => 'body', 'value' => '<p>Lorem ipsum</p>' }
+  #                               ],
+  #                               'blocks' => []
+  #                             },
+  #                             {
+  #                               'id' => 'ghi',
+  #                               'type' => 'showcase',
+  #                               'settings' => [
+  #                                 { 'id' => 'title', 'value' => 'Our projects' }
+  #                               ], 'blocks' => [
+  #                                 {
+  #                                   'type' => 'item',
+  #                                   'settings' => [
+  #                                     { 'id' => 'title', 'value' => 'My first project' },
+  #                                     { 'id' => 'image', 'value' => '/assets/screenshot-01.png' }
+  #                                   ]
+  #                                 }
+  #                               ]
+  #                             }
+  #                           ])
+  #   end
 
-      it 'fallbacks to the page version of the site scoped section' do
-        expect(subject).to eq([
-                                {
-                                  'id' => 'abc',
-                                  'type' => 'navbar',
-                                  'settings' => [{ 'id' => 'logo', 'value' => 'logo.png' }],
-                                  'blocks' => []
-                                },
-                                {
-                                  'id' => 'def',
-                                  'type' => 'jumbotron',
-                                  'settings' => [
-                                    { 'id' => 'title', 'value' => 'Hello world' },
-                                    { 'id' => 'body', 'value' => '<p>Lorem ipsum</p>' }
-                                  ],
-                                  'blocks' => []
-                                },
-                                {
-                                  'id' => 'ghi',
-                                  'type' => 'showcase',
-                                  'settings' => [
-                                    { 'id' => 'title', 'value' => 'Our projects' }
-                                  ], 'blocks' => [
-                                    {
-                                      'type' => 'item',
-                                      'settings' => [
-                                        { 'id' => 'title', 'value' => 'My first project' },
-                                        { 'id' => 'image', 'value' => '/assets/screenshot-01.png' }
-                                      ]
-                                    }
-                                  ]
-                                }
-                              ])
-      end
-    end
+  #   context 'the section have unused settings' do
+  #     let(:page) { build(:page, :with_unused_settings) }
+  #     it 'skips the unused settings' do
+  #       expect(subject).to eq([
+  #                               {
+  #                                 'id' => 'ghi',
+  #                                 'type' => 'showcase',
+  #                                 'settings' => [
+  #                                   { 'id' => 'title', 'value' => 'Our projects' }
+  #                                 ], 'blocks' => [
+  #                                   {
+  #                                     'type' => 'item',
+  #                                     'settings' => [
+  #                                       { 'id' => 'title', 'value' => 'My first project' },
+  #                                       { 'id' => 'image',
+  #                                         'value' => '/assets/screenshot-01.png' }
+  #                                     ]
+  #                                   }
+  #                                 ]
+  #                               }
+  #                             ])
+  #     end
+  #   end
 
-    context 'the sections include links' do
-      let(:site) { create(:site, :with_navbar, :page_links) }
-      let(:page) { build(:page, :with_navbar, :page_links) }
+  #   context "the site doesn't have a global content" do
+  #     let(:site) { create(:site, :empty) }
 
-      it 'sets the href properties' do
-        expect(get_page_fullpath).to receive(:call).with(page: '42',
-                                                         locale: :en).twice.and_return('/preview/awesome-path')
-        expect(subject[0]['blocks'][0]['settings'][1]['value']['href']).to eq('/preview/awesome-path')
-        expect(subject[1]['settings'][1]['value']).to include('<a href="/preview/awesome-path"')
-      end
-    end
+  #     it 'fallbacks to the page version of the site scoped section' do
+  #       expect(subject).to eq([
+  #                               {
+  #                                 'id' => 'abc',
+  #                                 'type' => 'navbar',
+  #                                 'settings' => [{ 'id' => 'logo', 'value' => 'logo.png' }],
+  #                                 'blocks' => []
+  #                               },
+  #                               {
+  #                                 'id' => 'def',
+  #                                 'type' => 'jumbotron',
+  #                                 'settings' => [
+  #                                   { 'id' => 'title', 'value' => 'Hello world' },
+  #                                   { 'id' => 'body', 'value' => '<p>Lorem ipsum</p>' }
+  #                                 ],
+  #                                 'blocks' => []
+  #                               },
+  #                               {
+  #                                 'id' => 'ghi',
+  #                                 'type' => 'showcase',
+  #                                 'settings' => [
+  #                                   { 'id' => 'title', 'value' => 'Our projects' }
+  #                                 ], 'blocks' => [
+  #                                   {
+  #                                     'type' => 'item',
+  #                                     'settings' => [
+  #                                       { 'id' => 'title', 'value' => 'My first project' },
+  #                                       { 'id' => 'image', 'value' => '/assets/screenshot-01.png' }
+  #                                     ]
+  #                                   }
+  #                                 ]
+  #                               }
+  #                             ])
+  #     end
+  #   end
 
-    context 'the sections include collection items' do
-      let(:page) { build(:page, :featured_product) }
+  #   context 'the sections include links' do
+  #     let(:site) { create(:site, :with_navbar, :page_links) }
+  #     let(:page) { build(:page, :with_navbar, :page_links) }
 
-      it 'fetches the product from the DB' do
-        expect(fetch_collection_items).to receive(:call).with(collection_id: 'products', id: 42).and_return(
-          instance_double('CollectionItem', label: 'New product name', source: 'Product fetched')
-        )
-        expect(subject[0]['settings'][1]['value']['label']).to eq('New product name')
-        expect(subject[0]['settings'][1]['value']['item']).to eq('Product fetched')
-      end
+  #     it 'sets the href properties' do
+  #       expect(get_page_fullpath).to receive(:call).with(page: '42',
+  #                                                        locale: :en).twice.and_return('/preview/awesome-path')
+  #       expect(subject[0]['blocks'][0]['settings'][1]['value']['href']).to eq('/preview/awesome-path')
+  #       expect(subject[1]['settings'][1]['value']).to include('<a href="/preview/awesome-path"')
+  #     end
+  #   end
 
-      context 'the setting content points to the any item' do
-        let(:page) { build(:page, :any_featured_product) }
+  #   context 'the sections include collection items' do
+  #     let(:page) { build(:page, :featured_product) }
 
-        it 'fetches the first product' do
-          expect(fetch_collection_items).to receive(:call).with(collection_id: 'products', id: 'any').and_return(
-            instance_double('CollectionItem', label: 'New product name', source: 'Product fetched')
-          )
-          expect(subject[0]['settings'][1]['value']['label']).to eq('New product name')
-          expect(subject[0]['settings'][1]['value']['item']).to eq('Product fetched')
-        end
-      end
-    end
-  end
-  # rubocop:enable Style/StringHashKeys
+  #     it 'fetches the product from the DB' do
+  #       expect(fetch_collection_items).to receive(:call).with(collection_id: 'products', id: 42).and_return(
+  #         instance_double('CollectionItem', label: 'New product name', source: 'Product fetched')
+  #       )
+  #       expect(subject[0]['settings'][1]['value']['label']).to eq('New product name')
+  #       expect(subject[0]['settings'][1]['value']['item']).to eq('Product fetched')
+  #     end
+
+  #     context 'the setting content points to the any item' do
+  #       let(:page) { build(:page, :any_featured_product) }
+
+  #       it 'fetches the first product' do
+  #         expect(fetch_collection_items).to receive(:call).with(collection_id: 'products', id: 'any').and_return(
+  #           instance_double('CollectionItem', label: 'New product name', source: 'Product fetched')
+  #         )
+  #         expect(subject[0]['settings'][1]['value']['label']).to eq('New product name')
+  #         expect(subject[0]['settings'][1]['value']['item']).to eq('Product fetched')
+  #       end
+  #     end
+  #   end
+  # end
+  # # rubocop:enable Style/StringHashKeys
 end

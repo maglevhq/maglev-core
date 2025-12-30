@@ -4,13 +4,13 @@
 #
 # Table name: maglev_sites
 #
-#  id                    :bigint           not null, primary key
-#  locales               :jsonb
+#  id                    :integer          not null, primary key
+#  locales               :json
 #  lock_version          :integer
 #  name                  :string
 #  published_at          :datetime
-#  sections_translations :jsonb
-#  style                 :jsonb
+#  sections_translations :json
+#  style                 :json
 #  created_at            :datetime         not null
 #  updated_at            :datetime         not null
 #
@@ -20,9 +20,6 @@ module Maglev
     include Maglev::Site::LocalesConcern
     include Maglev::SectionsConcern
     include Maglev::Translatable
-
-    ## associations ##
-    has_many :sections_content_stores, as: :container, dependent: :destroy
 
     ## force JSON columns for MariaDB ##
     attribute :style, :json
@@ -38,18 +35,6 @@ module Maglev
 
     def published?
       published_at.present?
-    end
-
-    def api_attributes
-      %i[id name]
-    end
-
-    def find_section(type)
-      sections&.find { |section| section['type'] == type }
-    end
-
-    def translate_in(locale, source_locale)
-      translate_attr_in(:sections, locale, source_locale)
     end
   end
 end

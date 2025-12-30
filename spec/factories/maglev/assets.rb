@@ -16,7 +16,7 @@ end
 #
 # Table name: maglev_assets
 #
-#  id           :bigint           not null, primary key
+#  id           :integer          not null, primary key
 #  byte_size    :integer
 #  content_type :string
 #  filename     :string

@@ -20,7 +20,7 @@ module Maglev
 
       helper Maglev::ApplicationHelper
       helper_method :maglev_site, :maglev_theme,
-                    :current_maglev_page, :current_maglev_sections, :current_maglev_page_urls,
+                    :current_maglev_page, :current_maglev_page_content, :current_maglev_page_urls,
                     :maglev_editing_route_context, :maglev_disable_turbo_cache?,
                     :maglev_page_live_url, :maglev_page_preview_url
 
@@ -32,10 +32,6 @@ module Maglev
 
       def fetch_maglev_page
         current_maglev_page
-      end
-
-      def fetch_maglev_sections
-        current_maglev_sections
       end
 
       def maglev_site
@@ -54,10 +50,11 @@ module Maglev
         @maglev_home_page ||= maglev_page_resources.home.first
       end
 
-      def current_maglev_sections
-        @current_maglev_sections ||= Maglev::Content::SectionContent.build_many(
+      def current_maglev_page_content
+        @current_maglev_page_content ||= Maglev::Content::PageContent.new(
+          page: current_maglev_page,
           theme: maglev_theme,
-          content: services.get_page_sections.call(page: current_maglev_page, locale: content_locale)
+          stores: services.get_page_sections.call(page: current_maglev_page, locale: content_locale)
         )
       end
 

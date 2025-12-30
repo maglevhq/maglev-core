@@ -20,6 +20,5 @@ rakefile_path = !defined?(Rails) || Rails::VERSION::MAJOR >= 8 ? 'spec/dummy/Rak
 APP_RAKEFILE = File.expand_path(rakefile_path, __dir__)
 
 load 'rails/tasks/engine.rake'
-load 'rails/tasks/statistics.rake'
 
 require 'bundler/gem_tasks'
