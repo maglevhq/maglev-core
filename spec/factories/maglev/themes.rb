@@ -7,7 +7,7 @@ FactoryBot.define do
     name { 'Simple' }
     description { 'Super simple theme' }
 
-    layouts do
+    layouts do |factory|
       Maglev::Theme::Layout.build_many(JSON.parse([
         {
           label: 'Default',
@@ -22,7 +22,7 @@ FactoryBot.define do
             'footer'
           ]
         }
-      ].to_json))
+      ].to_json), theme: factory.instance)
     end
 
     after(:build) do |theme, _evaluator|
