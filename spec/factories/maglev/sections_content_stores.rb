@@ -4,16 +4,16 @@
 #
 # Table name: maglev_sections_content_stores
 #
-#  id                    :integer          not null, primary key
+#  id                    :bigint           not null, primary key
 #  container_type        :string
 #  handle                :string           default("WIP"), not null
 #  lock_version          :integer
 #  published             :boolean          default(FALSE)
-#  sections_translations :json
+#  sections_translations :jsonb
 #  created_at            :datetime         not null
 #  updated_at            :datetime         not null
 #  container_id          :string
-#  maglev_page_id        :integer
+#  maglev_page_id        :bigint
 #
 # Indexes
 #
@@ -24,7 +24,7 @@
 #
 # Foreign Keys
 #
-#  maglev_page_id  (maglev_page_id => maglev_pages.id)
+#  fk_rails_...  (maglev_page_id => maglev_pages.id)
 #
 FactoryBot.define do
   factory :sections_content_store, class: 'Maglev::SectionsContentStore' do
