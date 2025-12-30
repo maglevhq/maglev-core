@@ -9,12 +9,12 @@ class Maglev::Theme::BaseProperty
 
   ## class methods ##
 
-  def self.build(_hash)
+  def self.build(_hash, **args)
     raise 'TO BE IMPLEMENTED'
   end
 
-  def self.build_many(list)
-    (list || []).map { |hash| build(hash) }
+  def self.build_many(list, **args)
+    (list || []).map { |hash| build(hash, **args) }
   end
 
   def self.prepare_attributes(hash_or_string)
