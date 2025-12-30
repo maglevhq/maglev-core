@@ -8,6 +8,25 @@ description: "A brief description of the theme"
 section_categories:
 - name: content
 
+# Define layouts with organized groups
+layouts:
+- label: "Default"
+  id: "default"
+  groups:
+  - label: "Header"
+    id: "header"
+    accept: ["headers/*"]  # Only allow sections from the headers group
+    recoverable: ["navbar"]  # Make navbar recoverable
+    # mirror_section: false  # Disable mirroring feature for consistency
+  - label: "Main"
+    id: "main"
+    page: true # the content will be scoped by the page while "header" & "footer" will share the same content across pages
+  - label: "Footer"
+    id: "footer"
+    accept: ["footers/*"]  # Only allow sections from the footers group
+
+# [LAYOUTS] DO NOT REMOVE THIS LINE
+
 # Properties of your theme such as the primary color, font name, ...etc.
 style_settings: []
 

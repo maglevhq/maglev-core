@@ -25,8 +25,15 @@ scope ':locale/:page_id' do
     end
   end
 
-  resources :sections do
-    put :sort, on: :collection
+  scope ':store_id' do
+    resources :sections, only: %i[new create] do    
+      put :sort, on: :collection
+    end
+  end
+
+  get 'sections', to: 'sections_stores#index', as: :sections_stores
+
+  resources :sections, only: %i[edit update destroy] do    
     resources :blocks, controller: :section_blocks do
       put :sort, on: :collection
     end

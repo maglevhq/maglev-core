@@ -77,13 +77,13 @@ end
 #
 # Table name: maglev_sites
 #
-#  id                    :bigint           not null, primary key
-#  locales               :jsonb
+#  id                    :integer          not null, primary key
+#  locales               :json
 #  lock_version          :integer
 #  name                  :string
 #  published_at          :datetime
-#  sections_translations :jsonb
-#  style                 :jsonb
+#  sections_translations :json
+#  style                 :json
 #  created_at            :datetime         not null
 #  updated_at            :datetime         not null
 #

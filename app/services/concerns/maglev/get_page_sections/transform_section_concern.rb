@@ -17,7 +17,7 @@ module Maglev::GetPageSections::TransformSectionConcern
 
     raise_unknown_section_error(section['type']) unless definition
 
-    transform_if_site_scoped(section, definition)
+    # transform_if_site_scoped(section, definition)
     transform_section_blocks(section['blocks'], definition)
     transform_section_settings(section, definition)
 
@@ -25,21 +25,21 @@ module Maglev::GetPageSections::TransformSectionConcern
   end
 
   # rubocop:disable Style/StringHashKeys
-  def transform_if_site_scoped(section, definition)
-    return unless definition.site_scoped?
+  # def transform_if_site_scoped(section, definition)
+  #   return unless definition.site_scoped?
 
-    site_section = find_site_section(section['type'])
+  #   site_section = find_site_section(section['type'])
 
-    return unless site_section
+  #   return unless site_section
 
-    # keep the same section id all over the pages
-    section.merge!(
-      'id' => site_section['id'],
-      'settings' => site_section['settings'],
-      'blocks' => site_section['blocks'],
-      'lock_version' => site_section['lock_version']
-    )
-  end
+  #   # keep the same section id all over the pages
+  #   section.merge!(
+  #     'id' => site_section['id'],
+  #     'settings' => site_section['settings'],
+  #     'blocks' => site_section['blocks'],
+  #     'lock_version' => site_section['lock_version']
+  #   )
+  # end
   # rubocop:enable Style/StringHashKeys
 
   def transform_section_blocks(blocks, definition)
