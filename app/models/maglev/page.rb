@@ -39,9 +39,10 @@ module Maglev
                       inverse_of: :page
 
     ## translations ##
-    translates :title, presence: true
+    translates :title, presence: true    
     translates :seo_title, :meta_description
     translates :og_title, :og_description, :og_image_url
+    translates :sections # LEGACY: will be removed in a future version
 
     ## scopes ##
     scope :home, ->(locale = nil) { by_path('index', locale) }
