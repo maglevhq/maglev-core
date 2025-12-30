@@ -4,14 +4,17 @@
 #
 # Table name: maglev_pages
 #
-#  id                            :integer          not null, primary key
+#  id                            :bigint           not null, primary key
 #  lock_version                  :integer
-#  meta_description_translations :json
-#  og_description_translations   :json
-#  og_image_url_translations     :json
-#  og_title_translations         :json
+#  meta_description_translations :jsonb
+#  og_description_translations   :jsonb
+#  og_image_url_translations     :jsonb
+#  og_title_translations         :jsonb
 #  published_at                  :datetime
+<<<<<<< HEAD
 #  published_payload             :jsonb
+=======
+>>>>>>> acb1798c (chore: fix the specs for Rails 7.2 (+ use PG to annotate the models))
 #  sections_translations         :jsonb
 #  seo_title_translations        :jsonb
 #  title_translations            :jsonb
