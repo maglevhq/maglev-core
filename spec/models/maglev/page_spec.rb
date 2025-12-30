@@ -96,23 +96,19 @@ end
 #
 # Table name: maglev_pages
 #
-#  id                            :integer          not null, primary key
+#  id                            :bigint           not null, primary key
 #  lock_version                  :integer
-#  meta_description_translations :json
-#  og_description_translations   :json
-#  og_image_url_translations     :json
-#  og_title_translations         :json
+#  meta_description_translations :jsonb
+#  og_description_translations   :jsonb
+#  og_image_url_translations     :jsonb
+#  og_title_translations         :jsonb
 #  published_at                  :datetime
-<<<<<<< HEAD
 #  published_payload             :jsonb
 #  sections_translations         :jsonb
 #  seo_title_translations        :jsonb
 #  title_translations            :jsonb
-=======
 #  sections_translations         :json
-#  seo_title_translations        :json
 #  title_translations            :json
->>>>>>> 06103aa7 (feat: minimal working version of the layout / multiple stores feature)
 #  visible                       :boolean          default(TRUE)
 #  created_at                    :datetime         not null
 #  updated_at                    :datetime         not null

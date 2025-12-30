@@ -1,4 +1,4 @@
-class UpdateSectionsContentStoresForLayoutGroups < ActiveRecord::Migration[8.1]
+class UpdateSectionsContentStoresForLayoutGroups < ActiveRecord::Migration[6.0]
   def change
     change_table :maglev_sections_content_stores do |t|
       t.references :maglev_page, foreign_key: true, null: true
