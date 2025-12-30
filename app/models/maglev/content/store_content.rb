@@ -26,16 +26,16 @@ module Maglev
         inserted_section_types = sections.map(&:type)
 
         theme.sections.select do |section|
-          inserted = inserted_section_types.include?(section.id)
+          already_inserted = inserted_section_types.include?(section.id)
 
           # you can't have more than one instance of a recoverable section within a store
-          next false if definition.recoverable.include?(section.id) && inserted
+          next false if definition.recoverable.include?(section.id) && already_inserted
 
           # you can't add a siteScoped section if there is already a siteScoped section of the same type
-          next false if section.site_scoped? && inserted
+          next false if section.site_scoped? && already_inserted
 
           # you can't add a singleton section if there is already a singleton section of the same type
-          next false if section.singleton? && inserted
+          next false if section.singleton? && already_inserted
 
           # deals with the accept rules of the layout group
           definition.accepts?(section)          

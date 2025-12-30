@@ -18,8 +18,12 @@ RSpec.describe Maglev::Content::StoreContent do
   describe '#addable_sections' do
     subject { instance.addable_sections }
 
-    it 'returns the available sections to add' do
-      expect(subject.map(&:id).sort).to eq ['featured_product', 'jumbotron', 'showcase']
+    context 'when there is no recoverable section'  do
+      before { theme.find_layout('default').find_group('main').recoverable = [] }
+      
+      it 'returns the available sections to add' do
+        expect(subject.map(&:id).sort).to eq ['featured_product', 'jumbotron', 'showcase']
+      end
     end
 
     context 'when the store already has a singleton section of the same type' do

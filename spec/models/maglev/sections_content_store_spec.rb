@@ -32,4 +32,49 @@ RSpec.describe Maglev::SectionsContentStore, type: :model do
   it 'has a valid factory' do
     expect(build(:sections_content_store)).to be_valid
   end
+
+  describe '#prepare_sections' do
+    let(:store) { build(:sections_content_store) }
+    let(:theme) { build(:theme) }
+
+    before { store.prepare_sections(theme) }
+
+    it 'assign an id to each section and block' do
+      expect(store.sections.first['id']).not_to eq nil
+      expect(store.sections.last['id']).not_to eq nil
+      expect(store.sections.last['blocks'].first['id']).not_to eq nil
+    end
+
+    it 'casts the value of an image setting type' do
+      expect(store.sections.last['blocks'].last['settings'].last.dig('value', 'url')).to eq '/assets/screenshot-03.png'
+    end
+  end
+
+  describe '#reorder_sections' do
+    let(:store) { build(:sections_content_store) }
+    let(:theme) { build(:theme) }
+    let(:sections) { store.sections }
+    let(:new_section_ids) { sections.reverse.map { |section| section['id'] } }
+
+    subject { store.reorder_sections(new_section_ids) }
+
+    it 'reorders the sections' do
+      subject
+      expect(store.sections.map { |section| section['id'] }).to eq new_section_ids
+    end
+  end
+
+  describe '#delete_section' do
+    let(:store) { build(:sections_content_store) }
+    let(:theme) { build(:theme) }
+    let(:sections) { store.sections }
+    let(:section_id) { sections.first['id'] }
+
+    subject { store.delete_section(section_id) }
+
+    it 'deletes the section' do
+      subject
+      expect(store.sections.map { |section| section['id'] }).not_to include(section_id)
+    end
+  end
 end

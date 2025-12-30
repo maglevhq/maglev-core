@@ -77,37 +77,6 @@ RSpec.describe Maglev::Page, type: :model do
     end
   end
 
-  describe '#prepare_sections' do
-    let(:page) { build(:page) }
-    let(:theme) { build(:theme) }
-
-    before { page.prepare_sections(theme) }
-
-    it 'assign an id to each section and block' do
-      expect(page.sections.first['id']).not_to eq nil
-      expect(page.sections.last['id']).not_to eq nil
-      expect(page.sections.last['blocks'].first['id']).not_to eq nil
-    end
-
-    it 'casts the value of an image setting type' do
-      expect(page.sections.last['blocks'].last['settings'].last.dig('value', 'url')).to eq '/assets/screenshot-01.png'
-    end
-  end
-
-  describe '#delete_section' do
-    let(:page) { build(:page) }
-    let(:theme) { build(:theme) }
-    let(:sections) { page.sections }
-    let(:section_id) { sections.first['id'] }
-
-    subject { page.delete_section(section_id) }
-
-    it 'deletes the section' do
-      subject
-      expect(page.sections.map { |section| section['id'] }).not_to include(section_id)
-    end
-  end
-
   describe 'scopes' do
     describe '.by_id_or_path' do
       let!(:page) { create(:page) }
@@ -134,16 +103,9 @@ end
 #  og_image_url_translations     :json
 #  og_title_translations         :json
 #  published_at                  :datetime
-<<<<<<< HEAD
-#  published_payload             :jsonb
-#  sections_translations         :jsonb
-#  seo_title_translations        :jsonb
-#  title_translations            :jsonb
-=======
 #  sections_translations         :json
 #  seo_title_translations        :json
 #  title_translations            :json
->>>>>>> 06103aa7 (feat: minimal working version of the layout / multiple stores feature)
 #  visible                       :boolean          default(TRUE)
 #  created_at                    :datetime         not null
 #  updated_at                    :datetime         not null

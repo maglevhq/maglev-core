@@ -31,7 +31,7 @@ layouts:
   - label: "Main"
     id: "main" # ie: handle of the store in the DB
     page: true
-    accept: ["features/*"]
+    accept: ["features/*", "headers/jumbotron"]
     # mirror_section: true
 # [LAYOUTS] DO NOT REMOVE THIS LINE
 

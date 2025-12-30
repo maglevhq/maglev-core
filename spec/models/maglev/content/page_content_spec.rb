@@ -14,7 +14,7 @@ RSpec.describe Maglev::Content::PageContent do
     { id: 'footer', sections: footer_sections, lock_version: 0 }
   ] }
     
-  let(:instance) { described_class.new(theme: theme, stores: stores) }
+  let(:instance) { described_class.new(page: page, theme: theme, stores: stores) }
 
   
   it 'returns the page content' do
