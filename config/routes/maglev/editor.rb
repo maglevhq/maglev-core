@@ -29,6 +29,8 @@ scope ':locale/:page_id' do
     resources :sections, only: %i[new create] do    
       put :sort, on: :collection
     end
+
+    resources :mirrored_sections, only: %i[new create]
   end
 
   get 'sections', to: 'sections_stores#index', as: :sections_stores

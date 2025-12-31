@@ -72,6 +72,7 @@ en:
           tabs:
             main: "Main"
             seo: "SEO"          
+          layout_prompt: "Select a layout"
       sections:
         breadcrumb: "Sections"
         index:
@@ -109,6 +110,16 @@ en:
             in_progress: "Updating..."
             success: "Updated!"
             fail: "Fail!"      
+      mirrored_sections:
+        add_button: "Add a mirrored section"
+        new:
+          title: "Add a mirrored section"
+          submit_button: "Add section"            
+          cancel_button: "Cancel"
+        form:
+          page: 
+            placeholder: "Select a page"
+          section_prompt: "Select a section"
       image_library:
         title: "List of images"
         picker_title: "Select an image"
@@ -238,6 +249,10 @@ en:
             error: "Failed!"
           destroy:
             success: "Deleted!"
+            error: "Failed!"
+        mirrored_sections:
+          create:
+            success: "Added!"
             error: "Failed!"
         section_blocks:
           create:

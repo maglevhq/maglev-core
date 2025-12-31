@@ -22,7 +22,8 @@ module Maglev
       helper_method :maglev_site, :maglev_theme,
                     :current_maglev_page, :current_maglev_page_content, :current_maglev_page_urls,
                     :maglev_editing_route_context, :maglev_disable_turbo_cache?,
-                    :maglev_page_live_url, :maglev_page_preview_url
+                    :maglev_page_live_url, :maglev_page_preview_url,
+                    :maglev_number_of_pages
 
       private
 
@@ -40,6 +41,10 @@ module Maglev
 
       def maglev_page_resources
         ::Maglev::Page
+      end
+
+      def maglev_number_of_pages
+        @maglev_number_of_pages ||= maglev_page_resources.count
       end
 
       def current_maglev_page
