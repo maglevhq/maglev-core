@@ -22,7 +22,7 @@ Rails.application.config.after_initialize do
   end
 
   page = Maglev::Page.first
-  if page.layout_id.blank?
+  if page && page.layout_id.blank?
     abort(
     <<~ERROR.strip
     🚨 Your Maglev pages have no layout. You need to set the default one for each page.
