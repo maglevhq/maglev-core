@@ -14,6 +14,7 @@ module Maglev
       argument :content, default: nil
       argument :position, default: -1
       argument :layout_id, default: nil # only used to recover a deleted section
+      argument :mirror_of, default: nil # only used to add a mirrored section (attributes: page_id, layout_store_id, section_id)
       argument :dry_run, default: false
       argument :site, default: nil
       argument :theme, default: nil
@@ -21,7 +22,9 @@ module Maglev
       def call
         raise Maglev::Errors::UnknownSection unless section_definition
 
-        section_content = if can_recover_deleted_section?
+        section_content = if mirror_of.present?
+          add_mirrored_section
+        elsif can_recover_deleted_section?
           recover_deleted_section 
         else
           add_brand_new_section
@@ -42,6 +45,15 @@ module Maglev
 
       def site
         @site ||= fetch_site.call
+      end
+
+      def add_mirrored_section
+        section_content = build_section_content
+        section_content['mirror_of'] = mirror_of.merge(enabled: true)
+        
+        add_to_store!(section_content)
+        
+        section_content
       end
 
       def recover_deleted_section
@@ -95,7 +107,7 @@ module Maglev
       
       def can_recover_deleted_section?
         # first, the section must be deleted in the store
-        return false if store.find_sections_by_type(section_type).empty? || store.find_sections_by_type(section_type)[0]['deleted'] != true
+        return false if store.find_section_by_type(section_type).nil? || store.find_section_by_type(section_type)['deleted'] != true
 
         # then, the section must be present in the "recoverable" list of the layout group        
         layout_group = theme.find_layout(layout_id)&.find_group(store.handle)
@@ -104,7 +116,9 @@ module Maglev
       end
 
       def build_section_content
-        if site_scoped? && site_scoped_store.find_sections_by_type(section_type).any?
+        if mirror_of.present?
+          fetch_mirrored_store(mirror_of).find_section_by_id(mirror_of[:section_id])
+        elsif site_scoped? && site_scoped_store.find_sections_by_type(section_type).any?
           site_scoped_store.find_sections_by_type(section_type).first.dup
         else
           content || section_definition.build_default_content
