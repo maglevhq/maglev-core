@@ -13,7 +13,7 @@ RSpec.describe Maglev::Content::StoreContent do
     subject { instance.label }
 
     it { is_expected.to eq 'Main' }
-  end
+  end  
 
   describe '#addable_sections' do
     subject { instance.addable_sections }
@@ -47,6 +47,28 @@ RSpec.describe Maglev::Content::StoreContent do
 
       it 'returns the available sections to add' do
         expect(subject.map(&:id).sort).to eq ['featured_product', 'showcase']
+      end
+    end
+  end
+
+  describe '#allow_mirrored_sections?' do
+    subject { instance.allow_mirrored_sections? }
+
+    context 'when the theme does not allow mirrored sections' do
+      before { theme.mirror_section = false }
+
+      it { is_expected.to eq false }
+    end    
+
+    context 'when the theme allows mirrored sections' do
+      before { theme.mirror_section = true }
+
+      it { is_expected.to eq true }
+
+      context 'but the layout group does not allow mirrored sections' do
+        before { theme.find_layout('default').find_group('main').mirror_section = false }
+
+        it { is_expected.to eq false }
       end
     end
   end

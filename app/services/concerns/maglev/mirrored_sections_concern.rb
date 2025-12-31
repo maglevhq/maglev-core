@@ -44,7 +44,7 @@ module Maglev
       return unless other_page
 
       layout = fetch_layout(other_page.layout_id)
-      layout_group = layout.groups.find { |group| group.id == mirror_of['layout_group_id'] }
+      layout_group = layout.groups.find { |group| group.id == mirror_of['layout_group_id'] || group.id == mirror_of['layout_store_id'] }
       return unless layout_group
 
       find_store(layout_group, other_page)

@@ -8,6 +8,8 @@ module Maglev
     dependency :fetch_theme
 
     argument :page
+    argument :only_page_scoped, default: false
+    argument :ignore_mirrored, default: false
 
     # def call
     #   (page.sections || []).map do |section|
@@ -42,20 +44,31 @@ module Maglev
 
     def fetch_stores      
       layout.groups.map do |store_definition|
+        next if only_page_scoped && !store_definition.page_scoped?
         [
           scoped_store.unpublished.find_by(handle: store_definition.id), 
           store_definition
         ]
-      end
+      end.compact
     end
 
     def build_item(section, store_definition)
       definition = theme.sections.find(section['type'])
       {
         id: section['id'],
+        type: section['type'],
         label: definition.human_name,
+        layout_store_id: store_definition.id,
         layout_store_label: store_definition.human_name
       }
+    end
+
+    def fetch_sections(store)
+      return [] unless store
+      store.sections.reject do |section|
+        # ignore deleted sections AND sections that are mirrored (if ignore_mirrored = true)
+        (section['deleted'] == true) || (ignore_mirrored && section.dig('mirror_of', 'enabled') == true) 
+      end
     end
 
     def layout

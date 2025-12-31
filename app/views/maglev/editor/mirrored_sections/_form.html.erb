@@ -1,0 +1,16 @@
+<div class="grid grid-cols-1 gap-4">
+  <%= f.combobox :page_id, 
+      search_path: editor_combobox_pages_path(static_pages: '0'), 
+      selected_label: @page&.title,
+      placeholder: t('maglev.editor.mirrored_sections.form.page.placeholder'),
+      html_options: {     
+        data: {
+          action: 'uikit-form-combobox:change->form-refresh#refresh'
+        }   
+      }
+  %>
+
+  <% if @page && @sections.any? %>
+    <%= f.select :section_id, grouped_options_for_select(@sections), prompt: t('maglev.editor.mirrored_sections.form.section_prompt') %>
+  <% end %>
+</div>

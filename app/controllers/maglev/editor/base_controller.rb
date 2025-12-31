@@ -21,9 +21,8 @@ module Maglev
       before_action :set_content_locale
 
       helper Maglev::ApplicationHelper
-      helper_method :maglev_site, :maglev_theme,
-                    :current_maglev_page, :current_maglev_page_content,
-                    :maglev_editing_route_context, :unpublished_changes?
+      helper_method :maglev_site, :maglev_theme, :current_maglev_page, :current_maglev_page_content,
+                    :maglev_editing_route_context, :unpublished_changes?, :maglev_number_of_pages
 
       private
 
@@ -41,6 +40,10 @@ module Maglev
 
       def maglev_page_resources
         ::Maglev::Page
+      end
+
+      def maglev_number_of_pages
+        @maglev_number_of_pages ||= maglev_page_resources.count
       end
 
       def current_maglev_page

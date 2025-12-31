@@ -14,12 +14,15 @@ module Maglev
       end
 
       def label
-        # ::I18n.t("maglev.themes.#{theme.id}.layouts.#{layout_id}.stores.#{id}", default: definition.label)
         definition.human_name
       end
 
       def to_param
         id
+      end
+
+      def allow_mirrored_sections?
+        theme.mirror_section? && definition.mirror_section?
       end
 
       # return the definitions of sections that can be added to the store

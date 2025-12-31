@@ -79,7 +79,9 @@ export default class extends Controller {
   // === SECTIONS ===
 
   addSection(event) {
-    if (!event.detail.success) return
+    // adding a section after a form submission? Closing the modal only the request was successful.
+    if (event?.detail?.formSubmission !== undefined && event?.detail?.success === false)
+      return
 
     const headers = event.detail.fetchResponse.response.headers
     const layoutStoreId = headers.get('X-Layout-Store-Id')

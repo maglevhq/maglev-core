@@ -1,7 +1,13 @@
 <div class="grid grid-cols-1 gap-4">
   <%= f.text_field :title %>
 
-  <%= f.text_field :path unless f.object.index? %>
+  <% if maglev_theme.layouts.size > 1 %>
+    <%= f.select :layout_id, maglev_theme.layouts.map { |layout| [layout.human_name, layout.id] }, prompt: t('maglev.editor.pages.form.layout_prompt') %>
+  <% else %>
+    <%= f.hidden_field :layout_id, value: maglev_theme.layouts.first.id %>
+  <% end %>
+
+  <%= f.text_field :path unless f.object.index? %>  
 
   <%= f.check_box :visible, placeholder: t('maglev.editor.placeholders.pages.visible_placeholder') %>
 </div>

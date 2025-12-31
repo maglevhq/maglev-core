@@ -69,7 +69,7 @@ describe 'Maglev::Editor::Pages', type: :request do
   describe 'POST /maglev/editor/:context/pages' do
     it 'returns a redirect response' do
       expect do
-        post "/maglev/editor/en/#{home_page.id}/pages", params: { page: { title: 'Test Page', path: 'test-page' } }
+        post "/maglev/editor/en/#{home_page.id}/pages", params: { page: { title: 'Test Page', path: 'test-page', layout_id: 'default' } }
         expect(response).to be_redirect
       end.to change(Maglev::Page, :count).by(1)
     end
