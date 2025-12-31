@@ -18,7 +18,7 @@
   
   <% if @page && @sections.any? %>
     <%= f.select :section_id, 
-        @sections.map { |section| [section[:name], section[:id]] },
+        @sections.map { |section| [section[:label], section[:id]] },
         prompt: t('maglev.editor.links.edit.page.section_prompt')
     %>
   <% else %>

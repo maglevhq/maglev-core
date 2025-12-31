@@ -2,7 +2,7 @@
   <% page_layout.with_title_content t('maglev.editor.sections.new.title') %>
   <% page_layout.with_notification_content maglev_flash_message %>
 
-  <% page_layout.with_back_link(path: editor_sections_stores_path(maglev_editing_route_context)).with_content(t('maglev.editor.sections.breadcrumbs.sections')) %>
+  <% page_layout.with_back_link(path: editor_sections_stores_path(maglev_editing_route_context)).with_content(t('maglev.editor.sections.breadcrumb')) %>
 
   <%= form_with url: editor_sections_path(store_id: @sections_store_content, **maglev_editing_route_context), data: { 
       turbo_frame: '_top',
@@ -16,5 +16,9 @@
     <%= f.hidden_field :position, value: @position %>
 
     <%= render 'theme_list', f: f %>
+  <% end %>
+
+  <% page_layout.with_footer do %>
+    <%= render 'maglev/editor/mirrored_sections/button' if @sections_store_content.allow_mirrored_sections? && maglev_number_of_pages > 1 %>
   <% end %>
 <% end %>

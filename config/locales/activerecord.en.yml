@@ -6,6 +6,7 @@ en:
         cloned_title: "%{title} COPY"
         paths:
           value: Path
+        layout_id: Layout
         visible: Visible
         seo_title: Meta title
         meta_description: Meta description

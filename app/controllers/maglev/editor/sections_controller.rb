@@ -68,6 +68,7 @@ module Maglev
       def create_section
         services.add_section.call(
           store: sections_store,
+          layout_id: current_maglev_page.layout_id,
           section_type: params[:section_type],
           position: params[:position].to_i
         )        
