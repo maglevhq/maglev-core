@@ -4,7 +4,7 @@ require 'rails_helper'
 
 describe Maglev::CreatePageService do
   let(:fetch_site) { double('FetchSite', call: build(:site)) }
-  let(:attributes) { { title: 'Hello world', path: 'hello-world' } }
+  let(:attributes) { { title: 'Hello world', path: 'hello-world', layout_id: 'default' } }
   let(:service) { described_class.new(fetch_site: fetch_site) }
 
   subject { service.call(attributes: attributes) }

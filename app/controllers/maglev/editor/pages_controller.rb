@@ -63,7 +63,7 @@ module Maglev
       end
 
       def page_params
-        params.require(:page).permit(:title, :path,
+        params.require(:page).permit(:title, :path, :layout_id,
                                      :seo_title, :meta_description,
                                      :og_title, :og_description, :og_image_url,
                                      :visible, :lock_version)

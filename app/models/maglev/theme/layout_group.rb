@@ -19,6 +19,10 @@ class Maglev::Theme::LayoutGroup < Maglev::Theme::BaseProperty
     !!page_scoped
   end
 
+  def mirror_section?
+    mirror_section.nil? ? true : !!mirror_section
+  end
+
   def accepts?(section)
     check_against(accept, section)    
   end
@@ -45,6 +49,12 @@ class Maglev::Theme::LayoutGroup < Maglev::Theme::BaseProperty
     attributes['recoverable'] ||= []
     attributes['page_scoped'] = !!attributes.delete('page')
 
+    if (mirror_section = attributes.delete('mirror_section')).nil?
+      attributes['mirror_section'] = true
+    else
+      attributes['mirror_section'] = mirror_section
+    end
+    
     new(attributes.merge(theme: args[:theme], layout_id: args[:layout_id]))
   end
 end

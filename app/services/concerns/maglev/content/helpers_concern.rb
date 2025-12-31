@@ -20,6 +20,10 @@ module Maglev
         end
       end
 
+      def fetch_mirrored_store(mirror_of)
+        scoped_stores.find_by(handle: mirror_of[:layout_store_id], page: mirror_of[:page_id])
+      end
+
       def scoped_stores
         ::Maglev::SectionsContentStore
       end

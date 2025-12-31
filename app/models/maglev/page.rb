@@ -44,6 +44,9 @@ module Maglev
     translates :og_title, :og_description, :og_image_url
     translates :sections # LEGACY: will be removed in a future version
 
+    ## validations ##
+    validates :layout_id, presence: true
+
     ## scopes ##
     scope :home, ->(locale = nil) { by_path('index', locale) }
     scope :visible, -> { where(visible: true) }

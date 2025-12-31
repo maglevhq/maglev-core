@@ -8,11 +8,12 @@ describe Maglev::Content::AddSectionService do
   let(:store) { create(:sections_content_store, page: page) }
   let(:theme) { build(:theme) }
   let(:layout_id) { 'default' }
+  let(:mirror_of) { nil }
   let(:fetch_theme) { double('FetchTheme', call: theme) }
   let(:fetch_site) { double('FetchSite', call: site) }
   let(:service) { described_class.new(fetch_site: fetch_site, fetch_theme: fetch_theme) }  
 
-  subject(:service_call) { service.call(store: store, site: site, section_type: section_type, position: position, layout_id: layout_id) }
+  subject(:service_call) { service.call(store: store, site: site, section_type: section_type, position: position, layout_id: layout_id, mirror_of: mirror_of) }
 
   context 'Given a section type that does not exist' do
     let(:section_type) { 'not_existing' }
@@ -123,6 +124,28 @@ describe Maglev::Content::AddSectionService do
 
     it 'doesn\'t add another jumbotron section to the store' do
       expect { subject }.to change { store.sections.count }.by(0)
+    end
+  end
+
+  context 'Given a mirrored section' do
+    let(:another_page) { create(:page, sections: nil, title: 'Another page', path: 'another-page') }
+    let(:another_store) { create(:sections_content_store, page: another_page) }
+    let(:section_type) { 'jumbotron' }
+    let(:mirror_of) { { page_id: another_page.id, layout_store_id: another_store.handle, section_id: 'jumbotron-0' } }
+    let(:position) { -1 }
+    
+    it 'adds a new section in the store' do
+      expect { subject }.to change { store.sections.count }.by(1)
+      expect(subject['id']).to eq 'jumbotron-0'
+    end
+
+    it 'assigns the mirror_of attributes to the new section' do
+      expect(subject['mirror_of']).to eq({
+        enabled: true,
+        page_id: another_page.id,
+        layout_store_id: 'main',
+        section_id: 'jumbotron-0'
+      }.with_indifferent_access)
     end
   end
 end

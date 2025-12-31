@@ -1,0 +1,36 @@
+<%= turbo_frame_tag 'modal' do %>
+  <%= render Maglev::Uikit::ModalComponent.new(id: 'new-mirrored-section-modal', open: true) do |modal| %>    
+    <% modal.with_title_content t("maglev.editor.mirrored_sections.new.title") %>
+    <% modal.with_notification_content maglev_flash_message %>
+
+    <%= form_with model: @mirrored_section, 
+      url: editor_mirrored_sections_path(store_id: params[:store_id], **maglev_editing_route_context), 
+      id: 'mirrored-section-form',
+      scope: 'mirrored_section',
+      data: { 
+        controller: 'form-refresh dispatcher',
+        action: %(
+          turbo:submit-end->editor-preview-notification-center#addSection
+          turbo:submit-end->dispatcher#trigger
+          turbo:submit-end->uikit-modal#close
+        ),
+        'dispatcher-event-name-value': 'page-preview:remove-empty-message'
+      } do |f| %>
+      <%= f.hidden_field :position %>
+
+      <%= render 'form', f: f %>
+
+      <% content_for :form_actions do %>
+        <button class='<%= maglev_button_classes(color: :secondary) %>' data-action="click->uikit-modal#close">
+          <%= t('maglev.editor.mirrored_sections.new.cancel_button') %>
+        </button>
+        <%= f.submit t('maglev.editor.mirrored_sections.new.submit_button'), form: 'mirrored-section-form', class: maglev_button_classes %>
+      <% end %>
+    <% end %>
+
+
+    <% modal.with_footer do %>
+      <%= yield :form_actions %>
+    <% end %>
+  <% end %>
+<% end %>

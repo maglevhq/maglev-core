@@ -7,6 +7,10 @@ class Maglev::Theme::Layout < Maglev::Theme::BaseProperty
 
   validates :id, :label, 'maglev/presence': true
 
+  def human_name
+    ::I18n.t("maglev.themes.#{theme.id}.layouts.#{id}", default: label)
+  end
+
   def find_group(group_id)
     groups.find { |group| group.id == group_id }
   end
@@ -20,7 +24,7 @@ class Maglev::Theme::Layout < Maglev::Theme::BaseProperty
   def self.build(hash, **args)
     attributes = prepare_attributes(hash).slice('id', 'label')
 
-    new(attributes).tap do |layout|
+    new(attributes.merge(theme: args[:theme])).tap do |layout|
       layout.groups = Maglev::Theme::LayoutGroup.build_many(
         hash['groups'] || [],
         theme: args[:theme],

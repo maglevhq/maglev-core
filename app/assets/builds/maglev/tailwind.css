@@ -2200,6 +2200,16 @@
       }
     }
   }
+  .hover\:text-editor-primary\/80 {
+    &:hover {
+      @media (hover: hover) {
+        color: var(--color-editor-primary);
+        @supports (color: color-mix(in lab, red, red)) {
+          color: color-mix(in oklab, var(--color-editor-primary) 80%, transparent);
+        }
+      }
+    }
+  }
   .hover\:text-editor-primary\/100 {
     &:hover {
       @media (hover: hover) {
