@@ -46,6 +46,10 @@ module Maglev
         end
       end
 
+      def can_add_sections?
+        addable_sections.any?
+      end
+
       private
 
       def definition

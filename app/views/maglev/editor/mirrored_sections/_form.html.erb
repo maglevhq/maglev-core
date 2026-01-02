@@ -10,7 +10,10 @@
       }
   %>
 
-  <% if @page && @sections.any? %>
-    <%= f.select :section_id, grouped_section_options_for_select(@sections), prompt: t('maglev.editor.mirrored_sections.form.section_prompt') %>
+  <% if @page %>
+    <%= f.select :section_id, 
+        grouped_section_options_for_select(@sections), 
+        prompt: @sections.any? ? t('maglev.editor.mirrored_sections.form.section_prompt') : t('maglev.editor.mirrored_sections.form.no_sections_found')
+    %>    
   <% end %>
 </div>
