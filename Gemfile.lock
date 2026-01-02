@@ -13,7 +13,7 @@ PATH
 GEM
   remote: https://rubygems.org/
   specs:
-    action_text-trix (2.1.15)
+    action_text-trix (2.1.16)
       railties
     actioncable (8.1.1)
       actionpack (= 8.1.1)
@@ -413,6 +413,7 @@ PLATFORMS
   x86_64-linux-musl
 
 DEPENDENCIES
+  action_text-trix (>= 2.1.16)
   annotaterb
   bcrypt
   benchmark
