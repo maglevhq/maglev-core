@@ -6,7 +6,10 @@
         action: 'sortable:drag-stopped@window->editor-preview-notification-center#moveSection',            
       } 
     }) do |component| %>
-  <% component.with_item_insert_button(link: { url: new_editor_section_path(store_id: sections_store, position: 0, **maglev_editing_route_context), data: { turbo_frame: '_top' } })%>
+
+  <% if sections_store.can_add_sections? %>
+    <% component.with_item_insert_button(link: { url: new_editor_section_path(store_id: sections_store, position: 0, **maglev_editing_route_context), data: { turbo_frame: '_top' } })%>
+  <% end %>
   
   <% sections_store.sections.each_with_index do |section, index| %>
     <% component.with_item_content(id: section.id, link: { url: edit_editor_section_path(section.id, maglev_editing_route_context), data: { turbo_frame: '_top' } }) do |item| %>
@@ -40,6 +43,8 @@
       <% end %>
     <% end %>
     
-    <% component.with_item_insert_button(link: { url: new_editor_section_path(store_id: sections_store, position: index + 1, **maglev_editing_route_context), data: { turbo_frame: '_top' } }) %> 
+    <% if sections_store.can_add_sections? %>
+      <% component.with_item_insert_button(link: { url: new_editor_section_path(store_id: sections_store, position: index + 1, **maglev_editing_route_context), data: { turbo_frame: '_top' } }) %> 
+    <% end %>
   <% end %>
 <% end %>
