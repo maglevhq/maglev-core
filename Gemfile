@@ -30,6 +30,9 @@ gem 'puma'
 # To use a debugger
 # gem 'byebug', group: [:development, :test]
 
+# Fix a vulnerability in action_text
+gem "action_text-trix", ">= 2.1.16"
+
 # Use SQLite/PostgreSQL/MariaDB for development and test
 gem 'mysql2'
 gem 'pg', '~> 1.5.9'
