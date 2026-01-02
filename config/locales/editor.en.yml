@@ -125,6 +125,7 @@ en:
           page: 
             placeholder: "Select a page"
           section_prompt: "Select a section"
+          no_sections_found: "No available sections to mirror"
         show:
           well:
             title: "This section is protected"
