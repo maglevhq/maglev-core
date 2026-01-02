@@ -59,6 +59,8 @@ module Maglev
                                             depends_on: %i[fetch_site fetch_theme]
     dependency :sort_sections,              class: Maglev::Content::SortSectionsService,
                                             depends_on: %i[fetch_site fetch_theme]
+    dependency :unlink_mirrored_section,    class: Maglev::Content::UnlinkMirroredSectionService,
+                                            depends_on: %i[fetch_site fetch_theme]
 
     dependency :add_section_block,          class: Maglev::Content::AddSectionBlockService,
                                             depends_on: %i[fetch_site fetch_theme]
