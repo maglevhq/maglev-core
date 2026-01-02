@@ -13,7 +13,10 @@
       <% item.with_handle %>
 
       <% if section.label? %>
-        <% item.with_pre_title_content(section.type_name) %>
+        <% item.with_pre_title do %>
+          <%= section.type_name %>
+          <%= render Maglev::Uikit::IconComponent.new(name: "text_link", size: "0.7rem") if section.mirrored? %>
+        <% end %>
         <% item.with_title_content(section.label) %>
       <% else %>
         <% item.with_title_content(section.type_name) %>

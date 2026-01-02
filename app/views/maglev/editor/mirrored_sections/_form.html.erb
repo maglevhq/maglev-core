@@ -11,6 +11,6 @@
   %>
 
   <% if @page && @sections.any? %>
-    <%= f.select :section_id, grouped_options_for_select(@sections), prompt: t('maglev.editor.mirrored_sections.form.section_prompt') %>
+    <%= f.select :section_id, grouped_section_options_for_select(@sections), prompt: t('maglev.editor.mirrored_sections.form.section_prompt') %>
   <% end %>
 </div>
