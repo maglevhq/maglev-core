@@ -30,7 +30,7 @@ scope ':locale/:page_id' do
       put :sort, on: :collection
     end
 
-    resources :mirrored_sections, only: %i[new create]
+    resources :mirrored_sections, only: %i[new create show destroy]
   end
 
   get 'sections', to: 'sections_stores#index', as: :sections_stores

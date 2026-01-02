@@ -5,10 +5,9 @@ module Maglev
     class MirroredSectionsController < Maglev::Editor::BaseController
       before_action :ensure_turbo_frame_request, only: [:new]
 
-      layout false
-
       def new
         @mirrored_section = Maglev::Content::EditorMirroredSection.new(position: params[:position] || -1)
+        render layout: false
       end
 
       def create
@@ -19,7 +18,16 @@ module Maglev
         @section = create_section
 
         notify_added_section        
-      end      
+      end  
+      
+      def show
+        @section = current_maglev_page_content.find_section(params[:id])
+      end
+
+      def destroy
+        services.unlink_mirrored_section.call(store: sections_store, section_id: params[:id])
+        redirect_to edit_editor_section_path(params[:id], maglev_editing_route_context), notice: flash_t(:success), status: :see_other
+      end
 
       private
 
@@ -57,14 +65,16 @@ module Maglev
         else
           fetch_sections
         end
-        render :new, status: :unprocessable_content
+        render :new, status: :unprocessable_content, layout: false
       end
 
       def fetch_sections
         # we want to display the sections grouped by their layout store (header, main, ...etc)
-        @sections = services.get_page_section_names.call(page: @page, only_page_scoped: true).map do |section| 
-          [section[:label], [section[:layout_store_id], section[:type], section[:id]].join('/'), section[:layout_store_id]]
-        end.group_by { |array| array.pop }
+        @sections = services.get_page_section_names.call(
+          page: @page, 
+          available_for_mirroring: true, 
+          already_mirrored_section_ids: current_maglev_page_content.mirrored_section_ids
+        )
       end
 
       def reset_form

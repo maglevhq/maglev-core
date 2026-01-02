@@ -6,7 +6,7 @@ module Maglev
       include ActiveModel::Model
       include Maglev::Content::EnhancedValueConcern
 
-      attr_accessor :id, :type, :settings, :blocks, :definition, :theme_id, :store_handle, :lock_version
+      attr_accessor :id, :type, :settings, :blocks, :definition, :theme_id, :store_handle, :lock_version, :mirror_of
 
       def persisted?
         true
@@ -14,6 +14,10 @@ module Maglev
 
       def sticky?
         definition.viewport_fixed_position?
+      end
+
+      def mirrored?
+        mirror_of.present? && mirror_of['enabled'] == true
       end
 
       delegate :site_scoped?, to: :definition
@@ -76,7 +80,8 @@ module Maglev
           settings: Maglev::Content::SettingContent::AssociationProxy.new(raw_section_content['settings']),
           theme_id: theme.id,
           store_handle: store_handle,
-          lock_version: raw_section_content['lock_version']
+          lock_version: raw_section_content['lock_version'],
+          mirror_of: raw_section_content['mirror_of']
         ).tap do |section_content|
           section_content.build_blocks(raw_section_content)
         end
