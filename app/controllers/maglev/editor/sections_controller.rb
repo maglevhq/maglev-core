@@ -27,6 +27,7 @@ module Maglev
       end
 
       def edit
+        redirect_to editor_mirrored_section_path(@section, store_id: @section.store_handle, **maglev_editing_route_context) and return if @section.mirrored?
         newly_added_section_to_headers
       end
 

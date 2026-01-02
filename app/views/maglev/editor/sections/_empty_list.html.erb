@@ -3,7 +3,7 @@
   
   <p class="text-center">
     <%= link_to new_editor_section_path(store_id: sections_store, **maglev_editing_route_context), 
-    class: 'inline-flex items-center space-x-1.5 rounded-sm text-editor-primary/80 hover:text-editor-primary/100', 
+    class: maglev_button_classes(color: :secondary),
     data: { turbo_frame: '_top' } do %>
       <%= render Maglev::Uikit::IconComponent.new(name: 'add_2', size: "1.15rem") %>
       <span><%= t('maglev.editor.sections.index.add_button') %></span>
