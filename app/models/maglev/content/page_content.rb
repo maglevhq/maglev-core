@@ -40,6 +40,10 @@ module Maglev
       def sticky_section_ids
         sections.select(&:sticky?).map(&:id)
       end
+
+      def mirrored_section_ids
+        sections.select(&:mirrored?).map(&:id)
+      end
     end 
   end
 end

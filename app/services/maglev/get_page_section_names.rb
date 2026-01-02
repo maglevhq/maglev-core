@@ -8,9 +8,9 @@ module Maglev
     dependency :fetch_theme
 
     argument :page
-    argument :only_page_scoped, default: false
-    argument :ignore_mirrored, default: false
-
+    argument :available_for_mirroring, default: false
+    argument :already_mirrored_section_ids, default: []
+    
     # def call
     #   (page.sections || []).map do |section|
     #     definition = theme.sections.find(section['type'])
@@ -25,7 +25,7 @@ module Maglev
     def call
       fetch_stores.map do |(store, store_definition)|
         # if the store hasn't been translated yet, there won't any sections
-        (store&.sections || []).map do |section|
+        fetch_sections(store).map do |section|
           build_item(section, store_definition)
         end
       end.flatten
@@ -44,9 +44,9 @@ module Maglev
 
     def fetch_stores      
       layout.groups.map do |store_definition|
-        next if only_page_scoped && !store_definition.page_scoped?
+        next if !accept_store?(store_definition)
         [
-          scoped_store.unpublished.find_by(handle: store_definition.id), 
+          scoped_store.unpublished.find_by(handle: store_definition.id, page: page), 
           store_definition
         ]
       end.compact
@@ -65,9 +65,8 @@ module Maglev
 
     def fetch_sections(store)
       return [] unless store
-      store.sections.reject do |section|
-        # ignore deleted sections AND sections that are mirrored (if ignore_mirrored = true)
-        (section['deleted'] == true) || (ignore_mirrored && section.dig('mirror_of', 'enabled') == true) 
+      store.sections.select do |section|
+        accept_section?(section)        
       end
     end
 
@@ -75,6 +74,27 @@ module Maglev
       theme.find_layout(page.layout_id).tap do |layout|
         raise Maglev::Errors::MissingLayout, "The page #{page.id} misses the layout_id property" if layout.nil?
       end
+    end
+
+    def accept_store?(store_definition)
+      return true if !available_for_mirroring
+
+      # when getting sections available for mirroring, we only want to return page scoped sections
+      store_definition.page_scoped?      
+    end
+
+    def accept_section?(section)
+      # ignore deleted sections
+      return false if section['deleted'] == true
+
+      # the next conditions are only relevant if available_for_mirroring = true
+      return true if !available_for_mirroring
+
+      # we don't want to return site scoped sections
+      return false if theme.sections.find(section['type']).site_scoped?
+
+      # we don't want to return mirrored sections OR sections that are already mirrored
+      section.dig('mirror_of', 'enabled') != true && !already_mirrored_section_ids.include?(section['id'])      
     end
 
     def scoped_store
