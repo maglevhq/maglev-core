@@ -53,6 +53,12 @@ export default class extends Controller {
     this.updateEmptyMessageState()
   }
 
+  sectionRemoved(event) {
+    const { numberOfSections } = event.detail
+    this.numberOfSections = numberOfSections
+    this.updateEmptyMessageState()
+  }
+
   // called when the user navigates to a new page in the editor (another Maglev page OR in a different locale) 
   detectUrlChange() {
     const currentPath = new URL(this.iframeTarget.src).pathname

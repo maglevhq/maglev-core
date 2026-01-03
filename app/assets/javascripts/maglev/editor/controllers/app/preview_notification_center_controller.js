@@ -2,10 +2,11 @@ import { Controller } from "@hotwired/stimulus"
 import { isSamePath } from "maglev-controllers/utils"
 
 export default class extends Controller { 
-  static targets = ["iframe"]
+  static targets = ["iframe", "sectionsLink"]
   static values = {
     sectionPath: String,
-    sectionBlockPath: String
+    sectionBlockPath: String,
+    sectionsStoresPath: String
   }
 
   connect() {
@@ -26,6 +27,7 @@ export default class extends Controller {
   clientReady(event) {
     this.isClientReady = true
     this.processClientReadyCallbacks()
+    this.sectionsLinkTarget.href = this.sectionsStoresPathValue
   }
 
   // called by the iframe when the user clicks on a setting of a section or a section block
