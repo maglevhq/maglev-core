@@ -2,9 +2,11 @@
   <h2 class="text-center text-2xl font-bold">
     <%= t('maglev.editor.page_preview.empty.title') %>
   </h2>
-  <div class="mt-4 text-gray-600 max-w-md mx-auto leading-9">
+  <div class="mt-4 text-gray-600 max-w-md mx-auto leading-9 text-center">
     <% new_section_link = capture do %>
-      <%= link_to editor_sections_stores_path(**maglev_editing_route_context), class: 'text-editor-primary inline-block relative top-1.5' do %>
+      <%= link_to editor_sections_stores_path(**maglev_editing_route_context), 
+          class: 'text-editor-primary inline-block relative top-1.5', 
+          data: { editor_preview_notification_center_target: 'sectionsLink' } do %>
         <%= render Maglev::Uikit::IconComponent.new(name: 'stack', size: '1.5rem') %>
       <% end %>
     <% end %>

@@ -75,6 +75,7 @@ const removeSection = (event) => {
   const selector = `[data-maglev-section-id='${sectionId}']`
   const element = previewDocument.querySelector(selector)
   element.remove()
+  postMessageToEditor('section:removed', { numberOfSections: previewDocument.querySelectorAll('[data-maglev-section-id]').length })
 }
 
 const checkSectionLockVersion = (event) => {
