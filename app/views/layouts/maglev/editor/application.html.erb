@@ -33,6 +33,7 @@
   <body 
     class="h-full overflow-y-hidden font-nunito group/device group/page-layout" 
     data-controller="editor-preview-notification-center"
+    data-editor-preview-notification-center-sections-stores-path-value="<%= editor_sections_stores_path(**maglev_editing_route_context) %>"
     data-editor-preview-notification-center-section-path-value="<%= edit_editor_section_path(':section_id', maglev_editing_route_context) %>"
     data-editor-preview-notification-center-section-block-path-value="<%= edit_editor_section_block_path(':section_id', ':section_block_id', maglev_editing_route_context) %>"
     data-action="
