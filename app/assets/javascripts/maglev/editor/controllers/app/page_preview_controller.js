@@ -58,6 +58,13 @@ export default class extends Controller {
     this.updateEmptyMessageState()
   }
 
+  sectionRemoved(event) {
+    const { numberOfSections } = event.detail
+    this.numberOfSections = numberOfSections
+    this.updateEmptyMessageState()
+  }
+
+  // called when the user navigates to a new page in the editor (another Maglev page OR in a different locale)
   // Preview markup lives outside the Turbo morph root (#root), so the iframe persists while <head>
   // meta updates. Reading meta on turbo:load can race; we debounce. After Back, compare the live
   // iframe document URL (same-origin) to meta, not only the src attribute.
