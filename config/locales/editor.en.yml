@@ -32,7 +32,7 @@ en:
         loading: "Loading..."
         empty:
           title: "Your page is blank"
-          message: "Please add the first section by clicking on the %{button} button in the left sidebar."
+          message: "Please add the first section by clicking on<br/> the %{button} button in the left sidebar."
       pages:
         list:
           title: "List of pages"
