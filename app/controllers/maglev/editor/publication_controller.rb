@@ -5,6 +5,7 @@ module Maglev
     class PublicationController < Maglev::Editor::BaseController
       def create
         services.publish.call(
+          theme: maglev_theme,
           site: maglev_site,
           page: current_maglev_page
         )
