@@ -72,6 +72,7 @@ ar:
           tabs:
             main: "الرئيسية"
             seo: "تحسين محركات البحث"          
+          layout_prompt: "اختر التخطيط"
       sections:
         breadcrumb: "الأقسام"
         index:
@@ -87,7 +88,12 @@ ar:
           tabs:
             main: "المحتوى"
             advanced: "متقدم"
-            blocks: "الكتل"            
+            blocks: "الكتل"
+          mirrored:
+            title: "هذا القسم محمي"
+            description: "لتحرير محتواه، انتقل إلى الصفحة الأصلية حيث تم إنشاؤه."
+            form:
+              enable_mirroring: "تمكين المرآة"
       section_blocks:
         breadcrumb: "الكتل"
         index:
@@ -109,6 +115,24 @@ ar:
             in_progress: "جاري التحديث..."
             success: "تم التحديث!"
             fail: "فشل!"      
+      mirrored_sections:
+        add_button: "إضافة قسم معكوس"
+        new:
+          title: "إضافة قسم معكوس"
+          submit_button: "إضافة قسم"            
+          cancel_button: "إلغاء"
+        form:
+          page: 
+            placeholder: "اختر صفحة"
+          section_prompt: "اختر قسم"
+          no_sections_found: "لا توجد أقسام متاحة للعكس"
+        show:
+          well:
+            title: "هذا القسم محمي"
+            description: "لتحرير محتواه، انتقل إلى الصفحة الأصلية حيث تم إنشاؤه."
+            link_to_original_page: "انتقل إلى الصفحة الأصلية"
+            unlink_button: "إلغاء ربط القسم"
+            confirm_unlink: "هل أنت متأكد من أنك تريد إلغاء ربط هذا القسم؟"
       image_library:
         title: "قائمة الصور"
         picker_title: "اختر صورة"

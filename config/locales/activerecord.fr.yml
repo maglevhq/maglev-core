@@ -6,6 +6,7 @@ fr:
         cloned_title: "%{title} COPIE"
         paths:
           value: Chemin
+        layout_id: Mise en page
         visible: Visible
         seo_title: Meta title
         meta_description: Meta description
