@@ -6,6 +6,7 @@ ar:
         cloned_title: "%{title} نسخة"
         paths:
           value: المسار
+        layout_id: التخطيط
         visible: مرئية
         seo_title: عنوان ميتا
         meta_description: وصف ميتا
