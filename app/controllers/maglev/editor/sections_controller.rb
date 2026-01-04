@@ -34,6 +34,7 @@ module Maglev
       def update
         update_section
         refresh_lock_version
+        current_maglev_page.reload # reload the page to get the updated published_at
         flash.now[:notice] = flash_t(:success)
       end      
 
