@@ -30,16 +30,19 @@ module Maglev
     
     def publish_stores!
       layout_stores.each do |definition|
-        scoped_stores.find_or_initialize_by(handle: definition.id, published: true, page: definition.page_scoped? ? page : nil) do |store|
-          store.sections_translations = store.sections_translations
-          store.save!
-        end
+        publish_store(definition.id, definition.page_scoped? ? page : nil)        
       end
     end
 
     def publish_site_scoped_store!
-      scoped_stores.find_or_initialize_by(handle: ::Maglev::SectionsContentStore::SITE_HANDLE, published: true, page: nil) do |store|
-        store.sections_translations = site.sections_translations
+      publish_store(::Maglev::SectionsContentStore::SITE_HANDLE)      
+    end
+
+    def publish_store(handle, page = nil)
+      unpublished_store = fetch_unpublished_store(handle, page)
+
+      scoped_stores.find_or_initialize_by(published: true, handle: handle, page: page) do |store|
+        store.sections_translations = unpublished_store&.sections_translations.presence || default_sections_translations
         store.save!
       end
     end
@@ -50,8 +53,16 @@ module Maglev
       page.update(published_at: Time.current + 0.2.seconds)
     end
 
+    def fetch_unpublished_store(handle, page = nil)
+      scoped_stores.unpublished.find_by(handle: handle, page: page)
+    end
+
     def layout_stores
       theme.find_layout(page.layout_id).groups
+    end
+
+    def default_sections_translations
+      site.locale_prefixes.index_with { |_locale| [] }
     end
 
     def scoped_stores
