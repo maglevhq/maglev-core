@@ -32,8 +32,9 @@ module Maglev
 
       def update
         update_section_block
+        current_maglev_page.reload # reload the page to get the updated published_at
         flash.now[:notice] = flash_t(:success)
-      end      
+      end
 
       def destroy
         services.delete_section_block.call(

@@ -38,12 +38,21 @@ describe Maglev::PublishService do
   end
 
   context 'the page has already been published' do
-    before do
+    before do      
+      # very first publish
       service.call(theme: theme, site: site, page: page)
+
+      # update the section content
+      main_store.sections.dig(0, 'settings', 0)['value'] = 'Hello world!'
+      main_store.save!
     end
 
     it 'does not create new sections content stores' do
       expect { subject }.to change { Maglev::SectionsContentStore.published.count }.by(0)
+    end
+
+    it 'updates the section content' do
+      expect(main_store.reload.sections.dig(0, 'settings', 0, 'value')).to eq 'Hello world!'
     end
   end
 end

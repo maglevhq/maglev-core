@@ -5,6 +5,7 @@ module Maglev
     class DeleteSectionService
       include Injectable
       include Maglev::Content::HelpersConcern
+      include Maglev::Content::PublishingStateConcern
 
       dependency :fetch_theme
       dependency :fetch_site
@@ -16,6 +17,14 @@ module Maglev
       def call
         raise Maglev::Errors::UnknownSection unless section_definition
 
+        ActiveRecord::Base.transaction do
+          unsafe_call
+        end
+      end
+
+      private
+
+      def unsafe_call
         # to be soft deleted, a section must be a singleton AND declared as recoverable in the layout group
         if can_soft_delete?
           soft_delete_section!(store)
@@ -23,10 +32,8 @@ module Maglev
           # we never delete site scoped sections:
           # A page might not need it anymore but others might still need it.
           delete_section!(store)
-        end
+        end.tap { touch_page(store) }
       end
-
-      private
 
       def can_soft_delete?
         return false if layout_id.blank?
