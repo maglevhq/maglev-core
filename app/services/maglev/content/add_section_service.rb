@@ -5,6 +5,7 @@ module Maglev
     class AddSectionService
       include Injectable
       include Maglev::Content::HelpersConcern
+      include Maglev::Content::PublishingStateConcern
 
       dependency :fetch_theme
       dependency :fetch_site
@@ -15,29 +16,33 @@ module Maglev
       argument :position, default: -1
       argument :layout_id, default: nil # only used to recover a deleted section
       argument :mirror_of, default: nil # only used to add a mirrored section (attributes: page_id, layout_store_id, section_id)
-      argument :dry_run, default: false
+      argument :dry_run, default: false # if true, the store won't be touched
       argument :site, default: nil
       argument :theme, default: nil
 
       def call
         raise Maglev::Errors::UnknownSection unless section_definition
 
-        section_content = if mirror_of.present?
+        ActiveRecord::Base.transaction do
+          unsafe_call.tap do
+            # in case the instance of the service is reused, we need to reset the memoization
+            # this is the case for the setup_pages service
+            reset_memoization
+          end
+        end      
+      end
+
+      private
+
+      def unsafe_call
+        if mirror_of.present?
           add_mirrored_section
         elsif can_recover_deleted_section?
           recover_deleted_section 
         else
           add_brand_new_section
-        end
-
-        # in case the instance of the service is reused, we need to reset the memoization
-        # this is the case for the setup_pages service
-        reset_memoization
-
-        section_content
+        end.tap { touch_page(store) }
       end
-
-      private
 
       def theme
         @theme ||= fetch_theme.call
@@ -136,6 +141,11 @@ module Maglev
         else
           position
         end
+      end
+
+      def touch_page(store)
+        # if it's a dry run, it's useless to touch the page / pages
+        super unless dry_run
       end
     end
   end
