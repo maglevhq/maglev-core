@@ -15,9 +15,13 @@ describe Maglev::PublishService do
   context 'the page has never been published' do
     it 'creates 2 new sections content stores' do
       expect { subject }.to change { Maglev::SectionsContentStore.published.count }.by(4)
-      expect(Maglev::SectionsContentStore.published.map(&:handle)).to eq %w[header main footer _site]
-      expect(site.published?).to eq true
-      expect(page.published?).to eq true
+      expect(Maglev::SectionsContentStore.published.map(&:handle).sort).to eq %w[_site footer header main]
+      expect(Maglev::SectionsContentStore.published.first.sections).to eq []   
+      expect(Maglev::SectionsContentStore.published.second.sections).to match_array [hash_including('type' => 'jumbotron'), hash_including('type' => 'showcase')]
+    end
+
+    it 'marks the site and page as published' do
+      expect { subject }.to change { site.reload.published? }.from(false).to(true).and change { page.reload.published? }.from(false).to(true)
     end
 
     it 'sets the page published payload' do
