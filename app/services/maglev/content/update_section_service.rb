@@ -5,6 +5,7 @@ module Maglev
     class UpdateSectionService
       include Injectable
       include Maglev::Content::HelpersConcern
+      include Maglev::Content::PublishingStateConcern
 
       dependency :fetch_theme
       dependency :fetch_site
@@ -30,7 +31,7 @@ module Maglev
           update_section_content!(site_scoped_store)
         else
           update_section_content!(store)
-        end
+        end.tap { touch_page(store) }
       end
 
       def update_section_content!(source)
