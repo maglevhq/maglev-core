@@ -41,10 +41,9 @@ module Maglev
     def publish_store(handle, page = nil)
       unpublished_store = fetch_unpublished_store(handle, page)
 
-      scoped_stores.find_or_initialize_by(published: true, handle: handle, page: page) do |store|
-        store.sections_translations = unpublished_store&.sections_translations.presence || default_sections_translations
-        store.save!
-      end
+      published_store = scoped_stores.find_or_initialize_by(published: true, handle: handle, page: page)       
+      published_store.sections_translations = unpublished_store&.sections_translations.presence || default_sections_translations
+      published_store.save!
     end
 
     def mark_site_and_page_as_published!

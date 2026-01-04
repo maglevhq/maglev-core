@@ -5,6 +5,7 @@ module Maglev
     class DeleteSectionBlockService
       include Injectable
       include Maglev::Content::HelpersConcern
+      include Maglev::Content::PublishingStateConcern
 
       dependency :fetch_theme
       dependency :fetch_site
@@ -19,15 +20,19 @@ module Maglev
         raise Maglev::Errors::UnknownBlock unless block_definition
 
         ActiveRecord::Base.transaction do
-          if site_scoped?
-            delete_section_block!(site_scoped_store)
-          else
-            delete_section_block!(store)
-          end
+          unsafe_call
         end
       end
 
       private
+
+      def unsafe_call
+        if site_scoped?
+          delete_section_block!(site_scoped_store)
+        else
+          delete_section_block!(store)
+        end.tap { touch_page(store) }
+      end
 
       def delete_section_block!(source)
         check_section_lock_version!(source)
