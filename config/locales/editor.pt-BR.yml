@@ -72,6 +72,7 @@
           tabs:
             main: "Principal"
             seo: "SEO"          
+          layout_prompt: "Selecionar um layout"
       sections:
         breadcrumb: "Seções"
         index:
@@ -87,7 +88,12 @@
           tabs:
             main: "Conteúdo"
             advanced: "Avançado"
-            blocks: "Blocos"            
+            blocks: "Blocos"
+          mirrored:
+            title: "Esta seção está protegida"
+            description: "Para editar seu conteúdo, vá para a página original onde foi criada."
+            form:
+              enable_mirroring: "Habilitar espelhamento"
       section_blocks:
         breadcrumb: "Blocos"
         index:
@@ -109,6 +115,24 @@
             in_progress: "Atualizando..."
             success: "Atualizado!"
             fail: "Falhou!"      
+      mirrored_sections:
+        add_button: "Adicionar uma seção espelhada"
+        new:
+          title: "Adicionar uma seção espelhada"
+          submit_button: "Adicionar seção"            
+          cancel_button: "Cancelar"
+        form:
+          page: 
+            placeholder: "Selecionar uma página"
+          section_prompt: "Selecionar uma seção"
+          no_sections_found: "Nenhuma seção disponível para espelhar"
+        show:
+          well:
+            title: "Esta seção está protegida"
+            description: "Para editar seu conteúdo, vá para a página original onde foi criada."
+            link_to_original_page: "Ir para a página original"
+            unlink_button: "Desvincular seção"
+            confirm_unlink: "Tem certeza de que deseja desvincular esta seção?"
       image_library:
         title: "Lista de imagens"
         picker_title: "Selecionar uma imagem"
