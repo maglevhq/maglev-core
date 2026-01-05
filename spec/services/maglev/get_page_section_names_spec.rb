@@ -2,13 +2,16 @@
 
 require 'rails_helper'
 
-describe Maglev::GetPageSectionNames do  
+describe Maglev::GetPageSectionNames do
   let(:theme) { build(:theme) }
   let(:service) { described_class.new(fetch_theme: double('FetchTheme', call: theme)) }
   let(:available_for_mirroring) { false }
   let(:already_mirrored_section_ids) { [] }
 
-  subject { service.call(page: page, available_for_mirroring: available_for_mirroring, already_mirrored_section_ids: already_mirrored_section_ids) }
+  subject do
+    service.call(page: page, available_for_mirroring: available_for_mirroring,
+                 already_mirrored_section_ids: already_mirrored_section_ids)
+  end
 
   context 'the page has no sections (stores)' do
     let(:page) { build(:page) }
@@ -21,7 +24,7 @@ describe Maglev::GetPageSectionNames do
   context 'the page has a couple of sections (stores)' do
     let(:main_store) { fetch_sections_store('main', page.id) }
     let(:page) { create(:page) }
-    
+
     it 'returns an array of hashes containing the id and name of a page section' do
       expect(subject).to match([
                                  a_hash_including(label: 'Jumbotron', layout_store_label: 'Main'),
@@ -42,7 +45,7 @@ describe Maglev::GetPageSectionNames do
 
     context 'when getting sections available for mirroring' do
       let(:available_for_mirroring) { true }
-      
+
       context 'when a section is mirrored' do
         before do
           main_store.sections.first['mirror_of'] = { enabled: true }

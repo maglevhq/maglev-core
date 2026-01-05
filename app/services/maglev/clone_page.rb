@@ -5,7 +5,7 @@ module Maglev
   # The service also makes sure that the path of the cloned page will be unique.
   class ClonePage
     include Injectable
-    
+
     dependency :fetch_site
 
     argument :page
@@ -64,7 +64,7 @@ module Maglev
     def clone_sections_content_stores(cloned_page)
       page.sections_content_stores.unpublished.find_each do |store|
         clone_sections_content_store(cloned_page, store)
-      end     
+      end
     end
 
     def clone_sections_content_store(cloned_page, store)

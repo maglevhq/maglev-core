@@ -10,7 +10,7 @@ module Maglev
     argument :page
     argument :available_for_mirroring, default: false
     argument :already_mirrored_section_ids, default: []
-    
+
     # def call
     #   (page.sections || []).map do |section|
     #     definition = theme.sections.find(section['type'])
@@ -42,11 +42,12 @@ module Maglev
       @theme ||= fetch_theme.call
     end
 
-    def fetch_stores      
+    def fetch_stores
       layout.groups.map do |store_definition|
-        next if !accept_store?(store_definition)
+        next unless accept_store?(store_definition)
+
         [
-          scoped_store.unpublished.find_by(handle: store_definition.id, page: page), 
+          scoped_store.unpublished.find_by(handle: store_definition.id, page: page),
           store_definition
         ]
       end.compact
@@ -65,8 +66,9 @@ module Maglev
 
     def fetch_sections(store)
       return [] unless store
+
       store.sections.select do |section|
-        accept_section?(section)        
+        accept_section?(section)
       end
     end
 
@@ -77,10 +79,10 @@ module Maglev
     end
 
     def accept_store?(store_definition)
-      return true if !available_for_mirroring
+      return true unless available_for_mirroring
 
       # when getting sections available for mirroring, we only want to return page scoped sections
-      store_definition.page_scoped?      
+      store_definition.page_scoped?
     end
 
     def accept_section?(section)
@@ -88,13 +90,13 @@ module Maglev
       return false if section['deleted'] == true
 
       # the next conditions are only relevant if available_for_mirroring = true
-      return true if !available_for_mirroring
+      return true unless available_for_mirroring
 
       # we don't want to return site scoped sections
       return false if theme.sections.find(section['type']).site_scoped?
 
       # we don't want to return mirrored sections OR sections that are already mirrored
-      section.dig('mirror_of', 'enabled') != true && !already_mirrored_section_ids.include?(section['id'])      
+      section.dig('mirror_of', 'enabled') != true && !already_mirrored_section_ids.include?(section['id'])
     end
 
     def scoped_store

@@ -20,24 +20,15 @@ class Maglev::Theme::LayoutGroup < Maglev::Theme::BaseProperty
   end
 
   def mirror_section?
-    mirror_section.nil? ? true : !!mirror_section
+    mirror_section.nil? || !!mirror_section
   end
 
   def accepts?(section)
-    check_against(accept, section)    
+    check_against(accept, section)
   end
 
   def recoverable?(section)
     section.singleton? && check_against(recoverable, section)
-  end
-
-  private
-
-  def check_against(list, section)
-    list.include?('*') || 
-    list.include?(section.id) || 
-    list.include?("#{section.category}/#{section.id}") || 
-    list.include?("#{section.category}/*")
   end
 
   ## class methods ##
@@ -47,15 +38,22 @@ class Maglev::Theme::LayoutGroup < Maglev::Theme::BaseProperty
 
     attributes['accept'] ||= ['*']
     attributes['recoverable'] ||= []
-    attributes['page_scoped'] = !!attributes.delete('page')
+    attributes['page_scoped'] = !attributes.delete('page').nil?
 
-    if (mirror_section = attributes.delete('mirror_section')).nil?
-      attributes['mirror_section'] = true
-    else
-      attributes['mirror_section'] = mirror_section
-    end
-    
+    attributes['mirror_section'] = ((mirror_section = attributes.delete('mirror_section')).nil? || mirror_section)
+
     new(attributes.merge(theme: args[:theme], layout_id: args[:layout_id]))
+  end
+
+  ## private methods ##
+
+  private
+
+  def check_against(list, section)
+    list.include?('*') ||
+      list.include?(section.id) ||
+      list.include?("#{section.category}/#{section.id}") ||
+      list.include?("#{section.category}/*")
   end
 end
 # rubocop:enable Style/ClassAndModuleChildren

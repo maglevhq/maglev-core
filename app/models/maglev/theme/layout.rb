@@ -16,10 +16,10 @@ class Maglev::Theme::Layout < Maglev::Theme::BaseProperty
   end
 
   def page_scoped_stores
-    groups.select { |group| group.page_scoped? }
+    groups.select(&:page_scoped?)
   end
 
-  ## class methods ##  
+  ## class methods ##
 
   def self.build(hash, **args)
     attributes = prepare_attributes(hash).slice('id', 'label')

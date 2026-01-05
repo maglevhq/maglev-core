@@ -9,7 +9,7 @@ class Maglev::Theme::BaseProperty
 
   ## class methods ##
 
-  def self.build(_hash, **args)
+  def self.build(_hash, **_args)
     raise 'TO BE IMPLEMENTED'
   end
 

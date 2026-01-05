@@ -24,7 +24,6 @@ module Maglev::GetPageSections::TransformSectionConcern
     section
   end
 
-  # rubocop:disable Style/StringHashKeys
   # def transform_if_site_scoped(section, definition)
   #   return unless definition.site_scoped?
 
@@ -40,8 +39,6 @@ module Maglev::GetPageSections::TransformSectionConcern
   #     'lock_version' => site_section['lock_version']
   #   )
   # end
-  # rubocop:enable Style/StringHashKeys
-
   def transform_section_blocks(blocks, definition)
     blocks.each do |block|
       block_definition = definition.blocks.find(block['type'])
