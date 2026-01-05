@@ -73,6 +73,13 @@ module Maglev
       end
 
       def self.build(theme:, store_handle:, raw_section_content:)
+        build_without_blocks(theme: theme, store_handle: store_handle,
+                             raw_section_content: raw_section_content).tap do |section_content|
+          section_content.build_blocks(raw_section_content)
+        end
+      end
+
+      def self.build_without_blocks(theme:, store_handle:, raw_section_content:)
         new(
           id: raw_section_content['id'],
           definition: theme.sections.find(raw_section_content['type']),
@@ -82,9 +89,7 @@ module Maglev
           store_handle: store_handle,
           lock_version: raw_section_content['lock_version'],
           mirror_of: raw_section_content['mirror_of']
-        ).tap do |section_content|
-          section_content.build_blocks(raw_section_content)
-        end
+        )
       end
     end
   end

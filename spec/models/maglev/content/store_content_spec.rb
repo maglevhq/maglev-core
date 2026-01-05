@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Maglev::Content::StoreContent do  
+RSpec.describe Maglev::Content::StoreContent do
   let(:theme) { build(:theme) }
   let(:page) { build(:page) }
   let(:main_sections) { build(:sections_content_store, page: page).sections }
@@ -13,16 +13,16 @@ RSpec.describe Maglev::Content::StoreContent do
     subject { instance.label }
 
     it { is_expected.to eq 'Main' }
-  end  
+  end
 
   describe '#addable_sections' do
     subject { instance.addable_sections }
 
-    context 'when there is no recoverable section'  do
+    context 'when there is no recoverable section' do
       before { theme.find_layout('default').find_group('main').recoverable = [] }
-      
+
       it 'returns the available sections to add' do
-        expect(subject.map(&:id).sort).to eq ['featured_product', 'jumbotron', 'showcase']
+        expect(subject.map(&:id).sort).to eq %w[featured_product jumbotron showcase]
       end
     end
 
@@ -30,7 +30,7 @@ RSpec.describe Maglev::Content::StoreContent do
       before { theme.sections.find('jumbotron').singleton = true }
 
       it 'returns the available sections to add' do
-        expect(subject.map(&:id).sort).to eq ['featured_product', 'showcase']
+        expect(subject.map(&:id).sort).to eq %w[featured_product showcase]
       end
     end
 
@@ -38,7 +38,7 @@ RSpec.describe Maglev::Content::StoreContent do
       before { theme.sections.find('jumbotron').site_scoped = true }
 
       it 'returns the available sections to add' do
-        expect(subject.map(&:id).sort).to eq ['featured_product', 'showcase']
+        expect(subject.map(&:id).sort).to eq %w[featured_product showcase]
       end
     end
 
@@ -46,7 +46,7 @@ RSpec.describe Maglev::Content::StoreContent do
       before { theme.find_layout('default').find_group('main').recoverable = ['jumbotron'] }
 
       it 'returns the available sections to add' do
-        expect(subject.map(&:id).sort).to eq ['featured_product', 'showcase']
+        expect(subject.map(&:id).sort).to eq %w[featured_product showcase]
       end
     end
   end
@@ -58,7 +58,7 @@ RSpec.describe Maglev::Content::StoreContent do
       before { theme.mirror_section = false }
 
       it { is_expected.to eq false }
-    end    
+    end
 
     context 'when the theme allows mirrored sections' do
       before { theme.mirror_section = true }

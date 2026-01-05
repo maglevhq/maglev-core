@@ -27,7 +27,7 @@ module Maglev
 
       def unsafe_call
         if site_scoped?
-          add_missing_site_scoped_section # make sure the section is also present in the site scoped store            
+          add_missing_site_scoped_section # make sure the section is also present in the site scoped store
           update_section_content!(site_scoped_store)
         else
           update_section_content!(store)
@@ -50,16 +50,17 @@ module Maglev
 
           update_setting_value(setting, current_section_content)
         end
-      end      
+      end
 
       def add_missing_site_scoped_section
-        # if a section has been declared site_scoped after the section has been added to the store, we need to add it to the site scoped store
+        # if a section has been declared site_scoped after the section has been added to the store,
+        # we need to add it to the site scoped store
         return if find_section(site_scoped_store)
 
         original_section = find_section(store).dup
-        
+
         site_scoped_store.sections << original_section
-      end      
+      end
     end
   end
 end

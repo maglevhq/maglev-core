@@ -6,7 +6,8 @@ module Maglev
     include ActiveModel::Model
 
     ## attributes ##
-    attr_accessor :id, :name, :description, :section_categories, :layouts, :sections, :style_settings, :pages, :icons, :mirror_section
+    attr_accessor :id, :name, :description, :section_categories, :layouts, :sections, :style_settings, :pages, :icons,
+                  :mirror_section
 
     ## validations ##
     validates :id, :name, presence: true
@@ -32,10 +33,6 @@ module Maglev
     def find_setting(section_id, block_id, setting_id)
       key = [section_id, block_id, setting_id].compact.join('.')
       section_setting_types[key]
-    end
-
-    def find_layout(layout_id)
-      layouts.find { |layout| layout.id == layout_id }
     end
 
     def default_layout_id

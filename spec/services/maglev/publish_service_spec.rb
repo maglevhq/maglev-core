@@ -16,12 +16,18 @@ describe Maglev::PublishService do
     it 'creates 2 new sections content stores' do
       expect { subject }.to change { Maglev::SectionsContentStore.published.count }.by(4)
       expect(Maglev::SectionsContentStore.published.map(&:handle).sort).to eq %w[_site footer header main]
-      expect(Maglev::SectionsContentStore.published.first.sections).to eq []   
-      expect(Maglev::SectionsContentStore.published.second.sections).to match_array [hash_including('type' => 'jumbotron'), hash_including('type' => 'showcase')]
+      expect(Maglev::SectionsContentStore.published.first.sections).to eq []
+      # rubocop:disable Style/StringHashKeys
+      expect(Maglev::SectionsContentStore.published.second.sections).to match_array(
+        [hash_including('type' => 'jumbotron'), hash_including('type' => 'showcase')]
+      )
+      # rubocop:enable Style/StringHashKeys
     end
 
     it 'marks the site and page as published' do
-      expect { subject }.to change { site.reload.published? }.from(false).to(true).and change { page.reload.published? }.from(false).to(true)
+      expect { subject }.to change { site.reload.published? }.from(false).to(true).and change {
+        page.reload.published?
+      }.from(false).to(true)
     end
 
     it 'sets the page published payload' do
@@ -38,7 +44,7 @@ describe Maglev::PublishService do
   end
 
   context 'the page has already been published' do
-    before do      
+    before do
       # very first publish
       service.call(theme: theme, site: site, page: page)
 

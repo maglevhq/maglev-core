@@ -8,7 +8,7 @@ describe Maglev::Content::DeleteSectionBlockService do
   let(:page) { create(:page) }
   let(:store) { fetch_sections_store('main', page.id) }
   let(:section) { store.find_section_by_type('showcase') }
-  let(:section_id) { section.dig('id') }
+  let(:section_id) { section['id'] }
   let(:block_id) { section.dig('blocks', 0, 'id') }
   let(:fetch_theme) { double('FetchTheme', call: theme) }
   let(:fetch_site) { double('FetchSite', call: site) }
@@ -20,7 +20,7 @@ describe Maglev::Content::DeleteSectionBlockService do
   subject { service.call(store: store, section_id: section_id, block_id: block_id, lock_version: lock_version) }
 
   it 'deletes the block' do
-    expect { subject }.to change(section.dig('blocks'), :size).by(-1)
+    expect { subject }.to change(section['blocks'], :size).by(-1)
   end
 
   context 'Given the page has been modified while deleting the block' do

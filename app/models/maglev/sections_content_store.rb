@@ -34,20 +34,21 @@ module Maglev
 
     ## constants
     SITE_HANDLE = '_site' # handle for the global site scoped sections
-    
+
     ## associations ##
-    belongs_to :page, class_name: 'Maglev::Page', foreign_key: 'maglev_page_id', optional: true, inverse_of: :sections_content_stores
+    belongs_to :page, class_name: 'Maglev::Page', foreign_key: 'maglev_page_id', optional: true,
+                      inverse_of: :sections_content_stores
 
     ## scopes ##
     scope :by_handles, ->(handles) { where(Maglev::SectionsContentStore.arel_table[:handle].in(handles)) }
     scope :published, -> { where(published: true) }
     scope :unpublished, -> { where(published: false) }
-    
+
     ## validations ##
-    validates :handle, presence: true, uniqueness: { scope: [:maglev_page_id, :published] }
+    validates :handle, presence: true, uniqueness: { scope: %i[maglev_page_id published] }
 
     ## translations ##
-    translates :sections    
+    translates :sections
 
     ## methods ##
 

@@ -10,11 +10,11 @@ module Maglev
     dependency :fetch_theme
     dependency :fetch_sections_content
 
-    argument :page    
+    argument :page
     argument :published, default: false
     argument :section_id, default: nil
     argument :locale, default: nil
-    
+
     def call
       layout.groups.map do |group|
         sections, lock_version = fetch_sections(group)

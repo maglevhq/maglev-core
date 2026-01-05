@@ -9,10 +9,10 @@ describe Maglev::Content::UpdateSectionBlockService do
   let(:fetch_site) { double('FetchSite', call: site) }
   let(:store) { fetch_sections_store('main', page.id) }
   let(:section) { store.find_section_by_type('showcase') }
-  let(:section_id) { section.dig('id') }
+  let(:section_id) { section['id'] }
   let(:lock_version) { nil }
   let(:service) { described_class.new(fetch_site: fetch_site, fetch_theme: fetch_theme) }
-  
+
   subject(:service_call) do
     service.call(store: store, section_id: section_id, block_id: block_id, content: content, lock_version: lock_version)
   end

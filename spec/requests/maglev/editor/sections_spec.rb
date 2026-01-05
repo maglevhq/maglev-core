@@ -30,7 +30,7 @@ describe 'Maglev::Editor::Sections', type: :request do
         expect(flash[:section_id]).not_to be_nil
         expect(flash[:position]).to eq(0)
       end.to change { sections_store.reload.sections.count }.by(1)
-    end    
+    end
   end
 
   describe 'GET /maglev/editor/:context/sections/:id/edit' do

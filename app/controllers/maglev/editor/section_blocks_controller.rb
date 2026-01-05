@@ -30,17 +30,11 @@ module Maglev
       def edit; end
 
       def update
-        services.update_section_block.call(
-          store: sections_store,
-          section_id: @section.id,
-          block_id: @section_block.id,
-          content: params[:section_block].to_unsafe_h,
-          lock_version: params[:lock_version]
-        )
+        update_section_block
         refresh_lock_version
         current_maglev_page.reload # reload the page to get the updated published_at
         flash.now[:notice] = flash_t(:success)
-      end      
+      end
 
       def destroy
         services.delete_section_block.call(
@@ -78,8 +72,19 @@ module Maglev
         @sections_store ||= services.fetch_sections_store.call(page: current_maglev_page, handle: @section.store_handle)
       end
 
+      def update_section_block
+        services.update_section_block.call(
+          store: sections_store,
+          section_id: @section.id,
+          block_id: @section_block.id,
+          content: params[:section_block].to_unsafe_h,
+          lock_version: params[:lock_version]
+        )
+      end
+
       def refresh_lock_version
-        @section_block.lock_version = sections_store.find_section_block_by_id(@section.id, @section_block.id)['lock_version']
+        @section_block.lock_version = sections_store.find_section_block_by_id(@section.id,
+                                                                              @section_block.id)['lock_version']
       end
 
       def redirect_to_section_blocks_path(success: true)
@@ -90,7 +95,7 @@ module Maglev
                 end
 
         path = editor_section_blocks_path(@section.id, **maglev_editing_route_context)
-        
+
         redirect_to path, status: :see_other, **flash
       end
 

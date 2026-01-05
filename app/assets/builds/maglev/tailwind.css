@@ -697,9 +697,6 @@
   .max-w-7xl {
     max-width: var(--container-7xl);
   }
-  .max-w-lg {
-    max-width: var(--container-lg);
-  }
   .max-w-md {
     max-width: var(--container-md);
   }
@@ -1584,12 +1581,6 @@
   .text-editor-primary {
     color: var(--color-editor-primary);
   }
-  .text-editor-primary\/80 {
-    color: var(--color-editor-primary);
-    @supports (color: color-mix(in lab, red, red)) {
-      color: color-mix(in oklab, var(--color-editor-primary) 80%, transparent);
-    }
-  }
   .text-gray-200 {
     color: var(--color-gray-200);
   }
@@ -2185,23 +2176,6 @@
     }
   }
   .hover\:text-editor-primary {
-    &:hover {
-      @media (hover: hover) {
-        color: var(--color-editor-primary);
-      }
-    }
-  }
-  .hover\:text-editor-primary\/80 {
-    &:hover {
-      @media (hover: hover) {
-        color: var(--color-editor-primary);
-        @supports (color: color-mix(in lab, red, red)) {
-          color: color-mix(in oklab, var(--color-editor-primary) 80%, transparent);
-        }
-      }
-    }
-  }
-  .hover\:text-editor-primary\/100 {
     &:hover {
       @media (hover: hover) {
         color: var(--color-editor-primary);

@@ -26,7 +26,7 @@ RSpec.describe 'Maglev::PagePreviewController', type: :request do
       before do
         Maglev::SectionsContentStore.find_by(handle: 'header').update!(sections: header_sections)
         # the navbar must also be persisted in the site scoped sections content store
-        Maglev::SectionsContentStore.find_by(handle: '_site').update!(sections: header_sections)        
+        Maglev::SectionsContentStore.find_by(handle: '_site').update!(sections: header_sections)
       end
 
       it 'renders the index page with the navbar' do
@@ -82,7 +82,9 @@ RSpec.describe 'Maglev::PagePreviewController', type: :request do
 
     it 'renders the index page with the content from the params' do
       post '/maglev/preview', params: { section_id: section_id }
-      expect(response.body).to match(%r{<h1 data-maglev-id="\S+\.title" class="[^>]+">Let's create the product<br/>your clients<br/>will love.</h1>})
+      expect(response.body).to match(
+        %r{<h1 data-maglev-id="\S+\.title" class="[^>]+">Let's create the product<br/>your clients<br/>will love.</h1>}
+      )
     end
   end
 

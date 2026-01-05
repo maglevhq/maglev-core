@@ -11,22 +11,23 @@ module Maglev
       end
 
       def create
-        @mirrored_section = Maglev::Content::EditorMirroredSection.new(mirrored_section_params)        
+        @mirrored_section = Maglev::Content::EditorMirroredSection.new(mirrored_section_params)
 
         refresh_form and return if params[:refresh] == '1' || !@mirrored_section.valid?
-          
+
         @section = create_section
 
-        notify_added_section        
-      end  
-      
+        notify_added_section
+      end
+
       def show
         @section = current_maglev_page_content.find_section(params[:id])
       end
 
       def destroy
         services.unlink_mirrored_section.call(store: sections_store, section_id: params[:id])
-        redirect_to edit_editor_section_path(params[:id], maglev_editing_route_context), notice: flash_t(:success), status: :see_other
+        redirect_to edit_editor_section_path(params[:id], maglev_editing_route_context), notice: flash_t(:success),
+                                                                                         status: :see_other
       end
 
       private
@@ -34,10 +35,10 @@ module Maglev
       def mirrored_section_params
         params.require(:mirrored_section).permit(:page_id, :section_id, :position)
       end
-      
+
       def sections_store
         @sections_store ||= services.fetch_sections_store.call(page: current_maglev_page, handle: params[:store_id])
-      end      
+      end
 
       def create_section
         services.add_section.call(
@@ -46,7 +47,7 @@ module Maglev
           section_type: @mirrored_section.section_type,
           mirror_of: @mirrored_section.to_mirror_of,
           position: params[:position].to_i
-        )        
+        )
       end
 
       def notify_added_section
@@ -71,8 +72,8 @@ module Maglev
       def fetch_sections
         # we want to display the sections grouped by their layout store (header, main, ...etc)
         @sections = services.get_page_section_names.call(
-          page: @page, 
-          available_for_mirroring: true, 
+          page: @page,
+          available_for_mirroring: true,
           already_mirrored_section_ids: current_maglev_page_content.mirrored_section_ids
         )
       end
@@ -81,7 +82,7 @@ module Maglev
         @page = nil
         @mirrored_section.page_id = nil
         @mirrored_section.section_id = nil
-      end  
+      end
     end
   end
 end

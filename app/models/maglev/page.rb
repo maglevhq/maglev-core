@@ -34,12 +34,12 @@ module Maglev
 
     ## associations ##
     has_many :sections_content_stores, class_name: 'Maglev::SectionsContentStore',
-                      foreign_key: 'maglev_page_id', # required by Rails 7.0
-                      dependent: :destroy,
-                      inverse_of: :page
+                                       foreign_key: 'maglev_page_id', # required by Rails 7.0
+                                       dependent: :destroy,
+                                       inverse_of: :page
 
     ## translations ##
-    translates :title, presence: true    
+    translates :title, presence: true
     translates :seo_title, :meta_description
     translates :og_title, :og_description, :og_image_url
     translates :sections # LEGACY: will be removed in a future version

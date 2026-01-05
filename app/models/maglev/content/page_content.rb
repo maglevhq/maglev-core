@@ -22,11 +22,11 @@ module Maglev
       end
 
       def first_page_store(layout_id)
-        handle = theme.find_layout(layout_id).find_page_stores.first.id
+        theme.find_layout(layout_id).find_page_stores.first.id
       end
 
       def sections
-        stores.map { |store| store.sections }.flatten
+        stores.map(&:sections).flatten
       end
 
       def sections_of(handle)
@@ -44,6 +44,6 @@ module Maglev
       def mirrored_section_ids
         sections.select(&:mirrored?).map(&:id)
       end
-    end 
+    end
   end
 end

@@ -35,7 +35,7 @@ module Maglev
         next unless store_section
 
         # keep the same section id all over the pages
-        store.replace_section(section, store_section)        
+        store.replace_section(section, store_section)
       end
     end
 

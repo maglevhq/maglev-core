@@ -11,9 +11,12 @@ describe Maglev::Content::AddSectionService do
   let(:mirror_of) { nil }
   let(:fetch_theme) { double('FetchTheme', call: theme) }
   let(:fetch_site) { double('FetchSite', call: site) }
-  let(:service) { described_class.new(fetch_site: fetch_site, fetch_theme: fetch_theme) }  
+  let(:service) { described_class.new(fetch_site: fetch_site, fetch_theme: fetch_theme) }
 
-  subject(:service_call) { service.call(store: store, site: site, section_type: section_type, position: position, layout_id: layout_id, mirror_of: mirror_of) }
+  subject(:service_call) do
+    service.call(store: store, site: site, section_type: section_type, position: position, layout_id: layout_id,
+                 mirror_of: mirror_of)
+  end
 
   context 'Given a section type that does not exist' do
     let(:section_type) { 'not_existing' }
@@ -29,7 +32,7 @@ describe Maglev::Content::AddSectionService do
     let(:store) { create(:sections_content_store, :empty, handle: 'header') }
     let(:section_type) { 'navbar' }
     let(:position) { -1 }
-    
+
     it 'adds the section to the store' do
       expect { subject }.to change { store.sections.count }.by(1)
     end
@@ -48,7 +51,7 @@ describe Maglev::Content::AddSectionService do
 
     context 'Given the site has already a section with the same type' do
       let!(:site_scoped_store) { create(:sections_content_store, :site_scoped, :with_navbar) }
-      
+
       it 'adds the section to the site' do
         subject
         expect(site_scoped_store.sections.count).to eq 1
@@ -59,8 +62,10 @@ describe Maglev::Content::AddSectionService do
 
     context 'Given the store has been modified while adding the section' do
       let!(:store) { create(:sections_content_store, :empty, handle: 'header') }
-      
+
+      # rubocop:disable Rails/SkipsModelValidations
       before { Maglev::SectionsContentStore.find(store.id).touch } # force a change and so a lock version change
+      # rubocop:enable Rails/SkipsModelValidations
 
       it 'raises an exception about the stale store' do
         expect { subject }.to raise_exception(ActiveRecord::StaleObjectError)
@@ -101,13 +106,13 @@ describe Maglev::Content::AddSectionService do
 
         it { is_expected.to eq %w[jumbotron showcase footer] }
       end
-    end    
+    end
   end
 
   context 'Given the section has been previously deleted' do
     let(:section_type) { 'jumbotron' }
     let(:position) { -1 }
-    
+
     before do
       # make the jumbotron a singleton
       theme.sections.find('jumbotron').singleton = true
@@ -115,7 +120,7 @@ describe Maglev::Content::AddSectionService do
       # mark the first section (jumbotron) as deleted
       store.sections_translations_will_change!
       store.sections[0]['deleted'] = true
-      store.save! 
+      store.save!
     end
 
     it 'returns the recovered section' do
@@ -133,7 +138,7 @@ describe Maglev::Content::AddSectionService do
     let(:section_type) { 'jumbotron' }
     let(:mirror_of) { { page_id: another_page.id, layout_store_id: another_store.handle, section_id: 'jumbotron-0' } }
     let(:position) { -1 }
-    
+
     it 'adds a new section in the store' do
       expect { subject }.to change { store.sections.count }.by(1)
       expect(subject['id']).to eq 'jumbotron-0'

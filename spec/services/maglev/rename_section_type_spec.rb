@@ -20,9 +20,9 @@ describe Maglev::RenameSectionType do
   describe 'when the site has sections of the specified type' do
     before do
       site_scoped_store.update!(sections_translations: {
-                     en: [{ type: 'hero', settings: [{ value: 'Hello' }] }],
-                     fr: [{ type: 'hero', settings: [{ value: 'Bonjour' }] }]
-                   })
+                                  en: [{ type: 'hero', settings: [{ value: 'Hello' }] }],
+                                  fr: [{ type: 'hero', settings: [{ value: 'Bonjour' }] }]
+                                })
     end
 
     it 'renames the section type in all locales' do
@@ -45,9 +45,9 @@ describe Maglev::RenameSectionType do
   describe 'when the site has no sections of the specified type' do
     before do
       site_scoped_store.update!(sections_translations: {
-                     en: [{ type: 'footer' }],
-                     fr: [{ type: 'footer' }]
-                   })
+                                  en: [{ type: 'footer' }],
+                                  fr: [{ type: 'footer' }]
+                                })
     end
 
     it 'does not modify the sections' do
@@ -87,14 +87,14 @@ describe Maglev::RenameSectionType do
     before do
       # Set up sections for both site and page
       site_scoped_store.update!(sections_translations: {
-                     en: [{ type: 'hero' }, { type: 'footer' }],
-                     fr: [{ type: 'hero' }, { type: 'footer' }]
-                   })
+                                  en: [{ type: 'hero' }, { type: 'footer' }],
+                                  fr: [{ type: 'hero' }, { type: 'footer' }]
+                                })
 
       main_store.update!(sections_translations: {
-        en: [{ type: 'hero' }, { type: 'navigation' }],
-        fr: [{ type: 'hero' }, { type: 'navigation' }]
-      })
+                           en: [{ type: 'hero' }, { type: 'navigation' }],
+                           fr: [{ type: 'hero' }, { type: 'navigation' }]
+                         })
     end
 
     it 'renames the sections in both site and pages' do

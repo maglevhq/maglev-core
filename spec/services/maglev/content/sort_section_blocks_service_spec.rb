@@ -8,7 +8,7 @@ describe Maglev::Content::SortSectionBlocksService do
   let!(:page) { create(:page, number_of_showcase_blocks: 4) }
   let(:store) { fetch_sections_store('main', page.id) }
   let(:section) { store.find_section_by_type('showcase') }
-  let(:section_id) { section.dig('id') }
+  let(:section_id) { section['id'] }
   let(:parent_id) { nil }
   let(:block_ids) do
     [
@@ -32,7 +32,7 @@ describe Maglev::Content::SortSectionBlocksService do
 
   it 'sorts the blocks' do
     expect { subject }.to change {
-      section.dig('blocks').map do |block|
+      section['blocks'].map do |block|
         block['settings'].dig(0, 'value')
       end
     }.to ['My project #4', 'My first project', 'My project #3', 'My project #2']
@@ -50,7 +50,7 @@ describe Maglev::Content::SortSectionBlocksService do
 
   describe 'When the blocks are sorted in the tree' do
     let!(:page) { create(:page, :with_navbar) }
-    let(:site_scoped_store) { create(:sections_content_store, :site_scoped, :empty) }    
+    let(:site_scoped_store) { create(:sections_content_store, :site_scoped, :empty) }
     let(:store) { fetch_sections_store('header') }
     let(:section) { store.find_section_by_type('navbar') }
     let(:parent_id) { 'menu-item-1' }
@@ -61,7 +61,7 @@ describe Maglev::Content::SortSectionBlocksService do
       ]
     end
 
-    before do 
+    before do
       site_scoped_store.sections = [section]
       site_scoped_store.prepare_sections(theme)
       site_scoped_store.save!

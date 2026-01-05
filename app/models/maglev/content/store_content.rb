@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Maglev
   module Content
     class StoreContent
@@ -32,28 +34,12 @@ module Maglev
         theme.sections.select do |section|
           already_inserted = inserted_section_types.include?(section.id)
 
-          # you can't have more than one instance of a recoverable section within a store
-          next false if definition.recoverable.include?(section.id) && already_inserted
-
-          # you can't add a siteScoped section if there is already a siteScoped section of the same type
-          next false if section.site_scoped? && already_inserted
-
-          # you can't add a singleton section if there is already a singleton section of the same type
-          next false if section.singleton? && already_inserted
-
-          # deals with the accept rules of the layout group
-          definition.accepts?(section)          
+          section.can_be_added_in?(definition, already_inserted)
         end
       end
 
       def can_add_sections?
         addable_sections.any?
-      end
-
-      private
-
-      def definition
-        theme.find_layout(layout_id).find_group(id)
       end
 
       ## class methods ##
@@ -66,18 +52,28 @@ module Maglev
 
       def self.build(store:, theme:, layout_id:)
         StoreContent.new(
-            id: store[:id], 
-            sections: Maglev::Content::SectionContent.build_many(
-              theme: theme, 
-              store_handle: store[:id],
-              content: store[:sections]
-            ), 
-            lock_version: store[:lock_version],
-            layout_id: layout_id,
-            theme: theme
-          )
+          id: store[:id],
+          sections: build_sections(store: store, theme: theme),
+          lock_version: store[:lock_version],
+          layout_id: layout_id,
+          theme: theme
+        )
       end
-    
+
+      def self.build_sections(store:, theme:)
+        Maglev::Content::SectionContent.build_many(
+          theme: theme,
+          store_handle: store[:id],
+          content: store[:sections]
+        )
+      end
+
+      private
+
+      def definition
+        theme.find_layout(layout_id).find_group(id)
+      end
+
       class AssociationProxy
         include Enumerable
 
@@ -89,14 +85,14 @@ module Maglev
           @theme = theme
           @stores = StoreContent.build_many(stores: stores, theme: theme, layout_id: page.layout_id)
         end
-        
+
         def [](id)
           stores.find { |store| store.id == id }
         end
 
         def each(&block)
           stores.each(&block)
-        end        
+        end
       end
     end
   end

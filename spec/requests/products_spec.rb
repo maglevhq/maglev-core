@@ -27,8 +27,8 @@ RSpec.describe 'Maglev::PagePreviewController', type: :request do
       expect_element_text(title_element, 'My awesome product')
 
       # Check the navbar section
-       expect_element_present(doc, 'div[data-maglev-section-type="navbar"]')
-      
+      expect_element_present(doc, 'div[data-maglev-section-type="navbar"]')
+
       # Check the main heading
       h1_element = expect_element_present(doc, 'h1')
       expect_element_text(h1_element, 'My awesome product')
