@@ -55,7 +55,7 @@ describe Maglev::Content::AddSectionBlockService do
   end
 
   context 'Given a parent id' do
-    let(:store) { create(:sections_content_store, :header) }   
+    let(:store) { create(:sections_content_store, :header) }
     let!(:site_scoped_store) { create(:sections_content_store, :header, :site_scoped) }
     let(:section_id) { store.sections.dig(0, 'id') } # navbar section
     let(:block_type) { 'menu_item' }

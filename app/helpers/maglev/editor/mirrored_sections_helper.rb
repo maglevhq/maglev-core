@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Maglev
   module Editor
     module MirroredSectionsHelper
@@ -5,11 +7,11 @@ module Maglev
         grouped_options_for_select(
           sections.map do |section|
             [
-              section[:label], 
-              [section[:layout_store_id], section[:type], section[:id]].join('/'), 
+              section[:label],
+              [section[:layout_store_id], section[:type], section[:id]].join('/'),
               section[:layout_store_label]
             ]
-          end.group_by { |array| array.pop }
+          end.group_by(&:pop)
         )
       end
     end

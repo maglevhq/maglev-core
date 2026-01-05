@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Maglev
   module Maintenance
     class UpgradeToV3Service
@@ -16,7 +18,7 @@ module Maglev
 
       def unsafe_call
         migrate_site_scoped_sections
-        migrate_pages        
+        migrate_pages
         upgrade_layout_template
       end
 
@@ -54,16 +56,17 @@ module Maglev
         )
 
         # don't forget the published site scoped sections
-        Maglev::SectionsContentStore.published.where(container_type: 'Maglev::Page', container_id: page).find_each do |store|
+        Maglev::SectionsContentStore.published.where(container_type: 'Maglev::Page',
+                                                     container_id: page).find_each do |store|
           store.update!(page: page, handle: default_layout_group.id)
         end
       end
 
       def upgrade_layout_template
         template = load_old_layout_template
-                  .gsub('data-maglev-dropzone',
-                        "data-maglev-#{default_layout_group.id}-dropzone")
-                  .gsub('render_maglev_sections', "render_maglev_group :#{default_layout_group.id}")
+                   .gsub('data-maglev-dropzone',
+                         "data-maglev-#{default_layout_group.id}-dropzone")
+                   .gsub('render_maglev_sections', "render_maglev_group :#{default_layout_group.id}")
 
         persist_layout_template(template, "#{default_layout.id}.html.erb")
       end

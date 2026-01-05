@@ -8,7 +8,7 @@ describe 'Maglev::Editor::SectionBlocks', type: :request do
   let!(:home_page) { Maglev::Page.home.first }
   let(:main_store) { fetch_sections_store('main', home_page.id) }
   let(:section) { main_store.find_section_by_type('showcase') }
-  let(:section_id) { section.dig('id') }
+  let(:section_id) { section['id'] }
 
   before do
     allow(Maglev.local_themes).to receive(:first).and_return(theme)
@@ -76,9 +76,9 @@ describe 'Maglev::Editor::SectionBlocks', type: :request do
 
   describe 'PUT /maglev/editor/:context/sections/:id/blocks/sort' do
     it 'returns a success response' do
-      original_block_ids = section.dig('blocks').map { |block| block['id'] }
+      original_block_ids = section['blocks'].map { |block| block['id'] }
       put "/maglev/editor/en/#{home_page.id}/sections/#{section_id}/blocks/sort",
-          params: { item_ids: original_block_ids.reverse, lock_version: section.dig('lock_version') }
+          params: { item_ids: original_block_ids.reverse, lock_version: section['lock_version'] }
       expect(response).to redirect_to("/maglev/editor/en/#{home_page.id}/sections/#{section_id}/blocks")
       expect(main_store.reload.section_block_ids(section_id)).to eq(original_block_ids.reverse)
     end

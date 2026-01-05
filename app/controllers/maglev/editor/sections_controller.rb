@@ -27,7 +27,11 @@ module Maglev
       end
 
       def edit
-        redirect_to editor_mirrored_section_path(@section, store_id: @section.store_handle, **maglev_editing_route_context) and return if @section.mirrored?
+        if @section.mirrored?
+          redirect_to editor_mirrored_section_path(@section, store_id: @section.store_handle,
+                                                             **maglev_editing_route_context) and return
+        end
+
         newly_added_section_to_headers
       end
 
@@ -36,7 +40,7 @@ module Maglev
         refresh_lock_version
         current_maglev_page.reload # reload the page to get the updated published_at
         flash.now[:notice] = flash_t(:success)
-      end      
+      end
 
       def destroy
         services.delete_section.call(store: sections_store, section_id: @section.id)
@@ -44,12 +48,13 @@ module Maglev
       end
 
       def sort
-        services.sort_sections.call(store: sections_store, section_ids: params[:item_ids], lock_version: params[:lock_version])
-        redirect_to_sections_path        
+        services.sort_sections.call(store: sections_store, section_ids: params[:item_ids],
+                                    lock_version: params[:lock_version])
+        redirect_to_sections_path
       end
 
       private
-      
+
       def store_handle
         params[:store_id] || @section.store_handle
       end
@@ -73,7 +78,7 @@ module Maglev
           layout_id: current_maglev_page.layout_id,
           section_type: params[:section_type],
           position: params[:position].to_i
-        )        
+        )
       end
 
       def update_section
@@ -91,7 +96,8 @@ module Maglev
 
       def newly_added_section_to_flash
         # use flash because we can't pass directly the information to the redirect
-        { store_id: params[:store_id], section_id: @section[:id], position: sections_store.position_of_section(@section[:id]) }
+        { store_id: params[:store_id], section_id: @section[:id],
+          position: sections_store.position_of_section(@section[:id]) }
       end
 
       def newly_added_section_to_headers
