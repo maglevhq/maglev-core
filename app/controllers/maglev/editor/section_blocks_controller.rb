@@ -94,7 +94,7 @@ module Maglev
                 end
 
         path = editor_section_blocks_path(@section.id, **maglev_editing_route_context)
-        
+
         redirect_to path, status: :see_other, **flash
       end
 

@@ -37,6 +37,7 @@ module Maglev
 
       def can_soft_delete?
         return false if layout_id.blank?
+
         theme.find_layout(layout_id).find_group(store.handle).recoverable?(section_definition)
       end
 

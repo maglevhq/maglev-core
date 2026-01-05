@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -10,7 +12,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema[8.1].define(version: 20_260_114_112_058) do
+=======
+ActiveRecord::Schema[8.1].define(version: 20_251_222_172_327) do
+>>>>>>> ecaf0dd6 (chore: make Rubocop happy)
   create_table 'accounts', force: :cascade do |t|
     t.datetime 'created_at', null: false
     t.string 'email'
@@ -18,52 +24,53 @@ ActiveRecord::Schema[8.1].define(version: 20_260_114_112_058) do
     t.datetime 'updated_at', null: false
   end
 
-  create_table "active_storage_attachments", force: :cascade do |t|
-    t.integer "blob_id", null: false
-    t.datetime "created_at", precision: nil, null: false
-    t.string "name", null: false
-    t.integer "record_id", null: false
-    t.string "record_type", null: false
-    t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
-    t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
+  create_table 'active_storage_attachments', force: :cascade do |t|
+    t.integer 'blob_id', null: false
+    t.datetime 'created_at', precision: nil, null: false
+    t.string 'name', null: false
+    t.integer 'record_id', null: false
+    t.string 'record_type', null: false
+    t.index ['blob_id'], name: 'index_active_storage_attachments_on_blob_id'
+    t.index %w[record_type record_id name blob_id], name: 'index_active_storage_attachments_uniqueness',
+                                                    unique: true
   end
 
-  create_table "active_storage_blobs", force: :cascade do |t|
-    t.bigint "byte_size", null: false
-    t.string "checksum", null: false
-    t.string "content_type"
-    t.datetime "created_at", precision: nil, null: false
-    t.string "filename", null: false
-    t.string "key", null: false
-    t.text "metadata"
-    t.string "service_name", null: false
-    t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  create_table 'active_storage_blobs', force: :cascade do |t|
+    t.bigint 'byte_size', null: false
+    t.string 'checksum', null: false
+    t.string 'content_type'
+    t.datetime 'created_at', precision: nil, null: false
+    t.string 'filename', null: false
+    t.string 'key', null: false
+    t.text 'metadata'
+    t.string 'service_name', null: false
+    t.index ['key'], name: 'index_active_storage_blobs_on_key', unique: true
   end
 
-  create_table "active_storage_variant_records", force: :cascade do |t|
-    t.integer "blob_id", null: false
-    t.string "variation_digest", null: false
-    t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  create_table 'active_storage_variant_records', force: :cascade do |t|
+    t.integer 'blob_id', null: false
+    t.string 'variation_digest', null: false
+    t.index %w[blob_id variation_digest], name: 'index_active_storage_variant_records_uniqueness', unique: true
   end
 
-  create_table "maglev_assets", force: :cascade do |t|
-    t.integer "byte_size"
-    t.string "content_type"
-    t.datetime "created_at", null: false
-    t.string "filename"
-    t.integer "height"
-    t.datetime "updated_at", null: false
-    t.integer "width"
+  create_table 'maglev_assets', force: :cascade do |t|
+    t.integer 'byte_size'
+    t.string 'content_type'
+    t.datetime 'created_at', null: false
+    t.string 'filename'
+    t.integer 'height'
+    t.datetime 'updated_at', null: false
+    t.integer 'width'
   end
 
-  create_table "maglev_page_paths", force: :cascade do |t|
-    t.boolean "canonical", default: true
-    t.string "locale", null: false
-    t.bigint "maglev_page_id"
-    t.string "value", null: false
-    t.index ["canonical", "locale", "value"], name: "canonical_speed"
-    t.index ["canonical", "maglev_page_id", "locale"], name: "scoped_canonical_speed"
-    t.index ["maglev_page_id"], name: "index_maglev_page_paths_on_maglev_page_id"
+  create_table 'maglev_page_paths', force: :cascade do |t|
+    t.boolean 'canonical', default: true
+    t.string 'locale', null: false
+    t.bigint 'maglev_page_id'
+    t.string 'value', null: false
+    t.index %w[canonical locale value], name: 'canonical_speed'
+    t.index %w[canonical maglev_page_id locale], name: 'scoped_canonical_speed'
+    t.index ['maglev_page_id'], name: 'index_maglev_page_paths_on_maglev_page_id'
   end
 
   create_table 'maglev_pages', force: :cascade do |t|
@@ -75,7 +82,10 @@ ActiveRecord::Schema[8.1].define(version: 20_260_114_112_058) do
     t.json 'og_image_url_translations', default: {}
     t.json 'og_title_translations', default: {}
     t.datetime 'published_at', precision: nil
+<<<<<<< HEAD
     t.json 'published_payload', default: {}
+=======
+>>>>>>> ecaf0dd6 (chore: make Rubocop happy)
     t.json 'sections_translations', default: {}
     t.json 'seo_title_translations', default: {}
     t.json 'title_translations', default: {}
@@ -102,24 +112,24 @@ ActiveRecord::Schema[8.1].define(version: 20_260_114_112_058) do
     t.index ['maglev_page_id'], name: 'index_maglev_sections_content_stores_on_maglev_page_id'
   end
 
-  create_table "maglev_sites", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.json "locales", default: []
-    t.integer "lock_version"
-    t.string "name"
-    t.datetime "published_at", precision: nil
-    t.json "sections_translations", default: {}
-    t.json "style", default: []
-    t.datetime "updated_at", null: false
+  create_table 'maglev_sites', force: :cascade do |t|
+    t.datetime 'created_at', null: false
+    t.json 'locales', default: []
+    t.integer 'lock_version'
+    t.string 'name'
+    t.datetime 'published_at', precision: nil
+    t.json 'sections_translations', default: {}
+    t.json 'style', default: []
+    t.datetime 'updated_at', null: false
   end
 
-  create_table "products", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.string "name"
-    t.float "price"
-    t.string "sku"
-    t.boolean "sold_out", default: false
-    t.datetime "updated_at", null: false
+  create_table 'products', force: :cascade do |t|
+    t.datetime 'created_at', null: false
+    t.string 'name'
+    t.float 'price'
+    t.string 'sku'
+    t.boolean 'sold_out', default: false
+    t.datetime 'updated_at', null: false
   end
 
   add_foreign_key 'active_storage_attachments', 'active_storage_blobs', column: 'blob_id'
