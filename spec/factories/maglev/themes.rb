@@ -124,7 +124,7 @@ FactoryBot.define do
                   type: 'navbar',
                   settings: {},
                   blocks: []
-                },
+                }
               ],
               main: [
                 {
@@ -156,7 +156,7 @@ FactoryBot.define do
                   ]
                 }
               ]
-            }            
+            }
           }.with_indifferent_access,
           {
             title: 'About us',
@@ -178,7 +178,7 @@ FactoryBot.define do
           {
             title: 'Empty',
             path: 'empty',
-            layout_id: 'default',
+            layout_id: 'default'
           }.with_indifferent_access
         ]
       end

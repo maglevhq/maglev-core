@@ -5,6 +5,7 @@ module Maglev
     class AddSectionService
       include Injectable
       include Maglev::Content::HelpersConcern
+      include Maglev::Content::AddSectionHelpersConcern
       include Maglev::Content::PublishingStateConcern
 
       dependency :fetch_theme
@@ -15,7 +16,7 @@ module Maglev
       argument :content, default: nil
       argument :position, default: -1
       argument :layout_id, default: nil # only used to recover a deleted section
-      argument :mirror_of, default: nil # only used to add a mirrored section (attributes: page_id, layout_store_id, section_id)
+      argument :mirror_of, default: nil # only used to add a mirrored section (page_id, layout_store_id, section_id)
       argument :dry_run, default: false # if true, the store won't be touched
       argument :site, default: nil
       argument :theme, default: nil
@@ -29,20 +30,10 @@ module Maglev
             # this is the case for the setup_pages service
             reset_memoization
           end
-        end      
+        end
       end
 
       private
-
-      def unsafe_call
-        if mirror_of.present?
-          add_mirrored_section
-        elsif can_recover_deleted_section?
-          recover_deleted_section 
-        else
-          add_brand_new_section
-        end.tap { touch_page(store) }
-      end
 
       def theme
         @theme ||= fetch_theme.call
@@ -52,12 +43,26 @@ module Maglev
         @site ||= fetch_site.call
       end
 
+      def section_definition
+        @section_definition ||= theme.sections.find(section_type)
+      end
+
+      def unsafe_call
+        if mirror_of.present?
+          add_mirrored_section
+        elsif can_recover_deleted_section?
+          recover_deleted_section
+        else
+          add_brand_new_section
+        end.tap { touch_page(store) }
+      end
+
       def add_mirrored_section
         section_content = build_section_content
         section_content['mirror_of'] = mirror_of.merge(enabled: true)
-        
+
         add_to_store!(section_content)
-        
+
         section_content
       end
 
@@ -73,10 +78,8 @@ module Maglev
       def add_brand_new_section
         section_content = build_section_content
 
-        ActiveRecord::Base.transaction do
-          add_to_site_scoped_store!(section_content) if can_add_to_site_scoped_store?
-          add_to_store!(section_content) if can_add_to_store?
-        end
+        add_to_site_scoped_store!(section_content) if can_add_to_site_scoped_store?
+        add_to_store!(section_content) if can_add_to_store?
 
         section_content
       end
@@ -108,40 +111,38 @@ module Maglev
       def can_add_to_store?
         # we don't want to add the section if it's a singleton and there is already a section with the same type
         !(section_definition.singleton? && store.find_sections_by_type(section_type).any?)
-      end     
-      
+      end
+
       def can_recover_deleted_section?
         # first, the section must be deleted in the store
-        return false if store.find_section_by_type(section_type).nil? || store.find_section_by_type(section_type)['deleted'] != true
+        if store.find_section_by_type(section_type).nil? || store.find_section_by_type(section_type)['deleted'] != true
+          return false
+        end
 
-        # then, the section must be present in the "recoverable" list of the layout group        
+        # then, the section must be present in the "recoverable" list of the layout group
         layout_group = theme.find_layout(layout_id)&.find_group(store.handle)
 
-        layout_group && layout_group.recoverable?(section_definition)        
+        layout_group&.recoverable?(section_definition)
       end
 
-      def build_section_content
-        if mirror_of.present?
-          fetch_mirrored_store(mirror_of).find_section_by_id(mirror_of[:section_id])
-        elsif site_scoped? && site_scoped_store.find_sections_by_type(section_type).any?
-          site_scoped_store.find_sections_by_type(section_type).first.dup
-        else
-          content || section_definition.build_default_content
-        end.with_indifferent_access
-      end
+      # def build_section_content
+      #   if mirror_of.present?
+      #     fetch_mirrored_store(mirror_of).find_section_by_id(mirror_of[:section_id])
+      #   elsif site_scoped? && site_scoped_store.find_sections_by_type(section_type).any?
+      #     site_scoped_store.find_sections_by_type(section_type).first.dup
+      #   else
+      #     content || section_definition.build_default_content
+      #   end.with_indifferent_access
+      # end
 
-      def section_definition
-        @section_definition ||= theme.sections.find(section_type)
-      end
-
-      def final_position
-        case section_definition.insert_at
-        when 'top' then 0
-        when 'bottom' then store.sections.count
-        else
-          position
-        end
-      end
+      # def final_position
+      #   case section_definition.insert_at
+      #   when 'top' then 0
+      #   when 'bottom' then store.sections.count
+      #   else
+      #     position
+      #   end
+      # end
 
       def touch_page(store)
         # if it's a dry run, it's useless to touch the page / pages

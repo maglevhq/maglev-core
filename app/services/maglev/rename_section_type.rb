@@ -16,7 +16,7 @@ module Maglev
       ActiveRecord::Base.transaction do
         scoped_stores.unpublished.find_each do |store|
           rename_resource_sections(store)
-        end        
+        end
       end
 
       true

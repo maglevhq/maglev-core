@@ -15,7 +15,8 @@ module Maglev
     dependency :fetch_theme,                class: Maglev::FetchTheme, depends_on: %i[fetch_site context]
     dependency :fetch_theme_layout,         class: Maglev::FetchThemeLayout, depends_on: %i[fetch_theme]
     dependency :fetch_style,                class: Maglev::FetchStyle, depends_on: %i[fetch_site fetch_theme]
-    dependency :fetch_sections_store,       class: Maglev::FetchSectionsStoreService, depends_on: %i[fetch_theme fetch_site]
+    dependency :fetch_sections_store,       class: Maglev::FetchSectionsStoreService,
+                                            depends_on: %i[fetch_theme fetch_site]
     dependency :fetch_sections_path,        class: Maglev::FetchSectionsPath, depends_on: :fetch_theme
     dependency :fetch_section_screenshot_path, class: Maglev::FetchSectionScreenshotPath,
                                                depends_on: :fetch_sections_path
@@ -36,14 +37,15 @@ module Maglev
     dependency :change_site_locales,        class: Maglev::ChangeSiteLocales
 
     dependency :fetch_page,                 class: Maglev::FetchPage, depends_on: %i[context fetch_site]
-    dependency :get_page_fullpath,          class: Maglev::GetPageFullpath, depends_on: %i[fetch_site get_base_url]    
+    dependency :get_page_fullpath,          class: Maglev::GetPageFullpath, depends_on: %i[fetch_site get_base_url]
     dependency :fetch_sections_content,     class: Maglev::FetchSectionsContentService,
                                             depends_on: %i[fetch_site fetch_theme
                                                            fetch_static_pages
                                                            fetch_collection_items get_page_fullpath]
     dependency :get_page_sections,          class: Maglev::GetPageSections,
                                             depends_on: %i[fetch_theme fetch_sections_content]
-    dependency :get_published_page_sections, class: Maglev::GetPublishedPageSectionsService, depends_on: %i[get_page_sections]                                                            
+    dependency :get_published_page_sections, class: Maglev::GetPublishedPageSectionsService,
+                                             depends_on: %i[get_page_sections]
     dependency :get_page_section_names,     class: Maglev::GetPageSectionNames, depends_on: :fetch_theme
 
     dependency :create_page,                class: Maglev::CreatePageService, depends_on: :fetch_site

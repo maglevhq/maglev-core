@@ -12,15 +12,15 @@ describe Maglev::RemoveSectionType do
   describe 'when the site has sections of the specified type' do
     before do
       site_scoped_store.update!(sections_translations: {
-                     en: [
-                       { type: 'hero', settings: [{ value: 'Hello' }] },
-                       { type: 'footer', settings: [{ value: 'Footer' }] }
-                     ],
-                     fr: [
-                       { type: 'hero', settings: [{ value: 'Bonjour' }] },
-                       { type: 'footer', settings: [{ value: 'Pied de page' }] }
-                     ]
-                   })
+                                  en: [
+                                    { type: 'hero', settings: [{ value: 'Hello' }] },
+                                    { type: 'footer', settings: [{ value: 'Footer' }] }
+                                  ],
+                                  fr: [
+                                    { type: 'hero', settings: [{ value: 'Bonjour' }] },
+                                    { type: 'footer', settings: [{ value: 'Pied de page' }] }
+                                  ]
+                                })
     end
 
     it 'removes the sections of the specified type in all locales and returns the count' do
@@ -48,9 +48,9 @@ describe Maglev::RemoveSectionType do
   describe 'when the site has no sections of the specified type' do
     before do
       site_scoped_store.update!(sections_translations: {
-                     en: [{ type: 'footer', settings: [{ value: 'Footer' }] }],
-                     fr: [{ type: 'footer', settings: [{ value: 'Pied de page' }] }]
-                   })
+                                  en: [{ type: 'footer', settings: [{ value: 'Footer' }] }],
+                                  fr: [{ type: 'footer', settings: [{ value: 'Pied de page' }] }]
+                                })
     end
 
     it 'does not modify the sections and returns zero' do
@@ -81,14 +81,14 @@ describe Maglev::RemoveSectionType do
     before do
       # Set up sections for both site and page
       site_scoped_store.update!(sections_translations: {
-        en: [{ type: 'hero' }, { type: 'footer' }],
-        fr: [{ type: 'hero' }, { type: 'footer' }]
-      })
+                                  en: [{ type: 'hero' }, { type: 'footer' }],
+                                  fr: [{ type: 'hero' }, { type: 'footer' }]
+                                })
 
       main_store.update!(sections_translations: {
-        en: [{ type: 'hero' }, { type: 'banner' }],
-        fr: [{ type: 'hero' }, { type: 'banner' }]
-      })
+                           en: [{ type: 'hero' }, { type: 'banner' }],
+                           fr: [{ type: 'hero' }, { type: 'banner' }]
+                         })
     end
 
     it 'removes the sections from both site and pages and returns total count' do

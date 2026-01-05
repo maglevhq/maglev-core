@@ -7,7 +7,9 @@ RSpec.describe Maglev::Content::SectionContent do
   let(:page) { build(:page) }
   let(:store) { build(:sections_content_store, page: page) }
   let(:raw_section_content) { store.sections.first }
-  let(:section_content) { described_class.build(theme: theme, store_handle: 'main', raw_section_content: raw_section_content) }
+  let(:section_content) do
+    described_class.build(theme: theme, store_handle: 'main', raw_section_content: raw_section_content)
+  end
 
   context '#label' do
     it 'takes the first text setting value' do

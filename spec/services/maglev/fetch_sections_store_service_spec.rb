@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe Maglev::FetchSectionsStoreService do
@@ -7,7 +9,7 @@ describe Maglev::FetchSectionsStoreService do
   let(:handle) { 'header' }
 
   let(:service) { described_class.new }
-  
+
   subject { service.call(page: page, handle: handle, theme: theme, site: site) }
 
   it 'creates the missing store in DB' do
@@ -24,5 +26,5 @@ describe Maglev::FetchSectionsStoreService do
       expect { subject }.to change(Maglev::SectionsContentStore, :count).by(0)
       expect(subject.handle).to eq('header')
     end
-  end  
+  end
 end

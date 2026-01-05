@@ -29,7 +29,7 @@ describe Maglev::FetchSectionsContentService do
   context 'the store has some sections' do
     let(:handle) { 'main' }
     let(:page) { create(:page) }
-    
+
     it 'returns the sections' do
       expect(subject).to eq([[
                               {

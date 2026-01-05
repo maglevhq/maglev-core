@@ -12,7 +12,7 @@ module Maglev
 
       argument :store
       argument :section_id
-      
+
       def call
         raise Maglev::Errors::UnknownSection unless section_definition
 
@@ -25,12 +25,12 @@ module Maglev
 
       def unsafe_call
         update_store_content!.tap { touch_page(store) }
-      end   
-      
+      end
+
       def update_store_content!
         target_section = store.find_section_by_id(section_id)
-        target_section.dig('mirror_of')['enabled'] = false
-        
+        target_section['mirror_of']['enabled'] = false
+
         store.replace_section_content(target_section, fetch_source_section)
         store.save!
       end

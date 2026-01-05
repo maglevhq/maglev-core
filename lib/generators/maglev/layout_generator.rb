@@ -31,7 +31,8 @@ module Maglev
       path = File.expand_path('app/theme/theme.yml', destination_root)
       file = File.read(path)
       return if file.include?('# [LAYOUTS] DO NOT REMOVE THIS LINE')
-      File.open(path, "a+") { |file| file.write("\nlayouts:\n# [LAYOUTS] DO NOT REMOVE THIS LINE") }
+
+      File.open(path, 'a+') { |file| file.write("\nlayouts:\n# [LAYOUTS] DO NOT REMOVE THIS LINE") }
     end
 
     def update_theme_yml

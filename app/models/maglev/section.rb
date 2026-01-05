@@ -53,6 +53,20 @@ module Maglev
       blocks.any? { |block| block.accept.present? }
     end
 
+    def can_be_added_in?(store_definition, already_inserted)
+      # you can't have more than one instance of a recoverable section within a store
+      return false if store_definition.recoverable.include?(id) && already_inserted
+
+      # you can't add a siteScoped section if there is already a siteScoped section of the same type
+      return false if site_scoped? && already_inserted
+
+      # you can't add a singleton section if there is already a singleton section of the same type
+      return false if singleton? && already_inserted
+
+      # deals with the accept rules of the layout group
+      store_definition.accepts?(self)
+    end
+
     def viewport_fixed_position?
       !!viewport_fixed_position
     end

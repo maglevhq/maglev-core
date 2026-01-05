@@ -13,9 +13,9 @@ describe Maglev::ResetSectionContent do
   describe 'when the site has sections of the specified type' do
     before do
       site_scoped_store.update!(sections_translations: {
-                     en: [{ type: 'jumbotron', settings: [{ id: 'title', value: 'Hello' }] }],
-                     fr: [{ type: 'jumbotron', settings: [{ id: 'title', value: 'Bonjour' }] }]
-                   })
+                                  en: [{ type: 'jumbotron', settings: [{ id: 'title', value: 'Hello' }] }],
+                                  fr: [{ type: 'jumbotron', settings: [{ id: 'title', value: 'Bonjour' }] }]
+                                })
     end
 
     it 'resets the section content in all locales and returns the count' do
@@ -39,9 +39,9 @@ describe Maglev::ResetSectionContent do
   describe 'when the site has no sections of the specified type' do
     before do
       site_scoped_store.update!(sections_translations: {
-                     en: [{ type: 'footer', settings: [{ value: 'Footer' }] }],
-                     fr: [{ type: 'footer', settings: [{ value: 'Pied de page' }] }]
-                   })
+                                  en: [{ type: 'footer', settings: [{ value: 'Footer' }] }],
+                                  fr: [{ type: 'footer', settings: [{ value: 'Pied de page' }] }]
+                                })
     end
 
     it 'does not modify the sections and returns zero' do
@@ -83,16 +83,18 @@ describe Maglev::ResetSectionContent do
     before do
       # Set up sections for both site and page
       site_scoped_store.update!(sections_translations: {
-                     en: [{ type: 'jumbotron', settings: [{ id: 'title', value: 'Site Hero' }] }, { type: 'footer' }],
-                     fr: [{ type: 'jumbotron', settings: [{ id: 'title', value: 'Site Hero FR' }] }, { type: 'footer' }]
-                   })
+                                  en: [{ type: 'jumbotron', settings: [{ id: 'title', value: 'Site Hero' }] },
+                                       { type: 'footer' }],
+                                  fr: [{ type: 'jumbotron', settings: [{ id: 'title', value: 'Site Hero FR' }] },
+                                       { type: 'footer' }]
+                                })
 
       main_store.update!(sections_translations: {
-                     en: [{ type: 'jumbotron', settings: [{ id: 'title', value: 'Page Hero' }] },
-                          { type: 'navigation' }],
-                     fr: [{ type: 'jumbotron', settings: [{ id: 'title', value: 'Page Hero FR' }] },
-                          { type: 'navigation' }]
-                   })
+                           en: [{ type: 'jumbotron', settings: [{ id: 'title', value: 'Page Hero' }] },
+                                { type: 'navigation' }],
+                           fr: [{ type: 'jumbotron', settings: [{ id: 'title', value: 'Page Hero FR' }] },
+                                { type: 'navigation' }]
+                         })
     end
 
     it 'resets the sections in both site and pages and returns total count' do
@@ -118,9 +120,9 @@ describe Maglev::ResetSectionContent do
   describe 'when sections are blank' do
     before do
       site_scoped_store.update!(sections_translations: {
-                     en: [],
-                     fr: []
-                   })
+                                  en: [],
+                                  fr: []
+                                })
     end
 
     it 'returns zero and does not modify anything' do

@@ -26,7 +26,7 @@ class Maglev::Theme::StyleSetting < Maglev::Theme::BaseProperty
   end
 
   ## class methods ##
-  
+
   def self.build(hash)
     attributes = prepare_attributes(hash).slice('id', 'label', 'type', 'default')
 

@@ -286,5 +286,28 @@ FactoryBot.define do
         ]
       end
     end
+
+    trait :mirrored_section do
+      transient do
+        section_id { nil }
+        source_page { nil }
+        source_store { nil }
+      end
+
+      sections do
+        [
+          {
+            id: section_id,
+            type: 'jumbotron',
+            mirror_of: {
+              enabled: true,
+              page_id: source_page.id,
+              layout_store_id: source_store.handle,
+              section_id: section_id
+            }
+          }
+        ]
+      end
+    end
   end
 end

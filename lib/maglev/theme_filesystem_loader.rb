@@ -9,7 +9,7 @@ module Maglev
     end
 
     def call(path)
-      raw_attributes = YAML.safe_load(File.read(path.join('theme.yml')), aliases: true) 
+      raw_attributes = YAML.safe_load(File.read(path.join('theme.yml')), aliases: true)
       theme = build_theme(raw_attributes)
       theme.sections = load_sections(theme, Pathname.new(path).join('sections/**/*.yml'))
       theme.layouts = load_layouts(theme, raw_attributes['layouts'])

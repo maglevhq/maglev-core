@@ -40,7 +40,7 @@ module Maglev
       end
 
       def block_definition
-        @block_definition ||= site_scoped? ? find_block_definition(site) : find_block_definition(store)
+        @block_definition ||= site_scoped? ? find_block_definition(site_scoped_store) : find_block_definition(store)
       end
 
       def find_section(source = store)

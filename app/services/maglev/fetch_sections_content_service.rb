@@ -37,14 +37,14 @@ module Maglev
     end
 
     def find_or_build_store
-      scoped_stores.find_or_initialize_by(handle: handle, page: page, published: published) do |store|        
+      scoped_stores.find_or_initialize_by(handle: handle, page: page, published: published) do |store|
         store.sections_translations = site.locale_prefixes.index_with { |_locale| [] }
       end
     end
 
     def find_published_store!
       # by definition, a page is unpublished if the page store hasn't been created yet
-      scoped_stores.find_by(handle: handle, page: page, published: true).tap do |store|        
+      scoped_stores.find_by(handle: handle, page: page, published: true).tap do |store|
         raise Maglev::Errors::UnpublishedPage if store.nil?
       end
     end

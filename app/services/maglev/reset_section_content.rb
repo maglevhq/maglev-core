@@ -32,7 +32,7 @@ module Maglev
       ActiveRecord::Base.transaction do
         scoped_stores.unpublished.find_each do |store|
           reset_resource_content(store)
-        end        
+        end
       end
     end
 

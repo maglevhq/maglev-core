@@ -16,7 +16,7 @@ module Maglev
         page_sections: layout_group[:sections]
       )
     end
-    
+
     # rubocop:disable Rails/OutputSafety
     def render_maglev_sections(site: nil, theme: nil, page: nil, page_sections: nil)
       PageComponent.new(
