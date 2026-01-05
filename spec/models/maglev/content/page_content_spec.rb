@@ -2,21 +2,22 @@
 
 require 'rails_helper'
 
-RSpec.describe Maglev::Content::PageContent do  
+RSpec.describe Maglev::Content::PageContent do
   let(:theme) { build(:theme) }
   let(:page) { build(:page) }
   let(:header_sections) { build(:sections_content_store, :header).sections }
   let(:main_sections) { build(:sections_content_store, page: page).sections }
   let(:footer_sections) { build(:sections_content_store, :footer).sections }
-  let(:stores) { [
-    { id: 'header', sections: header_sections, lock_version: 0 },
-    { id: 'main', sections: main_sections, lock_version: 0 },
-    { id: 'footer', sections: footer_sections, lock_version: 0 }
-  ] }
-    
+  let(:stores) do
+    [
+      { id: 'header', sections: header_sections, lock_version: 0 },
+      { id: 'main', sections: main_sections, lock_version: 0 },
+      { id: 'footer', sections: footer_sections, lock_version: 0 }
+    ]
+  end
+
   let(:instance) { described_class.new(page: page, theme: theme, stores: stores) }
 
-  
   it 'returns the page content' do
     expect(instance.stores.size).to eq(3)
   end
@@ -32,7 +33,7 @@ RSpec.describe Maglev::Content::PageContent do
       it 'returns true' do
         expect(subject).to eq true
       end
-    end   
+    end
   end
 
   describe '#sections_of' do
@@ -46,7 +47,7 @@ RSpec.describe Maglev::Content::PageContent do
   describe '#sections' do
     subject { instance.sections.size }
 
-    it { is_expected.to eq 3 }    
+    it { is_expected.to eq 3 }
   end
 
   describe '#sticky_section_ids' do

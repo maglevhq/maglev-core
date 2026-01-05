@@ -12,7 +12,7 @@ module Maglev
       ActiveRecord::Base.transaction do
         publish_stores!
         publish_site_scoped_store!
-        mark_site_and_page_as_published!        
+        mark_site_and_page_as_published!
       end
       true
     end
@@ -21,24 +21,26 @@ module Maglev
 
     def publish_stores!
       layout_stores.each do |definition|
-        publish_store(definition.id, definition.page_scoped? ? page : nil)        
+        publish_store(definition.id, definition.page_scoped? ? page : nil)
       end
     end
 
     def publish_site_scoped_store!
-      publish_store(::Maglev::SectionsContentStore::SITE_HANDLE)      
+      publish_store(::Maglev::SectionsContentStore::SITE_HANDLE)
     end
 
     def publish_store(handle, page = nil)
       unpublished_store = fetch_unpublished_store(handle, page)
+      sections_translations = unpublished_store&.sections_translations.presence || default_sections_translations
 
-      published_store = scoped_stores.find_or_initialize_by(published: true, handle: handle, page: page)       
-      published_store.sections_translations = unpublished_store&.sections_translations.presence || default_sections_translations
+      published_store = scoped_stores.find_or_initialize_by(published: true, handle: handle, page: page)
+      published_store.sections_translations = sections_translations
       published_store.save!
     end
 
     def mark_site_and_page_as_published!
-      # We need to add a delay to ensure that their published_at will be posterior to the native updated_at of the store.
+      # We need to add a delay to ensure that their published_at will be posterior
+      # to the native updated_at of the store.
       site.update(published_at: Time.current + 0.2.seconds)
       page.update(published_at: Time.current + 0.2.seconds)
     end

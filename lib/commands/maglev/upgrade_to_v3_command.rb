@@ -15,7 +15,7 @@ module Maglev
 
       upgrade_sites
 
-      puts '🛠️ Your site/page content has been upgraded to V3 with success!'
+      Rails.logger.debug '🛠️ Your site/page content has been upgraded to V3 with success!'
     end
 
     private
@@ -24,7 +24,7 @@ module Maglev
       Maglev::Maintenance::UpgradeToV3Service.call(
         site: Maglev::Site.first,
         theme: Maglev.local_themes.first
-      )      
+      )
     end
   end
 end

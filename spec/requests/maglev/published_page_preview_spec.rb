@@ -16,11 +16,12 @@ RSpec.describe 'Maglev::PublishedPagePreviewController', type: :request do
   context 'the page is published' do
     let(:header_sections) { fetch_sections_translations('header') }
     let(:home_page_sections) { fetch_sections_translations('main', home_page.id) }
-    
+
     before do
       # super simple publish process: just create the sections content stores
       create(:sections_content_store, :published, handle: 'header', sections_translations: header_sections)
-      create(:sections_content_store, :published, handle: 'main', page: home_page, sections_translations: home_page_sections)
+      create(:sections_content_store, :published, handle: 'main', page: home_page,
+                                                  sections_translations: home_page_sections)
     end
 
     it 'renders the index page in the default locale' do

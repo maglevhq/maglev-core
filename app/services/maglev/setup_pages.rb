@@ -26,13 +26,7 @@ module Maglev
     end
 
     def create_page_with_sections(page_attributes)
-      page = create_page.call(
-        site: site,
-        attributes: {
-          layout_id: page_attributes.delete(:layout_id) || theme.default_layout_id,
-          **attributes_in_all_locales(page_attributes)
-        }
-      )
+      page = create_page_record(page_attributes)
 
       throw ActiveRecord::StatementInvalid.new(page.errors.full_messages.join(', ')) if page.errors.any?
 
@@ -41,22 +35,36 @@ module Maglev
       page
     end
 
+    def create_page_record(page_attributes)
+      create_page.call(
+        site: site,
+        attributes: {
+          layout_id: page_attributes.delete(:layout_id) || theme.default_layout_id,
+          **attributes_in_all_locales(page_attributes)
+        }
+      )
+    end
+
     def add_sections(page, page_attributes)
       fetch_layout(page.layout_id).groups.each do |group|
         store = find_store(page, group)
         sections_attributes = page_attributes.dig(:sections, group.id)
 
         next if sections_attributes.blank?
-        
-        value_in_all_locales(sections_attributes).each do |locale, section_attributes|
-          next if section_attributes.blank?
 
-          Maglev::I18n.with_locale(locale) do
-            add_sections_in_store(store, section_attributes)
-          end
-        end
-        
+        add_sections_in_store_in_all_locales(store, sections_attributes)
+
         store.save!
+      end
+    end
+
+    def add_sections_in_store_in_all_locales(store, sections_attributes)
+      value_in_all_locales(sections_attributes).each do |locale, section_attributes|
+        next if section_attributes.blank?
+
+        Maglev::I18n.with_locale(locale) do
+          add_sections_in_store(store, section_attributes)
+        end
       end
     end
 
@@ -72,7 +80,7 @@ module Maglev
         theme: theme,
         store: store,
         section_type: attributes.fetch('type', nil),
-        content: attributes,        
+        content: attributes,
         dry_run: true
       )
     end
@@ -85,7 +93,7 @@ module Maglev
         meta_description_translations: value_in_all_locales(attributes[:meta_description]),
         og_title_translations: value_in_all_locales(attributes[:og_title]),
         og_description_translations: value_in_all_locales(attributes[:og_description]),
-        og_image_url_translations: value_in_all_locales(attributes[:og_image_url])        
+        og_image_url_translations: value_in_all_locales(attributes[:og_image_url])
       }
     end
 

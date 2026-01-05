@@ -28,7 +28,7 @@ FactoryBot.define do
     title { 'Home' }
     path { 'index' }
     layout_id { 'default' }
-  
+
     transient do
       number_of_showcase_blocks { 1 }
       sections do
@@ -63,7 +63,10 @@ FactoryBot.define do
 
     after(:create) do |page, evaluator|
       create(:sections_content_store, sections: evaluator.sections, page: page) if evaluator.sections
-      create(:sections_content_store, sections: evaluator.header_sections, handle: 'header') if evaluator.header_sections
+      if evaluator.header_sections
+        create(:sections_content_store, sections: evaluator.header_sections,
+                                        handle: 'header')
+      end
     end
 
     trait :published do
@@ -116,7 +119,7 @@ FactoryBot.define do
                 ]
               }
             ]
-          }          
+          }
         ]
       end
     end
@@ -131,7 +134,7 @@ FactoryBot.define do
               { id: :logo, value: 'logo.png' }
             ],
             blocks: []
-          },          
+          }
         ]
       end
     end
@@ -206,6 +209,6 @@ FactoryBot.define do
           }
         ]
       end
-    end    
+    end
   end
 end

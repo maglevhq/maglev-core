@@ -40,7 +40,7 @@ module Maglev
       end
 
       def block_definition
-        @block_definition ||= site_scoped? ? find_block_definition(site) : find_block_definition(store)
+        @block_definition ||= site_scoped? ? find_block_definition(site_scoped_store) : find_block_definition(store)
       end
 
       def find_section(source = store)
@@ -87,16 +87,18 @@ module Maglev
 
         return if store == source
 
-        # if the store is not the same as the source (ie: site_scoped_store), we need to refresh the lock version of the section in the store
+        # if the store is not the same as the source (ie: site_scoped_store),
+        # we need to refresh the lock version of the section in the store
         find_section(store)['lock_version'] = find_section(source)['lock_version']
       end
 
       def check_block_lock_version!(source)
         check_lock_version!(source, find_block(source), 'update_block')
-        
+
         return if store != source
 
-        # if the store is not the same as the source (ie: site_scoped_store), we need to refresh the lock version of the block in the store
+        # if the store is not the same as the source (ie: site_scoped_store),
+        # we need to refresh the lock version of the block in the store
         find_block(store)['lock_version'] = find_block(source)['lock_version']
       end
 
