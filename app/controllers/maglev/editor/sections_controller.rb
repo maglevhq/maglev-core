@@ -8,7 +8,7 @@ module Maglev
 
       before_action :set_section, only: %i[edit update destroy]
       before_action :set_sections_store_content, only: %i[new create]
-      
+
       def show
         redirect_to edit_editor_section_path(params[:id], maglev_editing_route_context)
       end

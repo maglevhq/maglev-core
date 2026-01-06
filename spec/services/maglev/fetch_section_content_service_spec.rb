@@ -48,14 +48,14 @@ describe Maglev::FetchSectionsContentService do
                                 'settings' => [
                                   { 'id' => 'title', 'value' => 'Our projects' }
                                 ], 'blocks' => [
-                                  {
-                                    'type' => 'item',
-                                    'settings' => [
-                                      { 'id' => 'title', 'value' => 'My first project' },
-                                      { 'id' => 'image', 'value' => '/assets/screenshot-01.png' }
-                                    ]
-                                  }
-                                ],
+                                     {
+                                       'type' => 'item',
+                                       'settings' => [
+                                         { 'id' => 'title', 'value' => 'My first project' },
+                                         { 'id' => 'image', 'value' => '/assets/screenshot-01.png' }
+                                       ]
+                                     }
+                                   ],
                                 'lock_version' => 0
                               }
                             ], 0])
@@ -71,15 +71,15 @@ describe Maglev::FetchSectionsContentService do
                                   'settings' => [
                                     { 'id' => 'title', 'value' => 'Our projects' }
                                   ], 'blocks' => [
-                                    {
-                                      'type' => 'item',
-                                      'settings' => [
-                                        { 'id' => 'title', 'value' => 'My first project' },
-                                        { 'id' => 'image',
-                                          'value' => '/assets/screenshot-01.png' }
-                                      ]
-                                    }
-                                  ],
+                                       {
+                                         'type' => 'item',
+                                         'settings' => [
+                                           { 'id' => 'title', 'value' => 'My first project' },
+                                           { 'id' => 'image',
+                                             'value' => '/assets/screenshot-01.png' }
+                                         ]
+                                       }
+                                     ],
                                   'lock_version' => 0
                                 }
                               ], 0])

@@ -25,7 +25,11 @@ describe Maglev::Content::UpdateSectionBlockService do
     let(:lock_version) { 0 }
 
     it 'updates the section block' do
-      expect { subject }.to change { store.reload.sections.find { |s| s['id'] == section_id }.dig('blocks', 0, 'settings', 0, 'value') }.to('My first project [UPDATED]')
+      expect { subject }.to change {
+        store.reload.sections.find do |s|
+          s['id'] == section_id
+        end.dig('blocks', 0, 'settings', 0, 'value')
+      }.to('My first project [UPDATED]')
       expect(store.reload.lock_version).to eq(1)
     end
 
