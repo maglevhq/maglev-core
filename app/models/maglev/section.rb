@@ -116,6 +116,7 @@ module Maglev
       attributes
     end
 
+    # AssociationProxy
     class Store
       extend Forwardable
       def_delegators :@array, :all, :first, :last, :count, :each, :each_with_index, :map, :group_by, :select
