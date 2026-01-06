@@ -83,7 +83,7 @@ module Maglev
       end
 
       def refresh_lock_version
-        @section.lock_version += 1        
+        @section.lock_version += 1
       end
 
       def redirect_to_section_blocks_path(success: true)
