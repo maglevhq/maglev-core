@@ -23,12 +23,12 @@ describe Maglev::Content::DeleteSectionBlockService do
     expect { subject }.to change(section['blocks'], :size).by(-1)
   end
 
-  context 'Given the page has been modified while deleting the block' do
+  context 'Given the store has been modified while deleting the block' do
     let(:lock_version) { 1 }
 
-    before { section['lock_version'] = 2 }
+    before { 2.times { store.touch } }
 
-    it 'raises an exception about the stale page' do
+    it 'raises an exception about the stale store' do
       expect { subject }.to raise_exception(ActiveRecord::StaleObjectError)
     end
   end

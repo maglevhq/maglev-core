@@ -125,25 +125,6 @@ module Maglev
         layout_group&.recoverable?(section_definition)
       end
 
-      # def build_section_content
-      #   if mirror_of.present?
-      #     fetch_mirrored_store(mirror_of).find_section_by_id(mirror_of[:section_id])
-      #   elsif site_scoped? && site_scoped_store.find_sections_by_type(section_type).any?
-      #     site_scoped_store.find_sections_by_type(section_type).first.dup
-      #   else
-      #     content || section_definition.build_default_content
-      #   end.with_indifferent_access
-      # end
-
-      # def final_position
-      #   case section_definition.insert_at
-      #   when 'top' then 0
-      #   when 'bottom' then store.sections.count
-      #   else
-      #     position
-      #   end
-      # end
-
       def touch_page(store)
         # if it's a dry run, it's useless to touch the page / pages
         super unless dry_run

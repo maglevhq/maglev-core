@@ -3,19 +3,23 @@
 module Maglev
   class FetchSectionsStoreService
     include Injectable
+    include Maglev::SiteScopedSectionsConcern
 
     dependency :fetch_theme
     dependency :fetch_site
 
     argument :page
     argument :handle
+    argument :published, default: false
     argument :theme, default: nil
     argument :site, default: nil
-
+    
     def call
-      find_or_create_store(
-        find_store_definition
-      )
+      if handle == ::Maglev::SectionsContentStore::SITE_HANDLE
+        site_scoped_store
+      else
+        find_or_create_store(find_store_definition)
+      end      
     end
 
     private
@@ -31,7 +35,7 @@ module Maglev
     def find_or_create_store(store_definition)
       store_page = store_definition.page_scoped? ? page : nil
 
-      scoped_stores.find_or_create_by(handle: store_definition.id, page: store_page, published: false) do |store|
+      scoped_stores.find_or_create_by(handle: store_definition.id, page: store_page, published: published) do |store|
         store.page = page if store_definition.page_scoped?
         store.sections_translations = fill_translations([])
       end

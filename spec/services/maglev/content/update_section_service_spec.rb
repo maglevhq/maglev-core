@@ -23,23 +23,19 @@ describe Maglev::Content::UpdateSectionService do
 
     it 'updates the section' do
       expect(subject).to eq(true)
-      expect(store.sections.dig(0, 'settings', 0, 'value')).to eq('Hello world!')
-      expect(store.sections.dig(0, 'lock_version')).to eq(1)
+      expect(store.reload.sections.dig(0, 'settings', 0, 'value')).to eq('Hello world!')
+      expect(store.reload.lock_version).to eq(1)
     end
 
     context 'Given an existing page section with a version' do
-      let(:lock_version) { 1 }
-
-      before { store.sections.first['lock_version'] = lock_version }
-
       it 'updates the section' do
         expect(subject).to eq(true)
       end
 
-      context 'Given the page has been modified while updating the section' do
-        before { store.sections.first['lock_version'] = 2 }
+      context 'Given the store has been modified while updating the section' do
+        before {store.touch }
 
-        it 'raises an exception about the stale page' do
+        it 'raises an exception about the stale store' do
           expect { subject }.to raise_exception(ActiveRecord::StaleObjectError)
         end
       end
@@ -48,20 +44,25 @@ describe Maglev::Content::UpdateSectionService do
 
   context 'Given an existing site scoped section' do
     let(:store) { create(:sections_content_store, :header) }
+    let(:site_scoped_store) { create(:sections_content_store, :header, :site_scoped) }
     let(:site_scoped_sections) { fetch_sections_content('_site') }
     let(:content) { { logo: { url: '/awesome-logo.png' } } }
     let(:lock_version) { 0 }
+
+    before do
+      store.update!(lock_version: lock_version)
+      site_scoped_store.update!(lock_version: lock_version)
+    end
 
     it 'updates the section content on the site' do
       expect(subject).to eq(true)
       # rubocop:disable Style/StringHashKeys
       expect(site_scoped_sections.dig(0, 'settings', 0, 'value')).to eq({ 'url' => '/awesome-logo.png' })
       # rubocop:enable Style/StringHashKeys
-      expect(site_scoped_sections.dig(0, 'lock_version')).to eq(1)
-      expect(store.sections.dig(0, 'lock_version')).to eq(1)
+      expect(site_scoped_store.reload.lock_version).to eq(1)
     end
 
-    it "doesn't touch the page" do
+    it "doesn't touch the page store" do
       expect { subject }.not_to(change { store.reload.lock_version })
     end
   end
