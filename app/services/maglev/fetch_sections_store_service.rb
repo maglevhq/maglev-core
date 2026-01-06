@@ -35,7 +35,8 @@ module Maglev
     def find_or_create_store(store_definition)
       store_page = store_definition.page_scoped? ? page : nil
 
-      scoped_stores.find_or_create_by(handle: store_definition.id, page: store_page, published: published) do |store|
+      scoped_stores.find_or_create_by(handle: store_definition.handle, page: store_page,
+                                      published: published) do |store|
         store.page = page if store_definition.page_scoped?
         store.sections_translations = fill_translations([])
       end

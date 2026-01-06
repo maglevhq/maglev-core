@@ -34,16 +34,19 @@ class Maglev::Theme::LayoutGroup < Maglev::Theme::BaseProperty
   ## class methods ##
 
   def self.build(hash, **args)
-    attributes = prepare_attributes(hash).slice('id', 'label', 'page', 'accept', 'recoverable', 'mirror_section')
+    attributes = prepare_attributes(hash).slice('id', 'handle', 'label', 'page', 'accept', 'recoverable',
+                                                'mirror_section')
 
+    prepare_other_attributes(attributes)
+
+    new(attributes.merge(theme: args[:theme], layout_id: args[:layout_id]))
+  end
+
+  def self.prepare_other_attributes(attributes)
     attributes['handle'] = attributes['handle'].presence || attributes['id']
     attributes['accept'] ||= ['*']
     attributes['recoverable'] ||= []
     attributes['page_scoped'] = !attributes.delete('page').nil?
-
-    attributes['mirror_section'] = ((mirror_section = attributes.delete('mirror_section')).nil? || mirror_section)
-
-    new(attributes.merge(theme: args[:theme], layout_id: args[:layout_id]))
   end
 
   ## private methods ##

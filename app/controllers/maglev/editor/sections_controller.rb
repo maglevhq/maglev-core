@@ -92,13 +92,14 @@ module Maglev
 
       def refresh_lock_version
         @section.lock_version += 1
-        # @sections_store.reload
       end
 
       def newly_added_section_to_flash
         # use flash because we can't pass directly the information to the redirect
-        { store_id: params[:store_id], section_id: @section[:id],
-          position: @sections_store.position_of_section(@section[:id]) }
+        {
+          store_id: maglev_theme.store_view_id_of(current_maglev_page.layout_id, params[:store_id]),
+          section_id: @section[:id], position: @sections_store.position_of_section(@section[:id])
+        }
       end
 
       def newly_added_section_to_headers

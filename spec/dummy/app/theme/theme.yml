@@ -25,7 +25,7 @@ layouts:
   groups:
   - label: "Header"
     id: "header" # only for the view
-    # handle: "my-custom-store"
+    # handle: "global_header" # only for local tests
     accept: ["navbar"]
     recoverable: ["navbar"]
     mirror_section: false
