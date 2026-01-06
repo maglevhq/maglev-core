@@ -50,7 +50,7 @@ module Maglev
       def create_sections_content_store(page)
         Maglev::SectionsContentStore.create!(
           page: page,
-          handle: default_layout_group.id,
+          handle: default_layout_group.handle,
           sections_translations: page['sections_translations'],
           published: false
         )
@@ -58,7 +58,7 @@ module Maglev
         # don't forget the published site scoped sections
         Maglev::SectionsContentStore.published.where(container_type: 'Maglev::Page',
                                                      container_id: page).find_each do |store|
-          store.update!(page: page, handle: default_layout_group.id)
+          store.update!(page: page, handle: default_layout_group.handle)
         end
       end
 

@@ -72,7 +72,7 @@ module Maglev
     end
 
     def find_store(group, page)
-      scoped_stores.find_by(handle: group.id, page: page, published: published)
+      scoped_stores.find_by(handle: group.handle, page: page, published: published)
     end
 
     def scoped_stores

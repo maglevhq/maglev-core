@@ -10,9 +10,9 @@ RSpec.describe Maglev::Content::PageContent do
   let(:footer_sections) { build(:sections_content_store, :footer).sections }
   let(:stores) do
     [
-      { id: 'header', sections: header_sections, lock_version: 0 },
-      { id: 'main', sections: main_sections, lock_version: 0 },
-      { id: 'footer', sections: footer_sections, lock_version: 0 }
+      { id: 'header', handle: 'header', sections: header_sections, lock_version: 0 },
+      { id: 'main', handle: 'main', sections: main_sections, lock_version: 0 },
+      { id: 'footer', handle: 'footer', sections: footer_sections, lock_version: 0 }
     ]
   end
 

@@ -48,7 +48,7 @@ module Maglev
     def add_sections(page, page_attributes)
       fetch_layout(page.layout_id).groups.each do |group|
         store = find_store(page, group)
-        sections_attributes = page_attributes.dig(:sections, group.id)
+        sections_attributes = page_attributes.dig(:sections, group.id) # since it's theme related, we use the id (not the handle)
 
         next if sections_attributes.blank?
 
@@ -113,7 +113,7 @@ module Maglev
     def find_store(page, layout_group)
       fetch_sections_store.call(
         page: page,
-        handle: layout_group.id,
+        handle: layout_group.handle, # since it's DB related, we use the handle (not the id)
         theme: theme,
         site: site
       )
