@@ -25,6 +25,29 @@ FactoryBot.define do
       ].to_json), theme: factory.instance)
     end
 
+    trait :layout_with_custom_handle do
+      layouts do |factory|
+        Maglev::Theme::Layout.build_many(JSON.parse([
+          {
+            label: 'Default',
+            groups: [
+              { id: 'header', handle: 'global_header' },
+              { id: 'main', page: true, accept: %w[jumbotron showcase featured_product], recoverable: %w[jumbotron] }, 'footer'
+            ]
+          },
+          {
+            label: 'Sidebar',
+            groups: [
+              'header',
+              { id: 'main', page: true },
+              { label: 'Sidebar 😎', id: 'sidebar', accept: %w[sidebar_menu sidebar_ad] },
+              'footer'
+            ]
+          }
+        ].to_json), theme: factory.instance)
+      end
+    end
+
     after(:build) do |theme, _evaluator|
       theme.style_settings = [
         Maglev::Theme::StyleSetting.build({
