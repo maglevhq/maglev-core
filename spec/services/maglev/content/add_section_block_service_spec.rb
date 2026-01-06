@@ -43,12 +43,12 @@ describe Maglev::Content::AddSectionBlockService do
                                ))
     end
 
-    context 'Given the page has been modified while adding the block' do
+    context 'Given the store has been modified while adding the block' do
       let(:lock_version) { 1 }
 
-      before { store.sections[1]['lock_version'] = 2 }
+      before { 2.times { store.touch } }
 
-      it 'raises an exception about the stale page' do
+      it 'raises an exception about the stale store' do
         expect { subject }.to raise_exception(ActiveRecord::StaleObjectError)
       end
     end

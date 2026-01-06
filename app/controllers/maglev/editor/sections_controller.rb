@@ -4,10 +4,10 @@ module Maglev
   module Editor
     class SectionsController < Maglev::Editor::BaseController
       helper Maglev::Editor::SettingsHelper
-
+      
       before_action :set_section, only: %i[edit update destroy]
       before_action :set_sections_store_content, only: %i[new create]
-
+      
       def show
         redirect_to edit_editor_section_path(params[:id], maglev_editing_route_context)
       end
@@ -91,13 +91,14 @@ module Maglev
       end
 
       def refresh_lock_version
-        @section.lock_version = sections_store.find_section_by_id(@section.id)['lock_version']
+        @section.lock_version += 1        
+        # @sections_store.reload
       end
 
       def newly_added_section_to_flash
         # use flash because we can't pass directly the information to the redirect
         { store_id: params[:store_id], section_id: @section[:id],
-          position: sections_store.position_of_section(@section[:id]) }
+          position: @sections_store.position_of_section(@section[:id]) }
       end
 
       def newly_added_section_to_headers
