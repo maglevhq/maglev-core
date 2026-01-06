@@ -45,7 +45,7 @@ module Maglev
       end
 
       def add_to_section!(source, block_content)
-        check_section_lock_version!(source)
+        source.lock_version = lock_version if lock_version.present?
 
         source.sections_translations_will_change!
         section = source.find_section_by_id(section_id)

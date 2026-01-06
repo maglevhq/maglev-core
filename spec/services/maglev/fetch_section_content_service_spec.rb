@@ -39,7 +39,8 @@ describe Maglev::FetchSectionsContentService do
                                   { 'id' => 'title', 'value' => 'Hello world' },
                                   { 'id' => 'body', 'value' => '<p>Lorem ipsum</p>' }
                                 ],
-                                'blocks' => []
+                                'blocks' => [],
+                                'lock_version' => 0
                               },
                               {
                                 'id' => 'ghi',
@@ -54,7 +55,8 @@ describe Maglev::FetchSectionsContentService do
                                       { 'id' => 'image', 'value' => '/assets/screenshot-01.png' }
                                     ]
                                   }
-                                ]
+                                ],
+                                'lock_version' => 0
                               }
                             ], 0])
     end
@@ -77,7 +79,8 @@ describe Maglev::FetchSectionsContentService do
                                           'value' => '/assets/screenshot-01.png' }
                                       ]
                                     }
-                                  ]
+                                  ],
+                                  'lock_version' => 0
                                 }
                               ], 0])
       end
@@ -176,7 +179,8 @@ describe Maglev::FetchSectionsContentService do
                                     'page_id' => another_page.id,
                                     'layout_group_id' => 'main',
                                     'section_id' => 'fake-section-id'
-                                  }
+                                  },
+                                  'lock_version' => 0
                                 }
                               ], 0])
       end
@@ -191,7 +195,7 @@ describe Maglev::FetchSectionsContentService do
                                    {
                                      'id' => 'abc',
                                      'type' => 'navbar',
-                                     'lock_version' => nil,
+                                     'lock_version' => 0,
                                      'settings' => [{ 'id' => 'logo', 'value' => 'logo.png' }],
                                      'blocks' => [
                                        a_hash_including('id' => 'menu-item-0'),
