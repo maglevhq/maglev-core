@@ -419,7 +419,6 @@ PLATFORMS
   x86_64-linux-musl
 
 DEPENDENCIES
-  action_text-trix (>= 2.1.16)
   addressable (>= 2.9.0)
   annotaterb
   bcrypt (>= 3.1.22)
