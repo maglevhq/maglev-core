@@ -6,7 +6,7 @@ module Maglev
       include ActiveModel::Model
       include Maglev::Content::EnhancedValueConcern
 
-      attr_accessor :id, :type, :settings, :blocks, :definition, :theme_id, :store_handle, :lock_version, :mirror_of
+      attr_accessor :id, :type, :settings, :blocks, :definition, :theme_id, :store_handle, :mirror_of, :lock_version
 
       def persisted?
         true
@@ -87,7 +87,7 @@ module Maglev
           settings: Maglev::Content::SettingContent::AssociationProxy.new(raw_section_content['settings']),
           theme_id: theme.id,
           store_handle: store_handle,
-          lock_version: raw_section_content['lock_version'],
+          lock_version: raw_section_content['lock_version'].presence || 0,
           mirror_of: raw_section_content['mirror_of']
         )
       end

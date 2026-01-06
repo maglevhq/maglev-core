@@ -35,7 +35,7 @@ module Maglev
       end
 
       def delete_section_block!(source)
-        check_section_lock_version!(source)
+        source.lock_version = lock_version if lock_version.present?
 
         source.sections_translations_will_change!
         delete_section_block(source)

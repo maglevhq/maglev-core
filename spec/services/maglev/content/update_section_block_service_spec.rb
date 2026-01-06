@@ -25,16 +25,14 @@ describe Maglev::Content::UpdateSectionBlockService do
     let(:lock_version) { 0 }
 
     it 'updates the section block' do
-      expect { subject }.to change { section.dig('blocks', 0, 'settings', 0, 'value') }.to('My first project [UPDATED]')
-      expect(section.dig('blocks', 0, 'lock_version')).to eq(1)
+      expect { subject }.to change { store.reload.sections.find { |s| s['id'] == section_id }.dig('blocks', 0, 'settings', 0, 'value') }.to('My first project [UPDATED]')
+      expect(store.reload.lock_version).to eq(1)
     end
 
-    context 'Given the block has been modified while updating the section block' do
-      let(:lock_version) { 1 }
+    context 'Given the store has been modified while updating the section block' do
+      before { store.touch }
 
-      before { section.dig('blocks', 0)['lock_version'] = 2 }
-
-      it 'raises an exception about the stale page' do
+      it 'raises an exception about the stale store' do
         expect { subject }.to raise_exception(ActiveRecord::StaleObjectError)
       end
     end

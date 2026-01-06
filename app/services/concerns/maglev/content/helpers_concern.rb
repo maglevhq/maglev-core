@@ -82,40 +82,6 @@ module Maglev
         end
       end
 
-      def check_section_lock_version!(source)
-        check_lock_version!(source, find_section(source), 'update_section')
-
-        return if store == source
-
-        # if the store is not the same as the source (ie: site_scoped_store),
-        # we need to refresh the lock version of the section in the store
-        find_section(store)['lock_version'] = find_section(source)['lock_version']
-      end
-
-      def check_block_lock_version!(source)
-        check_lock_version!(source, find_block(source), 'update_block')
-
-        return if store != source
-
-        # if the store is not the same as the source (ie: site_scoped_store),
-        # we need to refresh the lock version of the block in the store
-        find_block(store)['lock_version'] = find_block(source)['lock_version']
-      end
-
-      def check_lock_version!(source, section_or_block, action_name)
-        return if lock_version.blank? # without a lock version, we disable the lock version check
-
-        current_lock_version = section_or_block['lock_version'].to_i
-
-        # always increment the lock version
-        section_or_block['lock_version'] = lock_version.to_i + 1
-
-        # if the lock version is the same, we don't need to raise an error
-        return if current_lock_version == lock_version.to_i
-
-        raise ActiveRecord::StaleObjectError.new(source, action_name)
-      end
-
       def reset_memoization
         @theme = nil
         @site = nil

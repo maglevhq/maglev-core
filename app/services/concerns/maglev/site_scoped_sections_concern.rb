@@ -31,17 +31,21 @@ module Maglev
       store.sections.each do |section|
         next unless site_scoped_section?(section)
 
-        store_section = site_scoped_store.find_section_by_type(section['type'])
+        store_section = site_scoped_store.find_section_by_type(section['type'])        
         next unless store_section
-
+        
         # keep the same section id all over the pages
         store.replace_section(section, store_section)
+
+        # site scoped sections have the same lock version as the site scoped store
+        section['lock_version'] = site_scoped_store.lock_version
       end
     end
 
     def site_scoped_store
       @site_scoped_store ||= scoped_stores.find_or_create_by(
-        handle: ::Maglev::SectionsContentStore::SITE_HANDLE
+        handle: ::Maglev::SectionsContentStore::SITE_HANDLE,
+        published: published
       ) do |store|
         store.sections_translations = site.locale_prefixes.index_with { |_locale| [] }
       end

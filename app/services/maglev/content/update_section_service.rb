@@ -35,7 +35,7 @@ module Maglev
       end
 
       def update_section_content!(source)
-        check_section_lock_version!(source)
+        source.lock_version = lock_version if lock_version.present?
 
         source.sections_translations_will_change!
         update_section_content(source)

@@ -24,21 +24,6 @@ module Maglev::GetPageSections::TransformSectionConcern
     section
   end
 
-  # def transform_if_site_scoped(section, definition)
-  #   return unless definition.site_scoped?
-
-  #   site_section = find_site_section(section['type'])
-
-  #   return unless site_section
-
-  #   # keep the same section id all over the pages
-  #   section.merge!(
-  #     'id' => site_section['id'],
-  #     'settings' => site_section['settings'],
-  #     'blocks' => site_section['blocks'],
-  #     'lock_version' => site_section['lock_version']
-  #   )
-  # end
   def transform_section_blocks(blocks, definition)
     blocks.each do |block|
       block_definition = definition.blocks.find(block['type'])

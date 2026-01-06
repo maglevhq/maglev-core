@@ -41,9 +41,9 @@ describe Maglev::Content::SortSectionBlocksService do
   context 'Given an existing page section with a version' do
     let(:lock_version) { 1 }
 
-    before { section['lock_version'] = 2 }
+    before { 2.times { store.touch } }
 
-    it 'raises an exception about the stale page' do
+    it 'raises an exception about the stale store' do
       expect { subject }.to raise_exception(ActiveRecord::StaleObjectError)
     end
   end

@@ -83,8 +83,7 @@ module Maglev
       end
 
       def refresh_lock_version
-        @section_block.lock_version = sections_store.find_section_block_by_id(@section.id,
-                                                                              @section_block.id)['lock_version']
+        @section.lock_version += 1        
       end
 
       def redirect_to_section_blocks_path(success: true)
