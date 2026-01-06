@@ -127,6 +127,22 @@ FactoryBot.define do
       end
     end
 
+    trait :global_header do
+      handle { 'global_header' }
+      sections do
+        [
+          {
+            id: 'xyz',
+            type: 'navbar',
+            settings: [
+              { id: :logo, value: 'logo.png' }
+            ],
+            blocks: []
+          }
+        ]
+      end
+    end
+
     trait :with_navbar do
       sections do
         [
