@@ -3,11 +3,11 @@
 # rubocop:disable Style/ClassAndModuleChildren
 class Maglev::Theme::LayoutGroup < Maglev::Theme::BaseProperty
   ## attributes ##
-  attr_accessor :accept, :page_scoped, :recoverable, :mirror_section, :theme, :layout_id
+  attr_accessor :accept, :page_scoped, :recoverable, :mirror_section, :theme, :layout_id, :handle
 
   validates :id, :label, 'maglev/presence': true
 
-  alias_attribute :handle, :id
+  # alias_attribute :handle, :id
 
   ## instance methods ##
 
@@ -36,6 +36,7 @@ class Maglev::Theme::LayoutGroup < Maglev::Theme::BaseProperty
   def self.build(hash, **args)
     attributes = prepare_attributes(hash).slice('id', 'label', 'page', 'accept', 'recoverable', 'mirror_section')
 
+    attributes['handle'] = attributes['handle'].presence || attributes['id']
     attributes['accept'] ||= ['*']
     attributes['recoverable'] ||= []
     attributes['page_scoped'] = !attributes.delete('page').nil?

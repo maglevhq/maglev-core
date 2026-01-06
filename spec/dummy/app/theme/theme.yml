@@ -24,12 +24,13 @@ layouts:
   id: "default"
   groups:
   - label: "Header"
-    id: "header"
+    id: "header" # only for the view
+    # handle: "my-custom-store"
     accept: ["navbar"]
     recoverable: ["navbar"]
     mirror_section: false
   - label: "Main"
-    id: "main" # ie: handle of the store in the DB
+    id: "main" # ie: handle of the store in the DB    
     page: true
     accept: ["features/*", "headers/jumbotron"]
     # mirror_section: true

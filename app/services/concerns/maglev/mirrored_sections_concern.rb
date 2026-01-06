@@ -45,7 +45,7 @@ module Maglev
 
       layout = fetch_layout(other_page.layout_id)
       layout_group = layout.groups.find do |group|
-        group.id == mirror_of['layout_group_id'] || group.id == mirror_of['layout_store_id']
+        group.handle == mirror_of['layout_group_id'] || group.handle == mirror_of['layout_store_id']
       end
       return unless layout_group
 

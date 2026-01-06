@@ -19,7 +19,8 @@ module Maglev
       layout.groups.map do |group|
         sections, lock_version = fetch_sections(group)
         {
-          id: group.id,
+          id: group.id, # we need it for the view
+          handle: group.handle,
           sections: filter_sections(sections),
           lock_version: lock_version
         }
@@ -47,7 +48,7 @@ module Maglev
 
     def fetch_sections(group)
       fetch_sections_content.call(
-        handle: group.id,
+        handle: group.handle,
         page: group.page_scoped? ? page : nil,
         published: published,
         locale: locale
