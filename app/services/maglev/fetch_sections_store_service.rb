@@ -13,13 +13,13 @@ module Maglev
     argument :published, default: false
     argument :theme, default: nil
     argument :site, default: nil
-    
+
     def call
       if handle == ::Maglev::SectionsContentStore::SITE_HANDLE
         site_scoped_store
       else
         find_or_create_store(find_store_definition)
-      end      
+      end
     end
 
     private
