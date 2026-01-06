@@ -25,6 +25,14 @@ describe Maglev::FetchSectionsContentService do
     it { is_expected.to eq([[], 0]) }
   end
 
+  # context 'we define a different handle for the store' do
+  #   let(:theme) { build(:theme, ) }
+
+  #   it 'returns the sections' do
+  #     expect(subject).to eq([[], 0])
+  #   end
+  # end
+
   # rubocop:disable Style/StringHashKeys
   context 'the store has some sections' do
     let(:handle) { 'main' }

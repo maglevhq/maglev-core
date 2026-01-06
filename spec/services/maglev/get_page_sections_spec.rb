@@ -20,9 +20,9 @@ describe Maglev::GetPageSections do
 
     it 'returns the layout groups empty' do
       expect(subject).to eq([
-                              { id: 'header', sections: [], lock_version: 0 },
-                              { id: 'main', sections: [], lock_version: 0 },
-                              { id: 'footer', sections: [], lock_version: 0 }
+                              { id: 'header', handle: 'header', sections: [], lock_version: 0 },
+                              { id: 'main', handle: 'main', sections: [], lock_version: 0 },
+                              { id: 'footer', handle: 'footer', sections: [], lock_version: 0 }
                             ])
     end
   end

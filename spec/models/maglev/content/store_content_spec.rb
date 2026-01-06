@@ -6,7 +6,7 @@ RSpec.describe Maglev::Content::StoreContent do
   let(:theme) { build(:theme) }
   let(:page) { build(:page) }
   let(:main_sections) { build(:sections_content_store, page: page).sections }
-  let(:store) { { id: 'main', sections: main_sections, lock_version: 0 } }
+  let(:store) { { id: 'main',handle: 'main', sections: main_sections, lock_version: 0 } }
   let(:instance) { described_class.build(store: store, theme: theme, layout_id: page.layout_id) }
 
   describe '#label' do

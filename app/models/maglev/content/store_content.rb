@@ -5,10 +5,10 @@ module Maglev
     class StoreContent
       include ActiveModel::Model
 
-      attr_accessor :id, :theme, :layout_id, :sections, :lock_version
+      attr_accessor :handle, :theme, :layout_id, :sections, :lock_version
 
-      def initialize(id:, sections:, lock_version:, theme:, layout_id:)
-        @id = id
+      def initialize(handle:, sections:, lock_version:, theme:, layout_id:)
+        @handle = handle
         @sections = sections
         @lock_version = lock_version
         @theme = theme
@@ -20,7 +20,7 @@ module Maglev
       end
 
       def to_param
-        id
+        handle
       end
 
       def allow_mirrored_sections?
@@ -52,7 +52,7 @@ module Maglev
 
       def self.build(store:, theme:, layout_id:)
         StoreContent.new(
-          id: store[:id],
+          handle: store[:handle],
           sections: build_sections(store: store, theme: theme),
           lock_version: store[:lock_version],
           layout_id: layout_id,
@@ -63,7 +63,7 @@ module Maglev
       def self.build_sections(store:, theme:)
         Maglev::Content::SectionContent.build_many(
           theme: theme,
-          store_handle: store[:id],
+          store_handle: store[:handle],
           content: store[:sections]
         )
       end
@@ -71,7 +71,7 @@ module Maglev
       private
 
       def definition
-        theme.find_layout(layout_id).find_group(id)
+        theme.find_layout(layout_id).find_group(handle)
       end
 
       class AssociationProxy
@@ -86,8 +86,8 @@ module Maglev
           @stores = StoreContent.build_many(stores: stores, theme: theme, layout_id: page.layout_id)
         end
 
-        def [](id)
-          stores.find { |store| store.id == id }
+        def [](handle)
+          stores.find { |store| store.handle == handle }
         end
 
         def each(&block)
