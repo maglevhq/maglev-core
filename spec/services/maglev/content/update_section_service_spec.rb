@@ -46,20 +46,25 @@ describe Maglev::Content::UpdateSectionService do
 
   context 'Given an existing site scoped section' do
     let(:store) { create(:sections_content_store, :header) }
+    let(:site_scoped_store) { create(:sections_content_store, :header, :site_scoped) }
     let(:site_scoped_sections) { fetch_sections_content('_site') }
     let(:content) { { logo: { url: '/awesome-logo.png' } } }
     let(:lock_version) { 0 }
+
+    before do
+      store.update!(lock_version: lock_version)
+      site_scoped_store.update!(lock_version: lock_version)
+    end
 
     it 'updates the section content on the site' do
       expect(subject).to eq(true)
       # rubocop:disable Style/StringHashKeys
       expect(site_scoped_sections.dig(0, 'settings', 0, 'value')).to eq({ 'url' => '/awesome-logo.png' })
       # rubocop:enable Style/StringHashKeys
-      expect(site_scoped_sections.dig(0, 'lock_version')).to eq(1)
-      expect(store.sections.dig(0, 'lock_version')).to eq(1)
+      expect(site_scoped_store.reload.lock_version).to eq(1)
     end
 
-    it "doesn't touch the page" do
+    it "doesn't touch the page store" do
       expect { subject }.not_to(change { store.reload.lock_version })
     end
   end
