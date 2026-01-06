@@ -15,8 +15,8 @@ module Maglev
         yield
       rescue Maglev::Errors::NotAuthorized
         raise # Let the main app handle this one
-      # rescue ActiveRecord::StaleObjectError
-      #   handle_stale_object
+      rescue ActiveRecord::StaleObjectError
+        handle_stale_object
       rescue StandardError => e
         respond_to do |format|
           format.turbo_stream { render_turbo_stream_standard_error(e) }

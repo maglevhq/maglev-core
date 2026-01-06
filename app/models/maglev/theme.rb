@@ -23,6 +23,10 @@ module Maglev
       layouts.find { |layout| layout.id == layout_id }
     end
 
+    def store_view_id_of(layout_id, handle)
+      find_layout(layout_id).find_group(handle).id
+    end
+
     def find_setting!(section_id, block_id, setting_id)
       setting = find_setting(section_id, block_id, setting_id)
       raise Maglev::Errors::UnknownSetting.new(section_id, block_id, setting_id) if setting.nil?

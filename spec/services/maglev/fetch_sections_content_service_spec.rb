@@ -3,8 +3,6 @@
 require 'rails_helper'
 
 describe Maglev::FetchSectionsContentService do
-  subject { service.call(handle: handle, page: page, locale: :en) }
-
   let(:site) { build(:site) }
   let(:theme) { build(:theme) }
   let(:get_page_fullpath) { double('GetPageFullPath', call: nil) }
@@ -18,6 +16,8 @@ describe Maglev::FetchSectionsContentService do
     )
   end
 
+  subject { service.call(handle: handle, page: page, locale: :en) }
+
   context 'the store doesn\'t exist yet' do
     let(:handle) { 'unknown' }
     let(:page) { nil }
@@ -25,13 +25,24 @@ describe Maglev::FetchSectionsContentService do
     it { is_expected.to eq([[], 0]) }
   end
 
-  # context 'we define a different handle for the store' do
-  #   let(:theme) { build(:theme, ) }
+  context 'we define a different handle for the store' do
+    let(:theme) { build(:theme, :layout_with_custom_handle) }
+    let(:handle) { 'global_header' }
+    let(:page) { nil }
 
-  #   it 'returns the sections' do
-  #     expect(subject).to eq([[], 0])
-  #   end
-  # end
+    before do
+      create(:sections_content_store, :global_header)
+      create(:sections_content_store, :header)
+    end
+
+    it 'returns the sections' do
+      expect(subject).to match_array([[
+                                       # rubocop:disable Style/StringHashKeys
+                                       hash_including('id' => 'xyz', 'type' => 'navbar')
+                                       # rubocop:enable Style/StringHashKeys
+                                     ], 0])
+    end
+  end
 
   # rubocop:disable Style/StringHashKeys
   context 'the store has some sections' do
