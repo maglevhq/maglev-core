@@ -50,6 +50,9 @@ module Maglev
     end
 
     def transform_sections(store)
+      # a section has the same lock version as the store (except for site scoped sections)
+      store.sections.each { |section| section['lock_version'] = store.lock_version }
+      
       # look for mirrored sections / global site scoped sections and get the fresh content
       replace_content_from_mirror_sections(store)
       replace_content_from_site_scoped_sections(store)

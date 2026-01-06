@@ -60,12 +60,12 @@ module Maglev
 
       def set_section
         @section = current_maglev_page_content.find_section(params[:section_id])
-        raise ActiveRecord::StaleObjectError unless @section
+        raise ActiveRecord::RecordNotFound unless @section
       end
 
       def set_section_block
         @section_block = @section.blocks.find(params[:id])
-        raise ActiveRecord::StaleObjectError unless @section_block
+        raise ActiveRecord::RecordNotFound unless @section_block
       end
 
       def sections_store
@@ -83,8 +83,7 @@ module Maglev
       end
 
       def refresh_lock_version
-        @section_block.lock_version = sections_store.find_section_block_by_id(@section.id,
-                                                                              @section_block.id)['lock_version']
+        @section.lock_version += 1        
       end
 
       def redirect_to_section_blocks_path(success: true)
