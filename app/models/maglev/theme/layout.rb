@@ -11,8 +11,8 @@ class Maglev::Theme::Layout < Maglev::Theme::BaseProperty
     ::I18n.t("maglev.themes.#{theme.id}.layouts.#{id}", default: label)
   end
 
-  def find_group(group_id)
-    groups.find { |group| group.id == group_id }
+  def find_group(group_handle)
+    groups.find { |group| group.handle == group_handle }
   end
 
   def page_scoped_stores
