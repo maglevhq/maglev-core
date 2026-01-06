@@ -33,7 +33,9 @@ describe Maglev::Content::UpdateSectionService do
       end
 
       context 'Given the store has been modified while updating the section' do
-        before {store.touch }
+        # rubocop:disable Rails/SkipsModelValidations
+        before { store.touch }
+        # rubocop:enable Rails/SkipsModelValidations
 
         it 'raises an exception about the stale store' do
           expect { subject }.to raise_exception(ActiveRecord::StaleObjectError)

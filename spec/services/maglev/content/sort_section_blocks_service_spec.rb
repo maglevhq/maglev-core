@@ -39,9 +39,11 @@ describe Maglev::Content::SortSectionBlocksService do
   end
 
   context 'Given an existing page section with a version' do
-    let(:lock_version) { 1 }
+    let(:lock_version) { 0 }
 
-    before { 2.times { store.touch } }
+    # rubocop:disable Rails/SkipsModelValidations
+    before { store.touch }
+    # rubocop:enable Rails/SkipsModelValidations
 
     it 'raises an exception about the stale store' do
       expect { subject }.to raise_exception(ActiveRecord::StaleObjectError)

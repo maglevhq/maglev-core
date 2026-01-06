@@ -4,10 +4,10 @@ module Maglev
   module Editor
     class SectionsController < Maglev::Editor::BaseController
       helper Maglev::Editor::SettingsHelper
-      
+
       before_action :set_section, only: %i[edit update destroy]
       before_action :set_sections_store_content, only: %i[new create]
-      
+
       def show
         redirect_to edit_editor_section_path(params[:id], maglev_editing_route_context)
       end
@@ -91,7 +91,7 @@ module Maglev
       end
 
       def refresh_lock_version
-        @section.lock_version += 1        
+        @section.lock_version += 1
         # @sections_store.reload
       end
 

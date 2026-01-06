@@ -25,12 +25,18 @@ describe Maglev::Content::UpdateSectionBlockService do
     let(:lock_version) { 0 }
 
     it 'updates the section block' do
-      expect { subject }.to change { store.reload.sections.find { |s| s['id'] == section_id }.dig('blocks', 0, 'settings', 0, 'value') }.to('My first project [UPDATED]')
+      expect { subject }.to change {
+        store.reload.sections.find do |s|
+          s['id'] == section_id
+        end.dig('blocks', 0, 'settings', 0, 'value')
+      }.to('My first project [UPDATED]')
       expect(store.reload.lock_version).to eq(1)
     end
 
     context 'Given the store has been modified while updating the section block' do
+      # rubocop:disable Rails/SkipsModelValidations
       before { store.touch }
+      # rubocop:enable Rails/SkipsModelValidations
 
       it 'raises an exception about the stale store' do
         expect { subject }.to raise_exception(ActiveRecord::StaleObjectError)

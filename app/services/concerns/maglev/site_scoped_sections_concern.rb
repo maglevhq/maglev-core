@@ -31,9 +31,9 @@ module Maglev
       store.sections.each do |section|
         next unless site_scoped_section?(section)
 
-        store_section = site_scoped_store.find_section_by_type(section['type'])        
+        store_section = site_scoped_store.find_section_by_type(section['type'])
         next unless store_section
-        
+
         # keep the same section id all over the pages
         store.replace_section(section, store_section)
 
