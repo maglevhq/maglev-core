@@ -24,7 +24,7 @@
   <% end if allow?(:preview) %>
 
   <% dropdown.with_item do %>
-    <%= button_to paths[:clone], class: dropdown.form_item_classes, form_class: dropdown.item_classes do %>
+    <%= button_to paths[:clone], class: dropdown.form_item_classes, form_class: dropdown.item_classes, data: { turbo_frame: '_top' } do %>
       <%= render Maglev::Uikit::IconComponent.new(name: 'clone', class_names: 'shrink-0') %>
       <span class="ml-2 whitespace-nowrap truncate overflow-hidden"><%= t('maglev.editor.pages.actions.clone') %></span>
     <% end %>
