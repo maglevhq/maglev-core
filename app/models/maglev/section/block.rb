@@ -61,7 +61,7 @@ class Maglev::Section::Block
     end
   end
 
-  class Store
+  class AssociationProxy
     include Enumerable
 
     attr_reader :array
