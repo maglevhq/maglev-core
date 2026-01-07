@@ -38,7 +38,7 @@ module Maglev
     end
 
     def load_sections(theme, source_path)
-      Maglev::Section::Store.new(
+      Maglev::Section::AssociationProxy.new(
         load_sections_without_verification(theme, source_path).tap do |sections|
           detect_duplicate_sections(sections)
         end
