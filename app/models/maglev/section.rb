@@ -82,7 +82,7 @@ module Maglev
     def assign_attributes_from_yaml(hash)
       attributes = prepare_default_attributes(hash).merge(
         settings: ::Maglev::Section::Setting.build_many(hash['settings']),
-        blocks: ::Maglev::Section::Block::Store.new(hash['blocks'], section: self)
+        blocks: ::Maglev::Section::Block::AssociationProxy.new(hash['blocks'], section: self)
       )
 
       assign_attributes(attributes)
@@ -116,8 +116,7 @@ module Maglev
       attributes
     end
 
-    # AssociationProxy
-    class Store
+    class AssociationProxy
       extend Forwardable
       def_delegators :@array, :all, :first, :last, :count, :each, :each_with_index, :map, :group_by, :select
 
