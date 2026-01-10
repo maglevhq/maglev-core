@@ -10,7 +10,7 @@ npx terser dist/tiptap.bundle.js \
   -o dist/tiptap.bundle.min.js
 
 echo "👾 Replacing the tiptap bundle in the Maglev engine"
-cp dist/tiptap.bundle.min.js ../../vendor/javascript/tiptap.bundle.js
+cp dist/tiptap.bundle.min.js ../../vendor/javascript/maglev/tiptap.bundle.js
 
 echo "✅ Done. Output: dist/tiptap.bundle.min.js"
 ls -lh dist/tiptap.bundle.min.js
