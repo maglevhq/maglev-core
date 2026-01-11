@@ -49,13 +49,15 @@ module Maglev
     end
 
     initializer 'maglev.assets' do |app|
-      app.config.assets.paths << Engine.root.join('app/assets/builds')
-      app.config.assets.paths << Engine.root.join('app/components')
-      app.config.assets.paths << Engine.root.join('app/assets/javascripts')
-      app.config.assets.paths << Engine.root.join('vendor/javascript')
+      if app.config.respond_to?(:assets) && app.config.assets.respond_to?(:paths)
+        app.config.assets.paths << Engine.root.join('app/assets/builds')
+        app.config.assets.paths << Engine.root.join('app/components')
+        app.config.assets.paths << Engine.root.join('app/assets/javascripts')
+        app.config.assets.paths << Engine.root.join('vendor/javascript')
 
-      # required by Sprockets (if used by the main app)
-      app.config.assets.precompile += %w[maglev_manifest]
+        # required by Sprockets (if used by the main app)
+        app.config.assets.precompile += %w[maglev_manifest] if defined?(Sprockets)
+      end
     end
 
     initializer 'maglev.importmap', after: 'importmap' do |app|
