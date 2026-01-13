@@ -229,7 +229,7 @@ RSpec.describe 'Maglev::PagePreviewController', type: :request do
       expect(first_item['id']).to eq('block-block-0')
 
       first_link = first_item.at_css('a[data-maglev-id="block-0.link"]')
-      expect(first_link['href']).to eq('/maglev/preview')
+      expect(first_link['href']).to eq('#')
       expect(first_link.at_css('span[data-maglev-id="block-0.label"]').text.strip).to eq('Item #0')
 
       # Check nested items

@@ -4,7 +4,7 @@ module Maglev
   module Content
     class Link < Base
       def href
-        link[:href]
+        link[:href] || '#'
       end
 
       def text
