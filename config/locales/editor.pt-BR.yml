@@ -14,6 +14,11 @@
           in_progress: "Publicando..."
           success: "Publicado!"
           fail: "Falhou!"
+        revert_button:
+          default: "Reverter alterações"
+          in_progress: "Revertendo..."
+          success: "Revertido!"
+          fail: "Falhou!"
         save_button:
           default: "Salvar"
           in_progress: "Salvando..."

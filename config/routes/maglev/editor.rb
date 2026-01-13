@@ -19,7 +19,10 @@ scope ':locale/:page_id' do
   root to: 'home#index', as: :real_root
 
   resources :pages do
-    resource :clone, controller: :page_clone, only: :create
+    member do
+      post :clone, controller: :page_clone, action: :create
+      post :revert, controller: 'pages/revert', action: :create
+    end
   end
 
   resources :sections do

@@ -1,0 +1,11 @@
+<%= render Maglev::Uikit::ButtonGroupComponent.new(color: color, size: size) do |button_group| %>
+  <% button_group.with_button do %>
+    <%= button_to 'Action #1', '#', form_class: button_group.wrapper_classes, class:button_group.wrapped_button_classes %>
+  <% end %>
+  <% button_group.with_button do %>
+    <%= button_tag 'Action #2', class: button_group.button_classes %>
+  <% end %>
+  <% button_group.with_button do %>
+    <%= button_tag 'Action #3', class: button_group.button_classes %>
+  <% end %>
+<% end %>

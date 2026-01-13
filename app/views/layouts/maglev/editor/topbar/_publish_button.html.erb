@@ -1,13 +1,35 @@
 <div class="flex items-center h-full px-4">
-  <%= button_to editor_publication_path(maglev_editing_route_context), 
-    method: :post, 
-    class: maglev_button_classes(color: :primary, size: :medium),
-    form_class: 'group/form is-default',
-    disabled: current_maglev_page.published_and_up_to_date?,
-    data: { controller: 'submit-button' } do %>
-    <%= maglev_button_label(
-      t('maglev.editor.header_nav.publish_button.default'),
-      pending: t('maglev.editor.header_nav.publish_button.in_progress'),
-      )%>
+  <%= render Maglev::Uikit::ButtonGroupComponent.new do |button_group| %>
+    <% button_group.with_button do %>
+      <%= button_to editor_publication_path(maglev_editing_route_context), 
+        method: :post, 
+        class: button_group.wrapped_button_classes,
+        form_class: button_group.wrapper_classes(class: 'group/form is-default'),
+        disabled: current_maglev_page.published_and_up_to_date?,
+        data: { controller: 'submit-button' } do %>
+        <%= maglev_button_label(t('maglev.editor.header_nav.publish_button.default'), pending: t('maglev.editor.header_nav.publish_button.in_progress'),) %>
+      <% end %>
+    <% end %>  
+
+    <% button_group.with_button do %>
+      <%= render Maglev::Uikit::MenuDropdownComponent.new(
+        icon_name: 'arrow_down', 
+        wrapper_classes: button_group.wrapper_classes,
+        trigger_classes: button_group.wrapped_button_classes(class: 'px-2!') 
+      ) do |dropdown| %>      
+        <% dropdown.with_item do %>
+          <%= button_to revert_editor_page_path(current_maglev_page.id, **maglev_editing_route_context), method: :post, class: dropdown.item_classes do %>
+            <%= render Maglev::Uikit::IconComponent.new(name: 'history') %>
+            <span class="ml-2 whitespace-nowrap">Revert changes</span>
+          <% end %>
+        <% end %>
+        <% dropdown.with_item do %>
+          <%= link_to '#', class: dropdown.item_classes do %>
+            <%= render Maglev::Uikit::IconComponent.new(name: 'home') %>
+            <span class="ml-2 whitespace-nowrap">Action #1</span>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
   <% end %>
 </div>

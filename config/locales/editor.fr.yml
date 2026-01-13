@@ -14,6 +14,11 @@ fr:
           in_progress: "Publication..."
           success: "Publié !"
           fail: "Échec !"
+        revert_button:
+          default: "Annuler les modifications"
+          in_progress: "Annulation..."
+          success: "Annulé !"
+          fail: "Échec !"
         save_button:
           default: "Enregistrer"
           in_progress: "Enregistrement..."

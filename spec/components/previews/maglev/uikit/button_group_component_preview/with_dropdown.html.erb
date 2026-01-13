@@ -1,0 +1,19 @@
+<%= render Maglev::Uikit::ButtonGroupComponent.new(color: color, size: size) do |button_group| %>
+  <% button_group.with_button do %>
+    <%= button_to 'Publish', '#', form_class: button_group.wrapper_classes, class:button_group.wrapped_button_classes %>
+  <% end %>
+  <% button_group.with_button do %>
+    <%= render Maglev::Uikit::MenuDropdownComponent.new(
+      icon_name: 'more', 
+      wrapper_classes: button_group.wrapper_classes,
+      trigger_classes: button_group.wrapped_button_classes(class: 'px-2!') 
+    ) do |dropdown| %>      
+      <% dropdown.with_item do %>
+        <%= link_to '#', class: dropdown.item_classes do %>
+          <%= render Maglev::Uikit::IconComponent.new(name: 'home') %>
+          <span class="ml-2 whitespace-nowrap">Action #1</span>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>
