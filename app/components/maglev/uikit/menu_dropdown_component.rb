@@ -6,11 +6,13 @@ module Maglev
       renders_one :trigger
       renders_many :items
 
-      attr_reader :icon_name, :placement
+      attr_reader :icon_name, :placement, :wrapper_classes, :trigger_classes
 
-      def initialize(icon_name: nil, placement: 'bottom-start')
+      def initialize(icon_name: nil, placement: 'bottom-start', wrapper_classes: nil, trigger_classes: nil)
         @icon_name = icon_name
         @placement = placement
+        @wrapper_classes = wrapper_classes
+        @trigger_classes = trigger_classes
       end
 
       def item_classes(...)
