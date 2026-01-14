@@ -10,14 +10,23 @@ module Maglev
 
     def call
       ActiveRecord::Base.transaction do
-        publish_stores!
-        publish_site_scoped_store!
-        mark_site_and_page_as_published!
+        unsafe_call
       end
       true
     end
 
     private
+
+    def unsafe_call
+      # copy content from the containers (site and page) to the published stores
+      publish_stores!
+      publish_site_scoped_store!
+      
+      mark_site_and_page_as_published!
+
+      # copy the page information to the page published payload
+      publish_page_information!
+    end
 
     def publish_stores!
       layout_stores.each do |definition|
@@ -59,6 +68,11 @@ module Maglev
 
     def scoped_stores
       Maglev::SectionsContentStore
+    end
+
+    def publish_page_information!
+      page.update_published_payload
+      page.save!
     end
   end
 end

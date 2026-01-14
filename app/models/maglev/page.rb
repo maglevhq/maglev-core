@@ -11,6 +11,7 @@
 #  og_image_url_translations     :jsonb
 #  og_title_translations         :jsonb
 #  published_at                  :datetime
+#  published_payload             :jsonb
 #  sections_translations         :jsonb
 #  seo_title_translations        :jsonb
 #  title_translations            :jsonb
@@ -29,6 +30,7 @@ module Maglev
     include Maglev::Translatable
     include Maglev::Page::PathConcern
     include Maglev::Page::SearchConcern
+    include Maglev::Page::PublishableConcern
 
     ## associations ##
     has_many :sections_content_stores, class_name: 'Maglev::SectionsContentStore',
@@ -64,19 +66,6 @@ module Maglev
 
     def static?
       false
-    end
-
-    def published?
-      published_at.present?
-    end
-
-    def need_to_be_published?
-      !published? || updated_at.blank? || updated_at > published_at
-    end
-
-    # opposite of #need_to_be_published?
-    def published_and_up_to_date?
-      published? && updated_at <= published_at
     end
 
     def translate_in(locale, source_locale)
