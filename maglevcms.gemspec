@@ -43,5 +43,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'class_variants', '~> 1.1'
   spec.add_dependency 'importmap-rails', '< 3', '>= 2'
   spec.add_dependency 'turbo-rails', '< 3', '>= 2'
-  spec.add_dependency 'view_component', '~> 4.1.0'
+  spec.add_dependency 'view_component', '~> 4.1.1'
 end

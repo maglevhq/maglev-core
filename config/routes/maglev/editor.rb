@@ -22,8 +22,17 @@ scope ':locale/:page_id' do
     resource :clone, controller: :page_clone, only: :create
   end
 
-  resources :sections do
-    put :sort, on: :collection
+  scope ':store_id' do
+    resources :sections, only: %i[new create] do
+      put :sort, on: :collection
+    end
+
+    resources :mirrored_sections, only: %i[new create show destroy]
+  end
+
+  get 'sections', to: 'sections_stores#index', as: :sections_stores
+
+  resources :sections, only: %i[edit update destroy] do
     resources :blocks, controller: :section_blocks do
       put :sort, on: :collection
     end

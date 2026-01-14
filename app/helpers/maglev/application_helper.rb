@@ -110,10 +110,11 @@ module Maglev
         group-[.is-success]/form:disabled:bg-green-500/75
         group-[.is-error]/form:bg-red-500/95 group-[.is-error]/form:hover:bg-red-500/100
         group-[.is-error]/form:disabled:bg-red-500/75
+        space-x-2
         ),
         variants: {
           color: {
-            primary: 'text-white bg-editor-primary/95 hover:bg-editor-primary/100 disabled:bg-editor-primary/75',
+            primary: 'text-white bg-editor-primary hover:bg-editor-primary/85 disabled:bg-editor-primary/75',
             secondary: 'text-gray-800 hover:bg-gray-100'
           },
           size: {

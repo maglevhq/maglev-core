@@ -19,22 +19,16 @@ module Maglev
     protected
 
     def unsafe_call
-      # Set a default content for site_scoped sections
-      apply_to_site
-
       site.save! # persist the new locale
 
       # add a default content in the new locale to all the pages of the site
       # based on the default locale. Also take care of the path.
       apply_to_pages
 
-      true
-    end
+      # copy the content of the site to the new locale
+      apply_to_sections_content_stores
 
-    def apply_to_site
-      Maglev::I18n.with_locale(locale.prefix) do
-        site.translate_in(locale.prefix, site.default_locale_prefix)
-      end
+      true
     end
 
     def apply_to_pages
@@ -57,8 +51,21 @@ module Maglev
       page.paths.find_by(locale: site.default_locale.prefix)&.value
     end
 
+    def apply_to_sections_content_stores
+      store_resources.unpublished.find_each do |store|
+        # set a default content which will be the same as in the default locale
+        store.translate_in(locale.prefix, site.default_locale_prefix)
+
+        store.save!
+      end
+    end
+
     def resources
       ::Maglev::Page
+    end
+
+    def store_resources
+      ::Maglev::SectionsContentStore
     end
   end
 end

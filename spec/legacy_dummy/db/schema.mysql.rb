@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 20_251_116_171_603) do
+ActiveRecord::Schema[7.2].define(version: 20_251_222_172_327) do
   create_table 'accounts', charset: 'utf8mb4', collation: 'utf8mb4_unicode_ci', force: :cascade do |t|
     t.string 'email'
     t.string 'password_digest'
@@ -83,6 +83,8 @@ ActiveRecord::Schema[7.2].define(version: 20_251_116_171_603) do
     t.json 'og_description_translations'
     t.json 'og_image_url_translations'
     t.datetime 'published_at', precision: nil
+    t.string 'layout_id'
+    t.index ['layout_id'], name: 'index_maglev_pages_on_layout_id'
   end
 
   create_table 'maglev_sections_content_stores', charset: 'utf8mb4', collation: 'utf8mb4_unicode_ci',
@@ -93,8 +95,15 @@ ActiveRecord::Schema[7.2].define(version: 20_251_116_171_603) do
     t.boolean 'published', default: false
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
+    t.bigint 'maglev_page_id'
+    t.string 'handle', default: 'WIP', null: false
+    t.integer 'lock_version'
     t.index %w[container_id container_type published],
             name: 'maglev_sections_content_stores_container_and_published', unique: true
+    t.index %w[handle maglev_page_id published], name: 'maglev_sections_content_stores_handle_and_page_id',
+                                                 unique: true
+    t.index ['handle'], name: 'index_maglev_sections_content_stores_on_handle'
+    t.index ['maglev_page_id'], name: 'index_maglev_sections_content_stores_on_maglev_page_id'
   end
 
   create_table 'maglev_sites', charset: 'utf8mb4', collation: 'utf8mb4_unicode_ci', force: :cascade do |t|
@@ -119,4 +128,5 @@ ActiveRecord::Schema[7.2].define(version: 20_251_116_171_603) do
 
   add_foreign_key 'active_storage_attachments', 'active_storage_blobs', column: 'blob_id'
   add_foreign_key 'active_storage_variant_records', 'active_storage_blobs', column: 'blob_id'
+  add_foreign_key 'maglev_sections_content_stores', 'maglev_pages'
 end

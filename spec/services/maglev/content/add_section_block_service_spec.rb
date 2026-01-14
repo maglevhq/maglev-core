@@ -3,19 +3,20 @@
 require 'rails_helper'
 
 describe Maglev::Content::AddSectionBlockService do
-  let(:site) { create(:site, :empty) }
+  let(:site) { create(:site) }
   let!(:page) { create(:page) }
   let(:fetch_theme) { double('FetchTheme', call: build(:theme)) }
   let(:fetch_site) { double('FetchSite', call: site) }
+  let(:store) { fetch_sections_store('main', page.id) }
   let(:service) { described_class.new(fetch_site: fetch_site, fetch_theme: fetch_theme) }
-  let(:section_id) { page.sections.dig(1, 'id') } # showcase section
+  let(:section_id) { store.sections.dig(1, 'id') } # showcase section
   let(:parent_id) { nil }
   let(:lock_version) { nil }
 
-  before { page.prepare_sections(fetch_theme.call) }
+  before { store.prepare_sections(fetch_theme.call) }
 
   subject(:service_call) do
-    service.call(page: page, section_id: section_id, block_type: block_type, parent_id: parent_id,
+    service.call(store: store, section_id: section_id, block_type: block_type, parent_id: parent_id,
                  lock_version: lock_version)
   end
 
@@ -31,7 +32,7 @@ describe Maglev::Content::AddSectionBlockService do
     let(:block_type) { 'item' }
 
     it 'adds the block to the section' do
-      expect { subject }.to change { page.sections.dig(1, 'blocks').count }.by(1)
+      expect { subject }.to change { store.sections.dig(1, 'blocks').count }.by(1)
     end
 
     it 'returns the block' do
@@ -42,34 +43,33 @@ describe Maglev::Content::AddSectionBlockService do
                                ))
     end
 
-    context 'Given the page has been modified while adding the block' do
-      let(:lock_version) { 1 }
+    context 'Given the store has been modified while adding the block' do
+      let(:lock_version) { 0 }
 
-      before { page.sections[1]['lock_version'] = 2 }
+      # rubocop:disable Rails/SkipsModelValidations
+      before { store.touch }
+      # rubocop:enable Rails/SkipsModelValidations
 
-      it 'raises an exception about the stale page' do
+      it 'raises an exception about the stale store' do
         expect { subject }.to raise_exception(ActiveRecord::StaleObjectError)
       end
     end
   end
 
   context 'Given a parent id' do
-    let(:page) { create(:page, :with_navbar) }
-    let(:section_id) { page.sections.dig(0, 'id') } # navbar section
+    let(:store) { create(:sections_content_store, :header) }
+    let!(:site_scoped_store) { create(:sections_content_store, :header, :site_scoped) }
+    let(:section_id) { store.sections.dig(0, 'id') } # navbar section
     let(:block_type) { 'menu_item' }
     let(:parent_id) { 'menu-item-1' }
 
-    # in a site scoped section, site + page shares the same instance of the section
-    before do
-      site.update(sections: [page.sections[0]])
-    end
     it 'adds the block to the section' do
-      expect { subject }.to change { site.sections.dig(0, 'blocks').count }.by(1)
+      expect { subject }.to change { site_scoped_store.reload.sections.dig(0, 'blocks').count }.by(1)
     end
 
     it 'sets the parent id' do
       subject
-      expect(site.sections.dig(0, 'blocks').last['parent_id']).to eq 'menu-item-1'
+      expect(site_scoped_store.reload.sections.dig(0, 'blocks').last['parent_id']).to eq 'menu-item-1'
     end
   end
 end

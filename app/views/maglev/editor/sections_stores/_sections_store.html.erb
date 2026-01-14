@@ -1,0 +1,20 @@
+<div class="py-8 first:pt-0 last:pb-0">
+  <div class="flex items-center justify-between">
+    <h3 class="text-xs font-bold text-gray-600 uppercase">
+      <%= sections_store.label %>
+    </h3>
+    <% if sections_store.can_add_sections? %>
+      <%= link_to new_editor_section_path(store_id: sections_store, **maglev_editing_route_context), class: 'relative -left-2', data: { turbo_frame: '_top' } do %>
+        <%= render Maglev::Uikit::IconButtonComponent.new(icon_name: 'add') %>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="mt-4">
+    <% if sections_store.sections.any? %>
+      <%= render 'maglev/editor/sections/list', sections_store: sections_store %>
+    <% else %>
+      <%= render 'maglev/editor/sections/empty_list', sections_store: sections_store %>
+    <% end %>
+  </div>
+</div>
