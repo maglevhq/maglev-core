@@ -10,13 +10,7 @@ module Maglev
 
     def call
       ActiveRecord::Base.transaction do
-<<<<<<< HEAD
         unsafe_call
-=======
-        publish_stores!
-        publish_site_scoped_store!
-        mark_site_and_page_as_published!
->>>>>>> ecaf0dd6 (chore: make Rubocop happy)
       end
       true
     end
