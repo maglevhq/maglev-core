@@ -11,10 +11,7 @@
 #  og_image_url_translations     :jsonb
 #  og_title_translations         :jsonb
 #  published_at                  :datetime
-<<<<<<< HEAD
 #  published_payload             :jsonb
-=======
->>>>>>> acb1798c (chore: fix the specs for Rails 7.2 (+ use PG to annotate the models))
 #  sections_translations         :jsonb
 #  seo_title_translations        :jsonb
 #  title_translations            :jsonb
