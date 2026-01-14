@@ -20,21 +20,31 @@ module Maglev::Page::PublishableConcern
     return unless !published? || published_payload.present?
 
     published_payload_attributes.each do |attribute|
-      send("#{attribute}_translations=", published_payload["#{attribute}_translations"])
+      send("#{attribute}=", published_payload[attribute])
     end
   end
 
   # called when a page is being published
   def update_published_payload
     published_payload_attributes.each do |attribute|
-      published_payload["#{attribute}_translations"] = send("#{attribute}_translations")
+      published_payload[attribute] = send(attribute.to_sym)
     end
   end
 
   private
 
   def published_payload_attributes
-    %w[title seo_title meta_description og_title og_description og_image_url]
+    published_payload_core_attributes + published_payload_additional_attributes
+  end
+
+  def published_payload_additional_attributes
+    # override this method to add additional attributes to the published payload
+    []
+  end
+
+  def published_payload_core_attributes
+    %w[title_translations seo_title_translations meta_description_translations og_title_translations
+       og_description_translations og_image_url_translations]
   end
 end
 # rubocop:enable Style/ClassAndModuleChildren
