@@ -17,6 +17,18 @@ describe Maglev::PublishService do
       expect(site.published?).to eq true
       expect(page.published?).to eq true
     end
+
+    it 'sets the page published payload' do
+      subject
+      expect(page.reload.published_payload).to eq({
+        title_translations: { en: 'Home' },
+        seo_title_translations: {},
+        meta_description_translations: {},
+        og_title_translations: {},
+        og_description_translations: {},
+        og_image_url_translations: {}
+      }.with_indifferent_access)
+    end
   end
 
   context 'the page has already been published' do

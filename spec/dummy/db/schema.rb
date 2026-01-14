@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_11_16_171603) do
+ActiveRecord::Schema[8.1].define(version: 2026_01_14_112058) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -77,6 +77,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_11_16_171603) do
     t.jsonb "og_image_url_translations", default: {}
     t.jsonb "og_title_translations", default: {}
     t.datetime "published_at", precision: nil
+    t.jsonb "published_payload", default: {}
     t.jsonb "sections_translations", default: {}
     t.jsonb "seo_title_translations", default: {}
     t.jsonb "title_translations", default: {}
