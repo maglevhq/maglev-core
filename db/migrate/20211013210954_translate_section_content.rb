@@ -1,4 +1,5 @@
 class TranslateSectionContent < ActiveRecord::Migration[6.0]
+  include Maglev::Migration
   def change
     remove_column :maglev_sites, :sections, :jsonb, default: [] if column_exists?(:maglev_sites, :sections)
     remove_column :maglev_pages, :sections, :jsonb, default: [] if column_exists?(:maglev_pages, :sections)

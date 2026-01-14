@@ -2,6 +2,13 @@
 
 # rubocop:disable Style/ClassAndModuleChildren
 module Maglev::Page::PublishableConcern
+  extend ActiveSupport::Concern
+
+  included do
+    # force JSON column for MariaDB
+    attribute :published_payload, :json
+  end
+
   def published?
     published_at.present?
   end
@@ -17,7 +24,7 @@ module Maglev::Page::PublishableConcern
 
   # called when a publishedpage is being previewed
   def apply_published_payload
-    return unless !published? || published_payload.present?
+    return if !published? || published_payload.blank?
 
     published_payload_attributes.each do |attribute|
       send("#{attribute}=", published_payload[attribute])
@@ -26,8 +33,16 @@ module Maglev::Page::PublishableConcern
 
   # called when a page is being published
   def update_published_payload
+    # in MySQL, default values for json columns are not supported, so we need to set an empty hash if the value is nil
+    self.published_payload ||= {}
+
     published_payload_attributes.each do |attribute|
-      published_payload[attribute] = send(attribute.to_sym)
+      value = send(attribute.to_sym)
+
+      # in MySQL, default values for json columns are not supported, so we need to set an empty hash if the value is nil
+      value = {} if attribute.ends_with?('_translations') && value.nil?
+
+      self.published_payload[attribute] = value
     end
   end
 

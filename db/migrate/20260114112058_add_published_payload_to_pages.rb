@@ -1,5 +1,14 @@
-class AddPublishedPayloadToPages < ActiveRecord::Migration[8.1]
+class AddPublishedPayloadToPages < ActiveRecord::Migration[6.0]
+  include Maglev::Migration
   def change
-    add_column :maglev_pages, :published_payload, :jsonb, default: {}    
+    change_table :maglev_pages do |t|
+      if t.respond_to? :jsonb
+        t.jsonb :published_payload, default: {}
+      elsif mysql?
+        t.json :published_payload # MySQL doesn't support default values for json columns
+      else
+        t.json :published_payload, default: {}
+      end
+    end
   end
 end
