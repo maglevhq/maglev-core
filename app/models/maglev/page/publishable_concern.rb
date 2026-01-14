@@ -28,10 +28,10 @@ module Maglev::Page::PublishableConcern
 
   # called when a publishedpage is being previewed
   def apply_published_payload
-    return if !published? || published_payload.blank?
+    return unless !published? || published_payload.present?
 
     published_payload_attributes.each do |attribute|
-      send("#{attribute}=", published_payload[attribute])
+      send("#{attribute}_translations=", published_payload["#{attribute}_translations"])
     end
   end
 
@@ -62,7 +62,7 @@ module Maglev::Page::PublishableConcern
   end
 
   def published_payload_core_attributes
-    %w[title_translations seo_title_translations meta_description_translations og_title_translations
+    %w[layout_id title_translations seo_title_translations meta_description_translations og_title_translations
        og_description_translations og_image_url_translations]
   end
 end
