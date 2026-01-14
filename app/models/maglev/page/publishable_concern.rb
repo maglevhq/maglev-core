@@ -31,7 +31,7 @@ module Maglev::Page::PublishableConcern
     return unless !published? || published_payload.present?
 
     published_payload_attributes.each do |attribute|
-      send("#{attribute}_translations=", published_payload["#{attribute}_translations"])
+      send("#{attribute}=", published_payload[attribute])
     end
   end
 
