@@ -10,6 +10,7 @@
 
 @source "<%= Maglev::Engine.root.join('app') %>";
 @source "<%= Maglev::Engine.root.join('lib') %>";
+@source "<%= Maglev::Engine.root.join('spec/components/previews/maglev/uikit') %>";
 
 <% Maglev.config.tailwindcss_folders.each do |folder| %>
 @source "<%= folder %>";

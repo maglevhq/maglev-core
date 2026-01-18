@@ -68,6 +68,7 @@ module Maglev
                                             depends_on: %i[fetch_site fetch_theme]
 
     dependency :publish,                    class: Maglev::PublishService
+    dependency :revert_page_changes,        class: Maglev::RevertPageChangesService
 
     def call
       self
