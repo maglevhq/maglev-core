@@ -15,10 +15,8 @@ RSpec.describe 'Maglev::PublishedPagePreviewController', type: :request do
 
   context 'the page is published' do
     before do
-      create(:sections_content_store, container: site, sections_translations: site.sections_translations,
-                                      published: true)
-      create(:sections_content_store, container: home_page, sections_translations: home_page.sections_translations,
-                                      published: true)
+      Maglev::PublishService.new.call(site: site, page: home_page)
+      home_page.update(title: 'Home [DRAFT]')
     end
 
     it 'renders the index page in the default locale' do

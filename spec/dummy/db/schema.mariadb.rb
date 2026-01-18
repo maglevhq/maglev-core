@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 20_251_116_171_603) do
+ActiveRecord::Schema[8.1].define(version: 20_260_114_112_058) do
   create_table 'accounts', charset: 'utf8mb4', collation: 'utf8mb4_unicode_ci', force: :cascade do |t|
     t.datetime 'created_at', null: false
     t.string 'email'
@@ -72,21 +72,25 @@ ActiveRecord::Schema[8.1].define(version: 20_251_116_171_603) do
 
   create_table 'maglev_pages', charset: 'utf8mb4', collation: 'utf8mb4_unicode_ci', force: :cascade do |t|
     t.datetime 'created_at', null: false
+    t.string 'layout_id'
     t.integer 'lock_version'
     t.text 'meta_description_translations', size: :long, collation: 'utf8mb4_bin'
     t.text 'og_description_translations', size: :long, collation: 'utf8mb4_bin'
     t.text 'og_image_url_translations', size: :long, collation: 'utf8mb4_bin'
     t.text 'og_title_translations', size: :long, collation: 'utf8mb4_bin'
     t.datetime 'published_at', precision: nil
+    t.text 'published_payload', size: :long, collation: 'utf8mb4_bin'
     t.text 'sections_translations', size: :long, collation: 'utf8mb4_bin'
     t.text 'seo_title_translations', size: :long, collation: 'utf8mb4_bin'
     t.text 'title_translations', size: :long, collation: 'utf8mb4_bin'
     t.datetime 'updated_at', null: false
     t.boolean 'visible', default: true
+    t.index ['layout_id'], name: 'index_maglev_pages_on_layout_id'
     t.check_constraint 'json_valid(`meta_description_translations`)', name: 'meta_description_translations'
     t.check_constraint 'json_valid(`og_description_translations`)', name: 'og_description_translations'
     t.check_constraint 'json_valid(`og_image_url_translations`)', name: 'og_image_url_translations'
     t.check_constraint 'json_valid(`og_title_translations`)', name: 'og_title_translations'
+    t.check_constraint 'json_valid(`published_payload`)', name: 'published_payload'
     t.check_constraint 'json_valid(`sections_translations`)', name: 'sections_translations'
     t.check_constraint 'json_valid(`seo_title_translations`)', name: 'seo_title_translations'
     t.check_constraint 'json_valid(`title_translations`)', name: 'title_translations'
@@ -97,11 +101,18 @@ ActiveRecord::Schema[8.1].define(version: 20_251_116_171_603) do
     t.string 'container_id'
     t.string 'container_type'
     t.datetime 'created_at', null: false
+    t.string 'handle', default: 'WIP', null: false
+    t.integer 'lock_version'
+    t.bigint 'maglev_page_id'
     t.boolean 'published', default: false
     t.text 'sections_translations', size: :long, collation: 'utf8mb4_bin'
     t.datetime 'updated_at', null: false
     t.index %w[container_id container_type published],
             name: 'maglev_sections_content_stores_container_and_published', unique: true
+    t.index %w[handle maglev_page_id published], name: 'maglev_sections_content_stores_handle_and_page_id',
+                                                 unique: true
+    t.index ['handle'], name: 'index_maglev_sections_content_stores_on_handle'
+    t.index ['maglev_page_id'], name: 'index_maglev_sections_content_stores_on_maglev_page_id'
     t.check_constraint 'json_valid(`sections_translations`)', name: 'sections_translations'
   end
 
@@ -130,4 +141,5 @@ ActiveRecord::Schema[8.1].define(version: 20_251_116_171_603) do
 
   add_foreign_key 'active_storage_attachments', 'active_storage_blobs', column: 'blob_id'
   add_foreign_key 'active_storage_variant_records', 'active_storage_blobs', column: 'blob_id'
+  add_foreign_key 'maglev_sections_content_stores', 'maglev_pages'
 end

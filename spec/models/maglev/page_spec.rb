@@ -148,6 +148,7 @@ end
 #  og_image_url_translations     :jsonb
 #  og_title_translations         :jsonb
 #  published_at                  :datetime
+#  published_payload             :jsonb
 #  sections_translations         :jsonb
 #  seo_title_translations        :jsonb
 #  title_translations            :jsonb
