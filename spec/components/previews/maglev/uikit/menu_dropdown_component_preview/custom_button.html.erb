@@ -9,24 +9,18 @@
     </button>
   <% end %>
 
-  <% menu_dropdown.with_item do %>
-    <%= link_to '#', class: menu_dropdown.item_classes do %>
-      <%= render Maglev::Uikit::IconComponent.new(name: 'home') %>
-      <span class="ml-2 whitespace-nowrap">Action #1</span>
-    <% end %>
+  <% menu_dropdown.with_item_link_to('#') do |menu_item| %>
+    <% menu_item.with_label_content('Action #1') %>
+    <% menu_item.with_icon_content('home') %>    
   <% end %>
 
-  <% menu_dropdown.with_item do %>
-    <%= link_to '#', class: menu_dropdown.item_classes do %>
-      <%= render Maglev::Uikit::IconComponent.new(name: 'home') %>
-      <span class="ml-2 whitespace-nowrap">Action #2</span>
-    <% end %>
+  <% menu_dropdown.with_item_link_to('#') do |menu_item| %>
+    <% menu_item.with_label_content('Action #2') %>
+    <% menu_item.with_icon_content('home') %>    
   <% end %>
 
-  <% menu_dropdown.with_item do %>
-    <%= link_to '#', class: menu_dropdown.item_classes do %>
-      <%= render Maglev::Uikit::IconComponent.new(name: 'home') %>
-      <span class="ml-2 whitespace-nowrap">Action #3</span>
-    <% end %>
+  <% menu_dropdown.with_item_link_to('#') do |menu_item| %>
+    <% menu_item.with_label_content('Action #3') %>
+    <% menu_item.with_icon_content('home') %>    
   <% end %>
 <% end %>

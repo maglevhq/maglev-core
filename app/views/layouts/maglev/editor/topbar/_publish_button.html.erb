@@ -20,7 +20,10 @@
         <% dropdown.with_item do %>
           <%= button_to revert_editor_page_path(current_maglev_page.id, **maglev_editing_route_context), method: :post, class: dropdown.item_classes do %>
             <%= render Maglev::Uikit::IconComponent.new(name: 'history') %>
-            <span class="ml-2 whitespace-nowrap">Revert changes</span>
+            <div class="">
+              <p class="ml-2 whitespace-nowrap"><%= t('maglev.editor.header_nav.publish_button.revert_changes') %></p>
+              <p class="ml-2 whitespace-nowrap text-sm text-gray-500">Last published at <%= current_maglev_page.published_at.strftime('%B %d, %Y %I:%M %p') %></p>
+            </div>
           <% end %>
         <% end %>
         <% dropdown.with_item do %>

@@ -1,12 +1,28 @@
 <%= render Maglev::Uikit::MenuDropdownComponent.new(icon_name: "more_2") do |component| %>
-  <% component.with_item do %>
-    <%= link_to '#', class: component.item_classes do %>
-      <%= render Maglev::Uikit::IconComponent.new(name: 'home') %>
-      <span class="ml-2 whitespace-nowrap">Action #1</span>
+  <% component.with_item_link_to('#') do |menu_item| %>
+    <% menu_item.with_icon_content('home') %>
+    <% menu_item.with_label_content('Action #1') %>
+  <% end %>
+
+  <% component.with_item_nested_menu(placement: 'right') do |menu_item| %>
+    <% menu_item.with_icon_content('home') %>
+    <% menu_item.with_label_content('Action #2') %>
+    <% menu_item.with_sub_label_content('Nested menu here!') %>
+    
+    <% menu_item.with_item_link_to('#') do |sub_menu_item| %>
+      <% sub_menu_item.with_icon_content('home') %>
+      <% sub_menu_item.with_label_content('Action #2.1') %>
+    <% end %>
+
+    <% menu_item.with_item_link_to('#') do |sub_menu_item| %>
+      <% sub_menu_item.with_icon_content('home') %>
+      <% sub_menu_item.with_label_content('Action #2.2') %>
     <% end %>
   <% end %>
 
-  <% component.with_item do %>
+  <% component.with_item_link_to('#') do |menu_item| %>
+    <% menu_item.with_icon_content('home') %>
+    <% menu_item.with_label_content('Action #2') %>
     <%= render Maglev::Uikit::MenuDropdownComponent.new(placement: 'right') do |sub_menu| %>
       <% sub_menu.with_trigger do %>
         <%= button_tag class: sub_menu.item_classes, data: { action: 'click->uikit-dropdown#toggle', 'uikit-dropdown-target': 'button' } do %>
@@ -21,12 +37,10 @@
         <% end %>
       <% end %>
     <% end %>
-  <% end %>
+  <% end if false %>
 
-  <% component.with_item do %>
-    <%= link_to '#', class: component.item_classes do %>
-      <%= render Maglev::Uikit::IconComponent.new(name: 'home') %>
-      <span class="ml-2 whitespace-nowrap">Action #3</span>
-    <% end %>
+  <% component.with_item_link_to('#') do |menu_item| %>
+    <% menu_item.with_icon_content('home') %>
+    <% menu_item.with_label_content('Action #3') %>
   <% end %>
 <% end %>

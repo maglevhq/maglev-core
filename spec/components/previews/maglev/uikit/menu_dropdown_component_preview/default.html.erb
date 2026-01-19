@@ -1,22 +1,16 @@
 <%= render Maglev::Uikit::MenuDropdownComponent.new(icon_name: "more_2") do |component| %>
-  <% component.with_item do %>
-    <%= link_to '#', class: component.item_classes do %>
-      <%= render Maglev::Uikit::IconComponent.new(name: 'home') %>
-      <span class="ml-2 whitespace-nowrap">Action #1</span>
-    <% end %>
+  <% component.with_item_link_to('#') do |menu_item| %>
+    <% menu_item.with_label_content 'Action #1' %>
+    <% menu_item.with_icon_content 'home' %>
   <% end %>
 
-  <% component.with_item do %>
-    <%= link_to '#', class: component.item_classes do %>
-      <%= render Maglev::Uikit::IconComponent.new(name: 'home') %>
-      <span class="ml-2 whitespace-nowrap">Action #2</span>
-    <% end %>
+  <% component.with_item_link_to('#') do |menu_item| %>
+    <% menu_item.with_label_content 'Action #2' %>
+    <% menu_item.with_icon_content 'home' %>
   <% end %>
 
-  <% component.with_item do %>
-    <%= link_to '#', class: component.item_classes do %>
-      <%= render Maglev::Uikit::IconComponent.new(name: 'home') %>
-      <span class="ml-2 whitespace-nowrap">Action #3</span>
-    <% end %>
+  <% component.with_item_link_to('#') do |menu_item| %>
+    <% menu_item.with_label_content 'Action #3' %>
+    <% menu_item.with_icon_content 'home' %>
   <% end %>
 <% end %>

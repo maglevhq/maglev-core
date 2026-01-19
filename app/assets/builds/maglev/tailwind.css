@@ -375,6 +375,9 @@
   .col-start-1 {
     grid-column-start: 1;
   }
+  .col-start-2 {
+    grid-column-start: 2;
+  }
   .row-start-1 {
     grid-row-start: 1;
   }
@@ -801,6 +804,12 @@
   }
   .grid-cols-6 {
     grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+  .grid-cols-\[auto_1fr\] {
+    grid-template-columns: auto 1fr;
+  }
+  .grid-cols-subgrid {
+    grid-template-columns: subgrid;
   }
   .grid-rows-\[1fr\] {
     grid-template-rows: 1fr;
