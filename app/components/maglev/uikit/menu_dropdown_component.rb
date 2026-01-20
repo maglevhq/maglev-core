@@ -3,18 +3,32 @@
 module Maglev
   module Uikit
     class MenuDropdownComponent < Maglev::Uikit::BaseComponent
+      module RenderPolymorphicItems
+        extend ActiveSupport::Concern
+
+        included do
+          renders_many :items, types: {
+            button: lambda { |options = nil|
+              Maglev::Uikit::MenuDropdownComponent::ButtonItemComponent.new(options, parent: self)
+            },
+            link_to: lambda { |options = nil, html_options = nil|
+              Maglev::Uikit::MenuDropdownComponent::LinkToItemComponent.new(options, html_options, parent: self)
+            },
+            button_to: lambda { |options = nil, html_options = nil|
+              Maglev::Uikit::MenuDropdownComponent::ButtonToItemComponent.new(options, html_options, parent: self)
+            },
+            nested_menu: lambda { |placement:|
+              Maglev::Uikit::MenuDropdownComponent::NestedMenuComponent.new(placement: placement, parent: self)
+            },
+            wrapper: lambda { |options = nil|
+              Maglev::Uikit::MenuDropdownComponent::WrapperItemComponent.new(options, parent: self)
+            }
+          }
+        end
+      end
+
       renders_one :trigger
-      renders_many :items, types: {
-        link_to: lambda { |options = nil, html_options = nil| 
-          Maglev::Uikit::MenuDropdownComponent::LinkToItemComponent.new(options, html_options, parent: self)
-        },
-        button_to: lambda { |options = nil, html_options = nil|
-          Maglev::Uikit::MenuDropdownComponent::ButtonToItemComponent.new(options, html_options, parent: self)
-        },
-        nested_menu: lambda { |placement:|
-          Maglev::Uikit::MenuDropdownComponent::NestedMenuComponent.new(placement: placement)
-        }
-      }
+      include RenderPolymorphicItems
 
       attr_reader :icon_name, :placement, :wrapper_classes, :trigger_classes
 
@@ -27,9 +41,9 @@ module Maglev
 
       def item_classes(...)
         class_variants(
-          base: %(            
+          base: %(
             col-span-2 grid grid-cols-subgrid
-            flex items-center px-2 py-2 hover:bg-gray-100 w-full rounded-sm
+            flex items-center px-2 py-3 hover:bg-gray-100 w-full rounded-sm
             transition-colors duration-200 focus:outline-none cursor-pointer flex-1
             text-left
           )
@@ -38,10 +52,10 @@ module Maglev
 
       def form_item_classes(...)
         class_variants(
-          base: %w(
+          base: %w[
             col-span-2 grid grid-cols-subgrid
             flex items-center focus:outline-none cursor-pointer
-          )
+          ]
         ).render(...)
       end
 
@@ -50,13 +64,13 @@ module Maglev
         renders_one :label
         renders_one :sub_label
 
-        def self.inner_content 
+        def self.inner_content
           <<-ERB
-            <%= render Maglev::Uikit::IconComponent.new(name: icon.to_s, size: '1.15rem', class_names: 'mr-2') if icon? %>
-            <span class="whitespace-nowrap <%= 'col-start-2' unless icon? %>">
+            <%= render Maglev::Uikit::IconComponent.new(name: icon.to_s, size: '1.15rem', class_names: 'mr-2 shrink-0') if icon? %>
+            <span class="<%= 'col-start-2' unless icon? %> whitespace-nowrap whitespace-nowrap truncate overflow-hidden">
               <%= label %>
             </span>
-            <span class="col-start-2 whitespace-nowrap text-xs text-gray-500">
+            <span class="col-start-2 whitespace-nowrap whitespace-nowrap truncate overflow-hidden text-xs text-gray-500">
               <%= sub_label %>
             </span>
           ERB
@@ -64,31 +78,16 @@ module Maglev
       end
 
       class LinkToItemComponent < ItemComponent
-        # renders_one :icon
-        # renders_one :label
-        # renders_one :sub_label
-
         attr_reader :options, :html_options, :parent_component
 
-        def initialize(options = nil, html_options = nil, parent: nil)          
+        def initialize(options = nil, html_options = nil, parent: nil)
           @parent_component = parent
           @options = options
           @html_options = html_options || {}
-          
+
           apply_parent_classes
         end
 
-        # erb_template <<-ERB
-        #   <%= link_to options, html_options do %>
-        #     <%= render Maglev::Uikit::IconComponent.new(name: icon.to_s, size: '1.15rem', class_names: 'mr-2') if icon? %>
-        #     <span class="whitespace-nowrap <%= 'col-start-2' unless icon? %>">
-        #       <%= label %>
-        #     </span>
-        #     <span class="col-start-2 whitespace-nowrap text-xs text-gray-500">
-        #       <%= sub_label %>
-        #     </span>
-        #   <% end %>
-        # ERB
         erb_template <<-ERB
           <%= link_to options, html_options do %>
             #{inner_content}
@@ -102,16 +101,33 @@ module Maglev
         end
       end
 
+      class ButtonItemComponent < ItemComponent
+        attr_reader :options, :parent_component
+
+        def initialize(options = nil, parent: nil)
+          @parent_component = parent
+          @options = (options || {}).merge(type: 'button')
+
+          apply_parent_classes
+        end
+
+        erb_template <<-ERB
+          <%= button_tag options do %>
+            #{inner_content}
+          <% end %>
+        ERB
+
+        private
+
+        def apply_parent_classes
+          options[:class] = parent_component.item_classes(class: options[:class])
+        end
+      end
+
       class ButtonToItemComponent < LinkToItemComponent
         erb_template <<-ERB
           <%= button_to options, html_options do %>
-            <%= render Maglev::Uikit::IconComponent.new(name: icon.to_s, size: '1.15rem', class_names: 'mr-2') if icon? %>
-            <span class="whitespace-nowrap <%= 'col-start-2' unless icon? %>">
-              <%= label %>
-            </span>
-            <span class="col-start-2 whitespace-nowrap text-xs text-gray-500">
-              <%= sub_label %>
-            </span>
+            #{inner_content}
           <% end %>
         ERB
 
@@ -123,30 +139,29 @@ module Maglev
         end
       end
 
-      class NestedMenuComponent < MenuDropdownComponent
-        renders_one :icon
-        renders_one :label
-        renders_one :sub_label
+      class NestedMenuComponent < ItemComponent
+        include RenderPolymorphicItems
 
-        def initialize(placement:)
-          super(placement: placement)
+        attr_reader :placement, :parent_component
+
+        def initialize(placement:, parent:)
+          @placement = placement
+          @parent_component = parent
         end
 
         def wrapper_classes
-          form_item_classes
+          parent_component.form_item_classes
+        end
+
+        def item_classes(...)
+          parent_component.item_classes(...)
         end
 
         erb_template <<-ERB
           <%= render Maglev::Uikit::DropdownComponent.new(placement: placement, wrapper_classes: wrapper_classes) do |dropdown| %>
             <% dropdown.with_trigger do %>
               <%= button_tag class: item_classes, data: { action: 'click->uikit-dropdown#toggle', 'uikit-dropdown-target': 'button' } do %>
-                <%= render Maglev::Uikit::IconComponent.new(name: icon.to_s, size: '1.15rem', class_names: 'mr-2') if icon? %>
-                <span class="whitespace-nowrap <%= 'col-start-2' unless icon? %>">
-                  <%= label %>
-                </span>
-                <span class="col-start-2 whitespace-nowrap text-xs text-gray-500">
-                  <%= sub_label %>
-                </span>
+                #{inner_content}
               <% end %>
             <% end %>
 
@@ -157,6 +172,35 @@ module Maglev
             </div>
           <% end %>
         ERB
+      end
+
+      class WrapperItemComponent < Maglev::Uikit::BaseComponent
+        include RenderPolymorphicItems
+
+        attr_reader :options, :parent_component
+
+        delegate :item_classes, :form_item_classes, to: :parent_component
+
+        def initialize(options, parent: nil)
+          @parent_component = parent
+          @options = options || {}
+
+          apply_parent_classes
+        end
+
+        erb_template <<-ERB
+          <%= tag.div(**options) do %>
+            <% items.each do |item| %>
+              <%= item %>
+            <% end %>
+          <% end %>
+        ERB
+
+        private
+
+        def apply_parent_classes
+          options[:class] = parent_component.form_item_classes(class: options[:class])
+        end
       end
     end
   end

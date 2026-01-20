@@ -19,7 +19,7 @@ describe Maglev::RollbackService do
     before do
       Maglev::PublishService.new.call(site: site, page: page)
       # Modify sections to create unpublished changes
-      page.sections_translations = { 'en' => [{ 'type' => 'hero', 'id' => '123', 'settings' => [] }] }
+      page.sections_translations = { en: [{ type: 'hero', id: '123', settings: [] }] }
       page.save!
     end
 
@@ -46,7 +46,7 @@ describe Maglev::RollbackService do
       page_published_sections = page.sections_content_stores.published.first.sections_translations
 
       # Modify both
-      site.sections_translations = { 'en' => [] }
+      site.sections_translations = { en: [] }
       site.save!
 
       subject
@@ -70,4 +70,3 @@ describe Maglev::RollbackService do
     end
   end
 end
-

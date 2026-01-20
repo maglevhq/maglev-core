@@ -17,22 +17,12 @@
         wrapper_classes: button_group.wrapper_classes,
         trigger_classes: button_group.wrapped_button_classes(class: 'px-2!') 
       ) do |dropdown| %>      
-        <% dropdown.with_item do %>
-          <%= button_to revert_editor_page_path(current_maglev_page.id, **maglev_editing_route_context), method: :post, class: dropdown.item_classes do %>
-            <%= render Maglev::Uikit::IconComponent.new(name: 'history') %>
-            <div class="">
-              <p class="ml-2 whitespace-nowrap"><%= t('maglev.editor.header_nav.publish_button.revert_changes') %></p>
-              <p class="ml-2 whitespace-nowrap text-sm text-gray-500">Last published at <%= current_maglev_page.published_at.strftime('%B %d, %Y %I:%M %p') %></p>
-            </div>
-          <% end %>
-        <% end %>
-        <% dropdown.with_item do %>
-          <%= link_to '#', class: dropdown.item_classes do %>
-            <%= render Maglev::Uikit::IconComponent.new(name: 'home') %>
-            <span class="ml-2 whitespace-nowrap">Action #1</span>
-          <% end %>
-        <% end %>
+        <% dropdown.with_item_button_to(revert_editor_page_path(current_maglev_page.id, **maglev_editing_route_context), method: :post) do |menu_item| %>
+          <% menu_item.with_icon_content('history') %>
+          <% menu_item.with_label_content(t('maglev.editor.header_nav.publish_button.revert_changes')) %>
+          <% menu_item.with_sub_label_content(current_maglev_page.published_at.strftime('%b %d, %Y %I:%M %p')) %>
+        <% end %>        
       <% end %>
-    <% end %>
+    <% end if current_maglev_page.published? %>
   <% end %>
 </div>

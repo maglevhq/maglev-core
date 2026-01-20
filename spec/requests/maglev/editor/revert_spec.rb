@@ -23,7 +23,7 @@ describe 'Maglev::Editor::Pages::Revert', type: :request do
       before do
         Maglev::PublishService.new.call(site: site, page: home_page)
         # Modify sections to create unpublished changes
-        home_page.sections_translations = { 'en' => [{ 'type' => 'hero', 'id' => '123', 'settings' => [] }] }
+        home_page.sections_translations = { en: [{ type: 'hero', id: '123', settings: [] }] }
         home_page.save!
       end
 
@@ -54,4 +54,3 @@ describe 'Maglev::Editor::Pages::Revert', type: :request do
     end
   end
 end
-

@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 module Maglev
   module Uikit
-    class ButtonGroupComponent <  Maglev::Uikit::BaseComponent
+    class ButtonGroupComponent < Maglev::Uikit::BaseComponent
       renders_many :buttons
 
       attr_reader :color, :size
@@ -10,6 +12,7 @@ module Maglev
         @size = size || :medium
       end
 
+      # rubocop:disable Metrics/MethodLength
       def button_classes
         class_variants(
           base: %(
@@ -30,7 +33,9 @@ module Maglev
           }
         ).render(color: color, size: size)
       end
+      # rubocop:enable Metrics/MethodLength
 
+      # rubocop:disable Metrics/MethodLength
       def wrapper_classes(**args)
         class_variants(
           base: %(
@@ -48,15 +53,16 @@ module Maglev
           }
         ).render(color: color, **args)
       end
+      # rubocop:enable Metrics/MethodLength
 
       def wrapped_button_classes(**args)
         class_variants(
           base: 'cursor-pointer',
           variants: {
-          size: {
-            medium: 'inline-flex items-center justify-center px-4 h-10'
-          }          
-        },
+            size: {
+              medium: 'inline-flex items-center justify-center px-4 h-10'
+            }
+          }
         ).render(size: size, **args)
       end
     end
