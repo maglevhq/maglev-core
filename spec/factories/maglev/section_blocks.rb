@@ -5,5 +5,9 @@ FactoryBot.define do
     name { 'Slide' }
     type { 'slide' }
     settings { [] }
+
+    trait :root do
+      root { true }
+    end
   end
 end

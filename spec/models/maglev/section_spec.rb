@@ -53,6 +53,24 @@ describe Maglev::Section do
         expect(subject[:blocks].size).to eq 3
         expect(subject[:blocks][0][:settings][0][:value]).to eq 'Hello world'
       end
+
+      context 'tree structure with different blocks types' do
+        let(:section) do
+          build(:section, :navbar, blocks: [
+                  build(:section_block, :root, type: 'menu_item', accept: %w[link_item], settings: [
+                          build(:section_setting, id: 'label', label: 'Label')
+                        ]),
+                  build(:section_block, type: 'link_item', settings: [
+                          build(:section_setting, id: 'link', label: 'Link')
+                        ])
+                ])
+        end
+
+        it 'includes root only blocks' do
+          expect(subject[:type]).to eq 'navbar'
+          expect(subject[:blocks].size).to eq 3
+        end
+      end
     end
 
     context 'a sample has been provided by the developer' do

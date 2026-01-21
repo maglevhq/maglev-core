@@ -85,13 +85,15 @@ module Maglev::Section::ContentConcern
     return [] if blocks.blank?
 
     blocks.map do |block|
+      next unless block.root?
+
       3.times.to_a.map do
         {
           type: block.type,
           settings: fallback_build_default_settings_content(block.settings)
         }
       end
-    end.flatten
+    end.compact.flatten
   end
 end
 # rubocop:enable Style/ClassAndModuleChildren

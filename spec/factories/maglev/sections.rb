@@ -49,6 +49,7 @@ FactoryBot.define do
       blocks do
         [
           build(:section_block,
+                :root,
                 type: 'menu_item',
                 settings: [
                   build(:section_setting, id: 'label', label: 'Label'),
