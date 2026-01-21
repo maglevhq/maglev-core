@@ -15,12 +15,7 @@
     <% menu_item.with_item_link_to(live_url, target: '_blank') do |sub_menu_item| %>
       <% sub_menu_item.with_label_content(t('maglev.editor.pages.actions.live_preview')) %>
     <% end %>    
-  <% end %>
-
-  <% menu_dropdown.with_item_button_to(paths[:clone]) do |menu_item| %>
-    <% menu_item.with_icon_content('clone') %>
-    <% menu_item.with_label_content(t('maglev.editor.pages.actions.clone')) %>
-  <% end if allow?(:clone) %>
+  <% end %>  
 
   <% menu_dropdown.with_item_wrapper(data: { controller: 'copy-to-clipboard', copy_to_clipboard_source_value: live_url }) do |wrapper_item| %>
     <% wrapper_item.with_item_button(data: { copy_to_clipboard_target: 'text', action: 'click->copy-to-clipboard#copy:prevent' }) do |menu_item| %>
@@ -33,6 +28,13 @@
       <% menu_item.with_label_content(t('maglev.editor.pages.actions.copy_url_to_clipboard_success')) %>
     <% end %>
   <% end if allow?(:copy_url_to_clipboard) %>
+
+  <% menu_dropdown.with_item_divider %>
+
+  <% menu_dropdown.with_item_button_to(paths[:clone]) do |menu_item| %>
+    <% menu_item.with_icon_content('clone') %>
+    <% menu_item.with_label_content(t('maglev.editor.pages.actions.clone')) %>
+  <% end if allow?(:clone) %>
 
   <% menu_dropdown.with_item_button_to(paths[:delete], method: :delete, data: { turbo_confirm: t('maglev.editor.pages.actions.confirm_delete'), turbo_frame: '_top' }) do |menu_item| %>
     <% menu_item.with_icon_content('delete_bin') %>

@@ -22,7 +22,8 @@ module Maglev
             },
             wrapper: lambda { |options = nil|
               Maglev::Uikit::MenuDropdownComponent::WrapperItemComponent.new(options, parent: self)
-            }
+            },
+            divider: ->() { Maglev::Uikit::MenuDropdownComponent::DividerItemComponent.new(parent: self) }
           }
         end
       end
@@ -39,6 +40,10 @@ module Maglev
         @trigger_classes = trigger_classes
       end
 
+      def list_item_classes
+        'text-gray-800 grid grid-cols-[auto_1fr] min-w-[12rem] my-1'
+      end
+
       def item_classes(...)
         class_variants(
           base: %(
@@ -46,6 +51,7 @@ module Maglev
             flex items-center px-2 py-3 hover:bg-gray-100 w-full rounded-sm
             transition-colors duration-200 focus:outline-none cursor-pointer flex-1
             text-left
+            mx-1
           )
         ).render(...)
       end
@@ -144,18 +150,14 @@ module Maglev
 
         attr_reader :placement, :parent_component
 
+        delegate :list_item_classes, :item_classes, :form_item_classes, to: :parent_component
+
+        alias wrapper_classes form_item_classes
+
         def initialize(placement:, parent:)
           @placement = placement
           @parent_component = parent
-        end
-
-        def wrapper_classes
-          parent_component.form_item_classes
-        end
-
-        def item_classes(...)
-          parent_component.item_classes(...)
-        end
+        end       
 
         erb_template <<-ERB
           <%= render Maglev::Uikit::DropdownComponent.new(placement: placement, wrapper_classes: wrapper_classes) do |dropdown| %>
@@ -165,7 +167,7 @@ module Maglev
               <% end %>
             <% end %>
 
-            <div class="text-gray-800 grid grid-cols-[auto_1fr]">
+            <div class="<%= list_item_classes %>">
               <% items.each do |item| %>
                 <%= item %>
               <% end %>
@@ -201,6 +203,22 @@ module Maglev
         def apply_parent_classes
           options[:class] = parent_component.form_item_classes(class: options[:class])
         end
+      end
+
+      class DividerItemComponent < ItemComponent
+        attr_reader :parent_component
+
+        def initialize(parent:)
+          @parent_component = parent
+        end
+
+        def item_classes(...)
+          parent_component.form_item_classes(class: 'border-t border-gray-200 my-1 px-0!')
+        end
+
+        erb_template <<-ERB
+          <%= tag.hr class: item_classes %>
+        ERB
       end
     end
   end
