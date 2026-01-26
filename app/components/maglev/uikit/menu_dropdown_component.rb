@@ -23,7 +23,7 @@ module Maglev
             wrapper: lambda { |options = nil|
               Maglev::Uikit::MenuDropdownComponent::WrapperItemComponent.new(options, parent: self)
             },
-            divider: ->() { Maglev::Uikit::MenuDropdownComponent::DividerItemComponent.new(parent: self) }
+            divider: -> { Maglev::Uikit::MenuDropdownComponent::DividerItemComponent.new(parent: self) }
           }
         end
       end
@@ -41,25 +41,30 @@ module Maglev
       end
 
       def list_item_classes
-        'text-gray-800 grid grid-cols-[auto_1fr] min-w-[12rem] my-1'
+        'text-gray-800 grid grid-cols-[auto_1fr_auto] min-w-[12rem] my-1'
       end
 
+      # rubocop:disable Metrics/MethodLength
       def item_classes(...)
         class_variants(
           base: %(
-            col-span-2 grid grid-cols-subgrid
-            flex items-center px-2 py-3 hover:bg-gray-100 w-full rounded-sm
-            transition-colors duration-200 focus:outline-none cursor-pointer flex-1
-            text-left
-            mx-1
-          )
+            col-span-3 grid grid-cols-subgrid
+            flex flex-1 items-center px-2 py-3 w-full mx-1 rounded-sm text-left
+            transition-colors duration-200 focus:outline-none cursor-pointer
+          ),
+          variants: {
+            danger: 'text-red-600 hover:bg-red-100',
+            '!danger': 'hover:bg-gray-100'
+          },
+          defaults: { danger: false }
         ).render(...)
       end
+      # rubocop:enable Metrics/MethodLength
 
       def form_item_classes(...)
         class_variants(
           base: %w[
-            col-span-2 grid grid-cols-subgrid
+            col-span-3 grid grid-cols-subgrid
             flex items-center focus:outline-none cursor-pointer
           ]
         ).render(...)
@@ -69,6 +74,7 @@ module Maglev
         renders_one :icon
         renders_one :label
         renders_one :sub_label
+        renders_one :right_icon
 
         def self.inner_content
           <<-ERB
@@ -76,20 +82,26 @@ module Maglev
             <span class="<%= 'col-start-2' unless icon? %> whitespace-nowrap whitespace-nowrap truncate overflow-hidden">
               <%= label %>
             </span>
+            <%= render Maglev::Uikit::IconComponent.new(name: 'arrow_right', size: '1.15rem', class_names: 'ml-2 shrink-0') if right_arrow? %>
             <span class="col-start-2 whitespace-nowrap whitespace-nowrap truncate overflow-hidden text-xs text-gray-500">
               <%= sub_label %>
             </span>
           ERB
         end
+
+        def right_arrow?
+          false
+        end
       end
 
       class LinkToItemComponent < ItemComponent
-        attr_reader :options, :html_options, :parent_component
+        attr_reader :options, :html_options, :parent_component, :variant
 
         def initialize(options = nil, html_options = nil, parent: nil)
           @parent_component = parent
           @options = options
           @html_options = html_options || {}
+          @variant = @html_options[:variant]
 
           apply_parent_classes
         end
@@ -103,7 +115,7 @@ module Maglev
         private
 
         def apply_parent_classes
-          html_options[:class] = parent_component.item_classes(class: html_options[:class])
+          html_options[:class] = parent_component.item_classes(danger: variant == 'danger', class: html_options[:class])
         end
       end
 
@@ -140,7 +152,7 @@ module Maglev
         private
 
         def apply_parent_classes
-          html_options[:class] = parent_component.item_classes(class: html_options[:class])
+          super
           html_options[:form_class] = parent_component.form_item_classes(class: html_options[:form_class])
         end
       end
@@ -157,13 +169,13 @@ module Maglev
         def initialize(placement:, parent:)
           @placement = placement
           @parent_component = parent
-        end       
+        end
 
         erb_template <<-ERB
           <%= render Maglev::Uikit::DropdownComponent.new(placement: placement, wrapper_classes: wrapper_classes) do |dropdown| %>
             <% dropdown.with_trigger do %>
               <%= button_tag class: item_classes, data: { action: 'click->uikit-dropdown#toggle', 'uikit-dropdown-target': 'button' } do %>
-                #{inner_content}
+                #{inner_content}#{'                '}
               <% end %>
             <% end %>
 
@@ -174,6 +186,10 @@ module Maglev
             </div>
           <% end %>
         ERB
+
+        def right_arrow?
+          true
+        end
       end
 
       class WrapperItemComponent < Maglev::Uikit::BaseComponent

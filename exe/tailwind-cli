@@ -8,7 +8,7 @@ require 'bundler/inline'
 
 gemfile do
   source 'https://rubygems.org'
-  gem 'tailwindcss-ruby', '4.1.11'
+  gem 'tailwindcss-ruby', '4.1.18'
 end
 
 require 'tailwindcss/ruby'

@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe Maglev::RollbackService do
+describe Maglev::DiscardPageDraftService do
   let(:service) { described_class.new }
   let(:site) { create(:site, :with_navbar) }
   let(:page) { create(:page) }
@@ -55,6 +55,25 @@ describe Maglev::RollbackService do
       page.reload
       expect(site.sections_translations).to eq(site_published_sections)
       expect(page.sections_translations).to eq(page_published_sections)
+    end
+
+    it 'restores page information from published payload' do
+      published_title = page.title_translations
+      published_seo_title = page.seo_title_translations
+
+      # Modify page information
+      page.title_translations = { en: 'Modified Title' }
+      page.seo_title_translations = { en: 'Modified SEO' }
+      page.save!
+
+      expect(page.title_translations).not_to eq(published_title)
+      expect(page.seo_title_translations).not_to eq(published_seo_title)
+
+      subject
+
+      page.reload
+      expect(page.title_translations).to eq(published_title)
+      expect(page.seo_title_translations).to eq(published_seo_title)
     end
   end
 

@@ -14,11 +14,9 @@ fr:
           in_progress: "Publication..."
           success: "Publié !"
           fail: "Échec !"
-        revert_button:
-          default: "Annuler les modifications"
-          in_progress: "Annulation..."
-          success: "Annulé !"
-          fail: "Échec !"
+          discard_draft: "Annuler le brouillon"
+          discard_draft_confirm: "Êtes-vous sûr de vouloir annuler les modifications du brouillon ?"
+          publish_confirm: "Êtes-vous sûr de vouloir publier cette page ?"
         save_button:
           default: "Enregistrer"
           in_progress: "Enregistrement..."

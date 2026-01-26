@@ -14,11 +14,9 @@ ar:
           in_progress: "جاري النشر..."
           success: "تم النشر!"
           fail: "فشل!"
-        revert_button:
-          default: "إلغاء التغييرات"
-          in_progress: "جاري الإلغاء..."
-          success: "تم الإلغاء!"
-          fail: "فشل!"
+          discard_draft: "إلغاء المسودة"
+          discard_draft_confirm: "هل أنت متأكد من أنك تريد إلغاء تغييرات المسودة؟"
+          publish_confirm: "هل أنت متأكد من أنك تريد نشر هذه الصفحة؟"
         save_button:
           default: "حفظ"
           in_progress: "جاري الحفظ..."

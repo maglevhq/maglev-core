@@ -3,10 +3,10 @@
 module Maglev
   module Editor
     module Pages
-      class RevertController < Maglev::Editor::BaseController
+      class DiscardDraftController < Maglev::Editor::BaseController
         def create
           page = maglev_page_resources.find(params[:id])
-          services.revert_page_changes.call(
+          services.discard_page_draft.call(
             site: maglev_site,
             page: page
           )

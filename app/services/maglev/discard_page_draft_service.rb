@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Maglev
-  class RevertPageChangesService
+  class DiscardPageDraftService
     include Injectable
 
     argument :site
@@ -11,6 +11,7 @@ module Maglev
       ActiveRecord::Base.transaction do
         revert_container_sections!(site)
         revert_container_sections!(page)
+        revert_page_information!
       end
       true
     end
@@ -34,6 +35,11 @@ module Maglev
 
     def find_published_store(container)
       container.sections_content_stores.published.first
+    end
+
+    def revert_page_information!
+      page.apply_published_payload
+      page.save!
     end
   end
 end

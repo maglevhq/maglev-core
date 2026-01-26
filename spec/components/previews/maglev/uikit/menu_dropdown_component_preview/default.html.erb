@@ -13,4 +13,11 @@
     <% menu_item.with_label_content 'Action #3' %>
     <% menu_item.with_icon_content 'home' %>
   <% end %>
+
+  <% component.with_item_divider %>
+
+  <% component.with_item_link_to('#', variant: 'danger') do |menu_item| %>
+    <% menu_item.with_label_content 'Action #3' %>
+    <% menu_item.with_icon_content 'home' %>
+  <% end %>
 <% end %>

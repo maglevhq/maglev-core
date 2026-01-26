@@ -14,11 +14,9 @@
           in_progress: "Publicando..."
           success: "Publicado!"
           fail: "Falhou!"
-        revert_button:
-          default: "Reverter alterações"
-          in_progress: "Revertendo..."
-          success: "Revertido!"
-          fail: "Falhou!"
+          discard_draft: "Descartar rascunho"
+          discard_draft_confirm: "Tem certeza de que deseja descartar as alterações do rascunho?"
+          publish_confirm: "Tem certeza de que deseja publicar esta página?"
         save_button:
           default: "Salvar"
           in_progress: "Salvando..."

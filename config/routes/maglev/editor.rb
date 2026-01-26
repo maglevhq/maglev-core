@@ -21,7 +21,7 @@ scope ':locale/:page_id' do
   resources :pages do
     member do
       post :clone, controller: :page_clone, action: :create
-      post :revert, controller: 'pages/revert', action: :create
+      post :discard_draft, controller: 'pages/discard_draft', action: :create
     end
   end
 

@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe 'Maglev::Editor::Pages::Rollback', type: :request do
+describe 'Maglev::Editor::Pages::DiscardDraft', type: :request do
   let(:theme) { build(:theme, :predefined_pages) }
   let!(:site) { Maglev::GenerateSite.call(theme: theme) }
   let!(:home_page) { Maglev::Page.home.first }
@@ -11,12 +11,11 @@ describe 'Maglev::Editor::Pages::Rollback', type: :request do
     allow(Maglev.local_themes).to receive(:first).and_return(theme)
   end
 
-  describe 'POST /maglev/editor/:context/pages/:id/rollback' do
+  describe 'POST /maglev/editor/:context/pages/:id/revert' do
     context 'when page has never been published' do
-      it 'raises UnpublishedPage error' do
-        expect do
-          post "/maglev/editor/en/#{home_page.id}/pages/#{home_page.id}/rollback", as: :turbo_stream
-        end.to raise_error(Maglev::Errors::UnpublishedPage)
+      it 'returns a 422 status code' do
+        post "/maglev/editor/en/#{home_page.id}/pages/#{home_page.id}/discard_draft", as: :turbo_stream
+        expect(response).to have_http_status(:unprocessable_content)
       end
     end
 
@@ -29,7 +28,7 @@ describe 'Maglev::Editor::Pages::Rollback', type: :request do
       end
 
       it 'returns a turbo_stream response' do
-        post "/maglev/editor/en/#{home_page.id}/pages/#{home_page.id}/rollback", as: :turbo_stream
+        post "/maglev/editor/en/#{home_page.id}/pages/#{home_page.id}/discard_draft", as: :turbo_stream
 
         expect(response).to be_successful
         expect(response.media_type).to eq('text/vnd.turbo-stream.html')
@@ -38,19 +37,10 @@ describe 'Maglev::Editor::Pages::Rollback', type: :request do
       it 'restores sections from published store' do
         published_sections = home_page.sections_content_stores.published.first.sections_translations
 
-        post "/maglev/editor/en/#{home_page.id}/pages/#{home_page.id}/rollback", as: :turbo_stream
+        post "/maglev/editor/en/#{home_page.id}/pages/#{home_page.id}/discard_draft", as: :turbo_stream
 
         home_page.reload
         expect(home_page.sections_translations).to eq(published_sections)
-      end
-
-      it 'updates updated_at to be before published_at' do
-        published_at = home_page.published_at
-
-        post "/maglev/editor/en/#{home_page.id}/pages/#{home_page.id}/rollback", as: :turbo_stream
-
-        home_page.reload
-        expect(home_page.updated_at).to be < published_at
       end
     end
   end
