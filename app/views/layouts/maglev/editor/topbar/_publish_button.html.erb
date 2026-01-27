@@ -1,13 +1,35 @@
 <div class="flex items-center h-full px-4">
-  <%= button_to editor_publication_path(maglev_editing_route_context), 
-    method: :post, 
-    class: maglev_button_classes(color: :primary, size: :medium),
-    form_class: 'group/form is-default',
-    disabled: current_maglev_page.published_and_up_to_date?,
-    data: { controller: 'submit-button' } do %>
-    <%= maglev_button_label(
-      t('maglev.editor.header_nav.publish_button.default'),
-      pending: t('maglev.editor.header_nav.publish_button.in_progress'),
-      )%>
+  <%= render Maglev::Uikit::ButtonGroupComponent.new do |button_group| %>
+    <% button_group.with_button do %>
+      <%= button_to editor_publication_path(maglev_editing_route_context), 
+        method: :post, 
+        class: button_group.wrapped_button_classes,
+        form_class: button_group.wrapper_classes(class: 'group/form is-default'),
+        disabled: current_maglev_page.published_and_up_to_date?,
+        data: { 
+          controller: 'submit-button',
+          turbo_confirm: t('maglev.editor.header_nav.publish_button.publish_confirm')
+        } do %>
+        <%= maglev_button_label(t('maglev.editor.header_nav.publish_button.default'), pending: t('maglev.editor.header_nav.publish_button.in_progress'),) %>
+      <% end %>
+    <% end %>  
+
+    <% button_group.with_button do %>
+      <%= render Maglev::Uikit::MenuDropdownComponent.new(
+        icon_name: 'arrow_down', 
+        wrapper_classes: button_group.wrapper_classes,
+        trigger_classes: button_group.wrapped_button_classes(class: 'px-2!') 
+      ) do |dropdown| %>      
+        <% dropdown.with_item_button_to(discard_draft_editor_page_path(current_maglev_page.id, **maglev_editing_route_context), 
+          method: :post, 
+          data: { 
+            turbo_confirm: t('maglev.editor.header_nav.publish_button.discard_draft_confirm')
+          }) do |menu_item| %>
+          <% menu_item.with_icon_content('history') %>
+          <% menu_item.with_label_content(t('maglev.editor.header_nav.publish_button.discard_draft')) %>
+          <% menu_item.with_sub_label_content(l(current_maglev_page.published_at, format: :long)) %>
+        <% end %>        
+      <% end %>
+    <% end if current_maglev_page.discard_draft? %>
   <% end %>
 </div>

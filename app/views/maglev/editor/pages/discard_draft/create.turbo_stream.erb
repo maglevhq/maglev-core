@@ -1,0 +1,16 @@
+<%= turbo_stream.console_log 'Discard page draft' %>
+
+<%= turbo_stream.dispatch_event "page-preview:reload", payload: {}.to_json %>
+
+<%= turbo_stream.update dom_id(current_maglev_page, 'topbar-page-info'), method: 'morph' do %>
+  <%= render 'layouts/maglev/editor/topbar/page_info' %>
+<% end %>
+
+<%= turbo_stream.update dom_id(current_maglev_page, 'topbar-publish-button'), method: 'morph' do %>
+  <%= render 'layouts/maglev/editor/topbar/publish_button' %>
+<% end %>
+
+<%= turbo_stream.refresh %>
+
+<%#= turbo_stream.refresh delayed: true %>
+

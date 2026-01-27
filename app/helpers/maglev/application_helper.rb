@@ -117,8 +117,8 @@ module Maglev
             secondary: 'text-gray-800 hover:bg-gray-100'
           },
           size: {
-            big: 'flex items-center justify-center w-full px-6 py-4',
-            medium: 'inline-flex items-center justify-center px-4 py-2'
+            big: 'flex items-center justify-center w-full px-6 h-14',
+            medium: 'inline-flex items-center justify-center px-4 h-10'
           }
         },
         defaults: {

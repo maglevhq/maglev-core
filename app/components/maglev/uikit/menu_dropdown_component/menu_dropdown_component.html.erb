@@ -1,13 +1,17 @@
-<%= render Maglev::Uikit::DropdownComponent.new(placement: placement) do |component| %>
+<%= render Maglev::Uikit::DropdownComponent.new(placement: placement, wrapper_classes: wrapper_classes) do |component| %>
   <% component.with_trigger do %>
     <% if trigger.present? %>
       <%= trigger %>
+    <% elsif trigger_classes.present? && icon_name.present? %>
+      <%= button_tag class: trigger_classes, data: { action: "click->uikit-dropdown#toggle", 'uikit-dropdown-target': 'button' } do %>
+        <%= render Maglev::Uikit::IconComponent.new(name: icon_name) %>
+      <% end %>
     <% else %>
       <%= render Maglev::Uikit::IconButtonComponent.new(icon_name: icon_name, data: { action: "click->uikit-dropdown#toggle", 'uikit-dropdown-target': 'button' }) %>
     <% end %>
   <% end %>
 
-  <div class="flex flex-col w-48 text-gray-800">
+  <div class="<%= list_item_classes %>">
     <% items.each do |item| %>
       <%= item %>
     <% end %>

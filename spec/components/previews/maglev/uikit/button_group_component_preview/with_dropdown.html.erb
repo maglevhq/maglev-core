@@ -1,0 +1,27 @@
+<%= render Maglev::Uikit::ButtonGroupComponent.new(color: color, size: size) do |button_group| %>
+  <% button_group.with_button do %>
+    <%= button_to 'Publish', '#', form_class: button_group.wrapper_classes, class:button_group.wrapped_button_classes %>
+  <% end %>
+  <% button_group.with_button do %>
+    <%= render Maglev::Uikit::MenuDropdownComponent.new(
+      icon_name: 'more', 
+      wrapper_classes: button_group.wrapper_classes,
+      trigger_classes: button_group.wrapped_button_classes(class: 'px-2!') 
+    ) do |menu_dropdown| %> 
+      <% menu_dropdown.with_item_link_to('#') do |menu_item| %>
+        <% menu_item.with_label_content 'Action #1' %>
+        <% menu_item.with_icon_content 'home' %>
+      <% end %>
+
+      <% menu_dropdown.with_item_link_to('#').with_label_content 'Action #2' %>
+
+      <% menu_dropdown.with_item_button_to('#', method: :post) do |menu_item| %>      
+        <% menu_item.with_label_content 'Action #3' %>
+        <% menu_item.with_sub_label do %>
+          Last published at <%= Time.now.strftime('%B %d') %>
+        <% end %>
+        <% menu_item.with_icon_content 'history' %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>

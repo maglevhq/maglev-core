@@ -14,6 +14,9 @@ en:
           in_progress: "Publishing..."
           success: "Published!"
           fail: "Fail!"
+          discard_draft: "Discard draft"
+          discard_draft_confirm: "Are you sure you want to discard the draft changes?"
+          publish_confirm: "Are you sure you want to publish this page?"
         save_button:
           default: "Save"
           in_progress: "Saving..."

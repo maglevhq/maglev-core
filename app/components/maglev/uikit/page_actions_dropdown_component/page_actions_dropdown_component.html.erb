@@ -1,56 +1,45 @@
-<%= render Maglev::Uikit::MenuDropdownComponent.new(icon_name: icon_name) do |dropdown| %>
-  <% dropdown.with_item do %>
-    <%= link_to paths[:edit], class: dropdown.item_classes, data: { turbo_frame: '_top' } do %>
-      <%= render Maglev::Uikit::IconComponent.new(name: 'settings', class_names: 'shrink-0') %>
-      <span class="ml-2 whitespace-nowrap truncate overflow-hidden"><%= t('maglev.editor.pages.actions.edit') %></span>
-    <% end %>
+<%= render Maglev::Uikit::MenuDropdownComponent.new(icon_name: icon_name) do |menu_dropdown| %>
+  <% menu_dropdown.with_item_link_to(paths[:edit], data: { turbo_frame: '_top' }) do |menu_item| %>
+    <% menu_item.with_icon_content('settings') %>
+    <% menu_item.with_label_content(t('maglev.editor.pages.actions.edit')) %>
   <% end if allow?(:edit) %>
 
-  <% dropdown.with_item do %>    
-    <%= render Maglev::Uikit::MenuDropdownComponent.new(placement: 'right-start') do |sub_menu| %>
-      <% sub_menu.with_trigger do %>
-        <%= button_tag class: sub_menu.item_classes, data: { action: 'click->uikit-dropdown#toggle', 'uikit-dropdown-target': 'button' } do %>
-          <%= render Maglev::Uikit::IconComponent.new(name: 'preview', class_names: 'shrink-0') %>
-          <span class="ml-2 whitespace-nowrap truncate overflow-hidden"><%= t('maglev.editor.pages.actions.preview') %></span>
-        <% end %>
-      <% end %>
-      <% sub_menu.with_item do %>
-        <%= link_to t('maglev.editor.pages.actions.draft_preview'), paths[:preview], class: sub_menu.item_classes, target: '_blank' %>
-      <% end %>
-      <% sub_menu.with_item do %>
-        <%= link_to t('maglev.editor.pages.actions.live_preview'), live_url, class: sub_menu.item_classes, target: '_blank' %>
-      <% end %>
-    <% end %>
-  <% end if allow?(:preview) %>
+  <% menu_dropdown.with_item_divider if allow?(:edit) %>
 
-  <% dropdown.with_item do %>
-    <%= button_to paths[:clone], class: dropdown.form_item_classes, form_class: dropdown.item_classes do %>
-      <%= render Maglev::Uikit::IconComponent.new(name: 'clone', class_names: 'shrink-0') %>
-      <span class="ml-2 whitespace-nowrap truncate overflow-hidden"><%= t('maglev.editor.pages.actions.clone') %></span>
-    <% end %>
-  <% end if allow?(:clone) %>
+  <% menu_dropdown.with_item_nested_menu(placement: 'right-start') do |menu_item| %>
+    <% menu_item.with_icon_content('preview') %>
+    <% menu_item.with_label_content(t('maglev.editor.pages.actions.preview')) %>
 
-  <% dropdown.with_item do %> 
-    <div data-controller="copy-to-clipboard" data-copy-to-clipboard-source-value="<%= live_url %>">
-      <%= link_to '#', class: dropdown.item_classes, data: { copy_to_clipboard_target: 'text', action: 'click->copy-to-clipboard#copy:prevent' } do %>
-        <%= render Maglev::Uikit::IconComponent.new(name: 'clipboard', class_names: 'shrink-0') %>
-        <span class="ml-2 whitespace-nowrap truncate overflow-hidden">
-          <%= t('maglev.editor.pages.actions.copy_url_to_clipboard') %>
-        </span>                                    
-      <% end %>
-      <div class="<%= dropdown.item_classes %> hidden" data-copy-to-clipboard-target="success">
-        <%= render Maglev::Uikit::IconComponent.new(name: 'checkbox_circle', class_names: 'text-green-500 shrink-0') %>
-        <span class="ml-2 whitespace-nowrap truncate overflow-hidden text-green-500">
-          <%= t('maglev.editor.pages.actions.copy_url_to_clipboard_success') %>
-        </span>
-      </div>
-    </div>
+    <% menu_item.with_item_link_to(paths[:preview], target: '_blank') do |sub_menu_item| %>
+      <% sub_menu_item.with_label_content(t('maglev.editor.pages.actions.draft_preview')) %>
+    <% end %>
+
+    <% menu_item.with_item_link_to(live_url, target: '_blank') do |sub_menu_item| %>
+      <% sub_menu_item.with_label_content(t('maglev.editor.pages.actions.live_preview')) %>
+    <% end %>    
+  <% end %>  
+
+  <% menu_dropdown.with_item_wrapper(data: { controller: 'copy-to-clipboard', copy_to_clipboard_source_value: live_url }) do |wrapper_item| %>
+    <% wrapper_item.with_item_button(data: { copy_to_clipboard_target: 'text', action: 'click->copy-to-clipboard#copy:prevent' }) do |menu_item| %>
+      <% menu_item.with_icon_content('clipboard') %>
+      <% menu_item.with_label_content(t('maglev.editor.pages.actions.copy_url_to_clipboard')) %>
+    <% end %>
+
+    <% wrapper_item.with_item_button(class: 'hidden text-green-500', data: { copy_to_clipboard_target: 'success' }) do |menu_item| %>
+      <% menu_item.with_icon_content('checkbox_circle') %>
+      <% menu_item.with_label_content(t('maglev.editor.pages.actions.copy_url_to_clipboard_success')) %>
+    <% end %>
   <% end if allow?(:copy_url_to_clipboard) %>
 
-  <% dropdown.with_item do %>
-    <%= button_to paths[:delete], method: :delete, class: dropdown.item_classes, form_class: dropdown.form_item_classes, data: { turbo_confirm: t('maglev.editor.pages.actions.confirm_delete'), turbo_frame: '_top' } do %>
-      <%= render Maglev::Uikit::IconComponent.new(name: 'delete_bin', class_names: 'shrink-0') %>
-      <span class="ml-2 whitespace-nowrap truncate overflow-hidden"><%= t('maglev.editor.pages.actions.delete') %></span>
-    <% end %>
+  <% menu_dropdown.with_item_divider if allow?(:clone) || allow?(:delete) %>
+
+  <% menu_dropdown.with_item_button_to(paths[:clone]) do |menu_item| %>
+    <% menu_item.with_icon_content('clone') %>
+    <% menu_item.with_label_content(t('maglev.editor.pages.actions.clone')) %>
+  <% end if allow?(:clone) %>
+
+  <% menu_dropdown.with_item_button_to(paths[:delete], method: :delete, variant: 'danger', data: { turbo_confirm: t('maglev.editor.pages.actions.confirm_delete'), turbo_frame: '_top' }) do |menu_item| %>
+    <% menu_item.with_icon_content('delete_bin') %>
+    <% menu_item.with_label_content(t('maglev.editor.pages.actions.delete')) %>
   <% end if allow?(:delete) %>
 <% end %>

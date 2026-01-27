@@ -22,6 +22,10 @@ module Maglev::Page::PublishableConcern
     published? && updated_at <= published_at
   end
 
+  def discard_draft?
+    published? && updated_at > published_at
+  end
+
   # called when a publishedpage is being previewed
   def apply_published_payload
     return if !published? || published_payload.blank?

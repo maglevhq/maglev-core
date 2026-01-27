@@ -1,5 +1,5 @@
 <%= tag.div(
-  class: 'relative',
+  class: wrapper_classes,
   data: {
     controller: 'uikit-dropdown',
     'uikit-dropdown-placement-value': placement
@@ -8,7 +8,7 @@
   <%= trigger %>
 
   <div 
-    class="hidden z-50 opacity-0 scale-95 shadow-lg rounded p-1 text-sm bg-white w-max fixed" 
+    class="hidden z-50 opacity-0 scale-95 shadow-lg rounded text-sm bg-white w-max fixed" 
     data-aria-orientation="vertical"
     data-aria-labelledby="dropdown-button"
     data-uikit-dropdown-target="content"

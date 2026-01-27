@@ -33,6 +33,12 @@ export default class extends Controller {
     this.element.classList.remove('is-empty') 
   }
 
+  // force reload the iframe
+  reload() {
+    this.startLoading()
+    this.iframeTarget.src = this.iframeTarget.src
+  }
+
   // called when the Maglev client JS lib has been fully loaded on the iframe
   clientReady(event) {
     const { numberOfSections } = event.detail
