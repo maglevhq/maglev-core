@@ -38,7 +38,7 @@ describe Maglev::DiscardPageDraftService do
       subject
 
       page.reload
-      expect(page.updated_at).to be < published_at
+      expect(page.updated_at).to be_within(1.second).of(published_at)
     end
 
     it 'restores both site and page sections' do
