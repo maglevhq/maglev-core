@@ -58,8 +58,8 @@ describe Maglev::DiscardPageDraftService do
     end
 
     it 'restores page information from published payload' do
-      published_title = page.title_translations
-      published_seo_title = page.seo_title_translations
+      published_title = page.title_translations || {}
+      published_seo_title = page.seo_title_translations || {}
 
       # Modify page information
       page.title_translations = { en: 'Modified Title' }
@@ -72,6 +72,7 @@ describe Maglev::DiscardPageDraftService do
       subject
 
       page.reload
+
       expect(page.title_translations).to eq(published_title)
       expect(page.seo_title_translations).to eq(published_seo_title)
     end

@@ -29,7 +29,7 @@ module Maglev
 
       # Update updated_at to be before published_at to mark as up-to-date
       # rubocop:disable Rails/SkipsModelValidations
-      container.update_column(:updated_at, container.published_at - 0.1.seconds) if container.published_at.present?
+      container.update_column(:updated_at, container.published_at - 0.2.seconds) if container.published_at.present?
       # rubocop:enable Rails/SkipsModelValidations
     end
 
