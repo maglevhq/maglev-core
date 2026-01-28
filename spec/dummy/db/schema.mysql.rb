@@ -12,11 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
 ActiveRecord::Schema[8.1].define(version: 20_260_114_112_058) do
-=======
-ActiveRecord::Schema[8.1].define(version: 20_251_222_172_327) do
->>>>>>> ecaf0dd6 (chore: make Rubocop happy)
   create_table 'accounts', charset: 'utf8mb4', collation: 'utf8mb4_unicode_ci', force: :cascade do |t|
     t.datetime 'created_at', null: false
     t.string 'email'
@@ -83,10 +79,7 @@ ActiveRecord::Schema[8.1].define(version: 20_251_222_172_327) do
     t.json 'og_image_url_translations'
     t.json 'og_title_translations'
     t.datetime 'published_at', precision: nil
-<<<<<<< HEAD
     t.json 'published_payload'
-=======
->>>>>>> ecaf0dd6 (chore: make Rubocop happy)
     t.json 'sections_translations'
     t.json 'seo_title_translations'
     t.json 'title_translations'
