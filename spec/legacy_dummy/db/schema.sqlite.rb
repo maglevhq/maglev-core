@@ -12,28 +12,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 ActiveRecord::Schema[7.2].define(version: 20_260_114_112_058) do
-=======
-ActiveRecord::Schema[7.2].define(version: 20_251_222_172_327) do
->>>>>>> ecaf0dd6 (chore: make Rubocop happy)
   create_table 'accounts', force: :cascade do |t|
     t.string 'email'
     t.string 'password_digest'
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
-<<<<<<< HEAD
-=======
-ActiveRecord::Schema[7.2].define(version: 2025_12_22_172327) do
-  create_table "accounts", force: :cascade do |t|
-    t.string "email"
-    t.string "password_digest"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
->>>>>>> 5dca28b2 (chore: update the specs suite for Rails 7.2 + SQLite/MariaDB/MySQL)
-=======
->>>>>>> ecaf0dd6 (chore: make Rubocop happy)
   end
 
   create_table 'active_storage_attachments', force: :cascade do |t|
@@ -85,10 +69,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_12_22_172327) do
     t.index ['maglev_page_id'], name: 'index_maglev_page_paths_on_maglev_page_id'
   end
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> ecaf0dd6 (chore: make Rubocop happy)
   create_table 'maglev_pages', force: :cascade do |t|
     t.boolean 'visible', default: true
     t.datetime 'created_at', null: false
@@ -103,7 +83,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_12_22_172327) do
     t.json 'og_image_url_translations', default: {}
     t.datetime 'published_at', precision: nil
     t.string 'layout_id'
-<<<<<<< HEAD
     t.json 'published_payload', default: {}
     t.index ['layout_id'], name: 'index_maglev_pages_on_layout_id'
   end
@@ -124,60 +103,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_12_22_172327) do
                                                  unique: true
     t.index ['handle'], name: 'index_maglev_sections_content_stores_on_handle'
     t.index ['maglev_page_id'], name: 'index_maglev_sections_content_stores_on_maglev_page_id'
-=======
-  create_table "maglev_pages", force: :cascade do |t|
-    t.boolean "visible", default: true
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.json "title_translations", default: {}
-    t.json "seo_title_translations", default: {}
-    t.json "meta_description_translations", default: {}
-    t.json "sections_translations", default: {}
-    t.integer "lock_version"
-    t.json "og_title_translations", default: {}
-    t.json "og_description_translations", default: {}
-    t.json "og_image_url_translations", default: {}
-    t.datetime "published_at", precision: nil
-    t.string "layout_id"
-    t.index ["layout_id"], name: "index_maglev_pages_on_layout_id"
-  end
-
-  create_table "maglev_sections_content_stores", force: :cascade do |t|
-    t.string "container_id"
-    t.string "container_type"
-    t.json "sections_translations", default: {}
-    t.boolean "published", default: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "maglev_page_id"
-    t.string "handle", default: "WIP", null: false
-    t.integer "lock_version"
-    t.index ["container_id", "container_type", "published"], name: "maglev_sections_content_stores_container_and_published", unique: true
-    t.index ["handle", "maglev_page_id", "published"], name: "maglev_sections_content_stores_handle_and_page_id", unique: true
-    t.index ["handle"], name: "index_maglev_sections_content_stores_on_handle"
-    t.index ["maglev_page_id"], name: "index_maglev_sections_content_stores_on_maglev_page_id"
->>>>>>> 5dca28b2 (chore: update the specs suite for Rails 7.2 + SQLite/MariaDB/MySQL)
-=======
-    t.index ['layout_id'], name: 'index_maglev_pages_on_layout_id'
-  end
-
-  create_table 'maglev_sections_content_stores', force: :cascade do |t|
-    t.string 'container_id'
-    t.string 'container_type'
-    t.json 'sections_translations', default: {}
-    t.boolean 'published', default: false
-    t.datetime 'created_at', null: false
-    t.datetime 'updated_at', null: false
-    t.integer 'maglev_page_id'
-    t.string 'handle', default: 'WIP', null: false
-    t.integer 'lock_version'
-    t.index %w[container_id container_type published],
-            name: 'maglev_sections_content_stores_container_and_published', unique: true
-    t.index %w[handle maglev_page_id published], name: 'maglev_sections_content_stores_handle_and_page_id',
-                                                 unique: true
-    t.index ['handle'], name: 'index_maglev_sections_content_stores_on_handle'
-    t.index ['maglev_page_id'], name: 'index_maglev_sections_content_stores_on_maglev_page_id'
->>>>>>> ecaf0dd6 (chore: make Rubocop happy)
   end
 
   create_table 'maglev_sites', force: :cascade do |t|
@@ -200,19 +125,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_12_22_172327) do
     t.datetime 'updated_at', null: false
   end
 
-<<<<<<< HEAD
-<<<<<<< HEAD
   add_foreign_key 'active_storage_attachments', 'active_storage_blobs', column: 'blob_id'
   add_foreign_key 'active_storage_variant_records', 'active_storage_blobs', column: 'blob_id'
   add_foreign_key 'maglev_sections_content_stores', 'maglev_pages'
-=======
-  add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "maglev_sections_content_stores", "maglev_pages"
->>>>>>> 5dca28b2 (chore: update the specs suite for Rails 7.2 + SQLite/MariaDB/MySQL)
-=======
-  add_foreign_key 'active_storage_attachments', 'active_storage_blobs', column: 'blob_id'
-  add_foreign_key 'active_storage_variant_records', 'active_storage_blobs', column: 'blob_id'
-  add_foreign_key 'maglev_sections_content_stores', 'maglev_pages'
->>>>>>> ecaf0dd6 (chore: make Rubocop happy)
 end
