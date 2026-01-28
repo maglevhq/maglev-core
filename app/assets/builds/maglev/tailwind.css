@@ -827,9 +827,6 @@
   .grid-cols-6 {
     grid-template-columns: repeat(6, minmax(0, 1fr));
   }
-  .grid-cols-\[auto_1fr\] {
-    grid-template-columns: auto 1fr;
-  }
   .grid-cols-\[auto_1fr_auto\] {
     grid-template-columns: auto 1fr auto;
   }
@@ -2090,22 +2087,22 @@
       }
     }
   }
-  .hover\:bg-editor-primary\/90 {
-    &:hover {
-      @media (hover: hover) {
-        background-color: var(--color-editor-primary);
-        @supports (color: color-mix(in lab, red, red)) {
-          background-color: color-mix(in oklab, var(--color-editor-primary) 90%, transparent);
-        }
-      }
-    }
-  }
   .hover\:bg-editor-primary\/85 {
     &:hover {
       @media (hover: hover) {
         background-color: var(--color-editor-primary);
         @supports (color: color-mix(in lab, red, red)) {
           background-color: color-mix(in oklab, var(--color-editor-primary) 85%, transparent);
+        }
+      }
+    }
+  }
+  .hover\:bg-editor-primary\/90 {
+    &:hover {
+      @media (hover: hover) {
+        background-color: var(--color-editor-primary);
+        @supports (color: color-mix(in lab, red, red)) {
+          background-color: color-mix(in oklab, var(--color-editor-primary) 90%, transparent);
         }
       }
     }
@@ -2152,13 +2149,6 @@
     &:hover {
       @media (hover: hover) {
         background-color: var(--color-neutral-900);
-      }
-    }
-  }
-  .hover\:bg-red-50 {
-    &:hover {
-      @media (hover: hover) {
-        background-color: var(--color-red-50);
       }
     }
   }

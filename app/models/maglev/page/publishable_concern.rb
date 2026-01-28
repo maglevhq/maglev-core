@@ -28,7 +28,7 @@ module Maglev::Page::PublishableConcern
 
   # called when a publishedpage is being previewed
   def apply_published_payload
-    return unless !published? || published_payload.present?
+    return if !published? || published_payload.blank?
 
     published_payload_attributes.each do |attribute|
       send("#{attribute}=", published_payload[attribute])
