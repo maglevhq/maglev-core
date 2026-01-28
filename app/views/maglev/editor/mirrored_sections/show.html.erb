@@ -1,0 +1,33 @@
+<%= render Maglev::Uikit::PageLayoutComponent.new(expanded: true, back_path: editor_real_root_path(maglev_editing_route_context)) do |page_layout| %>
+  <% page_layout.with_title_content @section.type_name %>
+  <% page_layout.with_notification_content maglev_flash_message %>
+
+  <% page_layout.with_back_link(path: editor_sections_stores_path(maglev_editing_route_context)).with_content(t('maglev.editor.sections.breadcrumb')) %>
+
+  <%= render Maglev::Uikit::Well::SimpleWellComponent.new do |well| %>
+    <% well.with_title_content(t('maglev.editor.mirrored_sections.show.well.title')) %>
+    <% well.with_description do %>
+      <p><%= t('maglev.editor.mirrored_sections.show.well.description') %></p>
+      <p>
+        <%= link_to edit_editor_section_path(@section, maglev_editing_route_context(page: @section.mirror_of['page_id'])), 
+        class: 'text-editor-primary inline-flex items-center gap-1 hover:underline', data: { turbo_frame: '_top' } do %>
+          <%= t('maglev.editor.mirrored_sections.show.well.link_to_original_page') %>
+          <%= render Maglev::Uikit::IconComponent.new(name: 'arrow_right_long', size: '0.75rem') %>
+        <% end %>
+      </p>
+    <% end %>
+    <% well.with_action do %>
+      <%= button_to editor_mirrored_section_path(@section, store_id: @section.store_handle, **maglev_editing_route_context), 
+        class: maglev_button_classes, 
+        method: 'delete', 
+        data: {
+          turbo_method: :delete, 
+          turbo_confirm: t('maglev.editor.mirrored_sections.show.well.confirm_unlink'),
+          turbo_frame: '_top'
+        } do %>
+        <%= render Maglev::Uikit::IconComponent.new(name: 'text_unlink', size: '1rem') %>
+        <span><%= t('maglev.editor.mirrored_sections.show.well.unlink_button') %></span>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>

@@ -18,11 +18,7 @@ module Maglev
   class Site < ApplicationRecord
     ## concerns ##
     include Maglev::Site::LocalesConcern
-    include Maglev::SectionsConcern
     include Maglev::Translatable
-
-    ## associations ##
-    has_many :sections_content_stores, as: :container, dependent: :destroy
 
     ## force JSON columns for MariaDB ##
     attribute :style, :json
@@ -38,18 +34,6 @@ module Maglev
 
     def published?
       published_at.present?
-    end
-
-    def api_attributes
-      %i[id name]
-    end
-
-    def find_section(type)
-      sections&.find { |section| section['type'] == type }
-    end
-
-    def translate_in(locale, source_locale)
-      translate_attr_in(:sections, locale, source_locale)
     end
   end
 end

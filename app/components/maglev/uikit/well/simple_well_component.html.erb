@@ -1,0 +1,15 @@
+<div class="bg-gray-50 sm:rounded-lg">
+  <div class="px-4 py-5 sm:p-6">
+    <h3 class="text-base font-semibold text-gray-900">
+      <%= title %>
+    </h3>
+    <div class="mt-2 max-w-xl text-sm text-gray-500 space-y-2">
+      <%= description %>
+    </div>
+    <% if action? %>
+      <div class="mt-5">
+        <%= action %>
+      </div>
+    <% end %>    
+  </div>
+</div>

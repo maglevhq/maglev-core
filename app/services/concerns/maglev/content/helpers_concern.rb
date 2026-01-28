@@ -13,22 +13,37 @@ module Maglev
         @site ||= fetch_site.call
       end
 
+      def site_scoped_store
+        @site_scoped_store ||= scoped_stores.site_scoped.tap do |store|
+          # safely initialize the sections array in the current Maglev locale (Maglev::I18n.current_locale)
+          store.sections ||= []
+        end
+      end
+
+      def fetch_mirrored_store(mirror_of)
+        scoped_stores.find_by(handle: mirror_of[:layout_store_id], page: mirror_of[:page_id])
+      end
+
+      def scoped_stores
+        ::Maglev::SectionsContentStore
+      end
+
       def site_scoped?
         section_definition.site_scoped?
       end
 
       def section_definition
-        # by default, use the page to find the section definition since every site scoped section is also in the page
+        # by default, use the store to find the section definition since every site scoped section is also in the store
         @section_definition ||= theme.sections.find(
           find_section&.fetch('type', nil)
         )
       end
 
       def block_definition
-        @block_definition ||= site_scoped? ? find_block_definition(site) : find_block_definition(page)
+        @block_definition ||= site_scoped? ? find_block_definition(site_scoped_store) : find_block_definition(store)
       end
 
-      def find_section(source = page)
+      def find_section(source = store)
         source.find_section_by_id(section_id)
       end
 
@@ -52,7 +67,7 @@ module Maglev
         find_block(source)['settings']
       end
 
-      def find_block_definition(source = page)
+      def find_block_definition(source = store)
         section_definition.blocks.find(find_block(source)&.fetch('type', nil))
       end
 
@@ -65,28 +80,6 @@ module Maglev
         else
           setting_content['value'] = value
         end
-      end
-
-      def check_section_lock_version!(source)
-        check_lock_version!(source, find_section(source), 'update_section')
-      end
-
-      def check_block_lock_version!(source)
-        check_lock_version!(source, find_block(source), 'update_block')
-      end
-
-      def check_lock_version!(source, section_or_block, action_name)
-        return if lock_version.blank? # without a lock version, we disable the lock version check
-
-        current_lock_version = section_or_block['lock_version'].to_i
-
-        # always increment the lock version
-        section_or_block['lock_version'] = lock_version.to_i + 1
-
-        # if the lock version is the same, we don't need to raise an error
-        return if current_lock_version == lock_version.to_i
-
-        raise ActiveRecord::StaleObjectError.new(source, action_name)
       end
 
       def reset_memoization

@@ -62,7 +62,7 @@ module Maglev::Page::PublishableConcern
   end
 
   def published_payload_core_attributes
-    %w[title_translations seo_title_translations meta_description_translations og_title_translations
+    %w[layout_id title_translations seo_title_translations meta_description_translations og_title_translations
        og_description_translations og_image_url_translations]
   end
 end

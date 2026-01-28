@@ -2,11 +2,11 @@
 
 require 'rails_helper'
 
-describe Maglev::SetupPages do
-  subject { service.call(site: site, theme: theme) }
-
+describe Maglev::SetupPages, type: :service do
   let(:service) { described_class.new }
   let(:site) { build(:site) }
+
+  subject { service.call(site: site, theme: theme) }
 
   context 'the theme has no pre-defined pages' do
     let(:theme) { build(:theme) }
@@ -22,12 +22,24 @@ describe Maglev::SetupPages do
     it 'creates the pages in DB' do
       expect { subject }.to change(Maglev::Page, :count).by(3)
       expect(subject.map(&:title)).to eq ['Home', 'About us', 'Empty']
-      expect(subject[0].sections.map { |section| section['type'] }).to eq(%w[navbar jumbotron showcase])
     end
 
-    it 'persist the content of the site scoped sections' do
-      subject
-      expect(site.reload.sections.size).to eq(1)
+    it 'creates the sections content stores' do
+      expect { subject }.to change(Maglev::SectionsContentStore, :count).by(5)
+      expect(section_types('header')).to eq ['navbar']
+      expect(section_types('footer')).to eq []
+      expect(section_types('main', Maglev::Page.home.first.id)).to eq %w[jumbotron showcase]
+    end
+  end
+
+  context 'the theme has custom store handles' do
+    let(:theme) { build(:theme, :layout_with_custom_handle, :predefined_pages) }
+
+    it 'creates the sections content stores' do
+      expect { subject }.to change(Maglev::SectionsContentStore, :count).by(5)
+      expect(fetch_sections_store('header')).to eq nil
+      expect(section_types('global_header')).to eq ['navbar']
+      expect(section_types('main', Maglev::Page.home.first.id)).to eq %w[jumbotron showcase]
     end
   end
 end

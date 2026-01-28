@@ -1,0 +1,18 @@
+<%= render Maglev::Uikit::Well::SimpleWellComponent.new do |well| %>
+  <% well.with_title_content('This section is protected') %>
+  <% well.with_description do %>
+    <p>To edit its content, go to the original page where it was created.</p>
+    <p>
+      <a href="#" class="text-editor-primary inline-flex items-center gap-1 hover:underline">
+        Go to the original page
+        <%= render Maglev::Uikit::IconComponent.new(name: 'arrow_right_long', size: '0.75rem') %>
+      </a>
+    </p>
+  <% end %>
+  <% well.with_action do %>
+    <%= button_to '#', class: maglev_button_classes do %>
+      <%= render Maglev::Uikit::IconComponent.new(name: 'text_unlink', size: '1rem') %>
+      <span>Unlink section</span>
+    <% end %>
+  <% end %>
+<% end %>

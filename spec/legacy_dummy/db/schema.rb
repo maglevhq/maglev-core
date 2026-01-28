@@ -101,13 +101,11 @@ ActiveRecord::Schema[7.2].define(version: 20_260_114_112_058) do
     t.jsonb 'sections_translations', default: {}
     t.datetime 'updated_at', null: false
     t.index %w[container_id container_type published],
-            name: 'maglev_sections_content_stores_container_and_published'
-    t.index %w[container_id container_type], name: 'maglev_sections_content_stores_container'
+            name: 'maglev_sections_content_stores_container_and_published', unique: true
     t.index %w[handle maglev_page_id published], name: 'maglev_sections_content_stores_handle_and_page_id',
                                                  unique: true
     t.index ['handle'], name: 'index_maglev_sections_content_stores_on_handle'
     t.index ['maglev_page_id'], name: 'index_maglev_sections_content_stores_on_maglev_page_id'
-    t.index ['published'], name: 'index_maglev_sections_content_stores_on_published'
   end
 
   create_table 'maglev_sites', force: :cascade do |t|

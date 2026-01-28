@@ -5,8 +5,11 @@ require 'rails_helper'
 RSpec.describe Maglev::Content::SectionContent do
   let(:theme) { build(:theme) }
   let(:page) { build(:page) }
-  let(:raw_section_content) { page.sections.first }
-  let(:section_content) { described_class.build(theme: theme, raw_section_content: raw_section_content) }
+  let(:store) { build(:sections_content_store, page: page) }
+  let(:raw_section_content) { store.sections.first }
+  let(:section_content) do
+    described_class.build(theme: theme, store_handle: 'main', raw_section_content: raw_section_content)
+  end
 
   context '#label' do
     it 'takes the first text setting value' do
@@ -29,7 +32,7 @@ RSpec.describe Maglev::Content::SectionContent do
   end
 
   context '#blocks' do
-    let(:page) { build(:page, :with_navbar) }
+    let(:store) { build(:sections_content_store, :with_navbar, page: page) }
 
     it 'builds all the blocks of the section' do
       expect(section_content.blocks.count).to eq 4
