@@ -33,6 +33,7 @@ describe Maglev::PublishService do
     it 'sets the page published payload' do
       subject
       expect(page.reload.published_payload).to eq({
+        layout_id: 'default',
         title_translations: { en: 'Home' },
         seo_title_translations: {},
         meta_description_translations: {},
@@ -45,6 +46,7 @@ describe Maglev::PublishService do
     it 'sets the page published payload' do
       subject
       expect(page.reload.published_payload).to eq({
+        layout_id: 'default',
         title_translations: { en: 'Home' },
         seo_title_translations: {},
         meta_description_translations: {},

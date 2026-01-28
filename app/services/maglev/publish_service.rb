@@ -21,13 +21,13 @@ module Maglev
       # copy content from the containers (site and page) to the published stores
       publish_stores!
       publish_site_scoped_store!
-              
-      # copy the page information to the page published payload
-      publish_page_information!
 
       mark_site_and_page_as_published!
+
+      # copy the page information to the page published payload
+      publish_page_information!
     end
-    
+
     def publish_stores!
       layout_stores.each do |definition|
         publish_store(definition.id, definition.page_scoped? ? page : nil)

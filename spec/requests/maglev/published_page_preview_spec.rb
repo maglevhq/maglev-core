@@ -18,7 +18,7 @@ RSpec.describe 'Maglev::PublishedPagePreviewController', type: :request do
     let(:home_page_sections) { fetch_sections_translations('main', home_page.id) }
 
     before do
-      Maglev::PublishService.new.call(site: site, page: home_page)
+      Maglev::PublishService.new.call(theme: theme, site: site, page: home_page)
       home_page.update(title: 'Home [DRAFT]')
     end
 

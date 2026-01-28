@@ -107,8 +107,6 @@ end
 #  sections_translations         :jsonb
 #  seo_title_translations        :jsonb
 #  title_translations            :jsonb
-#  sections_translations         :json
-#  title_translations            :json
 #  visible                       :boolean          default(TRUE)
 #  created_at                    :datetime         not null
 #  updated_at                    :datetime         not null

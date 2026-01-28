@@ -7,6 +7,7 @@ module Maglev
         def create
           page = maglev_page_resources.find(params[:id])
           services.discard_page_draft.call(
+            theme: maglev_theme,
             site: maglev_site,
             page: page
           )

@@ -6,18 +6,9 @@
 
   <% menu_dropdown.with_item_divider if allow?(:edit) %>
 
-<<<<<<< HEAD
   <% menu_dropdown.with_item_nested_menu(placement: 'right-start') do |menu_item| %>
     <% menu_item.with_icon_content('preview') %>
     <% menu_item.with_label_content(t('maglev.editor.pages.actions.preview')) %>
-=======
-  <% dropdown.with_item do %>
-    <%= button_to paths[:clone], class: dropdown.form_item_classes, form_class: dropdown.item_classes, data: { turbo_frame: '_top' } do %>
-      <%= render Maglev::Uikit::IconComponent.new(name: 'clone', class_names: 'shrink-0') %>
-      <span class="ml-2 whitespace-nowrap truncate overflow-hidden"><%= t('maglev.editor.pages.actions.clone') %></span>
-    <% end %>
-  <% end if allow?(:clone) %>
->>>>>>> a1899d00 (fix: redirecting after cloning a page didn't render the correct view)
 
     <% menu_item.with_item_link_to(paths[:preview], target: '_blank') do |sub_menu_item| %>
       <% sub_menu_item.with_label_content(t('maglev.editor.pages.actions.draft_preview')) %>
