@@ -12,15 +12,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 20_260_114_112_058) do
-  create_table 'accounts', charset: 'utf8mb4', collation: 'utf8mb4_unicode_ci', force: :cascade do |t|
+ActiveRecord::Schema[7.2].define(version: 20_260_114_112_058) do
+  # These are extensions that must be enabled in order to support this database
+  enable_extension 'plpgsql'
+
+  create_table 'accounts', force: :cascade do |t|
     t.datetime 'created_at', null: false
     t.string 'email'
     t.string 'password_digest'
     t.datetime 'updated_at', null: false
   end
 
-  create_table 'active_storage_attachments', charset: 'utf8mb4', collation: 'utf8mb4_unicode_ci', force: :cascade do |t|
+  create_table 'active_storage_attachments', force: :cascade do |t|
     t.bigint 'blob_id', null: false
     t.datetime 'created_at', precision: nil, null: false
     t.string 'name', null: false
@@ -31,7 +34,7 @@ ActiveRecord::Schema[8.1].define(version: 20_260_114_112_058) do
                                                     unique: true
   end
 
-  create_table 'active_storage_blobs', charset: 'utf8mb4', collation: 'utf8mb4_unicode_ci', force: :cascade do |t|
+  create_table 'active_storage_blobs', force: :cascade do |t|
     t.bigint 'byte_size', null: false
     t.string 'checksum', null: false
     t.string 'content_type'
@@ -43,14 +46,13 @@ ActiveRecord::Schema[8.1].define(version: 20_260_114_112_058) do
     t.index ['key'], name: 'index_active_storage_blobs_on_key', unique: true
   end
 
-  create_table 'active_storage_variant_records', charset: 'utf8mb4', collation: 'utf8mb4_unicode_ci',
-                                                 force: :cascade do |t|
+  create_table 'active_storage_variant_records', force: :cascade do |t|
     t.bigint 'blob_id', null: false
     t.string 'variation_digest', null: false
     t.index %w[blob_id variation_digest], name: 'index_active_storage_variant_records_uniqueness', unique: true
   end
 
-  create_table 'maglev_assets', charset: 'utf8mb4', collation: 'utf8mb4_unicode_ci', force: :cascade do |t|
+  create_table 'maglev_assets', force: :cascade do |t|
     t.integer 'byte_size'
     t.string 'content_type'
     t.datetime 'created_at', null: false
@@ -60,7 +62,7 @@ ActiveRecord::Schema[8.1].define(version: 20_260_114_112_058) do
     t.integer 'width'
   end
 
-  create_table 'maglev_page_paths', charset: 'utf8mb4', collation: 'utf8mb4_unicode_ci', force: :cascade do |t|
+  create_table 'maglev_page_paths', force: :cascade do |t|
     t.boolean 'canonical', default: true
     t.string 'locale', null: false
     t.bigint 'maglev_page_id'
@@ -70,26 +72,25 @@ ActiveRecord::Schema[8.1].define(version: 20_260_114_112_058) do
     t.index ['maglev_page_id'], name: 'index_maglev_page_paths_on_maglev_page_id'
   end
 
-  create_table 'maglev_pages', charset: 'utf8mb4', collation: 'utf8mb4_unicode_ci', force: :cascade do |t|
+  create_table 'maglev_pages', force: :cascade do |t|
     t.datetime 'created_at', null: false
     t.string 'layout_id'
     t.integer 'lock_version'
-    t.json 'meta_description_translations'
-    t.json 'og_description_translations'
-    t.json 'og_image_url_translations'
-    t.json 'og_title_translations'
+    t.jsonb 'meta_description_translations', default: {}
+    t.jsonb 'og_description_translations', default: {}
+    t.jsonb 'og_image_url_translations', default: {}
+    t.jsonb 'og_title_translations', default: {}
     t.datetime 'published_at', precision: nil
-    t.json 'published_payload'
-    t.json 'sections_translations'
-    t.json 'seo_title_translations'
-    t.json 'title_translations'
+    t.jsonb 'published_payload', default: {}
+    t.jsonb 'sections_translations', default: {}
+    t.jsonb 'seo_title_translations', default: {}
+    t.jsonb 'title_translations', default: {}
     t.datetime 'updated_at', null: false
     t.boolean 'visible', default: true
     t.index ['layout_id'], name: 'index_maglev_pages_on_layout_id'
   end
 
-  create_table 'maglev_sections_content_stores', charset: 'utf8mb4', collation: 'utf8mb4_unicode_ci',
-                                                 force: :cascade do |t|
+  create_table 'maglev_sections_content_stores', force: :cascade do |t|
     t.string 'container_id'
     t.string 'container_type'
     t.datetime 'created_at', null: false
@@ -97,7 +98,7 @@ ActiveRecord::Schema[8.1].define(version: 20_260_114_112_058) do
     t.integer 'lock_version'
     t.bigint 'maglev_page_id'
     t.boolean 'published', default: false
-    t.json 'sections_translations'
+    t.jsonb 'sections_translations', default: {}
     t.datetime 'updated_at', null: false
     t.index %w[container_id container_type published],
             name: 'maglev_sections_content_stores_container_and_published', unique: true
@@ -107,18 +108,18 @@ ActiveRecord::Schema[8.1].define(version: 20_260_114_112_058) do
     t.index ['maglev_page_id'], name: 'index_maglev_sections_content_stores_on_maglev_page_id'
   end
 
-  create_table 'maglev_sites', charset: 'utf8mb4', collation: 'utf8mb4_unicode_ci', force: :cascade do |t|
+  create_table 'maglev_sites', force: :cascade do |t|
     t.datetime 'created_at', null: false
-    t.json 'locales'
+    t.jsonb 'locales', default: []
     t.integer 'lock_version'
     t.string 'name'
     t.datetime 'published_at', precision: nil
-    t.json 'sections_translations'
-    t.json 'style'
+    t.jsonb 'sections_translations', default: {}
+    t.jsonb 'style', default: []
     t.datetime 'updated_at', null: false
   end
 
-  create_table 'products', charset: 'utf8mb4', collation: 'utf8mb4_unicode_ci', force: :cascade do |t|
+  create_table 'products', force: :cascade do |t|
     t.datetime 'created_at', null: false
     t.string 'name'
     t.float 'price'
