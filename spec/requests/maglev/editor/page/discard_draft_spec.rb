@@ -22,11 +22,13 @@ describe 'Maglev::Editor::Pages::DiscardDraft', type: :request do
     end
 
     context 'when page has been published' do
+      let(:main_store) { fetch_sections_store('main', home_page.id) }
+
       before do
-        Maglev::PublishService.new.call(site: site, page: home_page)
+        Maglev::PublishService.new.call(theme: theme, site: site, page: home_page)
         # Modify sections to create unpublished changes
-        home_page.sections_translations = { en: [{ type: 'hero', id: '123', settings: [] }] }
-        home_page.save!
+        main_store.sections.dig(0, 'settings', 0)['value'] = 'Modified content'
+        main_store.save!
       end
 
       it 'returns a turbo_stream response' do
@@ -37,12 +39,14 @@ describe 'Maglev::Editor::Pages::DiscardDraft', type: :request do
       end
 
       it 'restores sections from published store' do
-        published_sections = home_page.sections_content_stores.published.first.sections_translations
+        published_store = Maglev::SectionsContentStore.published.find_by(handle: 'main', maglev_page_id: home_page.id)
+        published_sections = published_store.sections_translations
+
+        expect(main_store.reload.sections_translations).not_to eq(published_sections)
 
         post "/maglev/editor/en/#{home_page.id}/pages/#{home_page.id}/discard_draft", as: :turbo_stream
 
-        home_page.reload
-        expect(home_page.sections_translations).to eq(published_sections)
+        expect(main_store.reload.sections_translations).to eq(published_sections)
       end
     end
   end
