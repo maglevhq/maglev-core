@@ -13,9 +13,11 @@ describe 'Maglev::Editor::Pages::DiscardDraft', type: :request do
 
   describe 'POST /maglev/editor/:context/pages/:id/revert' do
     context 'when page has never been published' do
-      it 'returns a 422 status code' do
+      it 'renders standard_error template for turbo_stream requests' do
         post "/maglev/editor/en/#{home_page.id}/pages/#{home_page.id}/discard_draft", as: :turbo_stream
-        expect(response).to have_http_status(Rails.version.to_f >= 8.0 ? :unprocessable_content : :unprocessable_entity)
+
+        expect(response).to have_http_status(:internal_server_error)
+        expect(response.media_type).to eq('text/vnd.turbo-stream.html')
       end
     end
 

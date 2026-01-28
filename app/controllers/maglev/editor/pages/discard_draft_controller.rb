@@ -10,8 +10,6 @@ module Maglev
             site: maglev_site,
             page: page
           )
-        rescue Maglev::Errors::UnpublishedPage
-          head :unprocessable_content
         end
       end
     end
