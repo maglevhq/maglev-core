@@ -7,8 +7,8 @@ module Maglev
         def create
           @source_page = maglev_page_resources.find(params[:id])
           @page = clone_page(@source_page)
-          redirect_to edit_editor_page_path(@page, maglev_editing_route_context(page: @page)), notice: flash_t(:success),
-                                                                                               status: :see_other
+          edit_cloned_page_path = edit_editor_page_path(@page, maglev_editing_route_context(page: @page))
+          redirect_to edit_cloned_page_path, notice: flash_t(:success), status: :see_other
         end
 
         private

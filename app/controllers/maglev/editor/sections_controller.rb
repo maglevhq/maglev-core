@@ -56,7 +56,7 @@ module Maglev
 
       def set_section
         @section = current_maglev_sections.find { |section| section.id == params[:id] }
-        raise ActiveRecord::StaleObjectError unless @section
+        redirect_to editor_sections_path_with_context unless @section
       end
 
       def update_section
@@ -89,7 +89,11 @@ module Maglev
       end
 
       def redirect_to_sections_path
-        redirect_to editor_sections_path(maglev_editing_route_context), notice: flash_t(:success), status: :see_other
+        redirect_to editor_sections_path_with_context, notice: flash_t(:success), status: :see_other
+      end
+
+      def editor_sections_path_with_context
+        editor_sections_path(maglev_editing_route_context)
       end
     end
   end

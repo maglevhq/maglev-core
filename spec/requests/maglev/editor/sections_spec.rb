@@ -57,6 +57,13 @@ describe 'Maglev::Editor::Sections', type: :request do
       expect(response.body).to have_selector('label[for=section_title]', text: 'Title')
       expect(response.body).to have_selector('label[for=section_body]', text: 'Body')
     end
+
+    describe "when the section doesn't exist anymore" do
+      it 'returns a 404 response' do
+        get "/maglev/editor/en/#{home_page.id}/sections/not_existing/edit"
+        expect(response).to redirect_to("/maglev/editor/en/#{home_page.id}/sections")
+      end
+    end
   end
 
   describe 'PUT /maglev/editor/:context/sections/:id' do

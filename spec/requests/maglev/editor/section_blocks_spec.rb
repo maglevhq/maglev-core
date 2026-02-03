@@ -34,6 +34,20 @@ describe 'Maglev::Editor::SectionBlocks', type: :request do
       get "/maglev/editor/en/#{home_page.id}/sections/#{section_id}/blocks/#{block_id}/edit"
       expect(response).to be_successful
     end
+
+    describe "when the section doesn't exist anymore" do
+      it 'returns a 404 response' do
+        get "/maglev/editor/en/#{home_page.id}/sections/not_existing/blocks/not_existing/edit"
+        expect(response).to redirect_to("/maglev/editor/en/#{home_page.id}/sections")
+      end
+    end
+
+    describe "when the block doesn't exist anymore" do
+      it 'returns a 404 response' do
+        get "/maglev/editor/en/#{home_page.id}/sections/#{section_id}/blocks/not_existing/edit"
+        expect(response).to redirect_to("/maglev/editor/en/#{home_page.id}/sections")
+      end
+    end
   end
 
   describe 'PUT /maglev/editor/:context/sections/:id/blocks/:id' do
