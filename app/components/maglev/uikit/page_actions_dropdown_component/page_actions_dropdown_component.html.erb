@@ -33,7 +33,7 @@
 
   <% menu_dropdown.with_item_divider if allow?(:clone) || allow?(:delete) %>
 
-  <% menu_dropdown.with_item_button_to(paths[:clone]) do |menu_item| %>
+  <% menu_dropdown.with_item_button_to(paths[:clone], data: { turbo_frame: '_top' }) do |menu_item| %>
     <% menu_item.with_icon_content('clone') %>
     <% menu_item.with_label_content(t('maglev.editor.pages.actions.clone')) %>
   <% end if allow?(:clone) %>

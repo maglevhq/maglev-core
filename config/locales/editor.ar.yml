@@ -223,9 +223,9 @@ ar:
             error: "فشل!"
           destroy:
             success: "تم الحذف!"     
-        page_clone:
-          create:
-            success: "تم الاستنساخ!"
+          clone:
+            create:
+              success: "تم الاستنساخ!"
         sections:
           sort:
             success: 'تم الترتيب!'

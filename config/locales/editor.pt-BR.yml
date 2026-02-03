@@ -223,9 +223,9 @@
             error: "Falhou!"
           destroy:
             success: "Excluída!"     
-        page_clone:
-          create:
-            success: "Clonada!"
+          clone:
+            create:
+              success: "Clonada!"
         sections:
           sort:
             success: 'Ordenado!'

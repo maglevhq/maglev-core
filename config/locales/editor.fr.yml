@@ -223,9 +223,9 @@ fr:
             error: "Échec !"
           destroy:
             success: "Supprimée !"     
-        page_clone:
-          create:
-            success: "Clonée !"
+          clone:
+            create:
+              success: "Clonée !"
         sections:
           sort:
             success: 'Trié !'

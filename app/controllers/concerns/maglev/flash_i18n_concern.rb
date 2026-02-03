@@ -5,6 +5,7 @@ module Maglev
     private
 
     def flash_t(type, **opts)
+      controller_name = controller_path.gsub('maglev/editor/', '').gsub('/', '.')
       t("maglev.editor.flash.#{controller_name}.#{action_name}.#{type}", **opts)
     end
   end

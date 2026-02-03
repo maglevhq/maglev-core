@@ -12,6 +12,7 @@ describe 'Maglev::Editor::PageClones', type: :request do
       expect do
         post "/maglev/editor/en/#{home_page.id}/pages/#{home_page.id}/clone"
         expect(response).to be_redirect
+        expect(flash[:notice]).to eq 'Cloned!'
       end.to change(Maglev::Page, :count).by(1)
     end
   end

@@ -223,9 +223,9 @@ es:
             error: "¡Falló!"
           destroy:
             success: "¡Eliminada!"     
-        page_clone:
-          create:
-            success: "¡Clonada!"
+          clone:
+            create:
+              success: "¡Clonada!"
         sections:
           sort:
             success: '¡Ordenado!'
