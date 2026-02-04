@@ -67,6 +67,11 @@ Maglev.configure do |config|
   #   }
   # }
 
+  # Pagination configuration
+  # config.pagination = {
+  #   pages: -1 # -1 means no pagination
+  # }
+
   # Let your content editors references existing pages of your application but
   # not served/rendered by Maglev.
   # config.static_pages = [

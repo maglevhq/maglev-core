@@ -38,9 +38,9 @@
       <nav class="isolate inline-flex gap-1" aria-label="Pages">
         <%# Previous page link %>
         <% if pagy.prev %>
-          <%== a.(pagy.prev, left_arrow, aria_label: 'Previous', classes: 'relative inline-flex items-center rounded-sm px-1 py-1 text-gray-400 hover:bg-gray-100 focus:z-20 focus:outline-offset-0') %>
+          <%== a.(pagy.prev, left_arrow, aria_label: 'Previous', classes: 'relative inline-flex items-center rounded-xs px-1 py-1 text-gray-400 hover:bg-gray-100 focus:z-20 focus:outline-offset-0') %>
         <% else %>
-          <a role="link" aria-disabled="true" aria-label="Previous" class="relative inline-flex items-center rounded-sm px-1 py-1 text-gray-400 hover:bg-gray-100 focus:z-20 focus:outline-offset-0">
+          <a role="link" aria-disabled="true" aria-label="Previous" class="relative inline-flex items-center rounded-xs px-1 py-1 text-gray-400 hover:bg-gray-100 focus:z-20 focus:outline-offset-0">
             <%= left_arrow %>
           </a>
         <% end %>
@@ -48,9 +48,9 @@
         <%# Page links (series example: [1, :gap, 7, 8, "9", 10, 11, :gap, 36]) %>
         <% pagy.series.each do |item| %>
           <% if item.is_a?(Integer) %>
-            <%== a.(item, classes: 'relative inline-flex items-center px-2.5 py-1 text-sm font-semibold text-gray-900 hover:bg-gray-100 focus:z-20 focus:outline-offset-0') %>
+            <%== a.(item, classes: 'relative inline-flex items-center px-2.5 py-1 text-sm font-semibold text-gray-900 rounded-xs hover:bg-gray-100 focus:z-20 focus:outline-offset-0') %>
           <% elsif item.is_a?(String) %>
-            <a role="link" aria-disabled="true" aria-current="page" class="relative z-10 inline-flex items-center bg-editor-primary px-2.5 py-1 text-sm font-semibold text-white focus:z-20"><%= item %></a>
+            <a role="link" aria-disabled="true" aria-current="page" class="relative z-10 inline-flex items-center rounded-xs bg-editor-primary px-2.5 py-1 text-sm font-semibold text-white focus:z-20"><%= item %></a>
           <% elsif item == :gap %>
             <a role="link" aria-disabled="true" class="relative inline-flex items-center px-2.5 py-1 text-sm font-semibold text-gray-700 focus:outline-offset-0">&hellip;</a>
           <% end %>
@@ -58,9 +58,9 @@
 
         <%# Next page link %>
         <% if pagy.next %>
-          <%== a.(pagy.next, right_arrow, aria_label: 'Next', classes: 'relative inline-flex items-center rounded-sm px-1 py-1 text-gray-400 hover:bg-gray-100 focus:z-20 focus:outline-offset-0') %>
+          <%== a.(pagy.next, right_arrow, aria_label: 'Next', classes: 'relative inline-flex items-center rounded-xs px-1 py-1 text-gray-400 hover:bg-gray-100 focus:z-20 focus:outline-offset-0') %>
         <% else %>
-          <a role="link" aria-disabled="true" aria-label="Next" class="relative inline-flex items-center rounded-sm px-1 py-1 text-gray-400 hover:bg-gray-100 focus:z-20 focus:outline-offset-0">
+          <a role="link" aria-disabled="true" aria-label="Next" class="relative inline-flex items-center rounded-xs px-1 py-1 text-gray-400 hover:bg-gray-100 focus:z-20 focus:outline-offset-0">
             <%= right_arrow %>
           </a>
         <% end %>

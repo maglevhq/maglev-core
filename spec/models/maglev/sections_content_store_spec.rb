@@ -14,9 +14,7 @@
 #
 # Indexes
 #
-#  index_maglev_sections_content_stores_on_published       (published)
-#  maglev_sections_content_stores_container                (container_id,container_type)
-#  maglev_sections_content_stores_container_and_published  (container_id,container_type,published)
+#  maglev_sections_content_stores_container_and_published  (container_id,container_type,published) UNIQUE
 #
 require 'rails_helper'
 
