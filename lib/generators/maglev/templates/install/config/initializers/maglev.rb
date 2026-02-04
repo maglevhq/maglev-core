@@ -70,6 +70,7 @@ Maglev.configure do |config|
   # Pagination configuration
   # config.pagination = {
   #   pages: -1 # -1 means no pagination
+  #   assets: 16 # number of assets displayed per page in the assets modal
   # }
 
   # Let your content editors references existing pages of your application but

@@ -85,12 +85,11 @@ module Maglev
       end
 
       def pagination_enabled?
-        per_page.present?
+        maglev_config.pagination?(:pages)
       end
 
       def per_page
-        limit = maglev_config.pagination&.dig(:pages)
-        limit == -1 ? nil : limit
+        maglev_config.per_page(:pages)
       end
     end
   end

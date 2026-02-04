@@ -36,7 +36,7 @@ module Maglev
       end
 
       def per_page
-        16 # TODO: make this configurable
+        maglev_config.per_page(:assets)
       end
 
       def resources

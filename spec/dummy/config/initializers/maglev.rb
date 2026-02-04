@@ -31,7 +31,7 @@ Maglev.configure do |config|
   config.reserved_paths = %w[products sign-in search posts/*]
 
   config.pagination = {
-    pages: 4,
-    assets: 16
+    pages: -1
+    # assets: 16
   }
 end
