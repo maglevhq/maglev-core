@@ -27,7 +27,7 @@ coverage/
 podman.sh
 template.dev.rb
 tailwind-maglev-pro.config.js
-lib/tasks/maglev/dontsave/
+dontsave/
 
 *.local
 bin/test
