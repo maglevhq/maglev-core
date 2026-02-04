@@ -6,5 +6,5 @@ module Maglev
                       :collections, :is_authenticated, :ui_locale, :default_site_locales,
                       :static_pages, :reserved_paths,
                       :admin_username, :admin_password,
-                      :tailwindcss_folders)
+                      :tailwindcss_folders, :pagination)
 end

@@ -41,6 +41,7 @@ module Maglev
         c.static_pages = []
         c.reserved_paths = []
         c.tailwindcss_folders = []
+        c.pagination = { pages: -1 }
       end
     end
     # rubocop:enable Metrics/MethodLength, Metrics/AbcSize

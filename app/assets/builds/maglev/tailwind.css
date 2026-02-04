@@ -9,7 +9,6 @@
     --font-serif: ui-serif, Georgia, Cambria, 'Times New Roman', Times, serif;
     --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New',
     monospace;
-    --color-red-50: oklch(97.1% 0.013 17.38);
     --color-red-100: oklch(93.6% 0.032 17.717);
     --color-red-400: oklch(70.4% 0.191 22.216);
     --color-red-500: oklch(63.7% 0.237 25.331);
@@ -25,7 +24,6 @@
     --color-green-400: oklch(79.2% 0.209 151.711);
     --color-green-500: oklch(72.3% 0.219 149.579);
     --color-green-700: oklch(52.7% 0.154 150.069);
-    --color-teal-100: oklch(95.3% 0.051 180.801);
     --color-blue-400: oklch(70.7% 0.165 254.624);
     --color-blue-500: oklch(62.3% 0.214 259.815);
     --color-indigo-500: oklch(58.5% 0.233 277.117);
@@ -818,9 +816,6 @@
   }
   .grid-cols-6 {
     grid-template-columns: repeat(6, minmax(0, 1fr));
-  }
-  .grid-cols-\[auto_1fr\] {
-    grid-template-columns: auto 1fr;
   }
   .grid-cols-\[auto_1fr_auto\] {
     grid-template-columns: auto 1fr auto;
@@ -1931,6 +1926,11 @@
       display: inline-flex;
     }
   }
+  .group-\[\.is-error\]\/form\:bg-red-500 {
+    &:is(:where(.group\/form):is(.is-error) *) {
+      background-color: var(--color-red-500);
+    }
+  }
   .group-\[\.is-error\]\/form\:bg-red-500\/95 {
     &:is(:where(.group\/form):is(.is-error) *) {
       background-color: color-mix(in srgb, oklch(63.7% 0.237 25.331) 95%, transparent);
@@ -1987,6 +1987,11 @@
   .group-\[\.is-success\]\/form\:inline-flex {
     &:is(:where(.group\/form):is(.is-success) *) {
       display: inline-flex;
+    }
+  }
+  .group-\[\.is-success\]\/form\:bg-green-500 {
+    &:is(:where(.group\/form):is(.is-success) *) {
+      background-color: var(--color-green-500);
     }
   }
   .group-\[\.is-success\]\/form\:bg-green-500\/95 {
@@ -2124,13 +2129,6 @@
       }
     }
   }
-  .hover\:bg-red-50 {
-    &:hover {
-      @media (hover: hover) {
-        background-color: var(--color-red-50);
-      }
-    }
-  }
   .hover\:bg-red-100 {
     &:hover {
       @media (hover: hover) {
@@ -2195,11 +2193,35 @@
       }
     }
   }
+  .group-\[\.is-error\]\/form\:hover\:bg-red-500\/90 {
+    &:is(:where(.group\/form):is(.is-error) *) {
+      &:hover {
+        @media (hover: hover) {
+          background-color: color-mix(in srgb, oklch(63.7% 0.237 25.331) 90%, transparent);
+          @supports (color: color-mix(in lab, red, red)) {
+            background-color: color-mix(in oklab, var(--color-red-500) 90%, transparent);
+          }
+        }
+      }
+    }
+  }
   .group-\[\.is-error\]\/form\:hover\:bg-red-500\/100 {
     &:is(:where(.group\/form):is(.is-error) *) {
       &:hover {
         @media (hover: hover) {
           background-color: var(--color-red-500);
+        }
+      }
+    }
+  }
+  .group-\[\.is-success\]\/form\:hover\:bg-green-500\/90 {
+    &:is(:where(.group\/form):is(.is-success) *) {
+      &:hover {
+        @media (hover: hover) {
+          background-color: color-mix(in srgb, oklch(72.3% 0.219 149.579) 90%, transparent);
+          @supports (color: color-mix(in lab, red, red)) {
+            background-color: color-mix(in oklab, var(--color-green-500) 90%, transparent);
+          }
         }
       }
     }

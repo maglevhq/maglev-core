@@ -12,6 +12,51 @@ describe 'Maglev::Editor::Pages', type: :request do
       get "/maglev/editor/en/#{home_page.id}/pages"
       expect(response).to be_successful
     end
+
+    describe 'Pagination' do
+      before do
+        Maglev.config.pagination = { pages: 10, assets: 16 }
+        15.times { |i| create(:page, path: "test-page-#{i}") }
+      end
+
+      after do
+        Maglev.config.pagination = {}
+      end
+
+      it 'paginates pages when enabled' do
+        get "/maglev/editor/en/#{home_page.id}/pages"
+        expect(response).to be_successful
+        expect(response.body).to include('Displaying items 1-10 of')
+      end
+
+      it 'preserves pagination params in query' do
+        get "/maglev/editor/en/#{home_page.id}/pages", params: { page: 2 }
+        expect(response).to be_successful
+        expect(response.body).to include('Displaying items 11-')
+      end
+
+      it 'preserves search query with pagination' do
+        get "/maglev/editor/en/#{home_page.id}/pages", params: { q: 'test', page: 1 }
+        expect(response).to be_successful
+      end
+    end
+
+    describe 'Pagination disabled' do
+      before do
+        Maglev.config.pagination = { pages: -1, assets: 16 }
+        15.times { |i| create(:page, path: "test-page-disabled-#{i}") }
+      end
+
+      after do
+        Maglev.config.pagination = {}
+      end
+
+      it 'does not paginate when limit is -1' do
+        get "/maglev/editor/en/#{home_page.id}/pages"
+        expect(response).to be_successful
+        expect(response.body).not_to include('Displaying items')
+      end
+    end
   end
 
   describe 'GET /maglev/editor/:context/pages/new' do

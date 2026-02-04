@@ -18,6 +18,13 @@
   </div>
 
   <% page_layout.with_footer do %>
-    <%= link_to t('maglev.editor.pages.list.new_button'), new_editor_page_path(**maglev_editing_route_context, **query_params), class: maglev_button_classes(size: :big), data: { turbo_frame: '_top' } %>
+    <div class="space-y-1">
+      <% if defined?(@pagy) && @pagy.present? %>
+        <%= render Maglev::Uikit::PaginationComponent.new(pagy: @pagy, hidden_if_single_page: false) %>
+      <% end %>
+      <div>
+        <%= link_to t('maglev.editor.pages.list.new_button'), new_editor_page_path(**maglev_editing_route_context, **query_params), class: maglev_button_classes(size: :big), data: { turbo_frame: '_top' } %>
+      </div>
+    </div>
   <% end %>
 <% end %>

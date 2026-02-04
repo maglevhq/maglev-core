@@ -3,16 +3,16 @@
 module Maglev
   module Editor
     class PagesController < Maglev::Editor::BaseController
+      include ::Pagy::Backend
+
       before_action :set_page, only: %i[edit update destroy]
       before_action :maglev_disable_turbo_cache, only: %i[edit update new create]
 
       helper_method :query_params
 
       def index
-        @pages = services.search_pages.call(q: params[:q], content_locale: content_locale,
-                                            default_locale: default_content_locale,
-                                            with_static_pages: false,
-                                            index_first: true)
+        @pages = fetch_pages
+        @pagy, @pages = pagy(@pages, limit: per_page) if pagination_enabled?
       end
 
       def new
@@ -58,6 +58,10 @@ module Maglev
         @page = maglev_page_resources.find(params[:id])
       end
 
+      def build_page_resource
+        maglev_page_resources.build(page_params)
+      end
+
       def page_params
         params.require(:page).permit(:title, :path,
                                      :seo_title, :meta_description,
@@ -66,11 +70,27 @@ module Maglev
       end
 
       def query_params(from_list: false)
-        { q: params[:q], from_list: params[:from_list] || from_list }.compact_blank
+        base = { q: params[:q], from_list: params[:from_list] || from_list }
+        (pagination_enabled? ? base.merge(page: params[:page]) : base).compact_blank
       end
 
-      def build_page_resource
-        maglev_page_resources.build(page_params)
+      def fetch_pages
+        services.search_pages.call(
+          q: params[:q],
+          content_locale: content_locale,
+          default_locale: default_content_locale,
+          with_static_pages: false,
+          index_first: true
+        )
+      end
+
+      def pagination_enabled?
+        per_page.present?
+      end
+
+      def per_page
+        limit = maglev_config.pagination&.dig(:pages)
+        limit == -1 ? nil : limit
       end
     end
   end
