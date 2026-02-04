@@ -65,7 +65,7 @@ module Maglev
 
       def set_section
         @section = current_maglev_page_content.find_section(params[:id])
-        redirect_to editor_sections_path_with_context unless @section
+        redirect_to editor_sections_stores_path_with_context unless @section
       end
 
       def sections_store
@@ -109,12 +109,11 @@ module Maglev
       end
 
       def redirect_to_sections_path
-        redirect_to editor_sections_path_with_context, notice: flash_t(:success), status: :see_other
+        redirect_to editor_sections_stores_path_with_context, notice: flash_t(:success), status: :see_other
       end
 
-      def editor_sections_path_with_context
-        editor_sections_path(maglev_editing_route_context)
-        redirect_to editor_sections_stores_path(maglev_editing_route_context), notice: flash_t(:success), status: :see_other
+      def editor_sections_stores_path_with_context
+        editor_sections_stores_path(maglev_editing_route_context)
       end
     end
   end
