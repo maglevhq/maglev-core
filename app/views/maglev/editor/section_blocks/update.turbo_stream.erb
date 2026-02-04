@@ -1,4 +1,4 @@
-<%= turbo_stream.dispatch_event "section-block-#{@section_block.id}:persisted", payload: { lockVersion: @section_block.lock_version }.to_json %>
+<%= turbo_stream.dispatch_event "section-block-#{@section_block.id}:persisted", payload: { lockVersion: @section.lock_version }.to_json %>
 
 <%= turbo_stream.update 'page-layout-notification', method: 'morph' do %>
   <%= render Maglev::Uikit::BadgeComponent.new(color: :green, icon_name: 'checkbox_circle', disappear_after: 3.seconds).with_content(flash.now[:notice]) %>

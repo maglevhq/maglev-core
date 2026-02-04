@@ -53,6 +53,20 @@ module Maglev
       blocks.any? { |block| block.accept.present? }
     end
 
+    def can_be_added_in?(store_definition, already_inserted)
+      # you can't have more than one instance of a recoverable section within a store
+      return false if store_definition.recoverable.include?(id) && already_inserted
+
+      # you can't add a siteScoped section if there is already a siteScoped section of the same type
+      return false if site_scoped? && already_inserted
+
+      # you can't add a singleton section if there is already a singleton section of the same type
+      return false if singleton? && already_inserted
+
+      # deals with the accept rules of the layout group
+      store_definition.accepts?(self)
+    end
+
     def viewport_fixed_position?
       !!viewport_fixed_position
     end
@@ -68,7 +82,7 @@ module Maglev
     def assign_attributes_from_yaml(hash)
       attributes = prepare_default_attributes(hash).merge(
         settings: ::Maglev::Section::Setting.build_many(hash['settings']),
-        blocks: ::Maglev::Section::Block::Store.new(hash['blocks'], section: self)
+        blocks: ::Maglev::Section::Block::AssociationProxy.new(hash['blocks'], section: self)
       )
 
       assign_attributes(attributes)
@@ -102,9 +116,9 @@ module Maglev
       attributes
     end
 
-    class Store
+    class AssociationProxy
       extend Forwardable
-      def_delegators :@array, :all, :first, :last, :count, :each, :each_with_index, :map, :group_by
+      def_delegators :@array, :all, :first, :last, :count, :each, :each_with_index, :map, :group_by, :select
 
       attr_reader :array
 
@@ -120,18 +134,13 @@ module Maglev
         @array.select { |section| section.id == type }
       end
 
-      def grouped_by_category
+      def group_by_category
         @array.group_by(&:category)
       end
 
-      def available_for(sections_content)
-        # we don't want to add site_scoped sections or singleton sections that are already present on the page
-        new_array = @array.reject do |section|
-          (section.site_scoped? || section.singleton?) && sections_content.any? do |section_content|
-            section_content.type == section.id
-          end
-        end
-        self.class.new(new_array)
+      def available_for(store_content)
+        # we don't want to add site_scoped sections or singleton sections that are already present in the store
+        self.class.new(store_content.addable_sections)
       end
 
       def as_json(**_options)

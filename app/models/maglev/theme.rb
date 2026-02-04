@@ -6,7 +6,8 @@ module Maglev
     include ActiveModel::Model
 
     ## attributes ##
-    attr_accessor :id, :name, :description, :section_categories, :sections, :style_settings, :pages, :icons
+    attr_accessor :id, :name, :description, :section_categories, :layouts, :sections, :style_settings, :pages, :icons,
+                  :mirror_section
 
     ## validations ##
     validates :id, :name, presence: true
@@ -16,6 +17,14 @@ module Maglev
     def initialize(...)
       super
       attach_theme_to_associations
+    end
+
+    def find_layout(layout_id)
+      layouts.find { |layout| layout.id == layout_id }
+    end
+
+    def store_view_id_of(layout_id, handle)
+      find_layout(layout_id).find_group(handle).id
     end
 
     def find_setting!(section_id, block_id, setting_id)
@@ -30,8 +39,16 @@ module Maglev
       section_setting_types[key]
     end
 
+    def default_layout_id
+      layouts.size == 1 ? layouts.first.id : nil
+    end
+
     def style?
       style_settings.present?
+    end
+
+    def mirror_section?
+      !!mirror_section
     end
 
     private

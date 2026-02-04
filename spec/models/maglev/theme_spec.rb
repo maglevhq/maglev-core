@@ -32,4 +32,27 @@ describe Maglev::Theme do
       expect(subject.map(&:id)).to eq(%w[primary_color font_name])
     end
   end
+
+  describe 'layouts' do
+    subject { theme.layouts }
+
+    let(:theme) { build(:theme) }
+
+    it 'returns the layouts' do
+      expect(subject.map(&:id)).to eq(%w[default sidebar])
+    end
+
+    it 'returns the groups of a layout' do
+      expect(subject.first.groups.map(&:id)).to eq(%w[header main footer])
+    end
+
+    context 'when the theme has a layout with custom handles' do
+      let(:theme) { build(:theme, :layout_with_custom_handle) }
+
+      it 'returns the groups of a layout' do
+        expect(subject.first.groups.map(&:id)).to eq(%w[header main footer])
+        expect(subject.first.groups.map(&:handle)).to eq(%w[global_header main footer])
+      end
+    end
+  end
 end

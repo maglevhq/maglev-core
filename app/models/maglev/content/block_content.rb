@@ -6,7 +6,7 @@ module Maglev
       include ActiveModel::Model
       include Maglev::Content::EnhancedValueConcern
 
-      attr_accessor :id, :type, :settings, :definition, :position, :parent_id, :position_in_parent, :lock_version
+      attr_accessor :id, :type, :settings, :definition, :position, :parent_id, :position_in_parent
 
       def persisted?
         true
@@ -29,8 +29,7 @@ module Maglev
           type: raw_block_content['type'],
           settings: Maglev::Content::SettingContent::AssociationProxy.new(raw_block_content['settings']),
           parent_id: raw_block_content['parent_id'],
-          position: position,
-          lock_version: raw_block_content['lock_version']
+          position: position
         )
       end
 

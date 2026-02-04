@@ -5,11 +5,12 @@ module Maglev
     class SortSectionBlocksService
       include Injectable
       include Maglev::Content::HelpersConcern
+      include Maglev::Content::PublishingStateConcern
 
       dependency :fetch_theme
       dependency :fetch_site
 
-      argument :page
+      argument :store
       argument :section_id
       argument :block_ids
       argument :parent_id, default: nil
@@ -19,18 +20,22 @@ module Maglev
         raise Maglev::Errors::UnknownSection unless section_definition
 
         ActiveRecord::Base.transaction do
-          if site_scoped?
-            sort_section_blocks!(site)
-          else
-            sort_section_blocks!(page)
-          end
+          unsafe_call
         end
       end
 
       private
 
+      def unsafe_call
+        if site_scoped?
+          sort_section_blocks!(site_scoped_store)
+        else
+          sort_section_blocks!(store)
+        end.tap { touch_page(store) }
+      end
+
       def sort_section_blocks!(source)
-        check_section_lock_version!(source)
+        source.lock_version = lock_version if lock_version.present?
 
         source.sections_translations_will_change!
         sort_section_blocks(source)
