@@ -105,15 +105,15 @@ module Maglev
     def maglev_button_classes(...)
       ClassVariants.build(
         base: %(
-        rounded-xs transition-colors transition-background duration-200 text-center cursor-pointer
-        group-[.is-success]/form:bg-green-500/95 group-[.is-success]/form:hover:bg-green-500/100
+        rounded-sm transition-colors transition-background duration-200 text-center cursor-pointer
+        group-[.is-success]/form:bg-green-500 group-[.is-success]/form:hover:bg-green-500/90
         group-[.is-success]/form:disabled:bg-green-500/75
-        group-[.is-error]/form:bg-red-500/95 group-[.is-error]/form:hover:bg-red-500/100
+        group-[.is-error]/form:bg-red-500 group-[.is-error]/form:hover:bg-red-500/90
         group-[.is-error]/form:disabled:bg-red-500/75
         ),
         variants: {
           color: {
-            primary: 'text-white bg-editor-primary/95 hover:bg-editor-primary/100 disabled:bg-editor-primary/75',
+            primary: 'text-white bg-editor-primary hover:bg-editor-primary/90 disabled:bg-editor-primary/75',
             secondary: 'text-gray-800 hover:bg-gray-100'
           },
           size: {

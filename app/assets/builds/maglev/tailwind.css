@@ -1926,6 +1926,11 @@
       display: inline-flex;
     }
   }
+  .group-\[\.is-error\]\/form\:bg-red-500 {
+    &:is(:where(.group\/form):is(.is-error) *) {
+      background-color: var(--color-red-500);
+    }
+  }
   .group-\[\.is-error\]\/form\:bg-red-500\/95 {
     &:is(:where(.group\/form):is(.is-error) *) {
       background-color: color-mix(in srgb, oklch(63.7% 0.237 25.331) 95%, transparent);
@@ -1982,6 +1987,11 @@
   .group-\[\.is-success\]\/form\:inline-flex {
     &:is(:where(.group\/form):is(.is-success) *) {
       display: inline-flex;
+    }
+  }
+  .group-\[\.is-success\]\/form\:bg-green-500 {
+    &:is(:where(.group\/form):is(.is-success) *) {
+      background-color: var(--color-green-500);
     }
   }
   .group-\[\.is-success\]\/form\:bg-green-500\/95 {
@@ -2183,11 +2193,35 @@
       }
     }
   }
+  .group-\[\.is-error\]\/form\:hover\:bg-red-500\/90 {
+    &:is(:where(.group\/form):is(.is-error) *) {
+      &:hover {
+        @media (hover: hover) {
+          background-color: color-mix(in srgb, oklch(63.7% 0.237 25.331) 90%, transparent);
+          @supports (color: color-mix(in lab, red, red)) {
+            background-color: color-mix(in oklab, var(--color-red-500) 90%, transparent);
+          }
+        }
+      }
+    }
+  }
   .group-\[\.is-error\]\/form\:hover\:bg-red-500\/100 {
     &:is(:where(.group\/form):is(.is-error) *) {
       &:hover {
         @media (hover: hover) {
           background-color: var(--color-red-500);
+        }
+      }
+    }
+  }
+  .group-\[\.is-success\]\/form\:hover\:bg-green-500\/90 {
+    &:is(:where(.group\/form):is(.is-success) *) {
+      &:hover {
+        @media (hover: hover) {
+          background-color: color-mix(in srgb, oklch(72.3% 0.219 149.579) 90%, transparent);
+          @supports (color: color-mix(in lab, red, red)) {
+            background-color: color-mix(in oklab, var(--color-green-500) 90%, transparent);
+          }
         }
       }
     }
