@@ -2429,6 +2429,11 @@
       justify-content: space-between;
     }
   }
+  .sm\:justify-center {
+    @media (width >= 40rem) {
+      justify-content: center;
+    }
+  }
   .sm\:gap-x-6 {
     @media (width >= 40rem) {
       column-gap: calc(var(--spacing) * 6);

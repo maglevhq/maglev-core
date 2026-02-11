@@ -27,14 +27,11 @@
     <% end %>
   </div>
 
-  <div class="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
-    <div>
-      <p class="text-sm">
+  <div class="hidden sm:flex sm:flex-1 sm:items-center <%= show_info? ? 'sm:justify-between' : 'sm:justify-center' %>">
+      <p class="text-sm <%= 'hidden' unless show_info? %>">
         <%== pagy_info(pagy, item_name: item_name) %>
-      </p>
-    </div>
+      </p>    
 
-    <div class="<%= 'hidden' if pagy.series.size == 1 %>">  
       <nav class="isolate inline-flex gap-1" aria-label="Pages">
         <%# Previous page link %>
         <% if pagy.prev %>
