@@ -12,7 +12,7 @@ module Maglev
 
       def index
         @pages = fetch_pages
-        @pagy, @pages = pagy(@pages, limit: per_page) if pagination_enabled?
+        @pagy, @pages = pagy(@pages, limit: per_page, page_param: 'offset') if pagination_enabled?
       end
 
       def new
@@ -71,7 +71,7 @@ module Maglev
 
       def query_params(from_list: false)
         base = { q: params[:q], from_list: params[:from_list] || from_list }
-        (pagination_enabled? ? base.merge(page: params[:page]) : base).compact_blank
+        (pagination_enabled? ? base.merge(offset: params[:offset]) : base).compact_blank
       end
 
       def fetch_pages

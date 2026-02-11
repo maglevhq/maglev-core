@@ -30,13 +30,13 @@ describe 'Maglev::Editor::Pages', type: :request do
       end
 
       it 'preserves pagination params in query' do
-        get "/maglev/editor/en/#{home_page.id}/pages", params: { page: 2 }
+        get "/maglev/editor/en/#{home_page.id}/pages", params: { offset: 2 }
         expect(response).to be_successful
         expect(response.body).to include('Displaying items 11-')
       end
 
       it 'preserves search query with pagination' do
-        get "/maglev/editor/en/#{home_page.id}/pages", params: { q: 'test', page: 1 }
+        get "/maglev/editor/en/#{home_page.id}/pages", params: { q: 'test', offset: 1 }
         expect(response).to be_successful
       end
     end
