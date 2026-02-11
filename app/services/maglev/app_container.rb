@@ -67,6 +67,7 @@ module Maglev
     dependency :sort_section_blocks,        class: Maglev::Content::SortSectionBlocksService,
                                             depends_on: %i[fetch_site fetch_theme]
 
+    dependency :has_unpublished_changes,    class: Maglev::HasUnpublishedChanges
     dependency :publish,                    class: Maglev::PublishService
     dependency :discard_page_draft,         class: Maglev::DiscardPageDraftService
 

@@ -5,7 +5,7 @@
         method: :post, 
         class: button_group.wrapped_button_classes,
         form_class: button_group.wrapper_classes(class: 'group/form is-default'),
-        disabled: current_maglev_page.published_and_up_to_date?,
+        disabled: !unpublished_changes?,
         data: { 
           controller: 'submit-button',
           turbo_confirm: t('maglev.editor.header_nav.publish_button.publish_confirm')
