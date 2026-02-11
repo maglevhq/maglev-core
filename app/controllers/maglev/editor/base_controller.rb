@@ -13,6 +13,8 @@ module Maglev
       include Maglev::ServicesConcern
       include Maglev::FlashI18nConcern
       include Maglev::Editor::ErrorsConcern
+      include Maglev::Editor::TurboConcern
+      include Maglev::Editor::PreviewUrlsConcern
 
       before_action :fetch_maglev_site
       before_action :fetch_maglev_page
@@ -20,9 +22,8 @@ module Maglev
 
       helper Maglev::ApplicationHelper
       helper_method :maglev_site, :maglev_theme,
-                    :current_maglev_page, :current_maglev_sections, :current_maglev_page_urls,
-                    :maglev_editing_route_context, :maglev_disable_turbo_cache?,
-                    :maglev_page_live_url, :maglev_page_preview_url
+                    :current_maglev_page, :current_maglev_sections,
+                    :maglev_editing_route_context, :unpublished_changes?
 
       private
 
@@ -61,22 +62,9 @@ module Maglev
         )
       end
 
-      def current_maglev_page_urls
-        {
-          path: maglev_services.get_page_fullpath.call(page: current_maglev_page, preview_mode: false,
-                                                       locale: content_locale),
-          preview: maglev_page_preview_url(current_maglev_page),
-          live: maglev_page_live_url(current_maglev_page)
-        }
-      end
-
-      def maglev_page_live_url(page)
-        maglev_services.get_page_fullpath.call(page: page, preview_mode: false, locale: content_locale)
-      end
-
-      def maglev_page_preview_url(page)
-        maglev_services.get_page_fullpath.call(page: page, preview_mode: true, locale: content_locale)
-      end
+      def unpublished_changes?
+        maglev_services.has_unpublished_changes.call(site: maglev_site, page: current_maglev_page, theme: maglev_theme)
+      end     
 
       def maglev_theme
         @maglev_theme ||= maglev_services.fetch_theme.call
@@ -87,20 +75,6 @@ module Maglev
           locale: locale || ::Maglev::I18n.current_locale,
           page_id: page || current_maglev_page
         }.compact_blank
-      end
-
-      def maglev_disable_turbo_cache
-        @maglev_disable_turbo_cache = true
-      end
-
-      def maglev_disable_turbo_cache?
-        !!@maglev_disable_turbo_cache
-      end
-
-      def ensure_turbo_frame_request
-        return if turbo_frame_request?
-
-        redirect_to editor_root_path
       end
 
       def redirect_to_real_root
