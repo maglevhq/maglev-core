@@ -22,10 +22,11 @@ module Maglev
       end
 
       # @param hidden_if_single_page toggle
-      def many(hidden_if_single_page: false)
+      # @param show_info toggle
+      def many(hidden_if_single_page: false, show_info: true)
         pagy, = pagy_array(accounts, limit: 5)
         render(Maglev::Uikit::PaginationComponent.new(pagy: pagy, hidden_if_single_page: hidden_if_single_page,
-                                                      item_name: 'account'))
+                                                      item_name: 'account', show_info: show_info))
       end
 
       private

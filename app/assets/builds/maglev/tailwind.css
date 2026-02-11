@@ -2096,16 +2096,6 @@
       }
     }
   }
-  .hover\:bg-editor-primary\/85 {
-    &:hover {
-      @media (hover: hover) {
-        background-color: var(--color-editor-primary);
-        @supports (color: color-mix(in lab, red, red)) {
-          background-color: color-mix(in oklab, var(--color-editor-primary) 85%, transparent);
-        }
-      }
-    }
-  }
   .hover\:bg-editor-primary\/90 {
     &:hover {
       @media (hover: hover) {
@@ -2466,6 +2456,11 @@
   .sm\:justify-between {
     @media (width >= 40rem) {
       justify-content: space-between;
+    }
+  }
+  .sm\:justify-center {
+    @media (width >= 40rem) {
+      justify-content: center;
     }
   }
   .sm\:gap-x-6 {
