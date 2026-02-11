@@ -22,7 +22,7 @@ module Maglev
 
     def revert_stores!
       layout_stores.each do |definition|
-        revert_store(definition.id, definition.page_scoped? ? page : nil)
+        revert_store(definition.handle, definition.page_scoped? ? page : nil)
       end
     end
 

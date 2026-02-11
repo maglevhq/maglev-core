@@ -30,7 +30,7 @@ module Maglev
 
     def publish_stores!
       layout_stores.each do |definition|
-        publish_store(definition.id, definition.page_scoped? ? page : nil)
+        publish_store(definition.handle, definition.page_scoped? ? page : nil)
       end
     end
 
