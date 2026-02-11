@@ -64,7 +64,7 @@ module Maglev
 
       def unpublished_changes?
         maglev_services.has_unpublished_changes.call(site: maglev_site, page: current_maglev_page, theme: maglev_theme)
-      end     
+      end
 
       def maglev_theme
         @maglev_theme ||= maglev_services.fetch_theme.call
