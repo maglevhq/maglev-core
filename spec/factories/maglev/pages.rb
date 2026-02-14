@@ -18,44 +18,65 @@
 #  visible                       :boolean          default(TRUE)
 #  created_at                    :datetime         not null
 #  updated_at                    :datetime         not null
+#  layout_id                     :string
+#
+# Indexes
+#
+#  index_maglev_pages_on_layout_id  (layout_id)
 #
 FactoryBot.define do
   factory :page, class: 'Maglev::Page' do
     title { 'Home' }
     path { 'index' }
+    layout_id { 'default' }
 
     transient do
       number_of_showcase_blocks { 1 }
+      sections do
+        [
+          {
+            id: 'def',
+            type: 'jumbotron',
+            settings: [
+              { id: :title, value: 'Hello world' },
+              { id: :body, value: '<p>Lorem ipsum</p>' }
+            ],
+            blocks: []
+          },
+          {
+            id: 'ghi',
+            type: 'showcase',
+            settings: [{ id: :title, value: 'Our projects' }],
+            blocks: number_of_showcase_blocks.times.map do |i|
+              {
+                type: 'item',
+                settings: [
+                  { id: :title, value: i == 0 ? 'My first project' : "My project ##{i + 1}" },
+                  { id: :image, value: "/assets/screenshot-0#{i + 1}.png" }
+                ]
+              }
+            end
+          }
+        ]
+      end
+      header_sections {}
     end
 
-    sections do
-      [
-        {
-          type: 'jumbotron',
-          settings: [
-            { id: :title, value: 'Hello world' },
-            { id: :body, value: '<p>Lorem ipsum</p>' }
-          ],
-          blocks: []
-        },
-        {
-          type: 'showcase',
-          settings: [{ id: :title, value: 'Our projects' }],
-          blocks: number_of_showcase_blocks.times.map do |i|
-            {
-              type: 'item',
-              settings: [
-                { id: :title, value: i == 0 ? 'My first project' : "My project ##{i + 1}" },
-                { id: :image, value: "/assets/screenshot-0#{i + 1}.png" }
-              ]
-            }
-          end
-        }
-      ]
+    after(:create) do |page, evaluator|
+      create(:sections_content_store, sections: evaluator.sections, page: page) if evaluator.sections
+      if evaluator.header_sections
+        create(:sections_content_store, sections: evaluator.header_sections,
+                                        handle: 'header')
+      end
+    end
+
+    trait :published do
+      published_at { 1.minute.ago }
+      updated_at { 2.minutes.ago }
     end
 
     trait :with_navbar do
-      sections do
+      header_sections do
         [
           {
             id: 'abc',
@@ -99,33 +120,13 @@ FactoryBot.define do
                 ]
               }
             ]
-          },
-          {
-            id: 'def',
-            type: 'jumbotron',
-            settings: [{ id: :title, value: 'Hello world' }, { id: :body, value: '<p>Lorem ipsum</p>' }],
-            blocks: []
-          },
-          {
-            id: 'ghi',
-            type: 'showcase',
-            settings: [{ id: :title, value: 'Our projects' }],
-            blocks: [
-              {
-                type: 'item',
-                settings: [
-                  { id: :title, value: 'My first project' },
-                  { id: :image, value: '/assets/screenshot-01.png' }
-                ]
-              }
-            ]
           }
         ]
       end
     end
 
     trait :with_blank_navbar do
-      sections do
+      header_sections do
         [
           {
             id: 'abc',
@@ -134,26 +135,6 @@ FactoryBot.define do
               { id: :logo, value: 'logo.png' }
             ],
             blocks: []
-          },
-          {
-            id: 'def',
-            type: 'jumbotron',
-            settings: [{ id: :title, value: 'Hello world' }, { id: :body, value: '<p>Lorem ipsum</p>' }],
-            blocks: []
-          },
-          {
-            id: 'ghi',
-            type: 'showcase',
-            settings: [{ id: :title, value: 'Our projects' }],
-            blocks: [
-              {
-                type: 'item',
-                settings: [
-                  { id: :title, value: 'My first project' },
-                  { id: :image, value: '/assets/screenshot-01.png' }
-                ]
-              }
-            ]
           }
         ]
       end
@@ -229,11 +210,6 @@ FactoryBot.define do
           }
         ]
       end
-    end
-
-    trait :published do
-      published_at { 1.minute.ago }
-      updated_at { 2.minutes.ago }
     end
   end
 end

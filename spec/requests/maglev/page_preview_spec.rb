@@ -4,9 +4,7 @@ require 'rails_helper'
 
 RSpec.describe 'Maglev::PagePreviewController', type: :request do
   let(:theme) { build(:theme, :predefined_pages) }
-  let!(:site) do
-    Maglev::GenerateSite.call(theme: theme)
-  end
+  let!(:site) { Maglev::GenerateSite.call(theme: theme) }
   let(:home_page) { Maglev::Page.first }
 
   context 'normal rendering' do
@@ -23,72 +21,18 @@ RSpec.describe 'Maglev::PagePreviewController', type: :request do
     end
     # rubocop:enable Layout/LineLength
 
-    # context 'live site' do
-    #   it 'renders the index page in the default locale' do
-    #     get '/'
-    #     expect(response.body).to include('<title>Default - Home</title>')
-    #     expect(response.body).to include('<meta name="hello" content="Hello world" />')
-    #     expect(response.body).to include('<link rel="alternate" hreflang="x-default" href="http://www.example.com">')
-    #     expect(response.body).to include('<link rel="alternate" hreflang="en" href="http://www.example.com">')
-    #     expect(response.body).to include('<link rel="alternate" hreflang="fr" href="http://www.example.com/fr">')
-    #   end
-
-    #   it 'renders the site the custom style' do
-    #     get '/'
-    #     expect(response.body).to include('--basic-theme-primary-color: #F87171;')
-    #   end
-
-    #   describe 'Given Facebook/Google/Twitter/LinkedIn crawl the index page' do
-    #
-    #     let(:headers) { { 'HTTP_CONTENT_TYPE' => '*/*', 'HTTP_ACCEPT' => '*/*', 'HTTP_USER_AGENT' => user_agent } }
-    #         #     describe 'Given Facebook crawls it' do
-    #       let(:user_agent) { 'facebookexternalhit/1.1' }
-    #       it 'renders the index page' do
-    #         get '/index', headers: headers
-    #         expect(response.body).to include('<title>Default - Home</title>')
-    #       end
-    #     end
-
-    #     describe 'Given Twitter crawls it' do
-    #       let(:user_agent) { 'Twitterbot' }
-    #       it 'renders the index page' do
-    #         get '/index', headers: headers
-    #         expect(response.body).to include('<title>Default - Home</title>')
-    #       end
-    #     end
-
-    #     describe 'Given Google crawls it' do
-    #       let(:user_agent) { 'Googlebot/2.1' }
-    #       it 'renders the index page' do
-    #         get '/index', headers: headers
-    #         expect(response.body).to include('<title>Default - Home</title>')
-    #       end
-    #     end
-
-    #     describe 'Given LinkedIn crawls it' do
-    #       let(:user_agent) { 'LinkedInBot/1.0' }
-    #       it 'renders the index page' do
-    #         get '/index', headers: headers
-    #         expect(response.body).to include('<title>Default - Home</title>')
-    #       end
-    #     end
-    #   end
-    # end
-
     context 'with scoped site sections' do
+      let(:header_sections) { attributes_for(:sections_content_store, :header)[:sections] }
       before do
-        home_page.update!(
-          sections: attributes_for(:page, :with_navbar)[:sections]
-        )
-        site.update!(
-          sections: attributes_for(:site, :with_navbar)[:sections]
-        )
+        Maglev::SectionsContentStore.find_by(handle: 'header').update!(sections: header_sections)
+        # the navbar must also be persisted in the site scoped sections content store
+        Maglev::SectionsContentStore.find_by(handle: '_site').update!(sections: header_sections)
       end
 
       it 'renders the index page with the navbar' do
         get '/maglev/preview'
         expect(response.body).to include('<title>Default - Home</title>')
-        expect(response.body).to include('<a data-maglev-id="zzz.link" target="_blank" href="https://www.nocoffee.fr">')
+        expect(response.body).to include('<span data-maglev-id="menu-item-1.label">About us</span>')
       end
     end
   end
@@ -105,7 +49,7 @@ RSpec.describe 'Maglev::PagePreviewController', type: :request do
 
   context 'rendering a page from its old path' do
     before do
-      page = Maglev::Page.create(title: 'Contact us', path: 'contact')
+      page = create(:page, title: 'Contact us', path: 'contact')
       page.update!(path: 'contact-us')
     end
 
@@ -134,23 +78,19 @@ RSpec.describe 'Maglev::PagePreviewController', type: :request do
   end
 
   context 'rendering from POST params' do
-    let(:sections) do
-      Maglev::Page.all.order_by_translated(:title, :desc)[2].sections.tap do |sections|
-        sections.first['settings'].first['value'] = 'UPDATED TITLE'
-      end
-    end
-
-    before { home_page.update(sections: sections) }
+    let(:section_id) { fetch_sections_content('main', home_page.id).dig(0, 'id') }
 
     it 'renders the index page with the content from the params' do
-      post '/maglev/preview', params: { section_id: sections.dig(0, 'id') }
-      expect(response.body).to match(%r{<h1 data-maglev-id="\S+\.title" class="[^>]+">UPDATED TITLE</h1>})
+      post '/maglev/preview', params: { section_id: section_id }
+      expect(response.body).to match(
+        %r{<h1 data-maglev-id="\S+\.title" class="[^>]+">Let's create the product<br/>your clients<br/>will love.</h1>}
+      )
     end
   end
 
   context 'rendering a section with blocks' do
-    let(:page) { Maglev::Page.first }
-    let(:showcase) { page.sections.find { |section| section['type'] == 'showcase' } }
+    let(:store) { Maglev::SectionsContentStore.find_by(handle: 'main', page: home_page) }
+    let(:showcase) { store.find_section_by_type('showcase') }
     let(:block) do
       { id: 'block-0', type: 'item',
         settings: [{ id: 'title', value: 'My work' }, { id: 'image', value: '/samples/images/default.svg' }] }
@@ -158,7 +98,7 @@ RSpec.describe 'Maglev::PagePreviewController', type: :request do
 
     before do
       showcase['blocks'] << block
-      page.save
+      store.save
     end
 
     it 'displays the expected content' do
@@ -196,7 +136,8 @@ RSpec.describe 'Maglev::PagePreviewController', type: :request do
   end
 
   context 'rendering a section with nested blocks (tree)' do
-    let(:navbar) { site.sections.find { |section| section['type'] == 'navbar' } }
+    let(:site_store) { Maglev::SectionsContentStore.find_by(handle: '_site') }
+    let(:navbar) { site_store.find_section_by_type('navbar') }
     let(:blocks) do
       [
         { id: 'block-0', type: 'menu_item', settings: [{ id: 'label', value: 'Item #0' }] },
@@ -208,7 +149,7 @@ RSpec.describe 'Maglev::PagePreviewController', type: :request do
 
     before do
       navbar['blocks'] = blocks
-      site.save
+      site_store.save
     end
 
     it 'displays the expected content' do

@@ -6,7 +6,7 @@ module Maglev
       include ActiveModel::Model
       include Maglev::Content::EnhancedValueConcern
 
-      attr_accessor :id, :type, :settings, :blocks, :definition, :theme_id, :lock_version
+      attr_accessor :id, :type, :settings, :blocks, :definition, :theme_id, :store_handle, :mirror_of, :lock_version
 
       def persisted?
         true
@@ -14,6 +14,10 @@ module Maglev
 
       def sticky?
         definition.viewport_fixed_position?
+      end
+
+      def mirrored?
+        mirror_of.present? && mirror_of['enabled'] == true
       end
 
       delegate :site_scoped?, to: :definition
@@ -62,23 +66,30 @@ module Maglev
         )
       end
 
-      def self.build_many(theme:, content:)
+      def self.build_many(theme:, store_handle:, content:)
         content.map do |raw_section_content|
-          build(theme: theme, raw_section_content: raw_section_content)
+          build(theme: theme, store_handle: store_handle, raw_section_content: raw_section_content)
         end
       end
 
-      def self.build(theme:, raw_section_content:)
+      def self.build(theme:, store_handle:, raw_section_content:)
+        build_without_blocks(theme: theme, store_handle: store_handle,
+                             raw_section_content: raw_section_content).tap do |section_content|
+          section_content.build_blocks(raw_section_content)
+        end
+      end
+
+      def self.build_without_blocks(theme:, store_handle:, raw_section_content:)
         new(
           id: raw_section_content['id'],
           definition: theme.sections.find(raw_section_content['type']),
           type: raw_section_content['type'],
           settings: Maglev::Content::SettingContent::AssociationProxy.new(raw_section_content['settings']),
           theme_id: theme.id,
-          lock_version: raw_section_content['lock_version']
-        ).tap do |section_content|
-          section_content.build_blocks(raw_section_content)
-        end
+          store_handle: store_handle,
+          lock_version: raw_section_content['lock_version'].presence || 0,
+          mirror_of: raw_section_content['mirror_of']
+        )
       end
     end
   end

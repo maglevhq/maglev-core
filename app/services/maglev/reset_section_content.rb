@@ -30,9 +30,8 @@ module Maglev
 
     def reset_content
       ActiveRecord::Base.transaction do
-        reset_resource_content(site)
-        site_pages.find_each do |page|
-          reset_resource_content(page)
+        scoped_stores.unpublished.find_each do |store|
+          reset_resource_content(store)
         end
       end
     end
@@ -57,8 +56,8 @@ module Maglev
       theme.sections.find(type).build_default_content
     end
 
-    def site_pages
-      Maglev::Page
+    def scoped_stores
+      Maglev::SectionsContentStore
     end
   end
 end

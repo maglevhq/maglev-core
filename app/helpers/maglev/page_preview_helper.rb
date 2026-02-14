@@ -2,6 +2,21 @@
 
 module Maglev
   module PagePreviewHelper
+    def render_maglev_group(layout_group_id, site: nil, theme: nil, page: nil)
+      layout_group = maglev_page_sections.find { |group| group[:id] == layout_group_id.to_s }
+
+      unless layout_group
+        raise Maglev::Errors::UnknownLayoutGroup, "Layout group '#{layout_group_id}' hasn't been defined in the theme"
+      end
+
+      render_maglev_sections(
+        site: site,
+        theme: theme,
+        page: page,
+        page_sections: layout_group[:sections]
+      )
+    end
+
     # rubocop:disable Rails/OutputSafety
     def render_maglev_sections(site: nil, theme: nil, page: nil, page_sections: nil)
       PageComponent.new(
@@ -13,19 +28,6 @@ module Maglev
       ).tap { |component| component.view_context = self }.render.html_safe
     end
     # rubocop:enable Rails/OutputSafety
-
-    def render_maglev_section(type, site: nil, theme: nil, page: nil, page_sections: nil)
-      sections = (page_sections || maglev_page_sections).find_all do |section|
-        (section['type'] || section[:type]).start_with?(type.to_s)
-      end
-
-      render_maglev_sections(
-        site: site,
-        theme: theme,
-        page: page,
-        page_sections: sections
-      )
-    end
 
     def render_maglev_alternate_links(links: nil, x_default_locale: nil)
       links ||= maglev_page_fullpaths

@@ -21,9 +21,8 @@ module Maglev
       before_action :set_content_locale
 
       helper Maglev::ApplicationHelper
-      helper_method :maglev_site, :maglev_theme,
-                    :current_maglev_page, :current_maglev_sections,
-                    :maglev_editing_route_context, :unpublished_changes?
+      helper_method :maglev_site, :maglev_theme, :current_maglev_page, :current_maglev_page_content,
+                    :maglev_editing_route_context, :unpublished_changes?, :maglev_number_of_pages
 
       private
 
@@ -35,16 +34,16 @@ module Maglev
         current_maglev_page
       end
 
-      def fetch_maglev_sections
-        current_maglev_sections
-      end
-
       def maglev_site
         @maglev_site ||= services.fetch_site.call
       end
 
       def maglev_page_resources
         ::Maglev::Page
+      end
+
+      def maglev_number_of_pages
+        @maglev_number_of_pages ||= maglev_page_resources.count
       end
 
       def current_maglev_page
@@ -55,16 +54,17 @@ module Maglev
         @maglev_home_page ||= maglev_page_resources.home.first
       end
 
-      def current_maglev_sections
-        @current_maglev_sections ||= Maglev::Content::SectionContent.build_many(
+      def current_maglev_page_content
+        @current_maglev_page_content ||= Maglev::Content::PageContent.new(
+          page: current_maglev_page,
           theme: maglev_theme,
-          content: services.get_page_sections.call(page: current_maglev_page, locale: content_locale)
+          stores: services.get_page_sections.call(page: current_maglev_page, locale: content_locale)
         )
       end
 
       def unpublished_changes?
         maglev_services.has_unpublished_changes.call(site: maglev_site, page: current_maglev_page, theme: maglev_theme)
-      end     
+      end
 
       def maglev_theme
         @maglev_theme ||= maglev_services.fetch_theme.call

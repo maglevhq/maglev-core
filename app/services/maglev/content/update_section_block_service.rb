@@ -5,11 +5,12 @@ module Maglev
     class UpdateSectionBlockService
       include Injectable
       include Maglev::Content::HelpersConcern
+      include Maglev::Content::PublishingStateConcern
 
       dependency :fetch_theme
       dependency :fetch_site
 
-      argument :page
+      argument :store
       argument :section_id
       argument :block_id
       argument :content
@@ -20,18 +21,22 @@ module Maglev
         raise Maglev::Errors::UnknownBlock unless block_definition
 
         ActiveRecord::Base.transaction do
-          if site_scoped?
-            update_section_block_content!(site)
-          else
-            update_section_block_content!(page)
-          end
+          unsafe_call
         end
       end
 
       private
 
+      def unsafe_call
+        if site_scoped?
+          update_section_block_content!(site_scoped_store)
+        else
+          update_section_block_content!(store)
+        end.tap { touch_page(store) }
+      end
+
       def update_section_block_content!(source)
-        check_block_lock_version!(source)
+        source.lock_version = lock_version if lock_version.present?
 
         source.sections_translations_will_change!
         update_section_block_content(source)

@@ -5,33 +5,32 @@ module Maglev
     class AddSectionService
       include Injectable
       include Maglev::Content::HelpersConcern
+      include Maglev::Content::AddSectionHelpersConcern
+      include Maglev::Content::PublishingStateConcern
 
       dependency :fetch_theme
       dependency :fetch_site
 
-      argument :page
+      argument :store
       argument :section_type
       argument :content, default: nil
       argument :position, default: -1
-      argument :dry_run, default: false
+      argument :layout_id, default: nil # only used to recover a deleted section
+      argument :mirror_of, default: nil # only used to add a mirrored section (page_id, layout_store_id, section_id)
+      argument :dry_run, default: false # if true, the store won't be touched
       argument :site, default: nil
       argument :theme, default: nil
 
       def call
         raise Maglev::Errors::UnknownSection unless section_definition
 
-        section_content = build_section_content
-
         ActiveRecord::Base.transaction do
-          add_to_site!(section_content) if can_add_to_site?
-          add_to_page!(section_content) if can_add_to_page?
+          unsafe_call.tap do
+            # in case the instance of the service is reused, we need to reset the memoization
+            # this is the case for the setup_pages service
+            reset_memoization
+          end
         end
-
-        # in case the instance of the service is reused, we need to reset the memoization
-        # this is the case for the setup_pages service
-        reset_memoization
-
-        section_content
       end
 
       private
@@ -44,55 +43,91 @@ module Maglev
         @site ||= fetch_site.call
       end
 
-      def add_to_site!(section_content)
-        # we don't care about the position for site scoped sections
-        site.sections_translations_will_change!
-
-        site.sections ||= []
-        site.sections.push(section_content)
-        site.prepare_sections(theme)
-
-        site.save! unless dry_run
-      end
-
-      def add_to_page!(section_content)
-        page.sections_translations_will_change!
-        page.sections ||= []
-        page.sections.insert(final_position, section_content)
-        page.prepare_sections(theme)
-
-        page.save! unless dry_run
-      end
-
-      def can_add_to_site?
-        # We don't want to add the section to the site if there is already a section with the same type
-        site_scoped? && site.find_sections_by_type(section_type).empty?
-      end
-
-      def can_add_to_page?
-        # we don't want to add the section if it's a singleton and there is already a section with the same type
-        !(section_definition.singleton? && page.find_sections_by_type(section_type).any?)
-      end
-
-      def build_section_content
-        if site_scoped? && site.find_sections_by_type(section_type).any?
-          site.find_sections_by_type(section_type).first.dup
-        else
-          content || section_definition.build_default_content
-        end.with_indifferent_access
-      end
-
       def section_definition
         @section_definition ||= theme.sections.find(section_type)
       end
 
-      def final_position
-        case section_definition.insert_at
-        when 'top' then 0
-        when 'bottom' then page.sections.count
+      def unsafe_call
+        if mirror_of.present?
+          add_mirrored_section
+        elsif can_recover_deleted_section?
+          recover_deleted_section
         else
-          position
+          add_brand_new_section
+        end.tap { touch_page(store) }
+      end
+
+      def add_mirrored_section
+        section_content = build_section_content
+        section_content['mirror_of'] = mirror_of.merge(enabled: true)
+
+        add_to_store!(section_content)
+
+        section_content
+      end
+
+      def recover_deleted_section
+        store.sections_translations_will_change!
+        section_content = store.find_section_by_type(section_type)
+        section_content.delete('deleted')
+        store.save! unless dry_run
+
+        section_content
+      end
+
+      def add_brand_new_section
+        section_content = build_section_content
+
+        add_to_site_scoped_store!(section_content) if can_add_to_site_scoped_store?
+        add_to_store!(section_content) if can_add_to_store?
+
+        section_content
+      end
+
+      def add_to_site_scoped_store!(section_content)
+        # we don't care about the position for site scoped sections
+        site_scoped_store.sections_translations_will_change!
+        site_scoped_store.sections ||= []
+        site_scoped_store.sections.push(section_content)
+        site_scoped_store.prepare_sections(theme)
+
+        site_scoped_store.save!
+      end
+
+      def add_to_store!(section_content)
+        store.sections_translations_will_change!
+        store.sections ||= []
+        store.sections.insert(final_position, section_content)
+        store.prepare_sections(theme)
+
+        store.save! unless dry_run
+      end
+
+      def can_add_to_site_scoped_store?
+        # We don't want to add the section to the site scoped store if there is already a section with the same type
+        site_scoped? && site_scoped_store.find_sections_by_type(section_type).empty?
+      end
+
+      def can_add_to_store?
+        # we don't want to add the section if it's a singleton and there is already a section with the same type
+        !(section_definition.singleton? && store.find_sections_by_type(section_type).any?)
+      end
+
+      def can_recover_deleted_section?
+        # first, the section must be deleted in the store
+        if store.find_section_by_type(section_type).nil? || store.find_section_by_type(section_type)['deleted'] != true
+          return false
         end
+
+        # then, the section must be present in the "recoverable" list of the layout group
+        layout_group = theme.find_layout(layout_id)&.find_group(store.handle)
+
+        layout_group&.recoverable?(section_definition)
+      end
+
+      def touch_page(store)
+        # if it's a dry run, it's useless to touch the page / pages
+        super unless dry_run
       end
     end
   end

@@ -33,15 +33,33 @@ module Maglev::SectionsConcern
     sections&.find_all { |section| section['type'] == type } || []
   end
 
-  def reorder_sections(sorted_section_ids, lock_version)
-    self.lock_version = lock_version
-    sections_translations_will_change!
+  def find_section_by_type(type)
+    find_sections_by_type(type).first
+  end
+
+  def replace_section_content(section, attributes)
+    section['settings'] = attributes['settings']
+    section['blocks'] = attributes['blocks']
+    section
+  end
+
+  def replace_section(section, attributes)
+    replace_section_content(section, attributes)
+    section['id'] = attributes['id']
+    section['lock_version'] = attributes['lock_version']
+    section
+  end
+
+  def reorder_sections(sorted_section_ids)
     sections.sort! { |a, b| sorted_section_ids.index(a['id']) <=> sorted_section_ids.index(b['id']) }
   end
 
   def delete_section(section_id)
-    sections_translations_will_change!
     sections.delete_if { |section| section['id'] == section_id }
+  end
+
+  def soft_delete_section(section_id)
+    sections.find { |section| section['id'] == section_id }['deleted'] = true
   end
 
   def section_ids
@@ -50,6 +68,10 @@ module Maglev::SectionsConcern
 
   def find_section_block_by_id(section_id, id)
     find_section_by_id(section_id)&.dig('blocks')&.find { |block| block['id'] == id }
+  end
+
+  def section_block_ids(section_id)
+    find_section_by_id(section_id)&.dig('blocks')&.map { |block| block['id'] } || []
   end
 
   private

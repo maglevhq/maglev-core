@@ -17,6 +17,13 @@ StreamActions.dispatch_event = function() {
   window.dispatchEvent(event)
 }
 
+StreamActions.redirect = function () {
+  const url = this.getAttribute("target")
+  if (!url) return
+
+  Turbo.visit(url, { action: "advance" })
+}
+
 // Handle delayed streams through Turbo events
 
 document.addEventListener("turbo:before-stream-render", (event) => {

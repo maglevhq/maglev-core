@@ -1,0 +1,8 @@
+<div class="p-4 flex items-center justify-center"> 
+  <%= link_to new_editor_mirrored_section_path(store_id: @sections_store_content, **maglev_editing_route_context), 
+    class: maglev_button_classes(color: :secondary),
+    data: { turbo_frame: 'modal' } do %>
+    <%= render Maglev::Uikit::IconComponent.new(name: 'add', size: "1.15rem") %>
+    <span><%= t('maglev.editor.mirrored_sections.add_button') %></span>
+  <% end %>
+</div>

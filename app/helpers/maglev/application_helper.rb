@@ -110,6 +110,7 @@ module Maglev
         group-[.is-success]/form:disabled:bg-green-500/75
         group-[.is-error]/form:bg-red-500 group-[.is-error]/form:hover:bg-red-500/90
         group-[.is-error]/form:disabled:bg-red-500/75
+        space-x-2
         ),
         variants: {
           color: {

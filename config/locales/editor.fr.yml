@@ -72,6 +72,7 @@ fr:
           tabs:
             main: "Principal"
             seo: "SEO"          
+          layout_prompt: "Sélectionner une mise en page"
       sections:
         breadcrumb: "Sections"
         index:
@@ -87,7 +88,12 @@ fr:
           tabs:
             main: "Contenu"
             advanced: "Avancé"
-            blocks: "Blocs"            
+            blocks: "Blocs"
+          mirrored:
+            title: "Cette section est protégée"
+            description: "Pour modifier son contenu, allez à la page d'origine où elle a été créée."
+            form:
+              enable_mirroring: "Activer la mise en miroir"
       section_blocks:
         breadcrumb: "Blocs"
         index:
@@ -109,6 +115,24 @@ fr:
             in_progress: "Mise à jour..."
             success: "Mis à jour !"
             fail: "Échec !"      
+      mirrored_sections:
+        add_button: "Ajouter une section en miroir"
+        new:
+          title: "Ajouter une section en miroir"
+          submit_button: "Ajouter la section"            
+          cancel_button: "Annuler"
+        form:
+          page: 
+            placeholder: "Sélectionner une page"
+          section_prompt: "Sélectionner une section"
+          no_sections_found: "Aucune section disponible à mettre en miroir"
+        show:
+          well:
+            title: "Cette section est protégée"
+            description: "Pour modifier son contenu, allez à la page d'origine où elle a été créée."
+            link_to_original_page: "Aller à la page d'origine"
+            unlink_button: "Détacher la section"
+            confirm_unlink: "Êtes-vous sûr de vouloir détacher cette section ?"
       image_library:
         title: "Liste des images"
         picker_title: "Sélectionner une image"

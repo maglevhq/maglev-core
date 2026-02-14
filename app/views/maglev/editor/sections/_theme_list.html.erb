@@ -2,6 +2,8 @@
   <% maglev_theme.section_categories.each do |category| %>
     <% sections = @grouped_sections[category.id] || [] %>
 
+    <% next if sections.empty? %>
+
     <% collapsible.with_item do |item| %>
       <% item.with_title do %>
         <span class="capitalize-first"><%= category.human_name %></span>

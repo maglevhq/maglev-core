@@ -2,10 +2,11 @@ import { Controller } from "@hotwired/stimulus"
 import { isSamePath } from "maglev-controllers/utils"
 
 export default class extends Controller { 
-  static targets = ["iframe"]
+  static targets = ["iframe", "sectionsLink"]
   static values = {
     sectionPath: String,
-    sectionBlockPath: String
+    sectionBlockPath: String,
+    sectionsStoresPath: String
   }
 
   connect() {
@@ -26,6 +27,7 @@ export default class extends Controller {
   clientReady(event) {
     this.isClientReady = true
     this.processClientReadyCallbacks()
+    this.sectionsLinkTarget.href = this.sectionsStoresPathValue
   }
 
   // called by the iframe when the user clicks on a setting of a section or a section block
@@ -53,10 +55,16 @@ export default class extends Controller {
   // === SECTIONS ===
 
   addSection(event) {
-    console.log('addSection', event.detail.fetchResponse.response.headers.get('X-Section-Id'), event.detail.fetchResponse.response.headers.get('X-Section-Position'))
-    const sectionId = event.detail.fetchResponse.response.headers.get('X-Section-Id')
-    const position = event.detail.fetchResponse.response.headers.get('X-Section-Position')
-    this.postMessage('section:add', { sectionId, insertAt: parseInt(position) })
+    // adding a section after a form submission? Closing the modal only the request was successful.
+    if (event?.detail?.formSubmission !== undefined && event?.detail?.success === false)
+      return
+
+    const headers = event.detail.fetchResponse.response.headers
+    const layoutStoreId = headers.get('X-Layout-Store-Id')
+    const sectionId = headers.get('X-Section-Id')
+    const position = headers.get('X-Section-Position')
+    console.log('addSection', layoutStoreId, sectionId, position)
+    this.postMessage('section:add', { layoutStoreId, sectionId, insertAt: parseInt(position) })
   }
 
   deleteSection(event) {
