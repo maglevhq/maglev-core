@@ -84,6 +84,7 @@ ar:
           title: "إضافة قسم"
           empty_category: "لا توجد أقسام"
         edit:
+          no_settings: "لا توجد إعدادات محددة في هذا القسم"
           tabs:
             main: "المحتوى"
             advanced: "متقدم"
@@ -95,6 +96,7 @@ ar:
           confirm_delete: "هل أنت متأكد من أنك تريد حذفه؟"
           empty: "لا توجد عناصر."
         edit:
+          no_settings: "لا توجد إعدادات محددة في هذه الكتلة"
           tabs:
             main: "المحتوى"
             advanced: "متقدم"       

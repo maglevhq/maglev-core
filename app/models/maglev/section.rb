@@ -78,6 +78,10 @@ module Maglev
       "maglev.themes.#{theme.id}.sections.#{id}"
     end
 
+    def empty?
+      settings.none? && blocks.none?
+    end
+
     ## class methods ##
 
     def self.build(hash)

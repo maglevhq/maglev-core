@@ -84,6 +84,7 @@ es:
           title: "Agregar una sección"
           empty_category: "Sin secciones"
         edit:
+          no_settings: "No hay configuraciones definidas en esta sección"
           tabs:
             main: "Contenido"
             advanced: "Avanzado"
@@ -95,6 +96,7 @@ es:
           confirm_delete: "¿Estás seguro de que quieres eliminarlo?"
           empty: "No hay elementos."
         edit:
+          no_settings: "No hay configuraciones definidas en este bloque"
           tabs:
             main: "Contenido"
             advanced: "Avanzado"       

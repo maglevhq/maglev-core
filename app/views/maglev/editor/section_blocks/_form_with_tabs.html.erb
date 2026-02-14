@@ -1,0 +1,15 @@
+<%= hidden_field_tag 'lock_version', @section_block.lock_version.presence || 0, data: { editor_section_form_target: 'lockVersion' } %>
+
+<% if @section_block.definition.advanced_settings.blank? %>
+  <%= render 'maglev/editor/section_blocks/form' %>
+<% else %>
+  <%= render Maglev::Uikit::TabsComponent.new(container_classes: 'w-full h-full flex flex-col') do |tabs| %>
+    <% tabs.with_tab(label: t('maglev.editor.section_blocks.edit.tabs.main')) do %>
+      <%= render 'maglev/editor/section_blocks/form' %>
+    <% end %>
+
+    <% tabs.with_tab(label: t('maglev.editor.section_blocks.edit.tabs.advanced')) do %>
+      <%= render 'maglev/editor/section_blocks/form', advanced: true %>
+    <% end %>
+  <% end %>
+<% end %>

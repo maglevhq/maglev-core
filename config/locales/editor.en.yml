@@ -84,6 +84,7 @@ en:
           title: "Add a section"
           empty_category: "No sections"
         edit:
+          no_settings: "There are no settings defined in this section"
           tabs:
             main: "Content"
             advanced: "Advanced"
@@ -95,6 +96,7 @@ en:
           confirm_delete: "Are you sure you want to delete it?"
           empty: "There are no items."
         edit:
+          no_settings: "There are no settings defined in this block"
           tabs:
             main: "Content"
             advanced: "Advanced"       

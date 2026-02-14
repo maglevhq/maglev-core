@@ -84,6 +84,7 @@ fr:
           title: "Ajouter une section"
           empty_category: "Aucune section"
         edit:
+          no_settings: "Aucun paramètre n'est défini dans cette section"
           tabs:
             main: "Contenu"
             advanced: "Avancé"
@@ -95,6 +96,7 @@ fr:
           confirm_delete: "Êtes-vous sûr de vouloir le supprimer ?"
           empty: "Il n'y a pas d'éléments."
         edit:
+          no_settings: "Aucun paramètre n'est défini dans ce bloc"
           tabs:
             main: "Contenu"
             advanced: "Avancé"       

@@ -84,6 +84,7 @@
           title: "Adicionar uma seção"
           empty_category: "Sem seções"
         edit:
+          no_settings: "Não há configurações definidas nesta seção"
           tabs:
             main: "Conteúdo"
             advanced: "Avançado"
@@ -95,6 +96,7 @@
           confirm_delete: "Tem certeza de que deseja excluí-lo?"
           empty: "Não há itens."
         edit:
+          no_settings: "Não há configurações definidas neste bloco"
           tabs:
             main: "Conteúdo"
             advanced: "Avançado"       

@@ -30,6 +30,10 @@ class Maglev::Section::Block
     settings.select(&:advanced?)
   end
 
+  def empty?
+    settings.none?
+  end
+
   def as_json
     super(only: %i[name type settings root accept])
   end
