@@ -39,7 +39,9 @@ describe Maglev::Content::SortSectionBlocksService do
   context 'Given an existing page section with a version' do
     let(:lock_version) { 1 }
 
-    before { page.sections[1]['lock_version'] = 2 }
+    # rubocop:disable Rails/SkipsModelValidations
+    before { page.update_column(:lock_version, 2) }
+    # rubocop:enable Rails/SkipsModelValidations
 
     it 'raises an exception about the stale page' do
       expect { subject }.to raise_exception(ActiveRecord::StaleObjectError)

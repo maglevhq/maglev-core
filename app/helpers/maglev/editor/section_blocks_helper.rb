@@ -39,7 +39,7 @@ module Maglev
       def add_section_block_no_dropdown_button(section, block_type)
         button_to(
           t('maglev.editor.section_blocks.index.add_button'),
-          editor_section_blocks_path(section, block_type: block_type, lock_version: section.lock_version,
+          editor_section_blocks_path(section, block_type: block_type, lock_version: source_lock_version,
                                               **maglev_editing_route_context),
           class: maglev_button_classes(size: :big),
           **section_block_button_common_attributes(section)
@@ -72,7 +72,7 @@ module Maglev
       def add_child_section_block_no_dropdown_button(section, parent_id, block_type)
         button_to(
           editor_section_blocks_path(section, block_type: block_type, parent_id: parent_id,
-                                              lock_version: section.lock_version,
+                                              lock_version: source_lock_version,
                                               **maglev_editing_route_context),
           class: maglev_icon_button_classes,
           name: 'add_child_section_block',

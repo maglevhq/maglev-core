@@ -45,7 +45,9 @@ describe Maglev::Content::AddSectionBlockService do
     context 'Given the page has been modified while adding the block' do
       let(:lock_version) { 1 }
 
-      before { page.sections[1]['lock_version'] = 2 }
+      # rubocop:disable Rails/SkipsModelValidations
+      before { page.update_column(:lock_version, 2) }
+      # rubocop:enable Rails/SkipsModelValidations
 
       it 'raises an exception about the stale page' do
         expect { subject }.to raise_exception(ActiveRecord::StaleObjectError)

@@ -68,22 +68,19 @@ module Maglev
       end
 
       def check_section_lock_version!(source)
-        check_lock_version!(source, find_section(source), 'update_section')
+        check_lock_version!(source, 'update_section')
       end
 
       def check_block_lock_version!(source)
-        check_lock_version!(source, find_block(source), 'update_block')
+        check_lock_version!(source, 'update_block')
       end
 
-      def check_lock_version!(source, section_or_block, action_name)
+      def check_lock_version!(source, action_name)
         return if lock_version.blank? # without a lock version, we disable the lock version check
 
-        current_lock_version = section_or_block['lock_version'].to_i
+        current_lock_version = source.lock_version.to_i
+        source.lock_version = lock_version.to_i
 
-        # always increment the lock version
-        section_or_block['lock_version'] = lock_version.to_i + 1
-
-        # if the lock version is the same, we don't need to raise an error
         return if current_lock_version == lock_version.to_i
 
         raise ActiveRecord::StaleObjectError.new(source, action_name)

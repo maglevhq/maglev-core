@@ -27,14 +27,18 @@ describe Maglev::Content::UpdateSectionService do
     context 'Given an existing page section with a version' do
       let(:lock_version) { 1 }
 
-      before { page.sections.first['lock_version'] = lock_version }
+      # rubocop:disable Rails/SkipsModelValidations
+      before { page.update_column(:lock_version, lock_version) }
+      # rubocop:enable Rails/SkipsModelValidations
 
       it 'updates the section' do
         expect(subject).to eq(true)
       end
 
       context 'Given the page has been modified while updating the section' do
-        before { page.sections.first['lock_version'] = 2 }
+        # rubocop:disable Rails/SkipsModelValidations
+        before { page.update_column(:lock_version, 2) }
+        # rubocop:enable Rails/SkipsModelValidations
 
         it 'raises an exception about the stale page' do
           expect { subject }.to raise_exception(ActiveRecord::StaleObjectError)
