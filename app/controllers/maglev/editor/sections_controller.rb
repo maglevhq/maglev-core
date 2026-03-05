@@ -4,6 +4,7 @@ module Maglev
   module Editor
     class SectionsController < Maglev::Editor::BaseController
       helper Maglev::Editor::SettingsHelper
+      helper_method :source_lock_version
 
       before_action :set_section, only: %i[edit update]
 
@@ -34,7 +35,6 @@ module Maglev
 
       def update
         update_section
-        refresh_lock_version
         flash.now[:notice] = flash_t(:success)
       end
 
@@ -83,9 +83,12 @@ module Maglev
         headers['X-Section-Position'] = flash[:position]
       end
 
-      def refresh_lock_version
-        source = @section.site_scoped? ? maglev_site : current_maglev_page
-        @section.lock_version = source.find_section_by_id(@section.id)['lock_version']
+      def lock_source
+        @section.site_scoped? ? maglev_site : current_maglev_page
+      end
+
+      def source_lock_version
+        lock_source.lock_version || 0
       end
 
       def redirect_to_sections_path

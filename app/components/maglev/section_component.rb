@@ -1,5 +1,10 @@
 # frozen_string_literal: true
 
+# NOTE: this class is too long (but not too complex),
+# we need to move it along with the PageComponent and BlockComponent
+# to a separate folder (content?)
+
+# rubocop:disable Metrics/ClassLength
 module Maglev
   class SectionComponent < BaseComponent
     include TagHelper
@@ -31,7 +36,7 @@ module Maglev
     end
 
     def lock_version
-      @lock_version ||= attributes[:lock_version] || '0'
+      @lock_version ||= lock_source&.lock_version || '0'
     end
 
     def dom_data
@@ -62,6 +67,10 @@ module Maglev
     end
 
     private
+
+    def lock_source
+      definition&.site_scoped? ? site : page
+    end
 
     def build_block_list
       build_blocks(attributes[:blocks])
@@ -131,3 +140,4 @@ module Maglev
     end
   end
 end
+# rubocop:enable Metrics/ClassLength
