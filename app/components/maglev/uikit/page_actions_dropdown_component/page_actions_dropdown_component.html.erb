@@ -16,7 +16,11 @@
 
     <% menu_item.with_item_link_to(live_url, target: '_blank') do |sub_menu_item| %>
       <% sub_menu_item.with_label_content(t('maglev.editor.pages.actions.live_preview')) %>
-    <% end %>    
+    <% end if live_url.present? %>
+
+    <% menu_item.with_item_text(variant: 'subdued') do |text_item| %>   
+      <% text_item.with_label_content(t('maglev.editor.pages.actions.no_live_preview')) %>
+    <% end if live_url.blank? %> 
   <% end %>  
 
   <% menu_dropdown.with_item_wrapper(data: { controller: 'copy-to-clipboard', copy_to_clipboard_source_value: live_url }) do |wrapper_item| %>

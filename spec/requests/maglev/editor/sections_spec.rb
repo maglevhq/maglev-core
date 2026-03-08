@@ -36,6 +36,12 @@ describe 'Maglev::Editor::Sections', type: :request do
       end.to change { home_page.reload.sections.count }.by(1)
     end
 
+    it 'returns a successful message' do
+      post "/maglev/editor/en/#{home_page.id}/sections", params: { section_type: section_type, position: 0 }
+      follow_redirect!
+      expect(response.body).to include('Added!')
+    end
+
     describe 'Give the section definition defines a position (insert_at: top)' do
       let(:section_type) { 'navbar' }
       before do

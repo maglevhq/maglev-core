@@ -18,6 +18,14 @@ module Maglev
                ))
       end
 
+      def without_the_live_url
+        render(Maglev::Uikit::PageActionsDropdownComponent.new(
+                 paths: paths,
+                 live_url: nil,
+                 without_actions: [:delete]
+               ))
+      end
+
       private
 
       def paths

@@ -17,6 +17,9 @@ module Maglev
             button_to: lambda { |options = nil, html_options = nil|
               Maglev::Uikit::MenuDropdownComponent::ButtonToItemComponent.new(options, html_options, parent: self)
             },
+            text: lambda { |options = nil|
+              Maglev::Uikit::MenuDropdownComponent::TextItemComponent.new(options, parent: self)
+            },
             nested_menu: lambda { |placement:|
               Maglev::Uikit::MenuDropdownComponent::NestedMenuComponent.new(placement: placement, parent: self)
             },
@@ -54,9 +57,10 @@ module Maglev
           ),
           variants: {
             danger: 'text-red-600 hover:bg-red-100',
-            '!danger': 'hover:bg-gray-100'
+            '!danger': 'hover:bg-gray-100',
+            subdued: 'text-gray-400'
           },
-          defaults: { danger: false }
+          defaults: { danger: false, subdued: false }
         ).render(...)
       end
       # rubocop:enable Metrics/MethodLength
@@ -94,6 +98,30 @@ module Maglev
         end
       end
 
+      class TextItemComponent < ItemComponent
+        attr_reader :options, :parent_component, :variant
+
+        def initialize(options = nil, parent: nil)
+          @parent_component = parent
+          @options = options || {}
+          @variant = @options.delete(:variant)
+
+          apply_parent_classes
+        end
+
+        erb_template <<-ERB
+          <%= tag.span(**options) do %>
+            #{inner_content}
+          <% end %>
+        ERB
+
+        private
+
+        def apply_parent_classes
+          options[:class] = parent_component.item_classes(subdued: variant == 'subdued', class: options[:class])
+        end
+      end
+
       class LinkToItemComponent < ItemComponent
         attr_reader :options, :html_options, :parent_component, :variant
 
@@ -101,7 +129,7 @@ module Maglev
           @parent_component = parent
           @options = options
           @html_options = html_options || {}
-          @variant = @html_options[:variant]
+          @variant = @html_options.delete(:variant)
 
           apply_parent_classes
         end
@@ -220,6 +248,20 @@ module Maglev
           options[:class] = parent_component.form_item_classes(class: options[:class])
         end
       end
+
+      # class TextItemComponent < ItemComponent
+      #   attr_reader :text_content, :html_options, :parent_component
+
+      #   def initialize(text_content = nil, html_options = nil, parent: nil)
+      #     @parent_component = parent
+      #     @text_content = text_content
+      #     @html_options = html_options || {}
+      #   end
+
+      #   erb_template <<-ERB
+
+      #   ERB
+      # end
 
       class DividerItemComponent < ItemComponent
         attr_reader :parent_component

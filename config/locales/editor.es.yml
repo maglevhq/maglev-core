@@ -45,6 +45,7 @@ es:
           preview: "Vista previa de la página"
           draft_preview: "Versión borrador"
           live_preview: "Versión en vivo"
+          no_live_preview: "Sin versión en vivo"
           clone: "Clonar página"
           hide: "Ocultar página"
           show: "Mostrar página"

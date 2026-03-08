@@ -45,6 +45,7 @@ fr:
           preview: "Aperçu de la page"
           draft_preview: "Version brouillon"
           live_preview: "Version en direct"
+          no_live_preview: "Aucune version en direct"
           clone: "Cloner la page"
           hide: "Masquer la page"
           show: "Afficher la page"
