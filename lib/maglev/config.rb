@@ -7,7 +7,7 @@ module Maglev
                       :site_publishable, :uploader, :preview_host, :asset_host, :services,
                       :collections, :is_authenticated, :ui_locale, :default_site_locales,
                       :static_pages, :reserved_paths,
-                      :admin_username, :admin_password,
+                      :admin_username, :admin_password, # legacy config
                       :tailwindcss_folders, :pagination) do
     # custom setter + helpers for the pagination config
     def pagination=(value)

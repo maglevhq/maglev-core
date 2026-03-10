@@ -68,8 +68,6 @@ RSpec.configure do |config|
   config.before do
     Maglev.configure do |c|
       c.services = {}
-      c.admin_username = nil
-      c.admin_password = nil
     end
     Maglev::I18n.available_locales = [:en]
     Maglev::I18n.current_locale = :en

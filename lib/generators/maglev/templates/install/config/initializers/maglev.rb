@@ -47,10 +47,6 @@ Maglev.configure do |config|
   # config.is_authenticated = :editor_allowed? # name of any protected method from your Rails application controller
   # config.is_authenticated = ->(site) { current_user&.role == 'editor' }
 
-  # Admin UI authentication (https://docs.maglev.dev/guides/setup-authentication)
-  config.admin_username = Rails.env.production? ? ENV.fetch('MAGLEV_ADMIN_USERNAME') : nil
-  config.admin_password = Rails.env.production? ? ENV.fetch('MAGLEV_ADMIN_PASSWORD') : nil
-
   # Uploader engine (:active_storage is the default one)
   # Checkout https://github.com/MarsBased/maglevcms-shrine for an example of a custom uploader
   # config.uploader = 'Maglev::Shrine::Uploader'

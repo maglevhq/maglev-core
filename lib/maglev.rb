@@ -36,8 +36,8 @@ module Maglev
         c.services = {}
         c.default_site_locales = [{ label: 'English', prefix: 'en' }]
         c.is_authenticated = ->(_site) { !Rails.env.production? }
-        c.admin_username = nil
-        c.admin_password = nil
+        c.admin_username = nil # legacy config
+        c.admin_password = nil # legacy config
         c.static_pages = []
         c.reserved_paths = []
         c.tailwindcss_folders = []
