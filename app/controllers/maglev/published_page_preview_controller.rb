@@ -13,8 +13,9 @@ module Maglev
     helper Maglev::PagePreviewHelper
 
     def index
-      # use the title + SEO informations from the published payload
-      maglev_page.apply_published_payload
+      # use the title + SEO informations from the published payload 
+      # Warning: the page may not exist even in draft
+      maglev_page&.apply_published_payload
 
       render_maglev_page
     end
