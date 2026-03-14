@@ -83,5 +83,11 @@ RSpec.describe 'Maglev::PublishedPagePreviewController', type: :request do
         expect(response).to redirect_to('/contact-us')
       end
     end
+
+    context 'requesting a non-existent page' do
+      it 'returns a 404' do
+        expect { get '/does-not-exist' }.to raise_error(ActionController::RoutingError)
+      end
+    end
   end
 end

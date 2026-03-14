@@ -3,6 +3,7 @@ import { isBlank, postMessageToEditor } from 'maglev-client/utils'
 // keep track of the current hovered section
 let listeners = []
 let hoveredSectionId = null
+let hoveredSettingKey = null
 let lastCursorPosition = { x: 0, y: 0 }
 
 export const start = (config) => {
@@ -172,6 +173,7 @@ const getMinTop = (previewDocument, currentSectionId, stickySectionIds) => {
 const onSectionLeft = () => {
   postMessageToEditor('section:leave')
   hoveredSectionId = null
+  hoveredSettingKey = null
 }
 
 const onBlockHovered = (el) => {
@@ -200,10 +202,32 @@ const onSettingHovered = (el) => {
     window.getComputedStyle(el).borderRadius === '0px'
   )
     el.style.borderRadius = '2px'
+
+  const fragments = el.dataset.maglevId.split('.')
+  const section = el.closest('[data-maglev-section-id]')
+  const sectionId = section?.dataset?.maglevSectionId
+  const sectionBlock = el.closest('[data-maglev-block-id]')
+  const sectionBlockId = sectionBlock?.dataset?.maglevBlockId
+  const settingId = fragments[1]
+
+  if (!sectionId || !settingId) return
+
+  const key = `${sectionId}:${sectionBlockId || 'none'}:${settingId}`
+  if (key === hoveredSettingKey) return
+
+  hoveredSettingKey = key
+
+  const prefix = sectionBlockId ? 'sectionBlock' : 'section'
+  postMessageToEditor(`${prefix}:setting:hovered`, {
+    sectionId,
+    sectionBlockId,
+    settingId,
+  })
 }
 
 const onSettingLeft = (el) => {
   el.style.boxShadow = 'none'
+  hoveredSettingKey = null
 }
 
 const onSettingClicked = (el, event) => {
