@@ -20,8 +20,8 @@
       class="bg-white w-full h-full mx-auto transition-discrete transition-all duration-100 ease-in-out group-data-[device=mobile]/device:w-[375px] group-data-[device=tablet]/device:w-[1024px]" 
       data-editor-page-preview-target="iframe"
       data-editor-preview-notification-center-target="iframe"
-      data-editor-preview-notification-center-primary-color-param="<%= maglev_primary_hex_color %>"
-      data-editor-preview-notification-center-sticky-section-ids-param="<%=current_maglev_sections.select(&:sticky?).map(&:id).to_json %>"
+      data-editor-preview-notification-center-primary-color-value="<%= maglev_primary_hex_color %>"
+      data-editor-preview-notification-center-sticky-section-ids-value="<%= current_maglev_sections.select(&:sticky?).map(&:id).to_json %>"
       data-action="load->editor-preview-notification-center#sendConfig"></iframe>
   </div>
 
