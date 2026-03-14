@@ -1,4 +1,5 @@
 import { Controller } from '@hotwired/stimulus'
+import { log } from 'maglev-controllers/utils'
 
 export default class extends Controller {
   static values = { 
@@ -8,7 +9,7 @@ export default class extends Controller {
   }
 
   connect() {
-    console.log('[Editor::Setting] connect', this.settingIdValue)
+    log('[Editor::Setting] connect', this.settingIdValue)
 
     if (window.location.hash) {
       // dirty way to wait for the underlying controller to be connected
@@ -17,7 +18,7 @@ export default class extends Controller {
   }
 
   change(event) {
-    console.log('[Editor::Setting] change', event.detail)
+    log('[Editor::Setting] change', event.detail)
     this.dispatch('change', { 
       detail: {         
         settingId: this.settingIdValue,

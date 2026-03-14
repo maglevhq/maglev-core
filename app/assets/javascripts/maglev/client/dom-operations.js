@@ -1,4 +1,4 @@
-import { debounce, postMessageToEditor } from 'maglev-client/utils'
+import { debounce, log, postMessageToEditor } from 'maglev-client/utils'
 import runScripts from 'maglev-client/run-scripts'
 
 const parentDocument = window.parent.document
@@ -79,7 +79,7 @@ const removeSection = (event) => {
 
 const checkSectionLockVersion = (event) => {
   const { sectionId, lockVersion } = event.detail
-  console.log('[DOM Operations] checkSectionLockVersion', event)
+  log('[DOM Operations] checkSectionLockVersion', event)
   const section = previewDocument.querySelector(`[data-maglev-section-id='${sectionId}']`)
   const localLockVersion = section?.getAttribute('data-maglev-section-lock-version')
   if (lockVersion !== localLockVersion && lockVersion !== '') {
@@ -180,7 +180,7 @@ const updateStyle = async (event) => {
 // }
 
 const updateTextSetting = (sourceId, change) => {
-  console.log('[DOM Operations] updateTextSetting', sourceId, change)
+  log('[DOM Operations] updateTextSetting', sourceId, change)
   const selector = `[data-maglev-id='${sourceId}.${change.settingId}']`
   const settings = previewDocument.querySelectorAll(selector)
   settings.forEach(($el) => ($el.innerHTML = change.value))
@@ -188,11 +188,11 @@ const updateTextSetting = (sourceId, change) => {
 }
 
 const updateLinkSetting = (sourceId, change) => {
-  console.log('updateLinkSetting', sourceId, change)
+  log('updateLinkSetting', sourceId, change)
 }
 
 const updatePreviewDocument = async ({ sectionId, insertAt = undefined, scrollToSection = false }) => {
-  console.log('[DOM Operations] updatePreviewDocument', sectionId, insertAt, scrollToSection)
+  log('[DOM Operations] updatePreviewDocument', sectionId, insertAt, scrollToSection)
 
   const doc = await getUpdatedDoc({ section_id: sectionId })
 

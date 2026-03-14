@@ -1,4 +1,5 @@
 import { Controller } from '@hotwired/stimulus'
+import { log } from 'maglev-controllers/utils'
 
 export default class extends Controller {
   static targets = ['text', 'success']
@@ -15,7 +16,7 @@ export default class extends Controller {
     if (navigator.clipboard) {
       navigator.clipboard.writeText(this.sourceValue)
     } else {
-      console.log('Clipboard API not supported or unavailable.')
+      log('Clipboard API not supported or unavailable.')
     }
     
     this.timeout = setTimeout(() => {

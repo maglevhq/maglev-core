@@ -1,5 +1,6 @@
 import { Controller } from '@hotwired/stimulus'
 import { FetchRequest } from '@rails/request.js'
+import { log } from 'maglev-controllers/utils'
 
 export default class extends Controller {
   static targets = ['button', 'fileInput']
@@ -11,7 +12,7 @@ export default class extends Controller {
   }
 
   connect() {
-    console.log('UploaderController connected')
+    log('UploaderController connected')
   }
 
   openFileDialog() {    
@@ -64,7 +65,7 @@ export default class extends Controller {
   }
 
   reloadFrameTag() {
-    console.log('reloadFrameTag', this.refreshPathValue)
+    log('reloadFrameTag', this.refreshPathValue)
     const frame = document.querySelector(`turbo-frame#modal-dialog`)
     if (frame) {
       frame.src = this.refreshPathValue

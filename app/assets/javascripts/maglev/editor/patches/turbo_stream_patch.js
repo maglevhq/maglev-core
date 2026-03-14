@@ -1,18 +1,18 @@
 
 import { StreamActions } from '@hotwired/turbo'
 import TurboDelayedStreams from 'maglev-patches/turbo_delayed_streams'
-import { generateRequestId } from 'maglev-controllers/utils'
+import { generateRequestId, log } from 'maglev-controllers/utils'
 
 // Custom stream actions
 StreamActions.console_log = function() {
   const message = this.getAttribute("message")
-  console.log(message)
+  log(message)
 }
 
 StreamActions.dispatch_event = function() {
   const type = this.getAttribute("type")
   const payload = this.getAttribute("payload")
-  console.log('dispatchEvent', type, payload, `dispatcher:${type}`)
+  log('dispatchEvent', type, payload, `dispatcher:${type}`)
   const event = new CustomEvent(`dispatcher:${type}`, { detail: JSON.parse(payload) })
   window.dispatchEvent(event)
 }

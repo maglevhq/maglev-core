@@ -5,6 +5,28 @@ export const isSamePath = (targetPath) => {
   return current.pathname === target.pathname
 }
 
+const getParentEditorConfig = () => {
+  try {
+    return window.parent?.maglevEditorConfig
+  } catch (_) {
+    return undefined
+  }
+}
+
+const getEditorConfig = () => {
+  return window.maglevEditorConfig || getParentEditorConfig() || {}
+}
+
+export const isEditorJsLogsEnabled = () => {
+  return getEditorConfig().jsLogsEnabled === true
+}
+
+export const log = (...args) => {
+  if (isEditorJsLogsEnabled()) {
+    console.log(...args)
+  }
+}
+
 export const sleep = (ms) => {
   return new Promise(resolve => setTimeout(resolve, ms))
 }

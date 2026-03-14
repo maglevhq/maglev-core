@@ -2,8 +2,9 @@ import "@hotwired/turbo-rails"
 import "maglev-controllers"
 import "maglev-patches/page_renderer_patch"
 import "maglev-patches/turbo_stream_patch"
+import { log } from "maglev-controllers/utils"
 
-console.log('Maglev Editor v2 ⚡️')
+console.log('Maglev Editor v3 ⚡️')
 
 // We need to set the content locale in the headers for each Turbo request
 document.addEventListener("turbo:before-fetch-request", (event) => {

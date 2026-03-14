@@ -1,10 +1,11 @@
 import { Controller } from '@hotwired/stimulus'
+import { log } from 'maglev-controllers/utils'
 
 export default class extends Controller {
   static values = { style: Array }
 
   update(event) {
-    console.log('[StyleForm] update', event.detail, this.styleValue)
+    log('[StyleForm] update', event.detail, this.styleValue)
 
     const newStyle = this.styleValue
     newStyle.forEach(style => {

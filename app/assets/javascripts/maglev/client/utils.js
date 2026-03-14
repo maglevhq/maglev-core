@@ -7,6 +7,28 @@ export const isBlank = (object) => {
   )
 }
 
+const getParentEditorConfig = () => {
+  try {
+    return window.parent?.maglevEditorConfig
+  } catch (_) {
+    return undefined
+  }
+}
+
+const getEditorConfig = () => {
+  return window.maglevEditorConfig || getParentEditorConfig() || {}
+}
+
+export const isEditorJsLogsEnabled = () => {
+  return getEditorConfig().jsLogsEnabled === true
+}
+
+export const log = (...args) => {
+  if (isEditorJsLogsEnabled()) {
+    console.log(...args)
+  }
+}
+
 export const debounce = (fn, time) => {
   let timeoutId
   function wrapper(...args) {

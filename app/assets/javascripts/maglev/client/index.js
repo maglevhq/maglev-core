@@ -1,8 +1,9 @@
 import { start as startListeningEvents } from 'maglev-client/dom-operations'
 import { start as startListeningMessages } from 'maglev-client/incoming-messages'
+import { log } from 'maglev-client/utils'
 
 const initializeClient = () => {
-  console.log('Maglev Client v2 🚆')
+  log('Maglev Client v3 🚆')
 
   // no need to start the client when the site is being visited outside the editor
   // (shouldn't happen, but just in case)
@@ -14,7 +15,7 @@ const initializeClient = () => {
   // listen local events (converted from messages) and process them
   startListeningEvents()  
 
-  console.log('Maglev Client v2 ✅')
+  console.log('Maglev Client v3 ✅')
 }
 
 // Check if document is already ready
