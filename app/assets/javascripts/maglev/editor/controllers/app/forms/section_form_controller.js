@@ -1,5 +1,6 @@
 import { Controller } from '@hotwired/stimulus'
 import { useDebounce } from 'stimulus-use'
+import { log } from 'maglev-controllers/utils'
 
 export default class extends Controller {
   static targets = ['lockVersion']
@@ -20,7 +21,7 @@ export default class extends Controller {
   }
 
   onSettingChange(event) {
-    console.log('[SectionForm::onSettingChange]', this.sourceId , event.detail)
+    log('[SectionForm::onSettingChange]', this.sourceId , event.detail)
     const { detail: { settingType, settingId, value } } = event
     this.dispatch('updateSetting', { detail: {
         sourceId: this.sourceId,
@@ -30,12 +31,12 @@ export default class extends Controller {
   }
 
   onPersist(event) {
-    console.log('[SectionForm::onPersist]', event.detail, typeof event.detail)
+    log('[SectionForm::onPersist]', event.detail, typeof event.detail)
     this.lockVersionTarget.value = event.detail.lockVersion
   }
 
   async afterSettingUpdate(event) {
-    console.log('[SectionForm::afterSettingUpdate] 🙌🙌', event.detail)
+    log('[SectionForm::afterSettingUpdate] 🙌🙌', event.detail)
     await this.element.requestSubmit()
     
     if (!event.detail.updated) {

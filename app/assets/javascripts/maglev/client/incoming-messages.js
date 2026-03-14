@@ -1,5 +1,5 @@
 import { start as decorateIframe } from 'maglev-client/iframe-decorator'
-import { postMessageToEditor } from 'maglev-client/utils'
+import { log, postMessageToEditor } from 'maglev-client/utils'
 
 const PAGE_UPDATED_EVENTS = ['section:add', 'section:move', 'section:update', 'section:remove', 'block:add', 'block:move', 'block:remove', 'setting:update', 'style:update']
 
@@ -38,7 +38,7 @@ export const start = () => {
         triggerEvent(type, data)
         break
       default:
-        console.log('[maglev][iframe] unknown message type', type)
+        log('[maglev][iframe] unknown message type', type)
         break
     }
   })

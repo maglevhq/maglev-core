@@ -1,5 +1,6 @@
 import { Controller } from '@hotwired/stimulus'
 import { Editor, Document, Text, Paragraph, Heading, Blockquote, CodeBlock, History, Bold, Italic, Underline, Strike, Superscript, HardBreak, Link, ListItem, BulletList, OrderedList } from 'tiptap'
+import { log } from 'maglev-controllers/utils'
 
 const MaglevLink = Link.extend({
   addAttributes() {
@@ -205,11 +206,11 @@ export default class extends Controller {
   }
 
   openLinkModal(event) {
-    console.log('toggleLink', event)
+    log('toggleLink', event)
     const url = new URL(this.editLinkPathValue, window.location.origin)
     const link = this.editor.getAttributes('link')
 
-    console.log('toggleLink,build link from', link)
+    log('toggleLink,build link from', link)
     
     url.searchParams.set('input_name', this.inputNameValue)
     url.searchParams.set('link[href]', link.href ?? '')
@@ -231,7 +232,7 @@ export default class extends Controller {
 
   setLink(event) {
     const link = JSON.parse(event.detail)
-    console.log('setLink, link=', link)
+    log('setLink, link=', link)
     this.editor.commands.setLink({ 
       href: link.href, 
       target: link.open_new_window ? '_blank' : '', 

@@ -1,5 +1,5 @@
 import { Controller } from "@hotwired/stimulus"
-import { isSamePath } from "maglev-controllers/utils"
+import { isSamePath, log } from "maglev-controllers/utils"
 
 export default class extends Controller { 
   static targets = ["iframe"]
@@ -31,7 +31,7 @@ export default class extends Controller {
 
   // called by the iframe when the user clicks on a setting of a section or a section block
   editSection(event) {
-    console.log('[PreviewNotificationCenter][editSection]', event.detail)
+    log('[PreviewNotificationCenter][editSection]', event.detail)
     const { sectionId, sectionBlockId, settingId } = event.detail
     const path = this.buildSettingPath({ sectionId, sectionBlockId, settingId })
     
@@ -43,7 +43,7 @@ export default class extends Controller {
   }
 
   editSectionBlock(event) {
-    console.log('[PreviewNotificationCenter][editSectionBlock]', event.detail)
+    log('[PreviewNotificationCenter][editSectionBlock]', event.detail)
     const { sectionId, sectionBlockId } = event.detail
     const pathTemplate = this.sectionBlockPathValue
     const path = `${pathTemplate}#${sectionBlockId}`.replace(':section_id', sectionId).replace(':section_block_id', sectionBlockId)
@@ -63,38 +63,38 @@ export default class extends Controller {
   // === SECTIONS ===
 
   addSection(event) {
-    console.log('addSection', event.detail.fetchResponse.response.headers.get('X-Section-Id'), event.detail.fetchResponse.response.headers.get('X-Section-Position'))
+    log('addSection', event.detail.fetchResponse.response.headers.get('X-Section-Id'), event.detail.fetchResponse.response.headers.get('X-Section-Position'))
     const sectionId = event.detail.fetchResponse.response.headers.get('X-Section-Id')
     const position = event.detail.fetchResponse.response.headers.get('X-Section-Position')
     this.postMessage('section:add', { sectionId, insertAt: parseInt(position) })
   }
 
   deleteSection(event) {
-    console.log('deleteSection', event.params)
+    log('deleteSection', event.params)
     const { sectionId } = event.params
     this.postMessage('section:remove', { sectionId  })
   }
 
   moveSection(event) {
-    console.log('moveSection 💨💨💨', event.detail)
+    log('moveSection 💨💨💨', event.detail)
     const { oldIndex, newIndex } = event.detail
     this.postMessage('section:move', { oldIndex, newIndex })
   }
 
   updateSection(event) {
-    console.log('updateSection 🧼🧼🧼', event.detail)
+    log('updateSection 🧼🧼🧼', event.detail)
     const { sectionId  } = event.detail
     this.postMessage('section:update', { sectionId })
   }
 
   checkSectionLockVersion(event) {
-    console.log('checkSectionLockVersion 🕵🏻‍♂️🕵🏻‍♂️🕵🏻‍♂️', event)
+    log('checkSectionLockVersion 🕵🏻‍♂️🕵🏻‍♂️🕵🏻‍♂️', event)
     const { sectionId, lockVersion } = event.detail
     this.postMessage('section:checkLockVersion', { sectionId, lockVersion })
   }
 
   pingSection(event) {
-    console.log('pingSection 🏓🏓🏓', event.detail, this.isClientReady)
+    log('pingSection 🏓🏓🏓', event.detail, this.isClientReady)
     const { sectionId } = event.detail
     this.postMessageWhenClientReady('section:ping', { sectionId })
   }
@@ -102,26 +102,26 @@ export default class extends Controller {
   // === SECTION BLOCKS ===
 
   addSectionBlock(event) {
-    console.log('addSectionBlock ➕➕➕', event.params)
+    log('addSectionBlock ➕➕➕', event.params)
     const { sectionId } = event.params
     this.postMessage('block:add', { sectionId })
   }
 
   deleteSectionBlock(event) {
-    console.log('deleteSectionBlock 🗑️🗑️🗑️', event.params)
+    log('deleteSectionBlock 🗑️🗑️🗑️', event.params)
     const { sectionId, sectionBlockId } = event.params
     this.postMessage('block:remove', { sectionId, sectionBlockId })
   }
 
   moveSectionBlocks(event) {
-    console.log('moveSectionBlocks 💨💨💨', event.params)
+    log('moveSectionBlocks 💨💨💨', event.params)
     const sectionId = event.params.sectionId
     const { oldItemId: sectionBlockId, newItemId: targetSectionBlockId, direction } = event.detail    
     this.postMessage('block:move', { sectionId, sectionBlockId, targetSectionBlockId, direction })
   }
 
   pingSectionBlock(event) {
-    console.log('pingSectionBlock 🏓🏓🏓', event.detail)
+    log('pingSectionBlock 🏓🏓🏓', event.detail)
     const { sectionBlockId } = event.detail
     this.postMessageWhenClientReady('block:ping', { sectionBlockId })
   }
