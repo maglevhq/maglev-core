@@ -10,7 +10,16 @@ export default class extends Controller {
 
   connect() {
     this.isClientReady = false
-    this.clientReadyCallbacks = []    
+    this.clientReadyCallbacks = []
+    this.prefetchTimeout = null
+    this.prefetchedPaths = new Set()
+  }
+
+  disconnect() {
+    if (this.prefetchTimeout) {
+      clearTimeout(this.prefetchTimeout)
+      this.prefetchTimeout = null
+    }
   }
 
   // called when the iframe DOM is loaded
@@ -32,8 +41,7 @@ export default class extends Controller {
   editSection(event) {
     console.log('[PreviewNotificationCenter][editSection]', event.detail)
     const { sectionId, sectionBlockId, settingId } = event.detail
-    const pathTemplate = sectionBlockId ? this.sectionBlockPathValue : this.sectionPathValue
-    const path = `${pathTemplate}#${settingId}`.replace(':section_id', sectionId).replace(':section_block_id', sectionBlockId)
+    const path = this.buildSettingPath({ sectionId, sectionBlockId, settingId })
     
     if (isSamePath(path)) {
       window.location.hash = settingId
@@ -48,6 +56,20 @@ export default class extends Controller {
     const pathTemplate = this.sectionBlockPathValue
     const path = `${pathTemplate}#${sectionBlockId}`.replace(':section_id', sectionId).replace(':section_block_id', sectionBlockId)
     Turbo.visit(path)
+  }
+
+  prefetchEditSectionOrBlock(event) {
+    const { sectionId, sectionBlockId, settingId } = event.detail
+    const path = this.buildSettingPath({ sectionId, sectionBlockId, settingId })
+    const prefetchPath = this.stripHash(path)
+
+    if (isSamePath(prefetchPath) || this.prefetchedPaths.has(prefetchPath)) return
+
+    if (this.prefetchTimeout) clearTimeout(this.prefetchTimeout)
+    this.prefetchTimeout = setTimeout(() => {
+      this.enqueuePrefetch(prefetchPath)
+      this.prefetchTimeout = null
+    }, 120)
   }
   
   // === SECTIONS ===
@@ -131,6 +153,29 @@ export default class extends Controller {
   }
 
   // === UTILS ===
+
+  buildSettingPath({ sectionId, sectionBlockId, settingId }) {
+    const pathTemplate = sectionBlockId ? this.sectionBlockPathValue : this.sectionPathValue
+    return `${pathTemplate}#${settingId}`.replace(':section_id', sectionId).replace(':section_block_id', sectionBlockId)
+  }
+
+  stripHash(path) {
+    const url = new URL(path, window.location.origin)
+    url.hash = ''
+    return `${url.pathname}${url.search}`
+  }
+
+  enqueuePrefetch(path) {
+    if (this.prefetchedPaths.has(path)) return
+
+    this.prefetchedPaths.add(path)
+    const link = document.createElement('link')
+    link.rel = 'prefetch'
+    link.as = 'document'
+    link.href = path
+    link.dataset.maglevPrefetch = 'true'
+    document.head.appendChild(link)
+  }
 
   postMessage(type, data) {
     this.iframeTarget.contentWindow.postMessage({ type: `maglev:${type}`, ...(data || {}) }, '*')
