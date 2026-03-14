@@ -5,22 +5,38 @@ export default class extends Controller {
   static targets = ["iframe"]
   static values = {
     sectionPath: String,
-    sectionBlockPath: String
+    sectionBlockPath: String,
+    primaryColor: String,
+    stickySectionIds: Array,
   }
 
   connect() {
     this.isClientReady = false
     this.clientReadyCallbacks = []
     this.prefetchedPaths = new Set()
+    this.lastConfiguredDocument = null
+
+    // The iframe `load` event can fire before Stimulus wires `load->sendConfig`.
+    // If that happens, no config is sent and the client stays undecorated.
+    this.sendConfigIfIframeAlreadyLoaded()
   }
 
   // called when the iframe DOM is loaded
-  sendConfig(event) {
-    const { primaryColor, stickySectionIds } = event.params
+  sendConfig() {
+    const { primaryColorValue, stickySectionIdsValue } = this
+    const iframeDocument = this.iframeTarget?.contentDocument
+    if (!iframeDocument) return
+
+    // Prevent duplicate `config` for the same document (load + fallback path).
+    if (this.lastConfiguredDocument === iframeDocument) return
+
     this.postMessage('config', {
-      primaryColor,
-      stickySectionIds,
+      primaryColor: primaryColorValue,
+      stickySectionIds: stickySectionIdsValue,
     })
+
+    // Prevent duplicate `config` for the same document (load + fallback path).
+    this.lastConfiguredDocument = iframeDocument
   }
 
   // called when the Maglev client JS lib has been fully loaded on the iframe
@@ -189,6 +205,13 @@ export default class extends Controller {
     window.addEventListener('turbo:load', () => {
       window.location.hash = hash
     }, { once: true })
+  }
+
+  sendConfigIfIframeAlreadyLoaded() {
+    const iframeDocument = this.iframeTarget?.contentDocument
+    if (!iframeDocument || iframeDocument.readyState !== 'complete') return
+
+    this.sendConfig()
   }
 
   postMessage(type, data) {
