@@ -1563,9 +1563,6 @@
   .text-gray-200 {
     color: var(--color-gray-200);
   }
-  .text-gray-200\! {
-    color: var(--color-gray-200) !important;
-  }
   .text-gray-400 {
     color: var(--color-gray-400);
   }
@@ -2791,6 +2788,9 @@
   }
 }
 @layer base {
+  .turbo-progress-bar {
+    background-color: var(--editor-color-primary) !important;
+  }
   .ProseMirror {
     display: block;
     border-radius: 0.25rem;

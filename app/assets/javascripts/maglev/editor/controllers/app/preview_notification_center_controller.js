@@ -11,15 +11,7 @@ export default class extends Controller {
   connect() {
     this.isClientReady = false
     this.clientReadyCallbacks = []
-    this.prefetchTimeout = null
     this.prefetchedPaths = new Set()
-  }
-
-  disconnect() {
-    if (this.prefetchTimeout) {
-      clearTimeout(this.prefetchTimeout)
-      this.prefetchTimeout = null
-    }
   }
 
   // called when the iframe DOM is loaded
@@ -46,7 +38,7 @@ export default class extends Controller {
     if (isSamePath(path)) {
       window.location.hash = settingId
     } else {
-      Turbo.visit(path)
+      this.visitPath(path)
     }
   }
 
@@ -55,7 +47,7 @@ export default class extends Controller {
     const { sectionId, sectionBlockId } = event.detail
     const pathTemplate = this.sectionBlockPathValue
     const path = `${pathTemplate}#${sectionBlockId}`.replace(':section_id', sectionId).replace(':section_block_id', sectionBlockId)
-    Turbo.visit(path)
+    this.visitPath(path)
   }
 
   prefetchEditSectionOrBlock(event) {
@@ -65,11 +57,7 @@ export default class extends Controller {
 
     if (isSamePath(prefetchPath) || this.prefetchedPaths.has(prefetchPath)) return
 
-    if (this.prefetchTimeout) clearTimeout(this.prefetchTimeout)
-    this.prefetchTimeout = setTimeout(() => {
-      this.enqueuePrefetch(prefetchPath)
-      this.prefetchTimeout = null
-    }, 120)
+    this.enqueuePrefetch(prefetchPath)
   }
   
   // === SECTIONS ===
@@ -169,12 +157,38 @@ export default class extends Controller {
     if (this.prefetchedPaths.has(path)) return
 
     this.prefetchedPaths.add(path)
-    const link = document.createElement('link')
-    link.rel = 'prefetch'
-    link.as = 'document'
+
+    // Use Turbo's own prefetch pipeline so the visit cache is warmed,
+    // which avoids the full loading-bar behavior on subsequent click.
+    const link = document.createElement('a')
     link.href = path
     link.dataset.maglevPrefetch = 'true'
-    document.head.appendChild(link)
+    link.dataset.turboPrefetch = 'true'
+    link.hidden = true
+    document.body.appendChild(link)
+
+    link.dispatchEvent(new MouseEvent('mouseenter', {
+      bubbles: true,
+      cancelable: true,
+      view: window,
+    }))
+
+    setTimeout(() => link.remove(), 500)
+  }
+
+  visitPath(path) {
+    const url = new URL(path, window.location.origin)
+    const visitPath = `${url.pathname}${url.search}`
+    const hash = url.hash
+
+    if (hash) this.applyHashAfterVisit(hash)
+    Turbo.visit(visitPath)
+  }
+
+  applyHashAfterVisit(hash) {
+    window.addEventListener('turbo:load', () => {
+      window.location.hash = hash
+    }, { once: true })
   }
 
   postMessage(type, data) {
