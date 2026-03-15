@@ -33,7 +33,7 @@ describe 'Maglev::Editor::Sections', type: :request do
     end
 
     it 'returns a successful message' do
-      post "/maglev/editor/en/#{home_page.id}/sections", params: { section_type: section_type, position: 0 }
+      post "/maglev/editor/en/#{home_page.id}/main/sections", params: { section_type: section_type, position: 0 }
       follow_redirect!
       expect(response.body).to include('Added!')
     end
