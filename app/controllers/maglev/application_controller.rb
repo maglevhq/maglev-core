@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Maglev
-  class ApplicationController < ::ApplicationController
+  class ApplicationController < ActionController::Base
     include Maglev::ServicesConcern
     include Maglev::ResourceIdConcern
     include Maglev::ErrorsConcern
