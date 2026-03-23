@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative 'active_storage/serving_blob'
+
 module Maglev
   module ActiveStorage
     extend ActiveSupport::Concern

@@ -17,5 +17,15 @@ RSpec.describe Maglev::Assets::ActiveStorageProxyController do
         get :show, params: { id: '9565604d-be66-4a23-98da-ed1639804103-myasset' }
       end
     end
+
+    context 'when the asset is an SVG' do
+      it 'responds with Content-Type image/svg+xml' do
+        svg_asset = create(:asset, :svg)
+        get :show, params: { id: svg_asset.id, filename: 'logo.svg' }
+
+        expect(response).to have_http_status(:ok)
+        expect(response.media_type).to eq('image/svg+xml')
+      end
+    end
   end
 end

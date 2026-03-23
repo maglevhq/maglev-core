@@ -9,6 +9,10 @@ FactoryBot.define do
     trait :small do
       file { Rack::Test::UploadedFile.new('spec/fixtures/files/small-asset.jpg', 'image/jpeg') }
     end
+
+    trait :svg do
+      file { Rack::Test::UploadedFile.new('spec/fixtures/files/logo.svg', 'image/svg+xml') }
+    end
   end
 end
 
