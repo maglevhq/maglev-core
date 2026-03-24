@@ -33,6 +33,15 @@ namespace :maglev do
       Bundler.with_unbundled_env do
         system "#{command_path} -i #{input_path} -o #{output_path} #{options}"
       end
+
+      # Rewrite modern CSS syntax that LibSass (sassc-rails) can't parse
+      if File.exist?(output_path)
+        css = File.read(output_path)
+        css.gsub!(/\(width\s*>=\s*([^)]+)\)/, '(min-width: \1)')
+        css.gsub!(/\(width\s*<=\s*([^)]+)\)/, '(max-width: \1)')
+        css.gsub!('color:rgb(from red r g b)', 'color:red')
+        File.write(output_path, css)
+      end
     end
     # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
   end
