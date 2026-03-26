@@ -1,0 +1,11 @@
+<div class="w-96">
+  <%= render Maglev::Uikit::List::ListItemComponent.new(options: { variant: :ghost }) do |item| %>
+    <% item.with_image do %>
+      <%= image_tag "/images/img-1.jpg", class: item.image_classes %>
+    <% end %>
+
+    <% item.with_title_content("Item label") %>
+
+    <% item.with_sub_title_content("Sub title text") %>
+  <% end %>
+</div>

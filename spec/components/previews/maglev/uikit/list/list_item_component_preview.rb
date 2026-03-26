@@ -13,6 +13,10 @@ module Maglev
           render_with_template
         end
 
+        def with_sub_title
+          render_with_template
+        end
+
         def with_image
           render_with_template
         end
@@ -30,6 +34,10 @@ module Maglev
         end
 
         def with_handle
+          render_with_template
+        end
+
+        def with_ghost_variant
           render_with_template
         end
 

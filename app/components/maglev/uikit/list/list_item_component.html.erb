@@ -20,8 +20,14 @@
         <% if pre_title? %>
           <div class="text-gray-500 text-xs"><%= pre_title %></div>
           <div class="text-gray-800 truncate"><%= title %></div>
+          <% if sub_title? %>
+            <div class="text-gray-500 text-xs"><%= sub_title %></div>
+          <% end %>
         <% else %>
           <div class="truncate"><%= title %></div>
+          <% if sub_title? %>
+            <div class="text-gray-500 text-xs"><%= sub_title %></div>
+          <% end %>
         <% end %>
       </div>    
     <% end %>
