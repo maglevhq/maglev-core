@@ -5,11 +5,12 @@ module Maglev
     class AddSectionBlockService
       include Injectable
       include Maglev::Content::HelpersConcern
+      include Maglev::Content::PublishingStateConcern
 
       dependency :fetch_theme
       dependency :fetch_site
 
-      argument :page
+      argument :store
       argument :section_id
       argument :block_type
       argument :parent_id, default: nil
@@ -18,20 +19,24 @@ module Maglev
       def call
         raise Maglev::Errors::UnknownSection unless section_definition
 
-        block_content = build_block_content
-
         ActiveRecord::Base.transaction do
-          if section_definition.site_scoped?
-            add_to_section!(site, block_content)
-          else
-            add_to_section!(page, block_content)
-          end
+          unsafe_call
         end
-
-        block_content
       end
 
       private
+
+      def unsafe_call
+        block_content = build_block_content
+
+        if site_scoped?
+          add_to_section!(site_scoped_store, block_content)
+        else
+          add_to_section!(store, block_content)
+        end.tap { touch_page(store) }
+
+        block_content
+      end
 
       def build_block_content
         section_definition.build_block_content_for(block_type).tap do |block_content|
@@ -40,7 +45,7 @@ module Maglev
       end
 
       def add_to_section!(source, block_content)
-        check_section_lock_version!(source)
+        source.lock_version = lock_version if lock_version.present?
 
         source.sections_translations_will_change!
         section = source.find_section_by_id(section_id)

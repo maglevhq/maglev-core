@@ -4,10 +4,11 @@ require 'rails_helper'
 
 describe Maglev::SectionComponent do
   let(:theme) { build(:theme) }
-  let(:page) { build(:page, :with_navbar).tap { |page| page.prepare_sections(theme) } }
+  let(:page) { build(:page) }
+  let(:store) { build(:sections_content_store, page: page) }
   let(:config) { instance_double('MaglevConfig', asset_host: 'https://assets.maglev.local') }
   let(:page_component) { instance_double('PageCommponent', page: page, config: config) }
-  let(:attributes) { page.sections[1].deep_symbolize_keys }
+  let(:attributes) { store.find_section_by_type('jumbotron').deep_symbolize_keys }
   let(:definition) { build(:section, category: 'headers') }
   let(:view_context) { FooController.new.view_context }
   let(:templates_root_path) { 'theme' }
@@ -21,12 +22,14 @@ describe Maglev::SectionComponent do
     ).tap { |c| c.view_context = view_context }
   end
 
+  before { store.prepare_sections(theme) }
+
   describe '#dom_data' do
     subject { component.dom_data }
 
     it 'returns a HTML formatted data attribute' do
       is_expected.to eq %w[
-        data-maglev-section-id="def"
+        data-maglev-section-id="jumbotron-0"
         data-maglev-section-type="jumbotron"
         data-maglev-section-lock-version="0"
       ].join(' ').strip
@@ -41,18 +44,18 @@ describe Maglev::SectionComponent do
         actual_doc = parse_html(subject)
 
         # Check the main container div
-        main_div = expect_element_present(actual_doc, 'div[data-maglev-section-id="def"]')
+        main_div = expect_element_present(actual_doc, 'div[data-maglev-section-id="jumbotron-0"]')
         expect_element_attributes(main_div, { "data-maglev-section-type": 'jumbotron' })
 
         # # Check the container div
         # container_div = expect_element_present(main_div, 'div.container')
 
         # Check the h1 element
-        h1_element = expect_element_present(main_div, 'h1[data-maglev-id="def.title"]')
+        h1_element = expect_element_present(main_div, 'h1[data-maglev-id="jumbotron-0.title"]')
         expect_element_text(h1_element, 'Hello world')
 
         # Check the body div
-        body_div = expect_element_present(main_div, 'div[data-maglev-id="def.body"]')
+        body_div = expect_element_present(main_div, 'div[data-maglev-id="jumbotron-0.body"]')
 
         # Check the paragraph
         paragraph = expect_element_present(body_div, 'p')
@@ -61,7 +64,8 @@ describe Maglev::SectionComponent do
     end
 
     context 'using the fancy Maglev tags (ex: navbar)' do
-      let(:attributes) { page.sections[0].deep_symbolize_keys }
+      let(:store) { build(:sections_content_store, :header) }
+      let(:attributes) { store.find_section_by_type('navbar').deep_symbolize_keys }
       let(:definition) { build(:section, :navbar) }
 
       before { create(:site) }

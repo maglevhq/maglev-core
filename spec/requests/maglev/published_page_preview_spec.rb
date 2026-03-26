@@ -14,8 +14,11 @@ RSpec.describe 'Maglev::PublishedPagePreviewController', type: :request do
   end
 
   context 'the page is published' do
+    let(:header_sections) { fetch_sections_translations('header') }
+    let(:home_page_sections) { fetch_sections_translations('main', home_page.id) }
+
     before do
-      Maglev::PublishService.new.call(site: site, page: home_page)
+      Maglev::PublishService.new.call(theme: theme, site: site, page: home_page)
       home_page.update(title: 'Home [DRAFT]')
     end
 
@@ -73,9 +76,9 @@ RSpec.describe 'Maglev::PublishedPagePreviewController', type: :request do
 
     context 'rendering a page from its old path' do
       before do
-        page = Maglev::Page.create(title: 'Contact us', path: 'contact')
+        page = create(:page, title: 'Contact us', path: 'contact')
         page.update!(path: 'contact-us')
-        create(:sections_content_store, container: page, sections: [], published: true)
+        create(:sections_content_store, page: page, sections: [], published: true)
       end
 
       it 'redirects to the canonical path of the page' do
