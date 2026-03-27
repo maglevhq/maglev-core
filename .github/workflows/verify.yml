@@ -1,5 +1,8 @@
 name: Verify
-on: [push]
+on:
+  push:
+    branches: [main]
+  pull_request:
 
 jobs:
   tests:
@@ -9,7 +12,7 @@ jobs:
     services:
       postgres:
         image: postgres:13.8
-        env:          
+        env:
           POSTGRES_USER: "maglev"
           POSTGRES_PASSWORD: "password"
         ports:
@@ -77,7 +80,7 @@ jobs:
           BUNDLE_GEMFILE: ${{ matrix.gemfile }}
           MAGLEV_APP_DATABASE_USERNAME: "maglev"
           MAGLEV_APP_DATABASE_PASSWORD: "password"
-        run: bundle exec rspec      
+        run: bundle exec rspec
 
       # === SQLite 🪽 ===
       - name: Setup test database (SQLite) 🪽
@@ -120,8 +123,8 @@ jobs:
         env:
           BUNDLE_GEMFILE: ${{ matrix.gemfile }}
           USE_MYSQL: 1
-          MAGLEV_APP_DATABASE_HOST: "127.0.0.1"   
-          MAGLEV_APP_DATABASE_USERNAME: "root"       
+          MAGLEV_APP_DATABASE_HOST: "127.0.0.1"
+          MAGLEV_APP_DATABASE_USERNAME: "root"
           MAGLEV_APP_DATABASE_PASSWORD: "password"
         run: bundle exec rspec
 
@@ -132,10 +135,10 @@ jobs:
           BUNDLE_GEMFILE: ${{ matrix.gemfile }}
           RAILS_ENV: test
           USE_MYSQL: 1
-          MAGLEV_APP_DATABASE_HOST: "127.0.0.1"   
+          MAGLEV_APP_DATABASE_HOST: "127.0.0.1"
           MAGLEV_APP_DATABASE_PORT: 3307
-          MAGLEV_APP_DATABASE_USERNAME: "root"       
-          MAGLEV_APP_DATABASE_PASSWORD: "password"        
+          MAGLEV_APP_DATABASE_USERNAME: "root"
+          MAGLEV_APP_DATABASE_PASSWORD: "password"
         run: |
           cp spec/dummy/db/schema.mariadb.rb spec/dummy/db/schema.rb
           cp spec/legacy_dummy/db/schema.mariadb.rb spec/legacy_dummy/db/schema.rb
@@ -146,8 +149,8 @@ jobs:
         env:
           BUNDLE_GEMFILE: ${{ matrix.gemfile }}
           USE_MYSQL: 1
-          MAGLEV_APP_DATABASE_HOST: "127.0.0.1"   
+          MAGLEV_APP_DATABASE_HOST: "127.0.0.1"
           MAGLEV_APP_DATABASE_PORT: 3307
-          MAGLEV_APP_DATABASE_USERNAME: "root"       
+          MAGLEV_APP_DATABASE_USERNAME: "root"
           MAGLEV_APP_DATABASE_PASSWORD: "password"
         run: bundle exec rspec
