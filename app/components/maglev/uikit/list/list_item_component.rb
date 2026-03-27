@@ -7,6 +7,7 @@ module Maglev
         renders_one :handle
         renders_one :image
         renders_one :big_image
+        renders_one :icon
         renders_one :pre_title
         renders_one :sub_title
         renders_one :title
@@ -41,7 +42,7 @@ module Maglev
 
         def wrapper_classes
           class_variants(
-            base: 'rounded-md px-2 flex text-gray-800',
+            base: 'rounded-md px-2 py-2 flex text-gray-800',
             variants: {
               variant: {
                 filled: 'bg-gray-100',
@@ -54,7 +55,7 @@ module Maglev
 
         def content_classes
           class_variants(
-            base: 'flex flex-1 py-3 gap-3 overflow-hidden px-2',
+            base: 'flex flex-1 gap-3 overflow-hidden px-2',
             variants: {
               disposition: {
                 row: 'flex-row items-center',

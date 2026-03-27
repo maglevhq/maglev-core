@@ -21,6 +21,14 @@ module Maglev
           render_with_template
         end
 
+        def with_icon
+          render_with_template
+        end
+
+        def with_icon_and_sub_title
+          render_with_template
+        end
+
         def with_unknown_image
           render_with_template
         end

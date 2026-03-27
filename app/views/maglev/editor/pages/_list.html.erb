@@ -5,11 +5,11 @@
     <%= render Maglev::Uikit::List::ListComponent.new do |component| %>
       <% @pages.each do |page| %>
         <% component.with_item_content(id: page.id, link: { url: editor_real_root_path(maglev_editing_route_context(page: page)), data: { turbo_frame: '_top', **maglev_page_preview_reload_data } }, options: { variant: :ghost }) do |item| %>
-          <% item.with_image do %>
+          <% item.with_icon do %>
             <%= maglev_page_icon(page) %>
           <% end %>
-          <% item.with_title_content(page.title.presence || page.default_title) %>
 
+          <% item.with_title_content(page.title.presence || page.default_title) %>
           <% item.with_sub_title_content("/" + page.path) %>
 
           <% item.with_action do %>
@@ -26,29 +26,6 @@
           <% end %>
         <% end %>
       <% end %>
-    <% end %>
-
-    <% @pages.each do |page| %>
-      <div class="flex items-center pl-4 pr-2 hover:bg-gray-50 transition-colors duration-200">
-        <%= link_to editor_real_root_path(maglev_editing_route_context(page: page)), class: 'flex items-center text-gray-800 overflow-hidden w-full py-3.5 gap-2', data: { turbo_frame: '_top', **maglev_page_preview_reload_data } do %>
-          <%= maglev_page_icon(page) %>
-          <span class="truncate">
-            <%= page.title.presence || page.default_title %>
-          </span>
-        <% end %>
-        <div class="ml-auto pr-2 relative">
-          <%= render Maglev::Uikit::PageActionsDropdownComponent.new(
-            paths: {
-              edit: edit_editor_page_path(page.id, **query_params(from_list: true), **maglev_editing_route_context),
-              preview: maglev_page_preview_url(page),
-              clone: clone_editor_page_path(page.id, maglev_editing_route_context),
-              delete: editor_page_path(page.id, **query_params, **maglev_editing_route_context)
-            },
-            live_url: maglev_page_live_url(page),
-            without_actions: page.index? ? [:delete] : []
-          ) %>
-        </div>
-      </div>
-    <% end %>
+    <% end %>   
   <% end %>
 </div>  

@@ -1,0 +1,9 @@
+<div class="w-96">
+  <%= render Maglev::Uikit::List::ListItemComponent.new do |item| %>
+    <% item.with_icon do %>
+      <%= render Maglev::Uikit::IconComponent.new(name: "image") %>
+    <% end %>
+    <% item.with_title_content("Item label") %>
+    <% item.with_sub_title_content("Sub title text") %>
+  <% end %>
+</div>
