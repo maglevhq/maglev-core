@@ -6,24 +6,42 @@
     <% end if handle? %>
     
     <% item_body = capture do %>
-      <% if image? %>
-        <div class="h-8 w-8 bg-gray-400">
-          <%= image %>
-        </div>
-      <% end %>
-
-      <% if big_image? %>
-        <%= big_image %>
-      <% end %>
-
-      <div class="flex flex-col overflow-hidden">
-        <% if pre_title? %>
-          <div class="text-gray-500 text-xs"><%= pre_title %></div>
+      <% if icon? %>
+        <div class="grid grid-cols-[auto_1fr_auto] flex flex-1 items-center">
+          <div class="mr-2">
+            <%= icon %>
+          </div>
           <div class="text-gray-800 truncate"><%= title %></div>
-        <% else %>
-          <div class="truncate"><%= title %></div>
+          <% if sub_title? %>
+            <div class="col-start-2 text-gray-500 text-xs"><%= sub_title %></div>
+          <% end %>
+        </div>
+      <% else %>
+        <% if image? %>
+          <div class="h-8 w-8 bg-gray-400">
+            <%= image %>
+          </div>
         <% end %>
-      </div>    
+
+        <% if big_image? %>
+          <%= big_image %>
+        <% end %>
+
+        <div class="flex flex-col overflow-hidden">
+          <% if pre_title? %>
+            <div class="text-gray-500 text-xs"><%= pre_title %></div>
+            <div class="text-gray-800 truncate"><%= title %></div>
+            <% if sub_title? %>
+              <div class="text-gray-500 text-xs"><%= sub_title %></div>
+            <% end %>
+          <% else %>
+            <div class="truncate"><%= title %></div>
+            <% if sub_title? %>
+              <div class="text-gray-500 text-xs"><%= sub_title %></div>
+            <% end %>
+          <% end %>
+        </div>    
+      <% end %>
     <% end %>
 
     <% if link? %>

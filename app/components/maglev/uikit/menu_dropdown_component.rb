@@ -249,20 +249,6 @@ module Maglev
         end
       end
 
-      # class TextItemComponent < ItemComponent
-      #   attr_reader :text_content, :html_options, :parent_component
-
-      #   def initialize(text_content = nil, html_options = nil, parent: nil)
-      #     @parent_component = parent
-      #     @text_content = text_content
-      #     @html_options = html_options || {}
-      #   end
-
-      #   erb_template <<-ERB
-
-      #   ERB
-      # end
-
       class DividerItemComponent < ItemComponent
         attr_reader :parent_component
 
