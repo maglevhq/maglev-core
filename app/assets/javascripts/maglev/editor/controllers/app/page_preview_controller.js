@@ -36,7 +36,9 @@ export default class extends Controller {
   // force reload the iframe
   reload() {
     this.startLoading()
-    this.iframeTarget.src = this.iframeTarget.src
+    if (!this.reloadIframeInPlace()) {
+      this.iframeTarget.src = this.iframeTarget.src
+    }
   }
 
   // called when the Maglev client JS lib has been fully loaded on the iframe
@@ -55,16 +57,54 @@ export default class extends Controller {
 
   // called when the user navigates to a new page in the editor (another Maglev page OR in a different locale) 
   detectUrlChange() {
-    const currentPath = new URL(this.iframeTarget.src).pathname
-    const newPath = document.querySelector('meta[name=page-preview-url]').content
+    const meta = document.querySelector('meta[name=page-preview-url]')
+    if (!meta?.content) return
 
-    if (currentPath !== newPath) {
+    const targetUrl = meta.content
+    let currentHref
+    let targetHref
+    try {
+      currentHref = new URL(this.iframeTarget.src, document.baseURI).href
+      targetHref = new URL(targetUrl, document.baseURI).href
+    } catch {
+      return
+    }
+
+    if (currentHref !== targetHref) {
       this.startLoading()
-      this.iframeTarget.src = newPath
+      this.assignIframeSrcWithoutHistory(targetUrl)
     } else {
       this.element.classList.add('is-loaded')
       this.updateEmptyMessageState()
     }
+  }
+
+  // Assigning iframe.src pushes a joint session-history entry in most browsers, so the first Back
+  // pops the iframe instead of the parent Turbo visit. replace/reload avoid that when same-origin.
+  assignIframeSrcWithoutHistory(url) {
+    try {
+      const win = this.iframeTarget.contentWindow
+      if (win?.location?.replace) {
+        win.location.replace(url)
+        return
+      }
+    } catch {
+      // cross-origin iframe document: fall back to src
+    }
+    this.iframeTarget.src = url
+  }
+
+  reloadIframeInPlace() {
+    try {
+      const win = this.iframeTarget.contentWindow
+      if (win?.location?.reload) {
+        win.location.reload()
+        return true
+      }
+    } catch {
+      // cross-origin: caller will fall back to reassigning src
+    }
+    return false
   }
 
   updateEmptyMessageState() {
