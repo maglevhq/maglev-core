@@ -351,6 +351,9 @@
   .isolate {
     isolation: isolate;
   }
+  .z-0 {
+    z-index: 0;
+  }
   .z-5 {
     z-index: 5;
   }
@@ -365,6 +368,9 @@
   }
   .z-50 {
     z-index: 50;
+  }
+  .z-\[5\] {
+    z-index: 5;
   }
   .col-span-1 {
     grid-column: span 1 / span 1;
@@ -606,9 +612,6 @@
   }
   .h-screen {
     height: 100vh;
-  }
-  .min-h-10 {
-    min-height: calc(var(--spacing) * 10);
   }
   .min-h-11 {
     min-height: calc(var(--spacing) * 11);
@@ -870,9 +873,6 @@
   }
   .gap-1 {
     gap: calc(var(--spacing) * 1);
-  }
-  .gap-1\.5 {
-    gap: calc(var(--spacing) * 1.5);
   }
   .gap-2 {
     gap: calc(var(--spacing) * 2);
@@ -1880,11 +1880,6 @@
       display: none;
     }
   }
-  .group-\[\.is-empty\]\:flex {
-    &:is(:where(.group):is(.is-empty) *) {
-      display: flex;
-    }
-  }
   .group-\[\.is-empty\]\/color\:bg-white\! {
     &:is(:where(.group\/color):is(.is-empty) *) {
       background-color: var(--color-white) !important;
@@ -2290,11 +2285,6 @@
   .focus-visible\:ring-offset-white {
     &:focus-visible {
       --tw-ring-offset-color: var(--color-white);
-    }
-  }
-  .focus-visible\:ring-inset {
-    &:focus-visible {
-      --tw-ring-inset: inset;
     }
   }
   .disabled\:bg-editor-primary\/75 {
@@ -2716,6 +2706,11 @@
       @starting-style {
         opacity: 0%;
       }
+    }
+  }
+  .editor-preview-empty\:block {
+    body:has([data-controller~="editor-page-preview"].is-empty) & {
+      display: block;
     }
   }
   .\[\&\.active\]\:bg-gray-600 {
