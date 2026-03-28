@@ -8,6 +8,9 @@
   --color-editor-primary: var(--editor-color-primary);
 }
 
+/* Empty-state overlay in #root: visible when the preview Stimulus shell has .is-empty */
+@custom-variant editor-preview-empty (body:has([data-controller~="editor-page-preview"].is-empty) &);
+
 @source "<%= Maglev::Engine.root.join('app') %>";
 @source "<%= Maglev::Engine.root.join('lib') %>";
 @source "<%= Maglev::Engine.root.join('spec/components/previews/maglev/uikit') %>";

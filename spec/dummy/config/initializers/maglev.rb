@@ -3,6 +3,8 @@
 Maglev.configure do |config|
   # config.logo = 'logo.svg'
 
+  # config.primary_color = '#674DCB'
+
   config.uploader = :active_storage
 
   config.collections = {

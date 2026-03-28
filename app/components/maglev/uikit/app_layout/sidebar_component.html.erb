@@ -2,15 +2,14 @@
   id="app-layout-sidebar"
   class="w-16 flex-shrink-0 flex content-center h-full border-r border-gray-200 relative z-20 bg-white"
 >
-  <nav class="w-16 flex flex-col justify-between">
-    <ol class="divide-y divide-gray-300 px-4">
+  <nav class="flex h-full w-16 flex-col justify-between py-2">
+    <ol class="flex flex-col gap-1 px-2">
       <% links.each do |link| %>
         <%= link if link.top? %>
       <% end %>      
     </ol>
 
-    <ol class="divide-y divide-gray-300 px-4">
-      <li></li>
+    <ol class="flex flex-col gap-1 px-2">
       <% links.each do |link| %>
         <%= link unless link.top? %>
       <% end %>      

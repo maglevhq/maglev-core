@@ -107,6 +107,7 @@
       style:
         edit:
           title: "Estilizar seu site"
+          sub_title: "Ajuste cores, tipografia e outras configurações do tema que valem para todo o site."
           submit_button:
             default: "Atualizar estilo"
             in_progress: "Atualizando..."

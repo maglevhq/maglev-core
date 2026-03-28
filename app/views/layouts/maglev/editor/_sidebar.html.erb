@@ -2,6 +2,7 @@
   path: editor_pages_path(maglev_editing_route_context), 
   icon: 'file_copy', 
   active: controller_name == 'pages',
+  label: t('maglev.editor.sidebar_nav.list_pages_tooltip'),
   options: {
     data: { controller: 'prevent-same-path' }
   }
@@ -10,13 +11,15 @@
 <% sidebar.with_link(
   path: editor_sections_path(maglev_editing_route_context), 
   icon: 'stack',
-  active: controller_name == 'sections'
+  active: controller_name == 'sections',
+  label: t('maglev.editor.sidebar_nav.manage_page_sections_tooltip')
 ) %>
 
 <% sidebar.with_link(
   path: edit_editor_style_path(maglev_editing_route_context), 
   icon: 'drop',
   active: controller_name == 'style',
+  label: t('maglev.editor.sidebar_nav.edit_style_tooltip'),
   options: {
     icon_size: '1.25rem',
     data: { controller: 'prevent-same-path' }
@@ -26,6 +29,7 @@
 <% sidebar.with_link(
   path: editor_assets_path, 
   icon: 'image',
+  label: t('maglev.editor.sidebar_nav.open_image_library_tooltip'),
   options: {
     data: { turbo_frame: 'modal' }
   }
@@ -34,6 +38,7 @@
 <% sidebar.with_link(
   path: editor_leave_path, 
   icon: 'logout',
+  label: t('maglev.editor.sidebar_nav.leave_editor_tooltip'),
   options: {
     position: :bottom
   }

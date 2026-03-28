@@ -1,15 +1,12 @@
 <%= render(Maglev::Uikit::MenuDropdownComponent.new) do |dropdown| %>
   <% dropdown.with_trigger do %>
-    <button 
-      class="flex-1 h-full w-full px-6 hover:bg-gray-100 transition-colors duration-200 flex items-center focus:outline-none focus:none cursor-pointer space-x-2"
-      data-action="click->uikit-dropdown#toggle" 
-      data-uikit-dropdown-target="button">
+    <%= tag.button class: helpers.maglev_button_classes(color: :secondary, class: 'space-x-2'), data: { action: 'click->uikit-dropdown#toggle', 'uikit-dropdown-target': 'button' } do %>
       <%= render Maglev::Uikit::IconComponent.new(name: 'global') %>
       <span class="whitespace-nowrap">
         <%= current_locale_label %>
       </span>
       <%= render Maglev::Uikit::IconComponent.new(name: 'arrow_down') %>
-    </button>
+    <% end %>
   <% end %>
   
   <% locales.each do |locale| %>

@@ -107,6 +107,7 @@ fr:
       style:
         edit:
           title: "Styliser votre site"
+          sub_title: "Modifiez les couleurs, la typographie et les autres réglages du thème appliqués à tout le site."
           submit_button:
             default: "Mettre à jour le style"
             in_progress: "Mise à jour..."

@@ -1,5 +1,5 @@
 <div 
-  class="absolute top-16 left-16 right-0 bottom-0 overflow-hidden group"
+  class="absolute top-16 left-16 right-0 bottom-0 z-0 overflow-hidden group"
   data-controller="editor-page-preview"
   data-action="
     uikit-device-toggler:change@window->editor-page-preview#changeDevice 
@@ -32,6 +32,4 @@
       <%= t('maglev.editor.page_preview.loading') %>
     </p>
   </div>
-
-  <%= render 'maglev/editor/pages/preview_empty_message' %>
 </div>

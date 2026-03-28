@@ -59,6 +59,9 @@
       <% end %>      
 
       <%= render 'maglev/editor/sections/toolbar_list' %>
+
+      <%# Inside #root so Turbo morph refreshes the new-section URL; visibility uses editor-preview-empty variant (see tailwind.css.erb). %>
+      <%= render 'maglev/editor/pages/preview_empty_message' %>
     </div>
 
     <%= render 'maglev/editor/pages/preview' %>
