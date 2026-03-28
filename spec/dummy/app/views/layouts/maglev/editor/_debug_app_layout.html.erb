@@ -2,8 +2,8 @@
 
 <%= render Maglev::Uikit::AppLayout::LayoutComponent.new(page: @page) do |layout| %>
   <% layout.with_sidebar do |sidebar| %>    
-    <% sidebar.with_link(path: maglev.editor_pages_path(locale: I18n.locale, page_id: @page.id), icon: 'file_copy') %>
-    <% sidebar.with_link(path: maglev.editor_sections_path(locale: I18n.locale, page_id: @page.id), icon: 'stack') %>
+    <% sidebar.with_link(path: maglev.editor_pages_path(locale: I18n.locale, page_id: @page.id), icon: 'file_copy', label: t('maglev.editor.sidebar_nav.list_pages_tooltip')) %>
+    <% sidebar.with_link(path: maglev.editor_sections_path(locale: I18n.locale, page_id: @page.id), icon: 'stack', label: t('maglev.editor.sidebar_nav.manage_page_sections_tooltip')) %>
   <% end %>
 
   <%= content %>
