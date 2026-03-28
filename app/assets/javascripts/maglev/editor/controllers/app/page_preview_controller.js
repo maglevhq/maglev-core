@@ -6,9 +6,12 @@ export default class extends Controller {
   connect() {
     this.setupTransformations()
     this.numberOfSections = null
+    this.syncPreviewTimer = null
   }
 
   disconnect() {
+    clearTimeout(this.syncPreviewTimer)
+    this.syncPreviewTimer = null
     this.teardownTransformations()
   }
 
@@ -55,43 +58,85 @@ export default class extends Controller {
     this.updateEmptyMessageState()
   }
 
-  // called when the user navigates to a new page in the editor (another Maglev page OR in a different locale) 
+  // Preview markup lives outside the Turbo morph root (#root), so the iframe persists while <head>
+  // meta updates. Reading meta on turbo:load can race; we debounce. After Back, compare the live
+  // iframe document URL (same-origin) to meta, not only the src attribute.
   detectUrlChange() {
+    clearTimeout(this.syncPreviewTimer)
+    this.syncPreviewTimer = setTimeout(() => {
+      this.syncPreviewTimer = null
+      this.syncPreview()
+    }, 0)
+  }
+
+  syncPreview() {
     const meta = document.querySelector('meta[name=page-preview-url]')
     if (!meta?.content) return
 
-    const targetUrl = meta.content
-    let currentHref
     let targetHref
     try {
-      currentHref = new URL(this.iframeTarget.src, document.baseURI).href
-      targetHref = new URL(targetUrl, document.baseURI).href
+      targetHref = new URL(meta.content, document.baseURI).href
     } catch {
       return
     }
 
-    if (currentHref !== targetHref) {
+    const currentHref = this.livePreviewHref()
+    const targetKey = this.previewUrlKey(targetHref)
+    const currentKey = this.previewUrlKey(currentHref)
+
+    if (currentKey !== targetKey) {
       this.startLoading()
-      this.assignIframeSrcWithoutHistory(targetUrl)
+      this.assignIframeSrcWithoutHistory(targetHref)
     } else {
       this.element.classList.add('is-loaded')
       this.updateEmptyMessageState()
     }
   }
 
+  livePreviewHref() {
+    try {
+      const win = this.iframeTarget.contentWindow
+      const href = win?.location?.href
+      if (href && !href.startsWith("about:")) {
+        return new URL(href, document.baseURI).href
+      }
+    } catch {
+      // cross-origin preview document
+    }
+    try {
+      return new URL(this.iframeTarget.src, document.baseURI).href
+    } catch {
+      return this.iframeTarget.src
+    }
+  }
+
+  previewUrlKey(href) {
+    try {
+      const u = new URL(href, document.baseURI)
+      u.hash = ""
+      let path = u.pathname
+      if (path.length > 1 && path.endsWith("/")) {
+        path = path.slice(0, -1)
+      }
+      return `${u.origin}${path}${u.search}`
+    } catch {
+      return href
+    }
+  }
+
   // Assigning iframe.src pushes a joint session-history entry in most browsers, so the first Back
   // pops the iframe instead of the parent Turbo visit. replace/reload avoid that when same-origin.
-  assignIframeSrcWithoutHistory(url) {
+  assignIframeSrcWithoutHistory(resolvedHref) {
     try {
       const win = this.iframeTarget.contentWindow
       if (win?.location?.replace) {
-        win.location.replace(url)
+        win.location.replace(resolvedHref)
         return
       }
     } catch {
       // cross-origin iframe document: fall back to src
     }
-    this.iframeTarget.src = url
+    this.iframeTarget.src = resolvedHref
   }
 
   reloadIframeInPlace() {

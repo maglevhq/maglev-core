@@ -4,7 +4,8 @@
   <% else %>
     <%= render Maglev::Uikit::List::ListComponent.new do |component| %>
       <% @pages.each do |page| %>
-        <% component.with_item_content(id: page.id, link: { url: editor_real_root_path(maglev_editing_route_context(page: page)), data: { turbo_frame: '_top', **maglev_page_preview_reload_data } }, options: { variant: :ghost }) do |item| %>
+        <%# Omit maglev_page_preview_reload_data: it runs before Turbo visits the row URL and reloads the iframe, then syncPreview loads the new preview again (double fetch). %>
+        <% component.with_item_content(id: page.id, link: { url: editor_real_root_path(maglev_editing_route_context(page: page)), data: { turbo_frame: '_top' } }, options: { variant: :ghost }) do |item| %>
           <% item.with_icon do %>
             <%= maglev_page_icon(page) %>
           <% end %>
