@@ -107,6 +107,7 @@ en:
       style:
         edit:
           title: "Style your site"
+          sub_title: "Adjust colors, typography, and other theme settings that apply site-wide."
           submit_button:
             default: "Update style"
             in_progress: "Updating..."

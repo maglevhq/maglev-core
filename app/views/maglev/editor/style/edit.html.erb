@@ -1,5 +1,6 @@
 <%= render Maglev::Uikit::PageLayoutComponent.new(back_path: editor_real_root_path(maglev_editing_route_context)) do |page_layout| %>
   <% page_layout.with_title_content t('maglev.editor.style.edit.title') %>
+  <% page_layout.with_description_content t('maglev.editor.style.edit.sub_title') %>
   <% page_layout.with_notification_content maglev_flash_message %>
 
   <%= form_with url: editor_style_path(**maglev_editing_route_context), method: :put, id: 'editor-style-form', data: {    
