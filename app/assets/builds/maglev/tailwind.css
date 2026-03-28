@@ -607,9 +607,6 @@
   .h-screen {
     height: 100vh;
   }
-  .min-h-10 {
-    min-height: calc(var(--spacing) * 10);
-  }
   .min-h-11 {
     min-height: calc(var(--spacing) * 11);
   }
@@ -870,9 +867,6 @@
   }
   .gap-1 {
     gap: calc(var(--spacing) * 1);
-  }
-  .gap-1\.5 {
-    gap: calc(var(--spacing) * 1.5);
   }
   .gap-2 {
     gap: calc(var(--spacing) * 2);
@@ -2287,6 +2281,11 @@
   .focus-visible\:ring-offset-white {
     &:focus-visible {
       --tw-ring-offset-color: var(--color-white);
+    }
+  }
+  .focus-visible\:ring-inset {
+    &:focus-visible {
+      --tw-ring-inset: inset;
     }
   }
   .disabled\:bg-editor-primary\/75 {
