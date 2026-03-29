@@ -83,7 +83,8 @@ ar:
           confirm_delete: "هل أنت متأكد من أنك تريد حذفه؟"          
         new:
           title: "إضافة قسم"
-          empty_category: "لا توجد أقسام"
+          search_placeholder: "البحث عن قسم"
+          empty_list: "لم يتم العثور على أقسام"
         edit:
           no_settings: "لا توجد إعدادات محددة في هذا القسم"
           tabs:

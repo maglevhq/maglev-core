@@ -67,12 +67,12 @@ en:
             title: "Edit the current page"
           submit_button:
             default: "Update page"
-            in_progress: "Updating..."            
+            in_progress: "Updating..."
           cancel_button: "Cancel"
         form:
           tabs:
             main: "Main"
-            seo: "SEO"          
+            seo: "SEO"
       sections:
         breadcrumb: "Sections"
         index:
@@ -80,16 +80,17 @@ en:
           sub_title: "Re-order / delete the sections of the page"
           empty: "There are no sections."
           add_button: "Add a new section"
-          confirm_delete: "Are you sure you want to delete it?"          
+          confirm_delete: "Are you sure you want to delete it?"
         new:
           title: "Add a section"
-          empty_category: "No sections"
+          search_placeholder: "Search for a section"
+          empty_list: "No sections found"
         edit:
           no_settings: "There are no settings defined in this section"
           tabs:
             main: "Content"
             advanced: "Advanced"
-            blocks: "Blocks"            
+            blocks: "Blocks"
       section_blocks:
         breadcrumb: "Blocks"
         index:
@@ -100,7 +101,7 @@ en:
           no_settings: "There are no settings defined in this block"
           tabs:
             main: "Content"
-            advanced: "Advanced"       
+            advanced: "Advanced"
       settings:
         collection_item:
           placeholder: "Select a collection item"
@@ -112,7 +113,7 @@ en:
             default: "Update style"
             in_progress: "Updating..."
             success: "Updated!"
-            fail: "Fail!"      
+            fail: "Fail!"
       image_library:
         title: "List of images"
         picker_title: "Select an image"
@@ -125,7 +126,7 @@ en:
           wrong_files: "Make sure the size of each image is not greater than %{limit}."
           upload_button:
             default: "Upload images"
-            in_progress: "Uploading..."            
+            in_progress: "Uploading..."
       icon_input:
         add_button: "Add icon"
         replace_button: "Replace icon"
@@ -183,7 +184,7 @@ en:
       confirmation_button:
         text: "Are you sure to perform this action?"
         confirm_button_label: "Yes"
-        cancel_button_label: "No"            
+        cancel_button_label: "No"
       error_modals:
         stale_object:
           title: "Sorry about that 🙇"
@@ -202,13 +203,13 @@ en:
       support:
         human:
           locales:
-            fr: 'Français'
-            en: 'English'
-            de: 'Deutsch'
-            it: 'Italiano'
-            es: 'Español'
-            ar: 'Arabic'
-            pt: 'Português'            
+            fr: "Français"
+            en: "English"
+            de: "Deutsch"
+            it: "Italiano"
+            es: "Español"
+            ar: "Arabic"
+            pt: "Português"
           storage_units:
             format: "%{number} %{unit}"
             units:
@@ -226,14 +227,14 @@ en:
             success: "Saved!"
             error: "Failed!"
           destroy:
-            success: "Deleted!"     
+            success: "Deleted!"
           clone:
             create:
               success: "Cloned!"
         sections:
           sort:
-            success: 'Sorted!'
-            error: 'Failed!'
+            success: "Sorted!"
+            error: "Failed!"
           create:
             success: "Added!"
             error: "Failed!"

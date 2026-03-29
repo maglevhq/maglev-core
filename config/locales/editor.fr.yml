@@ -83,7 +83,8 @@ fr:
           confirm_delete: "Êtes-vous sûr de vouloir le supprimer ?"          
         new:
           title: "Ajouter une section"
-          empty_category: "Aucune section"
+          search_placeholder: "Rechercher une section"
+          empty_list: "Aucune section trouvée"
         edit:
           no_settings: "Aucun paramètre n'est défini dans cette section"
           tabs:

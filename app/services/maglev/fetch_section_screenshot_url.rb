@@ -10,6 +10,8 @@ module Maglev
     argument :section
 
     def call
+      return nil unless section.local_screenshot?
+
       screenshot_path = fetch_section_screenshot_path.call(section: section) + query_string
       asset_host ? URI.join(asset_host, screenshot_path).to_s : screenshot_path
     end

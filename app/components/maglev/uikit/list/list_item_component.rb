@@ -13,13 +13,14 @@ module Maglev
         renders_one :title
         renders_one :action
 
-        attr_reader :link, :index, :options, :variant
+        attr_reader :link, :index, :options, :variant, :wrapper_tag_name
 
         def initialize(id: nil, link: nil, options: {})
           @id = id
           @link = link
           @variant = options.fetch(:variant, :filled).to_sym
           @custom_wrapper_classes = options[:wrapper_classes]
+          @wrapper_tag_name = options[:wrapper_tag] || :div
           @index = options[:index]
           @options = options
         end
@@ -40,25 +41,28 @@ module Maglev
           link[:data] || {}
         end
 
+        # rubocop:disable Metrics/MethodLength
         def wrapper_classes
           class_variants(
-            base: 'rounded-md px-2 py-2 flex text-gray-800',
+            base: 'rounded-md flex text-gray-800',
             variants: {
               variant: {
                 filled: 'bg-gray-100',
                 ghost: 'hover:bg-gray-50 transition-colors duration-200'
-              }
+              },
+              padding: { default: 'p-2', medium: 'p-3' }
             },
-            default: { variant: :filled }
-          ).render(variant: variant, class: @custom_wrapper_classes)
+            default: { variant: :filled, padding: :default }
+          ).render(variant: variant, padding: big_image? ? :medium : :default, class: @custom_wrapper_classes)
         end
+        # rubocop:enable Metrics/MethodLength
 
         def content_classes
           class_variants(
-            base: 'flex flex-1 gap-3 overflow-hidden px-2',
+            base: 'flex flex-1 gap-3 overflow-hidden',
             variants: {
               disposition: {
-                row: 'flex-row items-center',
+                row: 'flex-row items-center px-2',
                 col: 'flex-col'
               }
             },

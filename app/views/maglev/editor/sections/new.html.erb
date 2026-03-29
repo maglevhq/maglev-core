@@ -1,3 +1,20 @@
+<%= turbo_frame_tag 'modal' do %>
+  <%= render Maglev::Uikit::ModalComponent.new(id: 'new-section-modal', open: true) do |modal| %>    
+    <% modal.with_title_content t('maglev.editor.sections.new.title') %>
+    <% modal.with_notification_content maglev_flash_message %>
+
+    <div class="space-y-2 lg:w-2xl">
+      <%= render 'maglev/editor/sections/theme/search' %>
+
+      <% if @theme_sections.any? %>        
+        <%= render 'maglev/editor/sections/theme/list' %>
+      <% else %>
+        <%= render 'maglev/editor/sections/theme/empty_list' %>
+      <% end %>
+    </div>
+  <% end %>
+<% end %>
+
 <%= render Maglev::Uikit::PageLayoutComponent.new(expanded: true, back_path: editor_real_root_path(maglev_editing_route_context)) do |page_layout| %>
   <% page_layout.with_title_content t('maglev.editor.sections.new.title') %>
   <% page_layout.with_notification_content maglev_flash_message %>
@@ -17,4 +34,4 @@
 
     <%= render 'theme_list', f: f %>
   <% end %>
-<% end %>
+<% end if false %>
