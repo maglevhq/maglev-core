@@ -20,6 +20,8 @@ module Maglev
     end
 
     initializer 'maglev.theme_reloader' do |app|
+      next unless Maglev.theme_reloader_enabled?
+
       require_relative './theme_filesystem_loader'
       theme_path = Rails.root.join('app/theme')
       theme_reloader = app.config.file_watcher.new([], { theme_path.to_s => ['.yml', 'yml'] }) do
