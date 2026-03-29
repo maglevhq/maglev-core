@@ -18,7 +18,7 @@ module Maglev
   ServiceContext = Struct.new(:rendering_mode, :controller, :site, keyword_init: true)
 
   class << self
-    attr_accessor :local_themes
+    attr_accessor :local_themes, :theme_reloader_disabled
 
     # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
     def config
@@ -77,6 +77,15 @@ module Maglev
 
       config = Rails.configuration.generators
       @uuid_as_primary_key = config.options[config.orm][:primary_key_type] == :uuid
+    end
+
+    # disable the theme reloader which is required by the Maglev SaaS plugin
+    def disable_theme_reloader
+      @theme_reloader_disabled = true
+    end
+
+    def theme_reloader_enabled?
+      !@theme_reloader_disabled
     end
 
     def config_klass

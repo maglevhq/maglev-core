@@ -12,10 +12,18 @@ describe Maglev::FetchSectionScreenshotUrl do
   let(:fetch_section_screenshot_path) { instance_double('FetchSectionScreenshotPath', call: screenshot_path) }
 
   let(:service) { described_class.new(fetch_section_screenshot_path: fetch_section_screenshot_path, context: context) }
-  let(:section) { instance_double('Section', id: 'jumbotron', screenshot_timestamp: 42) }
+  let(:section) { instance_double('Section', id: 'jumbotron', screenshot_timestamp: 42, local_screenshot?: true) }
 
   it 'returns the url to the screenshot of the section' do
     expect(subject).to eq '/theme/jumbotron.png?42'
+  end
+
+  context 'when the section has no local screenshot' do
+    let(:section) { instance_double('Section', id: 'jumbotron', screenshot_timestamp: 42, local_screenshot?: false) }
+
+    it 'returns nil' do
+      expect(subject).to be_nil
+    end
   end
 
   context 'when there is a Rails asset host set' do

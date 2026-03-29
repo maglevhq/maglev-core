@@ -15,9 +15,16 @@ describe 'Maglev::Editor::Sections', type: :request do
   end
 
   describe 'GET /maglev/editor/:context/sections/new' do
+    describe 'Not requesting a turbo frame' do
+      it 'returns a redirect response' do
+        get "/maglev/editor/en/#{home_page.id}/sections/new"
+        expect(response).to redirect_to('/maglev/editor')
+      end
+    end
+
     it 'returns a success response' do
-      get "/maglev/editor/en/#{home_page.id}/sections/new"
-      expect(response.body).to have_selector('h2[data-editor-page-layout-title]', text: 'Add a section')
+      get "/maglev/editor/en/#{home_page.id}/sections/new", headers: { "Turbo-Frame": 'modal' }
+      expect(response.body).to have_selector('h2', text: 'Add a section')
       expect(response).to be_successful
     end
   end

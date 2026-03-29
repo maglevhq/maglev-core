@@ -6,6 +6,7 @@ module Maglev
       helper Maglev::Editor::SettingsHelper
       helper_method :source_lock_version
 
+      before_action :ensure_turbo_frame_request, only: [:new]
       before_action :set_section, only: %i[edit update]
 
       def show
@@ -13,8 +14,11 @@ module Maglev
       end
 
       def new
-        @grouped_sections = maglev_theme.sections.available_for(current_maglev_sections).grouped_by_category
+        set_query_and_category_id
         @position = (params[:position] || -1).to_i
+        @theme_sections = maglev_theme.sections.filter(current_maglev_sections, keyword: @query,
+                                                                                category_id: @category_id)
+        render layout: false
       end
 
       def create
@@ -71,6 +75,14 @@ module Maglev
       def render_index_with_error
         flash.now[:alert] = flash_t(:error)
         render 'index', status: :unprocessable_content
+      end
+
+      def set_query_and_category_id
+        # we can't filter by both query and category_id in the same time
+        @query = params[:category_id].present? ? nil : params[:query]
+        # if no category_id is provided AND we don't have a query, we take the first category
+        @category_id = params[:category_id] || maglev_theme.section_categories.first.id
+        @category_id = nil if @query.present?
       end
 
       def newly_added_section_to_flash

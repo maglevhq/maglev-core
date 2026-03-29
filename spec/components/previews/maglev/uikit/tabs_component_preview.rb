@@ -6,6 +6,10 @@ module Maglev
       def default
         render_with_template
       end
+
+      def pills
+        render_with_template
+      end
     end
   end
 end

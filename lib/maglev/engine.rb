@@ -15,7 +15,13 @@ module Maglev
       g.factory_bot dir: 'spec/factories'
     end
 
+    initializer 'maglev.i18n' do |_app|
+      Rails.application.config.i18n.load_path += Dir["#{config.root}/config/locales/**/*.yml"]
+    end
+
     initializer 'maglev.theme_reloader' do |app|
+      next unless Maglev.theme_reloader_enabled?
+
       require_relative './theme_filesystem_loader'
       theme_path = Rails.root.join('app/theme')
       theme_reloader = app.config.file_watcher.new([], { theme_path.to_s => ['.yml', 'yml'] }) do
@@ -35,11 +41,7 @@ module Maglev
       config.after_initialize do
         theme_reloader.execute
       end
-    end
-
-    initializer 'maglev.i18n' do |_app|
-      Rails.application.config.i18n.load_path += Dir["#{config.root}/config/locales/**/*.yml"]
-    end
+    end    
 
     def self.importmaps
       @importmaps ||= {

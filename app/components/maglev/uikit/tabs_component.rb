@@ -7,16 +7,21 @@ module Maglev
         Tab.new(self, label: label, active: active, link: link, block: block)
       }
 
-      attr_reader :container_classes, :active_tab, :active_tab_index, :disable_inputs
+      attr_reader :container_classes, :active_tab, :active_tab_index, :disable_inputs, :variant
 
       # disable_inputs: true | false (default: false) if true, the inputs of hidden tabs will not be submitted
-      def initialize(container_classes: nil, active_tab_index: nil, disable_inputs: false)
+      def initialize(container_classes: nil, active_tab_index: nil, disable_inputs: false, variant: :default)
         @container_classes = container_classes
         @active_tab_index = active_tab_index
         @disable_inputs = disable_inputs
+        @variant = variant
       end
 
       def label_classes(...)
+        variant == :pills ? pills_label_classes(...) : default_label_classes(...)
+      end
+
+      def default_label_classes(...)
         class_variants(
           base: %(
             relative py-1 pb-0 px-4 block focus:outline-none border-b-2
@@ -29,9 +34,23 @@ module Maglev
         ).render(...)
       end
 
+      def pills_label_classes(...)
+        class_variants(
+          base: %(rounded-md px-3 py-2 text-sm),
+          variants: {
+            active: 'rounded-md bg-editor-primary/10 font-semibold text-editor-primary',
+            '!active': 'text-gray-500 hover:text-gray-700 font-medium'
+          }
+        ).render(...)
+      end
+
       def before_render
-        @active_tab = tabs.find(&:active?) || tabs[active_tab_index.to_i]
-        @active_tab.active = true
+        @active_tab = tabs.find(&:active?)
+
+        return unless !@active_tab && active_tab_index != -1
+
+        @active_tab = tabs[active_tab_index.to_i]
+        @active_tab&.active = true
       end
 
       def disable_inputs?

@@ -8,9 +8,9 @@
   <input type="hidden" name="active_tab" value="<%= active_tab_index %>" data-uikit-tabs-target="hiddenInput" />  
 
   <nav>
-    <ul class="flex flex-col sm:flex-row">
+    <ul class="flex flex-row">
       <% tabs.each_with_index do |tab, index| %>
-        <li>
+        <li class="shrink-0">
           <% if tab.link? %>
             <%= link_to tab.label, tab.link[:url], class: label_classes(active: tab.active?), **tab.link_html_options %>
           <% else %>
@@ -25,11 +25,14 @@
     </ul>
   </nav>
 
-  <div class="relative -mt-0.5"><div class="w-full border-gray-200 border-t-2 h-0"></div></div>
+  <% if variant == :default %>
+    <div class="relative -mt-0.5"><div class="w-full border-gray-200 border-t-2 h-0"></div></div>
+  <% end %>
 
   <% tabs.each_with_index do |tab, index| %>
+    <% next unless tab.block? %>
     <div data-uikit-tabs-target="tabContent" class="flex-1 mt-4 pt-2 pb-4 overflow-y-auto overflow-x-visible <%= 'hidden' unless tab.active? %>">
-      <%= capture(&tab.block) if tab.block? %>
+      <%= capture(&tab.block) %>
     </div>
   <% end %>
 </div>

@@ -1,0 +1,35 @@
+<div class="relative -mx-4 -my-4 flex min-h-0 flex-1 flex-col overflow-y-auto">
+  <%= form_with url: editor_sections_path(maglev_editing_route_context), html: { class: 'flex min-h-0 w-full flex-1 flex-col' }, data: { 
+        turbo_frame: '_top',
+        controller: 'auto-save dispatcher',
+        action: %(
+          turbo:submit-end->editor-preview-notification-center#addSection
+          turbo:submit-end->dispatcher#trigger
+          turbo:submit-end->uikit-modal#close:self
+        ),
+        'dispatcher-event-name-value': 'page-preview:remove-empty-message'
+      } do |f| %>
+      <%= f.hidden_field :position, value: @position %>
+
+    <div class="grid w-full grid-cols-1 gap-4 px-4 py-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
+      <% @theme_sections.each do |section| %>  
+        <%= render Maglev::Uikit::List::ListItemComponent.new(options: { 
+            wrapper_tag: :label,
+            wrapper_classes: 'cursor-pointer transition duration-150 ease-in-out transform hover:scale-105 hover:z-10 hover:ring-2 hover:ring-inset hover:ring-editor-primary/50' }
+          ) do |item| %>
+          <% item.with_big_image do %>
+            <% if screenshot_url = services.fetch_section_screenshot_url.call(section: section) %>
+              <%= image_tag screenshot_url, class: item.big_image_classes(class: 'rounded-md border border-gray-200'), data: { controller: 'broken-image' } %>
+            <% else %>
+              <%= render 'maglev/editor/sections/theme/screenshot_placeholder' %>
+            <% end %>        
+          <% end %>
+            
+          <% item.with_title_content(section.human_name) %>   
+
+          <%= f.radio_button :section_type, section.id, class: 'sr-only peer' %>   
+        <% end %>
+      <% end %>
+    </div>
+  <% end %>
+</div>

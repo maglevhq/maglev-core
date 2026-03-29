@@ -1,0 +1,22 @@
+<div class="flex items-center w-full flex-col gap-4 shrink-0">
+  <div class="w-full">    
+    <%= render Maglev::Uikit::Form::SearchFormComponent.new(
+      name: 'query', 
+      value: @query, 
+      search_path: new_editor_section_path({ query: @query, position: @position }),       
+      options: {
+        placeholder: t('maglev.editor.sections.new.search_placeholder'),
+        class_names: 'w-full',
+      }) %>
+  </div>
+
+  <div class="w-full">
+    <div class="overflow-y-hidden pt-2 pb-4">
+      <%= render Maglev::Uikit::TabsComponent.new(variant: :pills, active_tab_index: -1) do |tabs| %>
+        <% maglev_theme.section_categories.each do |category| %>
+          <% tabs.with_tab(label: category.human_name, link: { url: new_editor_section_path(category_id: category.id, position: @position) }, active: category.id == @category_id) %>
+        <% end %>        
+      <% end %>
+    </div>
+  </div>
+</div>

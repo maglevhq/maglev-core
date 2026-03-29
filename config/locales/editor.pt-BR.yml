@@ -83,7 +83,8 @@
           confirm_delete: "Tem certeza de que deseja excluí-lo?"          
         new:
           title: "Adicionar uma seção"
-          empty_category: "Sem seções"
+          search_placeholder: "Pesquisar uma seção"
+          empty_list: "Nenhuma seção encontrada"
         edit:
           no_settings: "Não há configurações definidas nesta seção"
           tabs:

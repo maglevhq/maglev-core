@@ -1,0 +1,11 @@
+<%= render Maglev::Uikit::TabsComponent.new(container_classes: 'w-full h-full flex flex-col', variant: :pills) do |tabs| %>
+  <% tabs.with_tab(label: 'Pill 1') do %>
+    <p>Tab 1 content</p>
+  <% end %>
+  <% tabs.with_tab(label: 'Pill 2', active: true) do %>
+    <p>Tab 2 content</p>
+  <% end %>
+  <% tabs.with_tab(label: 'Pill 3') do %>
+    <p>Tab 3 content</p>
+  <% end %>
+<% end %>

@@ -82,6 +82,10 @@ module Maglev
       settings.none? && blocks.none?
     end
 
+    def local_screenshot?
+      screenshot_timestamp.present?
+    end
+
     ## class methods ##
 
     def self.build(hash)
@@ -108,7 +112,7 @@ module Maglev
 
     class Store
       extend Forwardable
-      def_delegators :@array, :all, :first, :last, :count, :each, :each_with_index, :map, :group_by
+      def_delegators :@array, :all, :first, :last, :count, :each, :each_with_index, :map, :group_by, :any?
 
       attr_reader :array
 
@@ -136,6 +140,18 @@ module Maglev
           end
         end
         self.class.new(new_array)
+      end
+
+      def filter(sections_content, keyword: nil, category_id: nil)
+        new_array = if keyword.present?
+                      @array.select { |section| section.name.downcase.include?(keyword.downcase) }
+                    elsif category_id.present?
+                      @array.select { |section| section.category == category_id }
+                    else
+                      @array
+                    end
+
+        self.class.new(new_array).available_for(sections_content)
       end
 
       def as_json(**_options)
