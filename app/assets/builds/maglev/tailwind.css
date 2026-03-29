@@ -613,14 +613,11 @@
   .h-128 {
     height: calc(var(--spacing) * 128);
   }
-  .h-136 {
-    height: calc(var(--spacing) * 136);
-  }
-  .h-144 {
-    height: calc(var(--spacing) * 144);
-  }
   .h-\[100dvh-\(--spacing\(16\)\)\] {
     height: 100dvh-(calc(var(--spacing) * 16));
+  }
+  .h-\[calc\(100dvh-16rem\)\] {
+    height: calc(100dvh - 16rem);
   }
   .h-\[calc\(100vh-4rem\)\] {
     height: calc(100vh - 4rem);
@@ -633,6 +630,9 @@
   }
   .h-screen {
     height: 100vh;
+  }
+  .min-h-0 {
+    min-height: calc(var(--spacing) * 0);
   }
   .min-h-11 {
     min-height: calc(var(--spacing) * 11);
@@ -705,6 +705,9 @@
   }
   .w-\[51rem\] {
     width: 51rem;
+  }
+  .w-\[calc\(100dvw-4rem\)\] {
+    width: calc(100dvw - 4rem);
   }
   .w-full {
     width: 100%;
@@ -1392,6 +1395,9 @@
   }
   .py-6 {
     padding-block: calc(var(--spacing) * 6);
+  }
+  .py-12 {
+    padding-block: calc(var(--spacing) * 12);
   }
   .py-20 {
     padding-block: calc(var(--spacing) * 20);
