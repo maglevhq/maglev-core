@@ -3,7 +3,7 @@
     <% modal.with_title_content t('maglev.editor.sections.new.title') %>
     <% modal.with_notification_content maglev_flash_message %>
 
-    <div class="flex h-[calc(100dvh-16rem)] min-h-0 w-[calc(100dvw-4rem)] flex-col gap-2 lg:w-2xl">
+    <div class="flex h-[calc(100dvh-16rem)] min-h-0 w-[calc(100dvw-4rem)] flex-col gap-2 lg:w-3xl xl:w-5xl">
       <%= render 'maglev/editor/sections/theme/search' %>
       
       <% if @theme_sections.any? %>

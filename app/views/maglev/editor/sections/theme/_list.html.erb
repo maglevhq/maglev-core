@@ -11,7 +11,7 @@
       } do |f| %>
       <%= f.hidden_field :position, value: @position %>
 
-    <div class="grid w-full grid-cols-1 gap-4 px-4 py-4 md:grid-cols-2">
+    <div class="grid w-full grid-cols-1 gap-4 px-4 py-4 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
       <% @theme_sections.each do |section| %>  
         <%= render Maglev::Uikit::List::ListItemComponent.new(options: { 
             wrapper_tag: :label,
