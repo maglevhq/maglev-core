@@ -41,7 +41,7 @@ module Maglev
       config.after_initialize do
         theme_reloader.execute
       end
-    end    
+    end
 
     def self.importmaps
       @importmaps ||= {
