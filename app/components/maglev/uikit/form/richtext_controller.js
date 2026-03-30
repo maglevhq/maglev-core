@@ -231,7 +231,7 @@ export default class extends Controller {
   }
 
   setLink(event) {
-    const link = JSON.parse(event.detail)
+    const link = typeof event.detail === 'string' ? JSON.parse(event.detail) : event.detail
     log('setLink, link=', link)
     this.editor.commands.setLink({ 
       href: link.href, 
