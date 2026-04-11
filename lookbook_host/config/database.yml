@@ -1,0 +1,13 @@
+# Maglev loads ActiveRecord models; Lookbook previews do not need a real database.
+# NullDB satisfies AR during boot and avoids db:create / db:migrate for this host app.
+default: &default
+  adapter: nulldb
+
+development:
+  <<: *default
+
+test:
+  <<: *default
+
+production:
+  <<: *default
