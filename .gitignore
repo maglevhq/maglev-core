@@ -17,6 +17,13 @@ spec/legacy_dummy/log/*.log
 spec/legacy_dummy/storage/
 spec/legacy_dummy/tmp/
 spec/legacy_dummy/public/sometheme/
+lookbook_host/db/*.sqlite3
+lookbook_host/db/*.sqlite3-journal
+lookbook_host/db/*.sqlite3-*
+lookbook_host/log/*.log
+lookbook_host/storage/
+lookbook_host/tmp/
+lookbook_host/.kamal/secret_key_base
 .DS_Store
 tmp/
 public/maglev-packs

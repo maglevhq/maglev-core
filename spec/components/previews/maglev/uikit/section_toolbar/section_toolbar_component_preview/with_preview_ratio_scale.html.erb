@@ -26,20 +26,19 @@
     const container = document.querySelector('[data-section-container]')
     if (!container.contains(event.currentTarget)) return
 
-    const maglevEvent = new CustomEvent('maglev:section:hover', {
+    window.dispatchEvent(new CustomEvent('client:section:hover', {
       detail: {
-        sectionId: event.target.dataset.sectionId,
+        sectionId: event.currentTarget.dataset.sectionId,
         sectionRect: event.currentTarget.getBoundingClientRect(),
         sectionOffsetTop: 0,
       },
-    })
-    window.dispatchEvent(maglevEvent)
+    }))
   }
 
-  function triggerLeave(event) {    
-    if (event.relatedTarget.nodeName === 'A' || event.relatedTarget.nodeName === 'FORM' || event.relatedTarget.nodeName === 'BUTTON') return
+  function triggerLeave(event) {
+    const rt = event.relatedTarget
+    if (rt && (rt.nodeName === 'A' || rt.nodeName === 'FORM' || rt.nodeName === 'BUTTON')) return
 
-    const maglevEvent = new CustomEvent('maglev:section:leave')
-    window.dispatchEvent(maglevEvent)
+    window.dispatchEvent(new CustomEvent('client:section:leave'))
   }
 </script>
