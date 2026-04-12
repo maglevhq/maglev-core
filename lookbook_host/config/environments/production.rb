@@ -18,6 +18,8 @@ Rails.application.configure do
   config.active_support.report_deprecations = false
   config.i18n.fallbacks = true
 
+  config.asset_host = "https://assets.uikit.maglev.dev"
+
   # Kamal health checks hit /up with Host = Docker hostname (e.g. …:3000), not the public proxy host.
   config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
 
