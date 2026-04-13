@@ -6,6 +6,14 @@ Style/HashLikeCase:
 
 Style/StringHashKeys:
   Enabled: true
+  # lookbook_host/config/routes.rb: hash-rocket routes are rewritten into `get up: '...'`, which breaks `/up`.
+  Exclude:
+    - "lookbook_host/config/routes.rb"
+
+# Same autocorrect interaction as Style/StringHashKeys for route hashes.
+Style/HashSyntax:
+  Exclude:
+    - "lookbook_host/config/routes.rb"
 
 Style/StringLiterals:
   Enabled: true
