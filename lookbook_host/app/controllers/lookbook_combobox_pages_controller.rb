@@ -6,9 +6,8 @@ class LookbookComboboxPagesController < ApplicationController
   layout false
 
   def index
-    query = params[:query].to_s.strip.downcase
-    @pages = mock_pages.select { |page| query.present? && page.label.downcase.include?(query) }
-    response.set_header("X-Select-Options-Size", @pages.size)
+    find_pages
+    response.set_header('X-Select-Options-Size', @pages.size)
 
     respond_to do |format|
       format.turbo_stream { render :index }
@@ -18,11 +17,16 @@ class LookbookComboboxPagesController < ApplicationController
 
   private
 
+  def find_pages
+    query = params[:query].to_s.strip.downcase
+    @pages = mock_pages.select { |page| query.present? && page.label.downcase.include?(query) }
+  end
+
   def mock_pages
     [
-      MockPage.new(1, "Home page"),
-      MockPage.new(2, "About us"),
-      MockPage.new(3, "Contact")
+      MockPage.new(1, 'Home page'),
+      MockPage.new(2, 'About us'),
+      MockPage.new(3, 'Contact')
     ]
   end
 

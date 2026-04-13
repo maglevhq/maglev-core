@@ -13,29 +13,30 @@ Style/StringLiterals:
 
 Metrics/BlockLength:
   Exclude:
-    - 'Rakefile'
-    - '**/*.rake'
-    - 'spec/**/*.rb'
+    - "Rakefile"
+    - "**/*.rake"
+    - "spec/**/*.rb"
 
 Documentation:
   Enabled: false
 
 Lint/MissingSuper:
   Exclude:
-    - 'app/components/maglev/uikit/**/*.rb'
-    - 'app/components/maglev/editor/**/*.rb'
+    - "app/components/maglev/uikit/**/*.rb"
+    - "app/components/maglev/editor/**/*.rb"
 
 AllCops:
   TargetRubyVersion: 3.0
   Exclude:
-    - 'bin/*'  
-    - 'coverage/**/*'  
-    - 'db/**/*'    
-    - 'log'
-    - 'node_modules/**/*'
-    - 'public/**/*'
-    - 'spec/dummy/db/schema.rb'
-    - 'storage/**/*'
-    - 'tmp/**/*'
-    - 'vendor/**/*'
-    - 'Guardfile'
+    - "bin/*"
+    - "coverage/**/*"
+    - "db/**/*"
+    - "log"
+    - "node_modules/**/*"
+    - "public/**/*"
+    - "spec/dummy/db/schema.rb"
+    - "lookbook_host/db/schema.rb"
+    - "storage/**/*"
+    - "tmp/**/*"
+    - "vendor/**/*"
+    - "Guardfile"

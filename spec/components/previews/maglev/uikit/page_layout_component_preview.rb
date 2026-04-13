@@ -4,7 +4,7 @@ module Maglev
   module Uikit
     class PageLayoutComponentPreview < ViewComponent::Preview
       # Top-right close uses link_to(back_path); nil becomes url_for({}) and breaks under Lookbook at "/".
-      PAGE_LAYOUT_PREVIEW_LOCALS = { page_layout_back_path: "#" }.freeze
+      PAGE_LAYOUT_PREVIEW_LOCALS = { page_layout_back_path: '#' }.freeze
 
       def default
         render_with_template(locals: PAGE_LAYOUT_PREVIEW_LOCALS)

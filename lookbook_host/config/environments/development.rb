@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "active_support/core_ext/integer/time"
+require 'active_support/core_ext/integer/time'
 
 Rails.application.configure do
   config.enable_reloading = true
@@ -12,6 +12,6 @@ Rails.application.configure do
   config.active_storage.service = :local
   config.action_controller.raise_on_missing_callback_actions = true
 
-  config.view_component.previews.controller = "ComponentPreviewController"
-  config.view_component.previews.default_layout = "preview_component"
+  config.view_component.previews.controller = 'ComponentPreviewController'
+  config.view_component.previews.default_layout = 'preview_component'
 end

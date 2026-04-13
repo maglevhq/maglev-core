@@ -6,11 +6,11 @@ module Maglev
       class SectionToolbarComponentPreview < ViewComponent::Preview
         # All keys the toolbar uses must be set; nil URLs make link_to call url_for({}) and break under Lookbook at "/".
         TOOLBAR_PREVIEW_PATHS = {
-          show: "#",
-          edit: "#",
-          delete: "#",
-          add: "#",
-          blocks: "#"
+          show: '#',
+          edit: '#',
+          delete: '#',
+          add: '#',
+          blocks: '#'
         }.freeze
 
         def default
