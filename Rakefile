@@ -16,7 +16,9 @@ RDoc::Task.new(:rdoc) do |rdoc|
   rdoc.rdoc_files.include('lib/**/*.rb')
 end
 
-rakefile_path = !defined?(Rails) || Rails::VERSION::MAJOR >= 8 ? 'spec/dummy/Rakefile' : 'spec/legacy_dummy/Rakefile'
+require 'rails/version'
+
+rakefile_path = Rails::VERSION::MAJOR >= 8 ? 'spec/dummy/Rakefile' : 'spec/legacy_dummy/Rakefile'
 APP_RAKEFILE = File.expand_path(rakefile_path, __dir__)
 
 load 'rails/tasks/engine.rake'

@@ -1,0 +1,28 @@
+# Build context is the monorepo root (see lookbook_host/Dockerfile).
+# The Dockerfile uses selective COPY; this file speeds context upload and guards full COPYs.
+
+.git
+.github
+**/.git
+
+# Engine test apps (~1.3GB); not used by lookbook_host
+spec/dummy
+spec/legacy_dummy
+
+pkg
+coverage
+scripts
+
+tmp
+log
+*.log
+**/.DS_Store
+
+lookbook_host/tmp
+lookbook_host/log
+lookbook_host/storage
+
+# CI / local only
+.byebug_history
+.env*
+!.env.example

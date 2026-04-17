@@ -1,4 +1,4 @@
-<%= render Maglev::Uikit::PageLayoutComponent.new do |component| %>
+<%= render Maglev::Uikit::PageLayoutComponent.new(back_path: page_layout_back_path) do |component| %>
   <% component.with_title_content 'Page title' %>
   <% component.with_description_content 'Page description' %>
 

@@ -6,6 +6,14 @@ Style/HashLikeCase:
 
 Style/StringHashKeys:
   Enabled: true
+  # lookbook_host/config/routes.rb: hash-rocket routes are rewritten into `get up: '...'`, which breaks `/up`.
+  Exclude:
+    - "lookbook_host/config/routes.rb"
+
+# Same autocorrect interaction as Style/StringHashKeys for route hashes.
+Style/HashSyntax:
+  Exclude:
+    - "lookbook_host/config/routes.rb"
 
 Style/StringLiterals:
   Enabled: true
@@ -13,29 +21,30 @@ Style/StringLiterals:
 
 Metrics/BlockLength:
   Exclude:
-    - 'Rakefile'
-    - '**/*.rake'
-    - 'spec/**/*.rb'
+    - "Rakefile"
+    - "**/*.rake"
+    - "spec/**/*.rb"
 
 Documentation:
   Enabled: false
 
 Lint/MissingSuper:
   Exclude:
-    - 'app/components/maglev/uikit/**/*.rb'
-    - 'app/components/maglev/editor/**/*.rb'
+    - "app/components/maglev/uikit/**/*.rb"
+    - "app/components/maglev/editor/**/*.rb"
 
 AllCops:
   TargetRubyVersion: 3.0
   Exclude:
-    - 'bin/*'  
-    - 'coverage/**/*'  
-    - 'db/**/*'    
-    - 'log'
-    - 'node_modules/**/*'
-    - 'public/**/*'
-    - 'spec/dummy/db/schema.rb'
-    - 'storage/**/*'
-    - 'tmp/**/*'
-    - 'vendor/**/*'
-    - 'Guardfile'
+    - "bin/*"
+    - "coverage/**/*"
+    - "db/**/*"
+    - "log"
+    - "node_modules/**/*"
+    - "public/**/*"
+    - "spec/dummy/db/schema.rb"
+    - "lookbook_host/db/schema.rb"
+    - "storage/**/*"
+    - "tmp/**/*"
+    - "vendor/**/*"
+    - "Guardfile"

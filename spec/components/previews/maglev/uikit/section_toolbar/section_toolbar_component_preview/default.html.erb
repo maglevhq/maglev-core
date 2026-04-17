@@ -19,11 +19,11 @@
 </div>
 
 <div class="fixed inset-0 pointer-events-none">
-  <%= render Maglev::Uikit::SectionToolbar::SectionToolbarComponent.new(id: "section-1", label: 'Navbar', paths: { show: '#' }, options: { insert_button: false }) %>
-  <%= render Maglev::Uikit::SectionToolbar::SectionToolbarComponent.new(id: "section-2", label: 'Hero', paths: { show: '#' }, options: { has_blocks: true}) %>
-  <%= render Maglev::Uikit::SectionToolbar::SectionToolbarComponent.new(id: "section-3", label: 'Features', paths: { show: '#' }) %>
-  <%= render Maglev::Uikit::SectionToolbar::SectionToolbarComponent.new(id: "section-4", label: 'Contact', paths: { show: '#' }) %>
-  <%= render Maglev::Uikit::SectionToolbar::SectionToolbarComponent.new(id: "section-5", label: 'Footer', paths: { show: '#' }) %>
+  <%= render Maglev::Uikit::SectionToolbar::SectionToolbarComponent.new(id: "section-1", label: 'Navbar', paths: preview_paths, options: { insert_button: false }) %>
+  <%= render Maglev::Uikit::SectionToolbar::SectionToolbarComponent.new(id: "section-2", label: 'Hero', paths: preview_paths, options: { has_blocks: true}) %>
+  <%= render Maglev::Uikit::SectionToolbar::SectionToolbarComponent.new(id: "section-3", label: 'Features', paths: preview_paths) %>
+  <%= render Maglev::Uikit::SectionToolbar::SectionToolbarComponent.new(id: "section-4", label: 'Contact', paths: preview_paths) %>
+  <%= render Maglev::Uikit::SectionToolbar::SectionToolbarComponent.new(id: "section-5", label: 'Footer', paths: preview_paths) %>
 </div>
 
 <script>
@@ -39,9 +39,9 @@
     const container = document.querySelector('[data-section-container]')
     if (!container.contains(event.currentTarget)) return
 
-    const maglevEvent = new CustomEvent('maglev:section:hover', {
+    const maglevEvent = new CustomEvent('client:section:hover', {
       detail: {
-        sectionId: event.target.dataset.sectionId,
+        sectionId: event.currentTarget.dataset.sectionId,
         sectionRect: event.currentTarget.getBoundingClientRect(),
         sectionOffsetTop: 0,
       },
@@ -49,24 +49,23 @@
     window.dispatchEvent(maglevEvent)
   }
 
-  function triggerLeave(event) {   
-    console.log('triggerLeave 👋', event.relatedTarget.nodeName)
+  function triggerLeave(event) {
+    const rt = event.relatedTarget
+    console.log('triggerLeave 👋', rt && rt.nodeName)
 
-    if (event.relatedTarget.nodeName === 'A' || event.relatedTarget.nodeName === 'FORM' || event.relatedTarget.nodeName === 'BUTTON') return
+    if (rt && (rt.nodeName === 'A' || rt.nodeName === 'FORM' || rt.nodeName === 'BUTTON')) return
 
-    const maglevEvent = new CustomEvent('maglev:section:leave')
-    window.dispatchEvent(maglevEvent)
+    window.dispatchEvent(new CustomEvent('client:section:leave'))
   }
 
   function scrollNotifier() {
     const el = document.querySelector('[data-section-id]:hover')
     if (!el) return
-    const maglevEvent = new CustomEvent('maglev:scroll', { 
+    window.dispatchEvent(new CustomEvent('client:scroll', {
       detail: {
         sectionId: el.dataset.sectionId,
         boundingRect: el.getBoundingClientRect(),
       },
-    })
-    window.dispatchEvent(maglevEvent)
+    }))
   }
 </script>

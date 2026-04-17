@@ -28,12 +28,13 @@ module Maglev
 
       private
 
+      # Match keys used in page_actions_dropdown_component.html.erb (same as editor pages/_list).
       def paths
         {
           edit: '#',
+          preview: '#',
           clone: '#',
-          delete: '#',
-          update: '#'
+          delete: '#'
         }
       end
     end
