@@ -47,6 +47,11 @@ Maglev.configure do |config|
   # config.is_authenticated = :editor_allowed? # name of any protected method from your Rails application controller
   # config.is_authenticated = ->(site) { current_user&.role == 'editor' }
 
+  # Base class for Maglev::ApplicationController (inherit auth, layout, etc. from your app).
+  # Set this in an initializer that runs before Maglev controllers are loaded
+  # if you use something other than ApplicationController.
+  # config.parent_controller = 'ApplicationController'
+
   # Uploader engine (:active_storage is the default one)
   # Checkout https://github.com/MarsBased/maglevcms-shrine for an example of a custom uploader
   # config.uploader = 'Maglev::Shrine::Uploader'

@@ -21,6 +21,10 @@ describe Maglev do
     it 'provides a default primary color' do
       expect(described_class.config.primary_color).to eq('#040712')
     end
+
+    it 'defaults parent_controller to ApplicationController' do
+      expect(described_class.config.parent_controller).to eq('ApplicationController')
+    end
   end
 
   describe '#configure' do
