@@ -273,6 +273,7 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord-nulldb-adapter
+  addressable (>= 2.9.0)
   lookbook
   maglevcms!
   propshaft

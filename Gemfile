@@ -48,9 +48,11 @@ gem 'importmap-rails', '~> 2.2'
 gem 'loofah', '>= 2.25.1'
 
 # Vulnerable gems
+gem 'addressable', '>= 2.9.0'
 gem 'json', '>= 2.19.2'
 gem 'rack', '>= 3.2.6'
 gem 'rack-session', '>= 2.1.2'
+gem 'yard', '>= 0.9.42'
 
 group :development, :test do
   gem 'bcrypt', '>= 3.1.22'

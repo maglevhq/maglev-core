@@ -28,6 +28,6 @@
     "@tiptap/extension-underline": "3.6.2"
   },
   "devDependencies": {
-    "vite": "^5.0.0"
+    "vite": "^6.4.2"
   }
 }
