@@ -19,4 +19,6 @@ after_bundle do
   generate 'maglev:hyperui:install', '--force'
 
   rails_command 'maglev:create_site'
+
+  rails_command 'maglev:publish_site'
 end
