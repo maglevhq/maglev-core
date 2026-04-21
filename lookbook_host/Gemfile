@@ -7,4 +7,8 @@ gem 'lookbook'
 gem 'maglevcms', path: '..'
 gem 'propshaft'
 gem 'puma', '>= 8.0'
-gem 'rails', '~> 8.1.2.1'
+gem 'rails', '~> 8.1.3'
+
+# Vulnerable gems
+gem 'rack-session', '>= 2.1.2'
+gem 'yard', '>= 0.9.42'

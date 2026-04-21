@@ -8,7 +8,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 # development dependencies will be added by default to the :development group.
 gemspec
 
-gem 'rails', '~> 8.1.2.1'
+gem 'rails', '~> 8.1.3'
 
 # Use Active Storage variant
 gem 'image_processing', '~> 1.12.2'
@@ -49,6 +49,7 @@ gem 'loofah', '>= 2.25.1'
 
 # Vulnerable gems
 gem 'json', '>= 2.19.2'
+gem 'rack-session', '>= 2.1.2'
 
 group :development, :test do
   gem 'bcrypt', '>= 3.1.22'
