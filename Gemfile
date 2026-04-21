@@ -49,6 +49,7 @@ gem 'loofah', '>= 2.25.1'
 
 # Vulnerable gems
 gem 'json', '>= 2.19.2'
+gem 'rack', '>= 3.2.6'
 gem 'rack-session', '>= 2.1.2'
 
 group :development, :test do
