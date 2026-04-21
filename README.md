@@ -1,69 +1,32 @@
 [![Build Status](https://github.com/maglevhq/maglev-core/actions/workflows/verify.yml/badge.svg)](https://github.com/maglevhq/maglev-core/actions/workflows/verify.yml)
 
-# MaglevCMS — Page Builder for Ruby on Rails
+# MaglevCMS
 
-![Screenshot of the MaglevCMS editor](https://github.com/user-attachments/assets/b3a1ad34-bbae-47d7-9661-7cec5342d027)
+Visual page builder for Ruby on Rails (7.2+ and 8.x). Marketing and content people edit pages in the browser. Everything stays in your app—no separate CMS host or headless stack to run.
 
-**MaglevCMS** is a powerful, fully-integrated page builder for Ruby on Rails (7 & 8).  
-It lets your non‑technical users create and edit marketing pages visually — right inside your Rails app — without compromising performance, security, or developer experience.
+![MaglevCMS editor](https://github.com/user-attachments/assets/b3a1ad34-bbae-47d7-9661-7cec5342d027)
 
-✅ **Built with Hotwire, Stimulus, and ViewComponent**  
-🚫 **No Node.js, no React, no external build tooling**  
-🧩 **Rails-native sections, themes, layouts & content system**  
-🛠 **Works with any Rails app — from solo projects to large-scale SaaS**
+The editor is built on **Hotwire**, **Stimulus**, and **ViewComponent**. Assets ship with the engine (importmap + vendored JS). You do not need Node, Webpack, or Vite to use Maglev in production.
 
-> Designed for developers. Loved by marketing teams.
+Sections, themes, and layouts are ordinary Rails: ERB, Haml, or Slim for templates; Tailwind, Bootstrap, or your own CSS; Stimulus or plain JavaScript for behavior. Maglev does not dictate your front-end beyond what the editor needs.
 
-⚠️ The Hotwire/Stimulus/ViewComponent stack is currently available in the beta version 3 of MaglevCMS.
+## Demo
 
-## 🧩 Use Your Stack, Your Way
+[Live demo (SaaS edition)](https://demo-pro.maglev.dev) — includes features that exist only in the commercial SaaS product, but it shows how the editor feels in a real app.
 
-Maglev is *unopinionated* when it comes to implement your Maglev layout/sections. You can:
+## Documentation
 
-- Build sections using **ERB**, **HAML**, or **Slim**
-- Style them with **Tailwind CSS**, **Bootstrap**, or your own design system
-- Add interactivity with **Stimulus**, **vanilla JS**, or even **jQuery** if you must 😉
+- [Quickstart / installation](https://docs.maglev.dev/quickstart)
+- [Full docs](https://docs.maglev.dev/)
 
-No vendor lock-in. No complex build chains. Just Rails.
+## SaaS edition
 
----
+Multi-tenant setups (several sites or customers in one Rails app), deeper white-labeling, and supported deployments are covered by [Maglev SaaS](https://www.maglev.dev/saas-edition). The OSS gem is the same core; SaaS adds hosting-oriented features and support.
 
-## ✨ Live Demo
+## Tests
 
-Try Maglev in your browser:  
-👉 [**SaaS Edition Demo**](https://demo-pro.maglev.dev)
+If you need a Maglev site inside the test suite, call `Maglev::GenerateSite.call` from your setup (see the docs for context).
 
-This demo showcases the full capabilities of MaglevCMS, including advanced features available in the SaaS version.
+## License
 
----
-
-## 📦 Getting Started
-
-- 🚀 [Quickstart: Install Maglev in your app](https://docs.maglev.dev/quickstart)
-- 📚 [Read the full documentation](https://docs.maglev.dev/)
-
----
-
-## 💼 For Rails SaaS Founders
-
-MaglevCMS SaaS Edition is built for **multi-tenant Rails applications**.  
-It adds support for:
-
-- Multiple sites, themes & tenants  
-- Deep editor customization & white-labeling  
-- Production support & custom features
-
-We work closely with SaaS teams to ensure a seamless integration.  
-➡️ [Learn more about the SaaS Edition](https://www.maglev.dev/saas-edition)
-
----
-
-## 🧪 Testing
-
-If for some reason you want your Maglev site to exist during your tests, you can use `Maglev::GenerateSite.call` in your setup block.
-
----
-
-## 📄 License
-
-The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
+MIT — see [MIT-LICENSE](MIT-LICENSE) and [opensource.org/licenses/MIT](https://opensource.org/licenses/MIT).
