@@ -7,13 +7,16 @@ Style/HashLikeCase:
 Style/StringHashKeys:
   Enabled: true
   # lookbook_host/config/routes.rb: hash-rocket routes are rewritten into `get up: '...'`, which breaks `/up`.
+  # maglevcms.gemspec: RubyGems requires spec.metadata keys to be Strings, not Symbols.
   Exclude:
     - "lookbook_host/config/routes.rb"
+    - "maglevcms.gemspec"
 
 # Same autocorrect interaction as Style/StringHashKeys for route hashes.
 Style/HashSyntax:
   Exclude:
     - "lookbook_host/config/routes.rb"
+    - "maglevcms.gemspec"
 
 Style/StringLiterals:
   Enabled: true

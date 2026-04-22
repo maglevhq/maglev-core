@@ -21,10 +21,10 @@ Gem::Specification.new do |spec|
   spec.required_ruby_version = '>= 3.0'
 
   spec.metadata = {
-    bug_tracker_uri: 'https://github.com/maglevhq/maglev-core/issues',
-    changelog_uri: 'https://www.maglev.dev/changelog/',
-    documentation_uri: 'https://docs.maglev.dev/',
-    source_code_uri: 'https://github.com/maglevhq/maglev-core'
+    'bug_tracker_uri' => 'https://github.com/maglevhq/maglev-core/issues',
+    'changelog_uri' => 'https://www.maglev.dev/changelog/',
+    'documentation_uri' => 'https://docs.maglev.dev/',
+    'source_code_uri' => 'https://github.com/maglevhq/maglev-core'
   }
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
