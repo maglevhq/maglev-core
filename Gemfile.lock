@@ -122,7 +122,7 @@ GEM
     docile (1.4.1)
     dotenv (3.1.8)
     drb (2.2.3)
-    erb (6.0.2)
+    erb (6.0.4)
     erubi (1.13.1)
     factory_bot (6.2.1)
       activesupport (>= 5.0.0)
@@ -423,6 +423,7 @@ DEPENDENCIES
   capybara
   debug
   dotenv
+  erb (>= 6.0.4)
   factory_bot_rails (~> 6.2.0)
   generator_spec
   image_processing (~> 1.12.2)
