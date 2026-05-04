@@ -35,7 +35,13 @@ export const start = () => {
 
 const addSection = (event) => {
   const { sectionId, insertAt } = event.detail
-  debouncedUpdatePreviewDocument({ sectionId, insertAt, scrollToSection: true })
+  
+  // Do not use debouncedUpdatePreviewDocument: it is shared with section:update and block
+  // refreshes. A follow-up call within the debounce window only passes { sectionId }, which
+  // replaces this invocation and drops insertAt — the new section is then appended.
+  void updatePreviewDocument({ sectionId, insertAt, scrollToSection: true }).catch((err) => {
+    log('[DOM Operations] addSection failed', err)
+  })
 }
 
 const moveSections = (event) => {
@@ -221,6 +227,8 @@ const updatePreviewDocument = async ({ sectionId, insertAt = undefined, scrollTo
     scrollToSectionOrBlock(targetElement)
 }
 
+// Shared debouncer: last invocation within 150ms wins. A later call with a narrower payload
+// (e.g. only { sectionId }) replaces a pending one and drops extra args — see addSection().
 const debouncedUpdatePreviewDocument = debounce(updatePreviewDocument, 150)
 
 const insertSectionInDOM = (element, insertAt) => {

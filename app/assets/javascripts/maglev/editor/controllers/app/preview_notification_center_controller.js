@@ -79,10 +79,16 @@ export default class extends Controller {
   // === SECTIONS ===
 
   addSection(event) {
-    log('addSection', event.detail.fetchResponse.response.headers.get('X-Section-Id'), event.detail.fetchResponse.response.headers.get('X-Section-Position'))
-    const sectionId = event.detail.fetchResponse.response.headers.get('X-Section-Id')
-    const position = event.detail.fetchResponse.response.headers.get('X-Section-Position')
-    this.postMessage('section:add', { sectionId, insertAt: parseInt(position) })
+    if (!event.detail.success) return
+
+    const res = event.detail.fetchResponse.response
+    log('addSection', res.headers.get('X-Section-Id'), res.headers.get('X-Section-Position'))
+    
+    const sectionId = res.headers.get('X-Section-Id')
+    const position = res.headers.get('X-Section-Position')
+    const insertAt = position === null || position === '' ? undefined : parseInt(position, 10)
+    
+    this.postMessage('section:add', { sectionId, insertAt })
   }
 
   deleteSection(event) {
