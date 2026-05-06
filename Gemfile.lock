@@ -194,7 +194,7 @@ GEM
       prism (~> 1.5)
     mysql2 (0.5.7)
       bigdecimal
-    net-imap (0.5.12)
+    net-imap (0.6.4)
       date
       net-protocol
     net-pop (0.1.2)
@@ -433,6 +433,7 @@ DEPENDENCIES
   lookbook
   maglevcms!
   mysql2
+  net-imap (>= 0.6.4)
   nokogiri (>= 1.15.6)
   observer
   ostruct
