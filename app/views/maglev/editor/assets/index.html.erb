@@ -13,7 +13,10 @@
             options: {
               placeholder: t('maglev.editor.image_library.search_placeholder'),
               data: { turbo_frame: 'asset-search-results' }
-            }) %>
+            }) do %>
+            <%= hidden_field_tag :picker, params[:picker] if params[:picker].present? %>
+            <%= hidden_field_tag :source, params[:source] if params[:source].present? %>
+          <% end %>
           
         </div>
         <div class="ml-auto">
