@@ -7,6 +7,8 @@ require_relative 'maglev/errors'
 require_relative 'maglev/i18n'
 require_relative 'maglev/preview_constraint'
 require_relative 'maglev/reserved_paths'
+require_relative 'maglev/spacing'
+require_relative 'maglev/setting_value'
 
 require 'injectable'
 require 'jbuilder'

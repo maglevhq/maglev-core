@@ -50,10 +50,22 @@ module Maglev
     end
 
     def render
-      super(
+      html = super(
         template: "#{templates_root_path}/sections/#{definition.category}/#{type}",
         locals: { section: self, maglev_section: self }
       )
+      return html if type == 'spacer'
+
+      begin
+        spacing = maglev_extract_spacing
+        return html if spacing.nil?
+
+        style_block = maglev_build_spacing_style(spacing)
+        maglev_inject_style_into_section(html, style_block)
+      rescue StandardError => e
+        Rails.logger.error("[Maglev spacing patch] #{e.class}: #{e.message}")
+        html
+      end
     rescue StandardError => e
       handle_error(e)
     end
@@ -94,6 +106,49 @@ module Maglev
         definition: block_definition,
         attributes: block_attributes
       )
+    end
+
+    def maglev_extract_spacing
+      return nil unless settings.respond_to?(:spacing_top) || settings.respond_to?(:spacing_bottom)
+
+      top = Maglev::SettingValue.checkbox_truthy?(maglev_setting_value(:spacing_top))
+      bottom = Maglev::SettingValue.checkbox_truthy?(maglev_setting_value(:spacing_bottom))
+      return nil unless top || bottom
+
+      size = Maglev::SettingValue.select_string(maglev_setting_value(:spacing_size)) || 'md'
+
+      {
+        top: top,
+        bottom: bottom,
+        mobile_px: Maglev::Spacing.mobile_px_for(size),
+        desktop_px: Maglev::Spacing.desktop_px_for(size)
+      }
+    end
+
+    def maglev_setting_value(key)
+      return nil unless settings.respond_to?(key)
+
+      settings.public_send(key)
+    end
+
+    def maglev_build_spacing_style(spacing)
+      selector = %([data-maglev-section-id="#{id}"])
+      mobile_rules = []
+      mobile_rules << "padding-top:#{spacing[:mobile_px]}px !important;" if spacing[:top]
+      mobile_rules << "padding-bottom:#{spacing[:mobile_px]}px !important;" if spacing[:bottom]
+      desktop_rules = []
+      desktop_rules << "padding-top:#{spacing[:desktop_px]}px !important;" if spacing[:top]
+      desktop_rules << "padding-bottom:#{spacing[:desktop_px]}px !important;" if spacing[:bottom]
+
+      <<~HTML
+        <style type="text/css" data-maglev-section-spacing="#{id}">#{selector}{#{mobile_rules.join}}@media(min-width:#{Maglev::Spacing::BREAKPOINT}){#{selector}{#{desktop_rules.join}}}</style>
+      HTML
+    end
+
+    def maglev_inject_style_into_section(html, style_block)
+      pattern = /(<[a-zA-Z][a-zA-Z0-9]*\b[^>]*?data-maglev-section-id=["']#{Regexp.escape(id.to_s)}["'][^>]*>)/
+      updated = html.to_s.sub(pattern) { |match| "#{match}#{style_block}" }
+      updated.html_safe
     end
 
     def handle_error(exception)

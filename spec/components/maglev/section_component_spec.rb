@@ -100,6 +100,62 @@ describe Maglev::SectionComponent do
       end
     end
   end
+
+  describe 'spacing behavior' do
+    let(:section_settings) { double('Settings') }
+
+    before do
+      allow(component).to receive(:settings).and_return(section_settings)
+      allow(section_settings).to receive(:respond_to?).and_return(true)
+    end
+
+    describe '#maglev_extract_spacing' do
+      it 'returns nil if spacing settings are not present or respond to is false' do
+        allow(section_settings).to receive(:respond_to?).with(:spacing_top).and_return(false)
+        allow(section_settings).to receive(:respond_to?).with(:spacing_bottom).and_return(false)
+        expect(component.send(:maglev_extract_spacing)).to be_nil
+      end
+
+      it 'returns extracted top/bottom spacing details if enabled' do
+        allow(section_settings).to receive(:respond_to?).with(:spacing_top).and_return(true)
+        allow(section_settings).to receive(:respond_to?).with(:spacing_bottom).and_return(true)
+        allow(section_settings).to receive(:respond_to?).with(:spacing_size).and_return(true)
+
+        # Mock settings values
+        allow(section_settings).to receive(:spacing_top).and_return(true)
+        allow(section_settings).to receive(:spacing_bottom).and_return(false)
+        allow(section_settings).to receive(:spacing_size).and_return('lg')
+
+        spacing = component.send(:maglev_extract_spacing)
+        expect(spacing[:top]).to eq(true)
+        expect(spacing[:bottom]).to eq(false)
+        expect(spacing[:mobile_px]).to eq(40) # Spacing lg mobile
+        expect(spacing[:desktop_px]).to eq(80) # Spacing lg desktop
+      end
+    end
+
+    describe '#maglev_build_spacing_style' do
+      it 'generates correct style block' do
+        spacing = { top: true, bottom: true, mobile_px: 16, desktop_px: 24 }
+        style = component.send(:maglev_build_spacing_style, spacing)
+        expect(style).to include('data-maglev-section-spacing="def"')
+        expect(style).to include('padding-top:16px !important;')
+        expect(style).to include('padding-bottom:16px !important;')
+        expect(style).to include('@media(min-width:768px)')
+        expect(style).to include('padding-top:24px !important;')
+        expect(style).to include('padding-bottom:24px !important;')
+      end
+    end
+
+    describe '#maglev_inject_style_into_section' do
+      it 'injects the style block after the section opening tag' do
+        html = '<div data-maglev-section-id="def" class="my-section"><h1>Hello</h1></div>'
+        style_block = '<style>...</style>'
+        result = component.send(:maglev_inject_style_into_section, html, style_block)
+        expect(result).to eq('<div data-maglev-section-id="def" class="my-section"><style>...</style><h1>Hello</h1></div>')
+      end
+    end
+  end
 end
 
 class FooController < ::ApplicationController
