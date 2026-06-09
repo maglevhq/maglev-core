@@ -9,6 +9,9 @@ Maglev::Engine.routes.draw do
   # Preview
   draw 'maglev/preview'
 
+  # Studio (for local usage)
+  draw 'maglev/studio' if Rails.env.local?
+
   # Public Assets
   draw 'maglev/assets'
 
