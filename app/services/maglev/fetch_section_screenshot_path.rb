@@ -10,8 +10,18 @@ module Maglev
     argument :absolute, default: false
 
     def call
-      path = "#{fetch_sections_path.call(theme: theme)}/#{section.category}/#{section.id}.jpg"
+      path = "#{base_path}.#{extension}"
       absolute ? Rails.root.join("public/#{path}").to_s : "/#{path}"
+    end
+
+    private
+
+    def base_path
+      "#{fetch_sections_path.call(theme: theme)}/#{section.category}/#{section.id}"
+    end
+
+    def extension
+      File.exist?(Rails.root.join("public/#{base_path}.webp")) ? 'webp' : 'jpg'
     end
   end
 end
