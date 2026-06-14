@@ -1,0 +1,8 @@
+<div class="w-80 border border-gray-200 rounded bg-white h-16 flex items-center">
+  <%= render Maglev::Uikit::AppLayout::Topbar::PageInfoComponent.new(
+              page: page,
+              paths: { edit: '#', preview: '#', clone: '#', delete: '#' },
+              live_page_url: '#',
+              prefix_page_path: '/en'
+            ) %>
+</div>
