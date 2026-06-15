@@ -39,6 +39,7 @@ module Maglev
       def track_maglev_error(error)
         Rails.logger.error "[Maglev] Error: #{error.message}"
         Rails.logger.error error.backtrace.join("\n")
+        Rails.error.report(error, handled: true)
       end
     end
   end
