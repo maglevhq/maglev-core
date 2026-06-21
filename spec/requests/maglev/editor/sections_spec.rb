@@ -110,5 +110,35 @@ describe 'Maglev::Editor::Sections', type: :request do
         expect(response).to redirect_to("/maglev/editor/en/#{home_page.id}/sections")
       end.to change { home_page.reload.section_ids }.to(original_section_ids.reverse)
     end
+
+    describe 'when site-scoped sections have mismatched IDs between page and site (legacy data)' do
+      # In fresh data, page and site share the same ID for site-scoped sections (AddSectionService
+      # reuses the same hash object). But legacy pages were stored with their own random ID,
+      # while the UI always renders the site section's ID (via transform_if_site_scoped).
+      # Sending the site ID for a sort used to raise: ArgumentError: comparison of Hash with Hash failed
+      let(:page_navbar_id) { 'legacy-page-scoped-navbar-id' }
+      let(:site_navbar_id) { site.sections.find { |s| s['type'] == 'navbar' }['id'] }
+      let(:page_jumbotron_id) { home_page.sections.find { |s| s['type'] == 'jumbotron' }['id'] }
+      let(:page_showcase_id) { home_page.sections.find { |s| s['type'] == 'showcase' }['id'] }
+
+      before do
+        navbar = home_page.sections.find { |s| s['type'] == 'navbar' }
+        navbar['id'] = page_navbar_id
+        home_page.sections_translations_will_change!
+        home_page.save!
+      end
+
+      it 'correctly reorders sections using the site-scoped IDs sent by the UI' do
+        # The UI sends the site's navbar ID (not the page-local one); move showcase before jumbotron
+        ui_item_ids = [site_navbar_id, page_showcase_id, page_jumbotron_id]
+
+        expect do
+          put "/maglev/editor/en/#{home_page.id}/sections/sort",
+              params: { item_ids: ui_item_ids, lock_version: home_page.reload.lock_version }
+          expect(response).to redirect_to("/maglev/editor/en/#{home_page.id}/sections")
+        end.to change { home_page.reload.sections.map { |s| s['type'] } }
+          .to(%w[navbar showcase jumbotron])
+      end
+    end
   end
 end
