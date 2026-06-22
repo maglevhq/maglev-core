@@ -57,6 +57,8 @@ module Maglev
                                             depends_on: %i[fetch_site fetch_theme]
     dependency :delete_section,             class: Maglev::Content::DeleteSectionService,
                                             depends_on: %i[fetch_site fetch_theme]
+    dependency :sort_sections,              class: Maglev::Content::SortSectionsService,
+                                            depends_on: %i[fetch_site fetch_theme]
 
     dependency :add_section_block,          class: Maglev::Content::AddSectionBlockService,
                                             depends_on: %i[fetch_site fetch_theme]

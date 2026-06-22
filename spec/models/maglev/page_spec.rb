@@ -94,20 +94,6 @@ RSpec.describe Maglev::Page, type: :model do
     end
   end
 
-  describe '#reorder_sections' do
-    let(:page) { build(:page) }
-    let(:theme) { build(:theme) }
-    let(:sections) { page.sections }
-    let(:new_section_ids) { sections.reverse.map { |section| section['id'] } }
-
-    subject { page.reorder_sections(new_section_ids, page.lock_version) }
-
-    it 'reorders the sections' do
-      subject
-      expect(page.sections.map { |section| section['id'] }).to eq new_section_ids
-    end
-  end
-
   describe '#delete_section' do
     let(:page) { build(:page) }
     let(:theme) { build(:theme) }

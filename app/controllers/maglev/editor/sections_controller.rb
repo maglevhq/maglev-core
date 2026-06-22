@@ -43,12 +43,12 @@ module Maglev
       end
 
       def sort
-        current_maglev_page.reorder_sections(params[:item_ids], params[:lock_version])
-        if current_maglev_page.save
-          redirect_to_sections_path
-        else
-          render_index_with_error
-        end
+        services.sort_sections.call(
+          page: current_maglev_page,
+          section_ids: params[:item_ids],
+          lock_version: params[:lock_version]
+        )
+        redirect_to_sections_path
       end
 
       def destroy
