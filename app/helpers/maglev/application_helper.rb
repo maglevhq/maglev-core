@@ -19,6 +19,31 @@ module Maglev
       maglev_importmap_tags(:client, 'maglev-client')
     end
 
+    # Use this helper in your theme layout instead of calling javascript_importmap_tags
+    # and maglev_client_javascript_tags separately.
+    #
+    # Firefox (unlike Chrome) strictly follows the HTML spec which only allows a single
+    # <script type="importmap"> per document and ignores any subsequent ones. When both
+    # the theme and the Maglev client each emit their own importmap, Firefox silently
+    # discards the second one, causing `import "maglev-client"` to fail with:
+    #   "The specifier 'maglev-client' was a bare specifier, but was not remapped to anything."
+    #
+    # This helper solves the problem by merging the Maglev client importmap entries into
+    # the theme's importmap so that only one <script type="importmap"> is ever emitted.
+    # Once browsers universally support multiple importmaps (Chrome already does),
+    # this helper can be simplified back to two separate calls.
+    def maglev_javascript_importmap_tags(entry_point = 'application', importmap: Rails.application.importmap)
+      return javascript_importmap_tags(entry_point, importmap: importmap) unless maglev_rendering_mode == :editor
+
+      safe_join [
+        javascript_inline_importmap_tag(maglev_merged_importmap_json(importmap)),
+        javascript_importmap_module_preload_tags(importmap, entry_point: entry_point),
+        javascript_importmap_module_preload_tags(Maglev::Engine.importmaps[:client], entry_point: 'maglev-client'),
+        javascript_import_module_tag(entry_point),
+        javascript_import_module_tag('maglev-client')
+      ], "\n"
+    end
+
     def maglev_importmap_tags(namespace, entry_point)
       safe_join [
         javascript_inline_importmap_tag(Maglev::Engine.importmaps[namespace].to_json(resolver: self)),
@@ -175,6 +200,15 @@ module Maglev
       Rails.logger.warn '🚨 maglev_live_preview_client_javascript_tag is deprecated, use maglev_client_javascript_tags instead'
       # rubocop:enable Layout/LineLength
       maglev_client_javascript_tags
+    end
+
+    private
+
+    def maglev_merged_importmap_json(theme_importmap)
+      theme_map = JSON.parse(theme_importmap.to_json(resolver: self))
+      client_map = JSON.parse(Maglev::Engine.importmaps[:client].to_json(resolver: self))
+      theme_map['imports'].merge!(client_map['imports'])
+      theme_map.to_json
     end
   end
 end
