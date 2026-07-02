@@ -11,7 +11,7 @@
 
   <%%= render_maglev_alternate_links %>
 
-  <%%= maglev_client_javascript_tags %>
+  <%%= maglev_javascript_importmap_tags %>
   
   <%%=
     javascript_include_tag(
