@@ -23,7 +23,6 @@ export default class extends Controller {
 
     // we need to keep track of the submitting state to avoid multiple requests being sent with a wrong lock version
     this.submitting = false
-    this.element.addEventListener("turbo:submit-start", () => this.submitting = true)    
     this.element.addEventListener('turbo:submit-end', (event) => {
       if (!event.detail.success) this.submitting = false
     })
@@ -65,6 +64,9 @@ export default class extends Controller {
       }, { once: true })
     }
     
+    // better to set it to true instead of relying on the turbo:submit-start event
+    this.submitting = true
+
     this.element.requestSubmit()
   }
 }

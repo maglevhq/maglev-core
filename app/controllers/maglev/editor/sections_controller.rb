@@ -3,8 +3,9 @@
 module Maglev
   module Editor
     class SectionsController < Maglev::Editor::BaseController
+      include Maglev::Editor::LockVersionConcern
+
       helper Maglev::Editor::SettingsHelper
-      helper_method :source_lock_version
 
       before_action :ensure_turbo_frame_request, only: [:new]
       before_action :set_section, only: %i[edit update]
@@ -39,6 +40,7 @@ module Maglev
 
       def update
         update_section
+        reload_lock_source
         flash.now[:notice] = flash_t(:success)
       end
 
@@ -93,14 +95,6 @@ module Maglev
       def newly_added_section_to_headers
         headers['X-Section-Id'] = flash[:section_id]
         headers['X-Section-Position'] = flash[:position]
-      end
-
-      def lock_source
-        @section.site_scoped? ? maglev_site : current_maglev_page
-      end
-
-      def source_lock_version
-        lock_source.lock_version || 0
       end
 
       def redirect_to_sections_path
