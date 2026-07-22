@@ -3,8 +3,9 @@
 module Maglev
   module Editor
     class SectionBlocksController < Maglev::Editor::BaseController
+      include Maglev::Editor::LockVersionConcern
+
       helper Maglev::Editor::SettingsHelper
-      helper_method :source_lock_version
 
       before_action :set_section
       before_action :set_section_block, only: %i[edit update destroy]
@@ -32,6 +33,7 @@ module Maglev
 
       def update
         update_section_block
+        reload_lock_source
         flash.now[:notice] = flash_t(:success)
       end
 
@@ -75,14 +77,6 @@ module Maglev
           content: params[:section_block].to_unsafe_h,
           lock_version: params[:lock_version]
         )
-      end
-
-      def lock_source
-        @section.site_scoped? ? maglev_site : current_maglev_page
-      end
-
-      def source_lock_version
-        lock_source.lock_version || 0
       end
 
       def redirect_to_section_blocks_path(success: true)

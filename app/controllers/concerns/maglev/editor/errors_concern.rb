@@ -26,7 +26,7 @@ module Maglev
 
       def handle_stale_object
         respond_to do |format|
-          format.turbo_stream { render 'maglev/editor/shared/errors/stale_object_error' }
+          format.turbo_stream { render 'maglev/editor/shared/errors/stale_object_error', status: :conflict }
           format.html { redirect_to editor_root_path }
         end
       end
