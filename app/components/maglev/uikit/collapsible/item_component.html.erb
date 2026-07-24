@@ -2,7 +2,7 @@
   <div class="flex items-center cursor-pointer select-none px-3 py-3 bg-editor-primary text-white rounded-xs" data-action="click->uikit-collapsible#toggle">
     <div class="flex items-center"><%= title %></div>
 
-    <div class="ml-auto">
+    <div class="ms-auto">
       <%= render Maglev::Uikit::IconComponent.new(name: :arrow_down, size: '1.15rem', class_names: 'transition-transform duration-200 rotate-180 group-[.is-collapsed]:rotate-0') %>
     </div>
   </div>

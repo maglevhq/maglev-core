@@ -1,11 +1,11 @@
 <% a = pagy_anchor(pagy) %>
 
 <% left_arrow = capture do %>
-  <%= render Maglev::Uikit::IconComponent.new(name: 'arrow_left', size: '1.25rem') %>  
+  <%= render Maglev::Uikit::IconComponent.new(name: 'arrow_left', size: '1.25rem', class_names: 'rtl:-scale-x-100') %>
 <% end %>
 
 <% right_arrow = capture do %>
-  <%= render Maglev::Uikit::IconComponent.new(name: 'arrow_right', size: '1.25rem') %>
+  <%= render Maglev::Uikit::IconComponent.new(name: 'arrow_right', size: '1.25rem', class_names: 'rtl:-scale-x-100') %>
 <% end %>
 
 <div class="flex items-center justify-between bg-white w-full h-10">
@@ -19,9 +19,9 @@
     <% end %>
 
      <% if pagy.next %>
-      <%== a.(pagy.next, pagy_t('pagy.aria_label.next'), aria_label: 'Next', classes: 'relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100') %>
+      <%== a.(pagy.next, pagy_t('pagy.aria_label.next'), aria_label: 'Next', classes: 'relative ms-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100') %>
     <% else %>
-      <a role="link" aria-disabled="true" aria-label="Next" class="relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100">
+      <a role="link" aria-disabled="true" aria-label="Next" class="relative ms-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100">
         <%= pagy_t('pagy.aria_label.next') %>
       </a>
     <% end %>

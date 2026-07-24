@@ -9,10 +9,11 @@ export default class extends Controller {
   connect() {
     const button = this.buttonTarget
     const content = this.contentTarget
+    const placement = this.directionAwarePlacement(this.placementValue || 'bottom-start')
 
-    this.cleanup = autoUpdate(button, content, () => computePosition(button, content, { 
+    this.cleanup = autoUpdate(button, content, () => computePosition(button, content, {
       strategy: 'fixed',
-      placement: this.placementValue || 'bottom-start',
+      placement,
       middleware: [
         flip(), 
         shift(),
@@ -70,5 +71,15 @@ export default class extends Controller {
 
   hide() {
     this.leave()
+  }
+
+  // Floating UI already flips the -start/-end alignment for RTL, but the physical
+  // left/right main side is direction-agnostic. Mirror it so submenus/side popovers
+  // open toward the reading direction (e.g. right-start -> left-start in RTL).
+  directionAwarePlacement(placement) {
+    if (getComputedStyle(this.element).direction !== 'rtl') return placement
+    if (placement.startsWith('left')) return placement.replace('left', 'right')
+    if (placement.startsWith('right')) return placement.replace('right', 'left')
+    return placement
   }
 }

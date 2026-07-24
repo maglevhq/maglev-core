@@ -16,7 +16,7 @@
 
   <div class="inline-block relative">
     <%= tag.div(
-      class: 'absolute left-3 top-2 w-6 h-6 rounded-sm border border-gray-200 group-[.is-empty]/color:bg-checkerboard group-[.is-empty]/color:bg-white!',
+      class: 'absolute start-3 top-2 w-6 h-6 rounded-sm border border-gray-200 group-[.is-empty]/color:bg-checkerboard group-[.is-empty]/color:bg-white!',
       style: "background-color: #{value}",
       data: {
         "uikit-form-color-field-target": "preview",
@@ -31,7 +31,7 @@
       minlength: 4,
       maxlength: 8,
       size: 9,
-      class: 'block py-2 pl-11 pr-8 rounded bg-gray-100 text-gray-800 focus:outline-none focus:ring focus:ring-inset focus:ring-2 focus:ring-editor-primary/50 placeholder-gray-500',
+      class: 'block py-2 ps-11 pe-8 rounded bg-gray-100 text-gray-800 focus:outline-none focus:ring focus:ring-inset focus:ring-2 focus:ring-editor-primary/50 placeholder-gray-500',
       data: {
         'uikit-form-color-field-target': 'input',
         action: ['input->uikit-form-color-field#change', **input_action].join(' '),
@@ -41,7 +41,7 @@
     ) %>
 
     <% if presets? %>
-      <div class="absolute top-1.5 right-3">
+      <div class="absolute top-1.5 end-3">
         <%= render Maglev::Uikit::DropdownComponent.new(placement: 'bottom-end') do |dropdown| %>
           <% dropdown.with_trigger do %>
             <%= render Maglev::Uikit::IconButtonComponent.new(

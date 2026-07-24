@@ -9,7 +9,7 @@
     <% item_body = capture do %>
       <% if icon? %>
         <div class="grid grid-cols-[auto_1fr_auto] flex flex-1 items-center">
-          <div class="mr-2">
+          <div class="me-2">
             <%= icon %>
           </div>
           <div class="text-gray-800 truncate"><%= title %></div>
@@ -56,7 +56,7 @@
     <% end %>
 
     <% if action? %>
-      <div class="relative ml-auto flex items-center shrink-0 min-h-full gap-2">
+      <div class="relative ms-auto flex items-center shrink-0 min-h-full gap-2">
         <%= action %>
       </div>
     <% end %>  

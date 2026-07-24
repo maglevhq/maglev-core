@@ -3,6 +3,8 @@
 # rubocop:disable Metrics/ModuleLength
 module Maglev
   module ApplicationHelper
+    RTL_UI_LOCALES = %i[ar he fa ur].freeze
+
     ## "system" helpers
     def turbo_stream
       # we don't want to pollute the global Turbo::Streams::TagBuilder
@@ -63,6 +65,10 @@ module Maglev
     end
 
     ## Editor helpers
+    def maglev_editor_dir
+      RTL_UI_LOCALES.include?(editor_ui_locale.to_sym) ? 'rtl' : 'ltr'
+    end
+
     def maglev_editor_title
       case maglev_config.title
       when nil

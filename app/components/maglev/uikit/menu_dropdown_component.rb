@@ -52,7 +52,7 @@ module Maglev
         class_variants(
           base: %(
             col-span-3 grid grid-cols-subgrid
-            flex flex-1 items-center px-2 py-3 w-full mx-1 rounded-sm text-left
+            flex flex-1 items-center px-2 py-3 w-full mx-1 rounded-sm text-start
             transition-colors duration-200 focus:outline-none cursor-pointer
           ),
           variants: {
@@ -82,11 +82,11 @@ module Maglev
 
         def self.inner_content
           <<-ERB
-            <%= render Maglev::Uikit::IconComponent.new(name: icon.to_s, size: '1.15rem', class_names: 'mr-2 shrink-0') if icon? %>
+            <%= render Maglev::Uikit::IconComponent.new(name: icon.to_s, size: '1.15rem', class_names: 'me-2 shrink-0') if icon? %>
             <span class="<%= 'col-start-2' unless icon? %> whitespace-nowrap whitespace-nowrap truncate overflow-hidden">
               <%= label %>
             </span>
-            <%= render Maglev::Uikit::IconComponent.new(name: 'arrow_right', size: '1.15rem', class_names: 'ml-2 shrink-0') if right_arrow? %>
+            <%= render Maglev::Uikit::IconComponent.new(name: 'arrow_right', size: '1.15rem', class_names: 'ms-2 shrink-0 rtl:-scale-x-100') if right_arrow? %>
             <span class="col-start-2 whitespace-nowrap whitespace-nowrap truncate overflow-hidden text-xs text-gray-500">
               <%= sub_label %>
             </span>
