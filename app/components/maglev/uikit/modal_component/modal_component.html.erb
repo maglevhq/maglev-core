@@ -23,7 +23,7 @@
   <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
     <div class="flex min-h-full items-center justify-center p-4" data-action="click->uikit-modal#close:self">
       <div 
-        class="relative transform overflow-y-visible rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:min-w-96 sm:p-6 w-full sm:w-auto hidden"
+        class="relative transform overflow-y-visible rounded-lg bg-white px-4 pb-4 pt-5 text-start shadow-xl transition-all sm:my-8 sm:min-w-96 sm:p-6 w-full sm:w-auto hidden"
         data-uikit-modal-target="dialog"
         data-transition-enter="ease-out duration-100"
         data-transition-enter-start="opacity-0 -translate-y-6 scale-95"
@@ -36,12 +36,12 @@
           <div class="flex items-center justify-between">
             <h2 class="text-gray-800 font-semibold antialiased text-lg"><%= title %></h2>
 
-            <div class="ml-auto pl-2 gap-0.5 flex items-center">
+            <div class="ms-auto ps-2 gap-0.5 flex items-center">
               <% if notification? %>
                 <%= notification %>          
               <% end %>
 
-              <div class="relative -right-2">
+              <div class="relative -end-2">
                 <%= render Maglev::Uikit::IconButtonComponent.new(icon_name: 'close', data: { action: 'click->uikit-modal#close' }) %>
               </div>
             </div>

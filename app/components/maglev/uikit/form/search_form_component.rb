@@ -26,7 +26,7 @@ module Maglev
 
         def clear_button_class_names(...)
           class_variants(
-            base: 'ml-1 text-gray-500 cursor-pointer',
+            base: 'ms-1 text-gray-500 cursor-pointer',
             variants: {
               invisible: 'invisible'
             }

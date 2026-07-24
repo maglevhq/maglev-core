@@ -5,7 +5,7 @@
   <%= tag.attributes(data: data) %>
 >
   <%= content if content? %>
-  <button type="submit" class="mr-2">
+  <button type="submit" class="me-2">
     <%= render Maglev::Uikit::IconComponent.new(name: 'search', size: '1.25rem', class_names: 'text-gray-500') %>
   </button>
   <%= tag.input(
