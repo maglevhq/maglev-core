@@ -19,7 +19,7 @@ module Maglev
       def dialog_classes
         class_variants(
           base: %(
-            relative transform overflow-y-visible rounded-lg bg-white px-4 pb-4 pt-5 text-left
+            relative transform overflow-y-visible rounded-lg bg-white px-4 pb-4 pt-5 text-start
             shadow-xl transition-all sm:my-8 sm:p-6 hidden
           ),
           variants: {

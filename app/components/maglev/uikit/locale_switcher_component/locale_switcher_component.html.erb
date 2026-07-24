@@ -1,6 +1,6 @@
 <%= render(Maglev::Uikit::MenuDropdownComponent.new) do |dropdown| %>
   <% dropdown.with_trigger do %>
-    <%= tag.button class: helpers.maglev_button_classes(color: :secondary, class: 'space-x-2'), data: { action: 'click->uikit-dropdown#toggle', 'uikit-dropdown-target': 'button' } do %>
+    <%= tag.button class: helpers.maglev_button_classes(color: :secondary, class: 'gap-2'), data: { action: 'click->uikit-dropdown#toggle', 'uikit-dropdown-target': 'button' } do %>
       <%= render Maglev::Uikit::IconComponent.new(name: 'global') %>
       <span class="whitespace-nowrap">
         <%= current_locale_label %>
