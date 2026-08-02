@@ -28,6 +28,11 @@
     "@tiptap/extension-underline": "3.6.2"
   },
   "devDependencies": {
-    "vite": "^6.4.2"
+    "vite": "^6.4.3"
+  },
+  "resolutions": {
+    "linkify-it": "^5.0.2",
+    "markdown-it": "^14.2.0",
+    "postcss": "^8.5.18"
   }
 }

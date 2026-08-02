@@ -17,7 +17,7 @@ gem 'image_processing', '~> 1.12.2'
 gem 'propshaft'
 
 # Use Puma to run the web server for testing
-gem 'puma'
+gem 'puma', '>= 7.2.1'
 
 # Temporary use this branch because it solves a bug
 # gem 'maglev-injectable', path: '../injectable'
@@ -33,7 +33,7 @@ gem 'puma'
 # Use SQLite/PostgreSQL/MariaDB for development and test
 gem 'mysql2'
 gem 'pg', '~> 1.5.9'
-gem 'sqlite3'
+gem 'sqlite3', '>= 2.9.5'
 
 # Gems no longer be part of the default gems from Ruby 3.5.0
 gem 'benchmark'
@@ -45,16 +45,20 @@ gem 'lookbook'
 
 # Use ESM with importmap to manage modern JavaScript in Rails without transpiling or bundling.
 gem 'importmap-rails', '~> 2.2'
-gem 'loofah', '>= 2.25.1'
+gem 'loofah', '>= 2.25.2'
 
 # Vulnerable gems
 gem 'addressable', '>= 2.9.0'
+gem 'concurrent-ruby', '>= 1.3.7'
+gem 'css_parser', '>= 3.0.0'
 gem 'erb', '>= 6.0.4'
-gem 'json', '>= 2.19.2'
-gem 'net-imap', '>= 0.6.4'
+gem 'json', '>= 2.19.9'
+gem 'net-imap', '>= 0.6.4.1'
 gem 'rack', '>= 3.2.6'
 gem 'rack-session', '>= 2.1.2'
-gem 'yard', '>= 0.9.42'
+gem 'rails-html-sanitizer', '>= 1.7.1'
+gem 'websocket-driver', '>= 0.8.2'
+gem 'yard', '>= 0.9.44'
 
 group :development, :test do
   gem 'bcrypt', '>= 3.1.22'
@@ -68,7 +72,7 @@ group :development, :test do
 
   gem 'generator_spec'
 
-  gem 'nokogiri', '>= 1.15.6'
+  gem 'nokogiri', '>= 1.19.4'
 
   gem 'annotaterb'
 
