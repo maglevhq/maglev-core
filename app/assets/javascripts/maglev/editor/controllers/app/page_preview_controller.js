@@ -164,13 +164,14 @@ export default class extends Controller {
 
   setupTransformations() {
     this.calculateTransformations = this.calculateTransformations.bind(this)
-    this.ro = new ResizeObserver(this.calculateTransformations)
-    
+    this.scheduleTransformations = this.scheduleTransformations.bind(this)
+    this.resizeObserver = new ResizeObserver(this.scheduleTransformations)
+
     const sidebar = this.appLayoutSidebar
     const pageLayout = document.querySelector('#page-layout')
-    if (sidebar) this.ro.observe(this.appLayoutSidebar())
-    if (pageLayout) this.ro.observe(pageLayout)
-    this.ro.observe(document.documentElement)
+    if (sidebar) this.resizeObserver.observe(this.appLayoutSidebar())
+    if (pageLayout) this.resizeObserver.observe(pageLayout)
+    this.resizeObserver.observe(document.documentElement)
 
     // Recompute on page layout toggles / VT renders
     addEventListener("turbo:render", this.calculateTransformations)
@@ -180,7 +181,11 @@ export default class extends Controller {
   }
 
   teardownTransformations() {
-    this.ro?.disconnect()
+    if (this.transformationsFrame) {
+      cancelAnimationFrame(this.transformationsFrame)
+      this.transformationsFrame = null
+    }
+    this.resizeObserver?.disconnect()
     removeEventListener("turbo:render", this.calculateTransformations)
     removeEventListener("turbo:before-render", this.calculateTransformations)
   }
@@ -228,6 +233,15 @@ export default class extends Controller {
 
     // mainly used for the section toolbars
     this.dispatch('scale-ratio-updated', { detail: {  value: scaleRatio } })
+  }
+
+  scheduleTransformations() {
+    if (this.transformationsFrame) return
+
+    this.transformationsFrame = requestAnimationFrame(() => {
+      this.transformationsFrame = null
+      this.calculateTransformations()
+    })
   }
 
   calculateTransformX() {

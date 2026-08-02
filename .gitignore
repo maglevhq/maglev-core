@@ -31,6 +31,7 @@ public/packs-test/
 coverage/
 .idea/
 .env
+.cursor/
 podman.sh
 template.dev.rb
 tailwind-maglev-pro.config.js
