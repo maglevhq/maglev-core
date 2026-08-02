@@ -65,7 +65,7 @@ module Maglev
     end
 
     ## Editor helpers
-    def maglev_editor_dir
+    def maglev_editor_direction
       RTL_UI_LOCALES.include?(editor_ui_locale.to_sym) ? 'rtl' : 'ltr'
     end
 
