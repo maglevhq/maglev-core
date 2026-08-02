@@ -24,6 +24,26 @@ describe Maglev::Content::UpdateSectionService do
       expect(page.sections.dig(0, 'settings', 0, 'value')).to eq('Hello world!')
     end
 
+    context 'Given a checkbox setting submitted unchecked as "0"' do
+      # The editor checkbox posts "0"/"1" (hidden field + check_box). Without casting,
+      # "0" is stored as a truthy string and the panel re-renders the box as checked.
+      let(:theme) do
+        build(:theme).tap do |theme|
+          theme.sections.find('jumbotron').settings << Maglev::Section::Setting.build(
+            { id: 'display_title', label: 'Display title?', type: 'checkbox', default: true }.with_indifferent_access
+          )
+        end
+      end
+      let(:content) { { display_title: '0' } }
+
+      it 'stores a boolean false instead of the raw string' do
+        service_call
+
+        value = page.sections.dig(0, 'settings').find { |setting| setting['id'].to_s == 'display_title' }['value']
+        expect(value).to eq(false)
+      end
+    end
+
     context 'Given an existing page section with a version' do
       let(:lock_version) { 1 }
 

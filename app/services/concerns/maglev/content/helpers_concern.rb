@@ -58,7 +58,7 @@ module Maglev
 
       def update_setting_value(setting, current_content)
         setting_content = current_content.find { |s| s['id'] == setting.id }
-        value = content[setting.id.to_sym]
+        value = setting.cast_value(content[setting.id.to_sym])
 
         if setting_content.nil?
           current_content.push({ id: setting.id, value: value })
