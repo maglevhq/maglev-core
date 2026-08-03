@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Maglev::Maintenance::UpgradeToV3Service, type: :service do
+RSpec.describe Maglev::Maintenance::UpgradeToV4Service, type: :service do
   let(:site) { create(:site) }
   let(:theme) { build(:theme, :with_simple_layout) }
   let!(:page) do

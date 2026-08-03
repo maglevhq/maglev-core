@@ -3,11 +3,11 @@
 require 'rails'
 
 module Maglev
-  class UpgradeToV3Command < Rails::Command::Base
-    desc 'upgrade_to_v3', 'Upgrate the site to version 3 (layout groups & content stores)'
+  class UpgradeToV4Command < Rails::Command::Base
+    desc 'upgrade_to_v4', 'Upgrade the site to version 4 (layout groups & content stores)'
 
     def self.banner(_command = nil, *)
-      'bin/rails maglev:upgrade_to_v3'
+      'bin/rails maglev:upgrade_to_v4'
     end
 
     def perform
@@ -15,13 +15,13 @@ module Maglev
 
       upgrade_sites
 
-      Rails.logger.debug '🛠️ Your site/page content has been upgraded to V3 with success!'
+      Rails.logger.debug '🛠️ Your site/page content has been upgraded to V4 with success!'
     end
 
     private
 
     def upgrade_sites
-      Maglev::Maintenance::UpgradeToV3Service.call(
+      Maglev::Maintenance::UpgradeToV4Service.call(
         site: Maglev::Site.first,
         theme: Maglev.local_themes.first
       )

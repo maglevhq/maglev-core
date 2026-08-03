@@ -32,7 +32,7 @@ Rails.application.config.after_initialize do
 
         Please run:#{' '}
 
-        > rails maglev:upgrade_to_v3
+        > rails maglev:upgrade_to_v4
 
       ERROR
     )

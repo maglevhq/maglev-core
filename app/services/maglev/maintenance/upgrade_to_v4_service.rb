@@ -2,7 +2,7 @@
 
 module Maglev
   module Maintenance
-    class UpgradeToV3Service
+    class UpgradeToV4Service
       include Injectable
 
       argument :site
