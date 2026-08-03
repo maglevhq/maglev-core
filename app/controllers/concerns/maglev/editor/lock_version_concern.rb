@@ -11,16 +11,8 @@ module Maglev
 
       private
 
-      def lock_source
-        @section.site_scoped? ? maglev_site : current_maglev_page
-      end
-
       def source_lock_version
-        lock_source.lock_version || 0
-      end
-
-      def reload_lock_source
-        lock_source.reload if @section.site_scoped?
+        sections_store.lock_version || 0
       end
     end
   end

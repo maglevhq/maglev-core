@@ -46,7 +46,7 @@ module Maglev::Page::PublishableConcern
       # in MySQL, default values for json columns are not supported, so we need to set an empty hash if the value is nil
       value = {} if attribute.ends_with?('_translations') && value.nil?
 
-      self.published_payload[attribute] = value
+      published_payload[attribute] = value
     end
   end
 

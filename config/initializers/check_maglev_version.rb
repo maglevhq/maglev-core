@@ -7,6 +7,7 @@ Rails.application.config.after_initialize do
 
   theme = Maglev.local_themes.first
   if theme.layouts.blank?
+    # rubocop:disable Rails/Exit
     abort(
       <<~ERROR.strip
         🚨 Your Maglev theme has no layouts.
@@ -19,10 +20,12 @@ Rails.application.config.after_initialize do
 
       ERROR
     )
+    # rubocop:enable Rails/Exit
   end
 
   page = Maglev::Page.first
   if page && page.layout_id.blank?
+    # rubocop:disable Rails/Exit
     abort(
       <<~ERROR.strip
         🚨 Your Maglev pages have no layout. You need to set the default one for each page.
@@ -33,5 +36,6 @@ Rails.application.config.after_initialize do
 
       ERROR
     )
+    # rubocop:enable Rails/Exit
   end
 end

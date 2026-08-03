@@ -17,11 +17,11 @@ module Maglev::Page::PathConcern
              dependent: :delete_all,
              autosave: true
 
-    # rubocop:disable Rails/HasManyOrHasOneDependent, Rails/InverseOf
+    # rubocop:disable Rails/HasManyOrHasOneDependent
     has_many :canonical_paths,
              -> { where(canonical: true) },
              **COMMON_ASSOCIATION_PATH_OPTIONS
-    # rubocop:enable Rails/HasManyOrHasOneDependent, Rails/InverseOf
+    # rubocop:enable Rails/HasManyOrHasOneDependent
 
     ## callbacks ##
     before_validation { path } # force the initialization of a new path if it doesn't exist

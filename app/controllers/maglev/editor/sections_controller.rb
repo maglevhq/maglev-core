@@ -3,6 +3,9 @@
 module Maglev
   module Editor
     class SectionsController < Maglev::Editor::BaseController
+      include Maglev::Editor::LockVersionConcern
+      include Maglev::Editor::NewSectionConcern
+
       helper Maglev::Editor::SettingsHelper
       helper_method :source_lock_version, :addable_section_categories
 
@@ -67,20 +70,6 @@ module Maglev
         @sections_store_content = current_maglev_page_content.find_store(params[:store_id])
       end
 
-      def set_query_and_category_id
-        # we can't filter by both query and category_id in the same time
-        @query = params[:category_id].present? ? nil : params[:query]
-        # if no category_id is provided AND we don't have a query, we take the first category
-        # which has at least one section that can be added to the store
-        @category_id = params[:category_id] || addable_section_categories.first&.id
-        @category_id = nil if @query.present?
-      end
-
-      def addable_section_categories
-        addable_category_ids = maglev_theme.sections.available_for(@sections_store_content).map(&:category).uniq
-        maglev_theme.section_categories.select { |category| addable_category_ids.include?(category.id) }
-      end
-
       def set_section
         @section = current_maglev_page_content.find_section(params[:id])
         redirect_to editor_sections_stores_path_with_context unless @section
@@ -120,10 +109,6 @@ module Maglev
         headers['X-Layout-Store-Id'] = flash[:store_id]
         headers['X-Section-Id'] = flash[:section_id]
         headers['X-Section-Position'] = flash[:position]
-      end
-
-      def source_lock_version
-        sections_store.lock_version || 0
       end
 
       def redirect_to_sections_path

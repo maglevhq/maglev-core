@@ -49,6 +49,21 @@ module Maglev
         end
       end
 
+      def fetch_maglev_page_sections(*)
+        @fetch_maglev_page_sections ||= build_maglev_page_sections
+      end
+
+      def build_maglev_page_sections
+        theme = fetch_maglev_theme
+        layout = theme.find_layout(fetch_maglev_page.layout_id)
+        target_group = layout.groups.find { |group| group.accepts?(section_definition) } || layout.groups.first
+        store = build_preview_store(theme)
+
+        layout.groups.map do |group|
+          build_maglev_page_sections_group(group, target_group, store)
+        end
+      end
+
       def build_preview_store(theme)
         Maglev::SectionsContentStore.new(handle: 'studio_section_preview').tap do |store|
           store.sections = [section_definition.build_default_content.with_indifferent_access]
@@ -56,22 +71,13 @@ module Maglev
         end
       end
 
-      def fetch_maglev_page_sections(*)
-        @fetch_maglev_page_sections ||= begin
-          theme = fetch_maglev_theme
-          layout = theme.find_layout(fetch_maglev_page.layout_id)
-          target_group = layout.groups.find { |group| group.accepts?(section_definition) } || layout.groups.first
-          store = build_preview_store(theme)
-
-          layout.groups.map do |group|
-            {
-              id: group.id,
-              handle: group.handle,
-              sections: group.id == target_group.id ? store.sections : [],
-              lock_version: nil
-            }
-          end
-        end
+      def build_maglev_page_sections_group(group, target_group, store)
+        {
+          id: group.id,
+          handle: group.handle,
+          sections: group.id == target_group.id ? store.sections : [],
+          lock_version: nil
+        }
       end
 
       def maglev_rendering_mode

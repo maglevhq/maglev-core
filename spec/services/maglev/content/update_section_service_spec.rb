@@ -42,7 +42,9 @@ describe Maglev::Content::UpdateSectionService do
       it 'stores a boolean false instead of the raw string' do
         service_call
 
-        value = store.reload.sections.dig(0, 'settings').find { |setting| setting['id'].to_s == 'display_title' }['value']
+        value = store.reload.sections.dig(0, 'settings').find do |setting|
+          setting['id'].to_s == 'display_title'
+        end['value']
         expect(value).to eq(false)
       end
     end
