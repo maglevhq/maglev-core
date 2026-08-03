@@ -15,6 +15,10 @@ module Maglev
         def sortable_with_insert_buttons
           render_with_template
         end
+
+        def nested
+          render_with_template
+        end
       end
     end
   end

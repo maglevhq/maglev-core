@@ -1,6 +1,6 @@
 <%= tag.div(data: { sortable_target: sortable_target, item_id: id, item_index: index }) do %>
   <%= content_tag(wrapper_tag_name.to_sym, class: wrapper_classes) do %>
-    <%= content if content? %>
+    <%= leading if leading? %>
 
     <%= tag.div(class: 'flex items-center cursor-move', data: { sortable_target: sortable_handle }) do %>
       <%= render Maglev::Uikit::IconComponent.new(name: "draggable") %>
@@ -60,5 +60,7 @@
         <%= action %>
       </div>
     <% end %>  
-  <% end %>  
+  <% end %>
+
+  <%= content if content? %>
 <% end %>

@@ -39,8 +39,8 @@
 
       <% if @section.child_blocks_of(section_block.id).any? %>
         <div class="ms-5 mt-3">
-          <%= render 'maglev/editor/section_blocks/index/tree', 
-            blocks: @section.child_blocks_of(section_block.id), 
+          <%= render 'maglev/editor/section_blocks/index/tree',
+            blocks: @section.child_blocks_of(section_block.id),
             parent_id: section_block.id
           %>
         </div>

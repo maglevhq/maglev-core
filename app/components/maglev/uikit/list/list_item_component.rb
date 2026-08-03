@@ -12,6 +12,8 @@ module Maglev
         renders_one :sub_title
         renders_one :title
         renders_one :action
+        # Inside the wrapper (e.g. radio for label wrappers). Default content stays below.
+        renders_one :leading
 
         attr_reader :link, :index, :options, :variant, :wrapper_tag_name
 

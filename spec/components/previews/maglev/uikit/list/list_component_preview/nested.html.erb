@@ -1,0 +1,48 @@
+<%# Nested tree: parent rows with indented child lists below (not beside) them. %>
+<div class="w-96 space-y-3">
+  <%= render Maglev::Uikit::List::ListComponent.new(sort_form: { path: '#' }, sortable_scope: 'root') do |component| %>
+    <% [
+      ['Links', %w[About Careers History Services Projects Blog]],
+      ['Buttons', %w[Login Register]]
+    ].each do |parent_title, children| %>
+      <% component.with_item_content(
+        options: { sortable_scope: 'root' },
+        link: { url: '#' }
+      ) do |item| %>
+        <% item.with_handle %>
+        <% item.with_title_content(parent_title) %>
+
+        <% item.with_action do %>
+          <%= button_tag type: 'button', class: maglev_icon_button_classes do %>
+            <%= render Maglev::Uikit::IconComponent.new(name: 'add', size: '1.15rem') %>
+          <% end %>
+          <%= button_tag type: 'button', class: maglev_icon_button_classes do %>
+            <%= render Maglev::Uikit::IconComponent.new(name: 'delete_bin', size: '1.15rem') %>
+          <% end %>
+        <% end %>
+
+        <div class="ms-5 mt-3">
+          <%= render Maglev::Uikit::List::ListComponent.new(
+            sort_form: { path: '#' },
+            sortable_scope: parent_title.parameterize
+          ) do |nested| %>
+            <% children.each do |child_title| %>
+              <% nested.with_item_content(
+                options: { sortable_scope: parent_title.parameterize },
+                link: { url: '#' }
+              ) do |child| %>
+                <% child.with_handle %>
+                <% child.with_title_content(child_title) %>
+                <% child.with_action do %>
+                  <%= button_tag type: 'button', class: maglev_icon_button_classes do %>
+                    <%= render Maglev::Uikit::IconComponent.new(name: 'delete_bin', size: '1.15rem') %>
+                  <% end %>
+                <% end %>
+              <% end %>
+            <% end %>
+          <% end %>
+        </div>
+      <% end %>
+    <% end %>
+  <% end %>
+</div>

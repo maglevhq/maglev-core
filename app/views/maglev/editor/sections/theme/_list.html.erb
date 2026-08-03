@@ -25,9 +25,11 @@
             <% end %>        
           <% end %>
             
-          <% item.with_title_content(section.human_name) %>   
+          <% item.with_title_content(section.human_name) %>
 
-          <%= f.radio_button :section_type, section.id, class: 'sr-only peer' %>   
+          <% item.with_leading do %>
+            <%= f.radio_button :section_type, section.id, class: 'sr-only peer' %>
+          <% end %>
         <% end %>
       <% end %>
     </div>
