@@ -1,4 +1,5 @@
 .bundle/
+.cursor/
 *.log
 pkg/
 spec/dummy/db/schema.pg.rb
