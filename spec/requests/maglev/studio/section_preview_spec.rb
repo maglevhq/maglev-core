@@ -9,8 +9,10 @@ RSpec.describe Maglev::Studio::SectionPreviewController, type: :request do
   describe 'GET /maglev/studio/section_preview/:slug' do
     it 'renders a fresh section from theme defaults without loading a page from the DB' do
       home_page = Maglev::Page.home.first
-      home_page.sections.find { |s| s['type'] == 'showcase' }['settings']
-               .find { |s| s['id'] == 'title' }['value'] = 'DB PAGE TITLE'
+      main_store = fetch_sections_store('main', home_page.id)
+      main_store.sections.find { |s| s['type'] == 'showcase' }['settings']
+                .find { |s| s['id'] == 'title' }['value'] = 'DB PAGE TITLE'
+      main_store.save!
 
       get '/maglev/studio/section_preview/showcase'
 

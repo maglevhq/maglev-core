@@ -15,7 +15,7 @@
 
   <% page_layout.with_footer do %>
     <% if @sections_stores.one? %>
-      <%= link_to t('maglev.editor.sections.index.add_button'), new_editor_section_path(store_id: @sections_stores.first, **maglev_editing_route_context), class: maglev_button_classes(size: :big), data: { turbo_frame: '_top' } %>
+      <%= link_to t('maglev.editor.sections.index.add_button'), new_editor_section_path(store_id: @sections_stores.first, **maglev_editing_route_context), class: maglev_button_classes(size: :big), data: { turbo_frame: 'modal' } %>
     <% end %>
   <% end %>
 <% end %>

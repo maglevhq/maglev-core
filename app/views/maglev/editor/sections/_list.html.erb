@@ -8,7 +8,7 @@
     }) do |component| %>
 
   <% if sections_store.can_add_sections? %>
-    <% component.with_item_insert_button(link: { url: new_editor_section_path(store_id: sections_store, position: 0, **maglev_editing_route_context), data: { turbo_frame: '_top' } })%>
+    <% component.with_item_insert_button(link: { url: new_editor_section_path(store_id: sections_store, position: 0, **maglev_editing_route_context), data: { turbo_frame: 'modal' } })%>
   <% end %>
   
   <% sections_store.sections.each_with_index do |section, index| %>
@@ -44,7 +44,7 @@
     <% end %>
     
     <% if sections_store.can_add_sections? %>
-      <% component.with_item_insert_button(link: { url: new_editor_section_path(store_id: sections_store, position: index + 1, **maglev_editing_route_context), data: { turbo_frame: '_top' } }) %> 
+      <% component.with_item_insert_button(link: { url: new_editor_section_path(store_id: sections_store, position: index + 1, **maglev_editing_route_context), data: { turbo_frame: 'modal' } }) %> 
     <% end %>
   <% end %>
 <% end %>

@@ -151,16 +151,19 @@ module Maglev
         self.class.new(store_content.addable_sections)
       end
 
-      def filter(sections_content, keyword: nil, category_id: nil)
+      def filter(store_content, keyword: nil, category_id: nil)
+        # restrict first to the sections which can be added to the store
+        addable_sections = available_for(store_content).array
+
         new_array = if keyword.present?
-                      @array.select { |section| section.name.downcase.include?(keyword.downcase) }
+                      addable_sections.select { |section| section.name.downcase.include?(keyword.downcase) }
                     elsif category_id.present?
-                      @array.select { |section| section.category == category_id }
+                      addable_sections.select { |section| section.category == category_id }
                     else
-                      @array
+                      addable_sections
                     end
 
-        self.class.new(new_array).available_for(sections_content)
+        self.class.new(new_array)
       end
 
       def as_json(**_options)

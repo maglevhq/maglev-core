@@ -3,7 +3,7 @@
     <%= render Maglev::Uikit::Form::SearchFormComponent.new(
       name: 'query', 
       value: @query, 
-      search_path: new_editor_section_path({ query: @query, position: @position }),       
+      search_path: new_editor_section_path(store_id: @sections_store_content, query: @query, position: @position, **maglev_editing_route_context),       
       options: {
         placeholder: t('maglev.editor.sections.new.search_placeholder'),
         class_names: 'w-full',
@@ -13,8 +13,8 @@
   <div class="w-full">
     <div class="overflow-y-hidden pt-2 pb-4">
       <%= render Maglev::Uikit::TabsComponent.new(variant: :pills, active_tab_index: -1) do |tabs| %>
-        <% maglev_theme.section_categories.each do |category| %>
-          <% tabs.with_tab(label: category.human_name, link: { url: new_editor_section_path(category_id: category.id, position: @position) }, active: category.id == @category_id) %>
+        <% addable_section_categories.each do |category| %>
+          <% tabs.with_tab(label: category.human_name, link: { url: new_editor_section_path(store_id: @sections_store_content, category_id: category.id, position: @position, **maglev_editing_route_context) }, active: category.id == @category_id) %>
         <% end %>        
       <% end %>
     </div>

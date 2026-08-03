@@ -4,8 +4,9 @@ module Maglev
   module Editor
     class SectionsController < Maglev::Editor::BaseController
       helper Maglev::Editor::SettingsHelper
-      helper_method :source_lock_version
+      helper_method :source_lock_version, :addable_section_categories
 
+      before_action :ensure_turbo_frame_request, only: [:new]
       before_action :set_section, only: %i[edit update destroy]
       before_action :set_sections_store_content, only: %i[new create]
 
@@ -14,9 +15,12 @@ module Maglev
       end
 
       def new
-        # here, sections are the available section definitions for the given store
-        @grouped_sections = maglev_theme.sections.available_for(@sections_store_content).group_by_category
+        set_query_and_category_id
         @position = (params[:position] || -1).to_i
+        # here, sections are the available section definitions for the given store
+        @theme_sections = maglev_theme.sections.filter(@sections_store_content, keyword: @query,
+                                                                                category_id: @category_id)
+        render layout: false
       end
 
       def create
@@ -61,6 +65,20 @@ module Maglev
 
       def set_sections_store_content
         @sections_store_content = current_maglev_page_content.find_store(params[:store_id])
+      end
+
+      def set_query_and_category_id
+        # we can't filter by both query and category_id in the same time
+        @query = params[:category_id].present? ? nil : params[:query]
+        # if no category_id is provided AND we don't have a query, we take the first category
+        # which has at least one section that can be added to the store
+        @category_id = params[:category_id] || addable_section_categories.first&.id
+        @category_id = nil if @query.present?
+      end
+
+      def addable_section_categories
+        addable_category_ids = maglev_theme.sections.available_for(@sections_store_content).map(&:category).uniq
+        maglev_theme.section_categories.select { |category| addable_category_ids.include?(category.id) }
       end
 
       def set_section

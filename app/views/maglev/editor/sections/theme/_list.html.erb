@@ -1,5 +1,5 @@
 <div class="relative -mx-4 -my-4 flex min-h-0 flex-1 flex-col overflow-y-auto">
-  <%= form_with url: editor_sections_path(maglev_editing_route_context), html: { class: 'flex min-h-0 w-full flex-1 flex-col' }, data: { 
+  <%= form_with url: editor_sections_path(store_id: @sections_store_content, **maglev_editing_route_context), html: { class: 'flex min-h-0 w-full flex-1 flex-col' }, data: { 
         turbo_frame: '_top',
         controller: 'auto-save dispatcher',
         action: %(

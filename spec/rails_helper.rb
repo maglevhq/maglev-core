@@ -53,7 +53,7 @@ rescue ActiveRecord::PendingMigrationError => e
 end
 RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
-  if Rails::VERSION::MAJOR >= 8 || (Rails::VERSION::MAJOR >= 7 && Rails::VERSION::MINOR > 0)
+  if Rails::VERSION::MAJOR >= 8 || (Rails::VERSION::MAJOR >= 7 && Rails::VERSION::MINOR.positive?)
     config.fixture_paths = [File.join(File.dirname(__FILE__), 'fixtures')]
   else
     config.fixture_path = File.join(File.dirname(__FILE__), 'fixtures')

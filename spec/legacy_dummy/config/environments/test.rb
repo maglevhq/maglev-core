@@ -28,7 +28,7 @@ Rails.application.configure do
   config.cache_store = :null_store
 
   # Raise exceptions instead of rendering exception templates.
-  config.action_dispatch.show_exceptions = if Rails::VERSION::MAJOR >= 7 && Rails::VERSION::MINOR > 0
+  config.action_dispatch.show_exceptions = if Rails::VERSION::MAJOR >= 7 && Rails::VERSION::MINOR.positive?
                                              :none
                                            else
                                              false

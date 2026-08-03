@@ -55,6 +55,7 @@
     --container-xl: 36rem;
     --container-2xl: 42rem;
     --container-3xl: 48rem;
+    --container-5xl: 64rem;
     --container-7xl: 80rem;
     --text-xs: 0.75rem;
     --text-xs--line-height: calc(1 / 0.75);
@@ -628,6 +629,9 @@
   .h-\[100dvh-\(--spacing\(16\)\)\] {
     height: 100dvh-(calc(var(--spacing) * 16));
   }
+  .h-\[calc\(100dvh-16rem\)\] {
+    height: calc(100dvh - 16rem);
+  }
   .h-\[calc\(100vh-4rem\)\] {
     height: calc(100vh - 4rem);
   }
@@ -717,6 +721,9 @@
   }
   .w-\[51rem\] {
     width: 51rem;
+  }
+  .w-\[calc\(100dvw-4rem\)\] {
+    width: calc(100dvw - 4rem);
   }
   .w-full {
     width: 100%;
@@ -2144,20 +2151,6 @@
       }
     }
   }
-  .hover\:bg-editor-primary\/90 {
-    &:hover {
-      @media (hover: hover) {
-        background-color: var(--color-editor-primary);
-        @supports (color: color-mix(in lab, red, red)) {
-          background-color: color-mix(
-            in oklab,
-            var(--color-editor-primary) 90%,
-            transparent
-          );
-        }
-      }
-    }
-  }
   .hover\:bg-gray-50 {
     &:hover {
       @media (hover: hover) {
@@ -2763,6 +2756,11 @@
       display: flex;
     }
   }
+  .lg\:w-3xl {
+    @media (width >= 64rem) {
+      width: var(--container-3xl);
+    }
+  }
   .lg\:grid-cols-2 {
     @media (width >= 64rem) {
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -2801,6 +2799,11 @@
     @media (width >= 64rem) {
       font-size: var(--text-6xl);
       line-height: var(--tw-leading, var(--text-6xl--line-height));
+    }
+  }
+  .xl\:w-5xl {
+    @media (width >= 80rem) {
+      width: var(--container-5xl);
     }
   }
   .xl\:grid-cols-3 {
