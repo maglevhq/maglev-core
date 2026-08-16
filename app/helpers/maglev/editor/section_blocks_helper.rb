@@ -19,6 +19,7 @@ module Maglev
       def delete_section_block_button_form_attributes(section, section_block)
         {
           data: {
+            turbo_frame: '_top',
             action: 'turbo:submit-end->editor-preview-notification-center#deleteSectionBlock',
             'editor-preview-notification-center-section-id-param': section.id,
             'editor-preview-notification-center-section-block-id-param': section_block.id
