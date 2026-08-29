@@ -19,6 +19,58 @@ describe 'Maglev::Editor::SectionBlocks', type: :request do
       get "/maglev/editor/en/#{home_page.id}/sections/#{section_id}/blocks"
       expect(response).to be_successful
     end
+
+    context 'when the section presents its blocks as a tree' do
+      let(:site_store) { fetch_sections_store('_site') }
+      let(:navbar_section) { site_store.find_section_by_type('navbar') }
+      let(:section_id) { navbar_section['id'] }
+
+      # rubocop:disable Style/StringHashKeys
+      before do
+        # two root menu items, one of them with a nested menu item
+        navbar_section['blocks'] = [
+          {
+            'id' => 'menu-item-0',
+            'type' => 'menu_item',
+            'settings' => [
+              { 'id' => 'label', 'value' => 'Home' },
+              { 'id' => 'link', 'value' => '/' }
+            ]
+          },
+          {
+            'id' => 'menu-item-1',
+            'type' => 'menu_item',
+            'settings' => [
+              { 'id' => 'label', 'value' => 'About us' },
+              { 'id' => 'link', 'value' => '/about-us' }
+            ]
+          },
+          {
+            'id' => 'nested-menu-item',
+            'type' => 'menu_item',
+            'parent_id' => 'menu-item-1',
+            'settings' => [
+              { 'id' => 'label', 'value' => 'Nested item' },
+              { 'id' => 'link', 'value' => '/nested' }
+            ]
+          }
+        ]
+        site_store.sections_translations_will_change!
+        site_store.save!
+      end
+      # rubocop:enable Style/StringHashKeys
+
+      it 'renders each block exactly once' do
+        get "/maglev/editor/en/#{home_page.id}/sections/#{section_id}/blocks"
+        expect(response).to be_successful
+        expect(response.body.scan('Nested item').count).to eq 1
+      end
+
+      it 'nests the child block under its parent' do
+        get "/maglev/editor/en/#{home_page.id}/sections/#{section_id}/blocks"
+        expect(response.body).to include('data-sortable-scope-value="menu-item-1"')
+      end
+    end
   end
 
   describe 'POST /maglev/editor/:context/sections/:id/blocks' do
