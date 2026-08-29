@@ -14,6 +14,51 @@ describe 'Maglev::Editor::SectionBlocks', type: :request do
     allow(Maglev.local_themes).to receive(:first).and_return(theme)
   end
 
+  # the navbar is a site scoped section presenting its blocks as a tree:
+  # it is listed in the "header" layout store (its "slot") while its content
+  # lives in the global site scoped store
+  shared_context 'with a site scoped section with nested blocks' do
+    let(:slot_store) { fetch_sections_store('header') }
+    let(:site_store) { fetch_sections_store('_site') }
+    let(:navbar_section) { site_store.find_section_by_type('navbar') }
+    let(:section_id) { navbar_section['id'] }
+
+    # rubocop:disable Style/StringHashKeys
+    before do
+      # two root menu items, one of them with a nested menu item
+      navbar_section['blocks'] = [
+        {
+          'id' => 'menu-item-0',
+          'type' => 'menu_item',
+          'settings' => [
+            { 'id' => 'label', 'value' => 'Home' },
+            { 'id' => 'link', 'value' => '/' }
+          ]
+        },
+        {
+          'id' => 'menu-item-1',
+          'type' => 'menu_item',
+          'settings' => [
+            { 'id' => 'label', 'value' => 'About us' },
+            { 'id' => 'link', 'value' => '/about-us' }
+          ]
+        },
+        {
+          'id' => 'nested-menu-item',
+          'type' => 'menu_item',
+          'parent_id' => 'menu-item-1',
+          'settings' => [
+            { 'id' => 'label', 'value' => 'Nested item' },
+            { 'id' => 'link', 'value' => { 'link_type' => 'url', 'href' => '/nested', 'open_new_window' => false } }
+          ]
+        }
+      ]
+      site_store.sections_translations_will_change!
+      site_store.save!
+    end
+    # rubocop:enable Style/StringHashKeys
+  end
+
   describe 'GET /maglev/editor/:context/sections/:id/blocks' do
     it 'returns a success response' do
       get "/maglev/editor/en/#{home_page.id}/sections/#{section_id}/blocks"
@@ -21,44 +66,7 @@ describe 'Maglev::Editor::SectionBlocks', type: :request do
     end
 
     context 'when the section presents its blocks as a tree' do
-      let(:site_store) { fetch_sections_store('_site') }
-      let(:navbar_section) { site_store.find_section_by_type('navbar') }
-      let(:section_id) { navbar_section['id'] }
-
-      # rubocop:disable Style/StringHashKeys
-      before do
-        # two root menu items, one of them with a nested menu item
-        navbar_section['blocks'] = [
-          {
-            'id' => 'menu-item-0',
-            'type' => 'menu_item',
-            'settings' => [
-              { 'id' => 'label', 'value' => 'Home' },
-              { 'id' => 'link', 'value' => '/' }
-            ]
-          },
-          {
-            'id' => 'menu-item-1',
-            'type' => 'menu_item',
-            'settings' => [
-              { 'id' => 'label', 'value' => 'About us' },
-              { 'id' => 'link', 'value' => '/about-us' }
-            ]
-          },
-          {
-            'id' => 'nested-menu-item',
-            'type' => 'menu_item',
-            'parent_id' => 'menu-item-1',
-            'settings' => [
-              { 'id' => 'label', 'value' => 'Nested item' },
-              { 'id' => 'link', 'value' => '/nested' }
-            ]
-          }
-        ]
-        site_store.sections_translations_will_change!
-        site_store.save!
-      end
-      # rubocop:enable Style/StringHashKeys
+      include_context 'with a site scoped section with nested blocks'
 
       it 'renders each block exactly once' do
         get "/maglev/editor/en/#{home_page.id}/sections/#{section_id}/blocks"
@@ -113,6 +121,42 @@ describe 'Maglev::Editor::SectionBlocks', type: :request do
           params: params
       expect(response).to be_successful
       expect(main_store.reload.sections.dig(1, 'blocks', 0, 'settings', 0, 'value')).to eq 'My new title 🍔'
+    end
+
+    context 'when the section is site scoped' do
+      include_context 'with a site scoped section with nested blocks'
+
+      let(:block_id) { 'nested-menu-item' }
+
+      before do
+        # make sure the lock versions of the slot store and the site scoped store differ
+        # rubocop:disable Rails/SkipsModelValidations
+        slot_store.update_column(:lock_version, 0)
+        site_store.update_column(:lock_version, 7)
+        # rubocop:enable Rails/SkipsModelValidations
+      end
+
+      it 'renders the form with the lock version of the site scoped store' do
+        get "/maglev/editor/en/#{home_page.id}/sections/#{section_id}/blocks/#{block_id}/edit"
+        expect(response.body).to have_selector("input[name='lock_version'][value='7']", visible: :hidden)
+      end
+
+      it 'updates the site scoped store and dispatches its fresh lock version' do
+        put "/maglev/editor/en/#{home_page.id}/sections/#{section_id}/blocks/#{block_id}",
+            as: :turbo_stream,
+            params: { lock_version: 7, section_block: { label: 'Our dream team' } }
+        expect(response).to be_successful
+        expect(response.body).to include('&quot;lockVersion&quot;:8')
+        expect(site_store.reload.lock_version).to eq 8
+        expect(slot_store.reload.lock_version).to eq 0
+      end
+
+      it 'still rejects a stale lock version' do
+        put "/maglev/editor/en/#{home_page.id}/sections/#{section_id}/blocks/#{block_id}",
+            as: :turbo_stream,
+            params: { lock_version: 6, section_block: { label: 'Our dream team' } }
+        expect(response).to have_http_status(:conflict)
+      end
     end
   end
 

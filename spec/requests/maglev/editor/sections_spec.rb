@@ -78,6 +78,44 @@ describe 'Maglev::Editor::Sections', type: :request do
       expect(response.media_type).to eq Mime[:turbo_stream]
       expect(main_store.reload.sections.dig(0, 'settings', 0, 'value')).to eq('Hello world!')
     end
+
+    context 'when the section is site scoped' do
+      # a site scoped section is listed in a layout store (its "slot") but its content
+      # lives in the global site scoped store: the lock version of the latter must be used
+      let(:slot_store) { fetch_sections_store('header') }
+      let(:site_store) { fetch_sections_store('_site') }
+      let(:section_id) { site_store.find_section_by_type('navbar')['id'] }
+
+      before do
+        # make sure the lock versions of the two stores differ
+        # rubocop:disable Rails/SkipsModelValidations
+        slot_store.update_column(:lock_version, 0)
+        site_store.update_column(:lock_version, 7)
+        # rubocop:enable Rails/SkipsModelValidations
+      end
+
+      it 'renders the form with the lock version of the site scoped store' do
+        get "/maglev/editor/en/#{home_page.id}/sections/#{section_id}/edit"
+        expect(response.body).to have_selector("input[name='lock_version'][value='7']", visible: :hidden)
+      end
+
+      it 'updates the site scoped store and dispatches its fresh lock version' do
+        put "/maglev/editor/en/#{home_page.id}/sections/#{section_id}",
+            as: :turbo_stream,
+            params: { lock_version: 7, section: { logo: 'new-logo.png' } }
+        expect(response).to be_successful
+        expect(response.body).to include('&quot;lockVersion&quot;:8')
+        expect(site_store.reload.lock_version).to eq 8
+        expect(slot_store.reload.lock_version).to eq 0
+      end
+
+      it 'still rejects a stale lock version' do
+        put "/maglev/editor/en/#{home_page.id}/sections/#{section_id}",
+            as: :turbo_stream,
+            params: { lock_version: 6, section: { logo: 'new-logo.png' } }
+        expect(response).to have_http_status(:conflict)
+      end
+    end
   end
 
   describe 'DELETE /maglev/editor/:context/sections/:id' do

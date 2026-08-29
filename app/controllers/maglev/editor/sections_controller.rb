@@ -89,7 +89,7 @@ module Maglev
       end
 
       def update_section
-        services.update_section.call(
+        @updated_store = services.update_section.call(
           store: sections_store,
           section_id: @section.id,
           content: params[:section].to_unsafe_h,

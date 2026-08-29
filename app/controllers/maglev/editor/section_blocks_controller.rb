@@ -74,7 +74,7 @@ module Maglev
       end
 
       def update_section_block
-        services.update_section_block.call(
+        @updated_store = services.update_section_block.call(
           store: sections_store,
           section_id: @section.id,
           block_id: @section_block.id,
