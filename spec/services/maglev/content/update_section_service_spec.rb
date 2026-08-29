@@ -22,7 +22,7 @@ describe Maglev::Content::UpdateSectionService do
     let(:lock_version) { 0 }
 
     it 'updates the section' do
-      expect(subject).to eq(true)
+      expect(subject).to be(store)
       expect(store.reload.sections.dig(0, 'settings', 0, 'value')).to eq('Hello world!')
       expect(store.reload.lock_version).to eq(1)
     end
@@ -51,7 +51,7 @@ describe Maglev::Content::UpdateSectionService do
 
     context 'Given an existing page section with a version' do
       it 'updates the section' do
-        expect(subject).to eq(true)
+        expect(subject).to be(store)
       end
 
       context 'Given the store has been modified while updating the section' do
@@ -79,7 +79,8 @@ describe Maglev::Content::UpdateSectionService do
     end
 
     it 'updates the section content on the site' do
-      expect(subject).to eq(true)
+      # the written store is the site scoped one, not the passed (slot) store
+      expect(subject).to eq(site_scoped_store)
       # rubocop:disable Style/StringHashKeys
       expect(site_scoped_sections.dig(0, 'settings', 0, 'value')).to eq({ 'url' => '/awesome-logo.png' })
       # rubocop:enable Style/StringHashKeys
