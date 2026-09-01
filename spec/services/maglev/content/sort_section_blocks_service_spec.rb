@@ -76,5 +76,64 @@ describe Maglev::Content::SortSectionBlocksService do
         end
       }.to ['Home', 'About us', 'Our office', 'Our team']
     end
+
+    context 'when the sorted siblings are interleaved with other blocks' do
+      # blocks are appended to the flat list as the editor creates them, so the children
+      # of a menu item are rarely stored right after it
+      let!(:page) do
+        create(:page, header_sections: [{
+                 id: 'abc',
+                 type: 'navbar',
+                 settings: [{ id: :logo, value: 'logo.png' }],
+                 blocks: [
+                   menu_item('home', 'Home'),
+                   menu_item('about', 'About us'),
+                   menu_item('about-team', 'Our team', parent_id: 'about'),
+                   menu_item('contact', 'Contact'),
+                   menu_item('about-office', 'Our office', parent_id: 'about'),
+                   menu_item('contact-email', 'Email', parent_id: 'contact'),
+                   menu_item('contact-phone', 'Phone', parent_id: 'contact'),
+                   menu_item('blog', 'Blog')
+                 ]
+               }])
+      end
+
+      def menu_item(id, label, parent_id: nil)
+        {
+          id: id,
+          type: 'menu_item',
+          parent_id: parent_id,
+          settings: [{ id: :label, value: label }, { id: :link, value: '/' }]
+        }.compact
+      end
+
+      def block_ids_in_store
+        site_scoped_store.reload.sections.dig(0, 'blocks').map { |block| block['id'] }
+      end
+
+      context 'sorting the root blocks' do
+        let(:parent_id) { nil }
+        let(:block_ids) { %w[blog contact about home] }
+
+        it 'only moves the root blocks and leaves the nested blocks where they are' do
+          subject
+          expect(block_ids_in_store).to eq(
+            %w[blog contact about-team about about-office contact-email contact-phone home]
+          )
+        end
+      end
+
+      context 'sorting the children of a block' do
+        let(:parent_id) { 'about' }
+        let(:block_ids) { %w[about-office about-team] }
+
+        it 'only moves the children and leaves the other blocks where they are' do
+          subject
+          expect(block_ids_in_store).to eq(
+            %w[home about about-office contact about-team contact-email contact-phone blog]
+          )
+        end
+      end
+    end
   end
 end
