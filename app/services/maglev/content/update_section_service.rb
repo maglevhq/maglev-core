@@ -26,9 +26,6 @@ module Maglev
       private
 
       def unsafe_call
-        # return the store which has been actually written into, so the caller
-        # can read its fresh lock version (a site scoped section is listed in
-        # a layout store but its content is written in the site scoped store)
         if site_scoped?
           add_missing_site_scoped_section # make sure the section is also present in the site scoped store
           update_section_content!(site_scoped_store)
@@ -43,8 +40,6 @@ module Maglev
         source.sections_translations_will_change!
         update_section_content(source)
         source.save!
-
-        source
       end
 
       def update_section_content(source)

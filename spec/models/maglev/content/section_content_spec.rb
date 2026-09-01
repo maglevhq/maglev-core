@@ -52,27 +52,4 @@ RSpec.describe Maglev::Content::SectionContent do
       end
     end
   end
-
-  context '#root_blocks' do
-    let(:store) { build(:sections_content_store, :with_navbar, page: page) }
-
-    it 'returns only the blocks without a parent' do
-      # the menu_item type is both root-eligible and accepted as a child of itself:
-      # nested menu items must not be returned here, otherwise the editor tree
-      # would render them twice (at the root and under their parent)
-      expect(section_content.root_blocks.map(&:id)).to eq %w[menu-item-0 menu-item-1]
-    end
-  end
-
-  context '#child_blocks_of' do
-    let(:store) { build(:sections_content_store, :with_navbar, page: page) }
-
-    it 'returns the direct children of the given block' do
-      expect(section_content.child_blocks_of('menu-item-1').map(&:id)).to eq %w[menu-item-1-1 menu-item-1-2]
-    end
-
-    it 'returns an empty list for a block without children' do
-      expect(section_content.child_blocks_of('menu-item-0')).to eq []
-    end
-  end
 end

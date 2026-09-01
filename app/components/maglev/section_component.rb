@@ -4,12 +4,12 @@
 # we need to move it along with the PageComponent and BlockComponent
 # to a separate folder (content?)
 
+# rubocop:disable Metrics/ClassLength
 module Maglev
   class SectionComponent < BaseComponent
     include TagHelper
 
     extend Forwardable
-
     def_delegators :parent, :site, :page, :config
 
     attr_reader :parent, :id, :type, :settings, :attributes, :definition, :templates_root_path,
@@ -35,11 +35,8 @@ module Maglev
       @dom_id ||= "section-#{id}"
     end
 
-    # the lock version of the store the section content comes from
-    # (stamped by the sections content fetcher, even for site scoped sections
-    # whose content lives in the global site scoped store)
     def lock_version
-      attributes[:lock_version] || '0'
+      @lock_version ||= lock_source&.lock_version || '0'
     end
 
     def dom_data
@@ -70,6 +67,10 @@ module Maglev
     end
 
     private
+
+    def lock_source
+      definition&.site_scoped? ? site : page
+    end
 
     def build_block_list
       build_blocks(attributes[:blocks])
@@ -139,3 +140,4 @@ module Maglev
     end
   end
 end
+# rubocop:enable Metrics/ClassLength

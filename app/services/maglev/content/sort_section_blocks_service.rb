@@ -42,28 +42,10 @@ module Maglev
         source.save!
       end
 
-      # Only the siblings (the blocks sharing the same parent) are re-ordered, in place.
-      # The other blocks keep their position in the flat list: sorting the whole list
-      # with a non-stable sort (Array#sort_by!) used to shuffle the blocks outside of
-      # the sorted scope, like the children of the other blocks in a tree.
       def sort_section_blocks(source)
-        blocks = find_blocks(source)
-        return if blocks.blank?
-
-        indices = blocks.each_index.select { |index| sibling?(blocks[index]) }
-        sorted_siblings = sort_siblings(blocks.values_at(*indices))
-
-        indices.zip(sorted_siblings) { |index, block| blocks[index] = block }
-      end
-
-      def sort_siblings(siblings)
-        siblings.sort_by.with_index do |block, position|
-          [block_ids.index(block['id']) || Float::INFINITY, position]
+        find_blocks(source)&.sort_by! do |block|
+          block['parent_id'] == parent_id ? block_ids.index(block['id']) || Float::INFINITY : -1
         end
-      end
-
-      def sibling?(block)
-        block['parent_id'].presence == parent_id.presence
       end
     end
   end
