@@ -35,7 +35,13 @@ module Maglev
       end
 
       def root_blocks
-        blocks.select(&:root?)
+        # NOTE: a block whose type is root-eligible (root: true, the default) can still be
+        # nested under another block when its type is also accepted as a child
+        # (e.g. a navbar menu_item inside another menu_item). Selecting blocks by their
+        # definition's root? flag would return those nested blocks as well, rendering them
+        # twice in the editor tree. So we filter on the parent_id instead, like the
+        # front-end block tree builder does.
+        blocks.select { |block| block.parent_id.blank? }
       end
 
       # return the definitions of root blocks that can be added

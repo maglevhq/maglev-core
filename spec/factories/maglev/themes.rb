@@ -66,11 +66,13 @@ FactoryBot.define do
                                                                  site_scoped: true,
                                                                  singleton: true,
                                                                  insert_at: 'top',
+                                                                 blocks_presentation: 'tree',
                                                                  settings: [{ label: 'Logo', id: 'logo', type: 'image' }],
                                                                  blocks: [
                                                                    {
                                                                      name: 'Menu item',
                                                                      type: 'menu_item',
+                                                                     accept: %w[menu_item],
                                                                      settings: [
                                                                        { label: 'Label', id: 'label', type: 'text', default: 'Menu item' },
                                                                        { label: 'Link', id: 'link', type: 'link', default: '/' }
@@ -153,8 +155,8 @@ FactoryBot.define do
                 {
                   type: 'jumbotron',
                   settings: {
-                    "title": "Let's create the product<br/>your clients<br/>will love.",
-                    "body": '<p>NoCoffee, passionated developers,<br/>creators of web applications, mobiles apps and<br/>fancy R&D projects.</p>'
+                    title: "Let's create the product<br/>your clients<br/>will love.",
+                    body: '<p>NoCoffee, passionated developers,<br/>creators of web applications, mobiles apps and<br/>fancy R&D projects.</p>'
                   },
                   blocks: []
                 },
@@ -190,8 +192,8 @@ FactoryBot.define do
                 {
                   type: 'jumbotron',
                   settings: {
-                    "title": 'About our awesome team',
-                    "body": '<p>NoCoffee, passionated developers,<br/>creators of web applications, mobiles apps and<br/>fancy R&D projects.</p>'
+                    title: 'About our awesome team',
+                    body: '<p>NoCoffee, passionated developers,<br/>creators of web applications, mobiles apps and<br/>fancy R&D projects.</p>'
                   },
                   blocks: []
                 }
