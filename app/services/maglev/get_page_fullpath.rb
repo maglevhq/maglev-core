@@ -14,6 +14,21 @@ module Maglev
     argument :preview_mode, default: nil
     argument :locale
 
+    # Build a path from a base url (optional) and a list of segments.
+    # Segments are stripped from their leading/trailing slashes so that
+    # a stored path such as "/hello-world" doesn't end up as "//hello-world".
+    # The result never contains "//" (except for the scheme of the base url)
+    # and always starts with a single "/" when there is no base url.
+    def self.join(base_url, *segments)
+      root = base_url.to_s.sub(%r{/+\z}, '')
+      segments = segments.map { |segment| normalize_segment(segment) }.compact_blank
+      [root, *segments].join('/').presence || '/'
+    end
+
+    def self.normalize_segment(segment)
+      segment.to_s.gsub(%r{\A/+|/+\z}, '').gsub(%r{/{2,}}, '/')
+    end
+
     def call
       base_url = get_base_url.call(preview_mode: preview_mode)
       safe_path = path || fetch_path
@@ -42,11 +57,10 @@ module Maglev
     end
 
     def build_fullpath(base_url, path)
-      fullpath = [base_url]
-      fullpath.push(locale) if prefix_by_default_locale?
-      fullpath.push(path) unless path == 'index' # for SEO purpose)
-      fullpath.push(nil) if fullpath == [nil] # avoid "" as the fullpath
-      fullpath.join('/')
+      segments = []
+      segments.push(locale) if prefix_by_default_locale?
+      segments.push(path) unless self.class.normalize_segment(path) == 'index' # for SEO purpose
+      self.class.join(base_url, *segments)
     end
 
     def site

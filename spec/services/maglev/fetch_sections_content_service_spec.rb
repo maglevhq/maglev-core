@@ -126,6 +126,55 @@ describe Maglev::FetchSectionsContentService do
                                                          locale: :en).once.and_return('/preview/awesome-path')
         expect(subject[0][0]['blocks'][0]['settings'][1]['value']['href']).to eq('/preview/awesome-path')
       end
+
+      context 'with an anchor to a section' do
+        let!(:store) do
+          create(:sections_content_store, :sidebar, :page_link_in_link, page: page).tap do |store|
+            store.find_section_by_type('navbar').dig('blocks', 0, 'settings', 1)['value']['section_id'] = 'hero'
+            store.save!
+          end
+        end
+
+        it 'appends the anchor to the path' do
+          expect(get_page_fullpath).to receive(:call).and_return('/preview/awesome-path')
+          expect(subject[0][0]['blocks'][0]['settings'][1]['value']['href']).to eq('/preview/awesome-path#section-hero')
+        end
+      end
+    end
+
+    context 'the sections include a link to a static page' do
+      let(:page) { create(:page, sections: nil) }
+      let(:static_page) { build(:static_page, path_translations: { 'en' => '/products/' }) }
+      let(:service) do
+        described_class.new(
+          fetch_site: double('FetchSite', call: site),
+          fetch_theme: double('FetchTheme', call: theme),
+          get_page_fullpath: get_page_fullpath,
+          fetch_collection_items: fetch_collection_items,
+          fetch_static_pages: double('FetchStaticPages', call: [static_page])
+        )
+      end
+      let!(:store) do
+        create(:sections_content_store, :sidebar, :page_link_in_link, page: page).tap do |store|
+          link = store.find_section_by_type('navbar').dig('blocks', 0, 'settings', 1)['value']
+          link['link_type'] = 'static_page'
+          link['link_id'] = static_page.id
+          store.save!
+        end
+      end
+      let(:handle) { 'sidebar' }
+
+      it 'sets the href with a single leading slash' do
+        expect(subject[0][0]['blocks'][0]['settings'][1]['value']['href']).to eq('/products')
+      end
+
+      context 'the static page path is an absolute url' do
+        let(:static_page) { build(:static_page, path_translations: { 'en' => 'https://www.example.com/products' }) }
+
+        it 'leaves the url untouched' do
+          expect(subject[0][0]['blocks'][0]['settings'][1]['value']['href']).to eq('https://www.example.com/products')
+        end
+      end
     end
 
     context 'the sections include collection items' do

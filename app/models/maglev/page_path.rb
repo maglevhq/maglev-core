@@ -56,8 +56,8 @@ module Maglev
     def clean_value
       value
         .strip
-        .gsub(%r{(^/|/$)}, '')
-        .gsub(%r{//+/}, '/')
+        .gsub(%r{\A/+|/+\z}, '')
+        .gsub(%r{/{2,}}, '/')
     end
   end
 end
