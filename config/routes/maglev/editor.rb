@@ -36,6 +36,8 @@ scope ':locale/:page_id' do
   get 'sections', to: 'sections_stores#index', as: :sections_stores
 
   resources :sections, only: %i[edit update destroy] do
+    post :clone, on: :member
+
     resources :blocks, controller: :section_blocks do
       put :sort, on: :collection
     end

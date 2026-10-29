@@ -10,7 +10,7 @@ module Maglev
       helper_method :source_lock_version, :addable_section_categories
 
       before_action :ensure_turbo_frame_request, only: [:new]
-      before_action :set_section, only: %i[edit update destroy]
+      before_action :set_section, only: %i[edit update destroy clone]
       before_action :set_sections_store_content, only: %i[new create]
 
       def show
@@ -54,6 +54,26 @@ module Maglev
         redirect_to_sections_path
       end
 
+      def clone
+        store = services.fetch_sections_store.call(page: current_maglev_page, handle: @section.store_handle)
+        @section = services.clone_section.call(
+          store: store, section_id: @section.id, theme: maglev_theme, layout_id: current_maglev_page.layout_id
+        )
+        preceding_sections = store.sections.take(store.position_of_section(@section['id']))
+        position = preceding_sections.count { |section| !section['deleted'] }
+
+        redirect_to edit_editor_section_path(@section['id'], maglev_editing_route_context),
+                    flash: {
+                      store_id: maglev_theme.store_view_id_of(current_maglev_page.layout_id, store.handle),
+                      section_id: @section['id'], position: position.to_s
+                    },
+                    notice: flash_t(:success), status: :see_other
+      rescue Maglev::CloneSection::NotCloneable
+        head :unprocessable_entity
+      rescue ActiveRecord::RecordNotFound
+        head :not_found
+      end
+
       def sort
         services.sort_sections.call(store: sections_store, section_ids: params[:item_ids],
                                     lock_version: params[:lock_version])
@@ -89,7 +109,7 @@ module Maglev
       end
 
       def update_section
-        services.update_section.call(
+        @updated_store = services.update_section.call(
           store: sections_store,
           section_id: @section.id,
           content: params[:section].to_unsafe_h,

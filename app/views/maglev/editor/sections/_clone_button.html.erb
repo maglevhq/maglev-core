@@ -1,0 +1,10 @@
+<%= button_to clone_editor_section_path(section.id, maglev_editing_route_context),
+  class: button_classes,
+  title: t('maglev.editor.sections.actions.clone'),
+  aria: { label: t('maglev.editor.sections.actions.clone') },
+  form: { data: {
+    turbo_frame: '_top',
+    action: 'turbo:submit-end->editor-preview-notification-center#addSection'
+  } } do %>
+  <%= render Maglev::Uikit::IconComponent.new(name: 'clone', size: '1.15rem') %>
+<% end %>

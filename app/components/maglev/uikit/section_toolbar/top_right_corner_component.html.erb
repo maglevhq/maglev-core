@@ -15,6 +15,12 @@
     <%= render Maglev::Uikit::IconComponent.new(name: 'settings') %>
   <% end if blocks? %>
 
+  <% section = helpers.current_maglev_page_content.find_section(id) %>
+  <% store = helpers.current_maglev_page_content.find_store(section.store_handle) %>
+  <% if store.addable_sections.include?(section.definition) %>
+    <%= render 'maglev/editor/sections/clone_button', section: section, button_classes: button_classes %>
+  <% end %>
+
   <%= button_to paths[:delete], method: :delete, class: button_classes, 
     data: { turbo_method: :delete, turbo_confirm: t('maglev.editor.sections.index.confirm_delete') }, 
     form: { 

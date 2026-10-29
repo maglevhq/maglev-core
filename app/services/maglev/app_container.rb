@@ -55,6 +55,7 @@ module Maglev
 
     dependency :add_section,                class: Maglev::Content::AddSectionService,
                                             depends_on: %i[fetch_site fetch_theme]
+    dependency :clone_section,              class: Maglev::CloneSection
     dependency :update_section,             class: Maglev::Content::UpdateSectionService,
                                             depends_on: %i[fetch_site fetch_theme]
     dependency :delete_section,             class: Maglev::Content::DeleteSectionService,

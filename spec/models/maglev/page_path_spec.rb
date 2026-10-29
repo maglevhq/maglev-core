@@ -27,6 +27,23 @@ RSpec.describe Maglev::PagePath, type: :model do
     expect(page.paths.build(canonical: false, value: 'whatevs')).to be_valid
   end
 
+  describe 'cleaning the value' do
+    def clean(value)
+      page.paths.build(canonical: false, value: value).tap(&:valid?).value
+    end
+
+    it 'strips the leading and trailing slashes' do
+      expect(clean('/hello-world/')).to eq 'hello-world'
+      expect(clean('//hello-world//')).to eq 'hello-world'
+      expect(clean(' /hello-world ')).to eq 'hello-world'
+    end
+
+    it 'collapses the inner double slashes' do
+      expect(clean('hello//world')).to eq 'hello/world'
+      expect(clean('hello///world')).to eq 'hello/world'
+    end
+  end
+
   describe 'with a different locale' do
     let!(:value) { Maglev::I18n.with_locale(Maglev::I18n.default_locale) { page.path } }
 

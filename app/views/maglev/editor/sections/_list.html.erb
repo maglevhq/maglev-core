@@ -26,6 +26,9 @@
       <% end %>
 
       <% item.with_action do %>
+        <% if sections_store.addable_sections.include?(section.definition) %>
+          <%= render 'maglev/editor/sections/clone_button', section: section, button_classes: maglev_icon_button_classes %>
+        <% end %>
         <%= button_to editor_section_path(section.id, maglev_editing_route_context), 
           method: :delete, 
           class: maglev_icon_button_classes, 

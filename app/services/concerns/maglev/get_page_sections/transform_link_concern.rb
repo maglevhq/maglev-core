@@ -26,10 +26,16 @@ module Maglev::GetPageSections::TransformLinkConcern
     # since the static pages don't have a preview version, we need the raw url
     if is_static_page
       page = fetch_static_pages.call.find { |static_page| static_page.id == page_id }
-      page&.path
+      normalize_static_page_path(page.path) if page
     else
       get_page_fullpath.call(page: page_id, locale: locale)
     end
+  end
+
+  def normalize_static_page_path(path)
+    return path if path.blank? || path.match?(%r{\A[a-z][a-z0-9+.-]*://}i) # absolute url, leave it as is
+
+    Maglev::GetPageFullpath.join(nil, path)
   end
 end
 # rubocop:enable Style/ClassAndModuleChildren

@@ -76,6 +76,8 @@ en:
           layout_prompt: "Select a layout"
       sections:
         breadcrumb: "Sections"
+        actions:
+          clone: "Clone section"
         index:
           title: "Organize sections"
           sub_title: "Re-order / delete the sections of the page"
@@ -259,6 +261,8 @@ en:
           sort:
             success: "Sorted!"
             error: "Failed!"
+          clone:
+            success: "Section cloned."
           create:
             success: "Added!"
             error: "Failed!"
