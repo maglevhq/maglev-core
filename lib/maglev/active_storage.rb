@@ -9,7 +9,15 @@ module Maglev
     included do
       has_one_attached :file
 
-      after_commit :save_metadata_now, on: :create, prepend: true
+      # NOTE: the metadata can only be extracted once Active Storage has uploaded the file,
+      # which also happens in an after_commit callback (registered by has_one_attached above).
+      # So this callback has to run after that one:
+      # - with the legacy (reverse) order, it has to be prepended.
+      # - with `run_after_transaction_callbacks_in_order_defined` (load_defaults 7.1+),
+      #   it has to be appended. Since Rails 8.1.4, `prepend: true` really runs it first
+      #   (before the upload), raising ActiveStorage::FileNotFoundError.
+      after_commit :save_metadata_now, on: :create,
+                                       prepend: !::ActiveRecord.run_after_transaction_callbacks_in_order_defined
 
       delegate :url, :download, to: :file
     end
