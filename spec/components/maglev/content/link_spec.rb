@@ -105,6 +105,17 @@ describe Maglev::Content::Link do
       it { expect(link.open_new_window?).to eq(true) }
     end
 
+    context 'when the open_new_window flag was stored as a string by the editor form' do
+      [['true', true], ['false', false], ['', false]].each do |raw, expected|
+        context "open_new_window is #{raw.inspect}" do
+          let(:content) { { link_type: 'url', href: '/contact_us', text: 'Call Tomorrow :D', open_new_window: raw } }
+
+          it { expect(link.open_new_window?).to eq(expected) }
+          it { expect(link.target_blank).to eq(expected ? '_blank' : nil) }
+        end
+      end
+    end
+
     describe 'active? method' do
       it { expect(link.active?).to eq(false) }
 

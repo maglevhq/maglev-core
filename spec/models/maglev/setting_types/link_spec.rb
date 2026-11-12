@@ -21,6 +21,19 @@ describe Maglev::SettingTypes::Link do
       it { is_expected.to eq({ link_type: 'url', href: 'https://pro.maglev.dev', text: 'Hello' }) }
     end
 
+    describe 'value is a hash submitted by the editor form' do
+      # rubocop:disable Style/StringHashKeys
+      let(:value) { { 'link_type' => 'url', 'href' => '/', 'text' => 'Hello', 'open_new_window' => open_new_window } }
+      # rubocop:enable Style/StringHashKeys
+
+      [['true', true], ['1', true], ['false', false], ['0', false], ['', false]].each do |raw, expected|
+        context "open_new_window is #{raw.inspect}" do
+          let(:open_new_window) { raw }
+          it { is_expected.to include(open_new_window: expected) }
+        end
+      end
+    end
+
     describe 'value is nil (got reset by the UI)' do
       let(:value) { nil }
       it { is_expected.to eq(nil) }
