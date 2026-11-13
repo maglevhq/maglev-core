@@ -15,8 +15,9 @@ module Maglev
         !!setting.options[:with_text]
       end
 
+      # NOTE: the value submitted by the editor form is a string ("true", "false" or "")
       def open_new_window?
-        !!link[:open_new_window]
+        ActiveModel::Type::Boolean.new.cast(link[:open_new_window]) || false
       end
 
       def target_blank
