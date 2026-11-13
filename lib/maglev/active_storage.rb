@@ -9,7 +9,11 @@ module Maglev
     included do
       has_one_attached :file
 
-      after_commit :save_metadata_now, on: :create, prepend: true
+      # Must run *after* Active Storage's own after_commit callback (registered
+      # by has_one_attached above), which is what actually writes the file:
+      # upstream prepended it and hits ActiveStorage::FileNotFoundError on any
+      # Rails version that defers the upload to after_commit (8.1).
+      after_commit :save_metadata_now, on: :create
 
       delegate :url, :download, to: :file
     end
