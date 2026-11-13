@@ -36,6 +36,31 @@ describe Maglev::SectionComponent do
     end
   end
 
+  describe '#lock_version' do
+    subject { component.lock_version }
+
+    context 'when the attributes carry no lock version' do
+      it { is_expected.to eq '0' }
+    end
+
+    context 'when the attributes carry the lock version of the source store' do
+      before { attributes[:lock_version] = 42 }
+
+      it { is_expected.to eq 42 }
+    end
+
+    context 'when the section is site scoped' do
+      # the lock version stamped on the attributes is the one of the
+      # site scoped store (where the content lives), not the one of
+      # the layout store the section is listed in
+      let(:definition) { build(:section, category: 'headers', site_scoped: true) }
+
+      before { attributes[:lock_version] = 7 }
+
+      it { is_expected.to eq 7 }
+    end
+  end
+
   describe '#render' do
     subject { pretty_html(component.render) }
 
